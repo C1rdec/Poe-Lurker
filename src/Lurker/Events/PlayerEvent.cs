@@ -8,13 +8,19 @@ namespace Lurker.Events
 {
     public abstract class PlayerEvent : PoeEvent
     {
+        #region Fields
+
+        protected static readonly string EndOfGuildNameMarker = ">";
+
+        #endregion
+
         #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayerEvent"/> class.
         /// </summary>
         /// <param name="logLine">The log line.</param>
-        public PlayerEvent(string logLine)
+        protected PlayerEvent(string logLine)
             : base(logLine)
         {
         }
@@ -26,6 +32,11 @@ namespace Lurker.Events
         /// <summary>
         /// Gets the name of the player.
         public string PlayerName { get; protected set; }
+
+        /// <summary>
+        /// Gets or sets the name of the guild.
+        /// </summary>
+        public string GuildName { get; protected set; }
 
         #endregion
 

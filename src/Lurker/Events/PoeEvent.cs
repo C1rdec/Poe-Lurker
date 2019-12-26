@@ -24,7 +24,7 @@ namespace Lurker.Events
         /// Initializes a new instance of the <see cref="PoeEvent"/> class.
         /// </summary>
         /// <param name="logLine">The log line.</param>
-        public PoeEvent(string logLine)
+        protected PoeEvent(string logLine)
         {
             var result = logLine.Split(' ').Take(2);
             this.Date = DateTime.Parse(string.Join(" ", result), CultureInfo.InvariantCulture);

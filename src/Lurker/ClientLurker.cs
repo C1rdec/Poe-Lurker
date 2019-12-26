@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ClientWatcher.cs" company="Wohs">
+// <copyright file="ClientLurker.cs" company="Wohs">
 //     Missing Copyright information from a valid stylecop.json file.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -10,42 +10,38 @@ namespace Lurker
     using System;
     using System.IO;
     using System.Text;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Defines a file Watcher for the Client log file.
     /// </summary>
-    public class ClientWatcher : IDisposable
+    public class ClientLurker : IDisposable
     {
+        #region Fields
+
+        private bool _lurking;
+        private FileInfo _fileInformation;
+        private DateTime _lastWriteTime;
+
+        #endregion
+
         #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ClientWatcher"/> class.
         /// </summary>
         /// <param name="filePath">The file path.</param>
-        public ClientWatcher(string filePath)
+        public ClientLurker(string filePath)
         {
             this.FilePath = filePath;
-            this.Watcher = new FileSystemWatcher(Path.GetDirectoryName(filePath))
-            {
-                Filter = Path.GetFileName(filePath),
-                NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.LastAccess | NotifyFilters.Size,
-                EnableRaisingEvents = true,
-            };
-
-            this.Watcher.Changed += this.OnFileChanged;
+            this._fileInformation = new FileInfo(filePath);
+            this._lastWriteTime = this._fileInformation.LastWriteTimeUtc;
+            this.Lurk();
         }
 
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Gets or sets the watcher.
-        /// </summary>
-        /// <value>
-        /// The watcher.
-        /// </value>
-        private FileSystemWatcher Watcher { get; set; }
 
         /// <summary>
         /// Gets or sets the file path.
@@ -71,7 +67,6 @@ namespace Lurker
         /// </summary>
         public event EventHandler<MonstersRemainEvent> RemainingMonsters;
 
-
         /// <summary>
         /// Occurs when a player join/leave an area.
         /// </summary>
@@ -81,6 +76,17 @@ namespace Lurker
         /// Occurs when [player left].
         /// </summary>
         public event EventHandler<PlayerLeftEvent> PlayerLeft;
+
+        /// <summary>
+        /// Occurs when [whispered].
+        /// </summary>
+        public event EventHandler<WhisperEvent> Whispered;
+
+
+        /// <summary>
+        /// Creates new offer.
+        /// </summary>
+        public event EventHandler<TradeEvent> NewOffer;
 
         #endregion
 
@@ -102,7 +108,27 @@ namespace Lurker
         {
             if (disposing)
             {
-                this.Watcher.Dispose();
+                this._lurking = false;
+            }
+        }
+
+        /// <summary>
+        /// Lurks this instance.
+        /// </summary>
+        private async void Lurk()
+        {
+            this._lurking = true;
+            while (this._lurking)
+            {
+                do
+                {
+                    await Task.Delay(100);
+                    this._fileInformation.Refresh();
+                }
+                while (this._fileInformation.LastWriteTimeUtc == this._lastWriteTime);
+
+                this._lastWriteTime = this._fileInformation.LastAccessTimeUtc;
+                this.OnFileChanged();
             }
         }
 
@@ -111,9 +137,28 @@ namespace Lurker
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="FileSystemEventArgs"/> instance containing the event data.</param>
-        private void OnFileChanged(object sender, FileSystemEventArgs e)
+        private void OnFileChanged()
         {
-            var newline = ReadLastLineFromUTF8EncodedFile(e.FullPath);
+            var newline = ReadLastLineFromUTF8EncodedFile(this.FilePath);
+            if (string.IsNullOrEmpty(newline))
+            {
+                return;
+            }
+
+            // TradeEvent need to be parse before whisper
+            var tradeEvent = TradeEvent.TryParse(newline);
+            if (tradeEvent != null)
+            {
+                this.NewOffer?.Invoke(this, tradeEvent);
+                return;
+            }
+
+            var whisperEvent = WhisperEvent.TryParse(newline);
+            if (whisperEvent != null)
+            {
+                this.Whispered?.Invoke(this, whisperEvent);
+                return;
+            }
 
             var locationEvent = LocationChangedEvent.TryParse(newline);
             if (locationEvent != null)
@@ -122,10 +167,10 @@ namespace Lurker
                 return;
             }
 
-            var tradeEvent = TradeAcceptedEvent.TryParse(newline);
+            var tradeAcceptedEvent = TradeAcceptedEvent.TryParse(newline);
             if (tradeEvent != null)
             {
-                this.TradeAccepted?.Invoke(this, tradeEvent);
+                this.TradeAccepted?.Invoke(this, tradeAcceptedEvent);
                 return;
             }
 

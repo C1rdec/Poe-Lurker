@@ -13,14 +13,26 @@ namespace Lurker.Console
         static void Main(string[] args)
         {
             var filePath = @"C:\Program Files (x86)\Steam\steamapps\common\Path of Exile\logs\Client.txt";
-            using (var watcher = new ClientWatcher(filePath))
+            using (var lurker = new ClientLurker(filePath))
             {
-                watcher.LocationChanged += Lurker_ChangedLocation;
-                watcher.RemainingMonsters += Watcher_RemainingMonsters;
-                watcher.PlayerJoined += Watcher_PlayerJoined;
-                watcher.PlayerLeft += Watcher_PlayerLeft;
+                lurker.LocationChanged += Lurker_ChangedLocation;
+                lurker.RemainingMonsters += Watcher_RemainingMonsters;
+                lurker.PlayerJoined += Watcher_PlayerJoined;
+                lurker.PlayerLeft += Watcher_PlayerLeft;
+                lurker.Whispered += Watcher_Whispered;
+                lurker.NewOffer += Lurker_NewOffer;
                 Console.Read();
             }
+        }
+
+        private static void Lurker_NewOffer(object sender, Events.TradeEvent e)
+        {
+            Console.WriteLine($"({e.Date})--[{e.GuildName}]{e.PlayerName} [item: {e.ItemName}] [price: {e.Price}] [position: {e.Position}] ");
+        }
+
+        private static void Watcher_Whispered(object sender, Events.WhisperEvent e)
+        {
+            Console.WriteLine($"[{e.GuildName}]{e.PlayerName}: {e.WhisperMessage}");
         }
 
         private static void Watcher_PlayerLeft(object sender, Events.PlayerLeftEvent e)

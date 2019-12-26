@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClientWatcher.cs" />
+    <Compile Include="ClientLurker.cs" />
     <Compile Include="Events\ChangedLocationEvent.cs" />
     <Compile Include="Events\MonstersRemainEvent.cs" />
     <Compile Include="Events\PlayerEvent.cs" />
@@ -49,6 +49,8 @@
     <Compile Include="Events\PlayerLeftEvent.cs" />
     <Compile Include="Events\PoeEvent.cs" />
     <Compile Include="Events\TradeAcceptedEvent.cs" />
+    <Compile Include="Events\TradeEvent.cs" />
+    <Compile Include="Events\WhisperEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
