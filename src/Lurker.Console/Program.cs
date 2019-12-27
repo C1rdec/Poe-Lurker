@@ -12,8 +12,7 @@ namespace Lurker.Console
     {
         static void Main(string[] args)
         {
-            var filePath = @"C:\Program Files (x86)\Steam\steamapps\common\Path of Exile\logs\Client.txt";
-            using (var lurker = new ClientLurker(filePath))
+            using (var lurker = new ClientLurker())
             {
                 lurker.LocationChanged += Lurker_ChangedLocation;
                 lurker.RemainingMonsters += Watcher_RemainingMonsters;

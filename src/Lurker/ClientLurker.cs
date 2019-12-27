@@ -18,7 +18,7 @@ namespace Lurker
     public class ClientLurker : IDisposable
     {
         #region Fields
-
+        private static readonly string DefaultClientLogPath = @"C:\Program Files (x86)\Steam\steamapps\common\Path of Exile\logs\Client.txt";
         private bool _lurking;
         private FileInfo _fileInformation;
         private DateTime _lastWriteTime;
@@ -26,6 +26,11 @@ namespace Lurker
         #endregion
 
         #region Constructors
+
+        public ClientLurker()
+            : this(DefaultClientLogPath)
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ClientWatcher"/> class.

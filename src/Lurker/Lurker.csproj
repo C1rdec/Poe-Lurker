@@ -51,7 +51,10 @@
     <Compile Include="Events\TradeAcceptedEvent.cs" />
     <Compile Include="Events\TradeEvent.cs" />
     <Compile Include="Events\WhisperEvent.cs" />
+    <Compile Include="Models\CurrencyType.cs" />
+    <Compile Include="Models\Price.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

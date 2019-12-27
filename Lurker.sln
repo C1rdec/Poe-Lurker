@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lurker.Console", "src\Lurke
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lurker", "src\Lurker\Lurker.csproj", "{4E21F049-82D6-4853-8C59-B0ADDF3A4383}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lurker.UI", "Lurker.UI\Lurker.UI.csproj", "{F2FBBB7D-D7D9-4C01-A5A8-A3692DA521EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4E21F049-82D6-4853-8C59-B0ADDF3A4383}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E21F049-82D6-4853-8C59-B0ADDF3A4383}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E21F049-82D6-4853-8C59-B0ADDF3A4383}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2FBBB7D-D7D9-4C01-A5A8-A3692DA521EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2FBBB7D-D7D9-4C01-A5A8-A3692DA521EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2FBBB7D-D7D9-4C01-A5A8-A3692DA521EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2FBBB7D-D7D9-4C01-A5A8-A3692DA521EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

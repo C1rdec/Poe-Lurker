@@ -6,6 +6,10 @@
 
 namespace Lurker.Events
 {
+    using Lurker.Models;
+    using System;
+    using System.Linq;
+
     public class TradeEvent : WhisperEvent
     {
         #region Fields
@@ -37,9 +41,10 @@ namespace Lurker.Events
             this.Position = this.Message.Substring(locationMarkerIndex);
 
             // Price
-            var textAfterMarker = this.Message.Substring(priceMarkerIndex + PriceMarker.Length);
+            var textAfterMarker = this.Message.Substring(priceMarkerIndex + PriceMarker.Length + 1);
             var leagueMarkerIndex = textAfterMarker.IndexOf(LeagueMarker);
-            this.Price = textAfterMarker.Substring(0, leagueMarkerIndex);
+            var priceValue = textAfterMarker.Substring(0, leagueMarkerIndex);
+            this.Price = ParsePrice(priceValue);
         }
 
         #endregion
@@ -54,7 +59,7 @@ namespace Lurker.Events
         /// <summary>
         /// Gets or sets the price.
         /// </summary>
-        public string Price { get; private set; }
+        public Price Price { get; private set; }
 
         /// <summary>
         /// Gets the position.
@@ -62,6 +67,8 @@ namespace Lurker.Events
         public string Position { get; private set; }
 
         #endregion
+
+        #region Methods
 
         /// <summary>
         /// Tries the parse.
@@ -83,5 +90,32 @@ namespace Lurker.Events
 
             return new TradeEvent(logLine);
         }
+
+        /// <summary>
+        /// Parses the price.
+        /// </summary>
+        /// <param name="priceValue">The price value.</param>
+        /// <returns>The price of the offer.</returns>
+        public static Price ParsePrice(string priceValue)
+        {
+            var values = priceValue.Split(' ');
+
+            var currencyTypeValue = string.Join(" ", values.Skip(1));
+
+            CurrencyType type;
+            if(!Enum.TryParse(currencyTypeValue, true, out type))
+            {
+                type = CurrencyType.Unknown;
+            }
+
+            return new Price()
+            {
+                NumberOfCurrencies = int.Parse(values[0]),
+                CurrencyType = type
+            };
+        }
+
+        #endregion
+
     }
 }

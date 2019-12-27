@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="Lurker.UI.Views.TradeOfferView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Converters="clr-namespace:Lurker.UI.Converters"
+             xmlns:Models="clr-namespace:Lurker.Models;assembly=Lurker"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             Width="65" Height="65"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Button x:Name="Answer">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Image Grid.RowSpan="2" 
+                   Source="/Assets/Chaos.png"
+                   Visibility="{Binding CurrencyType,
+                                        Converter={Converters:CurrencyTypeConverter}, 
+                                        ConverterParameter={x:Static Models:CurrencyType.Chaos}}"/>
+            <Image Grid.RowSpan="2" 
+                   Source="/Assets/Exalted.png"
+                   Visibility="{Binding CurrencyType,
+                                        Converter={Converters:CurrencyTypeConverter}, 
+                                        ConverterParameter={x:Static Models:CurrencyType.Exalted}}"/>
+            <TextBlock Margin="0" Grid.Row="0" x:Name="NumberOffCurrency" FontSize="18" FontWeight="ExtraBold"/>
+        </Grid>
+    </Button>
+</UserControl>
