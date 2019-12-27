@@ -70,10 +70,10 @@
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Converters\CurrencyTypeConverter.cs" />
     <Compile Include="IShell.cs" />
-    <Compile Include="ShellView.xaml.cs">
+    <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ShellViewModel.cs" />
+    <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -82,7 +82,7 @@
     <Compile Include="Views\TradeOfferView.xaml.cs">
       <DependentUpon>TradeOfferView.xaml</DependentUpon>
     </Compile>
-    <Page Include="ShellView.xaml">
+    <Page Include="Views\ShellView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
