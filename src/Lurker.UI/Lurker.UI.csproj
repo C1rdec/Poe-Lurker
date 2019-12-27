@@ -130,5 +130,8 @@
   <ItemGroup>
     <Resource Include="Assets\Exalted.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Mirror.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

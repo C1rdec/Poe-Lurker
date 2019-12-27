@@ -28,17 +28,6 @@ namespace Lurker.UI
             this._Lurker = new ClientLurker();
             this._Lurker.NewOffer += this._Lurker_NewOffer;
         }
-
-        /// <summary>
-        /// Lurkers the new offer.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The trade event.</param>
-        private void _Lurker_NewOffer(object sender, Events.TradeEvent e)
-        {
-            this.TradeOffers.Add(new TradeOfferViewModel(e));
-        }
-
         #endregion
 
         #region Properties
@@ -47,6 +36,21 @@ namespace Lurker.UI
         /// Gets or sets the trade offers.
         /// </summary>
         public ObservableCollection<TradeOfferViewModel> TradeOffers { get; set; }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Lurkers the new offer.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The trade event.</param>
+        private void _Lurker_NewOffer(object sender, Events.TradeEvent e)
+        {
+            this.TradeOffers.Insert(0, new TradeOfferViewModel(e));
+        }
+
 
         #endregion
     }

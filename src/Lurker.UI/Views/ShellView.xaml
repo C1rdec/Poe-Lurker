@@ -1,12 +1,12 @@
 <Window x:Class="Lurker.UI.ShellView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        Height="65" Width="455"
+        Height="45" Width="455"
         WindowStyle="None"
         Topmost="True"
         AllowsTransparency="True"
         Background="Transparent"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Grid Background="Green" x:Name="MainGrid">
+    <Grid Background="Transparent" x:Name="MainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>

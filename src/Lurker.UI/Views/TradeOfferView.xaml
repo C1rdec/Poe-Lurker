@@ -5,26 +5,56 @@
              xmlns:Models="clr-namespace:Lurker.Models;assembly=Lurker"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             Width="65" Height="65"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Button x:Name="Answer">
+             d:DesignHeight="65" d:DesignWidth="65">
+    <Button x:Name="Answer"
+            Margin="0,0,4,0"
+            Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
+        <Button.Style>
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="Background" Value="#BDC2BF"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="4">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#E3E7D3"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Button.Style>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <Image Grid.RowSpan="2" 
+            <Rectangle Fill="#747771" Grid.Row="1"></Rectangle>
+            <Image Grid.RowSpan="2"
                    Source="/Assets/Chaos.png"
                    Visibility="{Binding CurrencyType,
-                                        Converter={Converters:CurrencyTypeConverter}, 
-                                        ConverterParameter={x:Static Models:CurrencyType.Chaos}}"/>
+                                            Converter={Converters:CurrencyTypeConverter}, 
+                                            ConverterParameter={x:Static Models:CurrencyType.Chaos}}"/>
             <Image Grid.RowSpan="2" 
-                   Source="/Assets/Exalted.png"
-                   Visibility="{Binding CurrencyType,
-                                        Converter={Converters:CurrencyTypeConverter}, 
-                                        ConverterParameter={x:Static Models:CurrencyType.Exalted}}"/>
-            <TextBlock Margin="0" Grid.Row="0" x:Name="NumberOffCurrency" FontSize="18" FontWeight="ExtraBold"/>
+                       Source="/Assets/Exalted.png"
+                       Visibility="{Binding CurrencyType,
+                                            Converter={Converters:CurrencyTypeConverter}, 
+                                            ConverterParameter={x:Static Models:CurrencyType.Exalted}}"/>
+            <Image Grid.RowSpan="2" 
+                       Source="/Assets/Mirror.png"
+                       Visibility="{Binding CurrencyType,
+                                            Converter={Converters:CurrencyTypeConverter}, 
+                                            ConverterParameter={x:Static Models:CurrencyType.Mirror}}"/>
+            <TextBlock x:Name="NumberOffCurrency" 
+                       HorizontalAlignment="Right" 
+                       Foreground="White" 
+                       VerticalAlignment="Bottom"
+                       Margin="0,0,4,0" Grid.Row="1" FontSize="10" FontWeight="Bold"/>
         </Grid>
     </Button>
 </UserControl>
