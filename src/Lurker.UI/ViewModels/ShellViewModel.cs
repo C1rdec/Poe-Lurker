@@ -26,7 +26,7 @@ namespace Lurker.UI
         {
             this.TradeOffers = new ObservableCollection<TradeOfferViewModel>();
             this._Lurker = new ClientLurker();
-            this._Lurker.NewOffer += this._Lurker_NewOffer;
+            this._Lurker.NewOffer += this.Lurker_NewOffer;
         }
         #endregion
 
@@ -46,11 +46,19 @@ namespace Lurker.UI
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The trade event.</param>
-        private void _Lurker_NewOffer(object sender, Events.TradeEvent e)
+        private void Lurker_NewOffer(object sender, Events.TradeEvent e)
         {
-            this.TradeOffers.Insert(0, new TradeOfferViewModel(e));
+            this.TradeOffers.Insert(0, new TradeOfferViewModel(e, this.DeleteTradeOffer));
         }
 
+        /// <summary>
+        /// Deletes the trade offer.
+        /// </summary>
+        /// <param name="viewModel">The view model.</param>
+        private void DeleteTradeOffer(TradeOfferViewModel viewModel)
+        {
+            this.TradeOffers.Remove(viewModel);
+        }
 
         #endregion
     }
