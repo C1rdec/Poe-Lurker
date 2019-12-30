@@ -17,5 +17,11 @@ namespace Lurker.Models
         Chaos,
 
         Fusing,
+
+        Alchemy,
+
+        Vaal,
+
+        Chromatic,
     }
 }

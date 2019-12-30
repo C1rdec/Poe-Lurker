@@ -14,8 +14,8 @@ namespace Lurker.Events
     {
         #region Fields
 
-        private static readonly string GreetingMarker = "Hi, I would like to buy your";
-        private static readonly string PriceMarker = "listed for";
+        private static readonly string[] GreetingMarkers = new string[] { "Hi, I would like to buy your", "Hi, I'd like to buy your" };
+        private static readonly string[] PriceMarkers = new string[] { "listed for", "for my" };
         private static readonly string LocationMarker = "(";
         private static readonly string LeagueMarker = " in ";
 
@@ -30,22 +30,28 @@ namespace Lurker.Events
         public TradeEvent(string logLine)
             : base(logLine)
         {
-            var priceMarkerIndex = this.Message.IndexOf(PriceMarker);
+            var priceMarker = PriceMarkers.FirstOrDefault(m => this.Message.Contains(m));
+            var priceMarkerIndex = this.Message.IndexOf(priceMarker);
             var leagueMarkerIndex = this.Message.IndexOf(LeagueMarker);
 
             // ItemName
             var itemIndex = priceMarkerIndex == -1 ? leagueMarkerIndex : priceMarkerIndex;
             var textBeforeMarker = this.Message.Substring(0, itemIndex);
-            this.ItemName = this.Message.Substring(GreetingMarker.Length + 1, textBeforeMarker.Length - GreetingMarker.Length -1);
+
+            var greetingMarker = GreetingMarkers.FirstOrDefault(m => this.Message.Contains(m));
+            this.ItemName = this.Message.Substring(greetingMarker.Length + 1, textBeforeMarker.Length - greetingMarker.Length -1);
 
             // Location
             var locationMarkerIndex = this.Message.IndexOf(LocationMarker);
-            this.Position = this.Message.Substring(locationMarkerIndex);
+            if (locationMarkerIndex != -1)
+            {
+                this.Position = this.Message.Substring(locationMarkerIndex);
+            }
 
             // Price
             if (priceMarkerIndex != -1)
             {
-                var textAfterMarker = this.Message.Substring(priceMarkerIndex + PriceMarker.Length + 1);
+                var textAfterMarker = this.Message.Substring(priceMarkerIndex + priceMarker.Length + 1);
                 var index = textAfterMarker.IndexOf(LeagueMarker);
                 var priceValue = textAfterMarker.Substring(0, index);
                 this.Price = ParsePrice(priceValue);
@@ -92,12 +98,16 @@ namespace Lurker.Events
             }
 
             var message = ParseMessage(logLine);
-            if (!message.StartsWith(GreetingMarker))
+            foreach (var greetingMarker in GreetingMarkers)
             {
-                return null;
+                if (message.StartsWith(greetingMarker))
+                {
+                    return new TradeEvent(logLine); ;
+                }
             }
 
-            return new TradeEvent(logLine);
+
+            return null;
         }
 
         /// <summary>
@@ -110,16 +120,10 @@ namespace Lurker.Events
             var values = priceValue.Split(' ');
             var currencyTypeValue = string.Join(" ", values.Skip(1));
 
-            CurrencyType type;
-            if(!Enum.TryParse(currencyTypeValue, true, out type))
-            {
-                type = CurrencyType.Unknown;
-            }
-
             return new Price()
             {
                 NumberOfCurrencies = double.Parse(values[0]),
-                CurrencyType = type
+                CurrencyType = CurrencyTypeParser.Parse(currencyTypeValue),
             };
         }
 

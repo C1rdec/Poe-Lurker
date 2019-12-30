@@ -52,6 +52,11 @@ namespace Lurker.UI.ViewModels
         public string ItemName => this._tradeEvent.ItemName;
 
         /// <summary>
+        /// Gets the location.
+        /// </summary>
+        public string Position => this._tradeEvent.Position;
+
+        /// <summary>
         /// Gets the name of the player.
         /// </summary>
         public string PlayerName => this._tradeEvent.PlayerName;

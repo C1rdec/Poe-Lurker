@@ -80,7 +80,11 @@ namespace Lurker.UI
         private void Lurker_TradeAccepted(object sender, Events.TradeAcceptedEvent e)
         {
             var offer = this.TradeOffers.Where(t => t.Status == OfferStatus.Traded).FirstOrDefault();
-            this.RemoveOffer(offer);
+            if (offer != null)
+            {
+                this._keyboardHelper.Kick(offer.PlayerName);
+                this.RemoveOffer(offer);
+            }
         }
 
         /// <summary>
@@ -91,7 +95,6 @@ namespace Lurker.UI
         {
             if (offer != null)
             {
-                this._keyboardHelper.Kick(offer.PlayerName);
                 this.TradeOffers.Remove(offer);
             }
         }

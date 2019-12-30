@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientLurker.cs" />
+    <Compile Include="CurrencyTypeParser.cs" />
     <Compile Include="Events\ChangedLocationEvent.cs" />
     <Compile Include="Events\MonstersRemainEvent.cs" />
     <Compile Include="Events\PlayerEvent.cs" />

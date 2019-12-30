@@ -10,6 +10,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="65" d:DesignWidth="65">
     <Button x:Name="Answer"
+            ToolTipService.InitialShowDelay="1500"
             MinWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
             MaxWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
             Margin="0,0,4,0">
@@ -125,5 +126,27 @@
                 </Grid>
             </ControlTemplate>
         </Button.Template>
+        <Button.ToolTip>
+            <ToolTip Placement="Top">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="{Binding ItemName}"/>
+                    <TextBlock Grid.Row="1" Text="{Binding Position}">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+            </ToolTip>
+        </Button.ToolTip>
     </Button>
 </UserControl>
