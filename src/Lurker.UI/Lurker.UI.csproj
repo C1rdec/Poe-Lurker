@@ -69,7 +69,9 @@
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Converters\CurrencyTypeConverter.cs" />
+    <Compile Include="Helpers\DockingHelper.cs" />
     <Compile Include="IShell.cs" />
+    <Compile Include="Native.cs" />
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>

@@ -8,53 +8,54 @@
              mc:Ignorable="d" 
              d:DesignHeight="65" d:DesignWidth="65">
     <Button x:Name="Answer"
-            Margin="0,0,4,0"
-            Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
-        <Button.Style>
-            <Style TargetType="{x:Type Button}">
-                <Setter Property="Background" Value="#BDC2BF"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Background="{TemplateBinding Background}" CornerRadius="4">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="#E3E7D3"/>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-        </Button.Style>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-            <Rectangle Fill="#747771" Grid.Row="1"></Rectangle>
-            <Image Grid.RowSpan="2"
-                   Source="/Assets/Chaos.png"
-                   Visibility="{Binding CurrencyType,
+            MinWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" 
+            Margin="0,0,4,0">
+        <Button.Template>
+            <ControlTemplate TargetType="{x:Type Button}">
+                <Grid>
+                    <Grid.Style>
+                        <Style TargetType="{x:Type Grid}">
+                            <Setter Property="Background" Value="#BDC2BF"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#E3E7D3"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Rectangle Fill="#747771" Grid.Row="1"></Rectangle>
+                    <Image Grid.RowSpan="2"
+                           Source="/Assets/Chaos.png"
+                           Height="{Binding ActualHeight, ElementName=Answer}"
+                           Width="{Binding ActualWidth, ElementName=Answer}"
+                           Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Chaos}}"/>
-            <Image Grid.RowSpan="2" 
-                       Source="/Assets/Exalted.png"
-                       Visibility="{Binding CurrencyType,
+                    <Image Grid.RowSpan="2"
+                           Source="/Assets/Exalted.png"
+                           Height="{Binding ActualHeight, ElementName=Answer}"
+                           Width="{Binding ActualWidth, ElementName=Answer}"
+                           Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Exalted}}"/>
-            <Image Grid.RowSpan="2" 
-                       Source="/Assets/Mirror.png"
-                       Visibility="{Binding CurrencyType,
+                    <Image Grid.RowSpan="2"
+                           Source="/Assets/Mirror.png"
+                           Height="{Binding ActualHeight, ElementName=Answer}"
+                           Width="{Binding ActualWidth, ElementName=Answer}"
+                           Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Mirror}}"/>
-            <TextBlock x:Name="NumberOffCurrency" 
-                       HorizontalAlignment="Right" 
-                       Foreground="White" 
-                       VerticalAlignment="Bottom"
-                       Margin="0,0,4,0" Grid.Row="1" FontSize="10" FontWeight="Bold"/>
-        </Grid>
+                    <TextBlock Text="{Binding NumberOffCurrency}"
+                               HorizontalAlignment="Right" 
+                               Foreground="White" 
+                               VerticalAlignment="Bottom"
+                               Margin="0,0,4,0" Grid.Row="1" FontSize="10" FontWeight="Bold"/>
+                </Grid>
+            </ControlTemplate>
+        </Button.Template>
     </Button>
 </UserControl>

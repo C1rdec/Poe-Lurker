@@ -7,8 +7,12 @@
 namespace Lurker
 {
     using Lurker.Events;
+    using Lurker.Extensions;
     using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
     using System.IO;
+    using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
 
@@ -18,7 +22,11 @@ namespace Lurker
     public class ClientLurker : IDisposable
     {
         #region Fields
-        private static readonly string DefaultClientLogPath = @"C:\Program Files (x86)\Steam\steamapps\common\Path of Exile\logs\Client.txt";
+
+        private static readonly List<string> PossibleProcessNames = new List<string> { "PathOfExile", "PathOfExile_x64", "PathOfExileSteam", "PathOfExile_x64Steam" };
+        private static readonly string ClientLogFileName = "Client.txt";
+        private static readonly string ClientLogFolderName = "logs";
+
         private bool _lurking;
         private FileInfo _fileInformation;
         private DateTime _lastWriteTime;
@@ -27,26 +35,23 @@ namespace Lurker
 
         #region Constructors
 
-        public ClientLurker()
-            : this(DefaultClientLogPath)
-        {
-        }
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="ClientWatcher"/> class.
+        /// Initializes a new instance of the <see cref="ClientLurker" /> class.
         /// </summary>
-        /// <param name="filePath">The file path.</param>
-        public ClientLurker(string filePath)
+        public ClientLurker()
         {
-            this.FilePath = filePath;
-            this._fileInformation = new FileInfo(filePath);
-            this._lastWriteTime = this._fileInformation.LastWriteTimeUtc;
-            this.Lurk();
+            this.PathOfExileProcess = this.GetProcess();
+            this.Lurk(this.PathOfExileProcess.GetMainModuleFileName());
         }
 
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the path of exile process.
+        /// </summary>
+        public Process PathOfExileProcess { get; }
 
         /// <summary>
         /// Gets or sets the file path.
@@ -118,10 +123,68 @@ namespace Lurker
         }
 
         /// <summary>
+        /// Reads the last line from ut f8 encoded file.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <returns></returns>
+        /// <exception cref="System.IO.IOException">Error reading from file at " + path</exception>
+        private static string ReadLastLineFromUTF8EncodedFile(string path)
+        {
+            using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                if (stream.Length == 0)
+                {
+                    return null;
+                }
+
+                // start at end of file
+                stream.Position = stream.Length - 1;
+
+                // the file must end with a '\n' char, if not a partial line write is in progress
+                int byteFromFile = stream.ReadByte();
+                if (byteFromFile != '\n')
+                {
+                    // partial line write in progress, do not return the line yet
+                    return null;
+                }
+
+                // move back to the new line byte - the loop will decrement position again to get to the byte before it
+                stream.Position--;
+
+                // while we have not yet reached start of file, read bytes backwards until '\n' byte is hit
+                while (stream.Position > 0)
+                {
+                    stream.Position--;
+                    byteFromFile = stream.ReadByte();
+                    if (byteFromFile < 0)
+                    {
+                        // the only way this should happen is if someone truncates the file out from underneath us while we are reading backwards
+                        throw new IOException("Error reading from file at " + path);
+                    }
+                    else if (byteFromFile == '\n')
+                    {
+                        // we found the new line, break out, fs.Position is one after the '\n' char
+                        break;
+                    }
+
+                    stream.Position--;
+                }
+
+                // fs.Position will be right after the '\n' char or position 0 if no '\n' char
+                var bytes = new BinaryReader(stream).ReadBytes((int)(stream.Length - stream.Position));
+                return Encoding.UTF8.GetString(bytes).Replace(System.Environment.NewLine, string.Empty);
+            }
+        }
+
+        /// <summary>
         /// Lurks this instance.
         /// </summary>
-        private async void Lurk()
+        private async void Lurk(string executablePath)
         {
+            this.FilePath = Path.Combine(Path.GetDirectoryName(executablePath), ClientLogFolderName, ClientLogFileName);
+            this._fileInformation = new FileInfo(this.FilePath);
+            this._lastWriteTime = this._fileInformation.LastWriteTimeUtc;
+
             this._lurking = true;
             while (this._lurking)
             {
@@ -137,6 +200,25 @@ namespace Lurker
             }
         }
 
+        /// <summary>
+        /// Gets the process.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException">Path of Exile is not running</exception>
+        private Process GetProcess()
+        {
+            foreach (var processName in PossibleProcessNames)
+            {
+                var process = Process.GetProcessesByName(processName).FirstOrDefault();
+                if (process != null)
+                {
+                    return process;
+                }
+            }
+
+            throw new InvalidOperationException("Path of Exile is not running");
+        }
+        
         /// <summary>
         /// Called when [file changed].
         /// </summary>
@@ -198,60 +280,6 @@ namespace Lurker
             {
                 this.PlayerLeft?.Invoke(this, playerLeftEvent);
                 return;
-            }
-        }
-
-        /// <summary>
-        /// Reads the last line from ut f8 encoded file.
-        /// </summary>
-        /// <param name="path">The path.</param>
-        /// <returns></returns>
-        /// <exception cref="System.IO.IOException">Error reading from file at " + path</exception>
-        public static string ReadLastLineFromUTF8EncodedFile(string path)
-        {
-            using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-            {
-                if (stream.Length == 0)
-                {
-                    return null;
-                }
-
-                // start at end of file
-                stream.Position = stream.Length - 1;
-
-                // the file must end with a '\n' char, if not a partial line write is in progress
-                int byteFromFile = stream.ReadByte();
-                if (byteFromFile != '\n')
-                {
-                    // partial line write in progress, do not return the line yet
-                    return null;
-                }
-
-                // move back to the new line byte - the loop will decrement position again to get to the byte before it
-                stream.Position--;
-
-                // while we have not yet reached start of file, read bytes backwards until '\n' byte is hit
-                while (stream.Position > 0)
-                {
-                    stream.Position--;
-                    byteFromFile = stream.ReadByte();
-                    if (byteFromFile < 0)
-                    {
-                        // the only way this should happen is if someone truncates the file out from underneath us while we are reading backwards
-                        throw new IOException("Error reading from file at " + path);
-                    }
-                    else if (byteFromFile == '\n')
-                    {
-                        // we found the new line, break out, fs.Position is one after the '\n' char
-                        break;
-                    }
-
-                    stream.Position--;
-                }
-
-                // fs.Position will be right after the '\n' char or position 0 if no '\n' char
-                var bytes = new BinaryReader(stream).ReadBytes((int)(stream.Length - stream.Position));
-                return Encoding.UTF8.GetString(bytes).Replace(System.Environment.NewLine, string.Empty);
             }
         }
 

@@ -15,6 +15,7 @@ namespace Lurker.UI
         {
             this.InitializeComponent();
             this.MainGrid.MouseLeftButtonDown += this.MainGrid_MouseLeftButtonDown;
+
         }
 
         private void MainGrid_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

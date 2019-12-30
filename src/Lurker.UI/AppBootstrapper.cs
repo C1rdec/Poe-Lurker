@@ -14,7 +14,7 @@ namespace Lurker.UI
     {
         #region Fields
 
-        SimpleContainer container;
+        private SimpleContainer _container;
 
         #endregion
 
@@ -37,11 +37,11 @@ namespace Lurker.UI
         /// </summary>
         protected override void Configure() 
         {
-            container = new SimpleContainer();
+            this._container = new SimpleContainer();
 
-            container.Singleton<IWindowManager, WindowManager>();
-            container.Singleton<IEventAggregator, EventAggregator>();
-            container.PerRequest<IShell, ShellViewModel>();
+            this._container.Singleton<IWindowManager, WindowManager>();
+            this._container.Singleton<IEventAggregator, EventAggregator>();
+            this._container.PerRequest<IShell, ShellViewModel>();
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace Lurker.UI
         /// </returns>
         protected override object GetInstance(Type service, string key) 
         {
-            return container.GetInstance(service, key);
+            return this._container.GetInstance(service, key);
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace Lurker.UI
         /// </returns>
         protected override IEnumerable<object> GetAllInstances(Type service) 
         {
-            return container.GetAllInstances(service);
+            return this._container.GetAllInstances(service);
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Lurker.UI
         /// <param name="instance">The instance to perform injection on.</param>
         protected override void BuildUp(object instance) 
         {
-            container.BuildUp(instance);
+            this._container.BuildUp(instance);
         }
 
         /// <summary>
