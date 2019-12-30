@@ -146,5 +146,17 @@
   <ItemGroup>
     <Resource Include="Assets\Mirror.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Fusing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Chromatic.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Vaal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Alchemy.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

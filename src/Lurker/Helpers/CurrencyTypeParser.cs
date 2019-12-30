@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker
+namespace Lurker.Helpers
 {
     using Lurker.Models;
     using System.Collections.Generic;

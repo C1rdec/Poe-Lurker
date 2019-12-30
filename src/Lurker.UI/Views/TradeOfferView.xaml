@@ -68,6 +68,34 @@
                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Mirror}}"/>
+                    <Image Grid.RowSpan="3"
+                           Source="/Assets/Fusing.png"
+                           Height="{Binding ActualHeight, ElementName=Answer}"
+                           Width="{Binding ActualWidth, ElementName=Answer}"
+                           Visibility="{Binding CurrencyType,
+                                            Converter={Converters:CurrencyTypeConverter}, 
+                                            ConverterParameter={x:Static Models:CurrencyType.Fusing}}"/>
+                    <Image Grid.RowSpan="3"
+                           Source="/Assets/Chromatic.png"
+                           Height="{Binding ActualHeight, ElementName=Answer}"
+                           Width="{Binding ActualWidth, ElementName=Answer}"
+                           Visibility="{Binding CurrencyType,
+                                            Converter={Converters:CurrencyTypeConverter}, 
+                                            ConverterParameter={x:Static Models:CurrencyType.Chromatic}}"/>
+                    <Image Grid.RowSpan="3"
+                           Source="/Assets/Vaal.png"
+                           Height="{Binding ActualHeight, ElementName=Answer}"
+                           Width="{Binding ActualWidth, ElementName=Answer}"
+                           Visibility="{Binding CurrencyType,
+                                            Converter={Converters:CurrencyTypeConverter}, 
+                                            ConverterParameter={x:Static Models:CurrencyType.Vaal}}"/>
+                    <Image Grid.RowSpan="3"
+                           Source="/Assets/Alchemy.png"
+                           Height="{Binding ActualHeight, ElementName=Answer}"
+                           Width="{Binding ActualWidth, ElementName=Answer}"
+                           Visibility="{Binding CurrencyType,
+                                            Converter={Converters:CurrencyTypeConverter}, 
+                                            ConverterParameter={x:Static Models:CurrencyType.Alchemy}}"/>
                     <TextBlock TextTrimming="CharacterEllipsis"
                                HorizontalAlignment="Right" 
                                Foreground="White" 
@@ -85,11 +113,6 @@
                         </TextBlock.Style>
                     </TextBlock>
                     <Button HorizontalAlignment="Right" Background="Red" Height="10" Width="10" cal:Message.Attach="[Event Click] = [Action Remove]" >
-                        <!--<Button.Resources>
-                            <Style TargetType="{x:Type Border}">
-                                <Setter Property="CornerRadius" Value="7"/>
-                            </Style>
-                        </Button.Resources>-->
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Template">
