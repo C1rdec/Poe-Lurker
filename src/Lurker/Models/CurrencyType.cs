@@ -8,6 +8,8 @@ namespace Lurker.Models
 {
     public enum CurrencyType
     {
+        Unknown,
+
         Mirror,
 
         Exalted,
@@ -15,7 +17,5 @@ namespace Lurker.Models
         Chaos,
 
         Fusing,
-
-        Unknown,
     }
 }

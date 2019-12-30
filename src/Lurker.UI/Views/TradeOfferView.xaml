@@ -9,7 +9,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="65" d:DesignWidth="65">
     <Button x:Name="Answer"
-            MinWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" 
+            MinWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+            MaxWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
             Margin="0,0,4,0">
         <Button.Template>
             <ControlTemplate TargetType="{x:Type Button}">
@@ -64,11 +65,22 @@
                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Mirror}}"/>
-                    <TextBlock Text="{Binding NumberOffCurrency}"
+                    <TextBlock TextTrimming="CharacterEllipsis"
                                HorizontalAlignment="Right" 
                                Foreground="White" 
                                VerticalAlignment="Bottom"
-                               Margin="0,0,4,0" Grid.Row="1" FontSize="10" FontWeight="Bold"/>
+                               Margin="0,0,4,0" Grid.Row="1" FontSize="10" FontWeight="Bold">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Text" Value="{Binding NumberOffCurrency}"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding NumberOffCurrency}" Value="0">
+                                        <Setter Property="Text" Value="{Binding ItemName}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                 </Grid>
             </ControlTemplate>
         </Button.Template>

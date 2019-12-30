@@ -43,6 +43,8 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public int NumberOffCurrency => this._tradeEvent.Price.NumberOfCurrencies;
 
+        public string ItemName => this._tradeEvent.ItemName;
+
         /// <summary>
         /// Gets the type of the currency.
         /// </summary>

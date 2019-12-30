@@ -31,20 +31,29 @@ namespace Lurker.Events
             : base(logLine)
         {
             var priceMarkerIndex = this.Message.IndexOf(PriceMarker);
+            var leagueMarkerIndex = this.Message.IndexOf(LeagueMarker);
 
             // ItemName
-            var textBeforeMarker = this.Message.Substring(0, priceMarkerIndex);
-            this.ItemName = this.Message.Substring(GreetingMarker.Length + 1, textBeforeMarker.Length - GreetingMarker.Length -2);
+            var itemIndex = priceMarkerIndex == -1 ? leagueMarkerIndex : priceMarkerIndex;
+            var textBeforeMarker = this.Message.Substring(0, itemIndex);
+            this.ItemName = this.Message.Substring(GreetingMarker.Length + 1, textBeforeMarker.Length - GreetingMarker.Length -1);
 
             // Location
             var locationMarkerIndex = this.Message.IndexOf(LocationMarker);
             this.Position = this.Message.Substring(locationMarkerIndex);
 
             // Price
-            var textAfterMarker = this.Message.Substring(priceMarkerIndex + PriceMarker.Length + 1);
-            var leagueMarkerIndex = textAfterMarker.IndexOf(LeagueMarker);
-            var priceValue = textAfterMarker.Substring(0, leagueMarkerIndex);
-            this.Price = ParsePrice(priceValue);
+            if (priceMarkerIndex != -1)
+            {
+                var textAfterMarker = this.Message.Substring(priceMarkerIndex + PriceMarker.Length + 1);
+                var index = textAfterMarker.IndexOf(LeagueMarker);
+                var priceValue = textAfterMarker.Substring(0, index);
+                this.Price = ParsePrice(priceValue);
+            }
+            else
+            {
+                this.Price = new Price();
+            }
         }
 
         #endregion
@@ -99,7 +108,6 @@ namespace Lurker.Events
         public static Price ParsePrice(string priceValue)
         {
             var values = priceValue.Split(' ');
-
             var currencyTypeValue = string.Join(" ", values.Skip(1));
 
             CurrencyType type;
