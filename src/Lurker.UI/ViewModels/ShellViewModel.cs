@@ -44,7 +44,7 @@ namespace Lurker.UI
             this._dockingHelper = new DockingHelper(this._Lurker.PathOfExileProcess);
             this._keyboardHelper = new PoeKeyboardHelper(this._Lurker.PathOfExileProcess);
 
-            this._dockingHelper.OnWindowMove += this._dockingHelper_OnWindowMove;
+            this._dockingHelper.OnWindowMove += this.DockingHelper_OnWindowMove;
             this._Lurker.NewOffer += this.Lurker_NewOffer;
             this._Lurker.TradeAccepted += this.Lurker_TradeAccepted;
         }
@@ -91,6 +91,7 @@ namespace Lurker.UI
         {
             if (offer != null)
             {
+                this._keyboardHelper.Kick(offer.PlayerName);
                 this.TradeOffers.Remove(offer);
             }
         }
@@ -100,7 +101,7 @@ namespace Lurker.UI
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void _dockingHelper_OnWindowMove(object sender, EventArgs e)
+        private void DockingHelper_OnWindowMove(object sender, EventArgs e)
         {
             this.SetWindowPosition();
         }
@@ -140,6 +141,24 @@ namespace Lurker.UI
                 this._view.Top = poePosition.Bottom - overlayHeight - expBarHeight - Margin;
 
             });
+        }
+
+        /// <summary>
+        /// Called when deactivating.
+        /// </summary>
+        /// <param name="close">Inidicates whether this instance will be closed.</param>
+        protected override void OnDeactivate(bool close)
+        {
+            if (close)
+            {
+                this._dockingHelper.OnWindowMove -= this.DockingHelper_OnWindowMove;
+                this._Lurker.NewOffer -= this.Lurker_NewOffer;
+                this._Lurker.TradeAccepted -= this.Lurker_TradeAccepted;
+                this._Lurker.Dispose();
+                this._dockingHelper.Dispose();
+            }
+
+            base.OnDeactivate(close);
         }
 
         #endregion

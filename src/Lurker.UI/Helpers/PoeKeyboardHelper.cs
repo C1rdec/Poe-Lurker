@@ -28,19 +28,28 @@ namespace Lurker.UI.Helpers
         /// <summary>
         /// Invites to party.
         /// </summary>
-        /// <param name="characterName">Name of the character.</param>
-        public void Invite(string characterName)
+        /// <param name="playerName">Name of the player.</param>
+        public void Invite(string playerName)
         {
-            this.SendCommand($@"/invite {characterName}");
+            this.SendCommand($@"/invite {playerName}");
+        }
+
+        /// <summary>
+        /// Kicks the specified player name.
+        /// </summary>
+        /// <param name="playerName">Name of the player.</param>
+        public void Kick(string playerName)
+        {
+            this.SendCommand($@"/kick {playerName}");
         }
 
         /// <summary>
         /// Trades the specified character name.
         /// </summary>
-        /// <param name="characterName">Name of the character.</param>
-        public void Trade(string characterName)
+        /// <param name="playerName">Name of the player.</param>
+        public void Trade(string playerName)
         {
-            this.SendCommand($@"/tradewith {characterName}");
+            this.SendCommand($@"/tradewith {playerName}");
         }
 
         /// <summary>

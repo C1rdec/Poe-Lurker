@@ -14,6 +14,7 @@ namespace Lurker
     using System.IO;
     using System.Linq;
     using System.Text;
+    using System.Threading;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -27,9 +28,9 @@ namespace Lurker
         private static readonly string ClientLogFileName = "Client.txt";
         private static readonly string ClientLogFolderName = "logs";
 
-        private bool _lurking;
         private FileInfo _fileInformation;
         private DateTime _lastWriteTime;
+        private CancellationTokenSource _tokenSource;
 
         #endregion
 
@@ -40,6 +41,7 @@ namespace Lurker
         /// </summary>
         public ClientLurker()
         {
+            this._tokenSource = new CancellationTokenSource();
             this.PathOfExileProcess = this.GetProcess();
             this.Lurk(this.PathOfExileProcess.GetMainModuleFileName());
         }
@@ -118,7 +120,8 @@ namespace Lurker
         {
             if (disposing)
             {
-                this._lurking = false;
+                this.PathOfExileProcess.Dispose();
+                this._tokenSource.Cancel();
             }
         }
 
@@ -185,12 +188,12 @@ namespace Lurker
             this._fileInformation = new FileInfo(this.FilePath);
             this._lastWriteTime = this._fileInformation.LastWriteTimeUtc;
 
-            this._lurking = true;
-            while (this._lurking)
+            var token = this._tokenSource.Token;
+            while (!token.IsCancellationRequested)
             {
                 do
                 {
-                    await Task.Delay(250);
+                    await Task.Delay(500);
                     this._fileInformation.Refresh();
                 }
                 while (this._fileInformation.LastWriteTimeUtc == this._lastWriteTime);
