@@ -69,7 +69,7 @@ namespace Lurker.UI
         /// <param name="e">The trade event.</param>
         private void Lurker_NewOffer(object sender, Events.TradeEvent e)
         {
-            this.TradeOffers.Insert(0, new TradeOfferViewModel(e, this._keyboardHelper));
+            this.TradeOffers.Insert(0, new TradeOfferViewModel(e, this._keyboardHelper, this.RemoveOffer));
         }
 
         /// <summary>
@@ -80,7 +80,19 @@ namespace Lurker.UI
         private void Lurker_TradeAccepted(object sender, Events.TradeAcceptedEvent e)
         {
             var offer = this.TradeOffers.Where(t => t.Status == OfferStatus.Traded).FirstOrDefault();
-            this.TradeOffers.Remove(offer);
+            this.RemoveOffer(offer);
+        }
+
+        /// <summary>
+        /// Removes the offer.
+        /// </summary>
+        /// <param name="offer">The offer.</param>
+        private void RemoveOffer(TradeOfferViewModel offer)
+        {
+            if (offer != null)
+            {
+                this.TradeOffers.Remove(offer);
+            }
         }
 
         /// <summary>

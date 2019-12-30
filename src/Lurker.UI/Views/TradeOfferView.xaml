@@ -6,6 +6,7 @@
              xmlns:Local="clr-namespace:Lurker.UI.ViewModels"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
              d:DesignHeight="65" d:DesignWidth="65">
     <Button x:Name="Answer"
@@ -26,10 +27,11 @@
                         </Style>
                     </Grid.Style>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <Rectangle Grid.Row="1">
+                    <Rectangle Grid.Row="2">
                         <Rectangle.Style>
                             <Style TargetType="{x:Type Rectangle}">
                                 <Setter Property="Fill" Value="#747771"/>
@@ -44,21 +46,21 @@
                             </Style>
                         </Rectangle.Style>
                     </Rectangle>
-                    <Image Grid.RowSpan="2"
+                    <Image Grid.RowSpan="3"
                            Source="/Assets/Chaos.png"
                            Height="{Binding ActualHeight, ElementName=Answer}"
                            Width="{Binding ActualWidth, ElementName=Answer}"
                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Chaos}}"/>
-                    <Image Grid.RowSpan="2"
+                    <Image Grid.RowSpan="3"
                            Source="/Assets/Exalted.png"
                            Height="{Binding ActualHeight, ElementName=Answer}"
                            Width="{Binding ActualWidth, ElementName=Answer}"
                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Exalted}}"/>
-                    <Image Grid.RowSpan="2"
+                    <Image Grid.RowSpan="3"
                            Source="/Assets/Mirror.png"
                            Height="{Binding ActualHeight, ElementName=Answer}"
                            Width="{Binding ActualWidth, ElementName=Answer}"
@@ -69,7 +71,7 @@
                                HorizontalAlignment="Right" 
                                Foreground="White" 
                                VerticalAlignment="Bottom"
-                               Margin="0,0,4,0" Grid.Row="1" FontSize="10" FontWeight="Bold">
+                               Margin="0,0,4,0" Grid.Row="2" FontSize="10" FontWeight="Bold">
                         <TextBlock.Style>
                             <Style TargetType="{x:Type TextBlock}">
                                 <Setter Property="Text" Value="{Binding NumberOffCurrency}"/>
@@ -81,6 +83,45 @@
                             </Style>
                         </TextBlock.Style>
                     </TextBlock>
+                    <Button HorizontalAlignment="Right" Background="Red" Height="10" Width="10" cal:Message.Attach="[Event Click] = [Action Remove]" >
+                        <!--<Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="7"/>
+                            </Style>
+                        </Button.Resources>-->
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border CornerRadius="7">
+                                                <Border.Style>
+                                                    <Style TargetType="{x:Type Border}">
+                                                        <Setter Property="Background" Value="Gray"/>
+                                                        <Setter Property="Opacity" Value="0.25"/>
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Background" Value="Red" />
+                                                                <Setter Property="Opacity" Value="0.75"/>
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Border.Style>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="False">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
                 </Grid>
             </ControlTemplate>
         </Button.Template>

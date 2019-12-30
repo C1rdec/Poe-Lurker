@@ -19,6 +19,8 @@ namespace Lurker.UI.ViewModels
         private TradeEvent _tradeEvent;
         private PoeKeyboardHelper _keyboardHelper;
         private OfferStatus _status;
+        private Action<TradeOfferViewModel> _removeAction;
+        private bool _removed;
 
         #endregion
 
@@ -28,10 +30,11 @@ namespace Lurker.UI.ViewModels
         /// Initializes a new instance of the <see cref="TradeOfferViewModel"/> class.
         /// </summary>
         /// <param name="tradeEvent">The trade event.</param>
-        public TradeOfferViewModel(TradeEvent tradeEvent, PoeKeyboardHelper keyboardHelper)
+        public TradeOfferViewModel(TradeEvent tradeEvent, PoeKeyboardHelper keyboardHelper, Action<TradeOfferViewModel> removeAction)
         {
             this._tradeEvent = tradeEvent;
             this._keyboardHelper = keyboardHelper;
+            this._removeAction = removeAction;
         }
 
         #endregion
@@ -72,10 +75,24 @@ namespace Lurker.UI.ViewModels
         #region 
 
         /// <summary>
+        /// Removes this instance.
+        /// </summary>
+        public void Remove()
+        {
+            this._removed = true;
+            this._removeAction(this);
+        }
+
+        /// <summary>
         /// Answers this instance.
         /// </summary>
         public void Answer()
         {
+            if (this._removed)
+            {
+                return;
+            }
+
             var playerName = this._tradeEvent.PlayerName;
 
             switch (this._status)

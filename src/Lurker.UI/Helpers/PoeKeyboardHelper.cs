@@ -43,6 +43,16 @@ namespace Lurker.UI.Helpers
             this.SendCommand($@"/tradewith {characterName}");
         }
 
+        /// <summary>
+        /// Whispers the specified character name.
+        /// </summary>
+        /// <param name="characterName">Name of the character.</param>
+        /// <param name="message">The message.</param>
+        public void Whisper(string characterName, string message)
+        {
+            this.SendCommand($@"{characterName} {message}");
+        }
+
         #endregion
     }
 }
