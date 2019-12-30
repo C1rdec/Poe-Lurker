@@ -11,9 +11,10 @@ namespace Lurker.UI
     using Lurker.UI.ViewModels;
     using System;
     using System.Collections.ObjectModel;
+    using System.Linq;
     using System.Windows;
 
-    public class ShellViewModel : Screen, IShell, IViewAware
+    public class ShellViewModel : Screen, IViewAware
     {
         #region Fields
 
@@ -27,6 +28,7 @@ namespace Lurker.UI
         private Window _view;
         private ClientLurker _Lurker;
         private DockingHelper _dockingHelper;
+        private PoeKeyboardHelper _keyboardHelper;
 
         #endregion
 
@@ -40,14 +42,11 @@ namespace Lurker.UI
             this.TradeOffers = new ObservableCollection<TradeOfferViewModel>();
             this._Lurker = new ClientLurker();
             this._dockingHelper = new DockingHelper(this._Lurker.PathOfExileProcess);
+            this._keyboardHelper = new PoeKeyboardHelper(this._Lurker.PathOfExileProcess);
 
             this._dockingHelper.OnWindowMove += this._dockingHelper_OnWindowMove;
             this._Lurker.NewOffer += this.Lurker_NewOffer;
-        }
-
-        private void _dockingHelper_OnWindowMove(object sender, EventArgs e)
-        {
-            this.SetWindowPosition();
+            this._Lurker.TradeAccepted += this.Lurker_TradeAccepted;
         }
 
         #endregion
@@ -70,17 +69,30 @@ namespace Lurker.UI
         /// <param name="e">The trade event.</param>
         private void Lurker_NewOffer(object sender, Events.TradeEvent e)
         {
-            this.TradeOffers.Insert(0, new TradeOfferViewModel(e, this.DeleteTradeOffer));
+            this.TradeOffers.Insert(0, new TradeOfferViewModel(e, this._keyboardHelper));
         }
 
         /// <summary>
-        /// Deletes the trade offer.
+        /// Lurkers the trade accepted.
         /// </summary>
-        /// <param name="viewModel">The view model.</param>
-        private void DeleteTradeOffer(TradeOfferViewModel viewModel)
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
+        private void Lurker_TradeAccepted(object sender, Events.TradeAcceptedEvent e)
         {
-            this.TradeOffers.Remove(viewModel);
+            var offer = this.TradeOffers.Where(t => t.Status == OfferStatus.Traded).FirstOrDefault();
+            this.TradeOffers.Remove(offer);
         }
+
+        /// <summary>
+        /// Handles the OnWindowMove event of the _dockingHelper control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void _dockingHelper_OnWindowMove(object sender, EventArgs e)
+        {
+            this.SetWindowPosition();
+        }
+
         /// <summary>
         /// Called when an attached view's Loaded event fires.
         /// </summary>

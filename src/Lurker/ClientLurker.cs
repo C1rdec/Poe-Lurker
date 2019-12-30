@@ -190,7 +190,7 @@ namespace Lurker
             {
                 do
                 {
-                    await Task.Delay(100);
+                    await Task.Delay(250);
                     this._fileInformation.Refresh();
                 }
                 while (this._fileInformation.LastWriteTimeUtc == this._lastWriteTime);
@@ -255,7 +255,7 @@ namespace Lurker
             }
 
             var tradeAcceptedEvent = TradeAcceptedEvent.TryParse(newline);
-            if (tradeEvent != null)
+            if (tradeAcceptedEvent != null)
             {
                 this.TradeAccepted?.Invoke(this, tradeAcceptedEvent);
                 return;

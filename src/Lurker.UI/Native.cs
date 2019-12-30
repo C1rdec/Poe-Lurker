@@ -11,6 +11,9 @@ namespace Lurker.UI
 
     public static class Native
     {
+        [DllImport("User32.dll")]
+        public static extern int SetForegroundWindow(IntPtr point);
+
         [DllImport("user32.dll")]
         public static extern bool GetWindowRect(IntPtr hwnd, out Rect rectangle);
 

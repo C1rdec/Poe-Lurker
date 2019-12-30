@@ -41,7 +41,7 @@ namespace Lurker.UI
 
             this._container.Singleton<IWindowManager, WindowManager>();
             this._container.Singleton<IEventAggregator, EventAggregator>();
-            this._container.PerRequest<IShell, ShellViewModel>();
+            this._container.PerRequest<ShellViewModel, ShellViewModel>();
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace Lurker.UI
         /// <param name="e">The args.</param>
         protected override void OnStartup(object sender, System.Windows.StartupEventArgs e) 
         {
-            DisplayRootViewFor<IShell>();
+            DisplayRootViewFor<ShellViewModel>();
         }
 
         #endregion

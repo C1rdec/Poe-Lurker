@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Converters="clr-namespace:Lurker.UI.Converters"
              xmlns:Models="clr-namespace:Lurker.Models;assembly=Lurker"
+             xmlns:Local="clr-namespace:Lurker.UI.ViewModels"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
@@ -27,7 +28,21 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <Rectangle Fill="#747771" Grid.Row="1"></Rectangle>
+                    <Rectangle Grid.Row="1">
+                        <Rectangle.Style>
+                            <Style TargetType="{x:Type Rectangle}">
+                                <Setter Property="Fill" Value="#747771"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Status}" Value="{x:Static Local:OfferStatus.Invited}">
+                                        <Setter Property="Fill" Value="Blue"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Status}" Value="{x:Static Local:OfferStatus.Traded}">
+                                        <Setter Property="Fill" Value="Green"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Rectangle.Style>
+                    </Rectangle>
                     <Image Grid.RowSpan="2"
                            Source="/Assets/Chaos.png"
                            Height="{Binding ActualHeight, ElementName=Answer}"
