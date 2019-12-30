@@ -118,7 +118,7 @@ namespace Lurker.Events
 
             return new Price()
             {
-                NumberOfCurrencies = int.Parse(values[0]),
+                NumberOfCurrencies = double.Parse(values[0]),
                 CurrencyType = type
             };
         }

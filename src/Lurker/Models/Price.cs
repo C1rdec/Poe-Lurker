@@ -13,7 +13,7 @@ namespace Lurker.Models
         /// <summary>
         /// Gets or sets the number of currencies.
         /// </summary>
-        public int NumberOfCurrencies { get; set; }
+        public double NumberOfCurrencies { get; set; }
 
         /// <summary>
         /// Gets or sets the type of the currency.

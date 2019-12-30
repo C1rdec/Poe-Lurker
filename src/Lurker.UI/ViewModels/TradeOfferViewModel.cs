@@ -44,7 +44,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets or sets the number off currency.
         /// </summary>
-        public int NumberOffCurrency => this._tradeEvent.Price.NumberOfCurrencies;
+        public double NumberOffCurrency => this._tradeEvent.Price.NumberOfCurrencies;
 
         /// <summary>
         /// Gets the name of the item.
