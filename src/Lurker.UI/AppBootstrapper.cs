@@ -14,6 +14,7 @@ namespace Lurker.UI
     {
         #region Fields
 
+        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
         private SimpleContainer _container;
 
         #endregion
@@ -25,7 +26,13 @@ namespace Lurker.UI
         /// </summary>
         public AppBootstrapper() 
         {
+            AppDomain.CurrentDomain.UnhandledException += this.CurrentDomain_UnhandledException;
             Initialize();
+        }
+
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            Logger.Error((e.ExceptionObject as Exception).Message);
         }
 
         #endregion

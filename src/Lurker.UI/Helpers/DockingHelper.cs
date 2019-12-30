@@ -87,7 +87,6 @@ namespace Lurker.UI.Helpers
         /// <param name="dwmsEventTime">The DWMS event time.</param>
         private void WhenWindowMoveStartsOrEnds(IntPtr hWinEventHook, uint eventType, IntPtr hwnd, int idObject, int idChild, uint dwEventThread, uint dwmsEventTime)
         {
-            File.AppendAllLines(@"C:\Temp\t.txt", new string[] { eventType.ToString() });
             if (this._windowHandle != hwnd)
             {
                 return;
