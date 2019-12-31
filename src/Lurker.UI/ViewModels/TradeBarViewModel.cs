@@ -50,6 +50,7 @@ namespace Lurker.UI.ViewModels
             this._Lurker.PoeClosed += this.Lurker_PoeClosed;
             this._Lurker.NewOffer += this.Lurker_NewOffer;
             this._Lurker.TradeAccepted += this.Lurker_TradeAccepted;
+            this.DisplayName = "Poe Lurker";
         }
 
         #endregion

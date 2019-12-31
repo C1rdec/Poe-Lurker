@@ -19,6 +19,7 @@ namespace Lurker.UI
         private IWindowManager _windowManager;
         private SimpleContainer _container;
         private ClientLurker _currentLurker;
+        private TradeBarViewModel _tradeBarOverlay;
 
         #endregion
 
@@ -41,6 +42,15 @@ namespace Lurker.UI
         #region Methods
 
         /// <summary>
+        /// Closes this instance.
+        /// </summary>
+        public void Close()
+        {
+            this._tradeBarOverlay.TryClose();
+            this.TryClose();
+        }
+
+        /// <summary>
         /// Registers the instances.
         /// </summary>
         private void DisplayRoot(Process process)
@@ -53,8 +63,8 @@ namespace Lurker.UI
                 this._container.RegisterInstance(typeof(DockingHelper), null, dockingHelper);
                 this._container.RegisterInstance(typeof(PoeKeyboardHelper), null, keyboarHelper);
 
-                var viewModel = this._container.GetInstance<TradeBarViewModel>();
-                this._windowManager.ShowWindow(viewModel);
+                this._tradeBarOverlay = this._container.GetInstance<TradeBarViewModel>();
+                this._windowManager.ShowWindow(this._tradeBarOverlay);
             });
         }
 

@@ -4,8 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         Topmost="True"
+        Icon="/Assets/TradeBarIcon.ico"
         WindowStyle="None"
         AllowsTransparency="True"
+        ShowInTaskbar="False"
         Background="Transparent"
         mc:Ignorable="d"
         Title="Lurker">
