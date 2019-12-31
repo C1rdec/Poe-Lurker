@@ -83,6 +83,7 @@
     <Compile Include="Helpers\PoeKeyboardHelper.cs" />
     <Compile Include="Native.cs" />
     <Compile Include="ViewModels\OfferStatus.cs" />
+    <Compile Include="ViewModels\TradeBarViewModel.cs" />
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
@@ -92,12 +93,19 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ViewModels\TradeOfferViewModel.cs" />
+    <Compile Include="Views\TradeBarView.xaml.cs">
+      <DependentUpon>TradeBarView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TradeOfferView.xaml.cs">
       <DependentUpon>TradeOfferView.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\ShellView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TradeBarView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TradeOfferView.xaml">
       <SubType>Designer</SubType>

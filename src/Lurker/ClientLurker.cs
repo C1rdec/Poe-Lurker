@@ -212,12 +212,17 @@ namespace Lurker
             this._lastWriteTime = this._fileInformation.LastWriteTimeUtc;
 
             var token = this._tokenSource.Token;
-            while (!token.IsCancellationRequested)
+            while (true)
             {
                 do
                 {
                     await Task.Delay(500);
                     this._fileInformation.Refresh();
+
+                    if (token.IsCancellationRequested)
+                    {
+                        return;
+                    }
                 }
                 while (this._fileInformation.LastWriteTimeUtc == this._lastWriteTime);
 

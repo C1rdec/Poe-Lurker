@@ -4,17 +4,9 @@
         Topmost="True"
         WindowStyle="None"
         AllowsTransparency="True"
+        Visibility="Hidden"
         Background="Transparent"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Grid Background="Transparent" x:Name="MainGrid">
-        <ScrollViewer HorizontalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Hidden">
-            <ItemsControl x:Name="TradeOffers">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-        </ScrollViewer>
+    <Grid Background="Transparent">
     </Grid>
 </Window>

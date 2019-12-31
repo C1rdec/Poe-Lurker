@@ -9,26 +9,16 @@ namespace Lurker.UI
     using Caliburn.Micro;
     using Lurker.UI.Helpers;
     using Lurker.UI.ViewModels;
-    using System;
-    using System.Collections.ObjectModel;
-    using System.Linq;
-    using System.Windows;
+    using System.Diagnostics;
+    using System.Threading.Tasks;
 
     public class ShellViewModel : Screen, IViewAware
     {
         #region Fields
 
-        private const int Margin = 4;
-        private static int DefaultFlaskBarHeight = 122;
-        private static int DefaultFlaskBarWigth = 550;
-        private static int DefaultExpBarHeight = 24;
-        private static int DefaultHeight = 1080;
-        private static int DefaultOverlayHeight = 60;
-
-        private Window _view;
-        private ClientLurker _Lurker;
-        private DockingHelper _dockingHelper;
-        private PoeKeyboardHelper _keyboardHelper;
+        private IWindowManager _windowManager;
+        private SimpleContainer _container;
+        private ClientLurker _currentLurker;
 
         #endregion
 
@@ -37,145 +27,63 @@ namespace Lurker.UI
         /// <summary>
         /// Initializes a new instance of the <see cref="ShellViewModel"/> class.
         /// </summary>
-        public ShellViewModel(ClientLurker lurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper)
+        /// <param name="windowManager">The window manager.</param>
+        /// <param name="container">The container.</param>
+        public ShellViewModel(IWindowManager windowManager, SimpleContainer container)
         {
-            this._Lurker = lurker;
-            this._dockingHelper = dockingHelper;
-            this._keyboardHelper = keyboardHelper;
-            this.TradeOffers = new ObservableCollection<TradeOfferViewModel>();
-
-            this._dockingHelper.OnWindowMove += this.DockingHelper_OnWindowMove;
-            this._Lurker.PoeClosed += this.Lurker_PoeClosed;
-            this._Lurker.NewOffer += this.Lurker_NewOffer;
-            this._Lurker.TradeAccepted += this.Lurker_TradeAccepted;
+            this._windowManager = windowManager;
+            this._container = container;
+            this.WaitForPoe();
         }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the trade offers.
-        /// </summary>
-        public ObservableCollection<TradeOfferViewModel> TradeOffers { get; set; }
 
         #endregion
 
         #region Methods
 
         /// <summary>
-        /// Handles the PoeEnded event of the Lurker control.
+        /// Registers the instances.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void Lurker_PoeClosed(object sender, EventArgs e)
+        private void DisplayRoot(Process process)
         {
-            this.TryClose();
-        }
-
-        /// <summary>
-        /// Lurkers the new offer.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The trade event.</param>
-        private void Lurker_NewOffer(object sender, Events.TradeEvent e)
-        {
-            this.TradeOffers.Insert(0, new TradeOfferViewModel(e, this._keyboardHelper, this.RemoveOffer));
-        }
-
-        /// <summary>
-        /// Lurkers the trade accepted.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The e.</param>
-        private void Lurker_TradeAccepted(object sender, Events.TradeAcceptedEvent e)
-        {
-            var offer = this.TradeOffers.Where(t => t.Status == OfferStatus.Traded).FirstOrDefault();
-            if (offer != null)
-            {
-                this._keyboardHelper.Kick(offer.PlayerName);
-                this.RemoveOffer(offer);
-            }
-        }
-
-        /// <summary>
-        /// Removes the offer.
-        /// </summary>
-        /// <param name="offer">The offer.</param>
-        private void RemoveOffer(TradeOfferViewModel offer)
-        {
-            if (offer != null)
-            {
-                this.TradeOffers.Remove(offer);
-            }
-        }
-
-        /// <summary>
-        /// Handles the OnWindowMove event of the _dockingHelper control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void DockingHelper_OnWindowMove(object sender, EventArgs e)
-        {
-            this.SetWindowPosition();
-        }
-
-
-
-        /// <summary>
-        /// Called when an attached view's Loaded event fires.
-        /// </summary>
-        /// <param name="view"></param>
-        protected override void OnViewLoaded(object view)
-        {
-            this._view = view as Window;
-            this.SetWindowPosition();
-        }
-
-        /// <summary>
-        /// Sets the window position.
-        /// </summary>
-        private void SetWindowPosition()
-        {
-            Native.GetWindowRect(this._Lurker.PathOfExileProcess.MainWindowHandle, out var poePosition);
-            
-            double poeWidth = poePosition.Right - poePosition.Left;
-            double poeHeight = poePosition.Bottom - poePosition.Top;
-
-            var expBarHeight = poeHeight * DefaultExpBarHeight / DefaultHeight;
-            var flaskBarWidth = poeHeight * DefaultFlaskBarWigth / DefaultHeight;
-            var flaskBarHeight = poeHeight * DefaultFlaskBarHeight / DefaultHeight;
-
-            var overlayHeight = DefaultOverlayHeight * flaskBarHeight / DefaultFlaskBarHeight;
-            var overlayWidth = (poeWidth - (flaskBarWidth * 2)) / 2;
-
             Execute.OnUIThread(() => 
             {
-                this._view.Height = overlayHeight;
-                this._view.Width = overlayWidth;
-                this._view.Left = poePosition.Left + flaskBarWidth + Margin;
-                this._view.Top = poePosition.Bottom - overlayHeight - expBarHeight - Margin;
+                var dockingHelper = new DockingHelper(process);
+                var keyboarHelper = new PoeKeyboardHelper(process);
+                this._container.RegisterInstance(typeof(ClientLurker), null, this._currentLurker);
+                this._container.RegisterInstance(typeof(DockingHelper), null, dockingHelper);
+                this._container.RegisterInstance(typeof(PoeKeyboardHelper), null, keyboarHelper);
 
+                var viewModel = this._container.GetInstance<TradeBarViewModel>();
+                this._windowManager.ShowWindow(viewModel);
             });
         }
 
         /// <summary>
-        /// Called when deactivating.
+        /// Handles the PoeClosed event of the CurrentLurker control.
         /// </summary>
-        /// <param name="close">Inidicates whether this instance will be closed.</param>
-        protected override void OnDeactivate(bool close)
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void CurrentLurker_PoeClosed(object sender, System.EventArgs e)
         {
-            if (close)
-            {
-                this._dockingHelper.OnWindowMove -= this.DockingHelper_OnWindowMove;
-                this._Lurker.PoeClosed -= this.Lurker_PoeClosed;
-                this._Lurker.NewOffer -= this.Lurker_NewOffer;
-                this._Lurker.TradeAccepted -= this.Lurker_TradeAccepted;
-                this._Lurker.Dispose();
-                this._dockingHelper.Dispose();
-            }
+            this._container.UnregisterHandler<ClientLurker>();
+            this._container.UnregisterHandler<DockingHelper>();
+            this._container.UnregisterHandler<PoeKeyboardHelper>();
+            this._currentLurker.PoeClosed -= this.CurrentLurker_PoeClosed;
+            this._currentLurker.Dispose();
+            this._currentLurker = null;
 
-            base.OnDeactivate(close);
+            this.WaitForPoe();
+        }
+
+        /// <summary>
+        /// Waits for poe.
+        /// </summary>
+        private async void WaitForPoe()
+        {
+            this._currentLurker = new ClientLurker();
+            this._currentLurker.PoeClosed += CurrentLurker_PoeClosed;
+            var process = await this._currentLurker.WaitForPoe();
+            this.DisplayRoot(process);
         }
 
         #endregion

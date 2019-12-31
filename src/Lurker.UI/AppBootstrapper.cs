@@ -7,10 +7,9 @@
 namespace Lurker.UI
 {
     using Caliburn.Micro;
-    using Lurker.UI.Helpers;
+    using Lurker.UI.ViewModels;
     using System;
     using System.Collections.Generic;
-    using System.Threading.Tasks;
 
     public class AppBootstrapper : BootstrapperBase 
     {
@@ -51,6 +50,9 @@ namespace Lurker.UI
             this._container.Singleton<IWindowManager, WindowManager>();
             this._container.Singleton<IEventAggregator, EventAggregator>();
             this._container.PerRequest<ShellViewModel, ShellViewModel>();
+            this._container.PerRequest<TradeBarViewModel, TradeBarViewModel>();
+
+            this._container.RegisterInstance(typeof(SimpleContainer), null, this._container);
         }
 
         /// <summary>
@@ -92,26 +94,9 @@ namespace Lurker.UI
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The args.</param>
-        protected override async void OnStartup(object sender, System.Windows.StartupEventArgs e) 
+        protected override void OnStartup(object sender, System.Windows.StartupEventArgs e) 
         {
-            await this.RegisterInstances();
-
             DisplayRootViewFor<ShellViewModel>();
-        }
-
-        /// <summary>
-        /// Registers the instances.
-        /// </summary>
-        private async Task RegisterInstances()
-        {
-            this._container.Singleton<ClientLurker, ClientLurker>();
-            var lurker = this._container.GetInstance<ClientLurker>();
-            var process = await lurker.WaitForPoe();
-
-            var dockingHelper = new DockingHelper(process);
-            var keyboarHelper = new PoeKeyboardHelper(process);
-            this._container.RegisterInstance(typeof(DockingHelper), null, dockingHelper);
-            this._container.RegisterInstance(typeof(PoeKeyboardHelper), null, keyboarHelper);
         }
 
         #endregion
