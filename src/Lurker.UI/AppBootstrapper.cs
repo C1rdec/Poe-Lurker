@@ -4,11 +4,13 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.UI 
+namespace Lurker.UI
 {
+    using Caliburn.Micro;
+    using Lurker.UI.Helpers;
     using System;
     using System.Collections.Generic;
-    using Caliburn.Micro;
+    using System.Threading.Tasks;
 
     public class AppBootstrapper : BootstrapperBase 
     {
@@ -27,7 +29,7 @@ namespace Lurker.UI
         public AppBootstrapper() 
         {
             AppDomain.CurrentDomain.UnhandledException += this.CurrentDomain_UnhandledException;
-            Initialize();
+            this.Initialize();
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -90,9 +92,26 @@ namespace Lurker.UI
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The args.</param>
-        protected override void OnStartup(object sender, System.Windows.StartupEventArgs e) 
+        protected override async void OnStartup(object sender, System.Windows.StartupEventArgs e) 
         {
+            await this.RegisterInstances();
+
             DisplayRootViewFor<ShellViewModel>();
+        }
+
+        /// <summary>
+        /// Registers the instances.
+        /// </summary>
+        private async Task RegisterInstances()
+        {
+            this._container.Singleton<ClientLurker, ClientLurker>();
+            var lurker = this._container.GetInstance<ClientLurker>();
+            var process = await lurker.WaitForPoe();
+
+            var dockingHelper = new DockingHelper(process);
+            var keyboarHelper = new PoeKeyboardHelper(process);
+            this._container.RegisterInstance(typeof(DockingHelper), null, dockingHelper);
+            this._container.RegisterInstance(typeof(PoeKeyboardHelper), null, keyboarHelper);
         }
 
         #endregion

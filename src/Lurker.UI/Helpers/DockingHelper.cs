@@ -8,14 +8,20 @@ namespace Lurker.UI.Helpers
 {
     using System;
     using System.Diagnostics;
-    using System.IO;
     using static Lurker.UI.Native;
 
     public class DockingHelper: IDisposable
     {
         #region Fields
 
+        private const uint LostFocus = 3;
+        private const uint GainMouseCapture = 8;
+        private const uint LostMouseCapture = 9;
         private const uint MoveEnd = 11;
+        private const uint Minimized = 22;
+        private const uint ObjectDestroy = 32769;
+        private const uint ObjectHidden = 8003;
+
         private readonly uint _windowProcessId, _windowOwnerId;
         private readonly IntPtr _windowHandle;
         private readonly WinEventDelegate _winEventDelegate;
@@ -43,6 +49,12 @@ namespace Lurker.UI.Helpers
 
         public event EventHandler OnWindowMove;
 
+        public event EventHandler OnLostMouseCapture;
+
+        public event EventHandler OnMouseCapture;
+
+        public event EventHandler OnForegroundChange;
+
         #endregion
 
         #region Methods
@@ -68,14 +80,6 @@ namespace Lurker.UI.Helpers
         }
 
         /// <summary>
-        /// Notifies this instance.
-        /// </summary>
-        private void Notify()
-        {
-            this.OnWindowMove?.Invoke(this, EventArgs.Empty);
-        }
-
-        /// <summary>
         /// Whens the window move starts or ends.
         /// </summary>
         /// <param name="hWinEventHook">The h win event hook.</param>
@@ -95,9 +99,27 @@ namespace Lurker.UI.Helpers
             switch(eventType)
             {
                 case MoveEnd:
-                    this.Notify();
+                    this.Invoke(this.OnWindowMove);
+                    break;
+                case GainMouseCapture:
+                    this.Invoke(this.OnMouseCapture);
+                    break;
+                case LostMouseCapture:
+                    this.Invoke(this.OnLostMouseCapture);
+                    break;
+                case LostFocus:
+                    this.Invoke(this.OnForegroundChange);
                     break;
             }
+        }
+
+        /// <summary>
+        /// Invokes the specified handler.
+        /// </summary>
+        /// <param name="handler">The handler.</param>
+        private void Invoke(EventHandler handler)
+        {
+            handler?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion

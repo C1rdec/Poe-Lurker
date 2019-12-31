@@ -27,6 +27,7 @@ namespace Lurker
         private static readonly List<string> PossibleProcessNames = new List<string> { "PathOfExile", "PathOfExile_x64", "PathOfExileSteam", "PathOfExile_x64Steam" };
         private static readonly string ClientLogFileName = "Client.txt";
         private static readonly string ClientLogFolderName = "logs";
+        private static readonly int TenSeconds = 10000;
 
         private FileInfo _fileInformation;
         private DateTime _lastWriteTime;
@@ -42,8 +43,6 @@ namespace Lurker
         public ClientLurker()
         {
             this._tokenSource = new CancellationTokenSource();
-            this.PathOfExileProcess = this.GetProcess();
-            this.Lurk(this.PathOfExileProcess.GetMainModuleFileName());
         }
 
         #endregion
@@ -53,7 +52,7 @@ namespace Lurker
         /// <summary>
         /// Gets or sets the path of exile process.
         /// </summary>
-        public Process PathOfExileProcess { get; }
+        public Process PathOfExileProcess { get; private set; }
 
         /// <summary>
         /// Gets or sets the file path.
@@ -63,6 +62,11 @@ namespace Lurker
         #endregion
 
         #region Events
+
+        /// <summary>
+        /// The poe ended
+        /// </summary>
+        public event EventHandler PoeClosed;
 
         /// <summary>
         /// Occurs when the player changed the location.
@@ -103,6 +107,25 @@ namespace Lurker
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Waits for poe.
+        /// </summary>
+        public async Task<Process> WaitForPoe()
+        {
+            this.PathOfExileProcess = this.GetProcess();
+
+            while (this.PathOfExileProcess == null)
+            {
+                await Task.Delay(TenSeconds);
+                this.PathOfExileProcess = this.GetProcess();
+            }
+
+            this.Lurk();
+            this.WaitForExit();
+
+            return this.PathOfExileProcess;
+        }
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
@@ -182,9 +205,9 @@ namespace Lurker
         /// <summary>
         /// Lurks this instance.
         /// </summary>
-        private async void Lurk(string executablePath)
+        private async void Lurk()
         {
-            this.FilePath = Path.Combine(Path.GetDirectoryName(executablePath), ClientLogFolderName, ClientLogFileName);
+            this.FilePath = Path.Combine(Path.GetDirectoryName(this.PathOfExileProcess.GetMainModuleFileName()), ClientLogFolderName, ClientLogFileName);
             this._fileInformation = new FileInfo(this.FilePath);
             this._lastWriteTime = this._fileInformation.LastWriteTimeUtc;
 
@@ -219,7 +242,7 @@ namespace Lurker
                 }
             }
 
-            throw new InvalidOperationException("Path of Exile is not running");
+            return null;
         }
         
         /// <summary>
@@ -284,6 +307,18 @@ namespace Lurker
                 this.PlayerLeft?.Invoke(this, playerLeftEvent);
                 return;
             }
+        }
+
+        /// <summary>
+        /// Waits for exit.
+        /// </summary>
+        private async void WaitForExit()
+        {
+            await Task.Run(() =>
+            {
+                this.PathOfExileProcess.WaitForExit();
+                this.PoeClosed?.Invoke(this, EventArgs.Empty);
+            });
         }
 
         #endregion

@@ -37,14 +37,15 @@ namespace Lurker.UI
         /// <summary>
         /// Initializes a new instance of the <see cref="ShellViewModel"/> class.
         /// </summary>
-        public ShellViewModel()
+        public ShellViewModel(ClientLurker lurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper)
         {
+            this._Lurker = lurker;
+            this._dockingHelper = dockingHelper;
+            this._keyboardHelper = keyboardHelper;
             this.TradeOffers = new ObservableCollection<TradeOfferViewModel>();
-            this._Lurker = new ClientLurker();
-            this._dockingHelper = new DockingHelper(this._Lurker.PathOfExileProcess);
-            this._keyboardHelper = new PoeKeyboardHelper(this._Lurker.PathOfExileProcess);
 
             this._dockingHelper.OnWindowMove += this.DockingHelper_OnWindowMove;
+            this._Lurker.PoeClosed += this.Lurker_PoeClosed;
             this._Lurker.NewOffer += this.Lurker_NewOffer;
             this._Lurker.TradeAccepted += this.Lurker_TradeAccepted;
         }
@@ -61,6 +62,16 @@ namespace Lurker.UI
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Handles the PoeEnded event of the Lurker control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void Lurker_PoeClosed(object sender, EventArgs e)
+        {
+            this.TryClose();
+        }
 
         /// <summary>
         /// Lurkers the new offer.
@@ -109,6 +120,8 @@ namespace Lurker.UI
             this.SetWindowPosition();
         }
 
+
+
         /// <summary>
         /// Called when an attached view's Loaded event fires.
         /// </summary>
@@ -155,6 +168,7 @@ namespace Lurker.UI
             if (close)
             {
                 this._dockingHelper.OnWindowMove -= this.DockingHelper_OnWindowMove;
+                this._Lurker.PoeClosed -= this.Lurker_PoeClosed;
                 this._Lurker.NewOffer -= this.Lurker_NewOffer;
                 this._Lurker.TradeAccepted -= this.Lurker_TradeAccepted;
                 this._Lurker.Dispose();
