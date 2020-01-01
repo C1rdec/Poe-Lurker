@@ -59,7 +59,7 @@ namespace Lurker.UI.Helpers
         /// <param name="message">The message.</param>
         public void Whisper(string characterName, string message)
         {
-            this.SendCommand($@"{characterName} {message}");
+            this.SendCommand($@"@{characterName} {message}");
         }
 
         #endregion

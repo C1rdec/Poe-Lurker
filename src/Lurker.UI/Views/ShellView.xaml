@@ -18,6 +18,7 @@
                     PopupActivation="DoubleClick">
             <tb:TaskbarIcon.ContextMenu>
                 <ContextMenu>
+                    <MenuItem IsChecked="{Binding StartWithWindows}" Header="Start with windows" cal:Message.Attach="[Event Click] = [Action CreateShortCut]"/>
                     <MenuItem Header="Close" cal:Message.Attach="[Event Click] = [Action Close]"/>
                 </ContextMenu>
             </tb:TaskbarIcon.ContextMenu>

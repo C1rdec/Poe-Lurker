@@ -16,11 +16,12 @@ namespace Lurker.UI.ViewModels
     {
         #region Fields
 
+        private bool _Waiting;
         private TradeEvent _tradeEvent;
         private PoeKeyboardHelper _keyboardHelper;
         private OfferStatus _status;
         private Action<TradeOfferViewModel> _removeAction;
-        private bool _removed;
+        private bool _skipAction;
 
         #endregion
 
@@ -83,6 +84,23 @@ namespace Lurker.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="TradeOfferViewModel"/> is waiting.
+        /// </summary>
+        public bool Waiting
+        {
+            get
+            {
+                return this._Waiting;
+            }
+
+            set
+            {
+                this._Waiting = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
         #endregion
 
         #region 
@@ -92,8 +110,18 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public void Remove()
         {
-            this._removed = true;
+            this._skipAction = true;
             this._removeAction(this);
+        }
+
+        /// <summary>
+        /// Waits this instance.
+        /// </summary>
+        public void Wait()
+        {
+            this._skipAction = true;
+            this.Waiting = true;
+            this._keyboardHelper.Whisper(this.PlayerName, "I'm busy right now I'll send you a party invite.");
         }
 
         /// <summary>
@@ -101,8 +129,9 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public void Answer()
         {
-            if (this._removed)
+            if (this._skipAction)
             {
+                this._skipAction = false;
                 return;
             }
 

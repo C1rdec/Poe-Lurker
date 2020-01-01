@@ -9,6 +9,7 @@ namespace Lurker.UI.ViewModels
     using Caliburn.Micro;
     using Lurker.UI.Helpers;
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows;
@@ -83,7 +84,11 @@ namespace Lurker.UI.ViewModels
         /// <param name="e">The trade event.</param>
         private void Lurker_NewOffer(object sender, Events.TradeEvent e)
         {
-            Execute.OnUIThread(() => this.TradeOffers.Insert(0, new TradeOfferViewModel(e, this._keyboardHelper, this.RemoveOffer)));
+            Execute.OnUIThread(() => 
+            {
+                this.TradeOffers.Insert(0, new TradeOfferViewModel(e, this._keyboardHelper, this.RemoveOffer));
+                this.SortOffer();
+            });
         }
 
         /// <summary>
@@ -176,6 +181,21 @@ namespace Lurker.UI.ViewModels
             }
 
             base.OnDeactivate(close);
+        }
+
+        /// <summary>
+        /// Sorts the offer.
+        /// </summary>
+        private void SortOffer()
+        {
+            var collection = this.TradeOffers;
+            var sortableList = new List<TradeOfferViewModel>(collection);
+            var offers = sortableList.OrderByDescending(t => t.Waiting);
+
+            for (int i = 0; i < sortableList.Count; i++)
+            {
+                collection.Move(collection.IndexOf(offers.ElementAt(i)), i);
+            }
         }
 
         #endregion

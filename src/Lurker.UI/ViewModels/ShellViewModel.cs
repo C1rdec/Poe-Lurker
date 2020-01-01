@@ -9,9 +9,12 @@ namespace Lurker.UI
     using Caliburn.Micro;
     using Lurker.UI.Helpers;
     using Lurker.UI.ViewModels;
+    using System;
     using System.Diagnostics;
-    using System.Threading.Tasks;
-
+    using System.IO;
+    using System.Runtime.InteropServices;
+    using System.Runtime.InteropServices.ComTypes;
+    using System.Text;
     public class ShellViewModel : Screen, IViewAware
     {
         #region Fields
@@ -20,6 +23,7 @@ namespace Lurker.UI
         private SimpleContainer _container;
         private ClientLurker _currentLurker;
         private TradeBarViewModel _tradeBarOverlay;
+        private bool _startWithWindows;
 
         #endregion
 
@@ -35,7 +39,50 @@ namespace Lurker.UI
             this._windowManager = windowManager;
             this._container = container;
             this.WaitForPoe();
+
+            this.StartWithWindows = File.Exists(this.ShortcutFilePath);
         }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets a value indicating whether [start with windows].
+        /// </summary>
+        public bool StartWithWindows
+        {
+            get
+            {
+                return this._startWithWindows;
+            }
+
+            set
+            {
+                this._startWithWindows = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets the name of the shortcut.
+        /// </summary>
+        public string ShortcutName => "PoeLurker.lnk";
+
+        /// <summary>
+        /// Gets the application data folder path.
+        /// </summary>
+        public string ApplicationDataFolderPath => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+        /// <summary>
+        /// Gets the startup folder path.
+        /// </summary>
+        public string StartupFolderPath => Path.Combine(this.ApplicationDataFolderPath, @"Microsoft\Windows\Start Menu\Programs\Startup");
+
+        /// <summary>
+        /// Gets the shortcut file path.
+        /// </summary>
+        public string ShortcutFilePath => Path.Combine(this.StartupFolderPath, this.ShortcutName);
 
         #endregion
 
@@ -48,6 +95,27 @@ namespace Lurker.UI
         {
             this._tradeBarOverlay.TryClose();
             this.TryClose();
+        }
+
+        /// <summary>
+        /// Creates the short cut.
+        /// </summary>
+        public void CreateShortCut()
+        {
+            if (File.Exists(this.ShortcutFilePath))
+            {
+                File.Delete(this.ShortcutFilePath);
+            }
+            else
+            {
+                var link = (IShellLink)new ShellLink();
+                link.SetDescription("PoeLurker");
+                link.SetPath(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                var file = (IPersistFile)link;
+                file.Save(this.ShortcutFilePath, false);
+            }
+
+            this.StartWithWindows = !this.StartWithWindows;
         }
 
         /// <summary>
@@ -97,5 +165,36 @@ namespace Lurker.UI
         }
 
         #endregion
+    }
+
+    [ComImport]
+    [Guid("00021401-0000-0000-C000-000000000046")]
+    internal class ShellLink
+    {
+    }
+
+    [ComImport]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    [Guid("000214F9-0000-0000-C000-000000000046")]
+    internal interface IShellLink
+    {
+        void GetPath([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszFile, int cchMaxPath, out IntPtr pfd, int fFlags);
+        void GetIDList(out IntPtr ppidl);
+        void SetIDList(IntPtr pidl);
+        void GetDescription([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszName, int cchMaxName);
+        void SetDescription([MarshalAs(UnmanagedType.LPWStr)] string pszName);
+        void GetWorkingDirectory([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszDir, int cchMaxPath);
+        void SetWorkingDirectory([MarshalAs(UnmanagedType.LPWStr)] string pszDir);
+        void GetArguments([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszArgs, int cchMaxPath);
+        void SetArguments([MarshalAs(UnmanagedType.LPWStr)] string pszArgs);
+        void GetHotkey(out short pwHotkey);
+        void SetHotkey(short wHotkey);
+        void GetShowCmd(out int piShowCmd);
+        void SetShowCmd(int iShowCmd);
+        void GetIconLocation([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszIconPath, int cchIconPath, out int piIcon);
+        void SetIconLocation([MarshalAs(UnmanagedType.LPWStr)] string pszIconPath, int iIcon);
+        void SetRelativePath([MarshalAs(UnmanagedType.LPWStr)] string pszPathRel, int dwReserved);
+        void Resolve(IntPtr hwnd, int fFlags);
+        void SetPath([MarshalAs(UnmanagedType.LPWStr)] string pszFile);
     }
 }
