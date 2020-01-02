@@ -13,6 +13,6 @@ You'll only need to start the application once since PoeLurker will start/stop w
 
 - **Keep track of your incoming trade request in a convenient overlay located above the exp bar.**  
 The overlay will displayed the value of incoming trade request with 1 main action and 2 sub actions possible.
-The main action have two states... The first one is to send the party invite and the other one is to send the trade request. Sub actions are meant to whisper that we are Busy and the other one is to denied. They are located in the top Left(Blue) and Right(Red) corner 
+The main action have two states... The first one is to send the party invite and the other one is to send the trade request. Sub actions are meant to whisper that we are Busy and the other one is to denied. They are located in the top Left and Right corner represented by Blue and Red square.
 
 ![](ReadMe.gif)
