@@ -3,7 +3,7 @@ Poe Lurker is a simple yet very powerful trade manager meant to ease the trading
 
 ## Usage
 - Install ≥ [.NET Framework 4.7.2](https://dotnet.microsoft.com/download/dotnet-framework)
-- Download and extract [PoeLurker.zip]() from the releases page.  
+- Download and extract [PoeLurker.zip](https://github.com/C1rdec/PoeLurker/releases/download/v1.0/PoeLurker.zip) from the releases page.  
 - Run PoeLurker.exe.  
 
 ## Key Features
