@@ -1,5 +1,5 @@
 # Poe Lurker <img src="LurkerIcon.png" width="100" height="100" />
-Poe Lurker is a simple yet very powerful trade manager for Path of Exile. 
+Poe Lurker is a simple yet very powerful trade manager meant to ease the trading experience for Path of Exile. 
 
 ## Usage
 - Install ≥ [.NET Framework 4.7.2](https://dotnet.microsoft.com/download/dotnet-framework)
