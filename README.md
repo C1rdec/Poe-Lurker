@@ -1,6 +1,8 @@
 # Poe Lurker <img src="LurkerIcon.png" width="100" height="100" />
 Poe Lurker is a simple yet very powerful trade manager meant to ease the trading experience for Path of Exile. 
 
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WEYTVSDNTB8GY&currency_code=CAD&source=url)
+
 ## Usage
 - Install ≥ [.NET Framework 4.7.2](https://dotnet.microsoft.com/download/dotnet-framework)
 - Download and extract [PoeLurker.zip](https://github.com/C1rdec/PoeLurker/releases/download/v1.0/PoeLurker.zip) from the releases page.  
