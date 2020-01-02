@@ -24,6 +24,7 @@ namespace Lurker
     {
         #region Fields
 
+        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
         private static readonly List<string> PossibleProcessNames = new List<string> { "PathOfExile", "PathOfExile_x64", "PathOfExileSteam", "PathOfExile_x64Steam" };
         private static readonly string ClientLogFileName = "Client.txt";
         private static readonly string ClientLogFolderName = "logs";
@@ -312,6 +313,8 @@ namespace Lurker
                 this.PlayerLeft?.Invoke(this, playerLeftEvent);
                 return;
             }
+
+            Logger.Trace($"Not parsed: {newline}");
         }
 
         /// <summary>
