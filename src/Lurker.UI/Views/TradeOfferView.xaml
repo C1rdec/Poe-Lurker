@@ -112,13 +112,13 @@
                             </Style>
                         </TextBlock.Style>
                     </TextBlock>
-                    <Button HorizontalAlignment="Left" Height="10" Width="10" cal:Message.Attach="[Event Click] = [Action Wait]" x:Name="IsWaiting">
+                    <Button HorizontalAlignment="Left" Height="15" Width="15" cal:Message.Attach="[Event Click] = [Action Wait]" x:Name="IsWaiting">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate TargetType="Button">
-                                            <Border CornerRadius="0,0,2,0">
+                                            <Border CornerRadius="0,0,20,0">
                                                 <Border.Style>
                                                     <Style TargetType="{x:Type Border}">
                                                         <Setter Property="Background" Value="Gray"/>
@@ -162,13 +162,13 @@
                             </Style>
                         </Button.Style>
                     </Button>
-                    <Button HorizontalAlignment="Right" Background="Red" Height="10" Width="10" cal:Message.Attach="[Event Click] = [Action Remove]" >
+                    <Button HorizontalAlignment="Right" Background="Red" Height="15" Width="15" cal:Message.Attach="[Event Click] = [Action Remove]" >
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate TargetType="Button">
-                                            <Border CornerRadius="0,0,0,2">
+                                            <Border CornerRadius="0,0,0,20">
                                                 <Border.Style>
                                                     <Style TargetType="{x:Type Border}">
                                                         <Setter Property="Background" Value="Gray"/>
