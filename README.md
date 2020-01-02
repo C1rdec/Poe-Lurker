@@ -9,7 +9,7 @@ Poe Lurker is a simple yet very powerful trade manager for Path of Exile.
 ## Key Features
 
 - **Very simple to use.**  
-You'll only need to start the application once since PoeLurker will Start/Stop with Path of Exile and the overlay will be placed automatically. You can even set the application to start when Windows start. ![](SystemTray.png)
+You'll only need to start the application once since PoeLurker will Start/Stop with Path of Exile and the overlay will be placed automatically. You can even set the application to start when Windows start and dont think about it again. ![](SystemTray.png)
 
 - **Keep track of your incoming trade request in a convenient overlay located above the exp bar.**  
 The overlay will displayed the value of incoming trade request with 1 main action and 2 sub actions possible.
