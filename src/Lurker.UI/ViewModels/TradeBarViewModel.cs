@@ -86,7 +86,7 @@ namespace Lurker.UI.ViewModels
         {
             Execute.OnUIThread(() => 
             {
-                this.TradeOffers.Insert(0, new TradeOfferViewModel(e, this._keyboardHelper, this.RemoveOffer));
+                this.TradeOffers.Add(new TradeOfferViewModel(e, this._keyboardHelper, this.RemoveOffer));
                 this.SortOffer();
             });
         }
