@@ -98,6 +98,13 @@
                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Alchemy}}"/>
+                        <Image Grid.RowSpan="3"
+                           Source="/Assets/Regal.png"
+                           Height="{Binding ActualHeight, ElementName=MainAction}"
+                           Width="{Binding ActualWidth, ElementName=MainAction}"
+                           Visibility="{Binding CurrencyType,
+                                            Converter={Converters:CurrencyTypeConverter}, 
+                                            ConverterParameter={x:Static Models:CurrencyType.Regal}}"/>
                         <TextBlock TextTrimming="CharacterEllipsis"
                                HorizontalAlignment="Right" 
                                Foreground="White" 

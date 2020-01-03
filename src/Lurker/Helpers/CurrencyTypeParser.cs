@@ -21,6 +21,7 @@ namespace Lurker.Helpers
             { CurrencyType.Chromatic, new string[]{ "chrome",  "chromatic", "chromatic orb" } },
             { CurrencyType.Alchemy, new string[]{ "alch",  "alchemy", "orb of alchemy" } },
             { CurrencyType.Vaal, new string[]{ "vaal", "vaal orb" } },
+            { CurrencyType.Regal, new string[]{ "regal", "regal orb" } },
         };
 
         /// <summary>

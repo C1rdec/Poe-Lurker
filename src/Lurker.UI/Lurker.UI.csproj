@@ -198,6 +198,7 @@
     <Resource Include="Assets\InInstance.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Assets\Regal.png" />
     <Content Include="Svg.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Svg.cs</LastGenOutput>

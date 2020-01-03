@@ -23,5 +23,7 @@ namespace Lurker.Models
         Vaal,
 
         Chromatic,
+
+        Regal,
     }
 }
