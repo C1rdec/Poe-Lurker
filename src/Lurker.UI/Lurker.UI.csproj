@@ -90,9 +90,15 @@
     <Compile Include="Helpers\DockingHelper.cs" />
     <Compile Include="Helpers\KeyboardHelper.cs" />
     <Compile Include="Helpers\PoeKeyboardHelper.cs" />
+    <Compile Include="Models\TradebarContext.cs" />
     <Compile Include="Native.cs" />
+    <Compile Include="Svg.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Svg.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\OfferStatus.cs" />
-    <Compile Include="ViewModels\TradeBarViewModel.cs" />
+    <Compile Include="ViewModels\TradebarViewModel.cs" />
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
@@ -102,8 +108,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ViewModels\TradeOfferViewModel.cs" />
-    <Compile Include="Views\TradeBarView.xaml.cs">
-      <DependentUpon>TradeBarView.xaml</DependentUpon>
+    <Compile Include="Views\TradebarView.xaml.cs">
+      <DependentUpon>TradebarView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TradeOfferView.xaml.cs">
       <DependentUpon>TradeOfferView.xaml</DependentUpon>
@@ -112,7 +118,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\TradeBarView.xaml">
+    <Page Include="Views\TradebarView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -139,6 +145,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Assets\Fontin.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -186,6 +193,19 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="TrayIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\InInstance.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Svg.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Svg.cs</LastGenOutput>
+    </Content>
+    <Content Include="SVG\InInstance.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

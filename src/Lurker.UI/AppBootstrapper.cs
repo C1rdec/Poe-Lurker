@@ -50,7 +50,7 @@ namespace Lurker.UI
             this._container.Singleton<IWindowManager, WindowManager>();
             this._container.Singleton<IEventAggregator, EventAggregator>();
             this._container.PerRequest<ShellViewModel, ShellViewModel>();
-            this._container.PerRequest<TradeBarViewModel, TradeBarViewModel>();
+            this._container.PerRequest<TradebarViewModel, TradebarViewModel>();
 
             this._container.RegisterInstance(typeof(SimpleContainer), null, this._container);
         }

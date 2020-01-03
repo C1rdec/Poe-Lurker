@@ -22,7 +22,7 @@ namespace Lurker.UI
         private IWindowManager _windowManager;
         private SimpleContainer _container;
         private ClientLurker _currentLurker;
-        private TradeBarViewModel _tradeBarOverlay;
+        private TradebarViewModel _tradeBarOverlay;
         private bool _startWithWindows;
 
         #endregion
@@ -131,7 +131,7 @@ namespace Lurker.UI
                 this._container.RegisterInstance(typeof(DockingHelper), null, dockingHelper);
                 this._container.RegisterInstance(typeof(PoeKeyboardHelper), null, keyboarHelper);
 
-                this._tradeBarOverlay = this._container.GetInstance<TradeBarViewModel>();
+                this._tradeBarOverlay = this._container.GetInstance<TradebarViewModel>();
                 this._windowManager.ShowWindow(this._tradeBarOverlay);
             });
         }

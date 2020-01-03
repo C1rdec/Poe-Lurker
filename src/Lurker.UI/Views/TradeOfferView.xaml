@@ -7,219 +7,227 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:cal="http://www.caliburnproject.org"
+             xmlns:local="clr-namespace:Lurker.UI"
              mc:Ignorable="d" 
              d:DesignHeight="65" d:DesignWidth="65">
-    <Button x:Name="Answer"
+    <Grid>
+        <Button x:Name="MainAction"
             ToolTipService.InitialShowDelay="1500"
             MinWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
             MaxWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
             Margin="0,0,4,0">
-        <Button.Template>
-            <ControlTemplate TargetType="{x:Type Button}">
-                <Grid>
-                    <Grid.Style>
-                        <Style TargetType="{x:Type Grid}">
-                            <Setter Property="Background" Value="#BDC2BF"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#E3E7D3"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Grid.Style>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="auto"/>
-                    </Grid.RowDefinitions>
-                    <Rectangle Grid.Row="2">
-                        <Rectangle.Style>
-                            <Style TargetType="{x:Type Rectangle}">
-                                <Setter Property="Fill" Value="#747771"/>
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Grid.Style>
+                            <Style TargetType="{x:Type Grid}">
+                                <Setter Property="Background" Value="#BDC2BF"/>
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Status}" Value="{x:Static Local:OfferStatus.Invited}">
-                                        <Setter Property="Fill" Value="Blue"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding Status}" Value="{x:Static Local:OfferStatus.Traded}">
-                                        <Setter Property="Fill" Value="Green"/>
-                                    </DataTrigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#E3E7D3"/>
+                                    </Trigger>
                                 </Style.Triggers>
                             </Style>
-                        </Rectangle.Style>
-                    </Rectangle>
-                    <Image Grid.RowSpan="3"
+                        </Grid.Style>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Rectangle Grid.Row="2">
+                            <Rectangle.Style>
+                                <Style TargetType="{x:Type Rectangle}">
+                                    <Setter Property="Fill" Value="#747771"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Status}" Value="{x:Static Local:OfferStatus.Invited}">
+                                            <Setter Property="Fill" Value="Blue"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Status}" Value="{x:Static Local:OfferStatus.Traded}">
+                                            <Setter Property="Fill" Value="Green"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Rectangle.Style>
+                        </Rectangle>
+                        <Image Grid.RowSpan="3"
                            Source="/Assets/Chaos.png"
-                           Height="{Binding ActualHeight, ElementName=Answer}"
-                           Width="{Binding ActualWidth, ElementName=Answer}"
+                           Height="{Binding ActualHeight, ElementName=MainAction}"
+                           Width="{Binding ActualWidth, ElementName=MainAction}"
                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Chaos}}"/>
-                    <Image Grid.RowSpan="3"
+                        <Image Grid.RowSpan="3"
                            Source="/Assets/Exalted.png"
-                           Height="{Binding ActualHeight, ElementName=Answer}"
-                           Width="{Binding ActualWidth, ElementName=Answer}"
+                           Height="{Binding ActualHeight, ElementName=MainAction}"
+                           Width="{Binding ActualWidth, ElementName=MainAction}"
                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Exalted}}"/>
-                    <Image Grid.RowSpan="3"
+                        <Image Grid.RowSpan="3"
                            Source="/Assets/Mirror.png"
-                           Height="{Binding ActualHeight, ElementName=Answer}"
-                           Width="{Binding ActualWidth, ElementName=Answer}"
+                           Height="{Binding ActualHeight, ElementName=MainAction}"
+                           Width="{Binding ActualWidth, ElementName=MainAction}"
                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Mirror}}"/>
-                    <Image Grid.RowSpan="3"
+                        <Image Grid.RowSpan="3"
                            Source="/Assets/Fusing.png"
-                           Height="{Binding ActualHeight, ElementName=Answer}"
-                           Width="{Binding ActualWidth, ElementName=Answer}"
+                           Height="{Binding ActualHeight, ElementName=MainAction}"
+                           Width="{Binding ActualWidth, ElementName=MainAction}"
                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Fusing}}"/>
-                    <Image Grid.RowSpan="3"
+                        <Image Grid.RowSpan="3"
                            Source="/Assets/Chromatic.png"
-                           Height="{Binding ActualHeight, ElementName=Answer}"
-                           Width="{Binding ActualWidth, ElementName=Answer}"
+                           Height="{Binding ActualHeight, ElementName=MainAction}"
+                           Width="{Binding ActualWidth, ElementName=MainAction}"
                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Chromatic}}"/>
-                    <Image Grid.RowSpan="3"
+                        <Image Grid.RowSpan="3"
                            Source="/Assets/Vaal.png"
-                           Height="{Binding ActualHeight, ElementName=Answer}"
-                           Width="{Binding ActualWidth, ElementName=Answer}"
+                           Height="{Binding ActualHeight, ElementName=MainAction}"
+                           Width="{Binding ActualWidth, ElementName=MainAction}"
                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Vaal}}"/>
-                    <Image Grid.RowSpan="3"
+                        <Image Grid.RowSpan="3"
                            Source="/Assets/Alchemy.png"
-                           Height="{Binding ActualHeight, ElementName=Answer}"
-                           Width="{Binding ActualWidth, ElementName=Answer}"
+                           Height="{Binding ActualHeight, ElementName=MainAction}"
+                           Width="{Binding ActualWidth, ElementName=MainAction}"
                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Alchemy}}"/>
-                    <TextBlock TextTrimming="CharacterEllipsis"
+                        <TextBlock TextTrimming="CharacterEllipsis"
                                HorizontalAlignment="Right" 
                                Foreground="White" 
                                VerticalAlignment="Bottom"
                                Margin="0,0,4,0" Grid.Row="2" FontSize="10" FontWeight="Bold">
-                        <TextBlock.Style>
-                            <Style TargetType="{x:Type TextBlock}">
-                                <Setter Property="Text" Value="{Binding NumberOffCurrency}"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding NumberOffCurrency}" Value="0">
-                                        <Setter Property="Text" Value="{Binding ItemName}"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                    <Button HorizontalAlignment="Left" Height="15" Width="15" cal:Message.Attach="[Event Click] = [Action Wait]" x:Name="IsWaiting">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border CornerRadius="0,0,20,0">
-                                                <Border.Style>
-                                                    <Style TargetType="{x:Type Border}">
-                                                        <Setter Property="Background" Value="Gray"/>
-                                                        <Setter Property="Opacity" Value="0.25"/>
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Text" Value="{Binding NumberOffCurrency}"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding NumberOffCurrency}" Value="0">
+                                            <Setter Property="Text" Value="{Binding ItemName}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <Button HorizontalAlignment="Left" Height="15" Width="15" cal:Message.Attach="[Event Click] = [Action Wait]" x:Name="IsWaiting">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border CornerRadius="0,0,20,0">
+                                                    <Border.Style>
+                                                        <Style TargetType="{x:Type Border}">
+                                                            <Setter Property="Background" Value="Gray"/>
+                                                            <Setter Property="Opacity" Value="0.25"/>
 
-                                                        <Style.Triggers>
-                                                            <Trigger Property="IsMouseOver" Value="True">
-                                                                <Setter Property="Background" Value="Blue" />
-                                                                <Setter Property="Opacity" Value="0.75"/>
-                                                            </Trigger>
-                                                            <MultiDataTrigger>
-                                                                <MultiDataTrigger.Conditions>
-                                                                    <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="False"/>
-                                                                    <Condition Binding="{Binding Waiting}" Value="True"/>
-                                                                </MultiDataTrigger.Conditions>
-                                                                <Setter Property="Background" Value="Blue" />
-                                                                <Setter Property="Opacity" Value="0.75"/>
-                                                            </MultiDataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Border.Style>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="True">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                    <MultiDataTrigger>
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="False"/>
-                                            <Condition Binding="{Binding Waiting}" Value="False"/>
-                                        </MultiDataTrigger.Conditions>
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                    </MultiDataTrigger>
-                                    <!--<DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="False">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                    </DataTrigger>-->
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                    </Button>
-                    <Button HorizontalAlignment="Right" Background="Red" Height="15" Width="15" cal:Message.Attach="[Event Click] = [Action Remove]" >
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border CornerRadius="0,0,0,20">
-                                                <Border.Style>
-                                                    <Style TargetType="{x:Type Border}">
-                                                        <Setter Property="Background" Value="Gray"/>
-                                                        <Setter Property="Opacity" Value="0.25"/>
-                                                        <Style.Triggers>
-                                                            <Trigger Property="IsMouseOver" Value="True">
-                                                                <Setter Property="Background" Value="Red" />
-                                                                <Setter Property="Opacity" Value="0.75"/>
-                                                            </Trigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Border.Style>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="True">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="False">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                    </Button>
-                </Grid>
-            </ControlTemplate>
-        </Button.Template>
-        <Button.ToolTip>
-            <ToolTip Placement="Top">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Text="{Binding ItemName}"/>
-                    <TextBlock Grid.Row="1" Text="{Binding Position}">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Style.Triggers>
-                                    <Trigger Property="Text" Value="">
-                                        <Setter Property="Visibility" Value="Collapsed" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                </Grid>
-            </ToolTip>
-        </Button.ToolTip>
-    </Button>
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Background" Value="Blue" />
+                                                                    <Setter Property="Opacity" Value="0.75"/>
+                                                                </Trigger>
+                                                                <MultiDataTrigger>
+                                                                    <MultiDataTrigger.Conditions>
+                                                                        <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="False"/>
+                                                                        <Condition Binding="{Binding Waiting}" Value="True"/>
+                                                                    </MultiDataTrigger.Conditions>
+                                                                    <Setter Property="Background" Value="Blue" />
+                                                                    <Setter Property="Opacity" Value="0.75"/>
+                                                                </MultiDataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Border.Style>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="False"/>
+                                                <Condition Binding="{Binding Waiting}" Value="False"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </MultiDataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                        <Button HorizontalAlignment="Right" Background="Red" Height="15" Width="15" cal:Message.Attach="[Event Click] = [Action Remove]" >
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border CornerRadius="0,0,0,20">
+                                                    <Border.Style>
+                                                        <Style TargetType="{x:Type Border}">
+                                                            <Setter Property="Background" Value="Gray"/>
+                                                            <Setter Property="Opacity" Value="0.25"/>
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Background" Value="Red" />
+                                                                    <Setter Property="Opacity" Value="0.75"/>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Border.Style>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                        <local:IconPack HorizontalAlignment="Right"
+                                        Grid.Row="1"
+                                        VerticalAlignment="Bottom"
+                                        Foreground="#303030"
+                                        Height="15"
+                                        Width="15"
+                                        Visibility="{Binding BuyerInSameInstance, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                        Data="{x:Static local:IconPackData.InInstance}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
+            <Button.ToolTip>
+                <ToolTip Placement="Top" IsOpen="True" StaysOpen="True">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="{Binding ItemName}"/>
+                        <TextBlock Grid.Row="1" Text="{Binding Position}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <Trigger Property="Text" Value="">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+                </ToolTip>
+            </Button.ToolTip>
+        </Button>
+    </Grid>
 </UserControl>

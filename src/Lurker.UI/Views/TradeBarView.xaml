@@ -1,4 +1,4 @@
-﻿<Window x:Class="Lurker.UI.Views.TradeBarView"
+﻿<Window x:Class="Lurker.UI.Views.TradebarView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -11,7 +11,7 @@
         Background="Transparent"
         mc:Ignorable="d"
         Title="Lurker">
-    <Grid Background="Transparent" x:Name="MainGrid">
+    <Grid Background="Green" x:Name="MainGrid">
         <ScrollViewer HorizontalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Hidden">
             <ItemsControl x:Name="TradeOffers">
                 <ItemsControl.ItemsPanel>
@@ -21,5 +21,23 @@
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
         </ScrollViewer>
+        <Popup HorizontalOffset="{Binding ItemNameHorizontalOffset}"
+               x:Name="ItemName"
+               PopupAnimation="Slide"
+               VerticalOffset="{Binding ItemNameVerticalOffset}" 
+               IsOpen="True"
+               AllowsTransparency="True"
+               Placement="Left" 
+               Height="{Binding ItemNameHeight}"
+               Width="{Binding ItemNameWidth}">
+            <Grid>
+                <TextBlock FontFamily="pack://application:,,,/Assets/#Fontin" 
+                           FontSize="14"
+                           Text="{Binding ItemName}"
+                           Foreground="#cb9e68" 
+                           VerticalAlignment="Center" 
+                           TextTrimming="CharacterEllipsis"/>
+            </Grid>
+        </Popup>
     </Grid>
 </Window>

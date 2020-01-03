@@ -12,11 +12,20 @@ namespace Lurker.UI.Views
     /// <summary>
     /// Interaction logic for TradeBarView.xaml
     /// </summary>
-    public partial class TradeBarView : Window
+    public partial class TradebarView : Window
     {
-        public TradeBarView()
+        public TradebarView()
         {
             InitializeComponent();
+
+            this.LocationChanged += this.TradeBarView_LocationChanged;
+        }
+
+        private void TradeBarView_LocationChanged(object sender, System.EventArgs e)
+        {
+            var offset = this.ItemName.HorizontalOffset;
+            this.ItemName.HorizontalOffset = offset + 1;
+            this.ItemName.HorizontalOffset = offset;
         }
 
         /// <summary>

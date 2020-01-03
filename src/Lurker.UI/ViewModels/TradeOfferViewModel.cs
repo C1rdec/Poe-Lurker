@@ -10,18 +10,19 @@ namespace Lurker.UI.ViewModels
     using Lurker.Events;
     using Lurker.Models;
     using Lurker.UI.Helpers;
-    using System;
+    using Lurker.UI.Models;
 
     public class TradeOfferViewModel: PropertyChangedBase
     {
         #region Fields
 
-        private bool _Waiting;
+        private bool _waiting;
         private TradeEvent _tradeEvent;
         private PoeKeyboardHelper _keyboardHelper;
         private OfferStatus _status;
-        private Action<TradeOfferViewModel> _removeAction;
-        private bool _skipAction;
+        private TradebarContext _tradebarContext;
+        private bool _skipMainAction;
+        private bool _buyerInSameInstance;
 
         #endregion
 
@@ -31,11 +32,11 @@ namespace Lurker.UI.ViewModels
         /// Initializes a new instance of the <see cref="TradeOfferViewModel"/> class.
         /// </summary>
         /// <param name="tradeEvent">The trade event.</param>
-        public TradeOfferViewModel(TradeEvent tradeEvent, PoeKeyboardHelper keyboardHelper, Action<TradeOfferViewModel> removeAction)
+        public TradeOfferViewModel(TradeEvent tradeEvent, PoeKeyboardHelper keyboardHelper, TradebarContext tradebarContext)
         {
             this._tradeEvent = tradeEvent;
             this._keyboardHelper = keyboardHelper;
-            this._removeAction = removeAction;
+            this._tradebarContext = tradebarContext;
         }
 
         #endregion
@@ -91,12 +92,29 @@ namespace Lurker.UI.ViewModels
         {
             get
             {
-                return this._Waiting;
+                return this._waiting;
             }
 
             set
             {
-                this._Waiting = value;
+                this._waiting = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [buyer in same instance].
+        /// </summary>
+        public bool BuyerInSameInstance
+        {
+            get
+            {
+                return this._buyerInSameInstance;
+            }
+
+            set
+            {
+                this._buyerInSameInstance = value;
                 this.NotifyOfPropertyChange();
             }
         }
@@ -110,8 +128,8 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public void Remove()
         {
-            this._skipAction = true;
-            this._removeAction(this);
+            this._skipMainAction = true;
+            this._tradebarContext.RemoveOffer(this);
         }
 
         /// <summary>
@@ -119,7 +137,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public void Wait()
         {
-            this._skipAction = true;
+            this._skipMainAction = true;
             this.Waiting = true;
             this._keyboardHelper.Whisper(this.PlayerName, "I'm busy right now I'll send you a party invite.");
         }
@@ -127,21 +145,21 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Answers this instance.
         /// </summary>
-        public void Answer()
+        public void MainAction()
         {
-            if (this._skipAction)
+            if (this._skipMainAction)
             {
-                this._skipAction = false;
+                this._skipMainAction = false;
                 return;
             }
 
             var playerName = this._tradeEvent.PlayerName;
-
             switch (this._status)
             {
                 case OfferStatus.Pending:
                     this.Status = OfferStatus.Invited;
                     this._keyboardHelper.Invite(playerName);
+                    this._tradebarContext.AddToActiveOffer(this);
                     break;
                 case OfferStatus.Invited:
                 case OfferStatus.Traded:

@@ -8,13 +8,14 @@ namespace Lurker.UI.ViewModels
 {
     using Caliburn.Micro;
     using Lurker.UI.Helpers;
+    using Lurker.UI.Models;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows;
 
-    public class TradeBarViewModel : Screen, IViewAware
+    public class TradebarViewModel : Screen, IViewAware
     {
         #region Fields
 
@@ -29,6 +30,13 @@ namespace Lurker.UI.ViewModels
         private ClientLurker _Lurker;
         private DockingHelper _dockingHelper;
         private PoeKeyboardHelper _keyboardHelper;
+        private double _itemNameVerticalOffset;
+        private double _itemNameHorizontalOffset;
+        private double _itemNameHeight;
+        private double _itemNameWidth;
+        private string _itemName;
+        private TradebarContext _context;
+        private List<TradeOfferViewModel> _activeOffers = new List<TradeOfferViewModel>();
 
         #endregion
 
@@ -40,7 +48,7 @@ namespace Lurker.UI.ViewModels
         /// <param name="lurker">The lurker.</param>
         /// <param name="dockingHelper">The docking helper.</param>
         /// <param name="keyboardHelper">The keyboard helper.</param>
-        public TradeBarViewModel(ClientLurker lurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper)
+        public TradebarViewModel(ClientLurker lurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper)
         {
             this._Lurker = lurker;
             this._dockingHelper = dockingHelper;
@@ -48,9 +56,14 @@ namespace Lurker.UI.ViewModels
             this.TradeOffers = new ObservableCollection<TradeOfferViewModel>();
 
             this._dockingHelper.OnWindowMove += this.DockingHelper_OnWindowMove;
+
             this._Lurker.PoeClosed += this.Lurker_PoeClosed;
             this._Lurker.NewOffer += this.Lurker_NewOffer;
             this._Lurker.TradeAccepted += this.Lurker_TradeAccepted;
+            this._Lurker.PlayerJoined += this.Lurker_PlayerJoined;
+            this._Lurker.PlayerLeft += this.Lurker_PlayerLeft;
+
+            this._context = new TradebarContext(this.RemoveOffer, this.AddActiveOffer);
             this.DisplayName = "Poe Lurker";
         }
 
@@ -62,6 +75,96 @@ namespace Lurker.UI.ViewModels
         /// Gets or sets the trade offers.
         /// </summary>
         public ObservableCollection<TradeOfferViewModel> TradeOffers { get; set; }
+
+        /// <summary>
+        /// Gets or sets the item name vertical offset.
+        /// </summary>
+        public double ItemNameVerticalOffset
+        {
+            get
+            {
+                return this._itemNameVerticalOffset;
+            }
+
+            set
+            {
+                this._itemNameVerticalOffset = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the item name horizontal offset.
+        /// </summary>
+        public double ItemNameHorizontalOffset
+        {
+            get
+            {
+                return this._itemNameHorizontalOffset;
+            }
+
+            set
+            {
+                this._itemNameHorizontalOffset = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the height of the item name.
+        /// </summary>
+        public double ItemNameHeight
+        {
+            get
+            {
+                return this._itemNameHeight;
+            }
+
+            set
+            {
+                this._itemNameHeight = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the width of the item name.
+        /// </summary>
+        public double ItemNameWidth
+        {
+            get
+            {
+                return this._itemNameWidth;
+            }
+
+            set
+            {
+                this._itemNameWidth = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the name of the item.
+        /// </summary>
+        public string ItemName
+        {
+            get
+            {
+                return this._itemName;
+            }
+
+            set
+            {
+                this._itemName = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets the active offer.
+        /// </summary>
+        private TradeOfferViewModel ActiveOffer => this._activeOffers.FirstOrDefault();
 
         #endregion
 
@@ -86,7 +189,7 @@ namespace Lurker.UI.ViewModels
         {
             Execute.OnUIThread(() => 
             {
-                this.TradeOffers.Add(new TradeOfferViewModel(e, this._keyboardHelper, this.RemoveOffer));
+                this.TradeOffers.Add(new TradeOfferViewModel(e, this._keyboardHelper, this._context));
                 this.SortOffer();
             });
         }
@@ -107,6 +210,32 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Lurkers the player joined.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The PLayerJoined Event.</param>
+        private void Lurker_PlayerJoined(object sender, Events.PlayerJoinedEvent e)
+        {
+            foreach (var offer in this.TradeOffers.Where(o => o.PlayerName == e.PlayerName))
+            {
+                offer.BuyerInSameInstance = true;
+            }
+        }
+
+        /// <summary>
+        /// Lurkers the player left.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
+        private void Lurker_PlayerLeft(object sender, Events.PlayerLeftEvent e)
+        {
+            foreach (var offer in this.TradeOffers.Where(o => o.PlayerName == e.PlayerName))
+            {
+                offer.BuyerInSameInstance = false;
+            }
+        }
+
+        /// <summary>
         /// Removes the offer.
         /// </summary>
         /// <param name="offer">The offer.</param>
@@ -114,8 +243,23 @@ namespace Lurker.UI.ViewModels
         {
             if (offer != null)
             {
-                Execute.OnUIThread(() => this.TradeOffers.Remove(offer));
+                Execute.OnUIThread(() => 
+                { 
+                    this.TradeOffers.Remove(offer);
+                    this._activeOffers.Remove(offer);
+                    this.ItemName = this.ActiveOffer?.ItemName;
+                });
             }
+        }
+
+        /// <summary>
+        /// Adds the active offer.
+        /// </summary>
+        /// <param name="offer">The offer.</param>
+        private void AddActiveOffer(TradeOfferViewModel offer)
+        {
+            this._activeOffers.Add(offer);
+            this.ItemName = this.ActiveOffer.ItemName;
         }
 
         /// <summary>
@@ -155,13 +299,17 @@ namespace Lurker.UI.ViewModels
             var overlayHeight = DefaultOverlayHeight * flaskBarHeight / DefaultFlaskBarHeight;
             var overlayWidth = (poeWidth - (flaskBarWidth * 2)) / 2;
 
+            this.ItemNameWidth = (flaskBarWidth * 0.24);
+            this.ItemNameHeight = expBarHeight;
+
+            this.ItemNameVerticalOffset = (flaskBarHeight * 0.30 * -1) - this.ItemNameHeight;
+
             Execute.OnUIThread(() =>
             {
                 this._view.Height = overlayHeight;
                 this._view.Width = overlayWidth;
                 this._view.Left = poePosition.Left + flaskBarWidth + Margin;
                 this._view.Top = poePosition.Bottom - overlayHeight - expBarHeight - Margin;
-
             });
         }
 

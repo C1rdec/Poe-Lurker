@@ -6,6 +6,8 @@
 
 namespace Lurker.UI.Views
 {
+    using System;
+    using System.Windows;
     using System.Windows.Controls;
 
     /// <summary>
