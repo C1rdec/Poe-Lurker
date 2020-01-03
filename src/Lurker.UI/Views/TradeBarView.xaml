@@ -11,7 +11,7 @@
         Background="Transparent"
         mc:Ignorable="d"
         Title="Lurker">
-    <Grid Background="Green" x:Name="MainGrid">
+    <Grid Background="Transparent" x:Name="MainGrid">
         <ScrollViewer HorizontalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Hidden">
             <ItemsControl x:Name="TradeOffers">
                 <ItemsControl.ItemsPanel>
