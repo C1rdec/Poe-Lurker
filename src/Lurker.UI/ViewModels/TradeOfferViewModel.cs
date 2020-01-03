@@ -177,7 +177,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         private void Sold()
         {
-            this._keyboardHelper.Whisper(this.PlayerName, "Sold.");
+            this._keyboardHelper.Whisper(this.PlayerName, "Sold");
             this.RemoveFromTradebar();
         }
 

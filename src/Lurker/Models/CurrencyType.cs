@@ -25,5 +25,7 @@ namespace Lurker.Models
         Chromatic,
 
         Regal,
+
+        Divine,
     }
 }
