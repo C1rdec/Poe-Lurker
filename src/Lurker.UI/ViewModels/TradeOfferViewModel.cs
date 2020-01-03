@@ -11,6 +11,7 @@ namespace Lurker.UI.ViewModels
     using Lurker.Models;
     using Lurker.UI.Helpers;
     using Lurker.UI.Models;
+    using System.Windows.Input;
 
     public class TradeOfferViewModel: PropertyChangedBase
     {
@@ -129,7 +130,7 @@ namespace Lurker.UI.ViewModels
         public void Remove()
         {
             this._skipMainAction = true;
-            this._tradebarContext.RemoveOffer(this);
+            this.RemoveFromTradebar();
         }
 
         /// <summary>
@@ -153,20 +154,58 @@ namespace Lurker.UI.ViewModels
                 return;
             }
 
-            var playerName = this._tradeEvent.PlayerName;
+            if (Keyboard.IsKeyDown(Key.LeftCtrl))
+            {
+                this.Sold();
+                return;
+            }
+
             switch (this._status)
             {
                 case OfferStatus.Pending:
-                    this.Status = OfferStatus.Invited;
-                    this._keyboardHelper.Invite(playerName);
-                    this._tradebarContext.AddToActiveOffer(this);
+                    this.Invite();
                     break;
                 case OfferStatus.Invited:
                 case OfferStatus.Traded:
-                    this.Status = OfferStatus.Traded;
-                    this._keyboardHelper.Trade(playerName);
+                    this.Trade();
                     break;
             }
+        }
+
+        /// <summary>
+        /// Tell the buyer that the item is sold.
+        /// </summary>
+        private void Sold()
+        {
+            this._keyboardHelper.Whisper(this.PlayerName, "Sold.");
+            this.RemoveFromTradebar();
+        }
+
+        /// <summary>
+        /// Invites the buyer.
+        /// </summary>
+        private void Invite()
+        {
+            this.Status = OfferStatus.Invited;
+            this._keyboardHelper.Invite(this.PlayerName);
+            this._tradebarContext.AddToActiveOffer(this);
+        }
+
+        /// <summary>
+        /// Trades the Buyer.
+        /// </summary>
+        private void Trade()
+        {
+            this.Status = OfferStatus.Traded;
+            this._keyboardHelper.Trade(this.PlayerName);
+        }
+
+        /// <summary>
+        /// Removes this instance.
+        /// </summary>
+        private void RemoveFromTradebar()
+        {
+            this._tradebarContext.RemoveOffer(this);
         }
 
         #endregion

@@ -19,7 +19,18 @@
             <tb:TaskbarIcon.ContextMenu>
                 <ContextMenu>
                     <MenuItem IsChecked="{Binding StartWithWindows}" Header="Start with Windows" cal:Message.Attach="[Event Click] = [Action CreateShortCut]"/>
-                    <MenuItem Header="Close" cal:Message.Attach="[Event Click] = [Action Close]"/>
+                    <MenuItem cal:Message.Attach="[Event Click] = [Action Close]">
+                        <MenuItem.Header>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock>Close </TextBlock>
+                                <TextBlock Foreground="DarkGray" Margin="15,0,0,0"  Text="{Binding Version}" Grid.Column="1"/>
+                            </Grid>
+                        </MenuItem.Header>
+                    </MenuItem>
                 </ContextMenu>
             </tb:TaskbarIcon.ContextMenu>
         </tb:TaskbarIcon>

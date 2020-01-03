@@ -12,6 +12,7 @@ namespace Lurker.UI
     using System;
     using System.Diagnostics;
     using System.IO;
+    using System.Reflection;
     using System.Runtime.InteropServices;
     using System.Runtime.InteropServices.ComTypes;
     using System.Text;
@@ -84,6 +85,11 @@ namespace Lurker.UI
         /// </summary>
         public string ShortcutFilePath => Path.Combine(this.StartupFolderPath, this.ShortcutName);
 
+        /// <summary>
+        /// Gets the version.
+        /// </summary>
+        public string Version => GetAssemblyVersion();
+
         #endregion
 
         #region Methods
@@ -116,6 +122,18 @@ namespace Lurker.UI
             }
 
             this.StartWithWindows = !this.StartWithWindows;
+        }
+
+        /// <summary>
+        /// Gets the assembly version.
+        /// </summary>
+        /// <returns>The assembly version</returns>
+        private static string GetAssemblyVersion()
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var information = FileVersionInfo.GetVersionInfo(assembly.Location);
+            var version = information.FileVersion.Remove(information.FileVersion.Length - 2);
+            return version;
         }
 
         /// <summary>
