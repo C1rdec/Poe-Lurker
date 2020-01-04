@@ -12,6 +12,7 @@ namespace Lurker.UI.ViewModels
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Configuration;
     using System.Linq;
     using System.Windows;
 
@@ -37,6 +38,9 @@ namespace Lurker.UI.ViewModels
         private string _itemName;
         private TradebarContext _context;
         private List<TradeOfferViewModel> _activeOffers = new List<TradeOfferViewModel>();
+
+        private const string THANKS_MESSAGE = "Thanks! Happy mapping!";
+        private static string _thanksMessage;
 
         #endregion
 
@@ -166,6 +170,18 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         private TradeOfferViewModel ActiveOffer => this._activeOffers.FirstOrDefault();
 
+        private string ThanksMessage
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(_thanksMessage))
+                {
+                    _thanksMessage = ConfigurationManager.AppSettings["thanksMessage"] ?? THANKS_MESSAGE;
+                }
+                return _thanksMessage;
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -205,6 +221,7 @@ namespace Lurker.UI.ViewModels
             if (offer != null)
             {
                 this._keyboardHelper.Kick(offer.PlayerName);
+                this._keyboardHelper.Whisper(offer.PlayerName, ThanksMessage);
                 this.RemoveOffer(offer);
             }
         }

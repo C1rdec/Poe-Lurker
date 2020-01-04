@@ -11,6 +11,7 @@ namespace Lurker.UI.ViewModels
     using Lurker.Models;
     using Lurker.UI.Helpers;
     using Lurker.UI.Models;
+    using System.Configuration;
     using System.Windows.Input;
 
     public class TradeOfferViewModel: PropertyChangedBase
@@ -24,6 +25,12 @@ namespace Lurker.UI.ViewModels
         private TradebarContext _tradebarContext;
         private bool _skipMainAction;
         private bool _buyerInSameInstance;
+
+        private const string BUSY_MESSAGE = "I'm busy right now I'll send you a party invite.";
+        private const string SOLD_MESSAGE = "I'm sorry, that item has already been sold.";
+
+        private static string _busyMessage;
+        private static string _soldMessage;
 
         #endregion
 
@@ -120,6 +127,30 @@ namespace Lurker.UI.ViewModels
             }
         }
 
+        private string BusyMessage
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(_busyMessage))
+                {
+                    _busyMessage = ConfigurationManager.AppSettings["busyMessage"] ?? BUSY_MESSAGE;
+                }
+                return _busyMessage;
+            }
+        }
+
+        private string SoldMessage
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(_soldMessage))
+                {
+                    _soldMessage = ConfigurationManager.AppSettings["soldMessage"] ?? SOLD_MESSAGE;
+                }
+                return _soldMessage;
+            }
+        }
+
         #endregion
 
         #region 
@@ -140,7 +171,7 @@ namespace Lurker.UI.ViewModels
         {
             this._skipMainAction = true;
             this.Waiting = true;
-            this._keyboardHelper.Whisper(this.PlayerName, "I'm busy right now I'll send you a party invite.");
+            this._keyboardHelper.Whisper(this.PlayerName, BusyMessage);
         }
 
         /// <summary>
@@ -177,7 +208,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         private void Sold()
         {
-            this._keyboardHelper.Whisper(this.PlayerName, "Sold");
+            this._keyboardHelper.Whisper(this.PlayerName, SoldMessage);
             this.RemoveFromTradebar();
         }
 
