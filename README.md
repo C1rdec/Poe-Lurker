@@ -8,6 +8,9 @@ Poe Lurker is a simple yet very powerful trade manager meant to ease the trading
 - Download and extract PoeLurker.zip from the [Releases Page](https://github.com/C1rdec/PoeLurker/releases).  
 - Run PoeLurker.exe.  
 
+**Windows 7 users**:
+Please enable last access timestamps using [this guide](https://www.groovypost.com/howto/microsoft/enable-last-access-time-stamp-to-files-folder-windows-7/amp/).
+
 ## Key Features
 
 - **Very simple to use.**  
