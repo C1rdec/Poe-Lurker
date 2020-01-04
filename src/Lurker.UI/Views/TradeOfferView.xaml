@@ -223,7 +223,7 @@
                 </ControlTemplate>
             </Button.Template>
             <Button.ToolTip>
-                <ToolTip Placement="Top" IsOpen="True" StaysOpen="True">
+                <ToolTip Placement="Top">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>

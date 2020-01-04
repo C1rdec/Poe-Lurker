@@ -99,7 +99,7 @@ namespace Lurker.UI
         /// </summary>
         public void Close()
         {
-            this._tradeBarOverlay.TryClose();
+            this._tradeBarOverlay?.TryClose();
             this.TryClose();
         }
 
