@@ -148,13 +148,19 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public void MainAction()
         {
+            // Alt cannot be use since we send Enter to the Keyboard
+            if (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt))
+            {
+                return;
+            }
+
             if (this._skipMainAction)
             {
                 this._skipMainAction = false;
                 return;
             }
 
-            if (Keyboard.IsKeyDown(Key.LeftCtrl))
+            if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
             {
                 this.Sold();
                 return;
