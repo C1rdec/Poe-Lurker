@@ -140,7 +140,7 @@ namespace Lurker.UI.ViewModels
         {
             this._skipMainAction = true;
             this.Waiting = true;
-            this._keyboardHelper.Whisper(this.PlayerName, "I'm busy right now I'll send you a party invite.");
+            this._keyboardHelper.Whisper(this.PlayerName, MessageHelper.BusyMessage);
         }
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         private void Sold()
         {
-            this._keyboardHelper.Whisper(this.PlayerName, "Sold");
+            this._keyboardHelper.Whisper(this.PlayerName, MessageHelper.SoldMessage);
             this.RemoveFromTradebar();
         }
 

@@ -204,6 +204,11 @@ namespace Lurker.UI.ViewModels
             var offer = this.TradeOffers.Where(t => t.Status == OfferStatus.Traded).FirstOrDefault();
             if (offer != null)
             {
+                if (!string.IsNullOrEmpty(MessageHelper.ThanksMessage))
+                {
+                    this._keyboardHelper.Whisper(offer.PlayerName, MessageHelper.ThanksMessage);
+                }
+
                 this._keyboardHelper.Kick(offer.PlayerName);
                 this.RemoveOffer(offer);
             }
