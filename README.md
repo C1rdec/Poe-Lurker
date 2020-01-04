@@ -3,10 +3,15 @@ Poe Lurker is a simple yet very powerful trade manager meant to ease the trading
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WEYTVSDNTB8GY&currency_code=CAD&source=url)
 
+[![Discord](https://cdn1.iconfinder.com/data/icons/logos-and-brands-3/512/91_Discord_logo_logos-128.png)](https://discord.gg/pPxsvdX)
+
 ## Usage
 - Install ≥ [.NET Framework 4.7.2](https://dotnet.microsoft.com/download/dotnet-framework)
 - Download and extract PoeLurker.zip from the [Releases Page](https://github.com/C1rdec/PoeLurker/releases).  
 - Run PoeLurker.exe.  
+
+**Windows 7 users**:
+Please enable last access timestamps using [this guide](https://www.groovypost.com/howto/microsoft/enable-last-access-time-stamp-to-files-folder-windows-7/amp/).
 
 ## Key Features
 
