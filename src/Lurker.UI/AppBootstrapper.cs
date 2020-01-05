@@ -31,11 +31,6 @@ namespace Lurker.UI
             this.Initialize();
         }
 
-        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
-            Logger.Error((e.ExceptionObject as Exception).Message);
-        }
-
         #endregion
 
         #region Methods
@@ -97,6 +92,16 @@ namespace Lurker.UI
         protected override void OnStartup(object sender, System.Windows.StartupEventArgs e) 
         {
             DisplayRootViewFor<ShellViewModel>();
+        }
+
+        /// <summary>
+        /// Handles the UnhandledException event of the CurrentDomain control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="UnhandledExceptionEventArgs"/> instance containing the event data.</param>
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            Logger.Error((e.ExceptionObject as Exception).Message);
         }
 
         #endregion
