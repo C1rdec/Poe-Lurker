@@ -35,6 +35,7 @@ namespace Lurker.UI.ViewModels
         private double _itemNameHeight;
         private double _itemNameWidth;
         private string _itemName;
+        private bool _hasActiveOffer;
         private TradebarContext _context;
         private List<TradeOfferViewModel> _activeOffers = new List<TradeOfferViewModel>();
 
@@ -62,6 +63,7 @@ namespace Lurker.UI.ViewModels
             this._Lurker.TradeAccepted += this.Lurker_TradeAccepted;
             this._Lurker.PlayerJoined += this.Lurker_PlayerJoined;
             this._Lurker.PlayerLeft += this.Lurker_PlayerLeft;
+            this.PropertyChanged += this.TradebarViewModel_PropertyChanged;
 
             this._context = new TradebarContext(this.RemoveOffer, this.AddActiveOffer);
             this.DisplayName = "Poe Lurker";
@@ -75,6 +77,23 @@ namespace Lurker.UI.ViewModels
         /// Gets or sets the trade offers.
         /// </summary>
         public ObservableCollection<TradeOfferViewModel> TradeOffers { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance has active offer.
+        /// </summary>
+        public bool HasActiveOffer
+        {
+            get
+            {
+                return this._hasActiveOffer;
+            }
+
+            set
+            {
+                this._hasActiveOffer = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the item name vertical offset.
@@ -169,6 +188,31 @@ namespace Lurker.UI.ViewModels
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Searches the item.
+        /// </summary>
+        public void SearchItem()
+        {
+            var activeOffer = this.ActiveOffer;
+            if (activeOffer != null)
+            {
+                this._keyboardHelper.Search(activeOffer.ItemName);
+            }
+        }
+
+        /// <summary>
+        /// Handles the PropertyChanged event of the TradebarViewModel control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
+        private void TradebarViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(this.ItemName))
+            {
+                this.HasActiveOffer = string.IsNullOrEmpty(this.ItemName) ? false : true;
+            }
+        }
 
         /// <summary>
         /// Handles the PoeEnded event of the Lurker control.

@@ -14,13 +14,26 @@ namespace Lurker.UI.Views
     /// </summary>
     public partial class TradebarView : Window
     {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TradebarView"/> class.
+        /// </summary>
         public TradebarView()
         {
             InitializeComponent();
-
             this.LocationChanged += this.TradeBarView_LocationChanged;
         }
 
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Handles the LocationChanged event of the TradeBarView control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void TradeBarView_LocationChanged(object sender, System.EventArgs e)
         {
             var offset = this.ItemName.HorizontalOffset;
@@ -39,5 +52,7 @@ namespace Lurker.UI.Views
             scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset - e.Delta);
             e.Handled = true;
         }
+
+        #endregion
     }
 }

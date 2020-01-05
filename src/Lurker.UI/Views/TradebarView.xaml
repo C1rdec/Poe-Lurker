@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cal="http://www.caliburnproject.org"
         Topmost="True"
         Icon="/Assets/TradeBarIcon.ico"
         WindowStyle="None"
@@ -22,22 +23,50 @@
             </ItemsControl>
         </ScrollViewer>
         <Popup HorizontalOffset="{Binding ItemNameHorizontalOffset}"
+               VerticalOffset="{Binding ItemNameVerticalOffset}" 
                x:Name="ItemName"
                PopupAnimation="Slide"
-               VerticalOffset="{Binding ItemNameVerticalOffset}" 
-               IsOpen="True"
+               IsOpen="{Binding HasActiveOffer}"
                AllowsTransparency="True"
                Placement="Left" 
                Height="{Binding ItemNameHeight}"
                Width="{Binding ItemNameWidth}">
-            <Grid>
-                <TextBlock FontFamily="pack://application:,,,/Assets/#Fontin" 
-                           FontSize="14"
-                           Text="{Binding ItemName}"
-                           Foreground="#cb9e68" 
-                           VerticalAlignment="Center" 
-                           TextTrimming="CharacterEllipsis"/>
-            </Grid>
+            <Button Content="{Binding ItemName}" 
+                    Cursor="Hand"
+                    cal:Message.Attach="[Event Click] = [Action SearchItem]">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Grid>
+                                        <Border CornerRadius="4">
+                                            <Border.Style>
+                                                <Style TargetType="{x:Type Border}">
+                                                    <Setter Property="Background" Value="#5f4321"/>
+                                                    <Setter Property="Opacity" Value="0.5"/>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Opacity" Value="1"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                            <TextBlock Margin="4" 
+                                                       FontFamily="pack://application:,,,/Assets/#Fontin"
+                                                       Foreground="#cb9e68" 
+                                                       FontSize="14"
+                                                       TextTrimming="CharacterEllipsis" 
+                                                       VerticalAlignment="Center" 
+                                                       Text="{Binding ItemName}"/>
+                                        </Border>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
         </Popup>
     </Grid>
 </Window>

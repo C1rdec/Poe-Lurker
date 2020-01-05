@@ -38,6 +38,22 @@ namespace Lurker.UI.Helpers
         #region Methods
 
         /// <summary>
+        /// Simulates a search using Ctrl+F 
+        /// </summary>
+        /// <param name="searchTerm">The search term to use</param>
+        public void Search(string searchTerm)
+        {
+            lock (CommandLock)
+            {
+                Native.SetForegroundWindow(this._windowHandle);
+                System.Windows.Forms.SendKeys.SendWait("^F");
+
+                // We are using the interop since SendWait block mouse input.
+                this._simulator.Keyboard.TextEntry(searchTerm);
+            }
+        }
+
+        /// <summary>
         /// Sends the command.
         /// </summary>
         /// <param name="command">The command.</param>
