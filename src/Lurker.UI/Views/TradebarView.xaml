@@ -56,7 +56,8 @@
                                                        FontFamily="pack://application:,,,/Assets/#Fontin"
                                                        Foreground="#cb9e68" 
                                                        FontSize="14"
-                                                       TextTrimming="CharacterEllipsis" 
+                                                       TextTrimming="CharacterEllipsis"
+                                                       HorizontalAlignment="Center"
                                                        VerticalAlignment="Center" 
                                                        Text="{Binding ItemName}"/>
                                         </Border>

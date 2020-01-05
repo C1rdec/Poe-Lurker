@@ -40,7 +40,7 @@ namespace Lurker.Events
             var textBeforeMarker = this.Message.Substring(0, itemIndex);
 
             var greetingMarker = GreetingMarkers.FirstOrDefault(m => this.Message.Contains(m));
-            this.ItemName = this.Message.Substring(greetingMarker.Length + 1, textBeforeMarker.Length - greetingMarker.Length -1);
+            this.ItemName = this.Message.Substring(greetingMarker.Length + 1, textBeforeMarker.Length - greetingMarker.Length -2);
 
             // Location
             var locationMarkerIndex = this.Message.IndexOf(LocationMarker);
