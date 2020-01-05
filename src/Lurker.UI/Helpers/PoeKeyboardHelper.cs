@@ -62,6 +62,15 @@ namespace Lurker.UI.Helpers
             this.SendCommand($@"@{characterName} {message}");
         }
 
+        /// <summary>
+        /// Searches for an item in an opened stash
+        /// </summary>
+        /// <param name="itemName">The name of item to search for</param>
+        public void Search(string itemName)
+        {
+            base.Search(itemName);
+        }
+
         #endregion
     }
 }

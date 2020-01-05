@@ -187,6 +187,12 @@ namespace Lurker.UI.ViewModels
             this.RemoveFromTradebar();
         }
 
+        public void SearchItem()
+        {
+            this._skipMainAction = true;
+            this._keyboardHelper.Search(this.ItemName);
+        }
+
         /// <summary>
         /// Invites the buyer.
         /// </summary>

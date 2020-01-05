@@ -176,6 +176,40 @@
                                     </Style>
                                 </Button.Style>
                             </Button>
+                            <Button HorizontalAlignment="Center" Background="Green" VerticalAlignment="Top" Height="10" Width="20" cal:Message.Attach="[Event Click] = [Action SearchItem]" >
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border CornerRadius="0,0,10,10">
+                                                        <Border.Style>
+                                                            <Style TargetType="{x:Type Border}">
+                                                                <Setter Property="Background" Value="Gray"/>
+                                                                <Setter Property="Opacity" Value="0.25"/>
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" Value="Green" />
+                                                                        <Setter Property="Opacity" Value="0.75"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Border.Style>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="False">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
                             <Button HorizontalAlignment="Right" Background="Red" Height="15" Width="15" cal:Message.Attach="[Event Click] = [Action Remove]" >
                                 <Button.Style>
                                     <Style TargetType="Button">
