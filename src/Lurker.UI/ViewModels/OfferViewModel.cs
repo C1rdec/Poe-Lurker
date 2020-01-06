@@ -17,6 +17,7 @@ namespace Lurker.UI.ViewModels
     {
         #region Fields
 
+        private bool _active;
         private bool _waiting;
         private TradeEvent _tradeEvent;
         private PoeKeyboardHelper _keyboardHelper;
@@ -99,6 +100,23 @@ namespace Lurker.UI.ViewModels
             set
             {
                 this._waiting = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="OfferViewModel"/> is active.
+        /// </summary>
+        public bool Active
+        {
+            get
+            {
+                return this._active;
+            }
+
+            set
+            {
+                this._active = value;
                 this.NotifyOfPropertyChange();
             }
         }

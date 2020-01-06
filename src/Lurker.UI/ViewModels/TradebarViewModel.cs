@@ -234,7 +234,6 @@ namespace Lurker.UI.ViewModels
             Execute.OnUIThread(() => 
             {
                 this.TradeOffers.Add(new OfferViewModel(e, this._keyboardHelper, this._context));
-                this.SortOffer();
             });
         }
 
@@ -296,7 +295,14 @@ namespace Lurker.UI.ViewModels
                 { 
                     this.TradeOffers.Remove(offer);
                     this._activeOffers.Remove(offer);
-                    this.ItemName = this.ActiveOffer?.ItemName;
+                    this.ItemName = string.Empty;
+
+                    var activeOffer = this.ActiveOffer;
+                    if (this.ActiveOffer != null)
+                    {
+                        this.ItemName = this.ActiveOffer.ItemName;
+                        this.ActiveOffer.Active = true;
+                    }
                 });
             }
         }
@@ -309,6 +315,7 @@ namespace Lurker.UI.ViewModels
         {
             this._activeOffers.Add(offer);
             this.ItemName = this.ActiveOffer.ItemName;
+            this.ActiveOffer.Active = true;
         }
 
         /// <summary>

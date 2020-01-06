@@ -10,12 +10,21 @@
              xmlns:local="clr-namespace:Lurker.UI"
              mc:Ignorable="d" 
              d:DesignHeight="65" d:DesignWidth="65">
-    <Grid>
+    <Border BorderThickness="2" CornerRadius="4">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Active}" Value="True">
+                        <Setter Property="BorderBrush" Value="#c4a102"/>
+                        <Setter Property="Background" Value="#c4a102"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
         <Button x:Name="MainAction"
             ToolTipService.InitialShowDelay="1500"
             MinWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-            MaxWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-            Margin="0,0,4,0">
+            MaxWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border CornerRadius="4">
@@ -35,21 +44,21 @@
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
-                            <Rectangle Grid.Row="2">
-                                <Rectangle.Style>
-                                    <Style TargetType="{x:Type Rectangle}">
-                                        <Setter Property="Fill" Value="#747771"/>
+                            <Border Grid.Row="2" CornerRadius="0,0,4,4">
+                                <Border.Style>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="Background" Value="#747771"/>
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding Status}" Value="{x:Static Local:OfferStatus.Invited}">
-                                                <Setter Property="Fill" Value="Blue"/>
+                                                <Setter Property="Background" Value="Blue"/>
                                             </DataTrigger>
                                             <DataTrigger Binding="{Binding Status}" Value="{x:Static Local:OfferStatus.Traded}">
-                                                <Setter Property="Fill" Value="Green"/>
+                                                <Setter Property="Background" Value="Green"/>
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
-                                </Rectangle.Style>
-                            </Rectangle>
+                                </Border.Style>
+                            </Border>
                             <Image Grid.RowSpan="3"
                            Source="/Assets/Chaos.png"
                            Height="{Binding ActualHeight, ElementName=MainAction}"
@@ -245,5 +254,5 @@
                 </ToolTip>
             </Button.ToolTip>
         </Button>
-    </Grid>
+    </Border>
 </UserControl>
