@@ -122,6 +122,15 @@
                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Divine}}"/>
+                            <local:IconPack HorizontalAlignment="Left"
+                                            VerticalAlignment="Bottom"
+                                            Foreground="White"
+                                            Grid.Row="2"
+                                            Margin="1,0,0,0"
+                                            Visibility="{Binding BuyerInSameInstance, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                            Height="15"
+                                            Width="15"
+                                            Data="{x:Static local:IconPackData.InInstance}"/>
                             <TextBlock TextTrimming="CharacterEllipsis"
                                HorizontalAlignment="Right" 
                                Foreground="White" 
@@ -219,14 +228,6 @@
                                     </Style>
                                 </Button.Style>
                             </Button>
-                            <local:IconPack HorizontalAlignment="Right"
-                                        Grid.Row="1"
-                                        VerticalAlignment="Bottom"
-                                        Foreground="#303030"
-                                        Height="15"
-                                        Width="15"
-                                        Visibility="{Binding BuyerInSameInstance, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                        Data="{x:Static local:IconPackData.InInstance}"/>
                         </Grid>
                     </Border>
                 </ControlTemplate>
