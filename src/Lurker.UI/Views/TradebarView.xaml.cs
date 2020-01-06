@@ -6,6 +6,7 @@
 
 namespace Lurker.UI.Views
 {
+    using System;
     using System.Windows;
     using System.Windows.Controls;
 
@@ -14,6 +15,12 @@ namespace Lurker.UI.Views
     /// </summary>
     public partial class TradebarView : Window
     {
+        #region Fields
+
+        private Window _parent;
+
+        #endregion
+
         #region Constructors
 
         /// <summary>
@@ -31,11 +38,21 @@ namespace Lurker.UI.Views
         #region Methods
 
         /// <summary>
+        /// Raises the <see cref="E:System.Windows.Window.Closed" /> event.
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
+        protected override void OnClosed(EventArgs e)
+        {
+            this._parent.Close();
+            base.OnClosed(e);
+        }
+
+        /// <summary>
         /// Hides the window from alt tab.
         /// </summary>
         private void HideFromAltTab()
         {
-            var newWindow = new Window
+            this._parent = new Window
             {
                 Top = -100,
                 Left = -100,
@@ -46,9 +63,9 @@ namespace Lurker.UI.Views
                 ShowInTaskbar = false
             };
 
-            newWindow.Show();
-            this.Owner = newWindow;
-            newWindow.Hide();
+            this._parent.Show();
+            this.Owner = this._parent;
+            this._parent.Hide();
         }
 
         /// <summary>
