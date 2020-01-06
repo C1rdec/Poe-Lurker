@@ -108,12 +108,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModels\TradeOfferViewModel.cs" />
+    <Compile Include="ViewModels\OfferViewModel.cs" />
     <Compile Include="Views\TradebarView.xaml.cs">
       <DependentUpon>TradebarView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TradeOfferView.xaml.cs">
-      <DependentUpon>TradeOfferView.xaml</DependentUpon>
+    <Compile Include="Views\OfferView.xaml.cs">
+      <DependentUpon>OfferView.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\ShellView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -123,7 +123,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\TradeOfferView.xaml">
+    <Page Include="Views\OfferView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

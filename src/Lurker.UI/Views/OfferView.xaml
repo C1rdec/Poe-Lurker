@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Lurker.UI.Views.TradeOfferView"
+﻿<UserControl x:Class="Lurker.UI.Views.OfferView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Converters="clr-namespace:Lurker.UI.Converters"

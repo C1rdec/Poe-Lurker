@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="TradeOfferViewModel.cs" company="Wohs">
+// <copyright file="OfferViewModel.cs" company="Wohs">
 //     Missing Copyright information from a valid stylecop.json file.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -13,7 +13,7 @@ namespace Lurker.UI.ViewModels
     using Lurker.UI.Models;
     using System.Windows.Input;
 
-    public class TradeOfferViewModel: PropertyChangedBase
+    public class OfferViewModel: PropertyChangedBase
     {
         #region Fields
 
@@ -33,7 +33,7 @@ namespace Lurker.UI.ViewModels
         /// Initializes a new instance of the <see cref="TradeOfferViewModel"/> class.
         /// </summary>
         /// <param name="tradeEvent">The trade event.</param>
-        public TradeOfferViewModel(TradeEvent tradeEvent, PoeKeyboardHelper keyboardHelper, TradebarContext tradebarContext)
+        public OfferViewModel(TradeEvent tradeEvent, PoeKeyboardHelper keyboardHelper, TradebarContext tradebarContext)
         {
             this._tradeEvent = tradeEvent;
             this._keyboardHelper = keyboardHelper;

@@ -37,7 +37,7 @@ namespace Lurker.UI.ViewModels
         private string _itemName;
         private bool _hasActiveOffer;
         private TradebarContext _context;
-        private List<TradeOfferViewModel> _activeOffers = new List<TradeOfferViewModel>();
+        private List<OfferViewModel> _activeOffers = new List<OfferViewModel>();
 
         #endregion
 
@@ -54,7 +54,7 @@ namespace Lurker.UI.ViewModels
             this._Lurker = lurker;
             this._dockingHelper = dockingHelper;
             this._keyboardHelper = keyboardHelper;
-            this.TradeOffers = new ObservableCollection<TradeOfferViewModel>();
+            this.TradeOffers = new ObservableCollection<OfferViewModel>();
 
             this._dockingHelper.OnWindowMove += this.DockingHelper_OnWindowMove;
 
@@ -76,7 +76,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets or sets the trade offers.
         /// </summary>
-        public ObservableCollection<TradeOfferViewModel> TradeOffers { get; set; }
+        public ObservableCollection<OfferViewModel> TradeOffers { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance has active offer.
@@ -183,7 +183,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets the active offer.
         /// </summary>
-        private TradeOfferViewModel ActiveOffer => this._activeOffers.FirstOrDefault();
+        private OfferViewModel ActiveOffer => this._activeOffers.FirstOrDefault();
 
         #endregion
 
@@ -233,7 +233,7 @@ namespace Lurker.UI.ViewModels
         {
             Execute.OnUIThread(() => 
             {
-                this.TradeOffers.Add(new TradeOfferViewModel(e, this._keyboardHelper, this._context));
+                this.TradeOffers.Add(new OfferViewModel(e, this._keyboardHelper, this._context));
                 this.SortOffer();
             });
         }
@@ -288,7 +288,7 @@ namespace Lurker.UI.ViewModels
         /// Removes the offer.
         /// </summary>
         /// <param name="offer">The offer.</param>
-        private void RemoveOffer(TradeOfferViewModel offer)
+        private void RemoveOffer(OfferViewModel offer)
         {
             if (offer != null)
             {
@@ -305,7 +305,7 @@ namespace Lurker.UI.ViewModels
         /// Adds the active offer.
         /// </summary>
         /// <param name="offer">The offer.</param>
-        private void AddActiveOffer(TradeOfferViewModel offer)
+        private void AddActiveOffer(OfferViewModel offer)
         {
             this._activeOffers.Add(offer);
             this.ItemName = this.ActiveOffer.ItemName;
@@ -386,7 +386,7 @@ namespace Lurker.UI.ViewModels
         private void SortOffer()
         {
             var collection = this.TradeOffers;
-            var sortableList = new List<TradeOfferViewModel>(collection);
+            var sortableList = new List<OfferViewModel>(collection);
             var offers = sortableList.OrderByDescending(t => t.Waiting);
 
             for (int i = 0; i < sortableList.Count; i++)

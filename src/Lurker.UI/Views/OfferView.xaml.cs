@@ -1,21 +1,19 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="TradeOfferView.xaml.cs" company="Wohs">
+// <copyright file="OfferView.xaml.cs" company="Wohs">
 //     Missing Copyright information from a valid stylecop.json file.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.UI.Views
 {
-    using System;
-    using System.Windows;
     using System.Windows.Controls;
 
     /// <summary>
     /// Interaction logic for TradeOfferView.xaml
     /// </summary>
-    public partial class TradeOfferView : UserControl
+    public partial class OfferView : UserControl
     {
-        public TradeOfferView()
+        public OfferView()
         {
             InitializeComponent();
         }
