@@ -15,8 +15,8 @@
             <Style TargetType="Border">
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding Active}" Value="True">
-                        <Setter Property="BorderBrush" Value="#c4a102"/>
-                        <Setter Property="Background" Value="#c4a102"/>
+                        <Setter Property="BorderBrush" Value="#e7b577"/>
+                        <Setter Property="Background" Value="#e7b577"/>
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
