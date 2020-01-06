@@ -22,12 +22,34 @@ namespace Lurker.UI.Views
         public TradebarView()
         {
             InitializeComponent();
+            this.HideFromAltTab();
             this.LocationChanged += this.TradeBarView_LocationChanged;
         }
 
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Hides the window from alt tab.
+        /// </summary>
+        private void HideFromAltTab()
+        {
+            var newWindow = new Window
+            {
+                Top = -100,
+                Left = -100,
+                Width = 1,
+                Height = 1,
+
+                WindowStyle = WindowStyle.ToolWindow, // Set window style as ToolWindow to avoid its icon in AltTab 
+                ShowInTaskbar = false
+            };
+
+            newWindow.Show();
+            this.Owner = newWindow;
+            newWindow.Hide();
+        }
 
         /// <summary>
         /// Handles the LocationChanged event of the TradeBarView control.

@@ -2,8 +2,6 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         Height="60" Width="400"
         Topmost="True"
-        WindowStyle="None"
-        AllowsTransparency="True"
         Visibility="Hidden"
         Background="Transparent"
         xmlns:tb="http://www.hardcodet.net/taskbar"
