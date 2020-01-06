@@ -30,8 +30,6 @@ namespace Lurker
         private static readonly string ClientLogFolderName = "logs";
         private static readonly int TenSeconds = 10000;
 
-        private FileInfo _fileInformation;
-        private DateTime _lastWriteTime;
         private CancellationTokenSource _tokenSource;
 
         #endregion
@@ -206,11 +204,20 @@ namespace Lurker
         /// <summary>
         /// Lurks this instance.
         /// </summary>
-        private async void Lurk()
+        private void Lurk()
         {
             this.FilePath = Path.Combine(Path.GetDirectoryName(this.PathOfExileProcess.GetMainModuleFileName()), ClientLogFolderName, ClientLogFileName);
-            this._fileInformation = new FileInfo(this.FilePath);
-            this._lastWriteTime = this._fileInformation.LastWriteTimeUtc;
+            this.LurkLastLine();
+        }
+
+        /// <summary>
+        /// Lurks this instance.
+        /// </summary>
+        private async void LurkLastWriteTime()
+        {
+            Logger.Trace("Lurk with last write time");
+            var fileInformation = new FileInfo(this.FilePath);
+            var lastWriteTime = fileInformation.LastWriteTimeUtc;
 
             var token = this._tokenSource.Token;
             while (true)
@@ -218,17 +225,46 @@ namespace Lurker
                 do
                 {
                     await Task.Delay(500);
-                    this._fileInformation.Refresh();
+                    fileInformation.Refresh();
 
                     if (token.IsCancellationRequested)
                     {
                         return;
                     }
                 }
-                while (this._fileInformation.LastWriteTimeUtc == this._lastWriteTime);
+                while (fileInformation.LastWriteTimeUtc == lastWriteTime);
 
-                this._lastWriteTime = this._fileInformation.LastAccessTimeUtc;
-                this.OnFileChanged();
+                lastWriteTime = fileInformation.LastAccessTimeUtc;
+                this.OnFileChanged(ReadLastLineFromUTF8EncodedFile(this.FilePath));
+            }
+        }
+
+        /// <summary>
+        /// Lurks the last line.
+        /// </summary>
+        private async void LurkLastLine()
+        {
+            Logger.Trace("Lurk with last line");
+            var lastLine = ReadLastLineFromUTF8EncodedFile(this.FilePath);
+
+            var token = this._tokenSource.Token;
+            while (true)
+            {
+                string currentLastLine;
+                do
+                {
+                    await Task.Delay(500);
+                    currentLastLine = ReadLastLineFromUTF8EncodedFile(this.FilePath);
+
+                    if (token.IsCancellationRequested)
+                    {
+                        return;
+                    }
+                }
+                while (currentLastLine == lastLine);
+
+                lastLine = currentLastLine;
+                this.OnFileChanged(lastLine);
             }
         }
 
@@ -256,9 +292,8 @@ namespace Lurker
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="FileSystemEventArgs"/> instance containing the event data.</param>
-        private void OnFileChanged()
+        private void OnFileChanged(string newline)
         {
-            var newline = ReadLastLineFromUTF8EncodedFile(this.FilePath);
             if (string.IsNullOrEmpty(newline))
             {
                 return;
@@ -327,6 +362,24 @@ namespace Lurker
                 this.PathOfExileProcess.WaitForExit();
                 this.PoeClosed?.Invoke(this, EventArgs.Empty);
             });
+        }
+
+        /// <summary>
+        /// Tests the file last write time.
+        /// </summary>
+        /// <returns>True if enable.</returns>
+        private bool FileLastWriteTimeEnable()
+        {
+            var filePath = Path.GetTempFileName();
+            var fileInformation = new FileInfo(filePath);
+            var initialeWriteTime = fileInformation.LastWriteTimeUtc;
+
+            Thread.Sleep(500);
+            File.WriteAllText(filePath, "TestWriteTime");
+            fileInformation.Refresh();
+            File.Delete(filePath);
+
+            return initialeWriteTime != fileInformation.LastWriteTimeUtc;
         }
 
         #endregion

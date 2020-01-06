@@ -23,7 +23,7 @@
             </ItemsControl>
         </ScrollViewer>
         <Popup HorizontalOffset="{Binding ItemNameHorizontalOffset}"
-               VerticalOffset="{Binding ItemNameVerticalOffset}" 
+               VerticalOffset="{Binding ItemNameVerticalOffset}"
                x:Name="ItemName"
                PopupAnimation="Slide"
                IsOpen="{Binding HasActiveOffer}"
