@@ -32,11 +32,11 @@ namespace Lurker.Events
             : base(logLine)
         {
             var priceMarker = PriceMarkers.FirstOrDefault(m => this.Message.Contains(m));
-            var priceMarkerIndex = this.Message.IndexOf(priceMarker);
+            var priceMarkerIndex = priceMarker == null ? -1 : this.Message.IndexOf(priceMarker);
             var leagueMarkerIndex = this.Message.IndexOf(LeagueMarker);
 
             // ItemName
-            var itemIndex = priceMarkerIndex == -1 ? leagueMarkerIndex : priceMarkerIndex;
+            var itemIndex = priceMarkerIndex == -1 ? leagueMarkerIndex + 1 : priceMarkerIndex;
             var textBeforeMarker = this.Message.Substring(0, itemIndex);
 
             var greetingMarker = GreetingMarkers.FirstOrDefault(m => this.Message.Contains(m));
