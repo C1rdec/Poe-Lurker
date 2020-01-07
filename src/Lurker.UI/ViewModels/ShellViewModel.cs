@@ -245,10 +245,12 @@ namespace Lurker.UI
             this._currentLurker.PoeClosed += CurrentLurker_PoeClosed;
             var process = await this._currentLurker.WaitForPoe();
             this.DisplayRoot(process);
-            await this.CheckForUpdate();
+            #if (!DEBUG)
+                await this.CheckForUpdate();
+            #endif
         }
 
-        #endregion
+#endregion
     }
 
     [ComImport]
