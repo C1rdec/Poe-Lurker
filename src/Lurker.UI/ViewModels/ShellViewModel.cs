@@ -19,12 +19,12 @@ namespace Lurker.UI
     using System.Runtime.InteropServices.ComTypes;
     using System.Text;
     using System.Threading.Tasks;
+
     public class ShellViewModel : Screen, IViewAware
     {
         #region Fields
 
         private static readonly string PoeLukerGithubUrl = "https://github.com/C1rdec/Poe-Lurker";
-        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
         private IWindowManager _windowManager;
         private SimpleContainer _container;
         private ClientLurker _currentLurker;
