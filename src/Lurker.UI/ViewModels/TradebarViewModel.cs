@@ -65,7 +65,7 @@ namespace Lurker.UI.ViewModels
             this._Lurker.PlayerLeft += this.Lurker_PlayerLeft;
             this.PropertyChanged += this.TradebarViewModel_PropertyChanged;
 
-            this._context = new TradebarContext(this.RemoveOffer, this.AddActiveOffer);
+            this._context = new TradebarContext(this.RemoveOffer, this.AddActiveOffer, this.SetActiveOffer);
             this.DisplayName = "Poe Lurker";
         }
 
@@ -315,6 +315,27 @@ namespace Lurker.UI.ViewModels
         {
             this._activeOffers.Add(offer);
             this.ItemName = this.ActiveOffer.ItemName;
+            this.ActiveOffer.Active = true;
+        }
+
+        /// <summary>
+        /// Sets the active offer.
+        /// </summary>
+        /// <param name="offer">The offer.</param>
+        private void SetActiveOffer(OfferViewModel offer)
+        {
+            var index = this._activeOffers.IndexOf(offer);
+            if (index == -1)
+            {
+                return;
+            }
+            
+            this.ActiveOffer.Active = false;
+
+            this._activeOffers.RemoveAt(index);
+            this._activeOffers.Insert(0, offer);
+
+            this.ItemName = offer.ItemName;
             this.ActiveOffer.Active = true;
         }
 

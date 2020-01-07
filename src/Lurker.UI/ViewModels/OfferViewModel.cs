@@ -169,6 +169,7 @@ namespace Lurker.UI.ViewModels
             // Alt cannot be use since we send Enter to the Keyboard
             if (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt))
             {
+                this._tradebarContext.SetActiveOffer(this);
                 return;
             }
 

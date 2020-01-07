@@ -15,6 +15,7 @@ namespace Lurker.UI.Models
 
         private Action<OfferViewModel> _remove;
         private Action<OfferViewModel> _addToActiveOffer;
+        private Action<OfferViewModel> _setActiveOffer;
 
         #endregion
 
@@ -24,10 +25,11 @@ namespace Lurker.UI.Models
         /// Initializes a new instance of the <see cref="TradebarContext"/> class.
         /// </summary>
         /// <param name="removeAction">The remove action.</param>
-        public TradebarContext(Action<OfferViewModel> removeAction, Action<OfferViewModel> addToActiveOfferAction)
+        public TradebarContext(Action<OfferViewModel> removeAction, Action<OfferViewModel> addToActiveOfferAction, Action<OfferViewModel> setActiveOffer)
         {
             this._remove = removeAction;
             this._addToActiveOffer = addToActiveOfferAction;
+            this._setActiveOffer = setActiveOffer;
         }
 
         #endregion
@@ -50,6 +52,15 @@ namespace Lurker.UI.Models
         public void AddToActiveOffer(OfferViewModel offer)
         {
             this._addToActiveOffer(offer);
+        }
+
+        /// <summary>
+        /// Sets the active offer.
+        /// </summary>
+        /// <param name="offer">The offer.</param>
+        public void SetActiveOffer(OfferViewModel offer)
+        {
+            this._setActiveOffer(offer);
         }
 
         #endregion
