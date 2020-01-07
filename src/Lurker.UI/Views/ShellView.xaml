@@ -11,7 +11,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid Background="Transparent">
         <tb:TaskbarIcon x:Name="myNotifyIcon"
-                    Visibility="Visible"
+                    Visibility="{Binding ShowInTaskBar, Converter={StaticResource BooleanToVisibilityConverter}}"
                     ToolTipText="Poe Lurker"
                     MenuActivation="LeftOrRightClick"
                     PopupActivation="DoubleClick">

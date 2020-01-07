@@ -31,6 +31,7 @@ namespace Lurker.UI
         private TradebarViewModel _tradeBarOverlay;
         private bool _startWithWindows;
         private bool _needUpdate;
+        private bool _showInTaskBar;
 
         #endregion
 
@@ -47,11 +48,29 @@ namespace Lurker.UI
             this._container = container;
             this.WaitForPoe();
             this.StartWithWindows = File.Exists(this.ShortcutFilePath);
+            this.ShowInTaskBar = true;
         }
 
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [show in task bar].
+        /// </summary>
+        public bool ShowInTaskBar
+        {
+            get
+            {
+                return this._showInTaskBar;
+            }
+
+            set
+            {
+                this._showInTaskBar = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
 
         /// <summary>
         /// Gets a value indicating whether [start with windows].
@@ -162,7 +181,8 @@ namespace Lurker.UI
         /// </summary>
         public async void Update()
         {
-            using (var updateManager = new UpdateManager(@"D:\Github\PoeLurker\Releases"))
+            this.ShowInTaskBar = false;
+            using (var updateManager = await UpdateManager.GitHubUpdateManager(PoeLukerGithubUrl))
             {
                 await updateManager.UpdateApp();
                 UpdateManager.RestartApp();
@@ -174,18 +194,10 @@ namespace Lurker.UI
         /// </summary>
         private async Task CheckForUpdate()
         {
-            //using (var updateManager = await UpdateManager.GitHubUpdateManager(PoeLukerGithubUrl))
-            using (var updateManager = new UpdateManager(@"D:\Github\PoeLurker\Releases"))
+            using (var updateManager = await UpdateManager.GitHubUpdateManager(PoeLukerGithubUrl, prerelease:true))
             {
                 var information = await updateManager.CheckForUpdate();
-                if (information.ReleasesToApply.Any())
-                {
-                    this.NeedUpdate = true;
-                }
-                else
-                {
-                    this.NeedUpdate = false;
-                }
+                this.NeedUpdate = information.ReleasesToApply.Any();
             }
         }
 
