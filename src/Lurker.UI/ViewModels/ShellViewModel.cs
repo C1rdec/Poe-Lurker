@@ -9,22 +9,29 @@ namespace Lurker.UI
     using Caliburn.Micro;
     using Lurker.UI.Helpers;
     using Lurker.UI.ViewModels;
+    using Squirrel;
     using System;
     using System.Diagnostics;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
     using System.Runtime.InteropServices;
     using System.Runtime.InteropServices.ComTypes;
     using System.Text;
+    using System.Threading.Tasks;
+
     public class ShellViewModel : Screen, IViewAware
     {
         #region Fields
 
+        private static readonly string PoeLukerGithubUrl = "https://github.com/C1rdec/Poe-Lurker";
         private IWindowManager _windowManager;
         private SimpleContainer _container;
         private ClientLurker _currentLurker;
         private TradebarViewModel _tradeBarOverlay;
         private bool _startWithWindows;
+        private bool _needUpdate;
+        private bool _showInTaskBar;
 
         #endregion
 
@@ -40,13 +47,30 @@ namespace Lurker.UI
             this._windowManager = windowManager;
             this._container = container;
             this.WaitForPoe();
-
             this.StartWithWindows = File.Exists(this.ShortcutFilePath);
+            this.ShowInTaskBar = true;
         }
 
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [show in task bar].
+        /// </summary>
+        public bool ShowInTaskBar
+        {
+            get
+            {
+                return this._showInTaskBar;
+            }
+
+            set
+            {
+                this._showInTaskBar = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
 
         /// <summary>
         /// Gets a value indicating whether [start with windows].
@@ -61,6 +85,23 @@ namespace Lurker.UI
             set
             {
                 this._startWithWindows = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [need update].
+        /// </summary>
+        public bool NeedUpdate
+        {
+            get
+            {
+                return this._needUpdate;
+            }
+
+            set
+            {
+                this._needUpdate = value;
                 this.NotifyOfPropertyChange();
             }
         }
@@ -123,7 +164,6 @@ namespace Lurker.UI
 
             this.StartWithWindows = !this.StartWithWindows;
         }
-
         /// <summary>
         /// Gets the assembly version.
         /// </summary>
@@ -134,6 +174,31 @@ namespace Lurker.UI
             var information = FileVersionInfo.GetVersionInfo(assembly.Location);
             var version = information.FileVersion.Remove(information.FileVersion.Length - 2);
             return version;
+        }
+
+        /// <summary>
+        /// Updates this instance.
+        /// </summary>
+        public async void Update()
+        {
+            this.ShowInTaskBar = false;
+            using (var updateManager = await UpdateManager.GitHubUpdateManager(PoeLukerGithubUrl))
+            {
+                await updateManager.UpdateApp();
+                UpdateManager.RestartApp();
+            }
+        }
+
+        /// <summary>
+        /// Updates this instance.
+        /// </summary>
+        private async Task CheckForUpdate()
+        {
+            using (var updateManager = await UpdateManager.GitHubUpdateManager(PoeLukerGithubUrl, prerelease:true))
+            {
+                var information = await updateManager.CheckForUpdate();
+                this.NeedUpdate = information.ReleasesToApply.Any();
+            }
         }
 
         /// <summary>
@@ -180,6 +245,7 @@ namespace Lurker.UI
             this._currentLurker.PoeClosed += CurrentLurker_PoeClosed;
             var process = await this._currentLurker.WaitForPoe();
             this.DisplayRoot(process);
+            await this.CheckForUpdate();
         }
 
         #endregion
