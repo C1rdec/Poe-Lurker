@@ -7,13 +7,17 @@ Poe Lurker is a simple yet very powerful trade manager meant to ease the trading
 
 ## Usage
 - Install ≥ [.NET Framework 4.7.2](https://dotnet.microsoft.com/download/dotnet-framework)
-- Download and extract PoeLurker.zip from the [Releases Page](https://github.com/C1rdec/PoeLurker/releases).  
-- Run PoeLurker.exe.  
+- Download and run Setup.exe from the [Releases Page](https://github.com/C1rdec/PoeLurker/releases). 
 
 ## Key Features
 
 - **Very simple to use.**  
 You'll only need to start the application once since PoeLurker will Start/Stop with Path of Exile and the overlay will be placed automatically. You can even set the application to start when Windows start and dont think about it again. ![](SystemTray.png)
+
+- **Auto Update.**  
+Poe Lurker will detect that a new version can be installed and the tray icon will turn yellow with an additional option to "Update".
+
+![](https://i.imgur.com/MFDMsku.png)
 
 - **Keep track of your incoming trade request in a convenient overlay located above the exp bar.**  
 The overlay will display the value of incoming trade request with 1 main action and 2 sub actions possible.
