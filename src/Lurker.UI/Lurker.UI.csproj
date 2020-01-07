@@ -237,6 +237,7 @@
   <ItemGroup>
     <Resource Include="Assets\Regal.png" />
     <Resource Include="Assets\Divine.png" />
+    <Resource Include="Assets\TrayIconUpdate.ico" />
     <Content Include="Svg.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Svg.cs</LastGenOutput>

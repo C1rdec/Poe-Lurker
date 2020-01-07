@@ -13,11 +13,23 @@
         <tb:TaskbarIcon x:Name="myNotifyIcon"
                     Visibility="Visible"
                     ToolTipText="Poe Lurker"
-                    IconSource="/Assets/TrayIcon.ico"
                     MenuActivation="LeftOrRightClick"
                     PopupActivation="DoubleClick">
+            <tb:TaskbarIcon.Style>
+                <Style TargetType="tb:TaskbarIcon">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding NeedUpdate}" Value="True">
+                            <Setter Property="IconSource" Value="/Assets/TrayIconUpdate.ico"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding NeedUpdate}" Value="False">
+                            <Setter Property="IconSource" Value="/Assets/TrayIcon.ico"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </tb:TaskbarIcon.Style>
             <tb:TaskbarIcon.ContextMenu>
                 <ContextMenu>
+                    <MenuItem Header="Update" Visibility="{Binding NeedUpdate, Converter={StaticResource BooleanToVisibilityConverter}}" cal:Message.Attach="[Event Click] = [Action Update]"/>
                     <MenuItem IsChecked="{Binding StartWithWindows}" Header="Start with Windows" cal:Message.Attach="[Event Click] = [Action CreateShortCut]"/>
                     <MenuItem cal:Message.Attach="[Event Click] = [Action Close]">
                         <MenuItem.Header>
