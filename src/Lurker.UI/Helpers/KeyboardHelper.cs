@@ -50,6 +50,7 @@ namespace Lurker.UI.Helpers
 
                 // We are using the interop since SendWait block mouse input.
                 this._simulator.Keyboard.TextEntry(searchTerm);
+                System.Windows.Forms.SendKeys.SendWait(EnterKey);
             }
         }
 

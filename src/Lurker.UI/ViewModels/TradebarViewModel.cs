@@ -324,17 +324,19 @@ namespace Lurker.UI.ViewModels
         /// <param name="offer">The offer.</param>
         private void SetActiveOffer(OfferViewModel offer)
         {
-            var index = this._activeOffers.IndexOf(offer);
-            if (index == -1)
+            var currentActiveOffer = this.ActiveOffer;
+            if (currentActiveOffer != null)
             {
-                return;
+                currentActiveOffer.Active = false;
             }
-            
-            this.ActiveOffer.Active = false;
 
-            this._activeOffers.RemoveAt(index);
+            var index = this._activeOffers.IndexOf(offer);
+            if (index != -1)
+            {
+                this._activeOffers.RemoveAt(index);
+            }
+
             this._activeOffers.Insert(0, offer);
-
             this.ItemName = offer.ItemName;
             this.ActiveOffer.Active = true;
         }
@@ -357,37 +359,6 @@ namespace Lurker.UI.ViewModels
         {
             this._view = view as Window;
             this.SetWindowPosition();
-        }
-
-        /// <summary>
-        /// Sets the window position.
-        /// </summary>
-        private void SetWindowPosition()
-        {
-            Native.GetWindowRect(this._Lurker.PathOfExileProcess.MainWindowHandle, out var poePosition);
-
-            double poeWidth = poePosition.Right - poePosition.Left;
-            double poeHeight = poePosition.Bottom - poePosition.Top;
-
-            var expBarHeight = poeHeight * DefaultExpBarHeight / DefaultHeight;
-            var flaskBarWidth = poeHeight * DefaultFlaskBarWigth / DefaultHeight;
-            var flaskBarHeight = poeHeight * DefaultFlaskBarHeight / DefaultHeight;
-
-            var overlayHeight = DefaultOverlayHeight * flaskBarHeight / DefaultFlaskBarHeight;
-            var overlayWidth = (poeWidth - (flaskBarWidth * 2)) / 2;
-
-            this.ItemNameWidth = (flaskBarWidth * 0.24);
-            this.ItemNameHeight = expBarHeight;
-
-            this.ItemNameVerticalOffset = (flaskBarHeight * 0.30 * -1) - this.ItemNameHeight;
-
-            Execute.OnUIThread(() =>
-            {
-                this._view.Height = overlayHeight;
-                this._view.Width = overlayWidth;
-                this._view.Left = poePosition.Left + flaskBarWidth + Margin;
-                this._view.Top = poePosition.Bottom - overlayHeight - expBarHeight - Margin;
-            });
         }
 
         /// <summary>
@@ -421,6 +392,37 @@ namespace Lurker.UI.ViewModels
             {
                 collection.Move(collection.IndexOf(offers.ElementAt(i)), i);
             }
+        }
+
+        /// <summary>
+        /// Sets the window position.
+        /// </summary>
+        private void SetWindowPosition()
+        {
+            Native.GetWindowRect(this._Lurker.PathOfExileProcess.MainWindowHandle, out var poePosition);
+
+            double poeWidth = poePosition.Right - poePosition.Left;
+            double poeHeight = poePosition.Bottom - poePosition.Top;
+
+            var expBarHeight = poeHeight * DefaultExpBarHeight / DefaultHeight;
+            var flaskBarWidth = poeHeight * DefaultFlaskBarWigth / DefaultHeight;
+            var flaskBarHeight = poeHeight * DefaultFlaskBarHeight / DefaultHeight;
+
+            var overlayHeight = DefaultOverlayHeight * flaskBarHeight / DefaultFlaskBarHeight;
+            var overlayWidth = (poeWidth - (flaskBarWidth * 2)) / 2;
+
+            this.ItemNameWidth = (flaskBarWidth * 0.24);
+            this.ItemNameHeight = expBarHeight;
+
+            this.ItemNameVerticalOffset = (flaskBarHeight * 0.30 * -1) - this.ItemNameHeight;
+
+            Execute.OnUIThread(() =>
+            {
+                this._view.Height = overlayHeight;
+                this._view.Width = overlayWidth;
+                this._view.Left = poePosition.Left + flaskBarWidth + Margin;
+                this._view.Top = poePosition.Bottom - overlayHeight - expBarHeight - Margin;
+            });
         }
 
         #endregion
