@@ -71,6 +71,11 @@ namespace Lurker.UI.ViewModels
         public CurrencyType CurrencyType => this._tradeEvent.Price.CurrencyType;
 
         /// <summary>
+        /// Gets the price.
+        /// </summary>
+        public Price Price => this._tradeEvent.Price;
+
+        /// <summary>
         /// Gets or sets a value indicating whether this instance is invite sended.
         /// </summary>
         public OfferStatus Status
@@ -158,7 +163,7 @@ namespace Lurker.UI.ViewModels
         {
             this._skipMainAction = true;
             this.Waiting = true;
-            this._keyboardHelper.Whisper(this.PlayerName, MessageHelper.BusyMessage);
+            this.Whisper(MessageHelper.BusyMessage);
         }
 
         /// <summary>
@@ -166,7 +171,6 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public void MainAction()
         {
-            // Alt cannot be use since we send Enter to the Keyboard
             if (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt))
             {
                 this._tradebarContext.SetActiveOffer(this);
@@ -181,6 +185,12 @@ namespace Lurker.UI.ViewModels
 
             if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
             {
+                if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
+                {
+                    this.StillInterested();
+                    return;
+                }
+
                 this.Sold();
                 return;
             }
@@ -202,8 +212,16 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         private void Sold()
         {
-            this._keyboardHelper.Whisper(this.PlayerName, MessageHelper.SoldMessage);
+            this.Whisper(MessageHelper.SoldMessage);
             this.RemoveFromTradebar();
+        }
+
+        /// <summary>
+        /// Stills the interested.
+        /// </summary>
+        private void StillInterested()
+        {
+            this.Whisper(MessageHelper.StillInterestedMessage);
         }
 
         /// <summary>
@@ -231,6 +249,15 @@ namespace Lurker.UI.ViewModels
         private void RemoveFromTradebar()
         {
             this._tradebarContext.RemoveOffer(this);
+        }
+
+        /// <summary>
+        /// Whispers the specified message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        private void Whisper(string message)
+        {
+            this._keyboardHelper.Whisper(this.PlayerName, TokenHelper.ReplaceToken(message, this));
         }
 
         #endregion
