@@ -194,7 +194,7 @@ namespace Lurker.UI
         /// </summary>
         private async Task CheckForUpdate()
         {
-            using (var updateManager = await UpdateManager.GitHubUpdateManager(PoeLukerGithubUrl, prerelease:true))
+            using (var updateManager = await UpdateManager.GitHubUpdateManager(PoeLukerGithubUrl))
             {
                 var information = await updateManager.CheckForUpdate();
                 this.NeedUpdate = information.ReleasesToApply.Any();
@@ -250,7 +250,7 @@ namespace Lurker.UI
             #endif
         }
 
-#endregion
+        #endregion
     }
 
     [ComImport]
