@@ -16,8 +16,12 @@ namespace Lurker.UI.Helpers
     {
         #region Fields
 
+        private static readonly string DefaultStillInterestedMessage = $"Are you still interested in my {TokenHelper.ItemName} listed for {TokenHelper.Price}";
+        private static readonly string DefaultSoldMessage = $"I'm sorry, my {TokenHelper.ItemName} has already been sold.";
+
         private static readonly Lazy<string> BusyMessageLazy = new Lazy<string>(() => GetSettingValue("BusyMessage", "I'm busy right now I'll send you a party invite."));
-        private static readonly Lazy<string> SoldMessageLazy = new Lazy<string>(() => GetSettingValue("SoldMessage", "I'm sorry, that item has already been sold."));
+        private static readonly Lazy<string> SoldMessageLazy = new Lazy<string>(() => GetSettingValue("SoldMessage", DefaultSoldMessage));
+        private static readonly Lazy<string> StillInterestedMessageLazy = new Lazy<string>(() => GetSettingValue("StillInterestedMessage", DefaultStillInterestedMessage));
         private static readonly Lazy<string> ThanksMessageLazy = new Lazy<string>(() => GetSettingValue("ThanksMessage", string.Empty));
 
         #endregion
@@ -38,6 +42,11 @@ namespace Lurker.UI.Helpers
         /// Gets the thanks message.
         /// </summary>
         public static string ThanksMessage => ThanksMessageLazy.Value;
+
+        /// <summary>
+        /// Gets the still interested message.
+        /// </summary>
+        public static string StillInterestedMessage => StillInterestedMessageLazy.Value;
 
         #endregion
 

@@ -41,6 +41,7 @@ namespace Lurker.Events
 
             var greetingMarker = GreetingMarkers.FirstOrDefault(m => this.Message.Contains(m));
             this.ItemName = this.Message.Substring(greetingMarker.Length + 1, textBeforeMarker.Length - greetingMarker.Length -2);
+            this.SimplifyItemName();
 
             // Location
             var locationMarkerIndex = this.Message.IndexOf(LocationMarker);
@@ -128,7 +129,15 @@ namespace Lurker.Events
             };
         }
 
-        #endregion
+        private void SimplifyItemName()
+        {
+            var mapTierIndex = this.ItemName.IndexOf(" (T");
+            if (mapTierIndex != -1)
+            {
+                this.ItemName = this.ItemName.Substring(0, mapTierIndex);
+            }
+        }
 
+        #endregion
     }
 }
