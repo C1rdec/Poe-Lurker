@@ -27,5 +27,9 @@ namespace Lurker.Models
         Regal,
 
         Divine,
+
+        Alteration,
+
+        Jeweller,
     }
 }

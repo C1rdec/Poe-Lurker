@@ -15,7 +15,7 @@ namespace Lurker.Events
     {
         #region Fields
 
-        private static readonly string[] GreetingMarkers = new string[] { "Hi, I would like to buy your", "Hi, I'd like to buy your" };
+        private static readonly string[] GreetingMarkers = new string[] { "Hi, I would like to buy your", "Hi, I'd like to buy your", "wtb" };
         private static readonly string[] PriceMarkers = new string[] { "listed for", "for my" };
         private static readonly string LocationMarker = "(";
         private static readonly string LeagueMarker = " in ";
@@ -131,10 +131,10 @@ namespace Lurker.Events
 
         private void SimplifyItemName()
         {
-            var mapTierIndex = this.ItemName.IndexOf(" (T");
-            if (mapTierIndex != -1)
+            var additionalInformationIndex = this.ItemName.IndexOf(" (");
+            if (additionalInformationIndex != -1)
             {
-                this.ItemName = this.ItemName.Substring(0, mapTierIndex);
+                this.ItemName = this.ItemName.Substring(0, additionalInformationIndex);
             }
         }
 

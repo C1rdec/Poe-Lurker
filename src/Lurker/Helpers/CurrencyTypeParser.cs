@@ -23,6 +23,8 @@ namespace Lurker.Helpers
             { CurrencyType.Vaal, new string[]{ "vaal", "vaal orb" } },
             { CurrencyType.Regal, new string[]{ "regal", "regal orb" } },
             { CurrencyType.Divine, new string[]{ "divine", "divine orb" } },
+            { CurrencyType.Alteration, new string[]{ "alt", "alteration", "orb of alteration" } },
+            { CurrencyType.Jeweller, new string[]{ "jew", "jewellers", "jeweller's orb" } },
         };
 
         /// <summary>
