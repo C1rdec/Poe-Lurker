@@ -44,10 +44,11 @@ namespace Lurker.Events
             this.SimplifyItemName();
 
             // Location
-            var locationMarkerIndex = this.Message.IndexOf(LocationMarker);
+            var textAfterItemName = this.Message.Substring(itemIndex);
+            var locationMarkerIndex = textAfterItemName.IndexOf(LocationMarker);
             if (locationMarkerIndex != -1)
             {
-                this.Position = this.Message.Substring(locationMarkerIndex);
+                this.Position = textAfterItemName.Substring(locationMarkerIndex);
             }
 
             // Price

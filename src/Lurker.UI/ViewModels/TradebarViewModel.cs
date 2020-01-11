@@ -16,7 +16,7 @@ namespace Lurker.UI.ViewModels
     using System.Linq;
     using System.Windows;
 
-    public class TradebarViewModel : Screen, IViewAware
+    public class TradebarViewModel : ScreenBase, IViewAware
     {
         #region Fields
 
@@ -51,7 +51,8 @@ namespace Lurker.UI.ViewModels
         /// <param name="lurker">The lurker.</param>
         /// <param name="dockingHelper">The docking helper.</param>
         /// <param name="keyboardHelper">The keyboard helper.</param>
-        public TradebarViewModel(ClientLurker lurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper, SettingsService settingsService)
+        public TradebarViewModel(ClientLurker lurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper, SettingsService settingsService, IWindowManager windowManager)
+            : base (windowManager)
         {
             this._Lurker = lurker;
             this._dockingHelper = dockingHelper;

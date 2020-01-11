@@ -141,6 +141,7 @@
       <DependentUpon>Svg.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\OfferStatus.cs" />
+    <Compile Include="ViewModels\ScreenBase.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\TradebarViewModel.cs" />
     <Compile Include="Views\SettingsView.xaml.cs">

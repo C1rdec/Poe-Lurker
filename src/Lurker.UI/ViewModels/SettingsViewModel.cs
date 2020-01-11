@@ -11,7 +11,7 @@ namespace Lurker.UI.ViewModels
     using Lurker.Services;
     using Lurker.UI.Helpers;
 
-    public class SettingsViewModel: Screen
+    public class SettingsViewModel: ScreenBase
     {
         #region Fields
 
@@ -25,7 +25,8 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="SettingsViewModel"/> class.
         /// </summary>
-        public SettingsViewModel(KeyboardHelper keyboardHelper, SettingsService settingsService)
+        public SettingsViewModel(IWindowManager windowManager, KeyboardHelper keyboardHelper, SettingsService settingsService)
+            : base(windowManager)
         {
             this._keyboardHelper = keyboardHelper;
             this._settingService = settingsService;
@@ -144,6 +145,11 @@ namespace Lurker.UI.ViewModels
             }
 
             base.OnDeactivate(close);
+        }
+
+        protected override void OnActivate()
+        {
+            base.OnActivate();
         }
 
         #endregion

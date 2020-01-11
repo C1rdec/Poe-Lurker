@@ -7,6 +7,7 @@
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:local="clr-namespace:Lurker.UI.Views"
         WindowStartupLocation="CenterScreen"
+        Topmost="True"
         ResizeMode="CanMinimize"
         mc:Ignorable="d" Height="450" Width="800">
     <Grid>

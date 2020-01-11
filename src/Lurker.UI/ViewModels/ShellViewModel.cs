@@ -21,12 +21,11 @@ namespace Lurker.UI
     using System.Text;
     using System.Threading.Tasks;
 
-    public class ShellViewModel : Screen, IViewAware
+    public class ShellViewModel : Conductor<Screen>.Collection.AllActive , IViewAware
     {
         #region Fields
 
         private static readonly string PoeLukerGithubUrl = "https://github.com/C1rdec/Poe-Lurker";
-        private IWindowManager _windowManager;
         private SimpleContainer _container;
         private ClientLurker _currentLurker;
         private TradebarViewModel _tradeBarOverlay;
@@ -43,9 +42,8 @@ namespace Lurker.UI
         /// </summary>
         /// <param name="windowManager">The window manager.</param>
         /// <param name="container">The container.</param>
-        public ShellViewModel(IWindowManager windowManager, SimpleContainer container)
+        public ShellViewModel(SimpleContainer container)
         {
-            this._windowManager = windowManager;
             this._container = container;
             this.WaitForPoe();
             this.StartWithWindows = File.Exists(this.ShortcutFilePath);
@@ -146,7 +144,6 @@ namespace Lurker.UI
         /// </summary>
         public void Close()
         {
-            this._tradeBarOverlay?.TryClose();
             this.TryClose();
         }
 
@@ -201,19 +198,12 @@ namespace Lurker.UI
         public void ShowSettings()
         {
             var settings = this._container.GetInstance<SettingsViewModel>();
-            this._windowManager.ShowWindow(settings);
-        }
-
-        /// <summary>
-        /// Updates this instance.
-        /// </summary>
-        private async Task CheckForUpdate()
-        {
-            using (var updateManager = await UpdateManager.GitHubUpdateManager(PoeLukerGithubUrl))
+            if (settings.IsActive)
             {
-                var information = await updateManager.CheckForUpdate();
-                this.NeedUpdate = information.ReleasesToApply.Any();
+                return;
             }
+
+            this.ActivateItem(settings);
         }
 
         /// <summary>
@@ -230,8 +220,20 @@ namespace Lurker.UI
                 this._container.RegisterInstance(typeof(PoeKeyboardHelper), null, keyboarHelper);
 
                 this._tradeBarOverlay = this._container.GetInstance<TradebarViewModel>();
-                this._windowManager.ShowWindow(this._tradeBarOverlay);
+                this.ActivateItem(this._tradeBarOverlay);
             });
+        }
+
+        /// <summary>
+        /// Updates this instance.
+        /// </summary>
+        private async Task CheckForUpdate()
+        {
+            using (var updateManager = await UpdateManager.GitHubUpdateManager(PoeLukerGithubUrl))
+            {
+                var information = await updateManager.CheckForUpdate();
+                this.NeedUpdate = information.ReleasesToApply.Any();
+            }
         }
 
         /// <summary>
