@@ -29,6 +29,7 @@ namespace Lurker.UI.ViewModels
         {
             this._keyboardHelper = keyboardHelper;
             this._settingService = settingsService;
+            this.DisplayName = "Settings";
         }
 
         #endregion
