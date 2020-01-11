@@ -10,6 +10,7 @@ namespace Lurker.Events
     using Lurker.Models;
     using System;
     using System.Linq;
+    using System.Text.RegularExpressions;
 
     public class TradeEvent : WhisperEvent
     {
@@ -130,6 +131,9 @@ namespace Lurker.Events
             };
         }
 
+        /// <summary>
+        /// Simplifies the name of the item.
+        /// </summary>
         private void SimplifyItemName()
         {
             var additionalInformationIndex = this.ItemName.IndexOf(" (");
@@ -137,6 +141,8 @@ namespace Lurker.Events
             {
                 this.ItemName = this.ItemName.Substring(0, additionalInformationIndex);
             }
+
+            this.ItemName = Regex.Replace(this.ItemName, @"[\d-]", string.Empty).Trim();
         }
 
         #endregion
