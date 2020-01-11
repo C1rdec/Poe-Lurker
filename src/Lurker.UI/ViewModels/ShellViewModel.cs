@@ -200,8 +200,8 @@ namespace Lurker.UI
         /// </summary>
         public void ShowSettings()
         {
-            var viewModel = new SettingsViewModel();
-            this._windowManager.ShowWindow(viewModel);
+            var settings = this._container.GetInstance<SettingsViewModel>();
+            this._windowManager.ShowWindow(settings);
         }
 
         /// <summary>

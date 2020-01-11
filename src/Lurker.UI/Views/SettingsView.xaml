@@ -1,12 +1,112 @@
-﻿<Window x:Class="Lurker.UI.Views.SettingsView"
+﻿<Controls:MetroWindow x:Class="Lurker.UI.Views.SettingsView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cal="http://www.caliburnproject.org"
         xmlns:local="clr-namespace:Lurker.UI.Views"
-        mc:Ignorable="d"
-        Title="SettingsView" Height="450" Width="800">
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanMinimize"
+        mc:Ignorable="d" Height="450" Width="800">
     <Grid>
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Settings</TextBlock>
+        <Grid.Resources>
+            <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
+        </Grid.Resources>
+        <Controls:MetroAnimatedTabControl Controls:TabControlHelper.IsUnderlined="True" Controls:TabControlHelper.Underlined="TabPanel" TabStripPlacement="Left">
+            <TabItem Header="Message">
+                <StackPanel>
+                    <Label Content="Message" Style="{DynamicResource LabelHeaderStyle}" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,30,0">
+                        <Button Style="{DynamicResource Tag}"
+                                Focusable="False"
+                                Content="Item Name"
+                                cal:Message.Attach="[Event Click] = [Action InsertItemNameToken]">
+                        </Button>
+                        <Button Style="{DynamicResource Tag}"
+                                Content="Buyer Name"
+                                Focusable="False"
+                                cal:Message.Attach="[Event Click] = [Action InsertBuyerNameToken]"
+                                Margin="4,0,0,0">
+                        </Button>
+                        <Button Style="{DynamicResource Tag}"
+                                Content="Price"
+                                Focusable="False"
+                                cal:Message.Attach="[Event Click] = [Action InsertPriceToken]"
+                                Margin="4,0,0,0">
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Margin="30,0,30,0">
+                        <StackPanel.Resources>
+                            <Style TargetType="{x:Type Controls:MetroHeader}">
+                                <Setter Property="Margin" Value="0,15,0,0"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <Controls:MetroHeader Header="Busy">
+                            <Controls:MetroHeader.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                        <TextBlock Margin="2 0 0 0"
+                                                   FontSize="18"
+                                                   VerticalAlignment="Center"
+                                                   Text="{Binding}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </Controls:MetroHeader.HeaderTemplate>
+                            <TextBox Text="{Binding BusyMessage}" x:Name="BusyMessage"/>
+                        </Controls:MetroHeader>
+                        <Controls:MetroHeader Header="Thank you">
+                            <Controls:MetroHeader.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                        <TextBlock Margin="2 0 0 0"
+                                                   FontSize="18"
+                                                   VerticalAlignment="Center"
+                                                   Text="{Binding}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </Controls:MetroHeader.HeaderTemplate>
+                            <TextBox Text="{Binding ThankYouMessage}"/>
+                        </Controls:MetroHeader>
+                        <Controls:MetroHeader Header="Still Interested">
+                            <Controls:MetroHeader.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                        <TextBlock Margin="2 0 0 0"
+                                                   FontSize="18"
+                                                   VerticalAlignment="Center"
+                                                   Text="{Binding}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </Controls:MetroHeader.HeaderTemplate>
+                            <TextBox Text="{Binding StillInterestedMessage}"/>
+                        </Controls:MetroHeader>
+                        <Controls:MetroHeader Header="Sold">
+                            <Controls:MetroHeader.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                        <TextBlock Margin="2 0 0 0"
+                                                   FontSize="18"
+                                                   VerticalAlignment="Center"
+                                                   Text="{Binding}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </Controls:MetroHeader.HeaderTemplate>
+                            <TextBox Text="{Binding SoldMessage}"/>
+                        </Controls:MetroHeader>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Action">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Content="Action" Style="{DynamicResource LabelHeaderStyle}" />
+                    <Label Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20">Coming Soon</Label>
+                </Grid>
+            </TabItem>
+        </Controls:MetroAnimatedTabControl>
     </Grid>
-</Window>
+</Controls:MetroWindow>

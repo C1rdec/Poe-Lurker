@@ -6,13 +6,21 @@
 
 namespace Lurker.UI.Views
 {
+    using Lurker.UI.Helpers;
+    using MahApps.Metro.Controls;
     using System.Windows;
 
     /// <summary>
     /// Interaction logic for SettingsView.xaml
     /// </summary>
-    public partial class SettingsView : Window
+    public partial class SettingsView : MetroWindow
     {
+        #region Fields
+
+        KeyboardHelper _keyboardHelper;
+
+        #endregion
+
         #region Constructors
 
         /// <summary>
