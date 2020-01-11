@@ -55,19 +55,6 @@
                             </Controls:MetroHeader.HeaderTemplate>
                             <TextBox Text="{Binding BusyMessage}" x:Name="BusyMessage"/>
                         </Controls:MetroHeader>
-                        <Controls:MetroHeader Header="Thank you">
-                            <Controls:MetroHeader.HeaderTemplate>
-                                <DataTemplate>
-                                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                        <TextBlock Margin="2 0 0 0"
-                                                   FontSize="18"
-                                                   VerticalAlignment="Center"
-                                                   Text="{Binding}" />
-                                    </StackPanel>
-                                </DataTemplate>
-                            </Controls:MetroHeader.HeaderTemplate>
-                            <TextBox Text="{Binding ThankYouMessage}"/>
-                        </Controls:MetroHeader>
                         <Controls:MetroHeader Header="Still Interested">
                             <Controls:MetroHeader.HeaderTemplate>
                                 <DataTemplate>
@@ -93,6 +80,19 @@
                                 </DataTemplate>
                             </Controls:MetroHeader.HeaderTemplate>
                             <TextBox Text="{Binding SoldMessage}"/>
+                        </Controls:MetroHeader>
+                        <Controls:MetroHeader Header="Thank you">
+                            <Controls:MetroHeader.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                        <TextBlock Margin="2 0 0 0"
+                                                   FontSize="18"
+                                                   VerticalAlignment="Center"
+                                                   Text="{Binding}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </Controls:MetroHeader.HeaderTemplate>
+                            <TextBox Text="{Binding ThankYouMessage}" Controls:TextBoxHelper.Watermark="No whisper"/>
                         </Controls:MetroHeader>
                     </StackPanel>
                 </StackPanel>

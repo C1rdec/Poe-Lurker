@@ -8,7 +8,9 @@ namespace Lurker.UI.ViewModels
 {
     using Caliburn.Micro;
     using Lurker.Events;
+    using Lurker.Helpers;
     using Lurker.Models;
+    using Lurker.Services;
     using Lurker.UI.Helpers;
     using Lurker.UI.Models;
     using System.Windows.Input;
@@ -17,12 +19,13 @@ namespace Lurker.UI.ViewModels
     {
         #region Fields
 
-        private bool _active;
-        private bool _waiting;
         private TradeEvent _tradeEvent;
         private PoeKeyboardHelper _keyboardHelper;
-        private OfferStatus _status;
         private TradebarContext _tradebarContext;
+        private SettingsService _settingsService;
+        private OfferStatus _status;
+        private bool _waiting;
+        private bool _active;
         private bool _skipMainAction;
         private bool _buyerInSameInstance;
 
@@ -34,11 +37,12 @@ namespace Lurker.UI.ViewModels
         /// Initializes a new instance of the <see cref="TradeOfferViewModel"/> class.
         /// </summary>
         /// <param name="tradeEvent">The trade event.</param>
-        public OfferViewModel(TradeEvent tradeEvent, PoeKeyboardHelper keyboardHelper, TradebarContext tradebarContext)
+        public OfferViewModel(TradeEvent tradeEvent, PoeKeyboardHelper keyboardHelper, TradebarContext tradebarContext, SettingsService settingsService)
         {
             this._tradeEvent = tradeEvent;
             this._keyboardHelper = keyboardHelper;
             this._tradebarContext = tradebarContext;
+            this._settingsService = settingsService;
         }
 
         #endregion
@@ -163,7 +167,7 @@ namespace Lurker.UI.ViewModels
         {
             this._skipMainAction = true;
             this.Waiting = true;
-            this.Whisper(MessageHelper.BusyMessage);
+            this.Whisper(this._settingsService.BusyMessage);
         }
 
         /// <summary>
@@ -212,7 +216,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         private void Sold()
         {
-            this.Whisper(MessageHelper.SoldMessage);
+            this.Whisper(this._settingsService.SoldMessage);
             this.RemoveFromTradebar();
         }
 
@@ -221,7 +225,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         private void StillInterested()
         {
-            this.Whisper(MessageHelper.StillInterestedMessage);
+            this.Whisper(this._settingsService.StillInterestedMessage);
         }
 
         /// <summary>
@@ -257,7 +261,7 @@ namespace Lurker.UI.ViewModels
         /// <param name="message">The message.</param>
         private void Whisper(string message)
         {
-            this._keyboardHelper.Whisper(this.PlayerName, TokenHelper.ReplaceToken(message, this));
+            this._keyboardHelper.Whisper(this.PlayerName, TokenHelper.ReplaceToken(message, this._tradeEvent));
         }
 
         #endregion

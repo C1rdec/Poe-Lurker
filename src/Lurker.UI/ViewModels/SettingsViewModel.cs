@@ -7,17 +7,16 @@
 namespace Lurker.UI.ViewModels
 {
     using Caliburn.Micro;
+    using Lurker.Helpers;
+    using Lurker.Services;
     using Lurker.UI.Helpers;
 
     public class SettingsViewModel: Screen
     {
         #region Fields
 
-        private string _busyMessage;
-        private string _thankYouMessage;
-        private string _stillInterestedMessage;
-        private string _soldMessage;
         private KeyboardHelper _keyboardHelper;
+        private SettingsService _settingService;
 
         #endregion
 
@@ -26,14 +25,10 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="SettingsViewModel"/> class.
         /// </summary>
-        public SettingsViewModel(KeyboardHelper keyboardHelper)
+        public SettingsViewModel(KeyboardHelper keyboardHelper, SettingsService settingsService)
         {
-            this.DisplayName = "Settings";
-            this.BusyMessage = "busy";
-            this.ThankYouMessage = "ThankYou";
-            this.StillInterestedMessage = "Still";
-            this.SoldMessage = "sold";
             this._keyboardHelper = keyboardHelper;
+            this._settingService = settingsService;
         }
 
         #endregion
@@ -47,12 +42,12 @@ namespace Lurker.UI.ViewModels
         {
             get
             {
-                return this._busyMessage;
+                return this._settingService.BusyMessage;
             }
 
             set
             {
-                this._busyMessage = value;
+                this._settingService.BusyMessage = value;
                 this.NotifyOfPropertyChange();
             }
         }
@@ -64,12 +59,12 @@ namespace Lurker.UI.ViewModels
         {
             get
             {
-                return this._soldMessage;
+                return this._settingService.SoldMessage;
             }
 
             set
             {
-                this._soldMessage = value;
+                this._settingService.SoldMessage = value;
                 this.NotifyOfPropertyChange();
             }
         }
@@ -81,12 +76,12 @@ namespace Lurker.UI.ViewModels
         {
             get
             {
-                return this._thankYouMessage;
+                return this._settingService.ThankYouMessage;
             }
 
             set
             {
-                this._thankYouMessage = value;
+                this._settingService.ThankYouMessage = value;
                 this.NotifyOfPropertyChange();
             }
         }
@@ -98,12 +93,12 @@ namespace Lurker.UI.ViewModels
         {
             get
             {
-                return this._stillInterestedMessage;
+                return this._settingService.StillInterestedMessage;
             }
 
             set
             {
-                this._stillInterestedMessage = value;
+                this._settingService.StillInterestedMessage = value;
                 this.NotifyOfPropertyChange();
             }
         }
@@ -134,6 +129,20 @@ namespace Lurker.UI.ViewModels
         public void InsertItemNameToken()
         {
             this._keyboardHelper.Write(TokenHelper.ItemName);
+        }
+
+        /// <summary>
+        /// Called when deactivating.
+        /// </summary>
+        /// <param name="close">Inidicates whether this instance will be closed.</param>
+        protected override void OnDeactivate(bool close)
+        {
+            if (close)
+            {
+                this._settingService.Save();
+            }
+
+            base.OnDeactivate(close);
         }
 
         #endregion

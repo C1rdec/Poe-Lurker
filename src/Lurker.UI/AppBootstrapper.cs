@@ -7,6 +7,7 @@
 namespace Lurker.UI
 {
     using Caliburn.Micro;
+    using Lurker.Services;
     using Lurker.UI.Helpers;
     using Lurker.UI.ViewModels;
     using System;
@@ -46,6 +47,8 @@ namespace Lurker.UI
             this._container.Singleton<IWindowManager, WindowManager>();
             this._container.Singleton<IEventAggregator, EventAggregator>();
             this._container.Singleton<KeyboardHelper, KeyboardHelper>();
+            this._container.Singleton<SettingsService, SettingsService>();
+
             this._container.PerRequest<ShellViewModel, ShellViewModel>();
             this._container.PerRequest<TradebarViewModel, TradebarViewModel>();
             this._container.PerRequest<SettingsViewModel, SettingsViewModel>();
