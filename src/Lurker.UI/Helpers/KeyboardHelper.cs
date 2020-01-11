@@ -28,14 +28,31 @@ namespace Lurker.UI.Helpers
         /// </summary>
         /// <param name="windowHandle">The window handle.</param>
         public KeyboardHelper(IntPtr windowHandle)
+            : this()
+        {
+            this._windowHandle = windowHandle;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="KeyboardHelper"/> class.
+        /// </summary>
+        public KeyboardHelper()
         {
             this._simulator = new InputSimulator();
-            this._windowHandle = windowHandle;
         }
 
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Writes the specified text.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        public void Write(string text)
+        {
+            this._simulator.Keyboard.TextEntry(text);
+        }
 
         /// <summary>
         /// Simulates a search using Ctrl+F 

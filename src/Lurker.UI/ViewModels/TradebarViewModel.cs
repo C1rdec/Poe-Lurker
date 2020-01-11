@@ -7,6 +7,7 @@
 namespace Lurker.UI.ViewModels
 {
     using Caliburn.Micro;
+    using Lurker.Services;
     using Lurker.UI.Helpers;
     using Lurker.UI.Models;
     using System;
@@ -30,14 +31,15 @@ namespace Lurker.UI.ViewModels
         private ClientLurker _Lurker;
         private DockingHelper _dockingHelper;
         private PoeKeyboardHelper _keyboardHelper;
+        private TradebarContext _context;
+        private List<OfferViewModel> _activeOffers = new List<OfferViewModel>();
+        private SettingsService _settingsService;
         private double _itemNameVerticalOffset;
         private double _itemNameHorizontalOffset;
         private double _itemNameHeight;
         private double _itemNameWidth;
         private string _itemName;
         private bool _hasActiveOffer;
-        private TradebarContext _context;
-        private List<OfferViewModel> _activeOffers = new List<OfferViewModel>();
 
         #endregion
 
@@ -49,11 +51,12 @@ namespace Lurker.UI.ViewModels
         /// <param name="lurker">The lurker.</param>
         /// <param name="dockingHelper">The docking helper.</param>
         /// <param name="keyboardHelper">The keyboard helper.</param>
-        public TradebarViewModel(ClientLurker lurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper)
+        public TradebarViewModel(ClientLurker lurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper, SettingsService settingsService)
         {
             this._Lurker = lurker;
             this._dockingHelper = dockingHelper;
             this._keyboardHelper = keyboardHelper;
+            this._settingsService = settingsService;
             this.TradeOffers = new ObservableCollection<OfferViewModel>();
 
             this._dockingHelper.OnWindowMove += this.DockingHelper_OnWindowMove;
@@ -233,7 +236,7 @@ namespace Lurker.UI.ViewModels
         {
             Execute.OnUIThread(() => 
             {
-                this.TradeOffers.Add(new OfferViewModel(e, this._keyboardHelper, this._context));
+                this.TradeOffers.Add(new OfferViewModel(e, this._keyboardHelper, this._context, this._settingsService));
             });
         }
 
@@ -247,9 +250,9 @@ namespace Lurker.UI.ViewModels
             var offer = this.TradeOffers.Where(t => t.Status == OfferStatus.Traded).FirstOrDefault();
             if (offer != null)
             {
-                if (!string.IsNullOrEmpty(MessageHelper.ThanksMessage))
+                if (!string.IsNullOrEmpty(this._settingsService.ThankYouMessage))
                 {
-                    this._keyboardHelper.Whisper(offer.PlayerName, MessageHelper.ThanksMessage);
+                    this._keyboardHelper.Whisper(offer.PlayerName, this._settingsService.ThankYouMessage);
                 }
 
                 this._keyboardHelper.Kick(offer.PlayerName);
