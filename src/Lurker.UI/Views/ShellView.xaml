@@ -13,6 +13,7 @@
         <tb:TaskbarIcon x:Name="myNotifyIcon"
                     Visibility="{Binding ShowInTaskBar, Converter={StaticResource BooleanToVisibilityConverter}}"
                     ToolTipText="Poe Lurker"
+                    DoubleClickCommand="{Binding ShowSettingsCommand}"
                     MenuActivation="LeftOrRightClick"
                     PopupActivation="DoubleClick">
             <tb:TaskbarIcon.Style>

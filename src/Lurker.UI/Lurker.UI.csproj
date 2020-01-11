@@ -128,6 +128,7 @@
     <Compile Include="Helpers\MessageHelper.cs" />
     <Compile Include="Helpers\PoeKeyboardHelper.cs" />
     <Compile Include="Helpers\TokenHelper.cs" />
+    <Compile Include="Models\DoubleClickCommand.cs" />
     <Compile Include="Models\TradebarContext.cs" />
     <Compile Include="Native.cs" />
     <Compile Include="Svg.cs">
@@ -136,7 +137,11 @@
       <DependentUpon>Svg.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\OfferStatus.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\TradebarViewModel.cs" />
+    <Compile Include="Views\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
@@ -152,6 +157,10 @@
     <Compile Include="Views\OfferView.xaml.cs">
       <DependentUpon>OfferView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ShellView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

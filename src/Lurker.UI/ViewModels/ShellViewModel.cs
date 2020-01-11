@@ -8,6 +8,7 @@ namespace Lurker.UI
 {
     using Caliburn.Micro;
     using Lurker.UI.Helpers;
+    using Lurker.UI.Models;
     using Lurker.UI.ViewModels;
     using Squirrel;
     using System;
@@ -54,6 +55,11 @@ namespace Lurker.UI
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets the command.
+        /// </summary>
+        public DoubleClickCommand ShowSettingsCommand => new DoubleClickCommand(this.ShowSettings);
 
         /// <summary>
         /// Gets or sets a value indicating whether [show in task bar].
@@ -190,6 +196,15 @@ namespace Lurker.UI
         }
 
         /// <summary>
+        /// Shows the settings.
+        /// </summary>
+        public void ShowSettings()
+        {
+            var viewModel = new SettingsViewModel();
+            this._windowManager.ShowWindow(viewModel);
+        }
+
+        /// <summary>
         /// Updates this instance.
         /// </summary>
         private async Task CheckForUpdate()
@@ -204,7 +219,7 @@ namespace Lurker.UI
         /// <summary>
         /// Registers the instances.
         /// </summary>
-        private void DisplayRoot(Process process)
+        private void ShowTradebar(Process process)
         {
             Execute.OnUIThread(() => 
             {
@@ -244,7 +259,7 @@ namespace Lurker.UI
             this._currentLurker = new ClientLurker();
             this._currentLurker.PoeClosed += CurrentLurker_PoeClosed;
             var process = await this._currentLurker.WaitForPoe();
-            this.DisplayRoot(process);
+            this.ShowTradebar(process);
             #if (!DEBUG)
                 await this.CheckForUpdate();
             #endif
