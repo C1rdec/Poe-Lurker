@@ -32,6 +32,11 @@ namespace Lurker.Models
         /// </summary>
         public string StillInterestedMessage { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [first launch].
+        /// </summary>
+        public bool FirstLaunch { get; set; }
+
         #endregion
     }
 }

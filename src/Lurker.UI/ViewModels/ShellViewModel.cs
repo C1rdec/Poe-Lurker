@@ -7,6 +7,7 @@
 namespace Lurker.UI
 {
     using Caliburn.Micro;
+    using Lurker.Services;
     using Lurker.UI.Helpers;
     using Lurker.UI.Models;
     using Lurker.UI.ViewModels;
@@ -29,6 +30,7 @@ namespace Lurker.UI
         private SimpleContainer _container;
         private ClientLurker _currentLurker;
         private TradebarViewModel _tradeBarOverlay;
+        private SettingsService _settingsService;
         private bool _startWithWindows;
         private bool _needUpdate;
         private bool _showInTaskBar;
@@ -42,12 +44,20 @@ namespace Lurker.UI
         /// </summary>
         /// <param name="windowManager">The window manager.</param>
         /// <param name="container">The container.</param>
-        public ShellViewModel(SimpleContainer container)
+        public ShellViewModel(SimpleContainer container, SettingsService settingsService)
         {
+            this._settingsService = settingsService;
             this._container = container;
             this.WaitForPoe();
             this.StartWithWindows = File.Exists(this.ShortcutFilePath);
             this.ShowInTaskBar = true;
+
+            if (settingsService.FirstLaunch)
+            {
+                settingsService.FirstLaunch = false;
+                settingsService.Save();
+                Process.Start("https://github.com/C1rdec/Poe-Lurker/releases/latest");
+            }
         }
 
         #endregion
@@ -184,6 +194,9 @@ namespace Lurker.UI
         /// </summary>
         public async void Update()
         {
+            this._settingsService.FirstLaunch = true;
+            this._settingsService.Save();
+
             this.ShowInTaskBar = false;
             using (var updateManager = await UpdateManager.GitHubUpdateManager(PoeLukerGithubUrl))
             {
