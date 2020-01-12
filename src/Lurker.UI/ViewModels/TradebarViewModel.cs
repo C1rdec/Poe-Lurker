@@ -201,7 +201,7 @@ namespace Lurker.UI.ViewModels
             var activeOffer = this.ActiveOffer;
             if (activeOffer != null)
             {
-                this._keyboardHelper.Search(activeOffer.ItemName);
+                this._keyboardHelper.Search(activeOffer.BuildSearchItemName());
             }
         }
 

@@ -10,6 +10,7 @@ namespace Lurker.Events
     using Lurker.Models;
     using System;
     using System.Linq;
+    using System.Text.RegularExpressions;
 
     public class TradeEvent : WhisperEvent
     {
@@ -41,7 +42,6 @@ namespace Lurker.Events
 
             var greetingMarker = GreetingMarkers.FirstOrDefault(m => this.Message.Contains(m));
             this.ItemName = this.Message.Substring(greetingMarker.Length + 1, textBeforeMarker.Length - greetingMarker.Length -2);
-            this.SimplifyItemName();
 
             // Location
             var textAfterItemName = this.Message.Substring(itemIndex);
@@ -130,13 +130,28 @@ namespace Lurker.Events
             };
         }
 
-        private void SimplifyItemName()
+        /// <summary>
+        /// Simplifies the name of the item.
+        /// </summary>
+        public string BuildSearchItemName()
         {
             var additionalInformationIndex = this.ItemName.IndexOf(" (");
             if (additionalInformationIndex != -1)
             {
                 this.ItemName = this.ItemName.Substring(0, additionalInformationIndex);
             }
+
+            var gemLevelIndex = this.ItemName.IndexOf("level ");
+            if (gemLevelIndex != -1)
+            {
+                var gemDetails = this.ItemName.Split(' ');
+                var quality = gemDetails[2];
+                var gemName = string.Join(" ", gemDetails.Skip(3));
+
+                return $"{gemName} {quality}";
+            }
+
+            return Regex.Replace(this.ItemName, @"[\d-]", string.Empty).Trim();
         }
 
         #endregion

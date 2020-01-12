@@ -106,7 +106,8 @@ namespace Lurker.UI
         /// <param name="e">The <see cref="UnhandledExceptionEventArgs"/> instance containing the event data.</param>
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            Logger.Error((e.ExceptionObject as Exception).Message);
+            var exception = (e.ExceptionObject as Exception);
+            Logger.Error(exception, exception.Message);
         }
 
         #endregion
