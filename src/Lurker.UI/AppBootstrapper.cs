@@ -53,6 +53,8 @@ namespace Lurker.UI
             this._container.PerRequest<ShellViewModel, ShellViewModel>();
             this._container.PerRequest<TradebarViewModel, TradebarViewModel>();
             this._container.RegisterInstance(typeof(SimpleContainer), null, this._container);
+
+            throw new InvalidOperationException();
         }
 
         /// <summary>
@@ -106,7 +108,8 @@ namespace Lurker.UI
         /// <param name="e">The <see cref="UnhandledExceptionEventArgs"/> instance containing the event data.</param>
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            Logger.Error((e.ExceptionObject as Exception).Message);
+            var exception = (e.ExceptionObject as Exception);
+            Logger.Error(exception, exception.Message);
         }
 
         #endregion
