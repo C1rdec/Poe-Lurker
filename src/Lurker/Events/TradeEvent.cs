@@ -42,7 +42,6 @@ namespace Lurker.Events
 
             var greetingMarker = GreetingMarkers.FirstOrDefault(m => this.Message.Contains(m));
             this.ItemName = this.Message.Substring(greetingMarker.Length + 1, textBeforeMarker.Length - greetingMarker.Length -2);
-            this.SimplifyItemName();
 
             // Location
             var textAfterItemName = this.Message.Substring(itemIndex);
@@ -134,7 +133,7 @@ namespace Lurker.Events
         /// <summary>
         /// Simplifies the name of the item.
         /// </summary>
-        private void SimplifyItemName()
+        public string BuildSearchItemName()
         {
             var additionalInformationIndex = this.ItemName.IndexOf(" (");
             if (additionalInformationIndex != -1)
@@ -142,7 +141,17 @@ namespace Lurker.Events
                 this.ItemName = this.ItemName.Substring(0, additionalInformationIndex);
             }
 
-            this.ItemName = Regex.Replace(this.ItemName, @"[\d-]", string.Empty).Trim();
+            var gemLevelIndex = this.ItemName.IndexOf("level ");
+            if (gemLevelIndex != -1)
+            {
+                var gemDetails = this.ItemName.Split(' ');
+                var quality = gemDetails[2];
+                var gemName = string.Join(" ", gemDetails.Skip(3));
+
+                return $"{gemName} {quality}";
+            }
+
+            return Regex.Replace(this.ItemName, @"[\d-]", string.Empty).Trim();
         }
 
         #endregion

@@ -53,8 +53,6 @@ namespace Lurker.UI
             this._container.PerRequest<ShellViewModel, ShellViewModel>();
             this._container.PerRequest<TradebarViewModel, TradebarViewModel>();
             this._container.RegisterInstance(typeof(SimpleContainer), null, this._container);
-
-            throw new InvalidOperationException();
         }
 
         /// <summary>

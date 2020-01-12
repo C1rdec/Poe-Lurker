@@ -212,6 +212,15 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Builds the name of the search item.
+        /// </summary>
+        /// <returns>The item name to be placed in tab search.</returns>
+        public string BuildSearchItemName()
+        {
+            return this._tradeEvent.BuildSearchItemName();
+        }
+
+        /// <summary>
         /// Tell the buyer that the item is sold.
         /// </summary>
         private void Sold()
