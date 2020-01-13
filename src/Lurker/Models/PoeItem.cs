@@ -4,12 +4,12 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Lurker.Extensions;
-using Lurker.Parsers;
-using System.Linq;
-
 namespace Lurker.Models
 {
+    using Lurker.Extensions;
+    using Lurker.Parsers;
+    using System.Linq;
+
     public abstract class PoeItem
     {
         #region Fields
