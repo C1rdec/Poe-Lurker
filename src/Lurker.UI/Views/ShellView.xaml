@@ -40,7 +40,7 @@
                                     <ColumnDefinition></ColumnDefinition>
                                     <ColumnDefinition></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock>Close </TextBlock>
+                                <TextBlock>Close</TextBlock>
                                 <TextBlock Foreground="DarkGray" Margin="15,0,0,0"  Text="{Binding Version}" Grid.Column="1"/>
                             </Grid>
                         </MenuItem.Header>
@@ -48,5 +48,9 @@
                 </ContextMenu>
             </tb:TaskbarIcon.ContextMenu>
         </tb:TaskbarIcon>
+
+        <Popup IsOpen="{Binding IsItemOverlayOpen}" Placement="Mouse" PopupAnimation="Slide">
+            <ContentControl cal:View.Model="{Binding ItemOverlayViewModel}"/>
+        </Popup>
     </Grid>
 </Window>

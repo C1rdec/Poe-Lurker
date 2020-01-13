@@ -13,17 +13,19 @@ namespace Lurker.Console
         static void Main(string[] args)
         {
 
-            var lurker = new ClipboardLurker();
-            //using (var lurker = new ClientLurker())
-            //{
-            //    lurker.LocationChanged += Lurker_ChangedLocation;
-            //    lurker.RemainingMonsters += Watcher_RemainingMonsters;
-            //    lurker.PlayerJoined += Watcher_PlayerJoined;
-            //    lurker.PlayerLeft += Watcher_PlayerLeft;
-            //    lurker.Whispered += Watcher_Whispered;
-            //    lurker.NewOffer += Lurker_NewOffer;
-            //    Console.Read();
-            //}
+            //var lurker = new ClipboardLurker();
+            using (var lurker = new ClientLurker())
+            {
+                lurker.LocationChanged += Lurker_ChangedLocation;
+                lurker.RemainingMonsters += Watcher_RemainingMonsters;
+                lurker.PlayerJoined += Watcher_PlayerJoined;
+                lurker.PlayerLeft += Watcher_PlayerLeft;
+                lurker.Whispered += Watcher_Whispered;
+                lurker.NewOffer += Lurker_NewOffer;
+                Console.Read();
+            }
+
+            //Console.Read();
         }
 
         private static void Lurker_NewOffer(object sender, Events.TradeEvent e)

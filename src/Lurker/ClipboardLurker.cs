@@ -7,38 +7,104 @@
 
 namespace Lurker
 {
+    using Gma.System.MouseKeyHook;
+    using Lurker.Helpers;
+    using Lurker.Models;
+    using Lurker.Parsers;
+    using System;
     using System.Threading;
     using System.Windows;
-    using System.Windows.Threading;
 
-    public class ClipboardLurker
+    public class ClipboardLurker: IDisposable
     {
         #region Fields
 
-        private Dispatcher _dispatcher;
+        private const char CtrlD = '\u0004';
+        private IKeyboardMouseEvents _globalHook;
+        private ItemParser _itemParser = new ItemParser();
 
         #endregion
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClipboardLurker"/> class.
+        /// </summary>
         public ClipboardLurker()
         {
-            var text = GetClipboardData();
+            this._globalHook = Hook.GlobalEvents();
+            this._globalHook.KeyPress += this.GlobalHookKeyPress;
         }
+
+        #endregion
+
+        #region Events
+
+        /// <summary>
+        /// Occurs when a new item is in the clipboard.
+        /// </summary>
+        public event EventHandler<PoeItem> Newitem;
 
         #endregion
 
         #region Methods
 
-        private string GetClipboardData()
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            this.Dispose(true);
+        }
+
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this._globalHook.KeyPress -= this.GlobalHookKeyPress;
+                this._globalHook.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// Gets the clipboard data.
+        /// </summary>
+        /// <returns>The clipboard text.</returns>
+        private string GetClipboardText()
         {
             var clipboardText = string.Empty;
             Thread thread = new Thread(() => { clipboardText = Clipboard.GetText(); });
-            thread.SetApartmentState(ApartmentState.STA); //Set the thread to STA
+            thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
             thread.Join();
 
             return clipboardText;
+        }
+
+        /// <summary>
+        /// Globals the hook key press.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="KeyPressEventArgs" /> instance containing the event data.</param>
+        private void GlobalHookKeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
+        {
+            switch(e.KeyChar)
+            {
+                case CtrlD:
+                    System.Windows.Forms.SendKeys.SendWait("^C");
+                    var text = this.GetClipboardText();
+                    var item = this._itemParser.Parse(text);
+                    if (item != null)
+                    {
+                        this.Newitem?.Invoke(this, item);
+                        Clipboard.Clear();
+                    }
+                    break;
+            }
         }
 
         #endregion
