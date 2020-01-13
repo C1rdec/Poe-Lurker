@@ -46,6 +46,16 @@ namespace Lurker.UI.ViewModels
         /// </value>
         public int ItemLevel => this._item.ItemLevel;
 
+        /// <summary>
+        /// Gets the rarity.
+        /// </summary>
+        public Rarity Rarity => this._item.Rarity;
+
+        /// <summary>
+        /// Gets the type of the base.
+        /// </summary>
+        public string BaseType => this._item.BaseType;
+
         #endregion
 
         #region Methods

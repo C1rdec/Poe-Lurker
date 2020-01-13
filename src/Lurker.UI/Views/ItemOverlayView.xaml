@@ -8,6 +8,8 @@
              d:DesignHeight="100" d:DesignWidth="100">
     <Button Height="100" Width="100" x:Name="Close" Background="Green">
         <StackPanel>
+            <TextBlock Text="{Binding Rarity}"/>
+            <TextBlock Text="{Binding BaseType}"/>
             <TextBlock Text="{Binding ItemClass}"/>
             <TextBlock Text="{Binding ItemLevel}"/>
         </StackPanel>
