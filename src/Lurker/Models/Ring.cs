@@ -1,20 +1,20 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="Boots.cs" company="Wohs">
+// <copyright file="Ring.cs" company="Wohs">
 //     Missing Copyright information from a valid stylecop.json file.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.Models
 {
-    public class Boots : PoeItem
+    public class Ring : PoeItem
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Boots"/> class.
+        /// Initializes a new instance of the <see cref="Helmet"/> class.
         /// </summary>
         /// <param name="value">The value.</param>
-        public Boots(string value) 
+        public Ring(string value)
             : base(value)
         {
         }
@@ -24,9 +24,9 @@ namespace Lurker.Models
         #region Properties
 
         /// <summary>
-        /// Gets the item class.
+        /// Gets or sets the item class.
         /// </summary>
-        public override ItemClass ItemClass => ItemClass.Boots;
+        public override ItemClass ItemClass => ItemClass.Ring;
 
         #endregion
     }

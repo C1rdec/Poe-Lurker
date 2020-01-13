@@ -67,9 +67,15 @@
     <Compile Include="ClientLurker.cs" />
     <Compile Include="ClipboardLurker.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
+    <Compile Include="Models\Quiver.cs" />
+    <Compile Include="Models\Amulet.cs" />
+    <Compile Include="Models\Belt.cs" />
     <Compile Include="Models\BodyArmour.cs" />
     <Compile Include="Models\Boots.cs" />
+    <Compile Include="Models\Ring.cs" />
     <Compile Include="Models\Gloves.cs" />
+    <Compile Include="Models\Bow.cs" />
+    <Compile Include="Models\Helmet.cs" />
     <Compile Include="Parsers\RarityParser.cs" />
     <Compile Include="Parsers\CurrencyTypeParser.cs" />
     <Compile Include="Events\ChangedLocationEvent.cs" />

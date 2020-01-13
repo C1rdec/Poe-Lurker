@@ -32,6 +32,18 @@ namespace Lurker.Parsers
                     return new Gloves(value);
                 case ItemClass.BodyArmour:
                     return new BodyArmour(value);
+                case ItemClass.Belt:
+                    return new Belt(value);
+                case ItemClass.Helmet:
+                    return new Helmet(value);
+                case ItemClass.Bow:
+                    return new Bow(value);
+                case ItemClass.Quiver:
+                    return new Quiver(value);
+                case ItemClass.Ring:
+                    return new Ring(value);
+                case ItemClass.Amulet:
+                    return new Amulet(value);
                 default:
                     return null;
             }
