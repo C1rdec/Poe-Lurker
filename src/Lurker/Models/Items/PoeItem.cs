@@ -16,6 +16,7 @@ namespace Lurker.Models.Items
     {
         #region Fields
 
+        private static readonly string CorruptedMarker = "Corrupted";
         private static readonly string ItemLevelMarker = "Item Level: ";
         private static readonly string NoteMarker = "Note: ";
         private static readonly string RarityMarker = "Rarity: ";
@@ -36,6 +37,7 @@ namespace Lurker.Models.Items
         public PoeItem(string value)
         {
             this.Identified = value.IndexOf(UnidentifiedMarker) == -1;
+            this.Corrupted = value.IndexOf(CorruptedMarker) != -1;
             this.BaseType = GetBaseType(value);
             this.ItemLevel = GetItemLevel(value);
             this.Rarity = GetRarity(value);
@@ -86,6 +88,11 @@ namespace Lurker.Models.Items
         /// Gets or sets a value indicating whether this <see cref="PoeItem"/> is identified.
         /// </summary>
         public bool Identified { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="PoeItem"/> is corrupted.
+        /// </summary>
+        public bool Corrupted { get; set; }
 
         /// <summary>
         /// Gets or sets the influence.
@@ -259,6 +266,11 @@ namespace Lurker.Models.Items
             }
 
             if (this.Influence != Influence.Normal)
+            {
+                counter++;
+            }
+
+            if (this.Corrupted)
             {
                 counter++;
             }
