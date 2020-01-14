@@ -29,7 +29,7 @@ namespace Lurker.Models.Items
         public SocketableItem(string value)
             : base(value)
         {
-            this.Sockets = SocketParser.Parse(value.GetLine(SocketsMarker));
+            this.Sockets = SocketParser.Parse(value.GetLineAfter(SocketsMarker));
             this.SocketCount = this.Sockets.Count();
 
             var linkedCount = this.Sockets.Count(s => s.Linked);

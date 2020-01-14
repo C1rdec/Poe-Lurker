@@ -64,6 +64,11 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public string SocketInformation { get; private set; }
 
+        /// <summary>
+        /// Gets the total life count.
+        /// </summary>
+        public double TotalLifeCount => this._item.TotalLifeCount;
+
         #endregion
 
         #region Methods

@@ -24,14 +24,14 @@ namespace Lurker.Parsers
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The currency type</returns>
-        public T Parse(string curencyTypeValue)
+        public T Parse(string value)
         {
-            var value = curencyTypeValue.ToLower();
-            foreach (var currencyType in Dictionary)
+            var lowerValue = value.ToLower();
+            foreach (var dictionaryValue in Dictionary)
             {
-                if (currencyType.Value.Any(v => value.Contains(v)))
+                if (dictionaryValue.Value.Any(v => lowerValue.Contains(v)))
                 {
-                    return currencyType.Key;
+                    return dictionaryValue.Key;
                 }
             }
 

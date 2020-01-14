@@ -8,6 +8,7 @@ namespace Lurker.Models.Items
 {
     using Lurker.Extensions;
     using Lurker.Parsers;
+    using Lurker.Services;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -16,11 +17,13 @@ namespace Lurker.Models.Items
         #region Fields
 
         private static readonly string ItemLevelMarker = "Item Level: ";
+        private static readonly string NoteMarker = "Note: ";
         private static readonly string RarityMarker = "Rarity: ";
         private static readonly string UnidentifiedMarker = "Unidentified";
         private static readonly string Seperator = "--------";
         private static readonly RarityParser RarityParser = new RarityParser();
         private static readonly ItemClassParser ItemClassParser = new ItemClassParser();
+        private static readonly InfluenceParser InfluenceParser = new InfluenceParser();
 
         #endregion
 
@@ -36,6 +39,7 @@ namespace Lurker.Models.Items
             this.BaseType = GetBaseType(value);
             this.ItemLevel = GetItemLevel(value);
             this.Rarity = GetRarity(value);
+            this.Influence = GetInfluence(value);
 
             if (this.Identified)
             {
@@ -82,6 +86,16 @@ namespace Lurker.Models.Items
         /// Gets or sets a value indicating whether this <see cref="PoeItem"/> is identified.
         /// </summary>
         public bool Identified { get; set; }
+
+        /// <summary>
+        /// Gets or sets the influence.
+        /// </summary>
+        public Influence Influence { get; set; }
+
+        /// <summary>
+        /// Gets the total life count.
+        /// </summary>
+        public double TotalLifeCount => AffixService.GetTotalLife(this);
 
         #endregion
 
@@ -130,7 +144,7 @@ namespace Lurker.Models.Items
         /// <returns>The item level.</returns>
         private static int GetItemLevel(string value)
         {
-            var itemLevelValue = value.GetLine(ItemLevelMarker);
+            var itemLevelValue = value.GetLineAfter(ItemLevelMarker);
             if (string.IsNullOrEmpty(itemLevelValue))
             {
                 return default;
@@ -146,13 +160,47 @@ namespace Lurker.Models.Items
         /// <returns>The item rarity</returns>
         private static Rarity GetRarity(string value)
         {
-            var rarityValue = value.GetLine(RarityMarker);
+            var rarityValue = value.GetLineAfter(RarityMarker);
             if (string.IsNullOrEmpty(rarityValue))
             {
                 return default;
             }
 
             return RarityParser.Parse(rarityValue);
+        }
+
+        /// <summary>
+        /// Gets the influence.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>The item influence.</returns>
+        private static Influence GetInfluence(string value)
+        {
+            var sections = value.Split(Seperator);
+
+            var count = 1;
+            if (HasNote(value))
+            {
+                count++;
+            }
+
+            var influenceSection = sections.ElementAt(sections.Length - count);
+            var firstLine = influenceSection.GetLines().First();
+            var firstWord = firstLine.Split(' ').First();
+
+            return InfluenceParser.Parse(firstWord);
+        }
+
+        /// <summary>
+        /// Determines whether the specified value has note.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified value has note; otherwise, <c>false</c>.
+        /// </returns>
+        private static bool HasNote(string value)
+        {
+            return value.IndexOf(NoteMarker) != -1;
         }
 
         /// <summary>
@@ -171,24 +219,51 @@ namespace Lurker.Models.Items
         /// Gets the affixes.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <returns>The lsit of affixes.</returns>
+        /// <returns>The list of affixes.</returns>
         private IEnumerable<Affix> GetAffixes(string value)
         {
-            if (this.Rarity == Rarity.Unique)
+            var affixes = new List<Affix>();
+            var implicitValue = value.GetLine(AffixService.ImplicitMarker);
+            if (!string.IsNullOrEmpty(implicitValue))
             {
-                return Enumerable.Empty<Affix>();
+                affixes.Add(new Affix(implicitValue));
             }
 
-            var affixes = new List<Affix>();
-            var sections = value.Split(Seperator);
-            var lastSection = sections.Last();
-
-            foreach (var line in lastSection.GetLines())
+            var affixSection = GetAffixSection(value);
+            foreach (var line in affixSection.GetLines())
             {
                 affixes.Add(new Affix(line));
             }
 
             return affixes;
+        }
+
+        /// <summary>
+        /// Gets the affix section.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        private string GetAffixSection(string value)
+        {
+            var sections = value.Split(Seperator);
+
+            var counter = 1;
+            if(this.Rarity == Rarity.Unique)
+            {
+                counter++;
+            }
+
+            if (HasNote(value))
+            {
+                counter++;
+            }
+
+            if (this.Influence != Influence.Normal)
+            {
+                counter++;
+            }
+
+            return sections.ElementAt(sections.Length - counter);
         }
 
         #endregion

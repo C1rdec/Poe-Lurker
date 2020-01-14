@@ -68,6 +68,7 @@
     <Compile Include="ClipboardLurker.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Models\Items\Affix.cs" />
+    <Compile Include="Models\Items\Influence.cs" />
     <Compile Include="Models\Items\Quiver.cs" />
     <Compile Include="Models\Items\Amulet.cs" />
     <Compile Include="Models\Items\Belt.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Models\TradeAPI\AffixType.cs" />
     <Compile Include="Models\TradeAPI\QueryResult.cs" />
     <Compile Include="Models\TradeAPI\TradeApiClient.cs" />
+    <Compile Include="Parsers\InfluenceParser.cs" />
     <Compile Include="Parsers\RarityParser.cs" />
     <Compile Include="Parsers\CurrencyTypeParser.cs" />
     <Compile Include="Events\ChangedLocationEvent.cs" />

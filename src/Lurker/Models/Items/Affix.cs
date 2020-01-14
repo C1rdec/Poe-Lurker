@@ -7,9 +7,7 @@
 
 namespace Lurker.Models.Items
 {
-    using Lurker.Extensions;
     using Lurker.Services;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -34,10 +32,21 @@ namespace Lurker.Models.Items
         {
             this._actualValue = value;
             this.Format(value);
-
-            //this._text = this.Format(value);
-            this._id = GetId(this._text);
         }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the identifier.
+        /// </summary>
+        public string Id => this._id;
+
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
+        public double Value => this._value;
 
         #endregion
 
@@ -53,6 +62,11 @@ namespace Lurker.Models.Items
             if (textValue.EndsWith(AffixService.CraftedMarker))
             {
                 return AffixService.FindCraftedId(textValue);
+            }
+
+            if (textValue.EndsWith(AffixService.ImplicitMarker))
+            {
+                return AffixService.FindImplicitId(textValue);
             }
 
             return AffixService.FindExplicitId(textValue);

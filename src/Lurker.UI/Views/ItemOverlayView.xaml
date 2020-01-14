@@ -11,6 +11,7 @@
             <TextBlock Text="{Binding Rarity}"/>
 
             <TextBlock Text="{Binding ItemInformation}"/>
+            <TextBlock Text="{Binding TotalLifeCount}"/>
             <TextBlock Text="{Binding SocketInformation}"/>
             <!--<TextBlock Text="{Binding BaseType}"/>
             <TextBlock Text="{Binding ItemClass}"/>

@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Lurker.Models.Items;
 using Lurker.Models.TradeAPI;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +15,14 @@ namespace Lurker.Services
     public class AffixService
     {
         #region Fields
-
+        
+        public static readonly string ImplicitMarker = " (implicit)";
         public static readonly string CraftedMarker = " (crafted)";
         private IEnumerable<AffixEntry> _affixes;
         private static readonly TradeApiClient Client = new TradeApiClient();
         private static AffixService _instance;
+        private static readonly string MaximumLifeText = "# to maximum Life";
+        private static readonly string StrengthAffixId = "explicit.stat_4080418644";
 
         #endregion
 
@@ -43,6 +47,11 @@ namespace Lurker.Services
         private IEnumerable<AffixEntry> Explicits => this._affixes.Where(a => a.Type == AffixType.Explicit);
 
         /// <summary>
+        /// Gets the implicits.
+        /// </summary>
+        private IEnumerable<AffixEntry> Implicits => this._affixes.Where(a => a.Type == AffixType.Implicit);
+
+        /// <summary>
         /// Gets the pseudos.
         /// </summary>
         private IEnumerable<AffixEntry> Pseudos => this._affixes.Where(a => a.Type == AffixType.Pseudo);
@@ -57,17 +66,34 @@ namespace Lurker.Services
         #region Methods
 
         /// <summary>
-        /// Gets the instance.
+        /// Gets the total life.
         /// </summary>
-        /// <returns>The singleton.</returns>
-        private static AffixService GetInstance()
+        /// <param name="item">The item.</param>
+        /// <returns>The total life of the item.</returns>
+        public static double GetTotalLife(PoeItem item)
         {
-            if (_instance == null)
+            double increasedLifeCount = 0;
+            var strAffix = item.Affixes.FirstOrDefault(a => a.Id == StrengthAffixId);
+
+            if(strAffix != null)
             {
-                throw new System.InvalidOperationException("Needs to be Initialize first");
+                var strBonus = (int)(strAffix.Value / 10);
+                increasedLifeCount = strBonus * 5;
             }
 
-            return _instance;
+            var instance = GetInstance();
+            var maximumLifeAffixes = instance._affixes.Where(a => a.text == MaximumLifeText);
+
+            foreach (var maximumLifeAffix in maximumLifeAffixes)
+            {
+                var affix = item.Affixes.FirstOrDefault(a => a.Id == maximumLifeAffix.Id);
+                if (affix != null)
+                {
+                    increasedLifeCount += affix.Value;
+                }
+            }
+
+            return increasedLifeCount;
         }
 
         /// <summary>
@@ -116,6 +142,38 @@ namespace Lurker.Services
             }
 
             return affix.Id;
+        }
+
+        /// <summary>
+        /// Finds the implicit identifier.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <returns>The implicit id</returns>
+        public static string FindImplicitId(string text)
+        {
+            var newText = text.Replace(ImplicitMarker, string.Empty);
+            var instance = GetInstance();
+            var affix = instance.Implicits.FirstOrDefault(e => e.text == newText);
+            if (affix == null)
+            {
+                return null;
+            }
+
+            return affix.Id;
+        }
+
+        /// <summary>
+        /// Gets the instance.
+        /// </summary>
+        /// <returns>The singleton.</returns>
+        private static AffixService GetInstance()
+        {
+            if (_instance == null)
+            {
+                throw new System.InvalidOperationException("Needs to be Initialize first");
+            }
+
+            return _instance;
         }
 
         #endregion
