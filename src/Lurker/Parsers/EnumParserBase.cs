@@ -35,7 +35,7 @@ namespace Lurker.Parsers
                 }
             }
 
-            return default(T);
+            return default;
         }
 
         #endregion

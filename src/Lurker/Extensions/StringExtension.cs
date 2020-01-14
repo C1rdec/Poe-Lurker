@@ -8,7 +8,6 @@
 namespace Lurker.Extensions
 {
     using System.Linq;
-    using System.Text.RegularExpressions;
 
     public static class StringExtension
     {
@@ -38,7 +37,7 @@ namespace Lurker.Extensions
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="marker">The marker.</param>
-        /// <returns>The line</returns>
+        /// <returns>The line.</returns>
         public static string GetLineAfter(this string value, string marker)
         {
             var index = value.IndexOf(marker);

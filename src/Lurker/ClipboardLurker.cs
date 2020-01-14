@@ -8,8 +8,6 @@
 namespace Lurker
 {
     using Gma.System.MouseKeyHook;
-    using Lurker.Helpers;
-    using Lurker.Models;
     using Lurker.Models.Items;
     using Lurker.Parsers;
     using System;
@@ -97,8 +95,7 @@ namespace Lurker
             {
                 case CtrlD:
                     System.Windows.Forms.SendKeys.SendWait("^C");
-                    var text = this.GetClipboardText();
-                    var item = this._itemParser.Parse(text);
+                    var item = this._itemParser.Parse(this.GetClipboardText());
                     if (item != null)
                     {
                         this.Newitem?.Invoke(this, item);
