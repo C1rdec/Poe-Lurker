@@ -12,6 +12,12 @@ namespace Lurker.Extensions
 
     public static class StringExtension
     {
+        /// <summary>
+        /// Splits the specified split value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="splitValue">The split value.</param>
+        /// <returns>Split the current string using another string</returns>
         public static string[] Split(this string value, string splitValue)
         {
             return value.Split(new string[] { splitValue }, System.StringSplitOptions.RemoveEmptyEntries);
@@ -63,6 +69,12 @@ namespace Lurker.Extensions
             return textBefore.Split(System.Environment.NewLine).Last().Trim();
         }
 
+        /// <summary>
+        /// Gets the line.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="marker">The marker.</param>
+        /// <returns>The full line of the marker</returns>
         public static string GetLine(this string value, string marker)
         {
             var index = value.IndexOf(marker);
