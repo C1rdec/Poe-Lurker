@@ -166,6 +166,22 @@ namespace Lurker.Services
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [search enabled].
+        /// </summary>
+        public bool SearchEnabled
+        {
+            get
+            {
+                return this._settings.SearchEnabled;
+            }
+
+            set
+            {
+                this._settings.SearchEnabled = value;
+            }
+        }
+
         #endregion
 
         #region Methods

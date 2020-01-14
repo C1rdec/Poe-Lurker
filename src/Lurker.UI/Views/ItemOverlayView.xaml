@@ -9,9 +9,12 @@
     <Button Height="100" Width="100" x:Name="Close" Background="Green">
         <StackPanel>
             <TextBlock Text="{Binding Rarity}"/>
-            <TextBlock Text="{Binding BaseType}"/>
+
+            <TextBlock Text="{Binding ItemInformation}"/>
+            <TextBlock Text="{Binding SocketInformation}"/>
+            <!--<TextBlock Text="{Binding BaseType}"/>
             <TextBlock Text="{Binding ItemClass}"/>
-            <TextBlock Text="{Binding ItemLevel}"/>
+            <TextBlock Text="{Binding ItemLevel}"/>-->
         </StackPanel>
     </Button>
 </UserControl>

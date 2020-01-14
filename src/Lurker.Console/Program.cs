@@ -6,12 +6,18 @@
 
 namespace Lurker.Console
 {
+    using Lurker.Models.TradeAPI;
     using System;
+    using System.Net.Http;
+    using System.Threading.Tasks;
 
     class Program
     {
         static void Main(string[] args)
         {
+            var client = new TradeApiClient();
+
+            var result = client.GetAffixes().Result;
 
             //var lurker = new ClipboardLurker();
             using (var lurker = new ClientLurker())

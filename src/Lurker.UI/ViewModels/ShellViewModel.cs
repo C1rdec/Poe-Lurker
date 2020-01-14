@@ -315,6 +315,7 @@ namespace Lurker.UI
         /// </summary>
         private async void WaitForPoe()
         {
+            await AffixService.InitializeAsync();
             this._clipboardLurker = new ClipboardLurker();
             this._clipboardLurker.Newitem += this.ClipboardLurker_Newitem;
 
@@ -332,7 +333,7 @@ namespace Lurker.UI
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
-        private void ClipboardLurker_Newitem(object sender, Lurker.Models.PoeItem e)
+        private void ClipboardLurker_Newitem(object sender, Lurker.Models.Items.PoeItem e)
         {
             this.IsItemOverlayOpen = false;
             this.ItemOverlayViewModel = new ItemOverlayViewModel(e, () => { this.IsItemOverlayOpen = false; });

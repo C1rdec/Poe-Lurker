@@ -6,7 +6,7 @@
 
 namespace Lurker.Parsers
 {
-    using Lurker.Models;
+    using Lurker.Models.Items;
     using System.Collections.Generic;
 
     public class ItemClassParser: EnumParserBase<ItemClass>

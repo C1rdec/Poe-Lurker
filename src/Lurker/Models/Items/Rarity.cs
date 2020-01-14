@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.Models
+namespace Lurker.Models.Items
 {
     public enum Rarity
     {

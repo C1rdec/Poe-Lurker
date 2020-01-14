@@ -6,7 +6,7 @@
 
 namespace Lurker.UI.ViewModels
 {
-    using Lurker.Models;
+    using Lurker.Models.Items;
     using System;
 
     public class ItemOverlayViewModel: Caliburn.Micro.PropertyChangedBase
@@ -27,6 +27,7 @@ namespace Lurker.UI.ViewModels
         {
             this._item = item;
             this._closeAction = closeAction;
+            this.SocketInformation = GetSocketInformation(item);
         }
 
         #endregion
@@ -56,6 +57,13 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public string BaseType => this._item.BaseType;
 
+        public string ItemInformation => $"({this.ItemLevel}) {this.BaseType} {this.ItemClass}";
+
+        /// <summary>
+        /// Gets the socket information.
+        /// </summary>
+        public string SocketInformation { get; private set; }
+
         #endregion
 
         #region Methods
@@ -66,6 +74,21 @@ namespace Lurker.UI.ViewModels
         public void Close()
         {
             this._closeAction?.Invoke();
+        }
+
+        /// <summary>
+        /// Gets the socket information.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>The socket information</returns>
+        private static string GetSocketInformation(PoeItem item)
+        {
+            if (item is SocketableItem socketItem)
+            {
+                return $"{socketItem.SocketCount} sockets | {socketItem.SocketLinks} links";
+            }
+
+            return string.Empty;
         }
 
         #endregion

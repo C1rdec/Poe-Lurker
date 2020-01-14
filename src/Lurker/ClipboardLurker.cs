@@ -10,6 +10,7 @@ namespace Lurker
     using Gma.System.MouseKeyHook;
     using Lurker.Helpers;
     using Lurker.Models;
+    using Lurker.Models.Items;
     using Lurker.Parsers;
     using System;
     using System.Threading;

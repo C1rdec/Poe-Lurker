@@ -4,10 +4,11 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.Models
+namespace Lurker.Models.Items
 {
     using Lurker.Extensions;
     using Lurker.Parsers;
+    using System.Collections.Generic;
     using System.Linq;
 
     public abstract class PoeItem
@@ -36,13 +37,21 @@ namespace Lurker.Models
             this.ItemLevel = GetItemLevel(value);
             this.Rarity = GetRarity(value);
 
-            // need to know if the item is identified first
-            this.Name = this.GetName(value);
+            if (this.Identified)
+            {
+                this.Name = this.GetName(value);
+                this.Affixes = this.GetAffixes(value);
+            }
         }
 
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets the affixes.
+        /// </summary>
+        public IEnumerable<Affix> Affixes { get; private set; }
 
         /// <summary>
         /// Gets or sets the rarity.
@@ -121,13 +130,13 @@ namespace Lurker.Models
         /// <returns>The item level.</returns>
         private static int GetItemLevel(string value)
         {
-            var itemLevelIndex = value.IndexOf(ItemLevelMarker);
-            if (itemLevelIndex == -1)
+            var itemLevelValue = value.GetLine(ItemLevelMarker);
+            if (string.IsNullOrEmpty(itemLevelValue))
             {
                 return default;
             }
 
-            return int.Parse(value.GetLine(itemLevelIndex, ItemLevelMarker));
+            return int.Parse(itemLevelValue);
         }
 
         /// <summary>
@@ -137,13 +146,13 @@ namespace Lurker.Models
         /// <returns>The item rarity</returns>
         private static Rarity GetRarity(string value)
         {
-            var rarityIndex = value.IndexOf(RarityMarker);
-            if (rarityIndex == -1)
+            var rarityValue = value.GetLine(RarityMarker);
+            if (string.IsNullOrEmpty(rarityValue))
             {
                 return default;
             }
 
-            return RarityParser.Parse(value.GetLine(rarityIndex, RarityMarker));
+            return RarityParser.Parse(rarityValue);
         }
 
         /// <summary>
@@ -153,14 +162,33 @@ namespace Lurker.Models
         /// <returns>The item name.</returns>
         private string GetName(string value)
         {
-            if (this.Identified)
+            var sections = value.Split(Seperator);
+            var headerSection = sections[0];
+            return headerSection.Split(System.Environment.NewLine).ElementAt(1);
+        }
+
+        /// <summary>
+        /// Gets the affixes.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>The lsit of affixes.</returns>
+        private IEnumerable<Affix> GetAffixes(string value)
+        {
+            if (this.Rarity == Rarity.Unique)
             {
-                var sections = value.Split(Seperator);
-                var headerSection = sections[0];
-                return headerSection.Split(System.Environment.NewLine).ElementAt(1);
+                return Enumerable.Empty<Affix>();
             }
 
-            return string.Empty;
+            var affixes = new List<Affix>();
+            var sections = value.Split(Seperator);
+            var lastSection = sections.Last();
+
+            foreach (var line in lastSection.GetLines())
+            {
+                affixes.Add(new Affix(line));
+            }
+
+            return affixes;
         }
 
         #endregion

@@ -4,9 +4,9 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.Models
+namespace Lurker.Models.Items
 {
-    public class Gloves : PoeItem
+    public class Gloves : SocketableItem
     {
         #region Constructors
 

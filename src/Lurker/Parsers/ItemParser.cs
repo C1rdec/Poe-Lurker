@@ -6,7 +6,7 @@
 
 namespace Lurker.Parsers
 {
-    using Lurker.Models;
+    using Lurker.Models.Items;
 
     public class ItemParser
     {
