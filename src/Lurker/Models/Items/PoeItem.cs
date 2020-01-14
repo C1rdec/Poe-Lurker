@@ -16,12 +16,12 @@ namespace Lurker.Models.Items
     {
         #region Fields
 
-        private static readonly string CorruptedMarker = "Corrupted";
+        private static readonly string Seperator = "--------";
+        private static readonly string CorruptedMarker = $"{Seperator}{System.Environment.NewLine}Corrupted";
         private static readonly string ItemLevelMarker = "Item Level: ";
         private static readonly string NoteMarker = "Note: ";
         private static readonly string RarityMarker = "Rarity: ";
         private static readonly string UnidentifiedMarker = "Unidentified";
-        private static readonly string Seperator = "--------";
         private static readonly RarityParser RarityParser = new RarityParser();
         private static readonly ItemClassParser ItemClassParser = new ItemClassParser();
         private static readonly InfluenceParser InfluenceParser = new InfluenceParser();
