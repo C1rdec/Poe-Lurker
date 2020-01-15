@@ -14,6 +14,7 @@
         <Grid.Resources>
             <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
         </Grid.Resources>
+        
         <Controls:MetroAnimatedTabControl Controls:TabControlHelper.IsUnderlined="True" Controls:TabControlHelper.Underlined="TabPanel" TabStripPlacement="Left">
             <TabItem Header="Message">
                 <StackPanel>
@@ -109,5 +110,12 @@
                 </Grid>
             </TabItem>
         </Controls:MetroAnimatedTabControl>
+        <Button x:Name="Update"
+                Visibility="{Binding NeedsUpdate, Converter={StaticResource BooleanToVisibilityConverter}}"
+                Margin="20,8,8,8" 
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Left" 
+                Height="10" 
+                Width="80">Update</Button>
     </Grid>
 </Controls:MetroWindow>

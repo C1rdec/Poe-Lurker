@@ -133,6 +133,7 @@
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Converters\CurrencyTypeConverter.cs" />
     <Compile Include="Helpers\DockingHelper.cs" />
+    <Compile Include="Helpers\UpdateManager.cs" />
     <Compile Include="Models\DoubleClickCommand.cs" />
     <Compile Include="Models\TradebarContext.cs" />
     <Compile Include="Svg.cs">

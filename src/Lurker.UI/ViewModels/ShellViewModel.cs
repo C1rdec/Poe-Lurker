@@ -12,11 +12,9 @@ namespace Lurker.UI
     using Lurker.UI.Helpers;
     using Lurker.UI.Models;
     using Lurker.UI.ViewModels;
-    using Squirrel;
     using System;
     using System.Diagnostics;
     using System.IO;
-    using System.Linq;
     using System.Reflection;
     using System.Runtime.InteropServices;
     using System.Runtime.InteropServices.ComTypes;
@@ -27,13 +25,13 @@ namespace Lurker.UI
     {
         #region Fields
 
-        private static readonly string PoeLukerGithubUrl = "https://github.com/C1rdec/Poe-Lurker";
         private SimpleContainer _container;
         private ClientLurker _currentLurker;
         private ClipboardLurker _clipboardLurker;
         private TradebarViewModel _tradeBarOverlay;
         private SettingsService _settingsService;
         private ItemOverlayViewModel _itemOverlay;
+        private UpdateManager _updateManager;
         private bool _startWithWindows;
         private bool _needUpdate;
         private bool _showInTaskBar;
@@ -48,10 +46,11 @@ namespace Lurker.UI
         /// </summary>
         /// <param name="windowManager">The window manager.</param>
         /// <param name="container">The container.</param>
-        public ShellViewModel(SimpleContainer container, SettingsService settingsService)
+        public ShellViewModel(SimpleContainer container, SettingsService settingsService, UpdateManager updateManager)
         {
             this._settingsService = settingsService;
             this._container = container;
+            this._updateManager = updateManager;
             this.WaitForPoe();
             this.StartWithWindows = File.Exists(this.ShortcutFilePath);
             this.ShowInTaskBar = true;
@@ -192,7 +191,7 @@ namespace Lurker.UI
         /// </summary>
         public void Close()
         {
-            this._clipboardLurker.Dispose();
+            this._clipboardLurker?.Dispose();
             this.TryClose();
         }
 
@@ -237,11 +236,7 @@ namespace Lurker.UI
             this._settingsService.Save();
 
             this.ShowInTaskBar = false;
-            using (var updateManager = await UpdateManager.GitHubUpdateManager(PoeLukerGithubUrl))
-            {
-                await updateManager.UpdateApp();
-                UpdateManager.RestartApp();
-            }
+            // update;
         }
 
         /// <summary>
@@ -274,18 +269,6 @@ namespace Lurker.UI
                 this._tradeBarOverlay = this._container.GetInstance<TradebarViewModel>();
                 this.ActivateItem(this._tradeBarOverlay);
             });
-        }
-
-        /// <summary>
-        /// Updates this instance.
-        /// </summary>
-        private async Task CheckForUpdate()
-        {
-            using (var updateManager = await UpdateManager.GitHubUpdateManager(PoeLukerGithubUrl))
-            {
-                var information = await updateManager.CheckForUpdate();
-                this.NeedUpdate = information.ReleasesToApply.Any();
-            }
         }
 
         /// <summary>
@@ -329,9 +312,15 @@ namespace Lurker.UI
                 this._clipboardLurker.Newitem += this.ClipboardLurker_Newitem;
             }
 
-            #if (!DEBUG)
-                await this.CheckForUpdate();
-            #endif
+            await this.CheckForUpdate();
+        }
+
+        /// <summary>
+        /// Updates this instance.
+        /// </summary>
+        private async Task CheckForUpdate()
+        {
+            this.NeedUpdate = await this._updateManager.CheckForUpdate();
         }
 
         /// <summary>

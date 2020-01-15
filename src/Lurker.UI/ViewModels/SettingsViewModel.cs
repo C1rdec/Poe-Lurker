@@ -17,6 +17,8 @@ namespace Lurker.UI.ViewModels
 
         private KeyboardHelper _keyboardHelper;
         private SettingsService _settingService;
+        private UpdateManager _updateManager;
+        private bool _needsUpdate;
 
         #endregion
 
@@ -25,17 +27,35 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="SettingsViewModel"/> class.
         /// </summary>
-        public SettingsViewModel(IWindowManager windowManager, KeyboardHelper keyboardHelper, SettingsService settingsService)
+        public SettingsViewModel(IWindowManager windowManager, KeyboardHelper keyboardHelper, SettingsService settingsService, UpdateManager updateManager)
             : base(windowManager)
         {
             this._keyboardHelper = keyboardHelper;
             this._settingService = settingsService;
+            this._updateManager = updateManager;
             this.DisplayName = "Settings";
         }
 
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [needs update].
+        /// </summary>
+        public bool NeedsUpdate
+        {
+            get
+            {
+                return this._needsUpdate;
+            }
+
+            set
+            {
+                this._needsUpdate = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the busy message.
@@ -134,6 +154,14 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Updates this instance.
+        /// </summary>
+        public void Update()
+        {
+            this._updateManager.Update();
+        }
+
+        /// <summary>
         /// Called when deactivating.
         /// </summary>
         /// <param name="close">Inidicates whether this instance will be closed.</param>
@@ -147,9 +175,21 @@ namespace Lurker.UI.ViewModels
             base.OnDeactivate(close);
         }
 
+        /// <summary>
+        /// Called when activating.
+        /// </summary>
         protected override void OnActivate()
         {
+            this.CheckForUpdate();
             base.OnActivate();
+        }
+
+        /// <summary>
+        /// Checks for update.
+        /// </summary>
+        private async void CheckForUpdate()
+        {
+            this.NeedsUpdate = await this._updateManager.CheckForUpdate();
         }
 
         #endregion
