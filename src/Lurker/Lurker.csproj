@@ -86,6 +86,7 @@
     <Compile Include="Models\TradeAPI\AffixType.cs" />
     <Compile Include="Models\TradeAPI\QueryResult.cs" />
     <Compile Include="Models\TradeAPI\TradeApiClient.cs" />
+    <Compile Include="Parsers\ExactEnumParserBase.cs" />
     <Compile Include="Parsers\InfluenceParser.cs" />
     <Compile Include="Parsers\RarityParser.cs" />
     <Compile Include="Parsers\CurrencyTypeParser.cs" />

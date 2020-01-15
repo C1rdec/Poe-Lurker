@@ -9,7 +9,7 @@ namespace Lurker.Parsers
     using System.Collections.Generic;
     using Lurker.Models.Items;
 
-    class InfluenceParser : EnumParserBase<Influence>
+    class InfluenceParser : ExactEnumParserBase<Influence>
     {
         protected override Dictionary<Influence, string[]> Dictionary => new Dictionary<Influence, string[]>
         {

@@ -6,11 +6,10 @@
 
 namespace Lurker.Parsers
 {
-    using Lurker.Models;
     using Lurker.Models.Items;
     using System.Collections.Generic;
 
-    public class RarityParser: EnumParserBase<Rarity>
+    public class RarityParser: ExactEnumParserBase<Rarity>
     {
         protected override Dictionary<Rarity, string[]> Dictionary => new Dictionary<Rarity, string[]>
         {

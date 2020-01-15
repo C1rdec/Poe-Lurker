@@ -8,9 +8,8 @@ namespace Lurker.Parsers
 {
     using Lurker.Models;
     using System.Collections.Generic;
-    using System.Linq;
 
-    public class CurrencyTypeParser: EnumParserBase<CurrencyType>
+    public class CurrencyTypeParser: ExactEnumParserBase<CurrencyType>
     {
         protected override Dictionary<CurrencyType, string[]> Dictionary => new Dictionary<CurrencyType, string[]>
         {
@@ -26,7 +25,5 @@ namespace Lurker.Parsers
             { CurrencyType.Alteration, new string[]{ "alt", "alteration", "orb of alteration" } },
             { CurrencyType.Jeweller, new string[]{ "jew", "jewellers", "jeweller's orb" } },
         };
-
-        protected override bool Compare(string value, string dictionnaryValue) => value == dictionnaryValue;
     }
 }
