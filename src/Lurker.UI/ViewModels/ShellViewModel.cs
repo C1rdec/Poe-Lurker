@@ -316,13 +316,19 @@ namespace Lurker.UI
         private async void WaitForPoe()
         {
             await AffixService.InitializeAsync();
-            this._clipboardLurker = new ClipboardLurker();
-            this._clipboardLurker.Newitem += this.ClipboardLurker_Newitem;
+            
 
             this._currentLurker = new ClientLurker();
             this._currentLurker.PoeClosed += CurrentLurker_PoeClosed;
             var process = await this._currentLurker.WaitForPoe();
             this.ShowTradebar(process);
+
+            if (this._settingsService.SearchEnabled)
+            {
+                this._clipboardLurker = new ClipboardLurker();
+                this._clipboardLurker.Newitem += this.ClipboardLurker_Newitem;
+            }
+
             #if (!DEBUG)
                 await this.CheckForUpdate();
             #endif

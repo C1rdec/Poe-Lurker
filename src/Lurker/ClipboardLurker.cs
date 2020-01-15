@@ -18,8 +18,8 @@ namespace Lurker
     {
         #region Fields
 
+        private static readonly IKeyboardMouseEvents GlobalHook = Hook.GlobalEvents();
         private const char CtrlD = '\u0004';
-        private IKeyboardMouseEvents _globalHook;
         private ItemParser _itemParser = new ItemParser();
 
         #endregion
@@ -31,8 +31,7 @@ namespace Lurker
         /// </summary>
         public ClipboardLurker()
         {
-            this._globalHook = Hook.GlobalEvents();
-            this._globalHook.KeyPress += this.GlobalHookKeyPress;
+            GlobalHook.KeyPress += this.GlobalHookKeyPress;
         }
 
         #endregion
@@ -64,8 +63,7 @@ namespace Lurker
         {
             if (disposing)
             {
-                this._globalHook.KeyPress -= this.GlobalHookKeyPress;
-                this._globalHook.Dispose();
+                GlobalHook.KeyPress -= this.GlobalHookKeyPress;
             }
         }
 
