@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.UI
+namespace Lurker
 {
     using System;
     using System.Runtime.InteropServices;

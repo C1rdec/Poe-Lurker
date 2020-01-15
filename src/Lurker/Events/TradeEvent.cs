@@ -6,9 +6,8 @@
 
 namespace Lurker.Events
 {
-    using Lurker.Helpers;
     using Lurker.Models;
-    using System;
+    using Lurker.Parsers;
     using System.Linq;
     using System.Text.RegularExpressions;
 
@@ -20,6 +19,7 @@ namespace Lurker.Events
         private static readonly string[] PriceMarkers = new string[] { "listed for", "for my" };
         private static readonly string LocationMarker = "(";
         private static readonly string LeagueMarker = " in ";
+        private static readonly CurrencyTypeParser CurrencyTypeParser = new CurrencyTypeParser();
 
         #endregion
 
@@ -57,7 +57,7 @@ namespace Lurker.Events
                 var textAfterMarker = this.Message.Substring(priceMarkerIndex + priceMarker.Length + 1);
                 var index = textAfterMarker.IndexOf(LeagueMarker);
                 var priceValue = textAfterMarker.Substring(0, index);
-                this.Price = ParsePrice(priceValue);
+                this.Price = this.ParsePrice(priceValue);
             }
             else
             {
@@ -118,7 +118,7 @@ namespace Lurker.Events
         /// </summary>
         /// <param name="priceValue">The price value.</param>
         /// <returns>The price of the offer.</returns>
-        public static Price ParsePrice(string priceValue)
+        public Price ParsePrice(string priceValue)
         {
             var values = priceValue.Split(' ');
             var currencyTypeValue = string.Join(" ", values.Skip(1));

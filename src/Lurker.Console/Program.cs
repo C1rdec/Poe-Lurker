@@ -6,12 +6,20 @@
 
 namespace Lurker.Console
 {
+    using Lurker.Models.TradeAPI;
     using System;
+    using System.Net.Http;
+    using System.Threading.Tasks;
 
     class Program
     {
         static void Main(string[] args)
         {
+            var client = new TradeApiClient();
+
+            var result = client.GetAffixes().Result;
+
+            //var lurker = new ClipboardLurker();
             using (var lurker = new ClientLurker())
             {
                 lurker.LocationChanged += Lurker_ChangedLocation;
@@ -22,6 +30,8 @@ namespace Lurker.Console
                 lurker.NewOffer += Lurker_NewOffer;
                 Console.Read();
             }
+
+            //Console.Read();
         }
 
         private static void Lurker_NewOffer(object sender, Events.TradeEvent e)

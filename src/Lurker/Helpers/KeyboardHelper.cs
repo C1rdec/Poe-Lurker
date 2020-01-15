@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.UI.Helpers
+namespace Lurker.Helpers
 {
     using System;
     using WindowsInput;

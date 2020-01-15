@@ -102,6 +102,9 @@ namespace Lurker.Services
             }
         }
 
+        /// <summary>
+        /// Gets or sets the sold message.
+        /// </summary>
         public string SoldMessage
         {
             get
@@ -115,6 +118,9 @@ namespace Lurker.Services
             }
         }
 
+        /// <summary>
+        /// Gets or sets the thank you message.
+        /// </summary>
         public string ThankYouMessage
         {
             get
@@ -125,6 +131,22 @@ namespace Lurker.Services
             set
             {
                 this._settings.ThankYouMessage = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the first launch.
+        /// </summary>
+        public bool FirstLaunch
+        {
+            get
+            {
+                return this._settings.FirstLaunch;
+            }
+
+            set
+            {
+                this._settings.FirstLaunch = value;
             }
         }
 
@@ -141,6 +163,22 @@ namespace Lurker.Services
             set
             {
                 this._settings.StillInterestedMessage = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [search enabled].
+        /// </summary>
+        public bool SearchEnabled
+        {
+            get
+            {
+                return this._settings.SearchEnabled;
+            }
+
+            set
+            {
+                this._settings.SearchEnabled = value;
             }
         }
 

@@ -11,7 +11,6 @@ namespace Lurker.UI.ViewModels
     using Lurker.Helpers;
     using Lurker.Models;
     using Lurker.Services;
-    using Lurker.UI.Helpers;
     using Lurker.UI.Models;
     using System.Windows.Input;
 

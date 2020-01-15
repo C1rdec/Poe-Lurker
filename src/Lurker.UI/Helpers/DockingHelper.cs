@@ -8,7 +8,7 @@ namespace Lurker.UI.Helpers
 {
     using System;
     using System.Diagnostics;
-    using static Lurker.UI.Native;
+    using static Lurker.Native;
 
     public class DockingHelper: IDisposable
     {

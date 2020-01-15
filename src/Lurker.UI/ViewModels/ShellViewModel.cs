@@ -7,6 +7,8 @@
 namespace Lurker.UI
 {
     using Caliburn.Micro;
+    using Lurker.Helpers;
+    using Lurker.Services;
     using Lurker.UI.Helpers;
     using Lurker.UI.Models;
     using Lurker.UI.ViewModels;
@@ -28,10 +30,14 @@ namespace Lurker.UI
         private static readonly string PoeLukerGithubUrl = "https://github.com/C1rdec/Poe-Lurker";
         private SimpleContainer _container;
         private ClientLurker _currentLurker;
+        private ClipboardLurker _clipboardLurker;
         private TradebarViewModel _tradeBarOverlay;
+        private SettingsService _settingsService;
+        private ItemOverlayViewModel _itemOverlay;
         private bool _startWithWindows;
         private bool _needUpdate;
         private bool _showInTaskBar;
+        private bool _isItemOverlayOpen;
 
         #endregion
 
@@ -42,17 +48,42 @@ namespace Lurker.UI
         /// </summary>
         /// <param name="windowManager">The window manager.</param>
         /// <param name="container">The container.</param>
-        public ShellViewModel(SimpleContainer container)
+        public ShellViewModel(SimpleContainer container, SettingsService settingsService)
         {
+            this._settingsService = settingsService;
             this._container = container;
             this.WaitForPoe();
             this.StartWithWindows = File.Exists(this.ShortcutFilePath);
             this.ShowInTaskBar = true;
+
+            if (settingsService.FirstLaunch)
+            {
+                settingsService.FirstLaunch = false;
+                settingsService.Save();
+                Process.Start("https://github.com/C1rdec/Poe-Lurker/releases/latest");
+            }
         }
 
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets the item overlay.
+        /// </summary>
+        public ItemOverlayViewModel ItemOverlayViewModel
+        {
+            get
+            {
+                return this._itemOverlay;
+            }
+
+            set
+            {
+                this._itemOverlay = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
 
         /// <summary>
         /// Gets the command.
@@ -72,6 +103,23 @@ namespace Lurker.UI
             set
             {
                 this._showInTaskBar = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is item open.
+        /// </summary>
+        public bool IsItemOverlayOpen
+        {
+            get
+            {
+                return this._isItemOverlayOpen;
+            }
+
+            set
+            {
+                this._isItemOverlayOpen = value;
                 this.NotifyOfPropertyChange();
             }
         }
@@ -144,6 +192,7 @@ namespace Lurker.UI
         /// </summary>
         public void Close()
         {
+            this._clipboardLurker.Dispose();
             this.TryClose();
         }
 
@@ -184,6 +233,9 @@ namespace Lurker.UI
         /// </summary>
         public async void Update()
         {
+            this._settingsService.FirstLaunch = true;
+            this._settingsService.Save();
+
             this.ShowInTaskBar = false;
             using (var updateManager = await UpdateManager.GitHubUpdateManager(PoeLukerGithubUrl))
             {
@@ -246,6 +298,11 @@ namespace Lurker.UI
             this._container.UnregisterHandler<ClientLurker>();
             this._container.UnregisterHandler<DockingHelper>();
             this._container.UnregisterHandler<PoeKeyboardHelper>();
+
+            this._clipboardLurker.Newitem -= this.ClipboardLurker_Newitem;
+            this._clipboardLurker.Dispose();
+            this._clipboardLurker = null;
+
             this._currentLurker.PoeClosed -= this.CurrentLurker_PoeClosed;
             this._currentLurker.Dispose();
             this._currentLurker = null;
@@ -258,6 +315,10 @@ namespace Lurker.UI
         /// </summary>
         private async void WaitForPoe()
         {
+            await AffixService.InitializeAsync();
+            this._clipboardLurker = new ClipboardLurker();
+            this._clipboardLurker.Newitem += this.ClipboardLurker_Newitem;
+
             this._currentLurker = new ClientLurker();
             this._currentLurker.PoeClosed += CurrentLurker_PoeClosed;
             var process = await this._currentLurker.WaitForPoe();
@@ -265,6 +326,18 @@ namespace Lurker.UI
             #if (!DEBUG)
                 await this.CheckForUpdate();
             #endif
+        }
+
+        /// <summary>
+        /// Clipboards the lurker newitem.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
+        private void ClipboardLurker_Newitem(object sender, Lurker.Models.Items.PoeItem e)
+        {
+            this.IsItemOverlayOpen = false;
+            this.ItemOverlayViewModel = new ItemOverlayViewModel(e, () => { this.IsItemOverlayOpen = false; });
+            this.IsItemOverlayOpen = true;
         }
 
         #endregion

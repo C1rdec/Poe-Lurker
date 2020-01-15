@@ -4,15 +4,15 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.Helpers
+namespace Lurker.Parsers
 {
     using Lurker.Models;
     using System.Collections.Generic;
     using System.Linq;
 
-    public static class CurrencyTypeParser
+    public class CurrencyTypeParser: EnumParserBase<CurrencyType>
     {
-        private static readonly Dictionary<CurrencyType, string[]> Dictionary = new Dictionary<CurrencyType, string[]>
+        protected override Dictionary<CurrencyType, string[]> Dictionary => new Dictionary<CurrencyType, string[]>
         {
             { CurrencyType.Chaos, new string[]{ "c", "chaos", "chaos orb"} },
             { CurrencyType.Exalted, new string[]{ "ex", "exa", "exalted", "exalted orb"} },
@@ -26,24 +26,5 @@ namespace Lurker.Helpers
             { CurrencyType.Alteration, new string[]{ "alt", "alteration", "orb of alteration" } },
             { CurrencyType.Jeweller, new string[]{ "jew", "jewellers", "jeweller's orb" } },
         };
-
-        /// <summary>
-        /// Parses the specified value.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>The currency type</returns>
-        public static CurrencyType Parse(string curencyTypeValue)
-        {
-            var value = curencyTypeValue.ToLower();
-            foreach (var currencyType in Dictionary)
-            {
-                if (currencyType.Value.Contains(value))
-                {
-                    return currencyType.Key;
-                }
-            }
-
-            return CurrencyType.Unknown;
-        }
     }
 }

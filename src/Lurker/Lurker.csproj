@@ -34,12 +34,16 @@
     <Reference Include="ConfOxide, Version=1.4.2.0, Culture=neutral, PublicKeyToken=934faed64f82030e, processorArchitecture=MSIL">
       <HintPath>..\..\packages\ConfOxide.1.4.2.0\lib\net40\ConfOxide.dll</HintPath>
     </Reference>
+    <Reference Include="Gma.System.MouseKeyHook, Version=5.6.130.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MouseKeyHook.5.6.0\lib\net40\Gma.System.MouseKeyHook.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NLog.4.6.8\lib\net45\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -47,16 +51,44 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsInput, Version=1.0.4.0, Culture=neutral, PublicKeyToken=9b287f7dc5073cad, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\InputSimulator.1.0.4.0\lib\net20\WindowsInput.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientLurker.cs" />
-    <Compile Include="Helpers\CurrencyTypeParser.cs" />
+    <Compile Include="ClipboardLurker.cs" />
+    <Compile Include="Extensions\StringExtension.cs" />
+    <Compile Include="Models\Items\Affix.cs" />
+    <Compile Include="Models\Items\Influence.cs" />
+    <Compile Include="Models\Items\Quiver.cs" />
+    <Compile Include="Models\Items\Amulet.cs" />
+    <Compile Include="Models\Items\Belt.cs" />
+    <Compile Include="Models\Items\BodyArmour.cs" />
+    <Compile Include="Models\Items\Boots.cs" />
+    <Compile Include="Models\Items\Ring.cs" />
+    <Compile Include="Models\Items\Gloves.cs" />
+    <Compile Include="Models\Items\Bow.cs" />
+    <Compile Include="Models\Items\Helmet.cs" />
+    <Compile Include="Models\Items\Socket.cs" />
+    <Compile Include="Models\Items\SocketableItem.cs" />
+    <Compile Include="Models\Items\SocketColor.cs" />
+    <Compile Include="Models\TradeAPI\AffixCategory.cs" />
+    <Compile Include="Models\TradeAPI\AffixEntry.cs" />
+    <Compile Include="Models\TradeAPI\AffixType.cs" />
+    <Compile Include="Models\TradeAPI\QueryResult.cs" />
+    <Compile Include="Models\TradeAPI\TradeApiClient.cs" />
+    <Compile Include="Parsers\InfluenceParser.cs" />
+    <Compile Include="Parsers\RarityParser.cs" />
+    <Compile Include="Parsers\CurrencyTypeParser.cs" />
     <Compile Include="Events\ChangedLocationEvent.cs" />
     <Compile Include="Events\MonstersRemainEvent.cs" />
     <Compile Include="Events\PlayerEvent.cs" />
@@ -67,16 +99,28 @@
     <Compile Include="Events\TradeEvent.cs" />
     <Compile Include="Events\WhisperEvent.cs" />
     <Compile Include="Extensions\ProcessExtension.cs" />
+    <Compile Include="Parsers\ItemParser.cs" />
+    <Compile Include="Helpers\KeyboardHelper.cs" />
+    <Compile Include="Helpers\PoeKeyboardHelper.cs" />
     <Compile Include="Helpers\TokenHelper.cs" />
     <Compile Include="Models\CurrencyType.cs" />
+    <Compile Include="Models\Items\PoeItem.cs" />
+    <Compile Include="Models\Items\ItemClass.cs" />
     <Compile Include="Models\Price.cs" />
+    <Compile Include="Models\Items\Rarity.cs" />
     <Compile Include="Models\Settings.cs" />
+    <Compile Include="Native.cs" />
+    <Compile Include="Parsers\EnumParserBase.cs" />
+    <Compile Include="Parsers\ItemClassParser.cs" />
+    <Compile Include="Parsers\SocketParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AffixService.cs" />
     <Compile Include="Services\SettingsService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
