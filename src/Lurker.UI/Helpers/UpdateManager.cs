@@ -38,7 +38,7 @@ namespace Lurker.UI.Helpers
         /// <summary>
         /// Updates this instance.
         /// </summary>
-        public async void Update()
+        public async Task Update()
         {
             this._settingsService.FirstLaunch = true;
             this._settingsService.Save();

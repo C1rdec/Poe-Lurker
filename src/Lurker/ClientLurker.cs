@@ -30,6 +30,7 @@ namespace Lurker
         private static readonly string ClientLogFolderName = "logs";
         private static readonly int TenSeconds = 10000;
 
+        private string _lastLine;
         private CancellationTokenSource _tokenSource;
 
         #endregion
@@ -153,52 +154,83 @@ namespace Lurker
         /// <param name="path">The path.</param>
         /// <returns></returns>
         /// <exception cref="System.IO.IOException">Error reading from file at " + path</exception>
-        private static string ReadLastLineFromUTF8EncodedFile(string path)
+        private string GetLastLine()
         {
-            using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            using (var stream = new FileStream(this.FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                if (stream.Length == 0)
+                {
+                    return null;
+                }
+                stream.Position = stream.Length - 1;
+
+                return GetLine(stream);
+            }
+        }
+
+        /// <summary>
+        /// Gets the new lines.
+        /// </summary>
+        /// <returns>The all the new lines</returns>
+        private IEnumerable<string> GetNewLines()
+        {
+            using (var stream = new FileStream(this.FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
                 if (stream.Length == 0)
                 {
                     return null;
                 }
 
-                // start at end of file
                 stream.Position = stream.Length - 1;
 
-                // the file must end with a '\n' char, if not a partial line write is in progress
-                int byteFromFile = stream.ReadByte();
-                if (byteFromFile != '\n')
+                var newLines = new List<string>();
+                var currentNewLine = GetLine(stream);
+                while (this._lastLine != currentNewLine)
                 {
-                    // partial line write in progress, do not return the line yet
-                    return null;
+                    newLines.Add(currentNewLine);
+                    currentNewLine = GetLine(stream);
                 }
 
-                // move back to the new line byte - the loop will decrement position again to get to the byte before it
-                stream.Position--;
-
-                // while we have not yet reached start of file, read bytes backwards until '\n' byte is hit
-                while (stream.Position > 0)
-                {
-                    stream.Position--;
-                    byteFromFile = stream.ReadByte();
-                    if (byteFromFile < 0)
-                    {
-                        // the only way this should happen is if someone truncates the file out from underneath us while we are reading backwards
-                        throw new IOException("Error reading from file at " + path);
-                    }
-                    else if (byteFromFile == '\n')
-                    {
-                        // we found the new line, break out, fs.Position is one after the '\n' char
-                        break;
-                    }
-
-                    stream.Position--;
-                }
-
-                // fs.Position will be right after the '\n' char or position 0 if no '\n' char
-                var bytes = new BinaryReader(stream).ReadBytes((int)(stream.Length - stream.Position));
-                return Encoding.UTF8.GetString(bytes).Replace(System.Environment.NewLine, string.Empty);
+                return newLines;
             }
+        }
+
+        /// <summary>
+        /// Gets the line.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <returns>The current line of the stream position</returns>
+        private static string GetLine(Stream stream)
+        {
+            // while we have not yet reached start of file, read bytes backwards until '\n' byte is hit
+            var lineLength = 0;
+            while (stream.Position > 0)
+            {
+                stream.Position--;
+                var byteFromFile = stream.ReadByte();
+
+                if (byteFromFile < 0)
+                {
+                    // the only way this should happen is if someone truncates the file out from underneath us while we are reading backwards
+                    throw new IOException("Error reading from file");
+                }
+                else if (byteFromFile == '\n')
+                {
+                    // we found the new line, break out, fs.Position is one after the '\n' char
+                    break;
+                }
+
+                lineLength++;
+                stream.Position--;
+            }
+
+            var oldPosition = stream.Position;
+            // fs.Position will be right after the '\n' char or position 0 if no '\n' char
+            var bytes = new BinaryReader(stream).ReadBytes(lineLength -1);
+
+            // -1 is the \n
+            stream.Position = oldPosition - 1;
+            return Encoding.UTF8.GetString(bytes).Replace(System.Environment.NewLine, string.Empty);
         }
 
         /// <summary>
@@ -207,6 +239,7 @@ namespace Lurker
         private void Lurk()
         {
             this.FilePath = Path.Combine(Path.GetDirectoryName(this.PathOfExileProcess.GetMainModuleFileName()), ClientLogFolderName, ClientLogFileName);
+            this._lastLine = this.GetLastLine();
             this.LurkLastLine();
         }
 
@@ -235,7 +268,7 @@ namespace Lurker
                 while (fileInformation.LastWriteTimeUtc == lastWriteTime);
 
                 lastWriteTime = fileInformation.LastAccessTimeUtc;
-                this.OnFileChanged(ReadLastLineFromUTF8EncodedFile(this.FilePath));
+                this.OnFileChanged(GetLastLine());
             }
         }
 
@@ -245,26 +278,27 @@ namespace Lurker
         private async void LurkLastLine()
         {
             Logger.Trace("Lurk with last line");
-            var lastLine = ReadLastLineFromUTF8EncodedFile(this.FilePath);
 
             var token = this._tokenSource.Token;
             while (true)
             {
-                string currentLastLine;
+                IEnumerable<string> newLines;
                 do
                 {
                     await Task.Delay(500);
-                    currentLastLine = ReadLastLineFromUTF8EncodedFile(this.FilePath);
-
+                    newLines = this.GetNewLines();
                     if (token.IsCancellationRequested)
                     {
                         return;
                     }
                 }
-                while (currentLastLine == lastLine);
+                while (newLines.Count() == 0);
 
-                lastLine = currentLastLine;
-                this.OnFileChanged(lastLine);
+                this._lastLine = newLines.First();
+                foreach (var line in newLines)
+                {
+                    this.OnFileChanged(line);
+                }
             }
         }
 

@@ -232,11 +232,8 @@ namespace Lurker.UI
         /// </summary>
         public async void Update()
         {
-            this._settingsService.FirstLaunch = true;
-            this._settingsService.Save();
-
             this.ShowInTaskBar = false;
-            // update;
+            await this._updateManager.Update();
         }
 
         /// <summary>

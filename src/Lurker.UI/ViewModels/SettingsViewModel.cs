@@ -156,9 +156,9 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Updates this instance.
         /// </summary>
-        public void Update()
+        public async void Update()
         {
-            this._updateManager.Update();
+            await this._updateManager.Update();
         }
 
         /// <summary>
