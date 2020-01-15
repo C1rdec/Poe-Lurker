@@ -16,6 +16,16 @@
         </Grid.Resources>
         
         <Controls:MetroAnimatedTabControl Controls:TabControlHelper.IsUnderlined="True" Controls:TabControlHelper.Underlined="TabPanel" TabStripPlacement="Left">
+            <TabItem Header="General">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Content="General" Style="{DynamicResource LabelHeaderStyle}" />
+                    <Label Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20">Coming Soon</Label>
+                </Grid>
+            </TabItem>
             <TabItem Header="Message">
                 <StackPanel>
                     <Label Content="Message" Style="{DynamicResource LabelHeaderStyle}" />
