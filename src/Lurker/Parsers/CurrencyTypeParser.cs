@@ -26,5 +26,7 @@ namespace Lurker.Parsers
             { CurrencyType.Alteration, new string[]{ "alt", "alteration", "orb of alteration" } },
             { CurrencyType.Jeweller, new string[]{ "jew", "jewellers", "jeweller's orb" } },
         };
+
+        protected override bool Compare(string value, string dictionnaryValue) => value == dictionnaryValue;
     }
 }

@@ -341,6 +341,18 @@ namespace Lurker.UI.ViewModels
                 this._activeOffers.RemoveAt(index);
             }
 
+            // Dont add if it's the same offer
+            if (currentActiveOffer == offer)
+            {
+                this.ItemName = this.ActiveOffer?.ItemName;
+                if (this.ActiveOffer != null)
+                {
+                    this.ActiveOffer.Active = true;
+                }
+
+                return;
+            }
+
             this._activeOffers.Insert(0, offer);
             this.ItemName = offer.ItemName;
             this.ActiveOffer.Active = true;

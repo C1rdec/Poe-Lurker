@@ -148,7 +148,7 @@ namespace Lurker.UI.ViewModels
 
         #endregion
 
-        #region 
+        #region Methods
 
         /// <summary>
         /// Removes this instance.

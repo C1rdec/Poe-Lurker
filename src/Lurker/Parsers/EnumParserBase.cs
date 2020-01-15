@@ -26,10 +26,9 @@ namespace Lurker.Parsers
         /// <returns>The currency type</returns>
         public T Parse(string value)
         {
-            var lowerValue = value.ToLower();
             foreach (var dictionaryValue in Dictionary)
             {
-                if (dictionaryValue.Value.Any(v => lowerValue.Contains(v)))
+                if (dictionaryValue.Value.Any(v => this.Compare(value, v)))
                 {
                     return dictionaryValue.Key;
                 }
@@ -37,6 +36,8 @@ namespace Lurker.Parsers
 
             return default;
         }
+
+        protected virtual bool Compare(string value, string dictionnaryValue) => value.ToLower().Contains(dictionnaryValue);
 
         #endregion
     }
