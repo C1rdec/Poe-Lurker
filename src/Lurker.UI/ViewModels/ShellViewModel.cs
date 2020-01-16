@@ -299,7 +299,7 @@ namespace Lurker.UI
         private async void WaitForPoe()
         {
             await AffixService.InitializeAsync();
-            
+            await this.CheckForUpdate();
 
             this._currentLurker = new ClientLurker();
             this._currentLurker.PoeClosed += CurrentLurker_PoeClosed;
@@ -311,8 +311,6 @@ namespace Lurker.UI
                 this._clipboardLurker = new ClipboardLurker();
                 this._clipboardLurker.Newitem += this.ClipboardLurker_Newitem;
             }
-
-            await this.CheckForUpdate();
         }
 
         /// <summary>
