@@ -19,6 +19,7 @@ namespace Lurker.UI.ViewModels
         private SettingsService _settingService;
         private UpdateManager _updateManager;
         private bool _needsUpdate;
+        private int _alertVolume;
 
         #endregion
 
@@ -34,6 +35,8 @@ namespace Lurker.UI.ViewModels
             this._settingService = settingsService;
             this._updateManager = updateManager;
             this.DisplayName = "Settings";
+
+            this.PropertyChanged += this.SettingsViewModel_PropertyChanged;
         }
 
         #endregion
@@ -125,6 +128,40 @@ namespace Lurker.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [alert enabled].
+        /// </summary>
+        public bool AlertEnabled
+        {
+            get
+            {
+                return this._settingService.AlertEnabled;
+            }
+
+            set
+            {
+                this._settingService.AlertEnabled = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the alert volume.
+        /// </summary>
+        public int AlertVolume
+        {
+            get
+            {
+                return this._alertVolume;
+            }
+
+            set
+            {
+                this._alertVolume = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -180,6 +217,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         protected override void OnActivate()
         {
+            this.AlertVolume = (int)(this._settingService.AlertVolume * 100);
             this.CheckForUpdate();
             base.OnActivate();
         }
@@ -190,6 +228,19 @@ namespace Lurker.UI.ViewModels
         private async void CheckForUpdate()
         {
             this.NeedsUpdate = await this._updateManager.CheckForUpdate();
+        }
+
+        /// <summary>
+        /// Handles the PropertyChanged event of the SettingsViewModel control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
+        private void SettingsViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(this.AlertVolume))
+            {
+                this._settingService.AlertVolume = (float)this.AlertVolume / 100;
+            }
         }
 
         #endregion

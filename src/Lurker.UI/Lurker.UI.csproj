@@ -83,6 +83,9 @@
     <Reference Include="Mono.Cecil.Rocks, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.Rocks.dll</HintPath>
     </Reference>
+    <Reference Include="NAudio, Version=1.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NAudio.1.9.0\lib\net35\NAudio.dll</HintPath>
+    </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NLog.4.6.8\lib\net45\NLog.dll</HintPath>
     </Reference>
@@ -265,6 +268,7 @@
     <Resource Include="Assets\TrayIconUpdate.ico" />
     <Resource Include="Assets\Alteration.png" />
     <Resource Include="Assets\Jeweller.png" />
+    <EmbeddedResource Include="Assets\TradeAlert.mp3" />
     <Content Include="Svg.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Svg.cs</LastGenOutput>

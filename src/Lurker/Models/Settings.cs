@@ -42,6 +42,16 @@ namespace Lurker.Models
         /// </summary>
         public bool SearchEnabled { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [alert enabled].
+        /// </summary>
+        public bool AlertEnabled { get; set; }
+
+        /// <summary>
+        /// Gets or sets the alert volume.
+        /// </summary>
+        public float AlertVolume { get; set; }
+
         #endregion
     }
 }

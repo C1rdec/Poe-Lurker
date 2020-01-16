@@ -20,6 +20,7 @@ namespace Lurker.Services
         private static readonly string DefaultSoldMessage = $"I'm sorry, my {TokenHelper.ItemName} has already been sold.";
         private static readonly string DefaultBusyMessage = "I'm busy right now I'll send you a party invite.";
         private static readonly string DefaultThankYouMessage = string.Empty;
+        private static readonly float DefaultAlertVolume = 1;
 
         private Settings _settings;
 
@@ -49,6 +50,7 @@ namespace Lurker.Services
                 this.SoldMessage = DefaultSoldMessage;
                 this.StillInterestedMessage = DefaultStillInterestedMessage;
                 this.ThankYouMessage = DefaultThankYouMessage;
+                this.AlertVolume = DefaultAlertVolume;
                 this.Save();
             }
             else
@@ -179,6 +181,38 @@ namespace Lurker.Services
             set
             {
                 this._settings.SearchEnabled = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [alert enabled].
+        /// </summary>
+        public bool AlertEnabled
+        {
+            get
+            {
+                return this._settings.AlertEnabled;
+            }
+
+            set
+            {
+                this._settings.AlertEnabled = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the alert volume.
+        /// </summary>
+        public float AlertVolume
+        {
+            get
+            {
+                return this._settings.AlertVolume;
+            }
+
+            set
+            {
+                this._settings.AlertVolume = value;
             }
         }
 

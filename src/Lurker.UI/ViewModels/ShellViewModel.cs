@@ -279,9 +279,12 @@ namespace Lurker.UI
             this._container.UnregisterHandler<DockingHelper>();
             this._container.UnregisterHandler<PoeKeyboardHelper>();
 
-            this._clipboardLurker.Newitem -= this.ClipboardLurker_Newitem;
-            this._clipboardLurker.Dispose();
-            this._clipboardLurker = null;
+            if (this._clipboardLurker != null)
+            {
+                this._clipboardLurker.Newitem -= this.ClipboardLurker_Newitem;
+                this._clipboardLurker.Dispose();
+                this._clipboardLurker = null;
+            }
 
             this._currentLurker.PoeClosed -= this.CurrentLurker_PoeClosed;
             this._currentLurker.Dispose();
