@@ -12,7 +12,17 @@
         Background="Transparent"
         mc:Ignorable="d"
         Title="Lurker">
-    <Grid Background="Transparent" x:Name="MainGrid">
+    <Grid x:Name="MainGrid">
+        <Grid.Style>
+            <Style TargetType="Grid">
+                <Setter Property="Background" Value="Transparent"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding DebugEnabled}" Value="True">
+                        <Setter Property="Background" Value="Green"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
         <ScrollViewer HorizontalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Hidden">
             <ItemsControl x:Name="TradeOffers">
                 <ItemsControl.ItemsPanel>

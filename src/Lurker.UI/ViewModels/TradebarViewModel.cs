@@ -60,6 +60,7 @@ namespace Lurker.UI.ViewModels
             this._dockingHelper = dockingHelper;
             this._keyboardHelper = keyboardHelper;
             this._settingsService = settingsService;
+            this._settingsService.OnSave += this.SettingsService_OnSave;
             this.TradeOffers = new ObservableCollection<OfferViewModel>();
 
             this._dockingHelper.OnWindowMove += this.DockingHelper_OnWindowMove;
@@ -187,6 +188,11 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Gets a value indicating whether [debug enabled].
+        /// </summary>
+        public bool DebugEnabled => this._settingsService.DebugEnabled;
+
+        /// <summary>
         /// Gets the active offer.
         /// </summary>
         private OfferViewModel ActiveOffer => this._activeOffers.FirstOrDefault();
@@ -205,6 +211,16 @@ namespace Lurker.UI.ViewModels
             {
                 this._keyboardHelper.Search(activeOffer.BuildSearchItemName());
             }
+        }
+
+        /// <summary>
+        /// Handles the OnSave event of the SettingsService control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void SettingsService_OnSave(object sender, EventArgs e)
+        {
+            this.NotifyOfPropertyChange(nameof(this.DebugEnabled));
         }
 
         /// <summary>
@@ -420,6 +436,7 @@ namespace Lurker.UI.ViewModels
                 this._Lurker.PoeClosed -= this.Lurker_PoeClosed;
                 this._Lurker.NewOffer -= this.Lurker_NewOffer;
                 this._Lurker.TradeAccepted -= this.Lurker_TradeAccepted;
+                this._settingsService.OnSave -= this.SettingsService_OnSave;
                 this._dockingHelper.Dispose();
             }
 

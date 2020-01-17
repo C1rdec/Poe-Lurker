@@ -61,6 +61,12 @@ namespace Lurker.Services
 
         #endregion
 
+        #region Events
+
+        public event EventHandler OnSave;
+
+        #endregion
+
         #region Properties
 
         /// <summary>
@@ -185,6 +191,22 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [debug enabled].
+        /// </summary>
+        public bool DebugEnabled
+        {
+            get
+            {
+                return this._settings.DebugEnabled;
+            }
+
+            set
+            {
+                this._settings.DebugEnabled = value;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [alert enabled].
         /// </summary>
         public bool AlertEnabled
@@ -226,6 +248,7 @@ namespace Lurker.Services
         public void Save()
         {
             this._settings.WriteJsonFile(this.SettingsFilePath);
+            this.OnSave?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion

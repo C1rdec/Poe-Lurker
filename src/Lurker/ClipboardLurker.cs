@@ -10,6 +10,7 @@ namespace Lurker
     using Gma.System.MouseKeyHook;
     using Lurker.Models.Items;
     using Lurker.Parsers;
+    using Lurker.Services;
     using System;
     using System.Threading;
     using System.Windows;
@@ -21,6 +22,7 @@ namespace Lurker
         private static readonly IKeyboardMouseEvents GlobalHook = Hook.GlobalEvents();
         private const char CtrlD = '\u0004';
         private ItemParser _itemParser = new ItemParser();
+        private SettingsService _settingsService;
 
         #endregion
 
@@ -29,8 +31,9 @@ namespace Lurker
         /// <summary>
         /// Initializes a new instance of the <see cref="ClipboardLurker"/> class.
         /// </summary>
-        public ClipboardLurker()
+        public ClipboardLurker(SettingsService settingsService)
         {
+            this._settingsService = settingsService;
             GlobalHook.KeyPress += this.GlobalHookKeyPress;
         }
 
@@ -92,12 +95,15 @@ namespace Lurker
             switch(e.KeyChar)
             {
                 case CtrlD:
-                    System.Windows.Forms.SendKeys.SendWait("^C");
-                    var item = this._itemParser.Parse(this.GetClipboardText());
-                    if (item != null)
+                    if (this._settingsService.SearchEnabled)
                     {
-                        this.Newitem?.Invoke(this, item);
-                        Clipboard.Clear();
+                        System.Windows.Forms.SendKeys.SendWait("^C");
+                        var item = this._itemParser.Parse(this.GetClipboardText());
+                        if (item != null)
+                        {
+                            this.Newitem?.Invoke(this, item);
+                            Clipboard.Clear();
+                        }
                     }
                     break;
             }

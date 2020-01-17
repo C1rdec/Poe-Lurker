@@ -43,6 +43,11 @@ namespace Lurker.Models
         public bool SearchEnabled { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [debug enabled].
+        /// </summary>
+        public bool DebugEnabled { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [alert enabled].
         /// </summary>
         public bool AlertEnabled { get; set; }

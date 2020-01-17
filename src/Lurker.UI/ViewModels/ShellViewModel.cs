@@ -32,6 +32,7 @@ namespace Lurker.UI
         private SettingsService _settingsService;
         private ItemOverlayViewModel _itemOverlay;
         private UpdateManager _updateManager;
+        private SettingsViewModel _settingsViewModel;
         private bool _startWithWindows;
         private bool _needUpdate;
         private bool _showInTaskBar;
@@ -46,11 +47,13 @@ namespace Lurker.UI
         /// </summary>
         /// <param name="windowManager">The window manager.</param>
         /// <param name="container">The container.</param>
-        public ShellViewModel(SimpleContainer container, SettingsService settingsService, UpdateManager updateManager)
+        public ShellViewModel(SimpleContainer container, SettingsService settingsService, UpdateManager updateManager, SettingsViewModel settingsViewModel)
         {
             this._settingsService = settingsService;
             this._container = container;
             this._updateManager = updateManager;
+            this._settingsViewModel = settingsViewModel;
+
             this.WaitForPoe();
             this.StartWithWindows = File.Exists(this.ShortcutFilePath);
             this.ShowInTaskBar = true;
@@ -215,6 +218,7 @@ namespace Lurker.UI
 
             this.StartWithWindows = !this.StartWithWindows;
         }
+
         /// <summary>
         /// Gets the assembly version.
         /// </summary>
@@ -241,13 +245,12 @@ namespace Lurker.UI
         /// </summary>
         public void ShowSettings()
         {
-            var settings = this._container.GetInstance<SettingsViewModel>();
-            if (settings.IsActive)
+            if (this._settingsViewModel.IsActive)
             {
                 return;
             }
 
-            this.ActivateItem(settings);
+            this.ActivateItem(this._settingsViewModel);
         }
 
         /// <summary>
@@ -306,11 +309,8 @@ namespace Lurker.UI
             var process = await this._currentLurker.WaitForPoe();
             this.ShowTradebar(process);
 
-            if (this._settingsService.SearchEnabled)
-            {
-                this._clipboardLurker = new ClipboardLurker();
-                this._clipboardLurker.Newitem += this.ClipboardLurker_Newitem;
-            }
+            this._clipboardLurker = new ClipboardLurker(this._settingsService);
+            this._clipboardLurker.Newitem += this.ClipboardLurker_Newitem;
         }
 
         /// <summary>

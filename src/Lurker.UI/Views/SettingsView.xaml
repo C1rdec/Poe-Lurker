@@ -131,21 +131,37 @@
                                 Orientation="Horizontal"
                                 SmallChange="1"
                                 Value="{Binding AlertVolume}" />
-
                     </Grid>
-                    
-                    
-
                 </Grid>
             </TabItem>
-            <TabItem Header="Action">
+            <TabItem Header="Advanced">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Label Content="Action" Style="{DynamicResource LabelHeaderStyle}" />
-                    <Label Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20">Coming Soon</Label>
+                    <Label Content="Advanced" Style="{DynamicResource LabelHeaderStyle}" />
+
+                    <StackPanel Grid.Row="1">
+
+                        <Grid>
+                            <Label Foreground="{DynamicResource AccentColorBrush}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center" Margin="150,-10,0,0">(Ctrl + D)</Label>
+                            <Controls:ToggleSwitch Grid.Row="1"
+                                           Margin="0,30,0,0"
+                                           VerticalAlignment="Top"
+                                           HorizontalAlignment="Center"
+                                           Header="Item Search"
+                                           IsChecked="{Binding SearchEnabled}"/>
+                        </Grid>
+                        <Controls:ToggleSwitch Grid.Row="1"
+                                           Margin="0,30,0,0"
+                                           VerticalAlignment="Top"
+                                           HorizontalAlignment="Center"
+                                           Header="Debug Mode"
+                                           IsChecked="{Binding DebugEnabled}"/>
+                    </StackPanel>
                 </Grid>
             </TabItem>
         </Controls:MetroAnimatedTabControl>

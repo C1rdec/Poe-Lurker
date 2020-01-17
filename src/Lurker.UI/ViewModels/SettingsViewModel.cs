@@ -10,6 +10,7 @@ namespace Lurker.UI.ViewModels
     using Lurker.Helpers;
     using Lurker.Services;
     using Lurker.UI.Helpers;
+    using System;
 
     public class SettingsViewModel: ScreenBase
     {
@@ -38,6 +39,15 @@ namespace Lurker.UI.ViewModels
 
             this.PropertyChanged += this.SettingsViewModel_PropertyChanged;
         }
+
+        #endregion
+
+        #region Events
+
+        /// <summary>
+        /// Raises the Close event.
+        /// </summary>
+        public event EventHandler OnClose;
 
         #endregion
 
@@ -146,6 +156,40 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [alert enabled].
+        /// </summary>
+        public bool SearchEnabled
+        {
+            get
+            {
+                return this._settingService.SearchEnabled;
+            }
+
+            set
+            {
+                this._settingService.SearchEnabled = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [debug enabled].
+        /// </summary>
+        public bool DebugEnabled
+        {
+            get
+            {
+                return this._settingService.DebugEnabled;
+            }
+
+            set
+            {
+                this._settingService.DebugEnabled = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the alert volume.
         /// </summary>
         public int AlertVolume
@@ -207,6 +251,7 @@ namespace Lurker.UI.ViewModels
             if (close)
             {
                 this._settingService.Save();
+                this.OnClose?.Invoke(this, EventArgs.Empty);
             }
 
             base.OnDeactivate(close);
