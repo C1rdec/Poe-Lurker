@@ -16,18 +16,25 @@
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <TextBlock FontSize="18" HorizontalAlignment="Center" Text="{Binding Rarity}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock FontSize="18" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Rarity}"/>
+                            <TextBlock FontSize="10" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ItemLevel}"/>
+                        </Grid>
                         <Grid Grid.Row="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="{Binding TotalLifeCount}" Foreground="DarkRed" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            <Border Grid.Column="1" Background="DarkGray" Height="20" Width="50" CornerRadius="15,0,0,0" HorizontalAlignment="Right">
+                            <TextBlock Text="{Binding TotalLifeCount}" FontWeight="UltraBlack" Foreground="Crimson" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <Border Grid.Column="1" Background="DarkGray" CornerRadius="10,0,0,0">
                                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13" Text="{Binding TotalElementalResistance}"></TextBlock>
                             </Border>
                         </Grid>
-                        
                         <Grid Grid.Row="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition></ColumnDefinition>
