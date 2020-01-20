@@ -104,6 +104,26 @@ namespace Lurker.Models.Items
         /// </summary>
         public double TotalLifeCount => AffixService.GetTotalLife(this);
 
+        /// <summary>
+        /// Gets the total cold resistance.
+        /// </summary>
+        public double TotalColdResistance => AffixService.GetTotalColdResistance(this);
+
+        /// <summary>
+        /// Gets the total lightning resistance.
+        /// </summary>
+        public double TotalLightningResistance => AffixService.GetTotalLightningResistance(this);
+
+        /// <summary>
+        /// Gets the total fire resistance.
+        /// </summary>
+        public double TotalFireResistance => AffixService.GetTotalFireResistance(this);
+
+        /// <summary>
+        /// Gets the total elemental resistance.
+        /// </summary>
+        public double TotalElementalResistance => TotalColdResistance + TotalFireResistance + TotalLightningResistance;
+
         #endregion
 
         #region Methods

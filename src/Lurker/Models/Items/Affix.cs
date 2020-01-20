@@ -44,6 +44,11 @@ namespace Lurker.Models.Items
         public string Id => this._id;
 
         /// <summary>
+        /// Gets the text.
+        /// </summary>
+        public string Text => this._text;
+
+        /// <summary>
         /// Gets the value.
         /// </summary>
         public double Value => this._value;
@@ -84,8 +89,11 @@ namespace Lurker.Models.Items
                 value = value.Replace(digitValue, "#");
             }
 
-            this._text = value.Replace("+", string.Empty);
-            this._id = GetId(this._text);
+            var text = value.Replace("+", string.Empty);
+            this._id = GetId(text);
+
+            // Remove (Crafted) | (Implicit) markers
+            this._text = AffixService.SimplifyText(text);
             if (digitValues.Any())
             {
                 this._value = digitValues.Select(d => double.Parse(d)).Average();

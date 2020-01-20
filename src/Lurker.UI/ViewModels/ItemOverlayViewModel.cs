@@ -69,6 +69,23 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public double TotalLifeCount => this._item.TotalLifeCount;
 
+        /// <summary>
+        /// Gets the total cold resistance.
+        /// </summary>
+        public double TotalColdResistance => this._item.TotalColdResistance;
+
+        /// <summary>
+        /// Gets the total fire resistance.
+        /// </summary>
+        public double TotalFireResistance => this._item.TotalFireResistance;
+
+        /// <summary>
+        /// Gets the total lightning resistance.
+        /// </summary>
+        public double TotalLightningResistance => this._item.TotalLightningResistance;
+
+        public double TotalElementalResistance => this._item.TotalElementalResistance;
+
         #endregion
 
         #region Methods

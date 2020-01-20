@@ -21,8 +21,6 @@ namespace Lurker.Services
         private IEnumerable<AffixEntry> _affixes;
         private static readonly TradeApiClient Client = new TradeApiClient();
         private static AffixService _instance;
-        private static readonly string MaximumLifeText = "# to maximum Life";
-        private static readonly string StrengthAffixId = "explicit.stat_4080418644";
 
         #endregion
 
@@ -40,6 +38,11 @@ namespace Lurker.Services
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets the all the affixes.
+        /// </summary>
+        private IEnumerable<AffixEntry> Affixes => this._affixes;
 
         /// <summary>
         /// Gets the explicits.
@@ -61,9 +64,71 @@ namespace Lurker.Services
         /// </summary>
         private IEnumerable<AffixEntry> Crafted => this._affixes.Where(a => a.Type == AffixType.Crafted);
 
+
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Gets the total strength.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>The sum of strength.</returns>
+        public static double GetTotalStrength(PoeItem item)
+        {
+            return AffixSum(AttributeAffixes.StrengthTexts, item);
+        }
+
+        /// <summary>
+        /// Gets the total dexterity.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>The sum of dexterity.</returns>
+        public static double GetTotalDexterity(PoeItem item)
+        {
+            return AffixSum(AttributeAffixes.DexterityTexts, item);
+
+        }
+
+        /// <summary>
+        /// Gets the total intelligence.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>The sum of Intelligence</returns>
+        public static double GetTotalIntelligence(PoeItem item)
+        {
+            return AffixSum(AttributeAffixes.IntelligenceTexts, item);
+        }
+
+        /// <summary>
+        /// Gets the total cold resistance.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>The sum of cold resistances</returns>
+        public static double GetTotalColdResistance(PoeItem item)
+        {
+            return AffixSum(ResistanceAffixes.ColdResistanceTexts, item);
+        }
+
+        /// <summary>
+        /// Gets the total fire resistance.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>The sum of fire resistance.</returns>
+        public static double GetTotalFireResistance(PoeItem item)
+        {
+            return AffixSum(ResistanceAffixes.FireResistanceTexts, item);
+        }
+
+        /// <summary>
+        /// Gets the total lightning resistance.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>The sum of lightning resistance.</returns>
+        public static double GetTotalLightningResistance(PoeItem item)
+        {
+            return AffixSum(ResistanceAffixes.LightningResistanceTexts, item);
+        }
 
         /// <summary>
         /// Gets the total life.
@@ -73,16 +138,16 @@ namespace Lurker.Services
         public static double GetTotalLife(PoeItem item)
         {
             double increasedLifeCount = 0;
-            var strAffix = item.Affixes.FirstOrDefault(a => a.Id == StrengthAffixId);
 
-            if(strAffix != null)
+            var strengthCount = GetTotalStrength(item);
+            if (strengthCount > 0)
             {
-                var strBonus = (int)(strAffix.Value / 10);
+                var strBonus = (int)(strengthCount / 10);
                 increasedLifeCount = strBonus * 5;
             }
 
             var instance = GetInstance();
-            var maximumLifeAffixes = instance._affixes.Where(a => a.text == MaximumLifeText);
+            var maximumLifeAffixes = instance.Affixes.Where(a => a.text == AttributeAffixes.MaximumLifeText);
 
             foreach (var maximumLifeAffix in maximumLifeAffixes)
             {
@@ -163,6 +228,19 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Simplifies the affix text.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <returns>The simplified text.</returns>
+        public static string SimplifyText(string text)
+        {
+            text = text.Replace(ImplicitMarker, string.Empty);
+            text = text.Replace(CraftedMarker, string.Empty);
+
+            return text;
+        }
+
+        /// <summary>
         /// Gets the instance.
         /// </summary>
         /// <returns>The singleton.</returns>
@@ -174,6 +252,18 @@ namespace Lurker.Services
             }
 
             return _instance;
+        }
+
+        /// <summary>
+        /// Affixes the sum.
+        /// </summary>
+        /// <param name="values">The values.</param>
+        /// <param name="item">The item.</param>
+        /// <returns>The sum of the affixes</returns>
+        private static double AffixSum(IEnumerable<string> values, PoeItem item)
+        {
+            return item.Affixes.Where(a => values.Contains(a.Text)).Sum(a => a.Value);
+
         }
 
         #endregion

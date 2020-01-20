@@ -6,16 +6,49 @@
              xmlns:local="clr-namespace:Lurker.UI.Views"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="100">
-    <Button Height="100" Width="100" x:Name="Close" Background="Green">
-        <StackPanel>
-            <TextBlock Text="{Binding Rarity}"/>
+    <Button Width="100" x:Name="Close" >
+        <Button.Template>
+            <ControlTemplate TargetType="{x:Type Button}">
+                <Border Background="Gray" CornerRadius="4">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock FontSize="18" HorizontalAlignment="Center" Text="{Binding Rarity}"/>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding TotalLifeCount}" Foreground="DarkRed" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <Border Grid.Column="1" Background="DarkGray" Height="20" Width="50" CornerRadius="15,0,0,0" HorizontalAlignment="Right">
+                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13" Text="{Binding TotalElementalResistance}"></TextBlock>
+                            </Border>
+                        </Grid>
+                        
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Border CornerRadius="0,0,0,4" Background="Blue">
+                                <TextBlock Text="{Binding TotalColdResistance}" HorizontalAlignment="Center"/>
+                            </Border>
+                            <Border Background="Red" Grid.Column="1">
+                                <TextBlock Text="{Binding TotalFireResistance}" HorizontalAlignment="Center" />
+                            </Border>
 
-            <TextBlock Text="{Binding ItemInformation}"/>
-            <TextBlock Text="{Binding TotalLifeCount}"/>
-            <TextBlock Text="{Binding SocketInformation}"/>
-            <!--<TextBlock Text="{Binding BaseType}"/>
-            <TextBlock Text="{Binding ItemClass}"/>
-            <TextBlock Text="{Binding ItemLevel}"/>-->
-        </StackPanel>
+                            <Border CornerRadius="0,0,4,0" Background="Yellow" Grid.Column="2">
+                                <TextBlock Text="{Binding TotalLightningResistance}" HorizontalAlignment="Center" Foreground="Black"/>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </Button.Template>
+        
     </Button>
 </UserControl>
