@@ -4,14 +4,15 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Lurker.Models.Items;
-using Lurker.Models.TradeAPI;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Lurker.Services
 {
+    using Lurker.Models.Items;
+    using Lurker.Models.TradeAPI;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public class AffixService
     {
         #region Fields
