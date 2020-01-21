@@ -100,28 +100,28 @@
                 </StackPanel>
             </TabItem>
             <TabItem Header="Notification">
-                <Grid>
+                <Grid Margin="30,0,30,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
                     <Label Content="Notification" Style="{DynamicResource LabelHeaderStyle}" />
-                    <Grid Grid.Row="1" VerticalAlignment="Top" Margin="30,0,30,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <Controls:ToggleSwitch Grid.Row="1"
-                                           Margin="0,30,0,0"
+                    <StackPanel Grid.Row="1">
+                        <Grid Grid.Row="1" VerticalAlignment="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Controls:ToggleSwitch Grid.Row="1"
                                            VerticalAlignment="Top"
                                            HorizontalAlignment="Left"
-                                           Header="Incoming trade"
+                                           Header="Offer Alert"
                                            IsChecked="{Binding AlertEnabled}"/>
-                        <Label Grid.Column="1" Visibility="{Binding AlertEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Margin="0,-40,0,0" >Volume</Label>
-                        <Slider Height="150"
+                            <Label Grid.Column="1" Visibility="{Binding AlertEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Margin="0,-40,0,0" >Volume</Label>
+                            <Slider
                                 Grid.Column="1"
                                 Visibility="{Binding AlertEnabled, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                Margin="4"
+                                Margin="4,25,0,0"
                                 Controls:SliderHelper.ChangeValueBy="SmallChange"
                                 Controls:SliderHelper.EnableMouseWheel="MouseHover"
                                 AutoToolTipPlacement="TopLeft"
@@ -131,7 +131,33 @@
                                 Orientation="Horizontal"
                                 SmallChange="1"
                                 Value="{Binding AlertVolume}" />
-                    </Grid>
+                        </Grid>
+                        <Grid Grid.Row="2" VerticalAlignment="Top" Margin="0,15,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Controls:ToggleSwitch
+                                               VerticalAlignment="Top"
+                                               HorizontalAlignment="Left"
+                                               Header="Offer ToolTip"
+                                               IsChecked="{Binding ToolTipEnabled}"/>
+                            <Label Grid.Column="1" Visibility="{Binding ToolTipEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Margin="0,-40,0,0" >Delay (ms)</Label>
+                            <Slider
+                                Grid.Column="1"
+                                Visibility="{Binding ToolTipEnabled, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                Margin="4,25,0,0"
+                                Controls:SliderHelper.ChangeValueBy="SmallChange"
+                                Controls:SliderHelper.EnableMouseWheel="MouseHover"
+                                AutoToolTipPlacement="TopLeft"
+                                LargeChange="10"
+                                Maximum="1000"
+                                Minimum="0"
+                                Orientation="Horizontal"
+                                SmallChange="1"
+                                Value="{Binding ToolTipDelay}" />
+                        </Grid>
+                    </StackPanel>
                 </Grid>
             </TabItem>
             <TabItem Header="Advanced">
@@ -160,32 +186,6 @@
                                            HorizontalAlignment="Left"
                                            Header="Debug Mode"
                                            IsChecked="{Binding DebugEnabled}"/>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Controls:ToggleSwitch
-                                               Margin="0,30,0,0"
-                                               VerticalAlignment="Top"
-                                               HorizontalAlignment="Left"
-                                               Header="Offer ToolTip"
-                                               IsChecked="{Binding ToolTipEnabled}"/>
-                            <Label Grid.Column="1" Visibility="{Binding ToolTipEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Margin="0,-40,0,0" >Delay (ms)</Label>
-                            <Slider Height="150"
-                                Grid.Column="1"
-                                Visibility="{Binding ToolTipEnabled, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                Margin="4"
-                                Controls:SliderHelper.ChangeValueBy="SmallChange"
-                                Controls:SliderHelper.EnableMouseWheel="MouseHover"
-                                AutoToolTipPlacement="TopLeft"
-                                LargeChange="10"
-                                Maximum="1000"
-                                Minimum="0"
-                                Orientation="Horizontal"
-                                SmallChange="1"
-                                Value="{Binding ToolTipDelay}" />
-                        </Grid>
                     </StackPanel>
                 </Grid>
             </TabItem>
