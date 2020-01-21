@@ -206,6 +206,40 @@ namespace Lurker.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [tool tip enabled].
+        /// </summary>
+        public bool ToolTipEnabled
+        {
+            get
+            {
+                return this._settingService.ToolTipEnabled;
+            }
+
+            set
+            {
+                this._settingService.ToolTipEnabled = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the tool tip delay.
+        /// </summary>
+        public int ToolTipDelay
+        {
+            get
+            {
+                return this._settingService.ToolTipDelay;
+            }
+
+            set
+            {
+                this._settingService.ToolTipDelay = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
         #endregion
 
         #region Methods

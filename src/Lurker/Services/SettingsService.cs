@@ -20,7 +20,6 @@ namespace Lurker.Services
         private static readonly string DefaultSoldMessage = $"I'm sorry, my {TokenHelper.ItemName} has already been sold.";
         private static readonly string DefaultBusyMessage = "I'm busy right now I'll send you a party invite.";
         private static readonly string DefaultThankYouMessage = string.Empty;
-        private static readonly float DefaultAlertVolume = 1;
 
         private Settings _settings;
 
@@ -50,7 +49,6 @@ namespace Lurker.Services
                 this.SoldMessage = DefaultSoldMessage;
                 this.StillInterestedMessage = DefaultStillInterestedMessage;
                 this.ThankYouMessage = DefaultThankYouMessage;
-                this.AlertVolume = DefaultAlertVolume;
                 this.Save();
             }
             else
@@ -223,6 +221,22 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [tool tip enabled].
+        /// </summary>
+        public bool ToolTipEnabled
+        {
+            get
+            {
+                return this._settings.ToolTipEnabled;
+            }
+
+            set
+            {
+                this._settings.ToolTipEnabled = value;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the alert volume.
         /// </summary>
         public float AlertVolume
@@ -235,6 +249,22 @@ namespace Lurker.Services
             set
             {
                 this._settings.AlertVolume = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the tool tip delay.
+        /// </summary>
+        public int ToolTipDelay
+        {
+            get
+            {
+                return this._settings.ToolTipDelay;
+            }
+
+            set
+            {
+                this._settings.ToolTipDelay = value;
             }
         }
 

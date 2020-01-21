@@ -354,6 +354,8 @@ namespace Lurker.UI.ViewModels
                         this.ItemName = this.ActiveOffer.ItemName;
                         this.ActiveOffer.Active = true;
                     }
+
+                    offer.Dispose();
                 });
             }
         }

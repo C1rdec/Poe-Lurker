@@ -12,9 +12,10 @@ namespace Lurker.UI.ViewModels
     using Lurker.Models;
     using Lurker.Services;
     using Lurker.UI.Models;
+    using System;
     using System.Windows.Input;
 
-    public class OfferViewModel: PropertyChangedBase
+    public class OfferViewModel: PropertyChangedBase, IDisposable
     {
         #region Fields
 
@@ -42,6 +43,8 @@ namespace Lurker.UI.ViewModels
             this._keyboardHelper = keyboardHelper;
             this._tradebarContext = tradebarContext;
             this._settingsService = settingsService;
+
+            this._settingsService.OnSave += this.SettingsService_OnSave;
         }
 
         #endregion
@@ -146,9 +149,27 @@ namespace Lurker.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether [tool tip enabled].
+        /// </summary>
+        public bool ToolTipEnabled => this._settingsService.ToolTipEnabled;
+
+        /// <summary>
+        /// Gets the tool tip delay.
+        /// </summary>
+        public int ToolTipDelay => this._settingsService.ToolTipDelay;
+
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            this.Dispose(true);
+        }
 
         /// <summary>
         /// Removes this instance.
@@ -270,6 +291,30 @@ namespace Lurker.UI.ViewModels
         private void Whisper(string message)
         {
             this._keyboardHelper.Whisper(this.PlayerName, TokenHelper.ReplaceToken(message, this._tradeEvent));
+        }
+
+
+        /// <summary>
+        /// Handles the OnSave event of the SettingsService control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void SettingsService_OnSave(object sender, System.EventArgs e)
+        {
+            this.NotifyOfPropertyChange(nameof(this.ToolTipEnabled));
+            this.NotifyOfPropertyChange(nameof(this.ToolTipDelay));
+        }
+
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this._settingsService.OnSave -= this.SettingsService_OnSave;
+            }
         }
 
         #endregion

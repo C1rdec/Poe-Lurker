@@ -7,6 +7,7 @@
 namespace Lurker.Models
 {
     using ConfOxide;
+    using System.ComponentModel;
 
     public sealed class Settings: SettingsBase<Settings>
     {
@@ -55,7 +56,20 @@ namespace Lurker.Models
         /// <summary>
         /// Gets or sets the alert volume.
         /// </summary>
+        [DefaultValue(1)]
         public float AlertVolume { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [tool tip enabled].
+        /// </summary>
+        [DefaultValue(true)]
+        public bool ToolTipEnabled { get; set; }
+
+        /// <summary>
+        /// Gets or sets the tooltip delay.
+        /// </summary>
+        [DefaultValue(1000)]
+        public int ToolTipDelay { get; set; }
 
         #endregion
     }
