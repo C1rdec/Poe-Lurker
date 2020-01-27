@@ -151,7 +151,7 @@ namespace Lurker.Events
                 return $"{gemName} {quality}";
             }
 
-            return Regex.Replace(this.ItemName, @"[\d-]", string.Empty).Trim();
+            return Regex.Replace(this.ItemName, @"[\d]", string.Empty).Trim();
         }
 
         #endregion
