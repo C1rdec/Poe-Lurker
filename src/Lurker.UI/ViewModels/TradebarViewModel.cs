@@ -41,6 +41,7 @@ namespace Lurker.UI.ViewModels
         private double _itemNameHeight;
         private double _itemNameWidth;
         private string _itemName;
+        private string _stashTabName;
         private bool _hasActiveOffer;
 
         #endregion
@@ -183,6 +184,23 @@ namespace Lurker.UI.ViewModels
             set
             {
                 this._itemName = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the name of the stash tab.
+        /// </summary>
+        public string StashTabName
+        {
+            get
+            {
+                return this._stashTabName;
+            }
+
+            set
+            {
+                this._stashTabName = value;
                 this.NotifyOfPropertyChange();
             }
         }
@@ -347,11 +365,13 @@ namespace Lurker.UI.ViewModels
                     this.TradeOffers.Remove(offer);
                     this._activeOffers.Remove(offer);
                     this.ItemName = string.Empty;
+                    this.StashTabName = string.Empty;
 
                     var activeOffer = this.ActiveOffer;
                     if (this.ActiveOffer != null)
                     {
                         this.ItemName = this.ActiveOffer.ItemName;
+                        this.StashTabName = this.ActiveOffer.Location.StashTabName;
                         this.ActiveOffer.Active = true;
                     }
 
@@ -368,6 +388,7 @@ namespace Lurker.UI.ViewModels
         {
             this._activeOffers.Add(offer);
             this.ItemName = this.ActiveOffer.ItemName;
+            this.StashTabName = this.ActiveOffer.Location.StashTabName;
             this.ActiveOffer.Active = true;
         }
 
@@ -393,6 +414,7 @@ namespace Lurker.UI.ViewModels
             if (currentActiveOffer == offer)
             {
                 this.ItemName = this.ActiveOffer?.ItemName;
+                this.StashTabName = this.ActiveOffer?.Location.StashTabName;
                 if (this.ActiveOffer != null)
                 {
                     this.ActiveOffer.Active = true;
@@ -403,6 +425,7 @@ namespace Lurker.UI.ViewModels
 
             this._activeOffers.Insert(0, offer);
             this.ItemName = offer.ItemName;
+            this.StashTabName = offer.Location.StashTabName;
             this.ActiveOffer.Active = true;
         }
 

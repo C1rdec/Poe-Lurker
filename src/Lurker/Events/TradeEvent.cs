@@ -7,7 +7,9 @@
 namespace Lurker.Events
 {
     using Lurker.Items;
+    using Lurker.Items.Extensions;
     using Lurker.Models;
+    using System;
     using System.Linq;
     using System.Text.RegularExpressions;
 
@@ -48,7 +50,7 @@ namespace Lurker.Events
             var locationMarkerIndex = textAfterItemName.IndexOf(LocationMarker);
             if (locationMarkerIndex != -1)
             {
-                this.Position = textAfterItemName.Substring(locationMarkerIndex);
+                this.Location = this.ParseLocation(textAfterItemName.Substring(locationMarkerIndex));
             }
 
             // Price
@@ -82,7 +84,7 @@ namespace Lurker.Events
         /// <summary>
         /// Gets the position.
         /// </summary>
-        public string Position { get; private set; }
+        public Location Location { get; private set; }
 
         #endregion
 
@@ -111,6 +113,35 @@ namespace Lurker.Events
 
 
             return null;
+        }
+
+        /// <summary>
+        /// Parses the location.
+        /// </summary>
+        /// <param name="locationValue">The location value.</param>
+        /// <returns>The item location</returns>
+        public Location ParseLocation(string locationValue)
+        {
+            // Remove parentheses
+            var value = locationValue.Substring(1, locationValue.Length - 2);
+
+            // tab name
+            var tabValue = value.GetLineBefore("\";");
+            var index = tabValue.IndexOf("\"");
+            var stashTabName = tabValue.Substring(index + 1);
+
+            // Position
+            var positionValue = value.GetLineAfter("position: ");
+            var positions = positionValue.Split(", ");
+            var left = positions[0].GetLineAfter("left ");
+            var top = positions[1].GetLineAfter("top ");
+
+            return new Location()
+            {
+                StashTabName = stashTabName,
+                Left = Convert.ToInt32(left),
+                Top = Convert.ToInt32(top),
+            };
         }
 
         /// <summary>

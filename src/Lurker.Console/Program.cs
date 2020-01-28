@@ -36,7 +36,7 @@ namespace Lurker.Console
 
         private static void Lurker_NewOffer(object sender, Events.TradeEvent e)
         {
-            Console.WriteLine($"({e.Date})--[{e.GuildName}]{e.PlayerName} [item: {e.ItemName}] [price: {e.Price}] [position: {e.Position}] ");
+            Console.WriteLine($"({e.Date})--[{e.GuildName}]{e.PlayerName} [item: {e.ItemName}] [price: {e.Price}] [position: {e.Location}] ");
         }
 
         private static void Watcher_Whispered(object sender, Events.WhisperEvent e)

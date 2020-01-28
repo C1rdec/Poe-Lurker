@@ -41,8 +41,7 @@
                Placement="Left" 
                Height="{Binding ItemNameHeight}"
                Width="{Binding ItemNameWidth}">
-            <Button Content="{Binding ItemName}" 
-                    Cursor="Hand"
+            <Button Cursor="Hand"
                     cal:Message.Attach="[Event Click] = [Action SearchItem]">
                 <Button.Style>
                     <Style TargetType="Button">
@@ -69,7 +68,7 @@
                                                        TextTrimming="CharacterEllipsis"
                                                        HorizontalAlignment="Center"
                                                        VerticalAlignment="Center" 
-                                                       Text="{Binding ItemName}"/>
+                                                       Text="{Binding StashTabName}"/>
                                         </Border>
                                     </Grid>
                                 </ControlTemplate>

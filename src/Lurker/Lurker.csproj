@@ -82,6 +82,7 @@
     <Compile Include="Helpers\KeyboardHelper.cs" />
     <Compile Include="Helpers\PoeKeyboardHelper.cs" />
     <Compile Include="Helpers\TokenHelper.cs" />
+    <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Price.cs" />
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Native.cs" />

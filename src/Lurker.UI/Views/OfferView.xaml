@@ -261,7 +261,7 @@
                                             </Grid.RowDefinitions>
                                             <TextBlock Grid.Row="0" Text="{Binding PlayerName}"/>
                                             <TextBlock Grid.Row="1" Text="{Binding ItemName}"/>
-                                            <TextBlock Grid.Row="2" Text="{Binding Position}">
+                                            <TextBlock Grid.Row="2" Text="{Binding Location}">
                                                 <TextBlock.Style>
                                                     <Style TargetType="TextBlock">
                                                         <Style.Triggers>
