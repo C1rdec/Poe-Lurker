@@ -8,6 +8,8 @@ namespace Lurker.UI
 {
     using Caliburn.Micro;
     using Lurker.Helpers;
+    using Lurker.Items.Models;
+    using Lurker.Items.Services;
     using Lurker.Services;
     using Lurker.UI.Helpers;
     using Lurker.UI.Models;
@@ -326,7 +328,7 @@ namespace Lurker.UI
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
-        private void ClipboardLurker_Newitem(object sender, Lurker.Models.Items.PoeItem e)
+        private void ClipboardLurker_Newitem(object sender, PoeItem e)
         {
             this.IsItemOverlayOpen = false;
             this.ItemOverlayViewModel = new ItemOverlayViewModel(e, () => { this.IsItemOverlayOpen = false; });

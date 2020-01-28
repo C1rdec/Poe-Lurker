@@ -6,7 +6,7 @@
 
 namespace Lurker.Console
 {
-    using Lurker.Models.TradeAPI;
+    using Lurker.Items.Models.TradeAPI;
     using System;
     using System.Net.Http;
     using System.Threading.Tasks;

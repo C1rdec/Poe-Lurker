@@ -4,6 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Lurker.Items.Models;
+
 namespace Lurker.Models
 {
     public class Price

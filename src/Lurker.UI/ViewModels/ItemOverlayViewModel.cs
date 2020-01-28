@@ -6,7 +6,7 @@
 
 namespace Lurker.UI.ViewModels
 {
-    using Lurker.Models.Items;
+    using Lurker.Items.Models;
     using System;
 
     public class ItemOverlayViewModel: Caliburn.Micro.PropertyChangedBase

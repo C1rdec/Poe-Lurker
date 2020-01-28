@@ -6,8 +6,8 @@
 
 namespace Lurker.Events
 {
+    using Lurker.Items;
     using Lurker.Models;
-    using Lurker.Parsers;
     using System.Linq;
     using System.Text.RegularExpressions;
 
