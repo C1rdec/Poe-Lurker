@@ -52,6 +52,10 @@ namespace Lurker.Events
             {
                 this.Location = this.ParseLocation(textAfterItemName.Substring(locationMarkerIndex));
             }
+            else
+            {
+                this.Location = new Location();
+            }
 
             // Price
             if (priceMarkerIndex != -1)
