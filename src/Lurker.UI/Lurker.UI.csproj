@@ -267,6 +267,7 @@
     <Resource Include="Assets\InInstance.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="SVG\Lightning.svg" />
     <Resource Include="Assets\Regal.png" />
     <Resource Include="Assets\Divine.png" />
     <Resource Include="Assets\TrayIconUpdate.ico" />
@@ -277,6 +278,8 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Svg.cs</LastGenOutput>
     </Content>
+    <Content Include="SVG\Cold.svg" />
+    <Content Include="SVG\Fire.svg" />
     <Content Include="SVG\InInstance.svg" />
   </ItemGroup>
   <ItemGroup>

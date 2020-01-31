@@ -2,8 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Lurker.UI.Views"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Lurker.UI"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="100">
     <Button Width="100" x:Name="Close" >
@@ -42,14 +42,47 @@
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <Border CornerRadius="0,0,0,4" Background="Blue">
-                                <TextBlock Text="{Binding TotalColdResistance}" HorizontalAlignment="Center"/>
+                                <Grid>
+                                    <local:IconPack HorizontalAlignment="Left"
+                                            VerticalAlignment="Bottom"
+                                            Foreground="White"
+                                            Grid.Row="2"
+                                            Margin="1,0,0,0"
+                                            Visibility="{Binding BuyerInSameInstance, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                            Height="15"
+                                            Width="15"
+                                            Data="{x:Static local:IconPackData.Cold}"/>
+                                    <TextBlock Margin="0,0,4,0" Text="{Binding TotalColdResistance}" HorizontalAlignment="Right"/>
+                                </Grid>
                             </Border>
                             <Border Background="Red" Grid.Column="1">
-                                <TextBlock Text="{Binding TotalFireResistance}" HorizontalAlignment="Center" />
+                                <Grid>
+                                    <local:IconPack HorizontalAlignment="Left"
+                                            VerticalAlignment="Bottom"
+                                            Foreground="White"
+                                            Grid.Row="2"
+                                            Margin="1,0,0,0"
+                                            Visibility="{Binding BuyerInSameInstance, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                            Height="15"
+                                            Width="15"
+                                            Data="{x:Static local:IconPackData.Fire}"/>
+                                    <TextBlock Margin="0,0,4,0" Text="{Binding TotalFireResistance}" HorizontalAlignment="Right" />
+                                </Grid>
                             </Border>
 
                             <Border CornerRadius="0,0,4,0" Background="Yellow" Grid.Column="2">
-                                <TextBlock Text="{Binding TotalLightningResistance}" HorizontalAlignment="Center" Foreground="Black"/>
+                                <Grid>
+                                <local:IconPack HorizontalAlignment="Left"
+                                            VerticalAlignment="Bottom"
+                                            Foreground="Black"
+                                            Grid.Row="2"
+                                            Margin="1,0,0,0"
+                                            Visibility="{Binding BuyerInSameInstance, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                            Height="15"
+                                            Width="15"
+                                            Data="{x:Static local:IconPackData.Lightning}"/>
+                                    <TextBlock Margin="0,0,4,0" Text="{Binding TotalLightningResistance}" HorizontalAlignment="Right" Foreground="Black"/>
+                                </Grid>
                             </Border>
                         </Grid>
                     </Grid>
