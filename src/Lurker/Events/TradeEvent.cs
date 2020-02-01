@@ -50,7 +50,7 @@ namespace Lurker.Events
             var textAfterItemName = this.Message.Substring(itemIndex);
             var locationMarkerIndex = textAfterItemName.IndexOf(LocationMarker);
             var locationMarkerEndIndex = textAfterItemName.IndexOf(LocationMarkerEnd);
-            if (locationMarkerIndex != -1 & locationMarkerEndIndex != -1)
+            if (locationMarkerIndex != -1 && locationMarkerEndIndex != -1)
             {
                 this.Location = this.ParseLocation(textAfterItemName.Substring(locationMarkerIndex + 1, locationMarkerEndIndex - locationMarkerIndex - 1));
             }
