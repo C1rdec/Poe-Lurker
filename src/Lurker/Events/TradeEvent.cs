@@ -20,6 +20,7 @@ namespace Lurker.Events
         private static readonly string[] GreetingMarkers = new string[] { "Hi, I would like to buy your", "Hi, I'd like to buy your", "wtb" };
         private static readonly string[] PriceMarkers = new string[] { "listed for", "for my" };
         private static readonly string LocationMarker = "(";
+        private static readonly string LocationMarkerEnd = ")";
         private static readonly string LeagueMarker = " in ";
         private static readonly CurrencyTypeParser CurrencyTypeParser = new CurrencyTypeParser();
 
@@ -48,9 +49,10 @@ namespace Lurker.Events
             // Location
             var textAfterItemName = this.Message.Substring(itemIndex);
             var locationMarkerIndex = textAfterItemName.IndexOf(LocationMarker);
-            if (locationMarkerIndex != -1)
+            var locationMarkerEndIndex = textAfterItemName.IndexOf(LocationMarkerEnd);
+            if (locationMarkerIndex != -1 && locationMarkerEndIndex != -1)
             {
-                this.Location = this.ParseLocation(textAfterItemName.Substring(locationMarkerIndex));
+                this.Location = this.ParseLocation(textAfterItemName.Substring(locationMarkerIndex + 1, locationMarkerEndIndex - locationMarkerIndex - 1));
             }
             else
             {
@@ -126,16 +128,13 @@ namespace Lurker.Events
         /// <returns>The item location</returns>
         public Location ParseLocation(string locationValue)
         {
-            // Remove parentheses
-            var value = locationValue.Substring(1, locationValue.Length - 2);
-
             // tab name
-            var tabValue = value.GetLineBefore("\";");
+            var tabValue = locationValue.GetLineBefore("\";");
             var index = tabValue.IndexOf("\"");
             var stashTabName = tabValue.Substring(index + 1);
 
             // Position
-            var positionValue = value.GetLineAfter("position: ");
+            var positionValue = locationValue.GetLineAfter("position: ");
             var positions = positionValue.Split(", ");
             var left = positions[0].GetLineAfter("left ");
             var top = positions[1].GetLineAfter("top ");
