@@ -238,7 +238,7 @@ namespace Lurker.UI.ViewModels
         /// <returns>The item name to be placed in tab search.</returns>
         public string BuildSearchItemName()
         {
-            return this._tradeEvent.BuildSearchItemName();
+            return this._tradeEvent.ItemName;
         }
 
         /// <summary>
