@@ -57,6 +57,9 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public string BaseType => this._item.BaseType;
 
+        /// <summary>
+        /// Gets the item information.
+        /// </summary>
         public string ItemInformation => $"({this.ItemLevel}) {this.BaseType} {this.ItemClass}";
 
         /// <summary>
@@ -84,6 +87,9 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public double TotalLightningResistance => this._item.TotalLightningResistance;
 
+        /// <summary>
+        /// Gets the total elemental resistance.
+        /// </summary>
         public double TotalElementalResistance => this._item.TotalElementalResistance;
 
         #endregion

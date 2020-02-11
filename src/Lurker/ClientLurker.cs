@@ -337,6 +337,7 @@ namespace Lurker
             var tradeEvent = TradeEvent.TryParse(newline);
             if (tradeEvent != null)
             {
+                Logger.Debug($"Parsed: {newline}");
                 this.NewOffer?.Invoke(this, tradeEvent);
                 return;
             }
@@ -344,6 +345,7 @@ namespace Lurker
             var whisperEvent = WhisperEvent.TryParse(newline);
             if (whisperEvent != null)
             {
+                Logger.Debug($"Parsed: {newline}");
                 this.Whispered?.Invoke(this, whisperEvent);
                 return;
             }
@@ -351,6 +353,7 @@ namespace Lurker
             var locationEvent = LocationChangedEvent.TryParse(newline);
             if (locationEvent != null)
             {
+                Logger.Debug($"Parsed: {newline}");
                 this.LocationChanged?.Invoke(this, locationEvent);
                 return;
             }
@@ -358,6 +361,7 @@ namespace Lurker
             var tradeAcceptedEvent = TradeAcceptedEvent.TryParse(newline);
             if (tradeAcceptedEvent != null)
             {
+                Logger.Debug($"Parsed: {newline}");
                 this.TradeAccepted?.Invoke(this, tradeAcceptedEvent);
                 return;
             }
@@ -365,6 +369,7 @@ namespace Lurker
             var monsterEvent = MonstersRemainEvent.TryParse(newline);
             if (monsterEvent != null)
             {
+                Logger.Debug($"Parsed: {newline}");
                 this.RemainingMonsters?.Invoke(this, monsterEvent);
                 return;
             }
@@ -372,6 +377,7 @@ namespace Lurker
             var playerJoinEvent = PlayerJoinedEvent.TryParse(newline);
             if (playerJoinEvent != null)
             {
+                Logger.Debug($"Parsed: {newline}");
                 this.PlayerJoined?.Invoke(this, playerJoinEvent);
                 return;
             }
@@ -379,6 +385,7 @@ namespace Lurker
             var playerLeftEvent = PlayerLeftEvent.TryParse(newline);
             if (playerLeftEvent != null)
             {
+                Logger.Debug($"Parsed: {newline}");
                 this.PlayerLeft?.Invoke(this, playerLeftEvent);
                 return;
             }

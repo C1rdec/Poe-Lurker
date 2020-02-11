@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Lurker.UI"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="100">
-    <Button Width="100" x:Name="Close" >
+    <Button x:Name="Close" Width="100">
         <Button.Template>
             <ControlTemplate TargetType="{x:Type Button}">
                 <Border Background="Gray" CornerRadius="4">
@@ -41,8 +41,19 @@
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Border CornerRadius="0,0,0,4" Background="Blue">
-                                <Grid>
+                            <Border CornerRadius="0,0,0,4" Cursor="Hand" Panel.ZIndex="10" Background="Blue">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="BorderThickness" Value="2,0,0,2"></Setter>
+                                                <Setter Property="Margin" Value="0,-2,-2,0"></Setter>
+                                                <Setter Property="BorderBrush" Value="Black"></Setter>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <StackPanel Orientation="Horizontal">
                                     <local:IconPack HorizontalAlignment="Left"
                                             VerticalAlignment="Bottom"
                                             Foreground="White"
@@ -53,26 +64,47 @@
                                             Width="15"
                                             Data="{x:Static local:IconPackData.Cold}"/>
                                     <TextBlock Margin="0,0,4,0" Text="{Binding TotalColdResistance}" HorizontalAlignment="Right"/>
-                                </Grid>
+                                </StackPanel>
                             </Border>
-                            <Border Background="Red" Grid.Column="1">
-                                <Grid>
+                            <Border Background="Red" Cursor="Hand" Grid.Column="1">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="BorderThickness" Value="0,0,0,2"></Setter>
+                                                <Setter Property="Margin" Value="0,-2,0,0"></Setter>
+                                                <Setter Property="BorderBrush" Value="Black"></Setter>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <StackPanel Orientation="Horizontal">
                                     <local:IconPack HorizontalAlignment="Left"
-                                            VerticalAlignment="Bottom"
-                                            Foreground="White"
-                                            Grid.Row="2"
-                                            Margin="1,0,0,0"
-                                            Visibility="{Binding BuyerInSameInstance, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                            Height="15"
-                                            Width="15"
-                                            Data="{x:Static local:IconPackData.Fire}"/>
+                                        VerticalAlignment="Bottom"
+                                        Foreground="White"
+                                        Grid.Row="2"
+                                        Margin="1,0,0,0"
+                                        Visibility="{Binding BuyerInSameInstance, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                        Height="15"
+                                        Width="15"
+                                        Data="{x:Static local:IconPackData.Fire}"/>
                                     <TextBlock Margin="0,0,4,0" Text="{Binding TotalFireResistance}" HorizontalAlignment="Right" />
-                                </Grid>
+                                </StackPanel>
                             </Border>
-
-                            <Border CornerRadius="0,0,4,0" Background="Yellow" Grid.Column="2">
-                                <Grid>
-                                <local:IconPack HorizontalAlignment="Left"
+                            <Border CornerRadius="0,0,4,0" Cursor="Hand" Background="Yellow" Grid.Column="2">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="BorderThickness" Value="0,0,2,2"></Setter>
+                                                <Setter Property="Margin" Value="-2,-2,0,0"></Setter>
+                                                <Setter Property="BorderBrush" Value="Black"></Setter>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <StackPanel Orientation="Horizontal">
+                                    <local:IconPack HorizontalAlignment="Left"
                                             VerticalAlignment="Bottom"
                                             Foreground="Black"
                                             Grid.Row="2"
@@ -82,7 +114,7 @@
                                             Width="15"
                                             Data="{x:Static local:IconPackData.Lightning}"/>
                                     <TextBlock Margin="0,0,4,0" Text="{Binding TotalLightningResistance}" HorizontalAlignment="Right" Foreground="Black"/>
-                                </Grid>
+                                </StackPanel>
                             </Border>
                         </Grid>
                     </Grid>
