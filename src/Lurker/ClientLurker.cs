@@ -333,64 +333,66 @@ namespace Lurker
                 return;
             }
 
-            // TradeEvent need to be parse before whisper
-            var tradeEvent = TradeEvent.TryParse(newline);
-            if (tradeEvent != null)
+            try
             {
-                Logger.Debug($"Parsed: {newline}");
-                this.NewOffer?.Invoke(this, tradeEvent);
-                return;
-            }
+                // TradeEvent need to be parse before whisper
+                var tradeEvent = TradeEvent.TryParse(newline);
+                if (tradeEvent != null)
+                {
+                    this.NewOffer?.Invoke(this, tradeEvent);
+                    return;
+                }
 
-            var whisperEvent = WhisperEvent.TryParse(newline);
-            if (whisperEvent != null)
+                var whisperEvent = WhisperEvent.TryParse(newline);
+                if (whisperEvent != null)
+                {
+                    this.Whispered?.Invoke(this, whisperEvent);
+                    return;
+                }
+
+                var locationEvent = LocationChangedEvent.TryParse(newline);
+                if (locationEvent != null)
+                {
+                    this.LocationChanged?.Invoke(this, locationEvent);
+                    return;
+                }
+
+                var tradeAcceptedEvent = TradeAcceptedEvent.TryParse(newline);
+                if (tradeAcceptedEvent != null)
+                {
+                    this.TradeAccepted?.Invoke(this, tradeAcceptedEvent);
+                    return;
+                }
+
+                var monsterEvent = MonstersRemainEvent.TryParse(newline);
+                if (monsterEvent != null)
+                {
+                    this.RemainingMonsters?.Invoke(this, monsterEvent);
+                    return;
+                }
+
+                var playerJoinEvent = PlayerJoinedEvent.TryParse(newline);
+                if (playerJoinEvent != null)
+                {
+                    this.PlayerJoined?.Invoke(this, playerJoinEvent);
+                    return;
+                }
+
+                var playerLeftEvent = PlayerLeftEvent.TryParse(newline);
+                if (playerLeftEvent != null)
+                {
+                    
+                    this.PlayerLeft?.Invoke(this, playerLeftEvent);
+                    return;
+                }
+
+                Logger.Trace($"Not parsed: {newline}");
+            }
+            catch (Exception ex)
             {
-                Logger.Debug($"Parsed: {newline}");
-                this.Whispered?.Invoke(this, whisperEvent);
-                return;
+                Logger.Debug($"Line in error: {newline}");
+                Logger.Error(ex, ex.Message);
             }
-
-            var locationEvent = LocationChangedEvent.TryParse(newline);
-            if (locationEvent != null)
-            {
-                Logger.Debug($"Parsed: {newline}");
-                this.LocationChanged?.Invoke(this, locationEvent);
-                return;
-            }
-
-            var tradeAcceptedEvent = TradeAcceptedEvent.TryParse(newline);
-            if (tradeAcceptedEvent != null)
-            {
-                Logger.Debug($"Parsed: {newline}");
-                this.TradeAccepted?.Invoke(this, tradeAcceptedEvent);
-                return;
-            }
-
-            var monsterEvent = MonstersRemainEvent.TryParse(newline);
-            if (monsterEvent != null)
-            {
-                Logger.Debug($"Parsed: {newline}");
-                this.RemainingMonsters?.Invoke(this, monsterEvent);
-                return;
-            }
-
-            var playerJoinEvent = PlayerJoinedEvent.TryParse(newline);
-            if (playerJoinEvent != null)
-            {
-                Logger.Debug($"Parsed: {newline}");
-                this.PlayerJoined?.Invoke(this, playerJoinEvent);
-                return;
-            }
-
-            var playerLeftEvent = PlayerLeftEvent.TryParse(newline);
-            if (playerLeftEvent != null)
-            {
-                Logger.Debug($"Parsed: {newline}");
-                this.PlayerLeft?.Invoke(this, playerLeftEvent);
-                return;
-            }
-
-            Logger.Trace($"Not parsed: {newline}");
         }
 
         /// <summary>
