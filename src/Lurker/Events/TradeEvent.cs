@@ -21,6 +21,7 @@ namespace Lurker.Events
         private static readonly string[] PriceMarkers = new string[] { "listed for", "for my" };
         private static readonly string LocationMarker = "(";
         private static readonly string LocationMarkerEnd = ")";
+        private static readonly string PositionMarker = "position: ";
         private static readonly string LeagueMarker = " in ";
         private static readonly CurrencyTypeParser CurrencyTypeParser = new CurrencyTypeParser();
 
@@ -134,7 +135,14 @@ namespace Lurker.Events
             var stashTabName = tabValue.Substring(index + 1);
 
             // Position
-            var positionValue = locationValue.GetLineAfter("position: ");
+            var positionValue = locationValue.GetLineAfter("\";");
+            var positionIndex = positionValue.IndexOf(PositionMarker);
+
+            if (positionIndex != -1)
+            {  
+                positionValue = positionValue.GetLineAfter("position: ");
+            }
+
             var positions = positionValue.Split(", ");
             var left = positions[0].GetLineAfter("left ");
             var top = positions[1].GetLineAfter("top ");
