@@ -71,6 +71,7 @@
     <Compile Include="ClipboardLurker.cs" />
     <Compile Include="Events\ChangedLocationEvent.cs" />
     <Compile Include="Events\MonstersRemainEvent.cs" />
+    <Compile Include="Events\OutgoingTradeEvent.cs" />
     <Compile Include="Events\PlayerEvent.cs" />
     <Compile Include="Events\PlayerJoinedEvent.cs" />
     <Compile Include="Events\PlayerLeftEvent.cs" />

@@ -102,7 +102,12 @@ namespace Lurker
         /// <summary>
         /// Creates new offer.
         /// </summary>
-        public event EventHandler<TradeEvent> NewOffer;
+        public event EventHandler<TradeEvent> IncomingOffer;
+
+        /// <summary>
+        /// Occurs when [outgoing offer].
+        /// </summary>
+        public event EventHandler<OutgoingTradeEvent> OutgoingOffer;
 
         #endregion
 
@@ -339,7 +344,14 @@ namespace Lurker
                 var tradeEvent = TradeEvent.TryParse(newline);
                 if (tradeEvent != null)
                 {
-                    this.NewOffer?.Invoke(this, tradeEvent);
+                    this.IncomingOffer?.Invoke(this, tradeEvent);
+                    return;
+                }
+
+                var outgoingTradeEvent = OutgoingTradeEvent.TryParse(newline);
+                if (outgoingTradeEvent != null)
+                {
+                    this.OutgoingOffer?.Invoke(this, outgoingTradeEvent);
                     return;
                 }
 

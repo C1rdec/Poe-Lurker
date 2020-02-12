@@ -27,7 +27,7 @@ namespace Lurker.Console
                 lurker.PlayerJoined += Watcher_PlayerJoined;
                 lurker.PlayerLeft += Watcher_PlayerLeft;
                 lurker.Whispered += Watcher_Whispered;
-                lurker.NewOffer += Lurker_NewOffer;
+                lurker.IncomingOffer += Lurker_NewOffer;
                 Console.Read();
             }
 

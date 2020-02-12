@@ -17,7 +17,7 @@ namespace Lurker.Events
     {
         #region Fields
 
-        private static readonly string[] GreetingMarkers = new string[] { "Hi, I would like to buy your", "Hi, I'd like to buy your", "wtb" };
+        protected static readonly string[] GreetingMarkers = new string[] { "Hi, I would like to buy your", "Hi, I'd like to buy your", "wtb" };
         private static readonly string[] PriceMarkers = new string[] { "listed for", "for my" };
         private static readonly string LocationMarker = "(";
         private static readonly string LocationMarkerEnd = ")";
@@ -104,7 +104,7 @@ namespace Lurker.Events
         /// <returns>The new Trade Event.</returns>
         public new static TradeEvent TryParse(string logLine)
         {
-            if (!IsWhisper(logLine))
+            if (!IsIncoming(logLine))
             {
                 return null;
             }
@@ -117,7 +117,6 @@ namespace Lurker.Events
                     return new TradeEvent(logLine); ;
                 }
             }
-
 
             return null;
         }

@@ -67,7 +67,7 @@ namespace Lurker.UI.ViewModels
             this._dockingHelper.OnWindowMove += this.DockingHelper_OnWindowMove;
 
             this._Lurker.PoeClosed += this.Lurker_PoeClosed;
-            this._Lurker.NewOffer += this.Lurker_NewOffer;
+            this._Lurker.IncomingOffer += this.Lurker_IncomingOffer;
             this._Lurker.TradeAccepted += this.Lurker_TradeAccepted;
             this._Lurker.PlayerJoined += this.Lurker_PlayerJoined;
             this._Lurker.PlayerLeft += this.Lurker_PlayerLeft;
@@ -269,7 +269,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The trade event.</param>
-        private void Lurker_NewOffer(object sender, Events.TradeEvent e)
+        private void Lurker_IncomingOffer(object sender, Events.TradeEvent e)
         {
             if (this._settingsService.AlertEnabled)
             {
@@ -459,7 +459,7 @@ namespace Lurker.UI.ViewModels
             {
                 this._dockingHelper.OnWindowMove -= this.DockingHelper_OnWindowMove;
                 this._Lurker.PoeClosed -= this.Lurker_PoeClosed;
-                this._Lurker.NewOffer -= this.Lurker_NewOffer;
+                this._Lurker.IncomingOffer -= this.Lurker_IncomingOffer;
                 this._Lurker.TradeAccepted -= this.Lurker_TradeAccepted;
                 this._settingsService.OnSave -= this.SettingsService_OnSave;
                 this._dockingHelper.Dispose();

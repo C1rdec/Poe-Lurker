@@ -11,6 +11,7 @@ namespace Lurker.Events
         #region Fields
 
         private static readonly string WhisperFromMarker = "@From";
+        private static readonly string WhisperToMarker = "@To";
 
         #endregion
 
@@ -56,7 +57,7 @@ namespace Lurker.Events
         /// <returns>The whisperEvent</returns>
         public static WhisperEvent TryParse(string logLine)
         {
-            if (!IsWhisper(logLine))
+            if (!IsIncoming(logLine))
             {
                 return null;
             }
@@ -68,10 +69,30 @@ namespace Lurker.Events
         /// Determines whether the specified log line is whisper.
         /// </summary>
         /// <param name="logLine">The log line.</param>
-        protected static bool IsWhisper(string logLine)
+        protected static bool IsIncoming(string logLine)
+        {
+            return StartWithMarker(WhisperFromMarker, logLine);
+        }
+
+        /// <summary>
+        /// Determines whether the specified log line is outgoing.
+        /// </summary>
+        /// <param name="logLine">The log line.</param>
+        protected static bool IsOutgoing(string logLine)
+        {
+            return StartWithMarker(WhisperToMarker, logLine);
+        }
+
+        /// <summary>
+        /// Tests the specified maker.
+        /// </summary>
+        /// <param name="maker">The maker.</param>
+        /// <param name="logLine">The log line.</param>
+        /// <returns>True if the line start with the marker.</returns>
+        private static bool StartWithMarker(string maker, string logLine)
         {
             var informations = ParseInformations(logLine);
-            if (informations == null || !informations.StartsWith(WhisperFromMarker))
+            if (informations == null || !informations.StartsWith(maker))
             {
                 return false;
             }
