@@ -49,16 +49,7 @@ namespace Lurker.Events
 
             // Location
             var textAfterItemName = this.Message.Substring(itemIndex);
-            var locationMarkerIndex = textAfterItemName.IndexOf(LocationMarker);
-            var locationMarkerEndIndex = textAfterItemName.IndexOf(LocationMarkerEnd);
-            if (locationMarkerIndex != -1 && locationMarkerEndIndex != -1)
-            {
-                this.Location = this.ParseLocation(textAfterItemName.Substring(locationMarkerIndex + 1, locationMarkerEndIndex - locationMarkerIndex - 1));
-            }
-            else
-            {
-                this.Location = new Location();
-            }
+            this.Location = this.ParseLocation(textAfterItemName);
 
             // Price
             if (priceMarkerIndex != -1)
@@ -128,6 +119,13 @@ namespace Lurker.Events
         /// <returns>The item location</returns>
         public Location ParseLocation(string locationValue)
         {
+            var locationMarkerIndex = locationValue.IndexOf(LocationMarker);
+            var locationMarkerEndIndex = locationValue.IndexOf(LocationMarkerEnd);
+            if (locationMarkerIndex == -1 || locationMarkerEndIndex == -1)
+            {
+                return new Location();
+            }
+
             // tab name
             var tabValue = locationValue.GetLineBefore("\";");
             var index = tabValue.IndexOf("\"");
@@ -135,6 +133,7 @@ namespace Lurker.Events
 
             // Position
             var positionValue = locationValue.GetLineAfter("\";");
+            positionValue = positionValue.Substring(0, positionValue.Length - 1);
             var positionIndex = positionValue.IndexOf(PositionMarker);
 
             if (positionIndex != -1)
