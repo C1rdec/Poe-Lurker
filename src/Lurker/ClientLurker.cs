@@ -8,6 +8,7 @@ namespace Lurker
 {
     using Lurker.Events;
     using Lurker.Extensions;
+    using Sentry;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -402,8 +403,9 @@ namespace Lurker
             }
             catch (Exception ex)
             {
-                Logger.Debug($"Line in error: {newline}");
-                Logger.Error(ex, ex.Message);
+                var exception = new Exception($"Line in error: {newline}", ex);
+                SentrySdk.CaptureException(exception);
+                Logger.Error(exception, exception.Message);
             }
         }
 

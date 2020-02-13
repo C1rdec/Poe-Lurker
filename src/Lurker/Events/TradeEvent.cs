@@ -138,7 +138,7 @@ namespace Lurker.Events
             var positionIndex = positionValue.IndexOf(PositionMarker);
 
             if (positionIndex != -1)
-            {  
+            {
                 positionValue = positionValue.GetLineAfter("position: ");
             }
 

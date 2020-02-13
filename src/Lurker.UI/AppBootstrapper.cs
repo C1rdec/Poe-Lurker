@@ -11,6 +11,7 @@ namespace Lurker.UI
     using Lurker.Services;
     using Lurker.UI.Helpers;
     using Lurker.UI.ViewModels;
+    using Sentry;
     using System;
     using System.Collections.Generic;
 
@@ -19,7 +20,9 @@ namespace Lurker.UI
         #region Fields
 
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+        private static readonly string Dsn = "https://e92715c769194c3aa7a89d387f488136@sentry.io/2473965";
         private SimpleContainer _container;
+        private IDisposable _sentry;
 
         #endregion
 
@@ -99,7 +102,19 @@ namespace Lurker.UI
         /// <param name="e">The args.</param>
         protected override void OnStartup(object sender, System.Windows.StartupEventArgs e) 
         {
+            this._sentry = SentrySdk.Init(Dsn);
             DisplayRootViewFor<ShellViewModel>();
+        }
+
+        /// <summary>
+        /// Override this to add custom behavior on exit.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event args.</param>
+        protected override void OnExit(object sender, EventArgs e)
+        {
+            this._sentry.Dispose();
+            base.OnExit(sender, e);
         }
 
         /// <summary>
@@ -111,6 +126,8 @@ namespace Lurker.UI
         {
             var exception = (e.ExceptionObject as Exception);
             Logger.Error(exception, exception.Message);
+            SentrySdk.CaptureException(exception);
+            this._sentry.Dispose();
         }
 
         #endregion
