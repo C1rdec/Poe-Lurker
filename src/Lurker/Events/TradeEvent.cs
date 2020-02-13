@@ -10,6 +10,7 @@ namespace Lurker.Events
     using Lurker.Models;
     using Lurker.Parser;
     using System;
+    using System.Globalization;
     using System.Linq;
     using System.Text.RegularExpressions;
 
@@ -165,7 +166,7 @@ namespace Lurker.Events
 
             return new Price()
             {
-                NumberOfCurrencies = double.Parse(values[0]),
+                NumberOfCurrencies = double.Parse(values[0], CultureInfo.InvariantCulture),
                 CurrencyType = CurrencyTypeParser.Parse(currencyTypeValue),
             };
         }
