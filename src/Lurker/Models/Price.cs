@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Lurker.Items.Models;
+using Lurker.Models;
 
 namespace Lurker.Models
 {

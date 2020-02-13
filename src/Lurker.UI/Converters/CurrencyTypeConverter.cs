@@ -6,7 +6,6 @@
 
 namespace Lurker.UI.Converters
 {
-    using Lurker.Items.Models;
     using Lurker.Models;
     using System;
     using System.Windows.Data;

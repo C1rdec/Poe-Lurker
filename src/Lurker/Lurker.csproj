@@ -37,9 +37,6 @@
     <Reference Include="Gma.System.MouseKeyHook, Version=5.6.130.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MouseKeyHook.5.6.0\lib\net40\Gma.System.MouseKeyHook.dll</HintPath>
     </Reference>
-    <Reference Include="Lurker.Items">
-      <HintPath>..\..\..\ItemLurker\src\ItemLurker\bin\Release\Lurker.Items.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -80,14 +77,49 @@
     <Compile Include="Events\TradeEvent.cs" />
     <Compile Include="Events\WhisperEvent.cs" />
     <Compile Include="Extensions\ProcessExtension.cs" />
+    <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Helpers\KeyboardHelper.cs" />
     <Compile Include="Helpers\PoeKeyboardHelper.cs" />
     <Compile Include="Helpers\TokenHelper.cs" />
+    <Compile Include="Models\Affix.cs" />
+    <Compile Include="Models\Amulet.cs" />
+    <Compile Include="Models\Belt.cs" />
+    <Compile Include="Models\BodyArmour.cs" />
+    <Compile Include="Models\Boots.cs" />
+    <Compile Include="Models\Bow.cs" />
+    <Compile Include="Models\CurrencyType.cs" />
+    <Compile Include="Models\Gloves.cs" />
+    <Compile Include="Models\Helmet.cs" />
+    <Compile Include="Models\Influence.cs" />
+    <Compile Include="Models\ItemClass.cs" />
     <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\PoeItem.cs" />
     <Compile Include="Models\Price.cs" />
+    <Compile Include="Models\Quiver.cs" />
+    <Compile Include="Models\Rarity.cs" />
+    <Compile Include="Models\Ring.cs" />
     <Compile Include="Models\Settings.cs" />
+    <Compile Include="Models\Socket.cs" />
+    <Compile Include="Models\SocketableItem.cs" />
+    <Compile Include="Models\SocketColor.cs" />
+    <Compile Include="Models\TradeAPI\AffixCategory.cs" />
+    <Compile Include="Models\TradeAPI\AffixEntry.cs" />
+    <Compile Include="Models\TradeAPI\AffixType.cs" />
+    <Compile Include="Models\TradeAPI\QueryResult.cs" />
+    <Compile Include="Models\TradeAPI\TradeAPIClient.cs" />
     <Compile Include="Native.cs" />
+    <Compile Include="Parser\CurrencyTypeParser.cs" />
+    <Compile Include="Parser\EnumParserBase.cs" />
+    <Compile Include="Parser\ExactEnumParserBase.cs" />
+    <Compile Include="Parser\InfluenceParser.cs" />
+    <Compile Include="Parser\ItemClassParser.cs" />
+    <Compile Include="Parser\ItemParser.cs" />
+    <Compile Include="Parser\RarityParser.cs" />
+    <Compile Include="Parser\SocketParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AffixService.cs" />
+    <Compile Include="Services\AttributeAffixes.cs" />
+    <Compile Include="Services\ResistanceAffixes.cs" />
     <Compile Include="Services\SettingsService.cs" />
   </ItemGroup>
   <ItemGroup>

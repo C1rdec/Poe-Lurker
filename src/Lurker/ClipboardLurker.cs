@@ -8,8 +8,8 @@
 namespace Lurker
 {
     using Gma.System.MouseKeyHook;
-    using Lurker.Items;
-    using Lurker.Items.Models;
+    using Lurker.Models;
+    using Lurker.Parser;
     using Lurker.Services;
     using System;
     using System.Threading;
