@@ -31,6 +31,7 @@ namespace Lurker.UI
         private ClientLurker _currentLurker;
         private ClipboardLurker _clipboardLurker;
         private TradebarViewModel _tradeBarOverlay;
+        private OutgoingbarViewModel _outgoingbarViewModel;
         private SettingsService _settingsService;
         private ItemOverlayViewModel _itemOverlay;
         private UpdateManager _updateManager;

@@ -54,6 +54,7 @@ namespace Lurker.UI
 
             this._container.PerRequest<ShellViewModel, ShellViewModel>();
             this._container.PerRequest<TradebarViewModel, TradebarViewModel>();
+            this._container.PerRequest<OutgoingbarViewModel, OutgoingbarViewModel>();
             this._container.RegisterInstance(typeof(SimpleContainer), null, this._container);
         }
 
