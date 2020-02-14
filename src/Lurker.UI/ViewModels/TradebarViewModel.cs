@@ -488,6 +488,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         private void SetWindowPosition()
         {
+            this._Lurker.PathOfExileProcess.Refresh();
             Native.GetWindowRect(this._Lurker.PathOfExileProcess.MainWindowHandle, out var poePosition);
 
             double poeWidth = poePosition.Right - poePosition.Left;
