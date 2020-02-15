@@ -12,7 +12,7 @@ namespace Lurker.Events
     {
         #region Fields
 
-        private static readonly string MonstersRemainMarker = "monsters remain";
+        private static readonly string MonstersRemainMarker = "monsters remain.";
 
         #endregion
 
@@ -53,7 +53,7 @@ namespace Lurker.Events
         public static MonstersRemainEvent TryParse(string logLine)
         {
             var informations = ParseInformations(logLine);
-            if (string.IsNullOrEmpty(informations) || !informations.StartsWith(MessageMarker) || !informations.Contains(MonstersRemainMarker))
+            if (string.IsNullOrEmpty(informations) || !informations.StartsWith(MessageMarker) || !informations.EndsWith(MonstersRemainMarker))
             {
                 return null;
             }

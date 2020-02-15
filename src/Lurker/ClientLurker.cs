@@ -404,8 +404,10 @@ namespace Lurker
             catch (Exception ex)
             {
                 var exception = new Exception($"Line in error: {newline}", ex);
-                SentrySdk.CaptureException(exception);
                 Logger.Error(exception, exception.Message);
+#if (!DEBUG)
+                SentrySdk.CaptureException(exception);
+#endif
             }
         }
 

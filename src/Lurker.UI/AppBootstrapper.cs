@@ -126,8 +126,12 @@ namespace Lurker.UI
         {
             var exception = (e.ExceptionObject as Exception);
             Logger.Error(exception, exception.Message);
+
+#if (!DEBUG)
             SentrySdk.CaptureException(exception);
+#endif
             this._sentry.Dispose();
+
         }
 
         #endregion
