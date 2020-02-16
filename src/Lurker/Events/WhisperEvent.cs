@@ -6,6 +6,8 @@
 
 namespace Lurker.Events
 {
+    using System.Linq;
+
     public class WhisperEvent : PlayerEvent
     {
         #region Fields
@@ -27,7 +29,7 @@ namespace Lurker.Events
             var index = this.Informations.IndexOf(MessageMarker);
             var beforeMessageMarker = this.Informations.Substring(0, index);
 
-            this.PlayerName = beforeMessageMarker.Substring(WhisperFromMarker.Length + 1);
+            this.PlayerName = string.Join(" ", beforeMessageMarker.Split(' ').Skip(1));
             var guildIndex = this.PlayerName.IndexOf(EndOfGuildNameMarker);
 
             if (guildIndex != -1)

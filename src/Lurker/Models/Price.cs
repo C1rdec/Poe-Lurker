@@ -22,6 +22,28 @@ namespace Lurker.Models
         /// </summary>
         public CurrencyType CurrencyType { get; set; }
 
+        /// <summary>
+        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            return obj is Price price &&
+                   this.NumberOfCurrencies == price.NumberOfCurrencies &&
+                   this.CurrencyType == price.CurrencyType;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -281760288;
+            hashCode = hashCode * -1521134295 + this.NumberOfCurrencies.GetHashCode();
+            hashCode = hashCode * -1521134295 + this.CurrencyType.GetHashCode();
+            return hashCode;
+        }
+
         #endregion
 
         #region Methods

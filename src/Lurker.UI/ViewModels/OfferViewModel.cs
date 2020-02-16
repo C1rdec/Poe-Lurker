@@ -159,6 +159,11 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public int ToolTipDelay => this._settingsService.ToolTipDelay;
 
+        /// <summary>
+        /// Gets the event.
+        /// </summary>
+        public TradeEvent Event => this._tradeEvent;
+
         #endregion
 
         #region Methods

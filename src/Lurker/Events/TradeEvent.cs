@@ -10,6 +10,7 @@ namespace Lurker.Events
     using Lurker.Models;
     using Lurker.Parser;
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
     using System.Text.RegularExpressions;
@@ -193,6 +194,55 @@ namespace Lurker.Events
             }
 
             return Regex.Replace(this.ItemName, @"[\d]", string.Empty).Trim();
+        }
+
+
+        /// <summary>
+        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            var tradeEvent = obj as TradeEvent;
+            if (tradeEvent == null)
+            {
+                return false;
+            }
+
+            if (tradeEvent.PlayerName != this.PlayerName)
+            {
+                return false;
+            }
+
+            if (tradeEvent.ItemName != this.ItemName)
+            {
+                return false;
+            }
+
+            if (!tradeEvent.Price.Equals(this.Price))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
+        public override int GetHashCode()
+        {
+            var hashCode = 1250757237;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(this.ItemName);
+            hashCode = hashCode * -1521134295 + EqualityComparer<Price>.Default.GetHashCode(this.Price);
+            hashCode = hashCode * -1521134295 + EqualityComparer<Location>.Default.GetHashCode(this.Location);
+            return hashCode;
         }
 
         #endregion

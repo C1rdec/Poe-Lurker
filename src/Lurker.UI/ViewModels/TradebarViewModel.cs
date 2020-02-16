@@ -18,20 +18,13 @@ namespace Lurker.UI.ViewModels
     using System.Linq;
     using System.Windows;
 
-    public class TradebarViewModel : ScreenBase, IViewAware
+    public class TradebarViewModel : PoeOverlayBase
     {
         #region Fields
 
-        private const int Margin = 4;
-        private static int DefaultFlaskBarHeight = 122;
-        private static int DefaultFlaskBarWigth = 550;
-        private static int DefaultExpBarHeight = 24;
-        private static int DefaultHeight = 1080;
         private static int DefaultOverlayHeight = 60;
 
-        private Window _view;
-        private ClientLurker _Lurker;
-        private DockingHelper _dockingHelper;
+        private ClientLurker _lurker;
         private PoeKeyboardHelper _keyboardHelper;
         private TradebarContext _context;
         private List<OfferViewModel> _activeOffers = new List<OfferViewModel>();
@@ -55,22 +48,17 @@ namespace Lurker.UI.ViewModels
         /// <param name="dockingHelper">The docking helper.</param>
         /// <param name="keyboardHelper">The keyboard helper.</param>
         public TradebarViewModel(ClientLurker lurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper, SettingsService settingsService, IWindowManager windowManager)
-            : base (windowManager)
+            : base (windowManager, dockingHelper, lurker, settingsService)
         {
-            this._Lurker = lurker;
-            this._dockingHelper = dockingHelper;
+            this._lurker = lurker;
             this._keyboardHelper = keyboardHelper;
             this._settingsService = settingsService;
-            this._settingsService.OnSave += this.SettingsService_OnSave;
             this.TradeOffers = new ObservableCollection<OfferViewModel>();
 
-            this._dockingHelper.OnWindowMove += this.DockingHelper_OnWindowMove;
-
-            this._Lurker.PoeClosed += this.Lurker_PoeClosed;
-            this._Lurker.IncomingOffer += this.Lurker_IncomingOffer;
-            this._Lurker.TradeAccepted += this.Lurker_TradeAccepted;
-            this._Lurker.PlayerJoined += this.Lurker_PlayerJoined;
-            this._Lurker.PlayerLeft += this.Lurker_PlayerLeft;
+            this._lurker.IncomingOffer += this.Lurker_IncomingOffer;
+            this._lurker.TradeAccepted += this.Lurker_TradeAccepted;
+            this._lurker.PlayerJoined += this.Lurker_PlayerJoined;
+            this._lurker.PlayerLeft += this.Lurker_PlayerLeft;
             this.PropertyChanged += this.TradebarViewModel_PropertyChanged;
 
             this._context = new TradebarContext(this.RemoveOffer, this.AddActiveOffer, this.SetActiveOffer);
@@ -206,11 +194,6 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
-        /// Gets a value indicating whether [debug enabled].
-        /// </summary>
-        public bool DebugEnabled => this._settingsService.DebugEnabled;
-
-        /// <summary>
         /// Gets the active offer.
         /// </summary>
         private OfferViewModel ActiveOffer => this._activeOffers.FirstOrDefault();
@@ -232,16 +215,6 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
-        /// Handles the OnSave event of the SettingsService control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void SettingsService_OnSave(object sender, EventArgs e)
-        {
-            this.NotifyOfPropertyChange(nameof(this.DebugEnabled));
-        }
-
-        /// <summary>
         /// Handles the PropertyChanged event of the TradebarViewModel control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -255,22 +228,17 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
-        /// Handles the PoeEnded event of the Lurker control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void Lurker_PoeClosed(object sender, EventArgs e)
-        {
-            this.TryClose();
-        }
-
-        /// <summary>
         /// Lurkers the new offer.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The trade event.</param>
         private void Lurker_IncomingOffer(object sender, Events.TradeEvent e)
         {
+            if (this.TradeOffers.Any(o => o.Event.Equals(e)))
+            {
+                return;
+            }
+
             if (this._settingsService.AlertEnabled)
             {
                 this.PlayAlert();
@@ -430,26 +398,6 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
-        /// Handles the OnWindowMove event of the _dockingHelper control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void DockingHelper_OnWindowMove(object sender, EventArgs e)
-        {
-            this.SetWindowPosition();
-        }
-
-        /// <summary>
-        /// Called when an attached view's Loaded event fires.
-        /// </summary>
-        /// <param name="view"></param>
-        protected override void OnViewLoaded(object view)
-        {
-            this._view = view as Window;
-            this.SetWindowPosition();
-        }
-
-        /// <summary>
         /// Called when deactivating.
         /// </summary>
         /// <param name="close">Inidicates whether this instance will be closed.</param>
@@ -457,61 +405,33 @@ namespace Lurker.UI.ViewModels
         {
             if (close)
             {
-                this._dockingHelper.OnWindowMove -= this.DockingHelper_OnWindowMove;
-                this._Lurker.PoeClosed -= this.Lurker_PoeClosed;
-                this._Lurker.IncomingOffer -= this.Lurker_IncomingOffer;
-                this._Lurker.TradeAccepted -= this.Lurker_TradeAccepted;
-                this._settingsService.OnSave -= this.SettingsService_OnSave;
-                this._dockingHelper.Dispose();
+                this._lurker.IncomingOffer -= this.Lurker_IncomingOffer;
+                this._lurker.TradeAccepted -= this.Lurker_TradeAccepted;
             }
 
             base.OnDeactivate(close);
         }
 
         /// <summary>
-        /// Sorts the offer.
-        /// </summary>
-        private void SortOffer()
-        {
-            var collection = this.TradeOffers;
-            var sortableList = new List<OfferViewModel>(collection);
-            var offers = sortableList.OrderByDescending(t => t.Waiting);
-
-            for (int i = 0; i < sortableList.Count; i++)
-            {
-                collection.Move(collection.IndexOf(offers.ElementAt(i)), i);
-            }
-        }
-
-        /// <summary>
         /// Sets the window position.
         /// </summary>
-        private void SetWindowPosition()
+        /// <param name="windowInformation"></param>
+        protected override void SetWindowPosition(PoeWindowInformation windowInformation)
         {
-            this._Lurker.PathOfExileProcess.Refresh();
-            Native.GetWindowRect(this._Lurker.PathOfExileProcess.MainWindowHandle, out var poePosition);
+            var overlayHeight = DefaultOverlayHeight * windowInformation.FlaskBarHeight / DefaultFlaskBarHeight;
+            var overlayWidth = (windowInformation.Width - (windowInformation.FlaskBarWidth * 2)) / 2;
 
-            double poeWidth = poePosition.Right - poePosition.Left;
-            double poeHeight = poePosition.Bottom - poePosition.Top;
+            this.ItemNameWidth = (windowInformation.FlaskBarWidth * 0.24);
+            this.ItemNameHeight = windowInformation.ExpBarHeight;
 
-            var expBarHeight = poeHeight * DefaultExpBarHeight / DefaultHeight;
-            var flaskBarWidth = poeHeight * DefaultFlaskBarWigth / DefaultHeight;
-            var flaskBarHeight = poeHeight * DefaultFlaskBarHeight / DefaultHeight;
-
-            var overlayHeight = DefaultOverlayHeight * flaskBarHeight / DefaultFlaskBarHeight;
-            var overlayWidth = (poeWidth - (flaskBarWidth * 2)) / 2;
-
-            this.ItemNameWidth = (flaskBarWidth * 0.24);
-            this.ItemNameHeight = expBarHeight;
-
-            this.ItemNameVerticalOffset = (flaskBarHeight * 0.30 * -1) - this.ItemNameHeight;
+            this.ItemNameVerticalOffset = (windowInformation.FlaskBarHeight * 0.30 * -1) - this.ItemNameHeight;
 
             Execute.OnUIThread(() =>
             {
                 this._view.Height = overlayHeight;
                 this._view.Width = overlayWidth;
-                this._view.Left = poePosition.Left + flaskBarWidth + Margin;
-                this._view.Top = poePosition.Bottom - overlayHeight - expBarHeight - Margin;
+                this._view.Left = windowInformation.Position.Left + windowInformation.FlaskBarWidth + Margin;
+                this._view.Top = windowInformation.Position.Bottom - overlayHeight - windowInformation.ExpBarHeight - Margin;
             });
         }
 

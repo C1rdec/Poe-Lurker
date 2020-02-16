@@ -28,8 +28,10 @@ namespace Lurker.UI
 
         private SimpleContainer _container;
         private ClientLurker _currentLurker;
+        private DockingHelper _currentDockingHelper;
         private ClipboardLurker _clipboardLurker;
-        private TradebarViewModel _tradeBarOverlay;
+        private TradebarViewModel _incomingTradeBarOverlay;
+        private OutgoingbarViewModel _outgoingTradeBarOverlay;
         private SettingsService _settingsService;
         private ItemOverlayViewModel _itemOverlay;
         private UpdateManager _updateManager;
@@ -257,18 +259,21 @@ namespace Lurker.UI
         /// <summary>
         /// Registers the instances.
         /// </summary>
-        private void ShowTradebar(Process process)
+        private void ShowOverlays(Process process)
         {
             Execute.OnUIThread(() => 
             {
-                var dockingHelper = new DockingHelper(process);
+                this._currentDockingHelper = new DockingHelper(process);
                 var keyboarHelper = new PoeKeyboardHelper(process);
                 this._container.RegisterInstance(typeof(ClientLurker), null, this._currentLurker);
-                this._container.RegisterInstance(typeof(DockingHelper), null, dockingHelper);
+                this._container.RegisterInstance(typeof(DockingHelper), null, this._currentDockingHelper);
                 this._container.RegisterInstance(typeof(PoeKeyboardHelper), null, keyboarHelper);
 
-                this._tradeBarOverlay = this._container.GetInstance<TradebarViewModel>();
-                this.ActivateItem(this._tradeBarOverlay);
+                this._incomingTradeBarOverlay = this._container.GetInstance<TradebarViewModel>();
+                this._outgoingTradeBarOverlay = this._container.GetInstance<OutgoingbarViewModel>();
+
+                this.ActivateItem(this._incomingTradeBarOverlay);
+                this.ActivateItem(this._outgoingTradeBarOverlay);
             });
         }
 
@@ -294,6 +299,8 @@ namespace Lurker.UI
             this._currentLurker.Dispose();
             this._currentLurker = null;
 
+            this._currentDockingHelper.Dispose();
+            this._currentDockingHelper = null;
             this.WaitForPoe();
         }
 
@@ -308,7 +315,7 @@ namespace Lurker.UI
             this._currentLurker = new ClientLurker();
             this._currentLurker.PoeClosed += CurrentLurker_PoeClosed;
             var process = await this._currentLurker.WaitForPoe();
-            this.ShowTradebar(process);
+            this.ShowOverlays(process);
 
             this._clipboardLurker = new ClipboardLurker(this._settingsService);
             this._clipboardLurker.Newitem += this.ClipboardLurker_Newitem;

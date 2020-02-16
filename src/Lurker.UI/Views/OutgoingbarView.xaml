@@ -1,0 +1,38 @@
+﻿<Window x:Class="Lurker.UI.Views.OutgoingbarView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lurker.UI.Views"
+        Topmost="True"
+        mc:Ignorable="d"
+        Background="Transparent"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        ShowInTaskbar="False"
+        Title="Lurker">
+    <Grid>
+        <Grid.Style>
+            <Style TargetType="Grid">
+                <Setter Property="Background" Value="Transparent"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding DebugEnabled}" Value="True">
+                        <Setter Property="Background" Value="Green"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding AnyOffer}" Value="True">
+                        <Setter Property="Background" Value="#212022"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
+        <ScrollViewer HorizontalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Hidden">
+            <ItemsControl x:Name="Offers">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</Window>

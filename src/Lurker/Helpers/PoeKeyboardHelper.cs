@@ -55,11 +55,20 @@ namespace Lurker.Helpers
         /// <summary>
         /// Whispers the specified character name.
         /// </summary>
-        /// <param name="characterName">Name of the character.</param>
+        /// <param name="playerName">Name of the character.</param>
         /// <param name="message">The message.</param>
-        public void Whisper(string characterName, string message)
+        public void Whisper(string playerName, string message)
         {
-            this.SendCommand($@"@{characterName} {message}");
+            this.SendCommand($@"@{playerName} {message}");
+        }
+
+        /// <summary>
+        /// Joins the hideout.
+        /// </summary>
+        /// <param name="playerName">Name of the player.</param>
+        public void JoinHideout(string playerName)
+        {
+            this.SendCommand($@"/hideout {playerName}");
         }
 
         #endregion

@@ -154,6 +154,7 @@
     <Compile Include="Helpers\DockingHelper.cs" />
     <Compile Include="Helpers\UpdateManager.cs" />
     <Compile Include="Models\DoubleClickCommand.cs" />
+    <Compile Include="Models\PoeWindowInformation.cs" />
     <Compile Include="Models\TradebarContext.cs" />
     <Compile Include="Svg.cs">
       <AutoGen>True</AutoGen>
@@ -164,11 +165,18 @@
     <Compile Include="ViewModels\OfferStatus.cs" />
     <Compile Include="ViewModels\OutgoingbarViewModel.cs" />
     <Compile Include="ViewModels\OutgoingOfferViewModel.cs" />
+    <Compile Include="ViewModels\PoeOverlayBase.cs" />
     <Compile Include="ViewModels\ScreenBase.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\TradebarViewModel.cs" />
     <Compile Include="Views\ItemOverlayView.xaml.cs">
       <DependentUpon>ItemOverlayView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OutgoingbarView.xaml.cs">
+      <DependentUpon>OutgoingbarView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OutgoingOfferView.xaml.cs">
+      <DependentUpon>OutgoingOfferView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
@@ -189,6 +197,14 @@
       <DependentUpon>OfferView.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\ItemOverlayView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OutgoingbarView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OutgoingOfferView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

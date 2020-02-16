@@ -419,6 +419,16 @@ namespace Lurker
             await Task.Run(() =>
             {
                 this.PathOfExileProcess.WaitForExit();
+
+                // Sometime WaitForExit fire a false positive
+                var process = this.GetProcess();
+                if (process != null)
+                {
+                    this.PathOfExileProcess = process;
+                    this.WaitForExit();
+                    return;
+                }
+                
                 this.PoeClosed?.Invoke(this, EventArgs.Empty);
             });
         }
