@@ -76,14 +76,23 @@ namespace Lurker.UI.ViewModels
         /// <param name="e">The <see cref="ElapsedEventArgs"/> instance containing the event data.</param>
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            foreach (var offer in this.Offers.Where(o => !o.Waiting))
+            try
             {
-                offer.DelayToClose = offer.DelayToClose - 0.1;
 
-                if (offer.DelayToClose <= 0)
+                foreach (var offer in this.Offers.Where(o => !o.Waiting))
                 {
-                    return;
+                    offer.DelayToClose = offer.DelayToClose - 0.1;
+
+                    if (offer.DelayToClose <= 0)
+                    {
+                        return;
+                    }
                 }
+            }
+            catch (System.InvalidOperationException)
+            {
+                // An offer has been deleted (Will need to handle this scenario)
+                return;
             }
         }
 
@@ -108,7 +117,10 @@ namespace Lurker.UI.ViewModels
         /// <param name="offer">The offer.</param>
         private void RemoveOffer(OutgoingOfferViewModel offer)
         {
+            this._timer.Stop();
             Execute.OnUIThread(() => this.Offers.Remove(offer));
+
+            this._timer.Start();
         }
 
         /// <summary>
