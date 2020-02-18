@@ -81,7 +81,7 @@ namespace Lurker.UI.ViewModels
 
                 foreach (var offer in this.Offers.Where(o => !o.Waiting))
                 {
-                    offer.DelayToClose = offer.DelayToClose - 0.1;
+                    offer.DelayToClose = offer.DelayToClose - 0.15;
 
                     if (offer.DelayToClose <= 0)
                     {
