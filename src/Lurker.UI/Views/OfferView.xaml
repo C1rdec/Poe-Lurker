@@ -8,6 +8,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:cal="http://www.caliburnproject.org"
              xmlns:local="clr-namespace:Lurker.UI"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="65" d:DesignWidth="65">
     <Border BorderThickness="2" CornerRadius="4">
@@ -25,6 +26,11 @@
             ToolTipService.InitialShowDelay="{Binding ToolTipDelay}"
             MinWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
             MaxWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseEnter">
+                    <cal:ActionMessage MethodName="UpdateElapsed"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border CornerRadius="4">
@@ -258,6 +264,7 @@
                                                 <RowDefinition></RowDefinition>
                                                 <RowDefinition></RowDefinition>
                                                 <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
                                             </Grid.RowDefinitions>
                                             <TextBlock Grid.Row="0" Text="{Binding PlayerName}"/>
                                             <TextBlock Grid.Row="1" Text="{Binding ItemName}"/>
@@ -272,6 +279,7 @@
                                                     </Style>
                                                 </TextBlock.Style>
                                             </TextBlock>
+                                            <TextBlock Grid.Row="3" Text="{Binding Elapsed}"/>
                                         </Grid>
                                     </ToolTip>
                                 </Setter.Value>

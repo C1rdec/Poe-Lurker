@@ -42,6 +42,11 @@ namespace Lurker.Events
         /// </summary>
         public DateTime Date { get; private set; }
 
+        /// <summary>
+        /// Gets or sets the time span from the event till now.
+        /// </summary>
+        public TimeSpan Elapsed { get; set; }
+
         protected string Informations { get; private set; }
 
         /// <summary>
