@@ -21,6 +21,7 @@ namespace Lurker.UI.ViewModels
         private bool _skipMainAction;
         private Action<OutgoingOfferViewModel> _removeCallback;
         private bool _waiting;
+        private double _delayToClose;
 
         #endregion
 
@@ -35,6 +36,7 @@ namespace Lurker.UI.ViewModels
             this._event = tradeEvent;
             this._keyboardHelper = keyboardHelper;
             this._removeCallback = removeCallback;
+            this.DelayToClose = 100;
         }
 
         #endregion
@@ -79,6 +81,28 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public TradeEvent Event => this._event;
 
+        /// <summary>
+        /// Gets or sets the delay to close.
+        /// </summary>
+        public double DelayToClose 
+        {
+            get
+            {
+                return this._delayToClose;
+            }
+
+            set
+            {
+                if (value <= 0)
+                {
+                    this.Remove();
+                }
+
+                this._delayToClose = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -105,6 +129,7 @@ namespace Lurker.UI.ViewModels
             this._skipMainAction = true;
             this._keyboardHelper.Whisper(this._event.PlayerName, this._event.WhisperMessage);
             this.Waiting = true;
+            this.DelayToClose = 100;
         }
 
         /// <summary>

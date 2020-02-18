@@ -13,6 +13,7 @@ namespace Lurker.UI.ViewModels
     using Lurker.UI.Models;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Timers;
 
     /// <summary>
     /// Represents the outgoing bar view model.
@@ -26,6 +27,7 @@ namespace Lurker.UI.ViewModels
         protected static int DefaultWidth = 55;
         private ClientLurker _lurker;
         private PoeKeyboardHelper _keyboardHelper;
+        private Timer _timer;
 
         #endregion
 
@@ -39,6 +41,8 @@ namespace Lurker.UI.ViewModels
         public OutgoingbarViewModel(ClientLurker lurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper, SettingsService settingsService, IWindowManager windowManager) 
             : base(windowManager, dockingHelper, lurker, settingsService)
         {
+            this._timer = new Timer(50);
+            this._timer.Elapsed += this.Timer_Elapsed;
             this.Offers = new ObservableCollection<OutgoingOfferViewModel>();
             this._keyboardHelper = keyboardHelper;
             this._lurker = lurker;
@@ -66,6 +70,24 @@ namespace Lurker.UI.ViewModels
         #region Methods
 
         /// <summary>
+        /// Handles the Elapsed event of the Timer control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="ElapsedEventArgs"/> instance containing the event data.</param>
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            foreach (var offer in this.Offers.Where(o => !o.Waiting))
+            {
+                offer.DelayToClose = offer.DelayToClose - 0.1;
+
+                if (offer.DelayToClose <= 0)
+                {
+                    return;
+                }
+            }
+        }
+
+        /// <summary>
         /// Lurkers the outgoing offer.
         /// </summary>
         /// <param name="sender">The sender.</param>
@@ -86,7 +108,7 @@ namespace Lurker.UI.ViewModels
         /// <param name="offer">The offer.</param>
         private void RemoveOffer(OutgoingOfferViewModel offer)
         {
-            this.Offers.Remove(offer);
+            Execute.OnUIThread(() => this.Offers.Remove(offer));
         }
 
         /// <summary>
@@ -112,6 +134,15 @@ namespace Lurker.UI.ViewModels
         /// <param name="e">The <see cref="System.Collections.Specialized.NotifyCollectionChangedEventArgs"/> instance containing the event data.</param>
         private void Offers_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
+            if (this.Offers.Any(o => !o.Waiting))
+            {
+                this._timer.Start();
+            }
+            else
+            {
+                this._timer.Stop();
+            }
+
             this.NotifyOfPropertyChange("AnyOffer");
         }
 

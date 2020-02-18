@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:cal="http://www.caliburnproject.org"
              xmlns:local="clr-namespace:Lurker.UI.Views"
+             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" >
     <Button x:Name="MainAction" Margin="0,0,0,2" Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" >
         <Button.Template>
@@ -21,19 +22,15 @@
                         </Style>
                     </Border.Style>
                     <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
+                        <Controls:MetroProgressBar x:Name="Delay" Foreground="#4b351b" Value="{Binding DelayToClose}" Height="{Binding ActualHeight, ElementName=MainAction}" />
                         <TextBlock FontFamily="pack://application:,,,/Assets/#Fontin"
                                    Foreground="#cb9e68"
-                                   Grid.RowSpan="2"
-                                   FontSize="14"
+                                   FontSize="12"
                                    TextTrimming="CharacterEllipsis"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center" 
                                    Text="{Binding DisplayName}"/>
-                        <Button HorizontalAlignment="Left" Height="15" Width="15" cal:Message.Attach="[Event Click] = [Action ReSend]" x:Name="IsWaiting">
+                        <Button HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" cal:Message.Attach="[Event Click] = [Action ReSend]" x:Name="IsWaiting">
                             <Button.Style>
                                 <Style TargetType="Button">
                                     <Setter Property="Template">
@@ -80,7 +77,7 @@
                                 </Style>
                             </Button.Style>
                         </Button>
-                        <Button HorizontalAlignment="Right" Background="Red" Height="15" Width="15" cal:Message.Attach="[Event Click] = [Action Remove]" >
+                        <Button HorizontalAlignment="Right" VerticalAlignment="Top" Background="Red" Height="15" Width="15" cal:Message.Attach="[Event Click] = [Action Remove]" >
                             <Button.Style>
                                 <Style TargetType="Button">
                                     <Setter Property="Template">
