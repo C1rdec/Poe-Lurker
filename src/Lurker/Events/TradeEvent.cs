@@ -135,7 +135,6 @@ namespace Lurker.Events
 
             // Position
             var positionValue = locationValue.GetLineAfter("\";");
-            positionValue = positionValue.Substring(0, positionValue.Length - 1);
             var positionIndex = positionValue.IndexOf(PositionMarker);
 
             if (positionIndex != -1)
@@ -146,6 +145,8 @@ namespace Lurker.Events
             var positions = positionValue.Split(", ");
             var left = positions[0].GetLineAfter("left ");
             var top = positions[1].GetLineAfter("top ");
+            var closingMarkerIndex = top.IndexOf(")");
+            top = top.Substring(0, closingMarkerIndex);
 
             return new Location()
             {
