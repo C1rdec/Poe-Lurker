@@ -108,7 +108,7 @@ namespace Lurker.UI.ViewModels
                 return;
             }
 
-            this.Offers.Insert(0, new OutgoingOfferViewModel(e, this._keyboardHelper, this.RemoveOffer));
+            Execute.OnUIThread(() => this.Offers.Insert(0, new OutgoingOfferViewModel(e, this._keyboardHelper, this.RemoveOffer)));
         }
 
         /// <summary>
