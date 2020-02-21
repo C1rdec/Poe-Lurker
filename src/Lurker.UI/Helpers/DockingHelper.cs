@@ -8,11 +8,17 @@ namespace Lurker.UI.Helpers
 {
     using System;
     using System.Diagnostics;
+    using Lurker.UI.Models;
     using static Lurker.Native;
 
     public class DockingHelper: IDisposable
     {
         #region Fields
+
+        private static int DefaultFlaskBarHeight = 122;
+        private static int DefaultFlaskBarWidth = 550;
+        private static int DefaultExpBarHeight = 24;
+        private static int DefaultHeight = 1080;
 
         private const uint LostFocus = 3;
         private const uint GainMouseCapture = 8;
@@ -41,19 +47,30 @@ namespace Lurker.UI.Helpers
             this._windowOwnerId = GetWindowThreadProcessId(this._windowHandle, out this._windowProcessId);
             this._winEventDelegate = WhenWindowMoveStartsOrEnds;
             this._hook = SetWinEventHook(0, MoveEnd, this._windowHandle, this._winEventDelegate, this._windowProcessId, this._windowOwnerId, 0);
+
+            this.WindowInformation = this.GetWindowInformation();
         }
 
         #endregion
 
         #region Events
 
-        public event EventHandler OnWindowMove;
+        public event EventHandler<PoeWindowInformation> OnWindowMove;
 
         public event EventHandler OnLostMouseCapture;
 
         public event EventHandler OnMouseCapture;
 
         public event EventHandler OnForegroundChange;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the window information.
+        /// </summary>
+        public PoeWindowInformation WindowInformation { get; private set; }
 
         #endregion
 
@@ -99,7 +116,7 @@ namespace Lurker.UI.Helpers
             switch(eventType)
             {
                 case MoveEnd:
-                    this.Invoke(this.OnWindowMove);
+                    this.InvokeWindowMove();
                     break;
                 case GainMouseCapture:
                     this.Invoke(this.OnMouseCapture);
@@ -120,6 +137,41 @@ namespace Lurker.UI.Helpers
         private void Invoke(EventHandler handler)
         {
             handler?.Invoke(this, EventArgs.Empty);
+        }
+
+        /// <summary>
+        /// Invokes the window move.
+        /// </summary>
+        private void InvokeWindowMove()
+        {
+            this.WindowInformation = this.GetWindowInformation();
+            this.OnWindowMove?.Invoke(this, this.WindowInformation);
+        }
+
+        /// <summary>
+        /// Gets the window information.
+        /// </summary>
+        /// <returns></returns>
+        private PoeWindowInformation GetWindowInformation()
+        {
+            Native.GetWindowRect(this._windowHandle, out var poePosition);
+
+            double poeWidth = poePosition.Right - poePosition.Left;
+            double poeHeight = poePosition.Bottom - poePosition.Top;
+
+            var expBarHeight = poeHeight * DefaultExpBarHeight / DefaultHeight;
+            var flaskBarWidth = poeHeight * DefaultFlaskBarWidth / DefaultHeight;
+            var flaskBarHeight = poeHeight * DefaultFlaskBarHeight / DefaultHeight;
+
+            return new PoeWindowInformation()
+            {
+                Height = poeHeight,
+                Width = poeWidth,
+                ExpBarHeight = expBarHeight,
+                FlaskBarHeight = flaskBarHeight,
+                FlaskBarWidth = flaskBarWidth,
+                Position = poePosition,
+            };
         }
 
         #endregion

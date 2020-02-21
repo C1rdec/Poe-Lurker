@@ -6,7 +6,9 @@
 
 namespace Lurker.UI.Models
 {
-    public class PoeWindowInformation
+    using System;
+
+    public class PoeWindowInformation: EventArgs
     {
         #region Properties
 
@@ -35,6 +37,9 @@ namespace Lurker.UI.Models
         /// </summary>
         public double FlaskBarHeight { get; set; }
 
+        /// <summary>
+        /// Gets or sets the position.
+        /// </summary>
         public Native.Rect Position { get; set; }
 
         #endregion

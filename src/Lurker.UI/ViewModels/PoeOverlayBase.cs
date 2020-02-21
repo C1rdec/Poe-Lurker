@@ -80,9 +80,9 @@ namespace Lurker.UI.ViewModels
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         /// <exception cref="System.NotImplementedException"></exception>
-        private void DockingHelper_OnWindowMove(object sender, System.EventArgs e)
+        private void DockingHelper_OnWindowMove(object sender, PoeWindowInformation position)
         {
-            this.SetWindowPosition(this.GetWindowInformation());
+            this.SetWindowPosition(position);
         }
 
         /// <summary>
@@ -102,39 +102,13 @@ namespace Lurker.UI.ViewModels
         protected override void OnViewLoaded(object view)
         {
             this._view = view as Window;
-            this.SetWindowPosition(this.GetWindowInformation());
+            this.SetWindowPosition(this._dockingHelper.WindowInformation);
         }
 
         /// <summary>
         /// Sets the window position.
         /// </summary>
         protected abstract void SetWindowPosition(PoeWindowInformation windowInformation);
-
-        /// <summary>
-        /// Gets the window information.
-        /// </summary>
-        /// <returns></returns>
-        protected PoeWindowInformation GetWindowInformation()
-        {
-            Native.GetWindowRect(this._lurker.PathOfExileProcess.MainWindowHandle, out var poePosition);
-
-            double poeWidth = poePosition.Right - poePosition.Left;
-            double poeHeight = poePosition.Bottom - poePosition.Top;
-
-            var expBarHeight = poeHeight * DefaultExpBarHeight / DefaultHeight;
-            var flaskBarWidth = poeHeight * DefaultFlaskBarWidth / DefaultHeight;
-            var flaskBarHeight = poeHeight * DefaultFlaskBarHeight / DefaultHeight;
-
-            return new PoeWindowInformation()
-            {
-                Height = poeHeight,
-                Width = poeWidth,
-                ExpBarHeight = expBarHeight,
-                FlaskBarHeight = flaskBarHeight,
-                FlaskBarWidth = flaskBarWidth,
-                Position = poePosition,
-            };
-        }
 
         /// <summary>
         /// Called when deactivating.
