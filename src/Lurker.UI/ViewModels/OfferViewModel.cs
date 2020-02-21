@@ -211,8 +211,8 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public void UpdateElapsed()
         {
-            var elp = DateTime.Now - this._tradeEvent.Date;
-            this.Elapsed = new TimeSpan(elp.Hours, elp.Minutes, elp.Seconds);
+            var elapsed = DateTime.Now - this._tradeEvent.Date;
+            this.Elapsed = new TimeSpan(elapsed.Hours, elapsed.Minutes, elapsed.Seconds);
         }
 
         /// <summary>
