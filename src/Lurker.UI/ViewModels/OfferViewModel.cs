@@ -82,6 +82,22 @@ namespace Lurker.UI.ViewModels
         public Price Price => this._tradeEvent.Price;
 
         /// <summary>
+        /// Gets or sets the time span since the offer was received.
+        /// </summary>
+        public TimeSpan Elapsed
+        {
+            get
+            {
+                return this._tradeEvent.Elapsed;
+            }
+
+            set
+            {
+                this._tradeEvent.Elapsed = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+        /// <summary>
         /// Gets or sets a value indicating whether this instance is invite sended.
         /// </summary>
         public OfferStatus Status
@@ -193,6 +209,15 @@ namespace Lurker.UI.ViewModels
             this._skipMainAction = true;
             this.Waiting = true;
             this.Whisper(this._settingsService.BusyMessage);
+        }
+
+        /// <summary>
+        /// Updates the time span since the offer was received.
+        /// </summary>
+        public void UpdateElapsed()
+        {
+            var elapsed = DateTime.Now - this._tradeEvent.Date;
+            this.Elapsed = new TimeSpan(elapsed.Hours, elapsed.Minutes, elapsed.Seconds);
         }
 
         /// <summary>
