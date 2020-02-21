@@ -20,6 +20,7 @@ namespace Lurker.UI.ViewModels
         #region Fields
 
         private TradeEvent _tradeEvent;
+        private TimeSpan _elapsedTime;
         private PoeKeyboardHelper _keyboardHelper;
         private TradebarContext _tradebarContext;
         private SettingsService _settingsService;
@@ -88,12 +89,12 @@ namespace Lurker.UI.ViewModels
         {
             get
             {
-                return this._tradeEvent.Elapsed;
+                return this._elapsedTime;
             }
 
             set
             {
-                this._tradeEvent.Elapsed = value;
+                this._elapsedTime = value;
                 this.NotifyOfPropertyChange();
             }
         }
