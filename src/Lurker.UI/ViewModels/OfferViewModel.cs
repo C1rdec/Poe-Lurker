@@ -98,6 +98,7 @@ namespace Lurker.UI.ViewModels
                 this.NotifyOfPropertyChange();
             }
         }
+
         /// <summary>
         /// Gets or sets a value indicating whether this instance is invite sended.
         /// </summary>
