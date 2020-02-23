@@ -143,16 +143,25 @@ namespace Lurker.Events
             }
 
             var positions = positionValue.Split(", ");
-            var left = positions[0].GetLineAfter("left ");
-            var top = positions[1].GetLineAfter("top ");
-            var closingMarkerIndex = top.IndexOf(")");
-            top = top.Substring(0, closingMarkerIndex);
+            var leftValue = positions[0].GetLineAfter("left ");
+            var topValue = positions[1].GetLineAfter("top ");
+
+            if (string.IsNullOrEmpty(leftValue) || string.IsNullOrEmpty(topValue))
+            {
+                return new Location()
+                {
+                    StashTabName = stashTabName
+                };
+            }
+
+            var closingMarkerIndex = topValue.IndexOf(")");
+            topValue = topValue.Substring(0, closingMarkerIndex);
 
             return new Location()
             {
                 StashTabName = stashTabName,
-                Left = Convert.ToInt32(left),
-                Top = Convert.ToInt32(top),
+                Left = Convert.ToInt32(leftValue),
+                Top = Convert.ToInt32(topValue),
             };
         }
 
