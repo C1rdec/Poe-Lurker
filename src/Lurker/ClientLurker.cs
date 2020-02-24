@@ -177,7 +177,6 @@ namespace Lurker
         {
             if (disposing)
             {
-                this._pathOfExileProcess.Dispose();
                 this._tokenSource.Cancel();
             }
         }

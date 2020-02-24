@@ -41,7 +41,6 @@ namespace Lurker.UI
         private bool _needUpdate;
         private bool _showInTaskBar;
         private bool _isItemOverlayOpen;
-        private Task WaitForPoeTask;
 
         #endregion
 
@@ -59,7 +58,7 @@ namespace Lurker.UI
             this._updateManager = updateManager;
             this._settingsViewModel = settingsViewModel;
 
-            this.WaitForPoeTask = this.WaitForPoe();
+            this.WaitForPoe();
             this.StartWithWindows = File.Exists(this.ShortcutFilePath);
             this.ShowInTaskBar = true;
 
@@ -197,9 +196,8 @@ namespace Lurker.UI
         /// <summary>
         /// Closes this instance.
         /// </summary>
-        public async void Close()
+        public void Close()
         {
-            await this.WaitForPoeTask;
             this.CleanUp();
             this.TryClose();
         }
@@ -290,7 +288,7 @@ namespace Lurker.UI
         private void CurrentLurker_PoeClosed(object sender, System.EventArgs e)
         {
             this.CleanUp();
-            this.WaitForPoeTask = this.WaitForPoe();
+            this.WaitForPoe();
         }
 
         /// <summary>
@@ -323,7 +321,7 @@ namespace Lurker.UI
         /// <summary>
         /// Waits for poe.
         /// </summary>
-        private async Task WaitForPoe()
+        private async void WaitForPoe()
         {
             await AffixService.InitializeAsync();
             await this.CheckForUpdate();
