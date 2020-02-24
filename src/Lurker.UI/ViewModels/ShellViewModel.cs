@@ -32,6 +32,7 @@ namespace Lurker.UI
         private ClipboardLurker _clipboardLurker;
         private TradebarViewModel _incomingTradeBarOverlay;
         private OutgoingbarViewModel _outgoingTradeBarOverlay;
+        private LifeBulbViewModel _lifeBulbOverlay;
         private SettingsService _settingsService;
         private ItemOverlayViewModel _itemOverlay;
         private UpdateManager _updateManager;
@@ -271,9 +272,11 @@ namespace Lurker.UI
 
                 this._incomingTradeBarOverlay = this._container.GetInstance<TradebarViewModel>();
                 this._outgoingTradeBarOverlay = this._container.GetInstance<OutgoingbarViewModel>();
+                this._lifeBulbOverlay = this._container.GetInstance<LifeBulbViewModel>();
 
                 this.ActivateItem(this._incomingTradeBarOverlay);
                 this.ActivateItem(this._outgoingTradeBarOverlay);
+                this.ActivateItem(this._lifeBulbOverlay);
             });
         }
 

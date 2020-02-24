@@ -25,9 +25,9 @@ namespace Lurker.UI.ViewModels
         protected static int DefaultHeight = 1080;
 
         protected Window _view;
+        protected SettingsService _settingsService;
         private DockingHelper _dockingHelper;
         private ClientLurker _lurker;
-        private SettingsService _settingsService;
 
         #endregion
 
@@ -60,7 +60,6 @@ namespace Lurker.UI.ViewModels
         public bool DebugEnabled => this._settingsService.DebugEnabled;
 
         #endregion
-
 
         #region Methods
 

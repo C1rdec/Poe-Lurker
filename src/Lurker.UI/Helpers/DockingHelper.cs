@@ -43,6 +43,8 @@ namespace Lurker.UI.Helpers
         /// <param name="process">The process.</param>
         public DockingHelper(Process process)
         {
+            process.WaitForInputIdle();
+
             this._windowHandle = process.MainWindowHandle;
             this._windowOwnerId = GetWindowThreadProcessId(this._windowHandle, out this._windowProcessId);
             this._winEventDelegate = WhenWindowMoveStartsOrEnds;
@@ -154,10 +156,18 @@ namespace Lurker.UI.Helpers
         /// <returns></returns>
         private PoeWindowInformation GetWindowInformation()
         {
-            Native.GetWindowRect(this._windowHandle, out var poePosition);
+            double poeWidth = 0;
+            double poeHeight = 0;
+            Rect poePosition = default;
 
-            double poeWidth = poePosition.Right - poePosition.Left;
-            double poeHeight = poePosition.Bottom - poePosition.Top;
+            while (poeWidth == 0 || poeHeight == 0)
+            {
+                Native.GetWindowRect(this._windowHandle, out poePosition);
+
+                poeWidth = poePosition.Right - poePosition.Left;
+                poeHeight = poePosition.Bottom - poePosition.Top;
+                System.Threading.Thread.Sleep(200);
+            }
 
             var expBarHeight = poeHeight * DefaultExpBarHeight / DefaultHeight;
             var flaskBarWidth = poeHeight * DefaultFlaskBarWidth / DefaultHeight;

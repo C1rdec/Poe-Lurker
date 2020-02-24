@@ -28,6 +28,10 @@ namespace Lurker.UI.ViewModels
         private ClientLurker _lurker;
         private PoeKeyboardHelper _keyboardHelper;
         private Timer _timer;
+        private IEventAggregator _eventAggregator;
+        private OutgoingbarContext _context;
+        private System.Action _removeActive;
+        private OutgoingOfferViewModel _activeOffer;
 
         #endregion
 
@@ -38,17 +42,20 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="lurker">The lurker.</param>
         /// <param name="windowManager">The window manager.</param>
-        public OutgoingbarViewModel(ClientLurker lurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper, SettingsService settingsService, IWindowManager windowManager) 
+        public OutgoingbarViewModel(IEventAggregator eventAggregator, ClientLurker lurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper, SettingsService settingsService, IWindowManager windowManager) 
             : base(windowManager, dockingHelper, lurker, settingsService)
         {
+            this.Offers = new ObservableCollection<OutgoingOfferViewModel>();
             this._timer = new Timer(50);
             this._timer.Elapsed += this.Timer_Elapsed;
-            this.Offers = new ObservableCollection<OutgoingOfferViewModel>();
             this._keyboardHelper = keyboardHelper;
             this._lurker = lurker;
+            this._eventAggregator = eventAggregator;
 
             this._lurker.OutgoingOffer += this.Lurker_OutgoingOffer;
+            this._lurker.TradeAccepted += this.Lurker_TradeAccepted;
             this.Offers.CollectionChanged += this.Offers_CollectionChanged;
+            this._context = new OutgoingbarContext(this.RemoveOffer, this.SetActiveOffer);
         }
 
         #endregion
@@ -78,8 +85,7 @@ namespace Lurker.UI.ViewModels
         {
             try
             {
-
-                foreach (var offer in this.Offers.Where(o => !o.Waiting))
+                foreach (var offer in this.Offers.Where(o => !o.Waiting && !o.Active))
                 {
                     offer.DelayToClose = offer.DelayToClose - 0.15;
 
@@ -108,7 +114,25 @@ namespace Lurker.UI.ViewModels
                 return;
             }
 
-            Execute.OnUIThread(() => this.Offers.Insert(0, new OutgoingOfferViewModel(e, this._keyboardHelper, this.RemoveOffer)));
+            Execute.OnUIThread(() => this.Offers.Insert(0, new OutgoingOfferViewModel(e, this._keyboardHelper, this._context)));
+        }
+
+        /// <summary>
+        /// Lurkers the trade accepted.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
+        private void Lurker_TradeAccepted(object sender, Events.TradeAcceptedEvent e)
+        {
+            if (this._activeOffer == null)
+            {
+                return;
+            }
+
+            this._keyboardHelper.Whisper(this._activeOffer.Event.PlayerName, this._settingsService.ThankYouMessage);
+            this.RemoveOffer(this._activeOffer);
+            this._activeOffer = null;
+            this._removeActive = null;
         }
 
         /// <summary>
@@ -117,6 +141,11 @@ namespace Lurker.UI.ViewModels
         /// <param name="offer">The offer.</param>
         private void RemoveOffer(OutgoingOfferViewModel offer)
         {
+            if (offer == this._activeOffer)
+            {
+                this._removeActive?.Invoke();
+            }
+
             this._timer.Stop();
             Execute.OnUIThread(() => this.Offers.Remove(offer));
 
@@ -139,6 +168,23 @@ namespace Lurker.UI.ViewModels
                 this._view.Top = windowInformation.Position.Bottom - windowInformation.FlaskBarHeight + Margin;
             });
         }
+
+        /// <summary>
+        /// Called when deactivating.
+        /// </summary>
+        /// <param name="close">Inidicates whether this instance will be closed.</param>
+        protected override void OnDeactivate(bool close)
+        {
+            if (close)
+            {
+                this._lurker.OutgoingOffer -= this.Lurker_OutgoingOffer;
+                this._lurker.TradeAccepted -= this.Lurker_TradeAccepted;
+                this.Offers.CollectionChanged -= this.Offers_CollectionChanged;
+            }
+
+            base.OnDeactivate(close);
+        }
+
         /// <summary>
         /// Handles the CollectionChanged event of the Offers control.
         /// </summary>
@@ -156,6 +202,28 @@ namespace Lurker.UI.ViewModels
             }
 
             this.NotifyOfPropertyChange("AnyOffer");
+        }
+
+        /// <summary>
+        /// Sets the active offer.
+        /// </summary>
+        /// <param name="offer">The offer.</param>
+        private void SetActiveOffer(OutgoingOfferViewModel offer)
+        {
+            if (this._activeOffer != null)
+            {
+                this._activeOffer.Active = false;
+            }
+
+            this._activeOffer = offer;
+            this._activeOffer.SetActive();
+
+            this._eventAggregator.PublishOnUIThread(new LifeBulbMessage()
+            {
+                View = new TradeValueViewModel(offer.Event),
+                OnShow = (a) => { this._removeActive = a; },
+                Action = () => { this._keyboardHelper.Trade(offer.Event.PlayerName); }
+            });
         }
 
         #endregion

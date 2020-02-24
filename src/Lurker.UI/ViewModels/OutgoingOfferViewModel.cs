@@ -9,6 +9,7 @@ namespace Lurker.UI.ViewModels
     using Caliburn.Micro;
     using Lurker.Events;
     using Lurker.Helpers;
+    using Lurker.UI.Models;
     using System;
 
     public class OutgoingOfferViewModel: PropertyChangedBase
@@ -19,9 +20,10 @@ namespace Lurker.UI.ViewModels
         private OutgoingTradeEvent _event;
         private PoeKeyboardHelper _keyboardHelper;
         private bool _skipMainAction;
-        private Action<OutgoingOfferViewModel> _removeCallback;
         private bool _waiting;
+        private bool _active;
         private double _delayToClose;
+        private OutgoingbarContext _barContext;
 
         #endregion
 
@@ -31,11 +33,11 @@ namespace Lurker.UI.ViewModels
         /// Initializes a new instance of the <see cref="OutgoingOfferViewModel"/> class.
         /// </summary>
         /// <param name="tradeEvent">The trade event.</param>
-        public OutgoingOfferViewModel(OutgoingTradeEvent tradeEvent, PoeKeyboardHelper keyboardHelper, Action<OutgoingOfferViewModel> removeCallback)
+        public OutgoingOfferViewModel(OutgoingTradeEvent tradeEvent, PoeKeyboardHelper keyboardHelper, OutgoingbarContext context)
         {
             this._event = tradeEvent;
             this._keyboardHelper = keyboardHelper;
-            this._removeCallback = removeCallback;
+            this._barContext = context;
             this.DelayToClose = 100;
         }
 
@@ -72,6 +74,23 @@ namespace Lurker.UI.ViewModels
             set
             {
                 this._waiting = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="OutgoingOfferViewModel"/> is active.
+        /// </summary>
+        public bool Active
+        {
+            get
+            {
+                return this._active;
+            }
+
+            set
+            {
+                this._active = value;
                 this.NotifyOfPropertyChange();
             }
         }
@@ -119,6 +138,7 @@ namespace Lurker.UI.ViewModels
             }
 
             this._keyboardHelper.JoinHideout(this._event.PlayerName);
+            this._barContext.SetActiveOffer(this);
         }
 
         /// <summary>
@@ -138,7 +158,16 @@ namespace Lurker.UI.ViewModels
         public void Remove()
         {
             this._skipMainAction = true;
-            this._removeCallback(this);
+            this._barContext.RemoveOffer(this);
+        }
+
+        /// <summary>
+        /// Sets the active.
+        /// </summary>
+        public void SetActive()
+        {
+            this.DelayToClose = 100;
+            this.Active = true;
         }
 
         #endregion

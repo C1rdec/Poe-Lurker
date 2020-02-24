@@ -1,19 +1,19 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ItemOverlayView.xaml.cs" company="Wohs">
+// <copyright file="TradeValueView.xaml.cs" company="Wohs">
 //     Missing Copyright information from a valid stylecop.json file.
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System.Windows.Controls;
-
 namespace Lurker.UI.Views
 {
+    using System.Windows.Controls;
+
     /// <summary>
-    /// Interaction logic for ItemOverlayView.xaml
+    /// Interaction logic for TradeValueView.xaml
     /// </summary>
-    public partial class ItemOverlayView : UserControl
+    public partial class TradeValueView : UserControl
     {
-        public ItemOverlayView()
+        public TradeValueView()
         {
             this.InitializeComponent();
         }

@@ -28,7 +28,6 @@ namespace Lurker.UI.ViewModels
         private PoeKeyboardHelper _keyboardHelper;
         private TradebarContext _context;
         private List<OfferViewModel> _activeOffers = new List<OfferViewModel>();
-        private SettingsService _settingsService;
         private double _itemNameVerticalOffset;
         private double _itemNameHorizontalOffset;
         private double _itemNameHeight;
@@ -407,6 +406,9 @@ namespace Lurker.UI.ViewModels
             {
                 this._lurker.IncomingOffer -= this.Lurker_IncomingOffer;
                 this._lurker.TradeAccepted -= this.Lurker_TradeAccepted;
+                this._lurker.PlayerJoined -= this.Lurker_PlayerJoined;
+                this._lurker.PlayerLeft -= this.Lurker_PlayerLeft;
+                this.PropertyChanged -= this.TradebarViewModel_PropertyChanged;
             }
 
             base.OnDeactivate(close);
