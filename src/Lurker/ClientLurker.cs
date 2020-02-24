@@ -419,6 +419,7 @@ namespace Lurker
             await Task.Run(() =>
             {
                 this.PathOfExileProcess.WaitForExit(WaitingTime);
+                this.PathOfExileProcess.Dispose();
 
                 // Sometime WaitForExit fire a false positive
                 var process = this.GetProcess();
