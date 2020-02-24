@@ -29,9 +29,10 @@ namespace Lurker.UI.Helpers
         private const uint ObjectHidden = 8003;
 
         private readonly uint _windowProcessId, _windowOwnerId;
-        private readonly IntPtr _windowHandle;
         private readonly WinEventDelegate _winEventDelegate;
         private IntPtr _hook;
+        private Process _process;
+        private IntPtr _windowHandle;
 
         #endregion
 
@@ -43,9 +44,10 @@ namespace Lurker.UI.Helpers
         /// <param name="process">The process.</param>
         public DockingHelper(Process process)
         {
-            process.WaitForInputIdle();
+            this._process = process;
+            this._process.WaitForInputIdle();
 
-            this._windowHandle = process.MainWindowHandle;
+            this._windowHandle = this._process.MainWindowHandle;
             this._windowOwnerId = GetWindowThreadProcessId(this._windowHandle, out this._windowProcessId);
             this._winEventDelegate = WhenWindowMoveStartsOrEnds;
             this._hook = SetWinEventHook(0, MoveEnd, this._windowHandle, this._winEventDelegate, this._windowProcessId, this._windowOwnerId, 0);
@@ -156,18 +158,9 @@ namespace Lurker.UI.Helpers
         /// <returns></returns>
         private PoeWindowInformation GetWindowInformation()
         {
-            double poeWidth = 0;
-            double poeHeight = 0;
-            Rect poePosition = default;
-
-            while (poeWidth == 0 || poeHeight == 0)
-            {
-                Native.GetWindowRect(this._windowHandle, out poePosition);
-
-                poeWidth = poePosition.Right - poePosition.Left;
-                poeHeight = poePosition.Bottom - poePosition.Top;
-                System.Threading.Thread.Sleep(200);
-            }
+            Native.GetWindowRect(this._windowHandle, out var poePosition);
+            double poeWidth = poePosition.Right - poePosition.Left;
+            double poeHeight = poePosition.Bottom - poePosition.Top;
 
             var expBarHeight = poeHeight * DefaultExpBarHeight / DefaultHeight;
             var flaskBarWidth = poeHeight * DefaultFlaskBarWidth / DefaultHeight;

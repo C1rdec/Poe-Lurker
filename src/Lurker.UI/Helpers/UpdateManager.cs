@@ -8,6 +8,7 @@ namespace Lurker.UI.Helpers
 {
     using Lurker.Services;
     using Squirrel;
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -56,10 +57,17 @@ namespace Lurker.UI.Helpers
         /// <returns>True if needs update</returns>
         public async Task<bool> CheckForUpdate()
         {
-            using (var updateManager = await Squirrel.UpdateManager.GitHubUpdateManager(PoeLukerGithubUrl))
+            try
             {
-                var information = await updateManager.CheckForUpdate();
-                return information.ReleasesToApply.Any();
+                using (var updateManager = await Squirrel.UpdateManager.GitHubUpdateManager(PoeLukerGithubUrl))
+                {
+                    var information = await updateManager.CheckForUpdate();
+                    return information.ReleasesToApply.Any();
+                }
+            }
+            catch
+            {
+                return false;
             }
         }
 

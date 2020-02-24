@@ -29,7 +29,7 @@ namespace Lurker
         private static readonly List<string> PossibleProcessNames = new List<string> { "PathOfExile", "PathOfExile_x64", "PathOfExileSteam", "PathOfExile_x64Steam" };
         private static readonly string ClientLogFileName = "Client.txt";
         private static readonly string ClientLogFolderName = "logs";
-        private static readonly int TenSeconds = 10000;
+        private static readonly int WaitingTime = 5000;
 
         private string _lastLine;
         private CancellationTokenSource _tokenSource;
@@ -123,7 +123,7 @@ namespace Lurker
 
             while (this.PathOfExileProcess == null)
             {
-                await Task.Delay(TenSeconds);
+                await Task.Delay(WaitingTime);
                 this.PathOfExileProcess = this.GetProcess();
             }
 
@@ -418,7 +418,7 @@ namespace Lurker
         {
             await Task.Run(() =>
             {
-                this.PathOfExileProcess.WaitForExit();
+                this.PathOfExileProcess.WaitForExit(WaitingTime);
 
                 // Sometime WaitForExit fire a false positive
                 var process = this.GetProcess();
