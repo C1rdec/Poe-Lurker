@@ -33,6 +33,7 @@ namespace Lurker
 
         private string _lastLine;
         private CancellationTokenSource _tokenSource;
+        private Process _pathOfExileProcess;
 
         #endregion
 
@@ -49,11 +50,6 @@ namespace Lurker
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Gets or sets the path of exile process.
-        /// </summary>
-        public Process PathOfExileProcess { get; private set; }
 
         /// <summary>
         /// Gets or sets the file path.
@@ -117,20 +113,52 @@ namespace Lurker
         /// <summary>
         /// Waits for poe.
         /// </summary>
-        public async Task<Process> WaitForPoe()
+        public async Task<IntPtr> WaitForPoe()
         {
-            this.PathOfExileProcess = this.GetProcess();
+            var process = this.GetProcess();
 
-            while (this.PathOfExileProcess == null)
+            while (process == null)
             {
                 await Task.Delay(WaitingTime);
-                this.PathOfExileProcess = this.GetProcess();
+                process = this.GetProcess();
             }
 
             this.Lurk();
             this.WaitForExit();
 
-            return this.PathOfExileProcess;
+            return this.GetWindowHandle();
+        }
+
+        /// <summary>
+        /// Gets the window handle.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="System.InvalidOperationException"></exception>
+        private IntPtr GetWindowHandle()
+        {
+            IntPtr windowHandle;
+
+            try
+            {
+                do
+                {
+                    var process = this.GetProcess();
+                    Thread.Sleep(200);
+                    if (process == null)
+                    {
+                        throw new System.InvalidOperationException();
+                    }
+
+                    windowHandle = process.MainWindowHandle;
+                }
+                while (windowHandle == IntPtr.Zero);
+            }
+            catch
+            {
+                windowHandle = this.GetWindowHandle();
+            }
+
+            return windowHandle;
         }
 
         /// <summary>
@@ -149,7 +177,7 @@ namespace Lurker
         {
             if (disposing)
             {
-                this.PathOfExileProcess.Dispose();
+                this._pathOfExileProcess.Dispose();
                 this._tokenSource.Cancel();
             }
         }
@@ -244,7 +272,7 @@ namespace Lurker
         /// </summary>
         private void Lurk()
         {
-            this.FilePath = Path.Combine(Path.GetDirectoryName(this.PathOfExileProcess.GetMainModuleFileName()), ClientLogFolderName, ClientLogFileName);
+            this.FilePath = Path.Combine(Path.GetDirectoryName(this._pathOfExileProcess.GetMainModuleFileName()), ClientLogFolderName, ClientLogFileName);
             this._lastLine = this.GetLastLine();
             this.LurkLastLine();
         }
@@ -315,11 +343,17 @@ namespace Lurker
         /// <exception cref="InvalidOperationException">Path of Exile is not running</exception>
         private Process GetProcess()
         {
+            if (this._pathOfExileProcess != null)
+            {
+                this._pathOfExileProcess.Dispose();
+            }
+
             foreach (var processName in PossibleProcessNames)
             {
                 var process = Process.GetProcessesByName(processName).FirstOrDefault();
                 if (process != null)
                 {
+                    this._pathOfExileProcess = process;
                     return process;
                 }
             }
@@ -418,18 +452,19 @@ namespace Lurker
         {
             await Task.Run(() =>
             {
-                this.PathOfExileProcess.WaitForExit(WaitingTime);
-                this.PathOfExileProcess.Dispose();
-
-                // Sometime WaitForExit fire a false positive
-                var process = this.GetProcess();
-                if (process != null)
+                var token = this._tokenSource.Token;
+                if (token.IsCancellationRequested)
                 {
-                    this.PathOfExileProcess = process;
-                    this.WaitForExit();
                     return;
                 }
-                
+
+                var process = this.GetProcess();
+                while (process != null)
+                {
+                    process.WaitForExit(WaitingTime);
+                    process = this.GetProcess();
+                }
+
                 this.PoeClosed?.Invoke(this, EventArgs.Empty);
             });
         }

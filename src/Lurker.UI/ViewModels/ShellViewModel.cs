@@ -41,6 +41,7 @@ namespace Lurker.UI
         private bool _needUpdate;
         private bool _showInTaskBar;
         private bool _isItemOverlayOpen;
+        private Task WaitForPoeTask;
 
         #endregion
 
@@ -58,7 +59,7 @@ namespace Lurker.UI
             this._updateManager = updateManager;
             this._settingsViewModel = settingsViewModel;
 
-            this.WaitForPoe();
+            this.WaitForPoeTask = this.WaitForPoe();
             this.StartWithWindows = File.Exists(this.ShortcutFilePath);
             this.ShowInTaskBar = true;
 
@@ -196,9 +197,10 @@ namespace Lurker.UI
         /// <summary>
         /// Closes this instance.
         /// </summary>
-        public void Close()
+        public async void Close()
         {
-            this._clipboardLurker?.Dispose();
+            await this.WaitForPoeTask;
+            this.CleanUp();
             this.TryClose();
         }
 
@@ -260,12 +262,12 @@ namespace Lurker.UI
         /// <summary>
         /// Registers the instances.
         /// </summary>
-        private void ShowOverlays(Process process)
+        private void ShowOverlays(IntPtr windowHandle)
         {
-            Execute.OnUIThread(() => 
+            Execute.OnUIThread(() =>
             {
-                this._currentDockingHelper = new DockingHelper(process);
-                var keyboarHelper = new PoeKeyboardHelper(process);
+                this._currentDockingHelper = new DockingHelper(windowHandle);
+                var keyboarHelper = new PoeKeyboardHelper(windowHandle);
                 this._container.RegisterInstance(typeof(ClientLurker), null, this._currentLurker);
                 this._container.RegisterInstance(typeof(DockingHelper), null, this._currentDockingHelper);
                 this._container.RegisterInstance(typeof(PoeKeyboardHelper), null, keyboarHelper);
@@ -287,6 +289,15 @@ namespace Lurker.UI
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void CurrentLurker_PoeClosed(object sender, System.EventArgs e)
         {
+            this.CleanUp();
+            this.WaitForPoeTask = this.WaitForPoe();
+        }
+
+        /// <summary>
+        /// Cleans up.
+        /// </summary>
+        private void CleanUp()
+        {
             this._container.UnregisterHandler<ClientLurker>();
             this._container.UnregisterHandler<DockingHelper>();
             this._container.UnregisterHandler<PoeKeyboardHelper>();
@@ -302,26 +313,28 @@ namespace Lurker.UI
             this._currentLurker.Dispose();
             this._currentLurker = null;
 
-            this._currentDockingHelper.Dispose();
-            this._currentDockingHelper = null;
-            this.WaitForPoe();
+            if (this._currentDockingHelper != null)
+            {
+                this._currentDockingHelper.Dispose();
+                this._currentDockingHelper = null;
+            }
         }
 
         /// <summary>
         /// Waits for poe.
         /// </summary>
-        private async void WaitForPoe()
+        private async Task WaitForPoe()
         {
             await AffixService.InitializeAsync();
             await this.CheckForUpdate();
 
             this._currentLurker = new ClientLurker();
             this._currentLurker.PoeClosed += CurrentLurker_PoeClosed;
-            var process = await this._currentLurker.WaitForPoe();
-            this.ShowOverlays(process);
 
             this._clipboardLurker = new ClipboardLurker(this._settingsService);
             this._clipboardLurker.Newitem += this.ClipboardLurker_Newitem;
+            var windowHandle = await this._currentLurker.WaitForPoe();
+            this.ShowOverlays(windowHandle);
         }
 
         /// <summary>

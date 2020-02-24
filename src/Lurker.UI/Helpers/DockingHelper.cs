@@ -7,7 +7,6 @@
 namespace Lurker.UI.Helpers
 {
     using System;
-    using System.Diagnostics;
     using Lurker.UI.Models;
     using static Lurker.Native;
 
@@ -31,7 +30,6 @@ namespace Lurker.UI.Helpers
         private readonly uint _windowProcessId, _windowOwnerId;
         private readonly WinEventDelegate _winEventDelegate;
         private IntPtr _hook;
-        private Process _process;
         private IntPtr _windowHandle;
 
         #endregion
@@ -42,12 +40,9 @@ namespace Lurker.UI.Helpers
         /// Initializes a new instance of the <see cref="DockingHelper"/> class.
         /// </summary>
         /// <param name="process">The process.</param>
-        public DockingHelper(Process process)
+        public DockingHelper(IntPtr windowHandle)
         {
-            this._process = process;
-            this._process.WaitForInputIdle();
-
-            this._windowHandle = this._process.MainWindowHandle;
+            this._windowHandle = windowHandle;
             this._windowOwnerId = GetWindowThreadProcessId(this._windowHandle, out this._windowProcessId);
             this._winEventDelegate = WhenWindowMoveStartsOrEnds;
             this._hook = SetWinEventHook(0, MoveEnd, this._windowHandle, this._winEventDelegate, this._windowProcessId, this._windowOwnerId, 0);
@@ -158,7 +153,8 @@ namespace Lurker.UI.Helpers
         /// <returns></returns>
         private PoeWindowInformation GetWindowInformation()
         {
-            Native.GetWindowRect(this._windowHandle, out var poePosition);
+            Rect poePosition = default;
+            Native.GetWindowRect(this._windowHandle, ref poePosition);
             double poeWidth = poePosition.Right - poePosition.Left;
             double poeHeight = poePosition.Bottom - poePosition.Top;
 

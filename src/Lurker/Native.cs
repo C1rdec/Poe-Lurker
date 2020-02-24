@@ -18,7 +18,7 @@ namespace Lurker
         public static extern IntPtr GetForegroundWindow();
 
         [DllImport("user32.dll")]
-        public static extern bool GetWindowRect(IntPtr hwnd, out Rect rectangle);
+        public static extern bool GetWindowRect(IntPtr hwnd, ref Rect rectangle);
 
         [DllImport("user32.dll", SetLastError = true)]
         public static extern bool UnhookWinEvent(IntPtr hWinEventHook);

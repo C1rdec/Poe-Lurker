@@ -6,7 +6,7 @@
 
 namespace Lurker.Helpers
 {
-    using System.Diagnostics;
+    using System;
 
     public class PoeKeyboardHelper : KeyboardHelper
     {
@@ -16,8 +16,8 @@ namespace Lurker.Helpers
         /// Initializes a new instance of the <see cref="PoeKeyboardHelper"/> class.
         /// </summary>
         /// <param name="windowHandle">The window handle.</param>
-        public PoeKeyboardHelper(Process poeProcess) 
-            : base(poeProcess.MainWindowHandle)
+        public PoeKeyboardHelper(IntPtr windowHandle) 
+            : base(windowHandle)
         {
         }
 
