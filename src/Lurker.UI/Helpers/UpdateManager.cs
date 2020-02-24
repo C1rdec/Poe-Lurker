@@ -57,6 +57,11 @@ namespace Lurker.UI.Helpers
         /// <returns>True if needs update</returns>
         public async Task<bool> CheckForUpdate()
         {
+#if (DEBUG)
+            return false;
+#endif
+
+#pragma warning disable CS0162
             try
             {
                 using (var updateManager = await Squirrel.UpdateManager.GitHubUpdateManager(PoeLukerGithubUrl))
@@ -69,6 +74,7 @@ namespace Lurker.UI.Helpers
             {
                 return false;
             }
+#pragma warning restore CS0162
         }
 
         #endregion
