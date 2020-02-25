@@ -17,6 +17,7 @@ namespace Lurker
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
+    using WK.Libraries.SharpClipboardNS;
 
     public class ClipboardLurker: IDisposable
     {
@@ -27,7 +28,8 @@ namespace Lurker
         private ItemParser _itemParser = new ItemParser();
         private SettingsService _settingsService;
         private PoeKeyboardHelper _keyboardHelper;
-        private CancellationTokenSource _tokenSource;
+        private SharpClipboard _clipboardMonitor;
+        private string _lastClipboardText = string.Empty;
 
         #endregion
 
@@ -38,11 +40,12 @@ namespace Lurker
         /// </summary>
         public ClipboardLurker(SettingsService settingsService, PoeKeyboardHelper keyboardHelper)
         {
-            this._tokenSource = new CancellationTokenSource();
+            this._clipboardMonitor = new SharpClipboard();
             this._keyboardHelper = keyboardHelper;
             this._settingsService = settingsService;
+
             GlobalHook.KeyPress += this.GlobalHookKeyPress;
-            this.MonitorClipboard();
+            this._clipboardMonitor.ClipboardChanged += ClipboardMonitor_ClipboardChanged;
         }
 
         #endregion
@@ -75,7 +78,7 @@ namespace Lurker
             if (disposing)
             {
                 GlobalHook.KeyPress -= this.GlobalHookKeyPress;
-                this._tokenSource.Cancel();
+                this._clipboardMonitor.ClipboardChanged -= ClipboardMonitor_ClipboardChanged;
             }
         }
 
@@ -92,6 +95,30 @@ namespace Lurker
             thread.Join();
 
             return clipboardText;
+        }
+
+        /// <summary>
+        /// Handles the ClipboardChanged event of the ClipboardMonitor control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="SharpClipboard.ClipboardChangedEventArgs"/> instance containing the event data.</param>
+        /// <exception cref="NotImplementedException"></exception>
+        private void ClipboardMonitor_ClipboardChanged(object sender, SharpClipboard.ClipboardChangedEventArgs e)
+        {
+            if (e.ContentType == SharpClipboard.ContentTypes.Text)
+            {
+                var currentText = this.GetClipboardText();
+                if (this._lastClipboardText == currentText)
+                {
+                    return;
+                }
+
+                this._lastClipboardText = currentText;
+                if (TradeEvent.IsTradeMessage(currentText))
+                {
+                    this._keyboardHelper.SendMessage(currentText);
+                }
+            }
         }
 
         /// <summary>
@@ -116,36 +143,6 @@ namespace Lurker
                     }
 
                     break;
-            }
-        }
-
-        /// <summary>
-        /// Monitors the clipboard.
-        /// </summary>
-        private async void MonitorClipboard()
-        {
-            Clipboard.Clear();
-            var token = this._tokenSource.Token;
-            var lastText = string.Empty;
-            while(true)
-            {
-                await Task.Delay(800);
-                if (token.IsCancellationRequested)
-                {
-                    return;
-                }
-
-                var currentText = this.GetClipboardText();
-                if (lastText == currentText)
-                {
-                    continue;
-                }
-
-                lastText = currentText;
-                if (TradeEvent.IsTradeMessage(currentText))
-                {
-                    this._keyboardHelper.SendMessage(currentText);
-                }
             }
         }
 

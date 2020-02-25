@@ -53,6 +53,9 @@
     <Reference Include="Sentry.Protocol, Version=2.0.0.0, Culture=neutral, PublicKeyToken=fba2ec45388e2af0, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Sentry.Protocol.2.0.0\lib\net46\Sentry.Protocol.dll</HintPath>
     </Reference>
+    <Reference Include="SharpClipboard, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SharpClipboard.3.3.0\lib\SharpClipboard.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Collections.Immutable, Version=1.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
