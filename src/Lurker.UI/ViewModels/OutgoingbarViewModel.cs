@@ -129,7 +129,11 @@ namespace Lurker.UI.ViewModels
                 return;
             }
 
-            this._keyboardHelper.Whisper(this._activeOffer.Event.PlayerName, this._settingsService.ThankYouMessage);
+            if (!string.IsNullOrEmpty(this._settingsService.ThankYouMessage))
+            {
+                this._keyboardHelper.Whisper(this._activeOffer.Event.PlayerName, this._settingsService.ThankYouMessage);
+            }
+
             this.RemoveOffer(this._activeOffer);
             this._activeOffer = null;
             this._removeActive = null;
