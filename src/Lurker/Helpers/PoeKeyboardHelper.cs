@@ -63,6 +63,15 @@ namespace Lurker.Helpers
         }
 
         /// <summary>
+        /// Sends the message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        public void SendMessage(string message)
+        {
+            this.SendCommand(message);
+        }
+
+        /// <summary>
         /// Joins the hideout.
         /// </summary>
         /// <param name="playerName">Name of the player.</param>

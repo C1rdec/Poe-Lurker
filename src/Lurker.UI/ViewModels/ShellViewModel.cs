@@ -264,8 +264,11 @@ namespace Lurker.UI
         {
             Execute.OnUIThread(() =>
             {
-                this._currentDockingHelper = new DockingHelper(windowHandle);
                 var keyboarHelper = new PoeKeyboardHelper(windowHandle);
+                this._currentDockingHelper = new DockingHelper(windowHandle);
+                this._clipboardLurker = new ClipboardLurker(this._settingsService, keyboarHelper);
+                this._clipboardLurker.Newitem += this.ClipboardLurker_Newitem;
+
                 this._container.RegisterInstance(typeof(ClientLurker), null, this._currentLurker);
                 this._container.RegisterInstance(typeof(DockingHelper), null, this._currentDockingHelper);
                 this._container.RegisterInstance(typeof(PoeKeyboardHelper), null, keyboarHelper);
@@ -328,10 +331,8 @@ namespace Lurker.UI
 
             this._currentLurker = new ClientLurker();
             this._currentLurker.PoeClosed += CurrentLurker_PoeClosed;
-
-            this._clipboardLurker = new ClipboardLurker(this._settingsService);
-            this._clipboardLurker.Newitem += this.ClipboardLurker_Newitem;
             var windowHandle = await this._currentLurker.WaitForPoe();
+
             this.ShowOverlays(windowHandle);
         }
 

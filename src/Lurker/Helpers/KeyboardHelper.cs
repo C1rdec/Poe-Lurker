@@ -81,6 +81,7 @@ namespace Lurker.Helpers
             {                
                 Native.SetForegroundWindow(this._windowHandle);
                 System.Windows.Forms.SendKeys.SendWait(EnterKey);
+                System.Windows.Forms.SendKeys.SendWait("^A");
 
                 // We are using the interop since SendWait block mouse input.
                 this._simulator.Keyboard.TextEntry(command);

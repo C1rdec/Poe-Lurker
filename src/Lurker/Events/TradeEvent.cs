@@ -91,6 +91,35 @@ namespace Lurker.Events
         #region Methods
 
         /// <summary>
+        /// Determines whether [is trade message] [the specified message].
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <returns>
+        ///   <c>true</c> if [is trade message] [the specified message]; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool IsTradeMessage(string message)
+        {
+            if (!message.StartsWith("@"))
+            {
+                return false;
+            }
+
+            var greetingMarker = GreetingMarkers.FirstOrDefault(m => message.Contains(m));
+            if (string.IsNullOrEmpty(greetingMarker))
+            {
+                return false;
+            }
+
+            var priceMarker = PriceMarkers.FirstOrDefault(m => message.Contains(m));
+            if (string.IsNullOrEmpty(priceMarker))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Tries the parse.
         /// </summary>
         /// <param name="logLine">The log line.</param>

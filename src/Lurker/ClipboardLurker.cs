@@ -8,11 +8,14 @@
 namespace Lurker
 {
     using Gma.System.MouseKeyHook;
+    using Lurker.Events;
+    using Lurker.Helpers;
     using Lurker.Models;
     using Lurker.Parser;
     using Lurker.Services;
     using System;
     using System.Threading;
+    using System.Threading.Tasks;
     using System.Windows;
 
     public class ClipboardLurker: IDisposable
@@ -23,6 +26,8 @@ namespace Lurker
         private const char CtrlD = '\u0004';
         private ItemParser _itemParser = new ItemParser();
         private SettingsService _settingsService;
+        private PoeKeyboardHelper _keyboardHelper;
+        private CancellationTokenSource _tokenSource;
 
         #endregion
 
@@ -31,10 +36,13 @@ namespace Lurker
         /// <summary>
         /// Initializes a new instance of the <see cref="ClipboardLurker"/> class.
         /// </summary>
-        public ClipboardLurker(SettingsService settingsService)
+        public ClipboardLurker(SettingsService settingsService, PoeKeyboardHelper keyboardHelper)
         {
+            this._tokenSource = new CancellationTokenSource();
+            this._keyboardHelper = keyboardHelper;
             this._settingsService = settingsService;
             GlobalHook.KeyPress += this.GlobalHookKeyPress;
+            this.MonitorClipboard();
         }
 
         #endregion
@@ -67,6 +75,7 @@ namespace Lurker
             if (disposing)
             {
                 GlobalHook.KeyPress -= this.GlobalHookKeyPress;
+                this._tokenSource.Cancel();
             }
         }
 
@@ -105,7 +114,38 @@ namespace Lurker
                             Clipboard.Clear();
                         }
                     }
+
                     break;
+            }
+        }
+
+        /// <summary>
+        /// Monitors the clipboard.
+        /// </summary>
+        private async void MonitorClipboard()
+        {
+            Clipboard.Clear();
+            var token = this._tokenSource.Token;
+            var lastText = string.Empty;
+            while(true)
+            {
+                await Task.Delay(800);
+                if (token.IsCancellationRequested)
+                {
+                    return;
+                }
+
+                var currentText = this.GetClipboardText();
+                if (lastText == currentText)
+                {
+                    continue;
+                }
+
+                lastText = currentText;
+                if (TradeEvent.IsTradeMessage(currentText))
+                {
+                    this._keyboardHelper.SendMessage(currentText);
+                }
             }
         }
 
