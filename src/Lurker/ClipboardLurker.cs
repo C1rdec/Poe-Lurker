@@ -107,7 +107,12 @@ namespace Lurker
         {
             if (e.ContentType == SharpClipboard.ContentTypes.Text)
             {
-                var currentText = this.GetClipboardText();
+                var currentText = e.Content as string;
+                if (string.IsNullOrEmpty(currentText))
+                {
+                    return;
+                }
+
                 if (this._lastClipboardText == currentText)
                 {
                     return;
