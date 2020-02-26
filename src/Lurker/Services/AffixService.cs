@@ -166,13 +166,22 @@ namespace Lurker.Services
         /// Creates the asynchronous.
         /// </summary>
         /// <returns>The affix service.</returns>
-        public static async Task InitializeAsync()
+        public static async Task<bool> InitializeAsync()
         {
-            if (_instance == null)
+            try
             {
-                var affixes = await Client.GetAffixes();
-                _instance = new AffixService(affixes);
+                if (_instance == null)
+                {
+                    var affixes = await Client.GetAffixes();
+                    _instance = new AffixService(affixes);
+                }
             }
+            catch
+            {
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>

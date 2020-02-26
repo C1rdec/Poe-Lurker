@@ -15,7 +15,6 @@ namespace Lurker
     using Lurker.Services;
     using System;
     using System.Threading;
-    using System.Threading.Tasks;
     using System.Windows;
     using WK.Libraries.SharpClipboardNS;
 
@@ -131,19 +130,23 @@ namespace Lurker
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="KeyPressEventArgs" /> instance containing the event data.</param>
-        private void GlobalHookKeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
+        private async void GlobalHookKeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
         {
             switch(e.KeyChar)
             {
                 case CtrlD:
                     if (this._settingsService.SearchEnabled)
                     {
-                        System.Windows.Forms.SendKeys.SendWait("^C");
-                        var item = this._itemParser.Parse(this.GetClipboardText());
-                        if (item != null)
+                        var isInitialize = await AffixService.InitializeAsync();
+                        if (isInitialize)
                         {
-                            this.Newitem?.Invoke(this, item);
-                            Clipboard.Clear();
+                            System.Windows.Forms.SendKeys.SendWait("^C");
+                            var item = this._itemParser.Parse(this.GetClipboardText());
+                            if (item != null)
+                            {
+                                this.Newitem?.Invoke(this, item);
+                                Clipboard.Clear();
+                            }
                         }
                     }
 

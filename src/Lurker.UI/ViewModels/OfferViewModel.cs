@@ -182,6 +182,11 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public TradeEvent Event => this._tradeEvent;
 
+        /// <summary>
+        /// Gets the date.
+        /// </summary>
+        public string Date => this._tradeEvent.Date.ToString("h:mm tt");
+
         #endregion
 
         #region Methods
@@ -211,15 +216,6 @@ namespace Lurker.UI.ViewModels
             this._skipMainAction = true;
             this.Waiting = true;
             this.Whisper(this._settingsService.BusyMessage);
-        }
-
-        /// <summary>
-        /// Updates the time span since the offer was received.
-        /// </summary>
-        public void UpdateElapsed()
-        {
-            var elapsed = DateTime.Now - this._tradeEvent.Date;
-            this.Elapsed = new TimeSpan(elapsed.Hours, elapsed.Minutes, elapsed.Seconds);
         }
 
         /// <summary>
