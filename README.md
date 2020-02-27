@@ -24,8 +24,8 @@ Poe Lurker will detect that a new version can be installed and the tray icon wil
 The overlay will display the value of incoming trade request with 1 main action and 2 sub actions possible.
 The main action have two states... The first one is to send the party invite and the other one is to send the trade request. Sub actions are meant to whisper that you are Busy and the other sub action is to deny. They are located in the top Left and Right corner of the main action represented by Blue and Red square.
 
-![](ReadMe.gif)
+![](assets/Incoming.gif)
 
 - **Item highlight in stash.**
 
-![](ItemStash.gif)
+![](assets/StashTab.gif)
