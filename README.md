@@ -20,11 +20,20 @@ Poe Lurker will detect that a new version can be installed and the tray icon wil
 
 ![](https://i.imgur.com/MFDMsku.png)
 
-- **Keep track of your incoming trade request in a convenient overlay located above the exp bar.**  
+- **Incoming Trades**
+
+Keep track of your incoming trade request in a convenient overlay located above the exp bar.
 The overlay will display the value of incoming trade request with 1 main action and 2 sub actions possible.
 The main action have two states... The first one is to send the party invite and the other one is to send the trade request. Sub actions are meant to whisper that you are Busy and the other sub action is to deny. They are located in the top Left and Right corner of the main action represented by Blue and Red square.
 
 ![](assets/Incoming.gif)
+
+- **Outgoing Trades**
+
+The overlay will display the first 4 letters of the playername of outgoing trade request with 1 main action and 2 sub actions possible.
+The main action is to join the player hideout. Sub actions are meant to resend the offer and the other sub action is to deny. They are located in the top Left and Right corner of the main action..
+
+![](assets/Outgoing.gif)
 
 - **Item highlight in stash.**
 
