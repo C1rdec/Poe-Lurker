@@ -7,6 +7,7 @@
 namespace Lurker.UI.ViewModels
 {
     using Caliburn.Micro;
+    using Lurker.Events;
     using Lurker.Helpers;
     using Lurker.Services;
     using Lurker.UI.Helpers;
@@ -16,7 +17,6 @@ namespace Lurker.UI.ViewModels
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
-    using System.Windows;
 
     public class TradebarViewModel : PoeOverlayBase
     {
@@ -28,13 +28,8 @@ namespace Lurker.UI.ViewModels
         private PoeKeyboardHelper _keyboardHelper;
         private TradebarContext _context;
         private List<OfferViewModel> _activeOffers = new List<OfferViewModel>();
-        private double _itemNameVerticalOffset;
-        private double _itemNameHorizontalOffset;
-        private double _itemNameHeight;
-        private double _itemNameWidth;
-        private string _itemName;
-        private string _stashTabName;
-        private bool _hasActiveOffer;
+        private IEventAggregator _eventAggregator;
+        private System.Action _removeActive;
 
         #endregion
 
@@ -46,9 +41,10 @@ namespace Lurker.UI.ViewModels
         /// <param name="lurker">The lurker.</param>
         /// <param name="dockingHelper">The docking helper.</param>
         /// <param name="keyboardHelper">The keyboard helper.</param>
-        public TradebarViewModel(ClientLurker lurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper, SettingsService settingsService, IWindowManager windowManager)
+        public TradebarViewModel(IEventAggregator eventAggregator, ClientLurker lurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper, SettingsService settingsService, IWindowManager windowManager)
             : base (windowManager, dockingHelper, lurker, settingsService)
         {
+            this._eventAggregator = eventAggregator;
             this._lurker = lurker;
             this._keyboardHelper = keyboardHelper;
             this._settingsService = settingsService;
@@ -58,7 +54,6 @@ namespace Lurker.UI.ViewModels
             this._lurker.TradeAccepted += this.Lurker_TradeAccepted;
             this._lurker.PlayerJoined += this.Lurker_PlayerJoined;
             this._lurker.PlayerLeft += this.Lurker_PlayerLeft;
-            this.PropertyChanged += this.TradebarViewModel_PropertyChanged;
 
             this._context = new TradebarContext(this.RemoveOffer, this.AddActiveOffer, this.SetActiveOffer);
             this.DisplayName = "Poe Lurker";
@@ -72,125 +67,6 @@ namespace Lurker.UI.ViewModels
         /// Gets or sets the trade offers.
         /// </summary>
         public ObservableCollection<OfferViewModel> TradeOffers { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance has active offer.
-        /// </summary>
-        public bool HasActiveOffer
-        {
-            get
-            {
-                return this._hasActiveOffer;
-            }
-
-            set
-            {
-                this._hasActiveOffer = value;
-                this.NotifyOfPropertyChange();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the item name vertical offset.
-        /// </summary>
-        public double ItemNameVerticalOffset
-        {
-            get
-            {
-                return this._itemNameVerticalOffset;
-            }
-
-            set
-            {
-                this._itemNameVerticalOffset = value;
-                this.NotifyOfPropertyChange();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the item name horizontal offset.
-        /// </summary>
-        public double ItemNameHorizontalOffset
-        {
-            get
-            {
-                return this._itemNameHorizontalOffset;
-            }
-
-            set
-            {
-                this._itemNameHorizontalOffset = value;
-                this.NotifyOfPropertyChange();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the height of the item name.
-        /// </summary>
-        public double ItemNameHeight
-        {
-            get
-            {
-                return this._itemNameHeight;
-            }
-
-            set
-            {
-                this._itemNameHeight = value;
-                this.NotifyOfPropertyChange();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the width of the item name.
-        /// </summary>
-        public double ItemNameWidth
-        {
-            get
-            {
-                return this._itemNameWidth;
-            }
-
-            set
-            {
-                this._itemNameWidth = value;
-                this.NotifyOfPropertyChange();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the name of the item.
-        /// </summary>
-        public string ItemName
-        {
-            get
-            {
-                return this._itemName;
-            }
-
-            set
-            {
-                this._itemName = value;
-                this.NotifyOfPropertyChange();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the name of the stash tab.
-        /// </summary>
-        public string StashTabName
-        {
-            get
-            {
-                return this._stashTabName;
-            }
-
-            set
-            {
-                this._stashTabName = value;
-                this.NotifyOfPropertyChange();
-            }
-        }
 
         /// <summary>
         /// Gets the active offer.
@@ -210,19 +86,6 @@ namespace Lurker.UI.ViewModels
             if (activeOffer != null)
             {
                 this._keyboardHelper.Search(activeOffer.BuildSearchItemName());
-            }
-        }
-
-        /// <summary>
-        /// Handles the PropertyChanged event of the TradebarViewModel control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
-        private void TradebarViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(this.ItemName))
-            {
-                this.HasActiveOffer = string.IsNullOrEmpty(this.ItemName) ? false : true;
             }
         }
 
@@ -331,15 +194,16 @@ namespace Lurker.UI.ViewModels
                 { 
                     this.TradeOffers.Remove(offer);
                     this._activeOffers.Remove(offer);
-                    this.ItemName = string.Empty;
-                    this.StashTabName = string.Empty;
 
                     var activeOffer = this.ActiveOffer;
                     if (this.ActiveOffer != null)
                     {
-                        this.ItemName = this.ActiveOffer.ItemName;
-                        this.StashTabName = this.ActiveOffer.Location.StashTabName;
                         this.ActiveOffer.Active = true;
+                        this.SendToLifeBulb(this.ActiveOffer.Event);
+                    }
+                    else
+                    {
+                        this._removeActive?.Invoke();
                     }
 
                     offer.Dispose();
@@ -354,9 +218,24 @@ namespace Lurker.UI.ViewModels
         private void AddActiveOffer(OfferViewModel offer)
         {
             this._activeOffers.Add(offer);
-            this.ItemName = this.ActiveOffer.ItemName;
-            this.StashTabName = this.ActiveOffer.Location.StashTabName;
             this.ActiveOffer.Active = true;
+
+
+            this.SendToLifeBulb(this.ActiveOffer.Event);
+        }
+
+        /// <summary>
+        /// Sends to life bulb.
+        /// </summary>
+        /// <param name="tradeEvent">The trade event.</param>
+        private void SendToLifeBulb(TradeEvent tradeEvent)
+        {
+            this._eventAggregator.PublishOnUIThread(new LifeBulbMessage()
+            {
+                View = new PositionViewModel(tradeEvent),
+                OnShow = (a) => { this._removeActive = a; },
+                Action = this.SearchItem
+            });
         }
 
         /// <summary>
@@ -366,10 +245,18 @@ namespace Lurker.UI.ViewModels
         private void SetActiveOffer(OfferViewModel offer)
         {
             var currentActiveOffer = this.ActiveOffer;
-            if (currentActiveOffer != null)
+            if (currentActiveOffer == null)
             {
-                currentActiveOffer.Active = false;
+                this.AddActiveOffer(offer);
+                return;
             }
+
+            if (currentActiveOffer == offer)
+            {
+                return;
+            }
+
+            currentActiveOffer.Active = false;
 
             var index = this._activeOffers.IndexOf(offer);
             if (index != -1)
@@ -377,23 +264,10 @@ namespace Lurker.UI.ViewModels
                 this._activeOffers.RemoveAt(index);
             }
 
-            // Dont add if it's the same offer
-            if (currentActiveOffer == offer)
-            {
-                this.ItemName = this.ActiveOffer?.ItemName;
-                this.StashTabName = this.ActiveOffer?.Location.StashTabName;
-                if (this.ActiveOffer != null)
-                {
-                    this.ActiveOffer.Active = true;
-                }
-
-                return;
-            }
-
             this._activeOffers.Insert(0, offer);
-            this.ItemName = offer.ItemName;
-            this.StashTabName = offer.Location.StashTabName;
             this.ActiveOffer.Active = true;
+
+            this.SendToLifeBulb(offer.Event);
         }
 
         /// <summary>
@@ -408,7 +282,6 @@ namespace Lurker.UI.ViewModels
                 this._lurker.TradeAccepted -= this.Lurker_TradeAccepted;
                 this._lurker.PlayerJoined -= this.Lurker_PlayerJoined;
                 this._lurker.PlayerLeft -= this.Lurker_PlayerLeft;
-                this.PropertyChanged -= this.TradebarViewModel_PropertyChanged;
             }
 
             base.OnDeactivate(close);
@@ -422,11 +295,6 @@ namespace Lurker.UI.ViewModels
         {
             var overlayHeight = DefaultOverlayHeight * windowInformation.FlaskBarHeight / DefaultFlaskBarHeight;
             var overlayWidth = (windowInformation.Width - (windowInformation.FlaskBarWidth * 2)) / 2;
-
-            this.ItemNameWidth = (windowInformation.FlaskBarWidth * 0.24);
-            this.ItemNameHeight = windowInformation.ExpBarHeight;
-
-            this.ItemNameVerticalOffset = (windowInformation.FlaskBarHeight * 0.30 * -1) - this.ItemNameHeight;
 
             Execute.OnUIThread(() =>
             {

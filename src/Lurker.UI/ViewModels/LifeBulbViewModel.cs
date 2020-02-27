@@ -75,7 +75,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public void OnClick()
         {
-            this._action();
+            this._action?.Invoke();
         }
 
         /// <summary>

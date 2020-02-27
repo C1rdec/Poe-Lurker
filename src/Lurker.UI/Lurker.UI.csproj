@@ -169,6 +169,7 @@
     <Compile Include="ViewModels\OutgoingbarViewModel.cs" />
     <Compile Include="ViewModels\OutgoingOfferViewModel.cs" />
     <Compile Include="ViewModels\PoeOverlayBase.cs" />
+    <Compile Include="ViewModels\PositionViewModel.cs" />
     <Compile Include="ViewModels\ScreenBase.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\TradebarViewModel.cs" />
@@ -184,6 +185,9 @@
     </Compile>
     <Compile Include="Views\OutgoingOfferView.xaml.cs">
       <DependentUpon>OutgoingOfferView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PositionView.xaml.cs">
+      <DependentUpon>PositionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
@@ -219,6 +223,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\OutgoingOfferView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PositionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

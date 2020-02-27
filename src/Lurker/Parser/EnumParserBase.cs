@@ -26,7 +26,7 @@ namespace Lurker.Parser
         /// <returns>The currency type</returns>
         public T Parse(string value)
         {
-            foreach (var dictionaryValue in Dictionary)
+            foreach (var dictionaryValue in this.Dictionary)
             {
                 if (dictionaryValue.Value.Any(v => this.Compare(value, v)))
                 {

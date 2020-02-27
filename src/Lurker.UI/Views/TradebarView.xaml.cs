@@ -30,7 +30,6 @@ namespace Lurker.UI.Views
         {
             InitializeComponent();
             this.HideFromAltTab();
-            this.LocationChanged += this.TradeBarView_LocationChanged;
         }
 
         #endregion
@@ -66,18 +65,6 @@ namespace Lurker.UI.Views
             this._parent.Show();
             this.Owner = this._parent;
             this._parent.Hide();
-        }
-
-        /// <summary>
-        /// Handles the LocationChanged event of the TradeBarView control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void TradeBarView_LocationChanged(object sender, System.EventArgs e)
-        {
-            var offset = this.ItemName.HorizontalOffset;
-            this.ItemName.HorizontalOffset = offset + 1;
-            this.ItemName.HorizontalOffset = offset;
         }
 
         /// <summary>
