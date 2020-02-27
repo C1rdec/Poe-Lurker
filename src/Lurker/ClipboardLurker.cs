@@ -39,6 +39,7 @@ namespace Lurker
         /// </summary>
         public ClipboardLurker(SettingsService settingsService, PoeKeyboardHelper keyboardHelper)
         {
+            Clipboard.Clear();
             this._clipboardMonitor = new SharpClipboard();
             this._keyboardHelper = keyboardHelper;
             this._settingsService = settingsService;
