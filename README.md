@@ -30,8 +30,7 @@ The main action have two states... The first one is to send the party invite and
 
 - **Outgoing Trades**
 
-The overlay will display the first 4 letters of the playername of outgoing trade request with 1 main action and 2 sub actions possible.
-The main action is to join the player hideout. Sub actions are meant to resend the offer and the other sub action is to deny. They are located in the top Left and Right corner of the main action..
+The overlay will display the first 4 letters of the playername. The trade request is represented by a button with 1 main action and 2 sub actions possible. The main action is to join the player hideout. Sub actions are meant to resend the offer and the other sub action is to deny. They are located in the top Left and Right corner of the main action..
 
 ![](assets/Outgoing.gif)
 
