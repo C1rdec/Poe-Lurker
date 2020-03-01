@@ -65,6 +65,12 @@
                                                    FontSize="18"
                                                    VerticalAlignment="Center"
                                                    Text="{Binding}" />
+                                        <TextBlock Margin="4 0 0 0"
+                                                   Foreground="{DynamicResource AccentColorBrush}"
+                                                   FontSize="12"
+                                                   VerticalAlignment="Center"
+                                                   Text="(Ctrl + Shift)" />
+                                        
                                     </StackPanel>
                                 </DataTemplate>
                             </Controls:MetroHeader.HeaderTemplate>
@@ -78,6 +84,11 @@
                                                    FontSize="18"
                                                    VerticalAlignment="Center"
                                                    Text="{Binding}" />
+                                        <TextBlock Margin="4 0 0 0"
+                                                   Foreground="{DynamicResource AccentColorBrush}"
+                                                   FontSize="12"
+                                                   VerticalAlignment="Center"
+                                                   Text="(Ctrl)" />
                                     </StackPanel>
                                 </DataTemplate>
                             </Controls:MetroHeader.HeaderTemplate>
