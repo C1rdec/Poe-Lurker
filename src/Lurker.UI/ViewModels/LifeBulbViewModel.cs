@@ -7,7 +7,7 @@
 namespace Lurker.UI.ViewModels
 {
     using Caliburn.Micro;
-    using Lurker.Events;
+    using Lurker.Helpers;
     using Lurker.Services;
     using Lurker.UI.Helpers;
     using Lurker.UI.Models;
@@ -21,6 +21,7 @@ namespace Lurker.UI.ViewModels
         private INotifyPropertyChanged _actionView;
         private System.Action _action;
         private IEventAggregator _eventAggregator;
+        private PoeKeyboardHelper _keyboardHelper;
 
         #endregion
 
@@ -32,10 +33,11 @@ namespace Lurker.UI.ViewModels
         /// <param name="windowManager">The window manager.</param>
         /// <param name="dockingHelper">The docking helper.</param>
         /// <param name="lurker"></param>
-        /// <param name="settingsService"></param>
-        public LifeBulbViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, DockingHelper dockingHelper, ClientLurker lurker, SettingsService settingsService) 
+        /// <param name="settingsService"></param>H
+        public LifeBulbViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, DockingHelper dockingHelper, ClientLurker lurker, SettingsService settingsService, PoeKeyboardHelper keyboard) 
             : base(windowManager, dockingHelper, lurker, settingsService)
         {
+            this._keyboardHelper = keyboard;
             this._eventAggregator = eventAggregator;
             this._eventAggregator.Subscribe(this);
         }
@@ -75,7 +77,13 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public void OnClick()
         {
-            this._action?.Invoke();
+            if (this._action == null)
+            {
+                this.DefaultAction();
+                return;
+            }
+
+            this._action.Invoke();
         }
 
         /// <summary>
@@ -115,6 +123,11 @@ namespace Lurker.UI.ViewModels
             this.ActionView = null;
             this._action = null;
             this.NotifyOfPropertyChange(nameof(this.HasAction));
+        }
+
+        private void DefaultAction()
+        {
+            this._keyboardHelper.JoinHideout();
         }
 
         #endregion

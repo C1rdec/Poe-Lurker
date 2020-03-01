@@ -74,10 +74,24 @@ namespace Lurker.Helpers
         /// <summary>
         /// Joins the hideout.
         /// </summary>
+        public void JoinHideout()
+        {
+            this.JoinHideout(null);
+        }
+
+        /// <summary>
+        /// Joins the hideout.
+        /// </summary>
         /// <param name="playerName">Name of the player.</param>
         public void JoinHideout(string playerName)
         {
-            this.SendCommand($@"/hideout {playerName}");
+            if (string.IsNullOrEmpty(playerName))
+            {
+                this.SendCommand($@"/hideout");
+                return;
+            }
+
+            this.SendCommand($@" /hideout {playerName}");
         }
 
         #endregion

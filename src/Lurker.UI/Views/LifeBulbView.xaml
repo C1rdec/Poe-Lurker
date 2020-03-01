@@ -10,33 +10,29 @@
         AllowsTransparency="True"
         ShowInTaskbar="False"
         mc:Ignorable="d"
+        Focusable="False"
         Title="LifeBulbView">
     <Grid>
         <ContentControl Height="80" x:Name="ActionView" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Ellipse x:Name="Test" cal:Message.Attach="[Event MouseUp] = [Action OnClick()]">
+        <Ellipse Cursor="Hand" Fill="White" x:Name="Test" cal:Message.Attach="[Event MouseDown] = [Action OnClick()]">
             <Ellipse.Style>
                 <Style TargetType="{x:Type Ellipse}">
-                    <Setter Property="Fill">
-                        <Setter.Value>
-                            <SolidColorBrush Color="White" Opacity=".002"/>
-                        </Setter.Value>
-                    </Setter>
+                    <Setter Property="Opacity" Value="0.002"/>
                     <Style.Triggers>
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding ElementName=Test, Path=IsMouseOver}" Value="True"/>
-                                <Condition Binding="{Binding HasAction}" Value="True"/>
-                            </MultiDataTrigger.Conditions>
-                            <Setter Property="Cursor" Value="Hand"/>
-                            <Setter Property="Fill">
-                                <Setter.Value>
-                                    <SolidColorBrush Color="White" Opacity=".05"/>
-                                </Setter.Value>
-                            </Setter>
-                        </MultiDataTrigger>
                         <DataTrigger Binding="{Binding DebugEnabled}" Value="True">
                             <Setter Property="Fill" Value="Green"/>
                         </DataTrigger>
+                        <EventTrigger RoutedEvent="MouseLeftButtonDown">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation 
+                                            Storyboard.TargetProperty="(Ellipse.Opacity)" 
+                                            From="0.002" To="0.1" Duration="0:0:0.13" AutoReverse="True"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
                     </Style.Triggers>
                 </Style>
             </Ellipse.Style>
