@@ -117,23 +117,29 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         private void PlayAlert()
         {
-            var stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("Lurker.UI.Assets.TradeAlert.mp3");
-            var waveOut = new WaveOutEvent();
-            var mp3Reader = new Mp3FileReader(stream);
-            waveOut.Init(mp3Reader);
-            waveOut.Volume = this._settingsService.AlertVolume;
-            waveOut.Play();
-
-            EventHandler<StoppedEventArgs> handler = default;
-            handler = (object s, StoppedEventArgs e) =>
+            try
             {
-                stream.Dispose();
-                mp3Reader.Dispose();
-                waveOut.Dispose();
-                waveOut.PlaybackStopped -= handler;
-            };
+                var stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("Lurker.UI.Assets.TradeAlert.mp3");
+                var waveOut = new WaveOutEvent();
+                var mp3Reader = new Mp3FileReader(stream);
+                waveOut.Init(mp3Reader);
+                waveOut.Volume = this._settingsService.AlertVolume;
+                waveOut.Play();
 
-            waveOut.PlaybackStopped += handler;
+                EventHandler<StoppedEventArgs> handler = default;
+                handler = (object s, StoppedEventArgs e) =>
+                {
+                    stream.Dispose();
+                    mp3Reader.Dispose();
+                    waveOut.Dispose();
+                    waveOut.PlaybackStopped -= handler;
+                };
+
+                waveOut.PlaybackStopped += handler;
+            }
+            catch
+            {
+            }
         }
 
         /// <summary>
