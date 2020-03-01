@@ -7,6 +7,7 @@
 namespace Lurker.UI.Helpers
 {
     using System;
+    using System.Diagnostics;
     using System.Threading;
     using System.Threading.Tasks;
     using Lurker.UI.Models;
@@ -29,6 +30,7 @@ namespace Lurker.UI.Helpers
         private const uint ObjectDestroy = 32769;
         private const uint ObjectHidden = 8003;
 
+        private Process _myProcess;
         private bool _isWindowInForeground;
         private readonly uint _windowProcessId, _windowOwnerId;
         private readonly WinEventDelegate _winEventDelegate;
@@ -46,6 +48,7 @@ namespace Lurker.UI.Helpers
         /// <param name="process">The process.</param>
         public DockingHelper(IntPtr windowHandle)
         {
+            this._myProcess = Process.GetCurrentProcess();
             this._tokenSource = new CancellationTokenSource();
             this._windowHandle = windowHandle;
             this._windowOwnerId = GetWindowThreadProcessId(this._windowHandle, out this._windowProcessId);
@@ -102,6 +105,7 @@ namespace Lurker.UI.Helpers
         {
             if (disposing)
             {
+                this._myProcess.Dispose();
                 this._tokenSource.Cancel();
                 UnhookWinEvent(this._hook);
             }
@@ -152,7 +156,15 @@ namespace Lurker.UI.Helpers
                 }
 
                 var inForeground = false;
-                if (Native.GetForegroundWindow() == this._windowHandle)
+                var foregroundWindow = Native.GetForegroundWindow();
+
+                if (foregroundWindow == this._windowHandle)
+                {
+                    inForeground = true;
+                }
+
+                GetWindowThreadProcessId(foregroundWindow, out var processId);
+                if (processId == this._myProcess.Id)
                 {
                     inForeground = true;
                 }

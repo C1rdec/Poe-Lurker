@@ -451,20 +451,26 @@ namespace Lurker
         {
             await Task.Run(() =>
             {
-                var token = this._tokenSource.Token;
-                if (token.IsCancellationRequested)
+                try
                 {
-                    return;
-                }
+                    var token = this._tokenSource.Token;
+                    if (token.IsCancellationRequested)
+                    {
+                        return;
+                    }
 
-                var process = this.GetProcess();
-                while (process != null)
+                    var process = this.GetProcess();
+                    while (process != null)
+                    {
+                        process.WaitForExit(WaitingTime);
+                        process = this.GetProcess();
+                    }
+                }
+                catch { }
+                finally
                 {
-                    process.WaitForExit(WaitingTime);
-                    process = this.GetProcess();
+                    this.PoeClosed?.Invoke(this, EventArgs.Empty);
                 }
-
-                this.PoeClosed?.Invoke(this, EventArgs.Empty);
             });
         }
 

@@ -14,13 +14,15 @@
         Title="LifeBulbView">
     <Grid>
         <ContentControl Height="80" x:Name="ActionView" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Ellipse Cursor="Hand" Fill="White" x:Name="Test" cal:Message.Attach="[Event MouseDown] = [Action OnClick()]">
+        <Ellipse Cursor="Hand" x:Name="Test" cal:Message.Attach="[Event MouseDown] = [Action OnClick()]">
             <Ellipse.Style>
                 <Style TargetType="{x:Type Ellipse}">
                     <Setter Property="Opacity" Value="0.002"/>
+                    <Setter Property="Fill" Value="White"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding DebugEnabled}" Value="True">
                             <Setter Property="Fill" Value="Green"/>
+                            <Setter Property="Opacity" Value="1"/>
                         </DataTrigger>
                         <EventTrigger RoutedEvent="MouseLeftButtonDown">
                             <EventTrigger.Actions>

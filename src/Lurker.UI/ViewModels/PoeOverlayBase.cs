@@ -120,11 +120,6 @@ namespace Lurker.UI.ViewModels
         {
             this._view = view as Window;
             this.SetWindowPosition(this._dockingHelper.WindowInformation);
-
-            if (!this._dockingHelper.IsWindowInForeground)
-            {
-                this._view.Hide();
-            }
         }
 
         /// <summary>
