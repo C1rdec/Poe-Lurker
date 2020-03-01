@@ -46,6 +46,7 @@ namespace Lurker.UI.ViewModels
             this._settingsService = settingsService;
 
             this._dockingHelper.OnWindowMove += this.DockingHelper_OnWindowMove;
+            this._dockingHelper.OnForegroundChange += this.DockingHelper_OnForegroundChange;
             this._lurker.PoeClosed += this.Lurker_PoeClosed;
             this._settingsService.OnSave += this.SettingsService_OnSave;
         }
@@ -62,6 +63,23 @@ namespace Lurker.UI.ViewModels
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Dockings the helper on foreground change.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">if set to <c>true</c> [e].</param>
+        private void DockingHelper_OnForegroundChange(object sender, bool e)
+        {
+            if (e)
+            {
+                this._view.Show();
+            }
+            else
+            {
+                this._view.Hide();
+            }
+        }
 
         /// <summary>
         /// Handles the OnSave event of the SettingsService control.
@@ -102,6 +120,11 @@ namespace Lurker.UI.ViewModels
         {
             this._view = view as Window;
             this.SetWindowPosition(this._dockingHelper.WindowInformation);
+
+            if (!this._dockingHelper.IsWindowInForeground)
+            {
+                this._view.Hide();
+            }
         }
 
         /// <summary>

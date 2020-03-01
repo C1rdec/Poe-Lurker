@@ -7,6 +7,8 @@
 namespace Lurker.UI.Helpers
 {
     using System;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Lurker.UI.Models;
     using static Lurker.Native;
 
@@ -27,8 +29,10 @@ namespace Lurker.UI.Helpers
         private const uint ObjectDestroy = 32769;
         private const uint ObjectHidden = 8003;
 
+        private bool _isWindowInForeground;
         private readonly uint _windowProcessId, _windowOwnerId;
         private readonly WinEventDelegate _winEventDelegate;
+        private CancellationTokenSource _tokenSource;
         private IntPtr _hook;
         private IntPtr _windowHandle;
 
@@ -42,12 +46,14 @@ namespace Lurker.UI.Helpers
         /// <param name="process">The process.</param>
         public DockingHelper(IntPtr windowHandle)
         {
+            this._tokenSource = new CancellationTokenSource();
             this._windowHandle = windowHandle;
             this._windowOwnerId = GetWindowThreadProcessId(this._windowHandle, out this._windowProcessId);
             this._winEventDelegate = WhenWindowMoveStartsOrEnds;
             this._hook = SetWinEventHook(0, MoveEnd, this._windowHandle, this._winEventDelegate, this._windowProcessId, this._windowOwnerId, 0);
 
             this.WindowInformation = this.GetWindowInformation();
+            this.WatchForegound();
         }
 
         #endregion
@@ -60,11 +66,16 @@ namespace Lurker.UI.Helpers
 
         public event EventHandler OnMouseCapture;
 
-        public event EventHandler OnForegroundChange;
+        public event EventHandler<bool> OnForegroundChange;
 
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets a value indicating whether this instance is window in foreground.
+        /// </summary>
+        public bool IsWindowInForeground => this._windowHandle == Native.GetForegroundWindow();
 
         /// <summary>
         /// Gets the window information.
@@ -91,6 +102,7 @@ namespace Lurker.UI.Helpers
         {
             if (disposing)
             {
+                this._tokenSource.Cancel();
                 UnhookWinEvent(this._hook);
             }
         }
@@ -123,9 +135,35 @@ namespace Lurker.UI.Helpers
                 case LostMouseCapture:
                     this.Invoke(this.OnLostMouseCapture);
                     break;
-                case LostFocus:
-                    this.Invoke(this.OnForegroundChange);
-                    break;
+            }
+        }
+
+        /// <summary>
+        /// Watches the foregound.
+        /// </summary>
+        private async void WatchForegound()
+        {
+            var token = this._tokenSource.Token;
+            while(true)
+            {
+                if (token.IsCancellationRequested)
+                {
+                    return;
+                }
+
+                var inForeground = false;
+                if (Native.GetForegroundWindow() == this._windowHandle)
+                {
+                    inForeground = true;
+                }
+
+                if (this._isWindowInForeground != inForeground)
+                {
+                    this._isWindowInForeground = inForeground;
+                    this.OnForegroundChange?.Invoke(this, inForeground);
+                }
+
+                await Task.Delay(500);
             }
         }
 
