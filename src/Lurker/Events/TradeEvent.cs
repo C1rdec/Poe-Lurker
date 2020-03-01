@@ -58,7 +58,12 @@ namespace Lurker.Events
             {
                 var textAfterMarker = this.Message.Substring(priceMarkerIndex + priceMarker.Length + 1);
                 var index = textAfterMarker.IndexOf(LeagueMarker);
-                var priceValue = textAfterMarker.Substring(0, index);
+                var priceValue = textAfterMarker;
+                if (index != -1)
+                {
+                    priceValue = priceValue.Substring(0, index);
+                }
+
                 this.Price = this.ParsePrice(priceValue);
             }
             else
