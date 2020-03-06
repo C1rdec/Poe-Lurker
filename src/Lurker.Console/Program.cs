@@ -15,9 +15,8 @@ namespace Lurker.Console
     {
         static void Main(string[] args)
         {
-            var client = new TradeApiClient();
-
-            var result = client.GetAffixes().Result;
+            var service = new Lurker.Patreon.PatreonService();
+            Console.WriteLine(service.IsPledging().Result);
 
             //var lurker = new ClipboardLurker();
             using (var lurker = new ClientLurker())
@@ -31,7 +30,7 @@ namespace Lurker.Console
                 Console.Read();
             }
 
-            //Console.Read();
+            Console.Read();
         }
 
         private static void Lurker_NewOffer(object sender, Events.TradeEvent e)
