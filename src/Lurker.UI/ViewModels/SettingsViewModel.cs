@@ -11,6 +11,7 @@ namespace Lurker.UI.ViewModels
     using Lurker.Services;
     using Lurker.UI.Helpers;
     using System;
+    using System.Diagnostics;
 
     public class SettingsViewModel: ScreenBase
     {
@@ -20,6 +21,7 @@ namespace Lurker.UI.ViewModels
         private SettingsService _settingService;
         private UpdateManager _updateManager;
         private bool _needsUpdate;
+        private bool _pledging;
         private int _alertVolume;
 
         #endregion
@@ -52,6 +54,34 @@ namespace Lurker.UI.ViewModels
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="SettingsViewModel"/> is connected.
+        /// </summary>
+        public bool NotConnected => !new Patreon.TokenService().Connected;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="SettingsViewModel"/> is pledging.
+        /// </summary>
+        public bool Pledging
+        {
+            get
+            {
+                return this._pledging;
+            }
+
+            set
+            {
+                this._pledging = value;
+                this.NotifyOfPropertyChange();
+                this.NotifyOfPropertyChange("NotPledging");
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [not pledgin].
+        /// </summary>
+        public bool NotPledging => !this.Pledging && !this.NotConnected;
 
         /// <summary>
         /// Gets or sets a value indicating whether [needs update].
@@ -277,6 +307,26 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Logins to patreon.
+        /// </summary>
+        public async void LoginToPatreon()
+        {
+            using (var service = new Patreon.PatreonService())
+            {
+                this.Pledging = await service.IsPledging();
+                this.NotifyOfPropertyChange("NotConnected");
+            }
+        }
+
+        /// <summary>
+        /// Pledges this instance.
+        /// </summary>
+        public void Pledge()
+        {
+            Process.Start("https://www.patreon.com/poelurker");
+        }
+
+        /// <summary>
         /// Called when deactivating.
         /// </summary>
         /// <param name="close">Inidicates whether this instance will be closed.</param>
@@ -294,8 +344,20 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Called when activating.
         /// </summary>
-        protected override void OnActivate()
+        protected async override void OnActivate()
         {
+            if (!this.NotConnected)
+            {
+                using (var service = new Patreon.PatreonService())
+                {
+                    this.Pledging = await service.IsPledging();
+                }
+            }
+            else
+            {
+                this.Pledging = false;
+            }
+
             this.AlertVolume = (int)(this._settingService.AlertVolume * 100);
             this.CheckForUpdate();
             base.OnActivate();

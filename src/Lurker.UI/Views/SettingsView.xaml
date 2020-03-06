@@ -200,6 +200,20 @@
                     </StackPanel>
                 </Grid>
             </TabItem>
+            <TabItem Header="Lurker Pro" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Content="Lurker Pro" Style="{DynamicResource LabelHeaderStyle}" />
+                    <StackPanel VerticalAlignment="Center" Grid.RowSpan="2" HorizontalAlignment="Center" Margin="30,0,30,0">
+                        <Button x:Name="LoginToPatreon" Visibility="{Binding NotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">Login with Patreon</Button>
+                        <TextBlock Visibility="{Binding Pledging, Converter={StaticResource BooleanToVisibilityConverter}}">Thank you!</TextBlock>
+                        <Button x:Name="Pledge" Visibility="{Binding NotPledging, Converter={StaticResource BooleanToVisibilityConverter}}">Become a patron</Button>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
         </Controls:MetroAnimatedTabControl>
         <Button x:Name="Update"
                 Visibility="{Binding NeedsUpdate, Converter={StaticResource BooleanToVisibilityConverter}}"
