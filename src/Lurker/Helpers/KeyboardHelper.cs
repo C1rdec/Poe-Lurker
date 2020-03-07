@@ -79,10 +79,8 @@ namespace Lurker.Helpers
             lock (CommandLock)
             {                
                 Native.SetForegroundWindow(this._windowHandle);
-
                 this._simulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.RETURN);
                 this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_A);
-
 
                 // We are using the interop since SendWait block mouse input.
                 this._simulator.Keyboard.TextEntry(command);
