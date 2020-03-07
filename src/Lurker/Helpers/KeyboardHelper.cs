@@ -14,7 +14,6 @@ namespace Lurker.Helpers
         #region Fields
 
         private readonly object CommandLock = new object();
-        private static readonly string EnterKey = "{ENTER}";
         private IntPtr _windowHandle;
         private InputSimulator _simulator;
         
@@ -63,11 +62,11 @@ namespace Lurker.Helpers
             lock (CommandLock)
             {
                 Native.SetForegroundWindow(this._windowHandle);
-                System.Windows.Forms.SendKeys.SendWait("^F");
+                this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_F);
 
                 // We are using the interop since SendWait block mouse input.
                 this._simulator.Keyboard.TextEntry(searchTerm);
-                System.Windows.Forms.SendKeys.SendWait(EnterKey);
+                this._simulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.RETURN);
             }
         }
 
@@ -80,12 +79,14 @@ namespace Lurker.Helpers
             lock (CommandLock)
             {                
                 Native.SetForegroundWindow(this._windowHandle);
-                System.Windows.Forms.SendKeys.SendWait(EnterKey);
-                System.Windows.Forms.SendKeys.SendWait("^A");
+
+                this._simulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.RETURN);
+                this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_A);
+
 
                 // We are using the interop since SendWait block mouse input.
                 this._simulator.Keyboard.TextEntry(command);
-                System.Windows.Forms.SendKeys.SendWait(EnterKey);
+                this._simulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.RETURN);
             }
         }
 
