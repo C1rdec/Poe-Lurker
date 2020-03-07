@@ -5,7 +5,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:cal="http://www.caliburnproject.org"
-        xmlns:local="clr-namespace:Lurker.UI.Views"
+        xmlns:local="clr-namespace:Lurker.UI"
         WindowStartupLocation="CenterScreen"
         Topmost="True"
         ResizeMode="CanMinimize"
@@ -208,8 +208,27 @@
                     </Grid.RowDefinitions>
                     <Label Content="Lurker Pro" Style="{DynamicResource LabelHeaderStyle}" />
                     <StackPanel VerticalAlignment="Center" Grid.RowSpan="2" HorizontalAlignment="Center" Margin="30,0,30,0">
+                        <TextBlock TextWrapping="Wrap" TextAlignment="Center">Being a Lurker Pro is a good way to show your appreciation for the work I've done, and help support the future development of the program. Furthermore you will unlock juicy features that is currently being developed.</TextBlock>
+
+                        <local:IconPack Foreground="{DynamicResource AccentColorBrush}"
+                                        Width="250"
+                                        Margin="0,20,0,10"
+                                        Visibility="{Binding Pledging, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                        Data="{x:Static local:IconPackData.Beer}"/>
+
+
+                        <local:IconPack Foreground="{DynamicResource AccentColorBrush1}"
+                                        Width="250"
+                                        Margin="0,20,0,10"
+                                        Visibility="{Binding NotConnected, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                        Data="{x:Static local:IconPackData.Beer}"/>
+                        <local:IconPack Foreground="{DynamicResource AccentColorBrush1}"
+                                        Width="250"
+                                        Margin="0,20,0,10"
+                                        Visibility="{Binding NotPledging, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                        Data="{x:Static local:IconPackData.Beer}"/>
+                        <TextBlock HorizontalAlignment="Center" Visibility="{Binding Pledging, Converter={StaticResource BooleanToVisibilityConverter}}">The banana bread was fabulous. You made my day!</TextBlock>
                         <Button x:Name="LoginToPatreon" Visibility="{Binding NotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">Login with Patreon</Button>
-                        <TextBlock Visibility="{Binding Pledging, Converter={StaticResource BooleanToVisibilityConverter}}">Thank you!</TextBlock>
                         <Button x:Name="Pledge" Visibility="{Binding NotPledging, Converter={StaticResource BooleanToVisibilityConverter}}">Become a patron</Button>
                     </StackPanel>
                 </Grid>

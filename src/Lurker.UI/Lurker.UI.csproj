@@ -351,6 +351,7 @@
     <Resource Include="Assets\InInstance.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="SVG\Beer.svg" />
     <Content Include="SVG\Lightning.svg" />
     <Resource Include="Assets\Regal.png" />
     <Resource Include="Assets\Divine.png" />
