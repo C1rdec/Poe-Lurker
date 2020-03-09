@@ -12,6 +12,8 @@ namespace Lurker.UI.ViewModels
     using Lurker.UI.Helpers;
     using System;
     using System.Diagnostics;
+    using System.Security.Authentication;
+    using System.Threading.Tasks;
 
     public class SettingsViewModel: ScreenBase
     {
@@ -23,6 +25,7 @@ namespace Lurker.UI.ViewModels
         private bool _needsUpdate;
         private bool _pledging;
         private int _alertVolume;
+        private Patreon.PatreonService _currentPatreonService;
 
         #endregion
 
@@ -311,10 +314,22 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public async void LoginToPatreon()
         {
-            using (var service = new Patreon.PatreonService())
+            if (this._currentPatreonService != null)
             {
-                this.Pledging = await service.IsPledging();
-                this.NotifyOfPropertyChange("NotConnected");
+                this._currentPatreonService.Cancel();
+                await Task.Delay(600);
+            }
+
+            try
+            {
+                using (this._currentPatreonService = new Patreon.PatreonService())
+                {
+                    this.Pledging = await this._currentPatreonService.IsPledging();
+                    this.NotifyOfPropertyChange("NotConnected");
+                }
+            }
+            catch (AuthenticationException)
+            { 
             }
         }
 
