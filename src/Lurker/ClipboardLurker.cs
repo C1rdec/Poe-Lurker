@@ -9,7 +9,6 @@ namespace Lurker
 {
     using Gma.System.MouseKeyHook;
     using Lurker.Events;
-    using Lurker.Helpers;
     using Lurker.Models;
     using Lurker.Parser;
     using Lurker.Services;
@@ -26,7 +25,6 @@ namespace Lurker
         private const char CtrlD = '\u0004';
         private ItemParser _itemParser = new ItemParser();
         private SettingsService _settingsService;
-        private PoeKeyboardHelper _keyboardHelper;
         private SharpClipboard _clipboardMonitor;
         private string _lastClipboardText = string.Empty;
 
@@ -37,11 +35,10 @@ namespace Lurker
         /// <summary>
         /// Initializes a new instance of the <see cref="ClipboardLurker"/> class.
         /// </summary>
-        public ClipboardLurker(SettingsService settingsService, PoeKeyboardHelper keyboardHelper)
+        public ClipboardLurker(SettingsService settingsService)
         {
             Clipboard.Clear();
             this._clipboardMonitor = new SharpClipboard();
-            this._keyboardHelper = keyboardHelper;
             this._settingsService = settingsService;
 
             GlobalHook.KeyPress += this.GlobalHookKeyPress;
@@ -56,6 +53,11 @@ namespace Lurker
         /// Occurs when a new item is in the clipboard.
         /// </summary>
         public event EventHandler<PoeItem> Newitem;
+
+        /// <summary>
+        /// Creates new offer.
+        /// </summary>
+        public event EventHandler<string> NewOffer;
 
         #endregion
 
@@ -121,7 +123,7 @@ namespace Lurker
                 this._lastClipboardText = currentText;
                 if (TradeEvent.IsTradeMessage(currentText))
                 {
-                    this._keyboardHelper.SendMessage(currentText);
+                    this.NewOffer?.Invoke(this, currentText);
                 }
             }
         }

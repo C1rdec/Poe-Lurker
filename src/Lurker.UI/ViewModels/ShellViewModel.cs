@@ -266,10 +266,11 @@ namespace Lurker.UI
             {
                 var keyboarHelper = new PoeKeyboardHelper(windowHandle);
                 this._currentDockingHelper = new DockingHelper(windowHandle);
-                this._clipboardLurker = new ClipboardLurker(this._settingsService, keyboarHelper);
+                this._clipboardLurker = new ClipboardLurker(this._settingsService);
                 this._clipboardLurker.Newitem += this.ClipboardLurker_Newitem;
 
                 this._container.RegisterInstance(typeof(ClientLurker), null, this._currentLurker);
+                this._container.RegisterInstance(typeof(ClipboardLurker), null, this._clipboardLurker);
                 this._container.RegisterInstance(typeof(DockingHelper), null, this._currentDockingHelper);
                 this._container.RegisterInstance(typeof(PoeKeyboardHelper), null, keyboarHelper);
 
@@ -302,6 +303,7 @@ namespace Lurker.UI
             this._container.UnregisterHandler<ClientLurker>();
             this._container.UnregisterHandler<DockingHelper>();
             this._container.UnregisterHandler<PoeKeyboardHelper>();
+            this._container.UnregisterHandler<ClipboardLurker>();
 
             if (this._clipboardLurker != null)
             {

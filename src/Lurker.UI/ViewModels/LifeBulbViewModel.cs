@@ -11,6 +11,7 @@ namespace Lurker.UI.ViewModels
     using Lurker.Services;
     using Lurker.UI.Helpers;
     using Lurker.UI.Models;
+    using Lurker.UI.Views;
     using System.ComponentModel;
 
     public class LifeBulbViewModel : PoeOverlayBase, IHandle<LifeBulbMessage>
@@ -112,6 +113,8 @@ namespace Lurker.UI.ViewModels
                 this._view.Width = value;
                 this._view.Left = windowInformation.Position.Left + 6;
                 this._view.Top = windowInformation.Position.Bottom - value;
+                var lifeView = this._view as LifeBulbView;
+                lifeView.ResizeLifeBulb();
             });
         }
 

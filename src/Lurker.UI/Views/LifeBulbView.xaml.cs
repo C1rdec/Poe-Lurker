@@ -23,6 +23,14 @@ namespace Lurker.UI.Views
         }
 
         /// <summary>
+        /// Resizes the life bulb.
+        /// </summary>
+        public void ResizeLifeBulb()
+        {
+            this.RectangleGeometry.Rect = new Rect(new Point(0, this.Height / 2), new Size(this.Width, this.Height / 2));
+        }
+
+        /// <summary>
         /// Raises the <see cref="E:System.Windows.Window.Closed" /> event.
         /// </summary>
         /// <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>

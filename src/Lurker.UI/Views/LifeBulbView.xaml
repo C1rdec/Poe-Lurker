@@ -15,6 +15,9 @@
     <Grid>
         <ContentControl Height="80" x:Name="ActionView" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Ellipse Cursor="Hand" x:Name="Test" cal:Message.Attach="[Event MouseDown] = [Action OnClick()]">
+            <Ellipse.Clip>
+                <RectangleGeometry x:Name="RectangleGeometry"/>
+            </Ellipse.Clip>
             <Ellipse.Style>
                 <Style TargetType="{x:Type Ellipse}">
                     <Setter Property="Opacity" Value="0.002"/>

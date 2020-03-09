@@ -25,13 +25,15 @@ namespace Lurker.UI.ViewModels
         #region Fields
 
         protected static int DefaultWidth = 55;
-        private ClientLurker _lurker;
+        private ClientLurker _clientLurker;
+        private ClipboardLurker _clipboardLurker;
         private PoeKeyboardHelper _keyboardHelper;
         private Timer _timer;
         private IEventAggregator _eventAggregator;
         private OutgoingbarContext _context;
         private System.Action _removeActive;
         private OutgoingOfferViewModel _activeOffer;
+        private string _lastOutgoingOfferText;
 
         #endregion
 
@@ -42,18 +44,20 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="lurker">The lurker.</param>
         /// <param name="windowManager">The window manager.</param>
-        public OutgoingbarViewModel(IEventAggregator eventAggregator, ClientLurker lurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper, SettingsService settingsService, IWindowManager windowManager) 
-            : base(windowManager, dockingHelper, lurker, settingsService)
+        public OutgoingbarViewModel(IEventAggregator eventAggregator, ClipboardLurker clipboardLurker, ClientLurker clientLurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper, SettingsService settingsService, IWindowManager windowManager) 
+            : base(windowManager, dockingHelper, clientLurker, settingsService)
         {
             this.Offers = new ObservableCollection<OutgoingOfferViewModel>();
             this._timer = new Timer(50);
             this._timer.Elapsed += this.Timer_Elapsed;
             this._keyboardHelper = keyboardHelper;
-            this._lurker = lurker;
+            this._clientLurker = clientLurker;
+            this._clipboardLurker = clipboardLurker;
             this._eventAggregator = eventAggregator;
 
-            this._lurker.OutgoingOffer += this.Lurker_OutgoingOffer;
-            this._lurker.TradeAccepted += this.Lurker_TradeAccepted;
+            this._clipboardLurker.NewOffer += this.ClipboardLurker_NewOffer;
+            this._clientLurker.OutgoingOffer += this.Lurker_OutgoingOffer;
+            this._clientLurker.TradeAccepted += this.Lurker_TradeAccepted;
             this.Offers.CollectionChanged += this.Offers_CollectionChanged;
             this._context = new OutgoingbarContext(this.RemoveOffer, this.SetActiveOffer);
         }
@@ -75,6 +79,22 @@ namespace Lurker.UI.ViewModels
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Clipboards the lurker new offer.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="newOfferText">The new offer text.</param>
+        private void ClipboardLurker_NewOffer(object sender, string newOfferText)
+        {
+            if (this._lastOutgoingOfferText == newOfferText)
+            {
+                return;
+            }
+
+            this._lastOutgoingOfferText = newOfferText;
+            this._keyboardHelper.SendMessage(newOfferText);
+        }
 
         /// <summary>
         /// Handles the Elapsed event of the Timer control.
@@ -181,8 +201,8 @@ namespace Lurker.UI.ViewModels
         {
             if (close)
             {
-                this._lurker.OutgoingOffer -= this.Lurker_OutgoingOffer;
-                this._lurker.TradeAccepted -= this.Lurker_TradeAccepted;
+                this._clientLurker.OutgoingOffer -= this.Lurker_OutgoingOffer;
+                this._clientLurker.TradeAccepted -= this.Lurker_TradeAccepted;
                 this.Offers.CollectionChanged -= this.Offers_CollectionChanged;
             }
 
