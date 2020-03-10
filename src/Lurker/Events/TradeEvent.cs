@@ -20,7 +20,7 @@ namespace Lurker.Events
         #region Fields
 
         protected static readonly string[] GreetingMarkers = new string[] { "Hi, I would like to buy your", "Hi, I'd like to buy your", "wtb" };
-        private static readonly string[] PriceMarkers = new string[] { "listed for", "for my" };
+        private static readonly string[] PriceMarkers = new string[] { "listed for", "for my", "for" };
         private static readonly string LocationMarker = "(";
         private static readonly string LocationMarkerEnd = ")";
         private static readonly string PositionMarker = "position: ";
