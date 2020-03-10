@@ -10,7 +10,7 @@ namespace Lurker.UI.ViewModels
     using Lurker.Events;
     using Lurker.Helpers;
     using Lurker.UI.Models;
-    using System;
+    using System.Windows.Input;
 
     public class OutgoingOfferViewModel: PropertyChangedBase
     {
@@ -127,10 +127,24 @@ namespace Lurker.UI.ViewModels
         #region Methods
 
         /// <summary>
+        /// Whoes the is.
+        /// </summary>
+        public void WhoIs()
+        {
+            this._keyboardHelper.WhoIs(this._event.PlayerName);
+        }
+
+        /// <summary>
         /// Mains the action.
         /// </summary>
         public void MainAction()
         {
+            if (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt))
+            {
+                this._barContext.SetActiveOffer(this);
+                return;
+            }
+
             if (this._skipMainAction)
             {
                 this._skipMainAction = false;

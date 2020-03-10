@@ -11,6 +11,8 @@ namespace Lurker.Extensions
 
     public static class StringExtension
     {
+        private static char WildCard = '*';
+
         /// <summary>
         /// Splits the specified split value.
         /// </summary>
@@ -84,6 +86,53 @@ namespace Lurker.Extensions
 
             var textBefore = value.Substring(0, index + marker.Length);
             return textBefore.Split(System.Environment.NewLine).Last().Trim();
+        }
+
+        /// <summary>
+        /// Matches the specified criteria.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>If match</returns>
+        public static bool Match(this string value, string criteria)
+        {
+            if (string.IsNullOrEmpty(criteria))
+            {
+                return false;
+            }
+
+            var results = criteria.Split(WildCard);
+            var firstResult = results.First();
+            if (!string.IsNullOrEmpty(firstResult))
+            {
+                if (results.Length == 1)
+                {
+                    return value == firstResult;
+                }
+
+                if (!value.StartsWith(firstResult))
+                {
+                    return false;
+                }
+            }
+
+            var index = value.IndexOf(firstResult);
+            value = value.Substring(index + firstResult.Length);
+
+            results = results.Skip(1).ToArray();
+
+            foreach (var result in results)
+            {
+                var resultIndex = value.IndexOf(result);
+                if (resultIndex == -1)
+                {
+                    return false;
+                }
+
+                value = value.Substring(resultIndex + result.Length);
+            }
+
+            return true;
         }
     }
 }

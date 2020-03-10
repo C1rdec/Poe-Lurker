@@ -27,7 +27,7 @@
             MaxWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border CornerRadius="4">
+                    <Border CornerRadius="4" cal:Message.Attach="[Event MouseRightButtonUpEvent] = [Action WhoIs]">
                         <Border.Style>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="Background" Value="#BDC2BF"/>

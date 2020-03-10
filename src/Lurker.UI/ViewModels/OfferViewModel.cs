@@ -192,6 +192,14 @@ namespace Lurker.UI.ViewModels
         #region Methods
 
         /// <summary>
+        /// Whoes the is.
+        /// </summary>
+        public void WhoIs()
+        {
+            this._keyboardHelper.WhoIs(this.PlayerName);
+        }
+
+        /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
         public void Dispose()

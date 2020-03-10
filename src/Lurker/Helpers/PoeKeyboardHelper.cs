@@ -26,6 +26,15 @@ namespace Lurker.Helpers
         #region Methods
 
         /// <summary>
+        /// Whoes the is.
+        /// </summary>
+        /// <param name="playerName">Name of the player.</param>
+        public void WhoIs(string playerName)
+        {
+            this.SendCommand($@"/whois {playerName}");
+        }
+
+        /// <summary>
         /// Invites to party.
         /// </summary>
         /// <param name="playerName">Name of the player.</param>

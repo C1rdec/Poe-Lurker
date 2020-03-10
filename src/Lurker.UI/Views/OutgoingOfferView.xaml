@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:Lurker.UI.Views"
              xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" >
-    <Border BorderThickness="1" CornerRadius="2" Margin="0,0,0,2">
+    <Border BorderThickness="1" CornerRadius="2" Margin="0,0,0,2" Focusable="False">
         <Border.Style>
             <Style TargetType="Border">
                 <Style.Triggers>
@@ -17,10 +17,10 @@
                 </Style.Triggers>
             </Style>
         </Border.Style>
-        <Button x:Name="MainAction" Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" >
+        <Button x:Name="MainAction" Focusable="False" Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" >
             <Button.Template>
             <ControlTemplate TargetType="{x:Type Button}">
-                <Border CornerRadius="4">
+                    <Border CornerRadius="4" cal:Message.Attach="[Event MouseRightButtonUpEvent] = [Action WhoIs]">
                     <Border.Style>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="Background" Value="#5f4321"/>
