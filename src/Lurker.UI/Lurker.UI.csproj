@@ -299,6 +299,7 @@
     </EmbeddedResource>
     <Resource Include="Assets\Fontin.ttf" />
     <None Include="app.manifest" />
+    <None Include="Lurker.nuspec" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -377,6 +378,12 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\squirrel.windows.1.9.1\build\squirrel.windows.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\squirrel.windows.1.9.1\build\squirrel.windows.props'))" />
     <Error Condition="!Exists('..\..\packages\squirrel.windows.1.9.1\build\squirrel.windows.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\squirrel.windows.1.9.1\build\squirrel.windows.targets'))" />
+  </Target>
+  <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release'">
+    <GetAssemblyIdentity AssemblyFiles="$(TargetPath)">
+      <Output TaskParameter="Assemblies" ItemName="myAssemblyInfo" />
+    </GetAssemblyIdentity>
+    <Exec Command="nuget pack Lurker.nuspec -Version %(myAssemblyInfo.Version) -Properties Configuration=Release -OutputDirectory $(OutDir) -BasePath $(OutDir)" />
   </Target>
   <Import Project="..\..\packages\squirrel.windows.1.9.1\build\squirrel.windows.targets" Condition="Exists('..\..\packages\squirrel.windows.1.9.1\build\squirrel.windows.targets')" />
 </Project>
