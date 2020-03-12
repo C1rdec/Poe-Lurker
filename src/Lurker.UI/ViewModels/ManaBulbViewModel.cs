@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="LifeBulbViewModel.cs" company="Wohs">
+// <copyright file="ManaBulbViewModel.cs" company="Wohs">
 //     Missing Copyright information from a valid stylecop.json file.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -13,12 +13,13 @@ namespace Lurker.UI.ViewModels
     using Lurker.UI.Models;
     using Lurker.UI.Views;
 
-    public class LifeBulbViewModel : BulbViewModel, IHandle<LifeBulbMessage>
+    public class ManaBulbViewModel : BulbViewModel, IHandle<ManaBulbMessage>
     {
         #region Fields
 
         private IEventAggregator _eventAggregator;
         private PoeKeyboardHelper _keyboardHelper;
+        private SettingsViewModel _settingsViewModel;
 
         #endregion
 
@@ -31,10 +32,11 @@ namespace Lurker.UI.ViewModels
         /// <param name="dockingHelper">The docking helper.</param>
         /// <param name="lurker"></param>
         /// <param name="settingsService"></param>H
-        public LifeBulbViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, DockingHelper dockingHelper, ClientLurker lurker, SettingsService settingsService, PoeKeyboardHelper keyboard) 
+        public ManaBulbViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, DockingHelper dockingHelper, ClientLurker lurker, SettingsService settingsService, PoeKeyboardHelper keyboard, SettingsViewModel settingsViewModel) 
             : base(windowManager, dockingHelper, lurker, settingsService)
         {
             this._keyboardHelper = keyboard;
+            this._settingsViewModel = settingsViewModel;
             this._eventAggregator = eventAggregator;
             this._eventAggregator.Subscribe(this);
         }
@@ -47,7 +49,7 @@ namespace Lurker.UI.ViewModels
         /// Handles the message.
         /// </summary>
         /// <param name="message">The message.</param>
-        public void Handle(LifeBulbMessage message)
+        public void Handle(ManaBulbMessage message)
         {
             this.SetAction(message);
         }
@@ -63,10 +65,9 @@ namespace Lurker.UI.ViewModels
             {
                 this._view.Height = value;
                 this._view.Width = value;
-                this._view.Left = windowInformation.Position.Left + 6;
+                this._view.Left = windowInformation.Position.Right - value -  6;
                 this._view.Top = windowInformation.Position.Bottom - value;
-                var lifeView = this._view as LifeBulbView;
-                lifeView.ResizeLifeBulb();
+                var lifeView = this._view as ManaBulbView;
             });
         }
 
@@ -75,7 +76,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         protected override void DefaultAction()
         {
-            this._keyboardHelper.JoinHideout();
+            this._eventAggregator.PublishOnUIThread(this._settingsViewModel);
         }
 
         #endregion

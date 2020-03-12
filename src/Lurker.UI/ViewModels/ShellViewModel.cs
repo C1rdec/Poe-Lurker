@@ -22,7 +22,7 @@ namespace Lurker.UI
     using System.Text;
     using System.Threading.Tasks;
 
-    public class ShellViewModel : Conductor<Screen>.Collection.AllActive , IViewAware
+    public class ShellViewModel : Conductor<Screen>.Collection.AllActive , IViewAware, IHandle<Screen>
     {
         #region Fields
 
@@ -33,10 +33,12 @@ namespace Lurker.UI
         private TradebarViewModel _incomingTradeBarOverlay;
         private OutgoingbarViewModel _outgoingTradeBarOverlay;
         private LifeBulbViewModel _lifeBulbOverlay;
+        private ManaBulbViewModel _manaBulbOverlay;
         private SettingsService _settingsService;
         private ItemOverlayViewModel _itemOverlay;
         private UpdateManager _updateManager;
         private SettingsViewModel _settingsViewModel;
+        private IEventAggregator _eventAggregator;
         private bool _startWithWindows;
         private bool _needUpdate;
         private bool _showInTaskBar;
@@ -51,8 +53,9 @@ namespace Lurker.UI
         /// </summary>
         /// <param name="windowManager">The window manager.</param>
         /// <param name="container">The container.</param>
-        public ShellViewModel(SimpleContainer container, SettingsService settingsService, UpdateManager updateManager, SettingsViewModel settingsViewModel)
+        public ShellViewModel(SimpleContainer container, SettingsService settingsService, UpdateManager updateManager, SettingsViewModel settingsViewModel, IEventAggregator eventAggregator)
         {
+            this._eventAggregator = eventAggregator;
             this._settingsService = settingsService;
             this._container = container;
             this._updateManager = updateManager;
@@ -68,6 +71,8 @@ namespace Lurker.UI
                 settingsService.Save();
                 Process.Start("https://github.com/C1rdec/Poe-Lurker/releases/latest");
             }
+
+            this._eventAggregator.Subscribe(this);
         }
 
         #endregion
@@ -198,6 +203,7 @@ namespace Lurker.UI
         /// </summary>
         public void Close()
         {
+            this._eventAggregator.Unsubscribe(this);
             this.CleanUp();
             this.TryClose();
         }
@@ -277,10 +283,12 @@ namespace Lurker.UI
                 this._incomingTradeBarOverlay = this._container.GetInstance<TradebarViewModel>();
                 this._outgoingTradeBarOverlay = this._container.GetInstance<OutgoingbarViewModel>();
                 this._lifeBulbOverlay = this._container.GetInstance<LifeBulbViewModel>();
+                this._manaBulbOverlay = this._container.GetInstance<ManaBulbViewModel>();
 
                 this.ActivateItem(this._incomingTradeBarOverlay);
                 this.ActivateItem(this._outgoingTradeBarOverlay);
                 this.ActivateItem(this._lifeBulbOverlay);
+                this.ActivateItem(this._manaBulbOverlay);
             });
         }
 
@@ -356,6 +364,20 @@ namespace Lurker.UI
             this.IsItemOverlayOpen = false;
             this.ItemOverlayViewModel = new ItemOverlayViewModel(e, () => { this.IsItemOverlayOpen = false; });
             this.IsItemOverlayOpen = true;
+        }
+
+        /// <summary>
+        /// Handles the specified screen.
+        /// </summary>
+        /// <param name="screen">The screen.</param>
+        public void Handle(Screen screen)
+        {
+            if (screen.IsActive)
+            {
+                return;
+            }
+
+            this.ActivateItem(screen);
         }
 
         #endregion

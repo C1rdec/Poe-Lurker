@@ -66,6 +66,12 @@ namespace Lurker.Models
         public bool ToolTipEnabled { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [clipboard enabled].
+        /// </summary>
+        [DefaultValue(true)]
+        public bool ClipboardEnabled { get; set; }
+
+        /// <summary>
         /// Gets or sets the tooltip delay.
         /// </summary>
         [DefaultValue(1000)]

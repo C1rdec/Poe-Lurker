@@ -87,7 +87,7 @@ namespace Lurker.UI.ViewModels
         /// <param name="newOfferText">The new offer text.</param>
         private void ClipboardLurker_NewOffer(object sender, string newOfferText)
         {
-            if (this._lastOutgoingOfferText == newOfferText)
+            if (!this._settingsService.ClipboardEnabled || this._lastOutgoingOfferText == newOfferText)
             {
                 return;
             }

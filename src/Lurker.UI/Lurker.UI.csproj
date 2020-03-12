@@ -182,6 +182,8 @@
     <Compile Include="Helpers\DockingHelper.cs" />
     <Compile Include="Helpers\UpdateManager.cs" />
     <Compile Include="Models\DoubleClickCommand.cs" />
+    <Compile Include="Models\BulbMessage.cs" />
+    <Compile Include="Models\ManaBulbMessage.cs" />
     <Compile Include="Models\LifeBulbMessage.cs" />
     <Compile Include="Models\OutgoingbarContext.cs" />
     <Compile Include="Models\PoeWindowInformation.cs" />
@@ -192,6 +194,8 @@
       <DependentUpon>Svg.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ItemOverlayViewModel.cs" />
+    <Compile Include="ViewModels\BulbViewModelBase.cs" />
+    <Compile Include="ViewModels\ManaBulbViewModel.cs" />
     <Compile Include="ViewModels\LifeBulbViewModel.cs" />
     <Compile Include="ViewModels\OfferStatus.cs" />
     <Compile Include="ViewModels\OutgoingbarViewModel.cs" />
@@ -204,6 +208,9 @@
     <Compile Include="ViewModels\TradeValueViewModel.cs" />
     <Compile Include="Views\ItemOverlayView.xaml.cs">
       <DependentUpon>ItemOverlayView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManaBulbView.xaml.cs">
+      <DependentUpon>ManaBulbView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LifeBulbView.xaml.cs">
       <DependentUpon>LifeBulbView.xaml</DependentUpon>
@@ -241,6 +248,10 @@
     <Page Include="Views\ItemOverlayView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManaBulbView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\LifeBulbView.xaml">
       <SubType>Designer</SubType>

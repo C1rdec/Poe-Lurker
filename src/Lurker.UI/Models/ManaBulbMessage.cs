@@ -1,12 +1,12 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="LifeBulbMessage.cs" company="Wohs">
+// <copyright file="ManaBulbMessage.cs" company="Wohs">
 //     Missing Copyright information from a valid stylecop.json file.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.UI.Models
 {
-    public class LifeBulbMessage : BulbMessage
+    public class ManaBulbMessage : BulbMessage
     {
     }
 }

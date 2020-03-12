@@ -237,6 +237,22 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [clipboard enabled].
+        /// </summary>
+        public bool ClipboardEnabled
+        {
+            get
+            {
+                return this._settings.ClipboardEnabled;
+            }
+
+            set
+            {
+                this._settings.ClipboardEnabled = value;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the alert volume.
         /// </summary>
         public float AlertVolume

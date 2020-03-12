@@ -10,6 +10,7 @@ namespace Lurker.UI.ViewModels
     using Lurker.Helpers;
     using Lurker.Services;
     using Lurker.UI.Helpers;
+    using MahApps.Metro.Controls;
     using System;
     using System.Diagnostics;
     using System.Security.Authentication;
@@ -206,6 +207,23 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [clipboard enabled].
+        /// </summary>
+        public bool ClipboardEnabled
+        {
+            get
+            {
+                return this._settingService.ClipboardEnabled;
+            }
+
+            set
+            {
+                this._settingService.ClipboardEnabled = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [debug enabled].
         /// </summary>
         public bool DebugEnabled
@@ -339,6 +357,17 @@ namespace Lurker.UI.ViewModels
         public void Pledge()
         {
             Process.Start("https://www.patreon.com/poelurker");
+        }
+
+        /// <summary>
+        /// Called when an attached view's Loaded event fires.
+        /// </summary>
+        /// <param name="view"></param>
+        protected override void OnViewLoaded(object view)
+        {
+            var window = view as MetroWindow;
+            window.Activate();
+            base.OnViewLoaded(view);
         }
 
         /// <summary>
