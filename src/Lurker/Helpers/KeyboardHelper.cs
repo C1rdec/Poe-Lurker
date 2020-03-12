@@ -7,6 +7,7 @@
 namespace Lurker.Helpers
 {
     using System;
+    using System.Threading;
     using WindowsInput;
 
     public class KeyboardHelper
@@ -77,8 +78,11 @@ namespace Lurker.Helpers
         protected void SendCommand(string command)
         {            
             lock (CommandLock)
-            {                
+            {
+                // This is to fix the first SetForegroundWindow
+                this._simulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.LMENU);
                 Native.SetForegroundWindow(this._windowHandle);
+
                 this._simulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.RETURN);
                 this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_A);
 
