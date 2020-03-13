@@ -12,14 +12,6 @@ If you like and use Poe Lurker please consider signing up for a small monthly [P
 
 ## Key Features
 
-- **Very simple to use.**  
-You'll only need to start the application once since PoeLurker will Start/Stop with Path of Exile and the overlay will be placed automatically. You can even set the application to start when Windows start and dont think about it again. ![](SystemTray.png)
-
-- **Auto Update.**  
-Poe Lurker will detect that a new version can be installed and the tray icon will turn yellow with an additional option to "Update".
-
-![](https://i.imgur.com/MFDMsku.png)
-
 - **Incoming Trades**
 
 Keep track of your incoming trade request in a convenient overlay located above the exp bar.
@@ -28,12 +20,20 @@ The main action have two states... The first one is to send the party invite and
 
 ![](assets/Incoming.gif)
 
+- **Item highlight in stash.**
+
+![](assets/StashTab.gif)
+
 - **Outgoing Trades**
 
 The overlay will display the first 4 letters of the playername. The trade request is represented by a button with 1 main action and 2 sub actions possible. The main action is to join the player hideout. Sub actions are meant to resend the offer and the other sub action is to deny. They are located in the top Left and Right corner of the main action..
 
 ![](assets/Outgoing.gif)
 
-- **Item highlight in stash.**
+- **Very simple to use.**  
+You'll only need to start the application once since PoeLurker will Start/Stop with Path of Exile and the overlay will be placed automatically. You can even set the application to start when Windows start and dont think about it again. ![](SystemTray.png)
 
-![](assets/StashTab.gif)
+- **Auto Update.**  
+Poe Lurker will detect that a new version can be installed and the tray icon will turn yellow with an additional option to "Update".
+
+![](https://i.imgur.com/MFDMsku.png)
