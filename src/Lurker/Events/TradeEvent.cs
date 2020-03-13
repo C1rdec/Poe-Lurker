@@ -20,7 +20,7 @@ namespace Lurker.Events
         #region Fields
 
         protected static readonly string[] GreetingMarkers = new string[] { "Hi, I would like to buy your", "Hi, I'd like to buy your", "wtb" };
-        private static readonly string[] PriceMarkers = new string[] { "listed for", "for my", "for" };
+        private static readonly string[] PriceMarkers = new string[] { "listed for", "for my", " for" };
         private static readonly string LocationMarker = "(";
         private static readonly string LocationMarkerEnd = ")";
         private static readonly string PositionMarker = "position: ";
@@ -207,6 +207,11 @@ namespace Lurker.Events
         public Price ParsePrice(string priceValue)
         {
             var values = priceValue.Split(' ');
+            if (!double.TryParse(values[0], out _))
+            {
+                return new Price();
+            }
+
             var currencyTypeValue = string.Join(" ", values.Skip(1));
 
             return new Price()
