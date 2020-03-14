@@ -283,12 +283,12 @@ namespace Lurker.UI
                 this._incomingTradeBarOverlay = this._container.GetInstance<TradebarViewModel>();
                 this._outgoingTradeBarOverlay = this._container.GetInstance<OutgoingbarViewModel>();
                 this._lifeBulbOverlay = this._container.GetInstance<LifeBulbViewModel>();
-                this._manaBulbOverlay = this._container.GetInstance<ManaBulbViewModel>();
+                //this._manaBulbOverlay = this._container.GetInstance<ManaBulbViewModel>();
 
                 this.ActivateItem(this._incomingTradeBarOverlay);
                 this.ActivateItem(this._outgoingTradeBarOverlay);
                 this.ActivateItem(this._lifeBulbOverlay);
-                this.ActivateItem(this._manaBulbOverlay);
+                //this.ActivateItem(this._manaBulbOverlay);
             });
         }
 
