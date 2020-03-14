@@ -44,8 +44,8 @@
                                             Foreground="#a6b1e1"
                                             Margin="0,0,2,0"
                                             Visibility="{Binding BuyerInSameInstance, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                            Height="10"
-                                            Width="10"
+                                            Height="14"
+                                            Width="14"
                                             Data="{x:Static local:IconPackData.Cold}"/>
                                 </Grid>
                             </Border>
@@ -69,8 +69,8 @@
                                         Foreground="#ff9994"
                                         Margin="0,0,2,0"
                                         Visibility="{Binding BuyerInSameInstance, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                        Height="10"
-                                        Width="10"
+                                        Height="14"
+                                        Width="14"
                                         Data="{x:Static local:IconPackData.Fire}"/>
                                 </Grid>
                             </Border>
@@ -94,8 +94,8 @@
                                             Grid.Row="2"
                                             Margin="0,0,2,0"
                                             Visibility="{Binding BuyerInSameInstance, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                            Height="10"
-                                            Width="10"
+                                            Height="14"
+                                            Width="14"
                                             Data="{x:Static local:IconPackData.Lightning}"/>
                                 </Grid>
                             </Border>
