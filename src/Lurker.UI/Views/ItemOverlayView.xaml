@@ -4,12 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Lurker.UI"
+             xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="100">
-    <Button x:Name="Close" Width="150">
+    <Button Width="150">
         <Button.Template>
             <ControlTemplate TargetType="{x:Type Button}">
-                <Border Background="Gray" CornerRadius="4">
+                <Border Background="Gray" CornerRadius="4" cal:Message.Attach="[Event MouseLeave] = [Action Close()]">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>

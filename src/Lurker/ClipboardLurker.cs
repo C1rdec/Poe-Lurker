@@ -13,6 +13,7 @@ namespace Lurker
     using Lurker.Parser;
     using Lurker.Services;
     using System;
+    using System.Collections.Generic;
     using System.Threading;
     using System.Windows;
     using WK.Libraries.SharpClipboardNS;
@@ -21,12 +22,11 @@ namespace Lurker
     {
         #region Fields
 
-        private static readonly IKeyboardMouseEvents GlobalHook = Hook.GlobalEvents();
-        private const char CtrlD = '\u0004';
         private ItemParser _itemParser = new ItemParser();
         private SettingsService _settingsService;
         private SharpClipboard _clipboardMonitor;
         private string _lastClipboardText = string.Empty;
+        private IKeyboardMouseEvents _keyboardEvent;
 
         #endregion
 
@@ -41,7 +41,15 @@ namespace Lurker
             this._clipboardMonitor = new SharpClipboard();
             this._settingsService = settingsService;
 
-            GlobalHook.KeyPress += this.GlobalHookKeyPress;
+            var ctrlD = Combination.TriggeredBy(System.Windows.Forms.Keys.D).With(System.Windows.Forms.Keys.Control);
+            var assignment = new Dictionary<Combination, Action>
+            {
+                {ctrlD, this.ParseItem},
+            };
+
+            this._keyboardEvent = Hook.GlobalEvents();
+            this._keyboardEvent.OnCombination(assignment);
+
             this._clipboardMonitor.ClipboardChanged += ClipboardMonitor_ClipboardChanged;
         }
 
@@ -79,7 +87,7 @@ namespace Lurker
         {
             if (disposing)
             {
-                GlobalHook.KeyPress -= this.GlobalHookKeyPress;
+                this._keyboardEvent.Dispose();
                 this._clipboardMonitor.ClipboardChanged -= ClipboardMonitor_ClipboardChanged;
             }
         }
@@ -129,32 +137,23 @@ namespace Lurker
         }
 
         /// <summary>
-        /// Globals the hook key press.
+        /// Parses the item.
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="KeyPressEventArgs" /> instance containing the event data.</param>
-        private async void GlobalHookKeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
+        private void ParseItem()
         {
-            switch(e.KeyChar)
+            if (!this._settingsService.SearchEnabled)
             {
-                case CtrlD:
-                    if (this._settingsService.SearchEnabled)
-                    {
-                        var isInitialize = await AffixService.InitializeAsync();
-                        if (isInitialize)
-                        {
-                            System.Windows.Forms.SendKeys.SendWait("^C");
-                            var item = this._itemParser.Parse(this.GetClipboardText());
-                            if (item != null)
-                            {
-                                this.Newitem?.Invoke(this, item);
-                                Clipboard.Clear();
-                            }
-                        }
-                    }
-
-                    break;
+                return;
             }
+
+            System.Windows.Forms.SendKeys.SendWait("^C");
+            var item = this._itemParser.Parse(this.GetClipboardText());
+            if (item != null)
+            {
+                this.Newitem?.Invoke(this, item);
+                Clipboard.Clear();
+            }
+
         }
 
         #endregion

@@ -49,7 +49,7 @@
             </tb:TaskbarIcon.ContextMenu>
         </tb:TaskbarIcon>
 
-        <Popup IsOpen="{Binding IsItemOverlayOpen}" Placement="Mouse" PopupAnimation="Slide">
+        <Popup IsOpen="{Binding IsItemOverlayOpen}" Placement="MousePoint" VerticalOffset="-15" HorizontalOffset="-15">
             <ContentControl cal:View.Model="{Binding ItemOverlayViewModel}"/>
         </Popup>
     </Grid>
