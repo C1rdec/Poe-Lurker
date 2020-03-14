@@ -16,12 +16,14 @@ namespace Lurker
     using System.Collections.Generic;
     using System.Threading;
     using System.Windows;
+    using WindowsInput;
     using WK.Libraries.SharpClipboardNS;
 
     public class ClipboardLurker: IDisposable
     {
         #region Fields
 
+        private InputSimulator _simulator;
         private ItemParser _itemParser = new ItemParser();
         private SettingsService _settingsService;
         private SharpClipboard _clipboardMonitor;
@@ -38,6 +40,7 @@ namespace Lurker
         public ClipboardLurker(SettingsService settingsService)
         {
             Clipboard.Clear();
+            this._simulator = new InputSimulator();
             this._clipboardMonitor = new SharpClipboard();
             this._settingsService = settingsService;
 
@@ -146,7 +149,7 @@ namespace Lurker
                 return;
             }
 
-            System.Windows.Forms.SendKeys.SendWait("^C");
+            this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_C);
             var item = this._itemParser.Parse(this.GetClipboardText());
             if (item != null)
             {
