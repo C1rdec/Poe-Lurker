@@ -41,10 +41,10 @@ namespace Lurker
             this._clipboardMonitor = new SharpClipboard();
             this._settingsService = settingsService;
 
-            var ctrlF = Combination.TriggeredBy(System.Windows.Forms.Keys.F).With(System.Windows.Forms.Keys.Control);
+            var ctrlE = Combination.TriggeredBy(System.Windows.Forms.Keys.E).With(System.Windows.Forms.Keys.Control);
             var assignment = new Dictionary<Combination, Action>
             {
-                {ctrlF, this.ParseItem},
+                {ctrlE, this.ParseItem},
             };
 
             this._keyboardEvent = Hook.GlobalEvents();
