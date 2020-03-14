@@ -272,8 +272,8 @@ namespace Lurker.Services
         /// <returns>The sum of the affixes</returns>
         private static double AffixSum(IEnumerable<string> values, PoeItem item)
         {
-            return item.Affixes.Where(a => values.Contains(a.Text)).Sum(a => a.Value);
-
+            var affixes = item.Affixes.GroupBy(a => a.Id).Select(g => g.First()).Where(a => values.Contains(a.Text)).Distinct();
+            return affixes.Sum(a => a.Value);
         }
 
         #endregion
