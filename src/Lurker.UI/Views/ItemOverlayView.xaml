@@ -6,35 +6,17 @@
              xmlns:local="clr-namespace:Lurker.UI"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="100">
-    <Button x:Name="Close" Width="100">
+    <Button x:Name="Close" Width="150">
         <Button.Template>
             <ControlTemplate TargetType="{x:Type Button}">
                 <Border Background="Gray" CornerRadius="4">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition Width="auto"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock FontSize="18" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Rarity}"/>
-                            <TextBlock FontSize="10" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ItemLevel}"/>
-                        </Grid>
-                        <Grid Grid.Row="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="{Binding TotalLifeCount}" FontWeight="UltraBlack" Foreground="Crimson" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            <Border Grid.Column="1" Background="DarkGray" CornerRadius="10,0,0,0">
-                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13" Text="{Binding TotalElementalResistance}"></TextBlock>
-                            </Border>
-                        </Grid>
+                        <TextBlock Text="{Binding TotalLifeCount}" FontWeight="Black" Foreground="#ff9e99" FontSize="56" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        
                         <Grid Grid.Row="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition></ColumnDefinition>
@@ -53,18 +35,18 @@
                                         </Style.Triggers>
                                     </Style>
                                 </Border.Style>
-                                <StackPanel Orientation="Horizontal">
-                                    <local:IconPack HorizontalAlignment="Left"
+                                <Grid>
+                                    <TextBlock  HorizontalAlignment="Center" Text="{Binding TotalColdResistance}" FontSize="28"/>
+                                    <local:IconPack
                                             VerticalAlignment="Bottom"
-                                            Foreground="White"
-                                            Grid.Row="2"
-                                            Margin="1,0,0,0"
+                                            HorizontalAlignment="Right"
+                                            Foreground="#a6b1e1"
+                                            Margin="0,0,2,0"
                                             Visibility="{Binding BuyerInSameInstance, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                            Height="15"
-                                            Width="15"
+                                            Height="10"
+                                            Width="10"
                                             Data="{x:Static local:IconPackData.Cold}"/>
-                                    <TextBlock Margin="0,0,4,0" Text="{Binding TotalColdResistance}" HorizontalAlignment="Right"/>
-                                </StackPanel>
+                                </Grid>
                             </Border>
                             <Border Background="Red" Cursor="Hand" Grid.Column="1">
                                 <Border.Style>
@@ -78,18 +60,18 @@
                                         </Style.Triggers>
                                     </Style>
                                 </Border.Style>
-                                <StackPanel Orientation="Horizontal">
-                                    <local:IconPack HorizontalAlignment="Left"
+                                <Grid>
+                                    <TextBlock HorizontalAlignment="Center" Text="{Binding TotalFireResistance}" FontSize="28" />
+                                    <local:IconPack 
                                         VerticalAlignment="Bottom"
-                                        Foreground="White"
-                                        Grid.Row="2"
-                                        Margin="1,0,0,0"
+                                        HorizontalAlignment="Right"
+                                        Foreground="#ff9994"
+                                        Margin="0,0,2,0"
                                         Visibility="{Binding BuyerInSameInstance, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                        Height="15"
-                                        Width="15"
+                                        Height="10"
+                                        Width="10"
                                         Data="{x:Static local:IconPackData.Fire}"/>
-                                    <TextBlock Margin="0,0,4,0" Text="{Binding TotalFireResistance}" HorizontalAlignment="Right" />
-                                </StackPanel>
+                                </Grid>
                             </Border>
                             <Border CornerRadius="0,0,4,0" Cursor="Hand" Background="Yellow" Grid.Column="2">
                                 <Border.Style>
@@ -103,18 +85,18 @@
                                         </Style.Triggers>
                                     </Style>
                                 </Border.Style>
-                                <StackPanel Orientation="Horizontal">
-                                    <local:IconPack HorizontalAlignment="Left"
+                                <Grid>
+                                    <TextBlock Text="{Binding TotalLightningResistance}" HorizontalAlignment="Center" FontSize="28"  Foreground="Black"/>
+                                    <local:IconPack HorizontalAlignment="Right"
                                             VerticalAlignment="Bottom"
-                                            Foreground="Black"
+                                            Foreground="#af8404"
                                             Grid.Row="2"
-                                            Margin="1,0,0,0"
+                                            Margin="0,0,2,0"
                                             Visibility="{Binding BuyerInSameInstance, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                            Height="15"
-                                            Width="15"
+                                            Height="10"
+                                            Width="10"
                                             Data="{x:Static local:IconPackData.Lightning}"/>
-                                    <TextBlock Margin="0,0,4,0" Text="{Binding TotalLightningResistance}" HorizontalAlignment="Right" Foreground="Black"/>
-                                </StackPanel>
+                                </Grid>
                             </Border>
                         </Grid>
                     </Grid>
