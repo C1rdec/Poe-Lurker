@@ -193,6 +193,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Svg.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\AffixViewModel.cs" />
     <Compile Include="ViewModels\ItemOverlayViewModel.cs" />
     <Compile Include="ViewModels\BulbViewModelBase.cs" />
     <Compile Include="ViewModels\ManaBulbViewModel.cs" />
@@ -206,6 +207,9 @@
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\TradebarViewModel.cs" />
     <Compile Include="ViewModels\TradeValueViewModel.cs" />
+    <Compile Include="Views\AffixView.xaml.cs">
+      <DependentUpon>AffixView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ItemOverlayView.xaml.cs">
       <DependentUpon>ItemOverlayView.xaml</DependentUpon>
     </Compile>
@@ -245,6 +249,10 @@
     <Compile Include="Views\TradeValueView.xaml.cs">
       <DependentUpon>TradeValueView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\AffixView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ItemOverlayView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

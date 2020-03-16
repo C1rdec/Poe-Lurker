@@ -55,6 +55,11 @@ namespace Lurker.Models
         #region Properties
 
         /// <summary>
+        /// Gets the important affixes.
+        /// </summary>
+        public virtual IEnumerable<Affix> ImportantAffixes => Enumerable.Empty<Affix>();
+
+        /// <summary>
         /// Gets the affixes.
         /// </summary>
         public IEnumerable<Affix> Affixes { get; private set; }

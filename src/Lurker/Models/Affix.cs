@@ -53,6 +53,11 @@ namespace Lurker.Models
         /// </summary>
         public double Value => this._value;
 
+        /// <summary>
+        /// Gets the actual value.
+        /// </summary>
+        public string ActualValue => this._actualValue;
+
         #endregion
 
         #region Methods

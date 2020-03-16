@@ -251,6 +251,28 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets the name of the affixe by.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="item">The item.</param>
+        /// <returns>The affix.</returns>
+        public static IEnumerable<Affix> GetAffixeByName(string name, PoeItem item)
+        {
+            return GetAffixeByNames(new string[] { name }, item);
+        }
+
+        /// <summary>
+        /// Gets the affixe by names.
+        /// </summary>
+        /// <param name="names">The names.</param>
+        /// <param name="item">The item.</param>
+        /// <returns>Affixes.</returns>
+        public static IEnumerable<Affix> GetAffixeByNames(IEnumerable<string> names, PoeItem item)
+        {
+            return item.Affixes.GroupBy(a => a.Id).Select(g => g.First()).Where(a => names.Contains(a.Text)).Distinct();
+        }
+
+        /// <summary>
         /// Gets the instance.
         /// </summary>
         /// <returns>The singleton.</returns>
@@ -272,7 +294,7 @@ namespace Lurker.Services
         /// <returns>The sum of the affixes</returns>
         private static double AffixSum(IEnumerable<string> values, PoeItem item)
         {
-            var affixes = item.Affixes.GroupBy(a => a.Id).Select(g => g.First()).Where(a => values.Contains(a.Text)).Distinct();
+            var affixes = GetAffixeByNames(values, item);
             return affixes.Sum(a => a.Value);
         }
 

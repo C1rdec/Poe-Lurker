@@ -193,7 +193,7 @@
                         <Controls:ToggleSwitch Grid.Row="1"
                                                Margin="0,30,0,0"
                                                HorizontalAlignment="Left"
-                                               Header="Clipboard"
+                                               Header="Auto Whisper"
                                                IsChecked="{Binding ClipboardEnabled}"/>
                         <Controls:ToggleSwitch Grid.Row="1"
                                            Margin="0,30,0,0"

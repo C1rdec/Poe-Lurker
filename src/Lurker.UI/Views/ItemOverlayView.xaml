@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:Lurker.UI"
              xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="100">
-    <Button Width="150">
+             d:DesignWidth="150">
+    <Button Width="200">
         <Button.Template>
             <ControlTemplate TargetType="{x:Type Button}">
                 <Border Background="Gray" CornerRadius="4" cal:Message.Attach="[Event MouseLeave] = [Action Close()]">
@@ -15,10 +15,10 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
                         </Grid.RowDefinitions>
                         <TextBlock Text="{Binding TotalLifeCount}" FontWeight="Black" Foreground="#ff9e99" FontSize="56" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        
-                        <Grid Grid.Row="2">
+                        <Grid Grid.Row="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
@@ -100,10 +100,21 @@
                                 </Grid>
                             </Border>
                         </Grid>
+                        <ItemsControl Grid.Row="2" ItemsSource="{Binding ImportantAffixes}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentControl HorizontalAlignment="Center" cal:View.Model="{Binding}"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </Grid>
                 </Border>
             </ControlTemplate>
         </Button.Template>
-        
     </Button>
 </UserControl>

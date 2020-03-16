@@ -8,6 +8,8 @@ namespace Lurker.UI.ViewModels
 {
     using Lurker.Models;
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class ItemOverlayViewModel: Caliburn.Micro.PropertyChangedBase
     {
@@ -42,9 +44,6 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets the itemlevel.
         /// </summary>
-        /// <value>
-        /// The itemlevel.
-        /// </value>
         public int ItemLevel => this._item.ItemLevel;
 
         /// <summary>
@@ -91,6 +90,11 @@ namespace Lurker.UI.ViewModels
         /// Gets the total elemental resistance.
         /// </summary>
         public double TotalElementalResistance => this._item.TotalElementalResistance;
+
+        /// <summary>
+        /// Gets the important affixed.
+        /// </summary>
+        public IEnumerable<AffixViewModel> ImportantAffixes => this._item.ImportantAffixes.Select(i => new AffixViewModel(i));
 
         #endregion
 

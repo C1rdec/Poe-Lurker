@@ -13,9 +13,10 @@ namespace Lurker
     using Lurker.Parser;
     using Lurker.Services;
     using System;
-    using System.Collections.Generic;
     using System.Threading;
+    using System.Threading.Tasks;
     using System.Windows;
+    using System.Windows.Input;
     using WindowsInput;
     using WK.Libraries.SharpClipboardNS;
 
@@ -44,15 +45,8 @@ namespace Lurker
             this._clipboardMonitor = new SharpClipboard();
             this._settingsService = settingsService;
 
-            var ctrlE = Combination.TriggeredBy(System.Windows.Forms.Keys.E).With(System.Windows.Forms.Keys.Control);
-            var assignment = new Dictionary<Combination, Action>
-            {
-                {ctrlE, this.ParseItem},
-            };
-
             this._keyboardEvent = Hook.GlobalEvents();
-            this._keyboardEvent.OnCombination(assignment);
-
+            this._keyboardEvent.MouseClick += this.KeyboardEvent_MouseClick;
             this._clipboardMonitor.ClipboardChanged += ClipboardMonitor_ClipboardChanged;
         }
 
@@ -96,13 +90,46 @@ namespace Lurker
         }
 
         /// <summary>
+        /// Handles the MouseClick event of the KeyboardEvent control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Forms.MouseEventArgs"/> instance containing the event data.</param>
+        private void KeyboardEvent_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
+            {
+                if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+                {
+                    this.ParseItem();
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets the clipboard data.
         /// </summary>
         /// <returns>The clipboard text.</returns>
         private string GetClipboardText()
         {
             var clipboardText = string.Empty;
-            Thread thread = new Thread(() => { clipboardText = Clipboard.GetText(); });
+            Thread thread = new Thread(() => 
+            {
+                var retryCount = 3;
+                while (retryCount != 0)
+                {
+                    try
+                    {
+                        clipboardText = Clipboard.GetText();
+                        break;
+                    }
+                    catch
+                    {
+                        retryCount--;
+                        Thread.Sleep(200);
+                    }
+                }
+                     
+            });
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
             thread.Join();
@@ -142,21 +169,51 @@ namespace Lurker
         /// <summary>
         /// Parses the item.
         /// </summary>
-        private void ParseItem()
+        private async void ParseItem()
         {
             if (!this._settingsService.SearchEnabled)
             {
                 return;
             }
 
-            this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_C);
-            var item = this._itemParser.Parse(this.GetClipboardText());
-            if (item != null)
+            PoeItem item = default;
+
+            var retryCount = 3;
+            for (int i = 0; i < retryCount; i++)
             {
-                this.Newitem?.Invoke(this, item);
-                Clipboard.Clear();
+                item = await this.GetItemInClipboard();
+                if (item == null || !item.Identified)
+                {
+                    continue;
+                }
+
+                break;
             }
 
+            if (item == null || !item.Identified)
+            {
+                return;
+            }
+
+            this.Newitem?.Invoke(this, item);
+            try
+            {
+                Clipboard.Clear();
+            }
+            catch
+            {
+            }
+        }
+
+        /// <summary>
+        /// Gets the item in clipboard.
+        /// </summary>
+        /// <returns>The item in the clipboard</returns>
+        private async Task<PoeItem> GetItemInClipboard()
+        {
+            this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_C);
+            await Task.Delay(100);
+            return this._itemParser.Parse(this.GetClipboardText());
         }
 
         #endregion
