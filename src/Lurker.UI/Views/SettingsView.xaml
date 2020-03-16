@@ -183,7 +183,7 @@
                         <Grid>
                             <Label Foreground="{DynamicResource AccentColorBrush}"
                                    VerticalAlignment="Center"
-                                   Margin="100,-10,0,0">(Ctrl + E) ** Experimental might crash **</Label>
+                                   Margin="100,-10,0,0">(Ctrl + Shift + Click) ** Experimental might crash **</Label>
                             <Controls:ToggleSwitch Grid.Row="1"
                                            Margin="0,30,0,0"
                                                    HorizontalAlignment="Left"
