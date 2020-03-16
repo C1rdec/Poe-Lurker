@@ -47,7 +47,7 @@ namespace Lurker
 
             this._keyboardEvent = Hook.GlobalEvents();
             this._keyboardEvent.MouseClick += this.KeyboardEvent_MouseClick;
-            this._clipboardMonitor.ClipboardChanged += ClipboardMonitor_ClipboardChanged;
+            this._clipboardMonitor.ClipboardChanged += this.ClipboardMonitor_ClipboardChanged;
         }
 
         #endregion
