@@ -11,6 +11,7 @@ namespace Lurker
     using Lurker.Events;
     using Lurker.Models;
     using Lurker.Parser;
+    using Lurker.Patreon;
     using Lurker.Services;
     using System;
     using System.Threading;
@@ -30,6 +31,7 @@ namespace Lurker
         private SharpClipboard _clipboardMonitor;
         private string _lastClipboardText = string.Empty;
         private IKeyboardMouseEvents _keyboardEvent;
+        private PatreonService _patreonService;
 
         #endregion
 
@@ -41,6 +43,7 @@ namespace Lurker
         public ClipboardLurker(SettingsService settingsService)
         {
             Clipboard.Clear();
+            this._patreonService = new PatreonService();
             this._simulator = new InputSimulator();
             this._clipboardMonitor = new SharpClipboard();
             this._settingsService = settingsService;
@@ -84,6 +87,7 @@ namespace Lurker
         {
             if (disposing)
             {
+                this._patreonService.Dispose();
                 this._keyboardEvent.Dispose();
                 this._clipboardMonitor.ClipboardChanged -= ClipboardMonitor_ClipboardChanged;
             }
@@ -172,6 +176,11 @@ namespace Lurker
         private async void ParseItem()
         {
             if (!this._settingsService.SearchEnabled)
+            {
+                return;
+            }
+
+            if (!await this._patreonService.IsPledging())
             {
                 return;
             }
