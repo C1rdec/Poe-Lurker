@@ -6,6 +6,9 @@
 
 namespace Lurker.Models
 {
+    using Lurker.Services;
+    using System.Collections.Generic;
+
     public class Amulet : PoeItem
     {
         #region Constructors
@@ -27,6 +30,17 @@ namespace Lurker.Models
         /// Gets the item class.
         /// </summary>
         public override ItemClass ItemClass => ItemClass.Amulet;
+
+        /// <summary>
+        /// Gets the important affixes.
+        /// </summary>
+        public override IEnumerable<Affix> ImportantAffixes => new Affix[] 
+        {
+            AffixService.ElementalDamageWithAttackAffix(this),
+            AffixService.CastSpeedAffix(this),
+            AffixService.CriticalStrikeChanceAffix(this), 
+            AffixService.CriticalStrikeMultiplierAffix(this),
+        };
 
         #endregion
     }

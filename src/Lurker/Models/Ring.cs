@@ -4,6 +4,9 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using Lurker.Services;
+using System.Collections.Generic;
+
 namespace Lurker.Models
 {
     public class Ring : PoeItem
@@ -29,5 +32,17 @@ namespace Lurker.Models
         public override ItemClass ItemClass => ItemClass.Ring;
 
         #endregion
+
+        /// <summary>
+        /// Gets the important affixes.
+        /// </summary>
+        public override IEnumerable<Affix> ImportantAffixes => new Affix[] 
+        { 
+            AffixService.AttackSpeedAffix(this),
+            AffixService.CastSpeedAffix(this),
+            AffixService.ElementalDamageWithAttackAffix(this),
+            AffixService.CriticalStrikeChanceAffix(this),
+            AffixService.CriticalStrikeMultiplierAffix(this),
+        };
     }
 }

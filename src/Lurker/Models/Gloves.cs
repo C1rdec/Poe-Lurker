@@ -6,6 +6,9 @@
 
 namespace Lurker.Models
 {
+    using Lurker.Services;
+    using System.Collections.Generic;
+
     public class Gloves : SocketableItem
     {
         #region Constructors
@@ -28,6 +31,14 @@ namespace Lurker.Models
         /// Gets or sets the item class.
         /// </summary>
         public override ItemClass ItemClass => ItemClass.Gloves;
+
+        /// <summary>
+        /// Gets the important affixes.
+        /// </summary>
+        public override IEnumerable<Affix> ImportantAffixes => new Affix[]
+        {
+            AffixService.AttackSpeedAffix(this),
+        };
 
         #endregion
     }

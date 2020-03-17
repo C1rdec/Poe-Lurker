@@ -40,7 +40,10 @@ namespace Lurker.Models
         /// <summary>
         /// Gets the important affixes.
         /// </summary>
-        public override IEnumerable<Affix> ImportantAffixes => AffixService.GetAffixeByNames(new string[] { MovementSpeedText }, this);
+        public override IEnumerable<Affix> ImportantAffixes => new Affix[] 
+        { 
+            AffixService.MovementSpeedAffix(this) 
+        };
 
         #endregion
     }

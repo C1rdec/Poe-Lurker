@@ -256,9 +256,9 @@ namespace Lurker.Services
         /// <param name="name">The name.</param>
         /// <param name="item">The item.</param>
         /// <returns>The affix.</returns>
-        public static IEnumerable<Affix> GetAffixeByName(string name, PoeItem item)
+        public static Affix GetAffixeByName(string name, PoeItem item)
         {
-            return GetAffixeByNames(new string[] { name }, item);
+            return GetAffixeByNames(new string[] { name }, item).FirstOrDefault();
         }
 
         /// <summary>
@@ -270,6 +270,66 @@ namespace Lurker.Services
         public static IEnumerable<Affix> GetAffixeByNames(IEnumerable<string> names, PoeItem item)
         {
             return item.Affixes.GroupBy(a => a.Id).Select(g => g.First()).Where(a => names.Contains(a.Text)).Distinct();
+        }
+
+        /// <summary>
+        /// Mouvements the speed affix.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>The affix.</returns>
+        public static Affix AttackSpeedAffix(PoeItem item)
+        {
+            return GetAffixeByName("#% increased Attack Speed", item);
+        }
+
+        /// <summary>
+        /// Mouvements the speed affix.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>The affix.</returns>
+        public static Affix MovementSpeedAffix(PoeItem item)
+        {
+            return GetAffixeByName("#% increased Movement Speed", item);
+        }
+
+        /// <summary>
+        /// Criticals the strike chance affix.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>The affix.</returns>
+        public static Affix CriticalStrikeChanceAffix(PoeItem item)
+        {
+            return GetAffixeByName("#% increased Critical Strike chance", item);
+        }
+
+        /// <summary>
+        /// Criticals the strike multiplier affix.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>The affix.</returns>
+        public static Affix CriticalStrikeMultiplierAffix(PoeItem item)
+        {
+            return GetAffixeByName("#% to Global Critical Strike Multiplier", item);
+        }
+
+        /// <summary>
+        /// Elementals the damage with attack affix.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>The affix.</returns>
+        public static Affix ElementalDamageWithAttackAffix(PoeItem item)
+        {
+            return GetAffixeByName("#% increased Elemental Damage with Attack Skills", item);
+        }
+
+        /// <summary>
+        /// Casts the speed affix.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>The affix.</returns>
+        public static Affix CastSpeedAffix(PoeItem item)
+        {
+            return GetAffixeByName("#% increased Cast Speed", item);
         }
 
         /// <summary>
