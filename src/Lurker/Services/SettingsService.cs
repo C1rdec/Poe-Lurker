@@ -55,6 +55,12 @@ namespace Lurker.Services
             {
                 this._settings.ReadJsonFile(this.SettingsFilePath);
             }
+
+            if (string.IsNullOrEmpty(this._settings.UserId))
+            {
+                this._settings.UserId = Guid.NewGuid().ToString();
+                this.Save();
+            }
         }
 
         #endregion
@@ -68,29 +74,9 @@ namespace Lurker.Services
         #region Properties
 
         /// <summary>
-        /// Gets the name of the folder.
+        /// Gets the user identifier.
         /// </summary>
-        private string FolderName => "PoeLurker";
-
-        /// <summary>
-        /// Gets the name of the file.
-        /// </summary>
-        private string FileName => "Settings.json";
-
-        /// <summary>
-        /// Gets the application data folder path.
-        /// </summary>
-        private string AppDataFolderPath => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-
-        /// <summary>
-        /// Gets the settings folder path.
-        /// </summary>
-        private string SettingsFolderPath => System.IO.Path.Combine(AppDataFolderPath, FolderName);
-
-        /// <summary>
-        /// Gets the settings file path.
-        /// </summary>
-        private string SettingsFilePath => System.IO.Path.Combine(this.SettingsFolderPath, this.FileName);
+        public string UserId => this._settings.UserId;
 
         /// <summary>
         /// Gets or sets the busy message.
@@ -283,6 +269,31 @@ namespace Lurker.Services
                 this._settings.ToolTipDelay = value;
             }
         }
+
+        /// <summary>
+        /// Gets the name of the folder.
+        /// </summary>
+        private string FolderName => "PoeLurker";
+
+        /// <summary>
+        /// Gets the name of the file.
+        /// </summary>
+        private string FileName => "Settings.json";
+
+        /// <summary>
+        /// Gets the application data folder path.
+        /// </summary>
+        private string AppDataFolderPath => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+        /// <summary>
+        /// Gets the settings folder path.
+        /// </summary>
+        private string SettingsFolderPath => System.IO.Path.Combine(AppDataFolderPath, FolderName);
+
+        /// <summary>
+        /// Gets the settings file path.
+        /// </summary>
+        private string SettingsFilePath => System.IO.Path.Combine(this.SettingsFolderPath, this.FileName);
 
         #endregion
 

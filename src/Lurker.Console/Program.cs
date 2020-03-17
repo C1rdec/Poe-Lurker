@@ -6,21 +6,17 @@
 
 namespace Lurker.Console
 {
-    using Lurker.Models.TradeAPI;
     using System;
-    using System.Net.Http;
-    using System.Threading.Tasks;
 
     class Program
     {
         static void Main(string[] args)
         {
-            var service = new Lurker.Patreon.PatreonService();
-            Console.WriteLine(service.IsPledging().Result);
-
             //var lurker = new ClipboardLurker();
             using (var lurker = new ClientLurker())
             {
+                lurker.WaitForPoe().Wait();
+                Console.WriteLine("Poe Found");
                 lurker.LocationChanged += Lurker_ChangedLocation;
                 lurker.RemainingMonsters += Watcher_RemainingMonsters;
                 lurker.PlayerJoined += Watcher_PlayerJoined;
@@ -30,6 +26,7 @@ namespace Lurker.Console
                 Console.Read();
             }
 
+            Console.WriteLine("Yeah");
             Console.Read();
         }
 

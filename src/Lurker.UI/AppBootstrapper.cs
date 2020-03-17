@@ -104,7 +104,17 @@ namespace Lurker.UI
         /// <param name="e">The args.</param>
         protected override void OnStartup(object sender, System.Windows.StartupEventArgs e) 
         {
+            var settings = this._container.GetInstance<SettingsService>();
             this._sentry = SentrySdk.Init(Dsn);
+            SentrySdk.ConfigureScope((c) =>
+            {
+                c.User = new Sentry.Protocol.User()
+                {
+                    Id = settings.UserId,
+                };
+
+            });
+
             DisplayRootViewFor<ShellViewModel>();
         }
 
@@ -130,8 +140,8 @@ namespace Lurker.UI
             Logger.Error(exception, exception.Message);
 
 #if (!DEBUG)
-            SentrySdk.CaptureException(exception);
 #endif
+            SentrySdk.CaptureException(exception);
             this._sentry.Dispose();
 
         }
