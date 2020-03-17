@@ -37,7 +37,7 @@ namespace Lurker.Models
         /// </summary>
         public override IEnumerable<Affix> ImportantAffixes => new Affix[]
         {
-            AffixService.AttackSpeedAffix(this),
+            AffixService.AttackSpeedAffix(this)
         };
 
         #endregion

@@ -94,7 +94,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets the important affixed.
         /// </summary>
-        public IEnumerable<AffixViewModel> ImportantAffixes => this._item.ImportantAffixes.Select(i => new AffixViewModel(i));
+        public IEnumerable<AffixViewModel> ImportantAffixes => this._item.ImportantAffixes.Where(i => i != null).Select(i => new AffixViewModel(i));
 
         #endregion
 
