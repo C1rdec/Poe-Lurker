@@ -206,17 +206,17 @@
 
                         <Grid>
                             <local:IconPack Foreground="{DynamicResource AccentColorBrush}"
-                                            Width="250"
+                                            Width="225"
                                             Margin="0,20,0,10"
                                             Visibility="{Binding Pledging, Converter={StaticResource BooleanToVisibilityConverter}}"
                                             Data="{x:Static local:IconPackData.Beer}"/>
                             <local:IconPack Foreground="{DynamicResource AccentColorBrush1}"
-                                            Width="250"
+                                            Width="225"
                                             Margin="0,20,0,10"
                                             Visibility="{Binding NotConnected, Converter={StaticResource BooleanToVisibilityConverter}}"
                                             Data="{x:Static local:IconPackData.Beer}"/>
                             <local:IconPack Foreground="{DynamicResource AccentColorBrush1}"
-                                            Width="250"
+                                            Width="225"
                                             Margin="0,20,0,10"
                                             Visibility="{Binding NotPledging, Converter={StaticResource BooleanToVisibilityConverter}}"
                                             Data="{x:Static local:IconPackData.Beer}"/>
@@ -225,7 +225,7 @@
                         <Button x:Name="LoginToPatreon" Visibility="{Binding NotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">Login with Patreon</Button>
                         <Button x:Name="Pledge" Visibility="{Binding NotPledging, Converter={StaticResource BooleanToVisibilityConverter}}">Become a patron</Button>
                     </StackPanel>
-                    <Grid Grid.Row="2" Height="65" Visibility="{Binding Pledging, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Grid Grid.Row="2" Height="70" Visibility="{Binding Pledging, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <StackPanel Margin="30,0,0,0" Orientation="Horizontal">
                             <Controls:ToggleSwitch Grid.Row="1"
                                            Header="Item Lurker"
