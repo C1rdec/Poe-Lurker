@@ -19,7 +19,6 @@ namespace Lurker
     using System.Windows;
     using WindowsInput;
     using WK.Libraries.SharpClipboardNS;
-    using static Lurker.Native;
 
     public class ClipboardLurker: IDisposable
     {
