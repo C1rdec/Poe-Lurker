@@ -179,17 +179,6 @@
                     <Label Content="Advanced" Style="{DynamicResource LabelHeaderStyle}" />
 
                     <StackPanel Grid.Row="1" Margin="30,0,30,0">
-
-                        <Grid>
-                            <Label Foreground="{DynamicResource AccentColorBrush}"
-                                   VerticalAlignment="Center"
-                                   Margin="100,-10,0,0">(Ctrl + Shift + Click) ** Experimental might crash **</Label>
-                            <Controls:ToggleSwitch Grid.Row="1"
-                                           Margin="0,30,0,0"
-                                                   HorizontalAlignment="Left"
-                                           Header="Item Search"
-                                           IsChecked="{Binding SearchEnabled}"/>
-                        </Grid>
                         <Controls:ToggleSwitch Grid.Row="1"
                                                Margin="0,30,0,0"
                                                HorizontalAlignment="Left"
@@ -209,32 +198,40 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Label Content="Lurker Pro" Style="{DynamicResource LabelHeaderStyle}" />
-                    <StackPanel VerticalAlignment="Center" Grid.RowSpan="2" HorizontalAlignment="Center" Margin="30,0,30,0">
+                    <StackPanel VerticalAlignment="Center" Grid.Row="1" HorizontalAlignment="Center" Margin="30,0,30,0">
                         <TextBlock TextWrapping="Wrap" TextAlignment="Center">Being a Lurker Pro is a good way to show your appreciation for the work I've done, and help support the future development of the program. Furthermore you will unlock juicy features that is currently being developed.</TextBlock>
 
-                        <local:IconPack Foreground="{DynamicResource AccentColorBrush}"
-                                        Width="250"
-                                        Margin="0,20,0,10"
-                                        Visibility="{Binding Pledging, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                        Data="{x:Static local:IconPackData.Beer}"/>
-
-
-                        <local:IconPack Foreground="{DynamicResource AccentColorBrush1}"
-                                        Width="250"
-                                        Margin="0,20,0,10"
-                                        Visibility="{Binding NotConnected, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                        Data="{x:Static local:IconPackData.Beer}"/>
-                        <local:IconPack Foreground="{DynamicResource AccentColorBrush1}"
-                                        Width="250"
-                                        Margin="0,20,0,10"
-                                        Visibility="{Binding NotPledging, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                        Data="{x:Static local:IconPackData.Beer}"/>
+                        <Grid>
+                            <local:IconPack Foreground="{DynamicResource AccentColorBrush}"
+                                            Width="250"
+                                            Margin="0,20,0,10"
+                                            Visibility="{Binding Pledging, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                            Data="{x:Static local:IconPackData.Beer}"/>
+                            <local:IconPack Foreground="{DynamicResource AccentColorBrush1}"
+                                            Width="250"
+                                            Margin="0,20,0,10"
+                                            Visibility="{Binding NotConnected, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                            Data="{x:Static local:IconPackData.Beer}"/>
+                            <local:IconPack Foreground="{DynamicResource AccentColorBrush1}"
+                                            Width="250"
+                                            Margin="0,20,0,10"
+                                            Visibility="{Binding NotPledging, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                            Data="{x:Static local:IconPackData.Beer}"/>
+                        </Grid>
                         <TextBlock HorizontalAlignment="Center" Visibility="{Binding Pledging, Converter={StaticResource BooleanToVisibilityConverter}}">The banana bread was fabulous. You made my day!</TextBlock>
                         <Button x:Name="LoginToPatreon" Visibility="{Binding NotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">Login with Patreon</Button>
                         <Button x:Name="Pledge" Visibility="{Binding NotPledging, Converter={StaticResource BooleanToVisibilityConverter}}">Become a patron</Button>
                     </StackPanel>
+                    <Grid Grid.Row="2" Height="65" Visibility="{Binding Pledging, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <StackPanel Margin="30,0,0,0" Orientation="Horizontal">
+                            <Controls:ToggleSwitch Grid.Row="1"
+                                           Header="Item Lurker"
+                                           IsChecked="{Binding SearchEnabled}"/>
+                        </StackPanel>
+                    </Grid>
                 </Grid>
             </TabItem>
         </Controls:MetroAnimatedTabControl>

@@ -395,6 +395,10 @@ namespace Lurker.UI.ViewModels
                 using (var service = new Patreon.PatreonService())
                 {
                     this.Pledging = await service.IsPledging();
+                    if (!this.Pledging)
+                    {
+                        this._settingService.SearchEnabled = false;
+                    }
                 }
             }
             else
