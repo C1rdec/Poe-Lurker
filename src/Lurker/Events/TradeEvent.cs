@@ -165,12 +165,16 @@ namespace Lurker.Events
                 }
 
                 // tab name
+                var stashTabName = string.Empty;
                 var tabValue = locationValue.GetLineBefore("\";");
-                var index = tabValue.IndexOf("\"");
-                var stashTabName = tabValue.Substring(index + 1);
+                if (!string.IsNullOrEmpty(tabValue))
+                {
+                    var index = tabValue.IndexOf("\"");
+                    stashTabName = tabValue.Substring(index + 1);
+                }
 
                 // Position
-                var positionValue = locationValue.GetLineAfter("\";");
+                var positionValue = locationValue.GetLineAfter(";");
                 var positionIndex = positionValue.IndexOf(PositionMarker);
 
                 if (positionIndex != -1)

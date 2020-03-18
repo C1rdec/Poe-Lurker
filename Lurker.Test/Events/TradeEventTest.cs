@@ -114,6 +114,18 @@ namespace Lurker.Test.Events
             this.AssertLocation(new Location(), tradeEvent.Location);
         }
 
+        [TestMethod]
+        public void TryParse_NoStashTabName()
+        {
+            var line = $"{BaseLogLine} {ItemName} {Price} {League} (stash tab ; position: left 10, top 2)";
+            var tradeEvent = TradeEvent.TryParse(line);
+
+            Assert.AreEqual(PlayerName, tradeEvent.PlayerName);
+            Assert.AreEqual(ItemName, tradeEvent.ItemName);
+            this.AssertPrice(this.ExpectedPrice, tradeEvent.Price);
+            this.AssertLocation(new Location() { Top = 2, Left = 10, StashTabName = string.Empty }, tradeEvent.Location);
+        }
+
         private void AssertPrice(Price expectedPrice, Price actualPrice)
         {
             Assert.AreEqual(expectedPrice.NumberOfCurrencies, actualPrice.NumberOfCurrencies);

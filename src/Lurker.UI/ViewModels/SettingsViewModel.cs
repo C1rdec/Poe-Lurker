@@ -342,7 +342,17 @@ namespace Lurker.UI.ViewModels
             {
                 using (this._currentPatreonService = new Patreon.PatreonService())
                 {
+                    if (!this._currentPatreonService.IsConnected)
+                    {
+                        await this._currentPatreonService.Login();
+                    }
+
                     this.Pledging = await this._currentPatreonService.IsPledging();
+                    if (this.Pledging)
+                    {
+                        this.SearchEnabled = true;
+                    }
+
                     this.NotifyOfPropertyChange("NotConnected");
                 }
             }
@@ -395,15 +405,16 @@ namespace Lurker.UI.ViewModels
                 using (var service = new Patreon.PatreonService())
                 {
                     this.Pledging = await service.IsPledging();
-                    if (!this.Pledging)
-                    {
-                        this._settingService.SearchEnabled = false;
-                    }
                 }
             }
             else
             {
                 this.Pledging = false;
+            }
+
+            if (!this.Pledging)
+            {
+                this.SearchEnabled = false;
             }
 
             this.AlertVolume = (int)(this._settingService.AlertVolume * 100);

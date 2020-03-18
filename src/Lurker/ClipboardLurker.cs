@@ -17,9 +17,9 @@ namespace Lurker
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
-    using System.Windows.Input;
     using WindowsInput;
     using WK.Libraries.SharpClipboardNS;
+    using static Lurker.Native;
 
     public class ClipboardLurker: IDisposable
     {
@@ -31,7 +31,7 @@ namespace Lurker
         private SharpClipboard _clipboardMonitor;
         private string _lastClipboardText = string.Empty;
         private IKeyboardMouseEvents _keyboardEvent;
-        private PatreonService _patreonService;
+        private bool _isPledging;
 
         #endregion
 
@@ -42,18 +42,25 @@ namespace Lurker
         /// </summary>
         public ClipboardLurker(SettingsService settingsService)
         {
-            Clipboard.Clear();
-            this._patreonService = new PatreonService();
+            this.ClearClipboard();
             this._simulator = new InputSimulator();
             this._clipboardMonitor = new SharpClipboard();
             this._settingsService = settingsService;
 
+            this._settingsService.OnSave += this.SettingsService_OnSave;
             this._keyboardEvent = Hook.GlobalEvents();
             this._clipboardMonitor.ClipboardChanged += this.ClipboardMonitor_ClipboardChanged;
 
-            #if (!DEBUG)
-                this._keyboardEvent.MouseClick += this.KeyboardEvent_MouseClick;
-            #endif
+#if (!DEBUG)
+            this._keyboardEvent.MouseClick += this.KeyboardEvent_MouseClick;
+#endif
+
+            var service = new PatreonService();
+            service.IsPledging().ContinueWith(t => 
+            { 
+                this._isPledging = t.Result;
+                service.Dispose();
+            });
         }
 
         #endregion
@@ -70,7 +77,7 @@ namespace Lurker
         /// </summary>
         public event EventHandler<string> NewOffer;
 
-#endregion
+        #endregion
 
         #region Methods
 
@@ -90,9 +97,23 @@ namespace Lurker
         {
             if (disposing)
             {
-                this._patreonService.Dispose();
                 this._keyboardEvent.Dispose();
                 this._clipboardMonitor.ClipboardChanged -= ClipboardMonitor_ClipboardChanged;
+                this._settingsService.OnSave -= this.SettingsService_OnSave;
+            }
+        }
+
+
+        /// <summary>
+        /// Handles the OnSave event of the SettingsService control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private async void SettingsService_OnSave(object sender, EventArgs e)
+        {
+            using (var service = new PatreonService())
+            {
+                this._isPledging = await service.IsPledging();
             }
         }
 
@@ -103,11 +124,16 @@ namespace Lurker
         /// <param name="e">The <see cref="System.Windows.Forms.MouseEventArgs"/> instance containing the event data.</param>
         private void KeyboardEvent_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            Task.Run(async () =>
+            Task.Run(() =>
             {
+                if (!this._settingsService.SearchEnabled || !this._isPledging || e.Button != System.Windows.Forms.MouseButtons.Left)
+                {
+                    return;
+                }
+
                 if (Native.IsKeyPressed(Native.VirtualKeyStates.VK_SHIFT) && Native.IsKeyPressed(Native.VirtualKeyStates.VK_CONTROL))
                 {
-                    await this.ParseItem();
+                    this.ParseItem();
                 }
             });
         }
@@ -135,13 +161,39 @@ namespace Lurker
                         Thread.Sleep(200);
                     }
                 }
-                     
             });
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
             thread.Join();
 
             return clipboardText;
+        }
+
+        /// <summary>
+        /// Clears the clipboard.
+        /// </summary>
+        private void ClearClipboard()
+        {
+            Thread thread = new Thread(() =>
+            {
+                var retryCount = 3;
+                while (retryCount != 0)
+                {
+                    try
+                    {
+                        Clipboard.Clear();
+                        break;
+                    }
+                    catch
+                    {
+                        retryCount--;
+                        Thread.Sleep(200);
+                    }
+                }
+            });
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
+            thread.Join();
         }
 
         /// <summary>
@@ -176,26 +228,21 @@ namespace Lurker
         /// <summary>
         /// Parses the item.
         /// </summary>
-        private async Task ParseItem()
+        private async void ParseItem()
         {
-            if (!this._settingsService.SearchEnabled)
-            {
-                return;
-            }
-
-            if (!await this._patreonService.IsPledging())
-            {
-                return;
-            }
-
             PoeItem item = default;
-
-            var retryCount = 3;
+            var retryCount = 2;
             for (int i = 0; i < retryCount; i++)
             {
                 item = await this.GetItemInClipboard();
-                if (item == null || !item.Identified)
+                if (item == null)
                 {
+                    return;
+                }
+
+                if (!item.Identified)
+                {
+                    await Task.Delay(50);
                     continue;
                 }
 
@@ -208,13 +255,7 @@ namespace Lurker
             }
 
             this.Newitem?.Invoke(this, item);
-            try
-            {
-                Clipboard.Clear();
-            }
-            catch
-            {
-            }
+            this.ClearClipboard();
         }
 
         /// <summary>
@@ -224,7 +265,7 @@ namespace Lurker
         private async Task<PoeItem> GetItemInClipboard()
         {
             this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_C);
-            await Task.Delay(100);
+            await Task.Delay(20);
             return this._itemParser.Parse(this.GetClipboardText());
         }
 
