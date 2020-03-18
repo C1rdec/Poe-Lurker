@@ -49,8 +49,11 @@ namespace Lurker
             this._settingsService = settingsService;
 
             this._keyboardEvent = Hook.GlobalEvents();
-            this._keyboardEvent.MouseClick += this.KeyboardEvent_MouseClick;
             this._clipboardMonitor.ClipboardChanged += this.ClipboardMonitor_ClipboardChanged;
+
+            #if (!DEBUG)
+                this._keyboardEvent.MouseClick += this.KeyboardEvent_MouseClick;
+            #endif
         }
 
         #endregion
@@ -67,7 +70,7 @@ namespace Lurker
         /// </summary>
         public event EventHandler<string> NewOffer;
 
-        #endregion
+#endregion
 
         #region Methods
 
@@ -100,13 +103,13 @@ namespace Lurker
         /// <param name="e">The <see cref="System.Windows.Forms.MouseEventArgs"/> instance containing the event data.</param>
         private void KeyboardEvent_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
+            Task.Run(async () =>
             {
-                if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+                if (Native.IsKeyPressed(Native.VirtualKeyStates.VK_SHIFT) && Native.IsKeyPressed(Native.VirtualKeyStates.VK_CONTROL))
                 {
-                    this.ParseItem();
+                    await this.ParseItem();
                 }
-            }
+            });
         }
 
         /// <summary>
@@ -173,7 +176,7 @@ namespace Lurker
         /// <summary>
         /// Parses the item.
         /// </summary>
-        private async void ParseItem()
+        private async Task ParseItem()
         {
             if (!this._settingsService.SearchEnabled)
             {
@@ -225,6 +228,6 @@ namespace Lurker
             return this._itemParser.Parse(this.GetClipboardText());
         }
 
-        #endregion
+#endregion
     }
 }
