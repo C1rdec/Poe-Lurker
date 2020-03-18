@@ -155,48 +155,55 @@ namespace Lurker.Events
         /// <returns>The item location</returns>
         public Location ParseLocation(string locationValue)
         {
-            var locationMarkerIndex = locationValue.IndexOf(LocationMarker);
-            var locationMarkerEndIndex = locationValue.IndexOf(LocationMarkerEnd);
-            if (locationMarkerIndex == -1 || locationMarkerEndIndex == -1)
+            try
+            {
+                var locationMarkerIndex = locationValue.IndexOf(LocationMarker);
+                var locationMarkerEndIndex = locationValue.IndexOf(LocationMarkerEnd);
+                if (locationMarkerIndex == -1 || locationMarkerEndIndex == -1)
+                {
+                    return new Location();
+                }
+
+                // tab name
+                var tabValue = locationValue.GetLineBefore("\";");
+                var index = tabValue.IndexOf("\"");
+                var stashTabName = tabValue.Substring(index + 1);
+
+                // Position
+                var positionValue = locationValue.GetLineAfter("\";");
+                var positionIndex = positionValue.IndexOf(PositionMarker);
+
+                if (positionIndex != -1)
+                {
+                    positionValue = positionValue.GetLineAfter("position: ");
+                }
+
+                var positions = positionValue.Split(", ");
+                var leftValue = positions[0].GetLineAfter("left ");
+                var topValue = positions[1].GetLineAfter("top ");
+
+                if (string.IsNullOrEmpty(leftValue) || string.IsNullOrEmpty(topValue))
+                {
+                    return new Location()
+                    {
+                        StashTabName = stashTabName
+                    };
+                }
+
+                var closingMarkerIndex = topValue.IndexOf(")");
+                topValue = topValue.Substring(0, closingMarkerIndex);
+
+                return new Location()
+                {
+                    StashTabName = stashTabName,
+                    Left = Convert.ToInt32(leftValue),
+                    Top = Convert.ToInt32(topValue),
+                };
+            }
+            catch
             {
                 return new Location();
             }
-
-            // tab name
-            var tabValue = locationValue.GetLineBefore("\";");
-            var index = tabValue.IndexOf("\"");
-            var stashTabName = tabValue.Substring(index + 1);
-
-            // Position
-            var positionValue = locationValue.GetLineAfter("\";");
-            var positionIndex = positionValue.IndexOf(PositionMarker);
-
-            if (positionIndex != -1)
-            {
-                positionValue = positionValue.GetLineAfter("position: ");
-            }
-
-            var positions = positionValue.Split(", ");
-            var leftValue = positions[0].GetLineAfter("left ");
-            var topValue = positions[1].GetLineAfter("top ");
-
-            if (string.IsNullOrEmpty(leftValue) || string.IsNullOrEmpty(topValue))
-            {
-                return new Location()
-                {
-                    StashTabName = stashTabName
-                };
-            }
-
-            var closingMarkerIndex = topValue.IndexOf(")");
-            topValue = topValue.Substring(0, closingMarkerIndex);
-
-            return new Location()
-            {
-                StashTabName = stashTabName,
-                Left = Convert.ToInt32(leftValue),
-                Top = Convert.ToInt32(topValue),
-            };
         }
 
         /// <summary>
@@ -206,19 +213,26 @@ namespace Lurker.Events
         /// <returns>The price of the offer.</returns>
         public Price ParsePrice(string priceValue)
         {
-            var values = priceValue.Split(' ');
-            if (!double.TryParse(values[0], out _))
+            try
+            {
+                var values = priceValue.Split(' ');
+                if (!double.TryParse(values[0], out _))
+                {
+                    return new Price();
+                }
+
+                var currencyTypeValue = string.Join(" ", values.Skip(1));
+
+                return new Price()
+                {
+                    NumberOfCurrencies = double.Parse(values[0], CultureInfo.InvariantCulture),
+                    CurrencyType = CurrencyTypeParser.Parse(currencyTypeValue),
+                };
+            }
+            catch
             {
                 return new Price();
             }
-
-            var currencyTypeValue = string.Join(" ", values.Skip(1));
-
-            return new Price()
-            {
-                NumberOfCurrencies = double.Parse(values[0], CultureInfo.InvariantCulture),
-                CurrencyType = CurrencyTypeParser.Parse(currencyTypeValue),
-            };
         }
 
         /// <summary>

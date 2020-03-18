@@ -436,10 +436,13 @@ namespace Lurker
             }
             catch (Exception ex)
             {
-                var exception = new Exception($"Line in error: {newline}", ex);
+                var lineError = $"Line in error: {newline}";
+                var exception = new Exception(lineError, ex);
                 Logger.Error(exception, exception.Message);
+
 #if (!DEBUG)
-                SentrySdk.CaptureException(exception);
+                SentrySdk.AddBreadcrumb(message: lineError, level: BreadcrumbLevel.Error);
+                SentrySdk.CaptureException(ex);
 #endif
             }
         }
