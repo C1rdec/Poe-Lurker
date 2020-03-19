@@ -30,32 +30,32 @@ namespace Lurker.Console
             Console.Read();
         }
 
-        private static void Lurker_NewOffer(object sender, Events.TradeEvent e)
+        private static void Lurker_NewOffer(object sender, Patreon.Events.TradeEvent e)
         {
             Console.WriteLine($"({e.Date})--[{e.GuildName}]{e.PlayerName} [item: {e.ItemName}] [price: {e.Price}] [position: {e.Location}] ");
         }
 
-        private static void Watcher_Whispered(object sender, Events.WhisperEvent e)
+        private static void Watcher_Whispered(object sender, Patreon.Events.WhisperEvent e)
         {
             Console.WriteLine($"[{e.GuildName}]{e.PlayerName}: {e.WhisperMessage}");
         }
 
-        private static void Watcher_PlayerLeft(object sender, Events.PlayerLeftEvent e)
+        private static void Watcher_PlayerLeft(object sender, Patreon.Events.PlayerLeftEvent e)
         {
             Console.WriteLine($"{e.PlayerName} left");
         }
 
-        private static void Watcher_PlayerJoined(object sender, Events.PlayerJoinedEvent e)
+        private static void Watcher_PlayerJoined(object sender, Patreon.Events.PlayerJoinedEvent e)
         {
             Console.WriteLine($"{e.PlayerName} joined");
         }
 
-        private static void Watcher_RemainingMonsters(object sender, Events.MonstersRemainEvent e)
+        private static void Watcher_RemainingMonsters(object sender, Patreon.Events.MonstersRemainEvent e)
         {
             Console.WriteLine($"Monster {e.MonsterCount}");
         }
 
-        private static void Lurker_ChangedLocation(object sender, Events.LocationChangedEvent e)
+        private static void Lurker_ChangedLocation(object sender, Patreon.Events.LocationChangedEvent e)
         {
             Console.WriteLine(e.Location);
         }

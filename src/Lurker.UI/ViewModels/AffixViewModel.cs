@@ -6,7 +6,7 @@
 
 namespace Lurker.UI.ViewModels
 {
-    using Lurker.Models;
+    using Lurker.Patreon.Models;
 
     public class AffixViewModel
     {

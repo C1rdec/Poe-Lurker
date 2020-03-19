@@ -7,9 +7,9 @@
 
 namespace Lurker.UI.ViewModels
 {
-    using Lurker.Events;
-    using Lurker.Models;
-    using Lurker.Parser;
+    using Lurker.Patreon.Events;
+    using Lurker.Patreon.Models;
+    using Lurker.Patreon.Parsers;
 
     public class PositionViewModel : Caliburn.Micro.PropertyChangedBase
     {

@@ -6,7 +6,7 @@
 
 namespace Lurker.Helpers
 {
-    using Lurker.Events;
+    using Lurker.Patreon.Events;
     using System.Text.RegularExpressions;
 
     public static class TokenHelper

@@ -6,8 +6,8 @@
 
 namespace Lurker
 {
-    using Lurker.Events;
     using Lurker.Extensions;
+    using Lurker.Patreon.Events;
     using Sentry;
     using System;
     using System.Collections.Generic;

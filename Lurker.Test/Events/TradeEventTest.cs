@@ -6,8 +6,8 @@
 
 namespace Lurker.Test.Events
 {
-    using Lurker.Events;
-    using Lurker.Models;
+    using Lurker.Patreon.Events;
+    using Lurker.Patreon.Models;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
 
@@ -146,7 +146,7 @@ namespace Lurker.Test.Events
         /// <returns></returns>
         private TradeEvent BuildExpectedTradeEvent(string line)
         {
-            return new TradeEvent(line);
+            return TradeEvent.TryParse(line);
         }
     }
 }

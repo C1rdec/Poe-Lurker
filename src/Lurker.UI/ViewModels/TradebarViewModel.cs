@@ -7,8 +7,8 @@
 namespace Lurker.UI.ViewModels
 {
     using Caliburn.Micro;
-    using Lurker.Events;
     using Lurker.Helpers;
+    using Lurker.Patreon.Events;
     using Lurker.Services;
     using Lurker.UI.Helpers;
     using Lurker.UI.Models;
@@ -94,7 +94,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The trade event.</param>
-        private void Lurker_IncomingOffer(object sender, Events.TradeEvent e)
+        private void Lurker_IncomingOffer(object sender, Patreon.Events.TradeEvent e)
         {
             if (this.TradeOffers.Any(o => o.Event.Equals(e)))
             {
@@ -147,11 +147,12 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
-        private void Lurker_TradeAccepted(object sender, Events.TradeAcceptedEvent e)
+        private void Lurker_TradeAccepted(object sender, Patreon.Events.TradeAcceptedEvent e)
         {
             var offer = this.TradeOffers.Where(t => t.Status == OfferStatus.Traded).FirstOrDefault();
             if (offer != null)
             {
+                this.InsertEvent(offer.Event);
                 if (!string.IsNullOrEmpty(this._settingsService.ThankYouMessage))
                 {
                     this._keyboardHelper.Whisper(offer.PlayerName, this._settingsService.ThankYouMessage);
@@ -167,7 +168,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The PLayerJoined Event.</param>
-        private void Lurker_PlayerJoined(object sender, Events.PlayerJoinedEvent e)
+        private void Lurker_PlayerJoined(object sender, Patreon.Events.PlayerJoinedEvent e)
         {
             foreach (var offer in this.TradeOffers.Where(o => o.PlayerName == e.PlayerName))
             {
@@ -180,11 +181,23 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
-        private void Lurker_PlayerLeft(object sender, Events.PlayerLeftEvent e)
+        private void Lurker_PlayerLeft(object sender, Patreon.Events.PlayerLeftEvent e)
         {
             foreach (var offer in this.TradeOffers.Where(o => o.PlayerName == e.PlayerName))
             {
                 offer.BuyerInSameInstance = false;
+            }
+        }
+
+        /// <summary>
+        /// Inserts the event.
+        /// </summary>
+        /// <param name="tradeEvent">The trade event.</param>
+        private void InsertEvent(TradeEvent tradeEvent)
+        {
+            using (var service = new Lurker.Patreon.DatabaseService())
+            {
+                service.Insert(tradeEvent);
             }
         }
 

@@ -6,7 +6,7 @@
 
 namespace Lurker.UI.ViewModels
 {
-    using Lurker.Models;
+    using Lurker.Patreon.Models;
     using System;
     using System.Collections.Generic;
     using System.Linq;

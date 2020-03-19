@@ -7,8 +7,8 @@
 namespace Lurker.UI.ViewModels
 {
     using Caliburn.Micro;
-    using Lurker.Events;
     using Lurker.Helpers;
+    using Lurker.Patreon.Events;
     using Lurker.UI.Models;
     using System.Windows.Input;
 

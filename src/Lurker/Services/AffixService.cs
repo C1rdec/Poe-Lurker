@@ -7,8 +7,8 @@
 
 namespace Lurker.Services
 {
-    using Lurker.Models;
-    using Lurker.Models.TradeAPI;
+    using Lurker.Patreon.Models;
+    using Lurker.Patreon.Models.TradeAPI;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;

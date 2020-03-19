@@ -8,6 +8,7 @@ namespace Lurker.UI.ViewModels
 {
     using Caliburn.Micro;
     using Lurker.Helpers;
+    using Lurker.Patreon.Events;
     using Lurker.Services;
     using Lurker.UI.Helpers;
     using Lurker.UI.Models;
@@ -127,7 +128,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
-        private void Lurker_OutgoingOffer(object sender, Events.OutgoingTradeEvent e)
+        private void Lurker_OutgoingOffer(object sender, Patreon.Events.OutgoingTradeEvent e)
         {
             if (this.Offers.Any(o => o.Event.Equals(e)))
             {
@@ -142,7 +143,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
-        private void Lurker_TradeAccepted(object sender, Events.TradeAcceptedEvent e)
+        private void Lurker_TradeAccepted(object sender, Patreon.Events.TradeAcceptedEvent e)
         {
             if (this._activeOffer == null)
             {
@@ -154,9 +155,22 @@ namespace Lurker.UI.ViewModels
                 this._keyboardHelper.Whisper(this._activeOffer.Event.PlayerName, this._settingsService.ThankYouMessage);
             }
 
+            this.InsertEvent(this._activeOffer.Event);
             this.RemoveOffer(this._activeOffer);
             this._activeOffer = null;
             this._removeActive = null;
+        }
+
+        /// <summary>
+        /// Inserts the event.
+        /// </summary>
+        /// <param name="tradeEvent">The trade event.</param>
+        private void InsertEvent(TradeEvent tradeEvent)
+        {
+            using (var service = new Patreon.DatabaseService())
+            {
+                service.Insert(tradeEvent);
+            }
         }
 
         /// <summary>

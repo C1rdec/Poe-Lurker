@@ -7,8 +7,8 @@
 
 namespace Lurker.UI.ViewModels
 {
-    using Lurker.Events;
-    using Lurker.Models;
+    using Lurker.Patreon.Events;
+    using Lurker.Patreon.Models;
 
     public class TradeValueViewModel: Caliburn.Micro.PropertyChangedBase
     {

@@ -9,6 +9,7 @@ namespace Lurker.UI
     using Caliburn.Micro;
     using Lurker.Helpers;
     using Lurker.Models;
+    using Lurker.Patreon.Models;
     using Lurker.Services;
     using Lurker.UI.Helpers;
     using Lurker.UI.Models;
