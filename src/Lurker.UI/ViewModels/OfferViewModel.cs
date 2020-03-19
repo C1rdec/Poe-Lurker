@@ -277,6 +277,14 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Thanks you.
+        /// </summary>
+        public void ThankYou()
+        {
+            this.Whisper(TokenHelper.ReplaceToken(this._settingsService.ThankYouMessage, this.Event));
+        }
+
+        /// <summary>
         /// Tell the buyer that the item is sold.
         /// </summary>
         private void Sold()

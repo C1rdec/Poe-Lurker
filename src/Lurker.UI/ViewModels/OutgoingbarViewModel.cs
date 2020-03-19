@@ -152,7 +152,8 @@ namespace Lurker.UI.ViewModels
 
             if (!string.IsNullOrEmpty(this._settingsService.ThankYouMessage))
             {
-                this._keyboardHelper.Whisper(this._activeOffer.Event.PlayerName, this._settingsService.ThankYouMessage);
+                var tradeEvent = this._activeOffer.Event;
+                this._keyboardHelper.Whisper(tradeEvent.PlayerName, TokenHelper.ReplaceToken(this._settingsService.ThankYouMessage, tradeEvent));
             }
 
             this.InsertEvent(this._activeOffer.Event);

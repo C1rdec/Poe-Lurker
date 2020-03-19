@@ -134,7 +134,7 @@ namespace Lurker
                 {
                     this.ParseItem();
                 }
-            });
+            }).ConfigureAwait(false);
         }
 
         /// <summary>

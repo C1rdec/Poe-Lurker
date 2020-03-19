@@ -155,7 +155,7 @@ namespace Lurker.UI.ViewModels
                 this.InsertEvent(offer.Event);
                 if (!string.IsNullOrEmpty(this._settingsService.ThankYouMessage))
                 {
-                    this._keyboardHelper.Whisper(offer.PlayerName, this._settingsService.ThankYouMessage);
+                    offer.ThankYou();
                 }
 
                 this._keyboardHelper.Kick(offer.PlayerName);
