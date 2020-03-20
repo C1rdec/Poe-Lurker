@@ -44,6 +44,7 @@ namespace Lurker.UI
         private bool _showInTaskBar;
         private bool _isItemOverlayOpen;
         private bool _showUpdateSuccess;
+        private System.Action _hideMana;
 
         #endregion
 
@@ -247,6 +248,7 @@ namespace Lurker.UI
         /// </summary>
         public async void Update()
         {
+            this._hideMana?.Invoke();
             this.ShowInTaskBar = false;
             var updateManager = IoC.Get<UpdateManager>();
             await updateManager.Update();
@@ -363,7 +365,8 @@ namespace Lurker.UI
                 var message = new ManaBulbMessage()
                 {
                     View = new UpdateViewModel(true),
-                    Action = async () => await updateManager.Update(),
+                    Action = () => this.Update(),
+                    OnShow = (a) => this._hideMana = a
                 };
 
                 this._eventAggregator.PublishOnUIThread(message);
