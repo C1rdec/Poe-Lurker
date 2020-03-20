@@ -346,6 +346,9 @@ namespace Lurker.UI
 
             this.ShowOverlays(windowHandle);
             await this.CheckForUpdate();
+
+            // Mouse Shuttering
+            this._clipboardLurker.BindGlobalClick();
         }
 
         /// <summary>

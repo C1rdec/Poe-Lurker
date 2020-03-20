@@ -60,9 +60,6 @@ namespace Lurker
             };
 
             this._keyboardEvent.OnCombination(assignment);
-#if (!DEBUG)
-            this._keyboardEvent.MouseClick += this.KeyboardEvent_MouseClick;
-#endif
             this._itemParser.CheckPledgeStatus();
         }
 
@@ -83,6 +80,16 @@ namespace Lurker
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Binds the global click.
+        /// </summary>
+        public void BindGlobalClick()
+        {
+#if (!DEBUG)
+            this._keyboardEvent.MouseClick += this.KeyboardEvent_MouseClick;
+#endif
+        }
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
