@@ -10,6 +10,7 @@ namespace Lurker.UI.ViewModels
     using Lurker.Services;
     using Lurker.UI.Helpers;
     using Lurker.UI.Models;
+    using System;
     using System.ComponentModel;
     using System.Threading.Tasks;
 
@@ -111,7 +112,7 @@ namespace Lurker.UI.ViewModels
 
             this.NotifyOfPropertyChange(nameof(this.HasAction));
 
-            if (message.DisplayTime != null)
+            if (message.DisplayTime != TimeSpan.Zero)
             {
                 Task.Run(async () => await Task.Delay(message.DisplayTime)).ContinueWith((t) => this.Hide());
             }

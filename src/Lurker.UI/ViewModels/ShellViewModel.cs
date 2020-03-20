@@ -360,10 +360,11 @@ namespace Lurker.UI
                 var message = new ManaBulbMessage()
                 {
                     View = new UpdateViewModel(true),
-                    Action = async () => await updateManager.Update()
+                    Action = async () => await updateManager.Update(),
                 };
 
                 this._eventAggregator.PublishOnUIThread(message);
+                return;
             }
             
             if (this._showUpdateSuccess)
