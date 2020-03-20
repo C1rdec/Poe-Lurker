@@ -68,6 +68,13 @@ namespace Lurker.UI
 
             if (settingsService.FirstLaunch)
             {
+                if (this.StartWithWindows)
+                {
+                    // RefreshShortcut
+                    File.Delete(this.ShortcutFilePath);
+                    this.CreateLink();
+                }
+
                 settingsService.FirstLaunch = false;
                 this._showUpdateSuccess = true;
                 settingsService.Save();
@@ -221,11 +228,7 @@ namespace Lurker.UI
             }
             else
             {
-                var link = (IShellLink)new ShellLink();
-                link.SetDescription("PoeLurker");
-                link.SetPath(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                var file = (IPersistFile)link;
-                file.Save(this.ShortcutFilePath, false);
+                this.CreateLink();
             }
 
             this.StartWithWindows = !this.StartWithWindows;
@@ -266,6 +269,19 @@ namespace Lurker.UI
 
             this.ActivateItem(this._settingsViewModel);
         }
+
+        /// <summary>
+        /// Creates the link.
+        /// </summary>
+        private void CreateLink()
+        {
+            var link = (IShellLink)new ShellLink();
+            link.SetDescription("PoeLurker");
+            link.SetPath(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            var file = (IPersistFile)link;
+            file.Save(this.ShortcutFilePath, false);
+        }
+
 
         /// <summary>
         /// Registers the instances.
