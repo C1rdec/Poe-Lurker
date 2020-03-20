@@ -224,6 +224,23 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [automatic kick enabled].
+        /// </summary>
+        public bool AutoKickEnabled
+        {
+            get
+            {
+                return this._settingService.AutoKickEnabled;
+            }
+
+            set
+            {
+                this._settingService.AutoKickEnabled = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [debug enabled].
         /// </summary>
         public bool DebugEnabled

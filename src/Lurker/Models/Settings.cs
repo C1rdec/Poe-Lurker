@@ -77,6 +77,12 @@ namespace Lurker.Models
         public bool ClipboardEnabled { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [automatic kick].
+        /// </summary>
+        [DefaultValue(true)]
+        public bool AutoKickEnabled { get; set; }
+
+        /// <summary>
         /// Gets or sets the tooltip delay.
         /// </summary>
         [DefaultValue(1000)]

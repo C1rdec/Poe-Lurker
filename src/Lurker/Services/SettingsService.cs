@@ -238,6 +238,19 @@ namespace Lurker.Services
             }
         }
 
+        public bool AutoKickEnabled
+        {
+            get
+            {
+                return this._settings.AutoKickEnabled;
+            }
+
+            set
+            {
+                this._settings.AutoKickEnabled = value;
+            }
+        }
+
         /// <summary>
         /// Gets or sets the alert volume.
         /// </summary>

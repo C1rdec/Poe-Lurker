@@ -158,7 +158,11 @@ namespace Lurker.UI.ViewModels
                     offer.ThankYou();
                 }
 
-                this._keyboardHelper.Kick(offer.PlayerName);
+                if (this._settingsService.AutoKickEnabled)
+                {
+                    this._keyboardHelper.Kick(offer.PlayerName);
+                }
+
                 this.RemoveOffer(offer);
             }
         }
