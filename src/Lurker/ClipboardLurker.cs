@@ -8,12 +8,14 @@
 namespace Lurker
 {
     using Gma.System.MouseKeyHook;
+    using Lurker.Helpers;
     using Lurker.Patreon;
     using Lurker.Patreon.Events;
     using Lurker.Patreon.Models;
     using Lurker.Patreon.Parsers;
     using Lurker.Services;
     using System;
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
@@ -25,6 +27,7 @@ namespace Lurker
         #region Fields
 
         private InputSimulator _simulator;
+        private PoeKeyboardHelper _keyboardHelper;
         private ItemParser _itemParser = new ItemParser();
         private SettingsService _settingsService;
         private SharpClipboard _clipboardMonitor;
@@ -39,9 +42,10 @@ namespace Lurker
         /// <summary>
         /// Initializes a new instance of the <see cref="ClipboardLurker"/> class.
         /// </summary>
-        public ClipboardLurker(SettingsService settingsService)
+        public ClipboardLurker(SettingsService settingsService, PoeKeyboardHelper keyboardHelper)
         {
             this.ClearClipboard();
+            this._keyboardHelper = keyboardHelper;
             this._simulator = new InputSimulator();
             this._clipboardMonitor = new SharpClipboard();
             this._settingsService = settingsService;
@@ -50,6 +54,13 @@ namespace Lurker
             this._keyboardEvent = Hook.GlobalEvents();
             this._clipboardMonitor.ClipboardChanged += this.ClipboardMonitor_ClipboardChanged;
 
+            var search = Combination.FromString("Control+F");
+            var assignment = new Dictionary<Combination, Action>
+            {
+                {search, this.Search},
+            };
+
+            this._keyboardEvent.OnCombination(assignment);
 #if (!DEBUG)
             this._keyboardEvent.MouseClick += this.KeyboardEvent_MouseClick;
 #endif
@@ -268,6 +279,20 @@ namespace Lurker
             return this._itemParser.Parse(this.GetClipboardText());
         }
 
-#endregion
+        /// <summary>
+        /// Searches this instance.
+        /// </summary>
+        private async void Search()
+        {
+            var item = await this.GetItemInClipboard();
+            if (item == null)
+            {
+                return;
+            }
+
+            this._keyboardHelper.Write(item.BaseType);
+        }
+
+        #endregion
     }
 }

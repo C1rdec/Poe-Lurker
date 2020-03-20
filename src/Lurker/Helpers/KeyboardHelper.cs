@@ -51,6 +51,11 @@ namespace Lurker.Helpers
         /// <param name="text">The text.</param>
         public void Write(string text)
         {
+            if (string.IsNullOrEmpty(text))
+            {
+                return;
+            }
+
             this._simulator.Keyboard.TextEntry(text);
         }
 
