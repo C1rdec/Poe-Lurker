@@ -243,9 +243,15 @@
                 </Grid>
             </TabItem>
         </Controls:MetroAnimatedTabControl>
-        <Button x:Name="Update"
-                Visibility="{Binding NeedsUpdate, Converter={StaticResource BooleanToVisibilityConverter}}"
+        <Button x:Name="UserGuide"
                 Margin="36,8,8,8" 
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Left" 
+                Height="10" 
+                Width="80">User Guide</Button>
+        <Button x:Name="Update"
+                Margin="36,8,8,8" 
+                Visibility="{Binding NeedsUpdate, Converter={StaticResource BooleanToVisibilityConverter}}"
                 VerticalAlignment="Bottom" 
                 HorizontalAlignment="Left" 
                 Height="10" 

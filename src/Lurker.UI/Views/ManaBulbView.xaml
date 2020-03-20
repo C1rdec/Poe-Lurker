@@ -13,7 +13,7 @@
         Focusable="False"
         Title="ManaBulbView">
     <Grid>
-        <ContentControl Height="80" x:Name="ActionView" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <ContentControl Height="160" x:Name="ActionView" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Ellipse Cursor="Hand" x:Name="Test" cal:Message.Attach="[Event MouseDown] = [Action OnClick()]">
             <Ellipse.Style>
                 <Style TargetType="{x:Type Ellipse}">

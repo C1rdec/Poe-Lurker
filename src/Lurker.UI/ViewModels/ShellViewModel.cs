@@ -338,13 +338,13 @@ namespace Lurker.UI
         private async void WaitForPoe()
         {
             await AffixService.InitializeAsync();
-            await this.CheckForUpdate();
 
             this._currentLurker = new ClientLurker();
             this._currentLurker.PoeClosed += CurrentLurker_PoeClosed;
             var windowHandle = await this._currentLurker.WaitForPoe();
 
             this.ShowOverlays(windowHandle);
+            await this.CheckForUpdate();
         }
 
         /// <summary>
@@ -353,6 +353,16 @@ namespace Lurker.UI
         private async Task CheckForUpdate()
         {
             this.NeedUpdate = await this._updateManager.CheckForUpdate();
+            if (this.NeedUpdate)
+            {
+                var message = new ManaBulbMessage()
+                {
+                    View = new UpdateViewModel(),
+                    Action = async () => await this._updateManager.Update()
+                };
+
+                this._eventAggregator.PublishOnUIThread(message);
+            }
         }
 
         /// <summary>

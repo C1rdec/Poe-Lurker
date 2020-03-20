@@ -104,7 +104,7 @@ namespace Lurker.UI.ViewModels
         /// <param name="message">The message.</param>
         protected void SetAction(BulbMessage message)
         {
-            message.OnShow(this.Hide);
+            message.OnShow?.Invoke(this.Hide);
             this._action = message.Action;
             this.ActionView = message.View;
 

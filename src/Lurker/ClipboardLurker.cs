@@ -60,8 +60,8 @@ namespace Lurker
             };
 
             this._keyboardEvent.OnCombination(assignment);
-            this._keyboardEvent.MouseClick += this.KeyboardEvent_MouseClick;
 #if (!DEBUG)
+            this._keyboardEvent.MouseClick += this.KeyboardEvent_MouseClick;
 #endif
             this._itemParser.CheckPledgeStatus();
         }

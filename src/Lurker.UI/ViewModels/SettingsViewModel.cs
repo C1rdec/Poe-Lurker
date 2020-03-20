@@ -362,6 +362,14 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Users the guide.
+        /// </summary>
+        public void UserGuide()
+        {
+            Process.Start(@"https://docs.google.com/presentation/d/1XhaSSNAFGxzouc5amzAW8c_6ifToNjnsQq5UmNgLXoo/present?slide=id.p");
+        }
+
+        /// <summary>
         /// Logins to patreon.
         /// </summary>
         public async void LoginToPatreon()
