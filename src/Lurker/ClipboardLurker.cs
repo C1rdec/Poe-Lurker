@@ -33,7 +33,6 @@ namespace Lurker
         private SharpClipboard _clipboardMonitor;
         private string _lastClipboardText = string.Empty;
         private IKeyboardMouseEvents _keyboardEvent;
-        private bool _isPledging;
 
         #endregion
 
@@ -61,16 +60,10 @@ namespace Lurker
             };
 
             this._keyboardEvent.OnCombination(assignment);
-#if (!DEBUG)
             this._keyboardEvent.MouseClick += this.KeyboardEvent_MouseClick;
+#if (!DEBUG)
 #endif
-
-            var service = new PatreonService();
-            service.IsPledging().ContinueWith(t => 
-            { 
-                this._isPledging = t.Result;
-                service.Dispose();
-            });
+            this._itemParser.CheckPledgeStatus();
         }
 
         #endregion
@@ -121,10 +114,7 @@ namespace Lurker
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private async void SettingsService_OnSave(object sender, EventArgs e)
         {
-            using (var service = new PatreonService())
-            {
-                this._isPledging = await service.IsPledging();
-            }
+            await this._itemParser.CheckPledgeStatus();
         }
 
         /// <summary>
@@ -136,7 +126,7 @@ namespace Lurker
         {
             Task.Run(() =>
             {
-                if (!this._settingsService.SearchEnabled || !this._isPledging || e.Button != System.Windows.Forms.MouseButtons.Left)
+                if (!this._settingsService.SearchEnabled || e.Button != System.Windows.Forms.MouseButtons.Left)
                 {
                     return;
                 }
@@ -274,9 +264,17 @@ namespace Lurker
         /// <returns>The item in the clipboard</returns>
         private async Task<PoeItem> GetItemInClipboard()
         {
-            this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_C);
-            await Task.Delay(20);
-            return this._itemParser.Parse(this.GetClipboardText());
+            try
+            {
+                this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_C);
+                await Task.Delay(20);
+                var text = this.GetClipboardText();
+                return this._itemParser.Parse(text);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         /// <summary>
