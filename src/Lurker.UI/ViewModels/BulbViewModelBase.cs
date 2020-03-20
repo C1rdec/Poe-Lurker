@@ -11,6 +11,7 @@ namespace Lurker.UI.ViewModels
     using Lurker.UI.Helpers;
     using Lurker.UI.Models;
     using System.ComponentModel;
+    using System.Threading.Tasks;
 
     public abstract class BulbViewModel : PoeOverlayBase
     {
@@ -109,6 +110,11 @@ namespace Lurker.UI.ViewModels
             this.ActionView = message.View;
 
             this.NotifyOfPropertyChange(nameof(this.HasAction));
+
+            if (message.DisplayTime != null)
+            {
+                Task.Run(async () => await Task.Delay(message.DisplayTime)).ContinueWith((t) => this.Hide());
+            }
         }
 
         #endregion

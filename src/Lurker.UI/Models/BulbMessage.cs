@@ -27,6 +27,11 @@ namespace Lurker.UI.Models
         /// </summary>
         public Action<Action> OnShow { get; set; }
 
+        /// <summary>
+        /// Gets or sets the display time.
+        /// </summary>
+        public TimeSpan DisplayTime { get; set; }
+
         #endregion
     }
 }

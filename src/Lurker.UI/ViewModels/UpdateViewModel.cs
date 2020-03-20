@@ -17,11 +17,25 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateViewModel"/> class.
         /// </summary>
-        public UpdateViewModel()
+        public UpdateViewModel(bool needUpdate)
         {
+            if (!File.Exists(this.NeedUpdateFilePath))
+            {
+                File.WriteAllText(this.NeedUpdateFilePath, this.GetResourceContent(this.NeedUpdateFileName));
+            }
+
             if (!File.Exists(this.AnimationFilePath))
             {
-                File.WriteAllText(this.AnimationFilePath, this.GetResourceContent());
+                File.WriteAllText(this.UpdateSuccessFilePath, this.GetResourceContent(this.UpdateSuccessFileName));
+            }
+
+            if (needUpdate)
+            {
+                this.AnimationFilePath = this.NeedUpdateFilePath;
+            }
+            else
+            {
+                this.AnimationFilePath = this.UpdateSuccessFilePath;
             }
         }
 
@@ -32,7 +46,17 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets the settings file path.
         /// </summary>
-        public string AnimationFilePath => Path.Combine(this.SettingsFolderPath, this.FileName);
+        public string AnimationFilePath { get; private set; }
+
+        /// <summary>
+        /// Gets the need update file path.
+        /// </summary>
+        public string NeedUpdateFilePath => Path.Combine(this.SettingsFolderPath, this.NeedUpdateFileName);
+
+        /// <summary>
+        /// Gets the update success file path.
+        /// </summary>
+        public string UpdateSuccessFilePath => Path.Combine(this.SettingsFolderPath, this.UpdateSuccessFileName);
 
         /// <summary>
         /// Gets the name of the folder.
@@ -42,7 +66,12 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets the name of the file.
         /// </summary>
-        private string FileName => "UpdateAnimation.json";
+        private string NeedUpdateFileName => "UpdateAnimation.json";
+
+        /// <summary>
+        /// Gets the name of the update success file.
+        /// </summary>
+        private string UpdateSuccessFileName => "UpdateSuccessAnimation.json";
 
         /// <summary>
         /// Gets the application data folder path.
@@ -63,9 +92,9 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="resourceName">Name of the resource.</param>
         /// <returns>The animation text.</returns>
-        private string GetResourceContent()
+        private string GetResourceContent(string fileName)
         {
-            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"Lurker.UI.Assets.UpdateAnimation.json"))
+            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"Lurker.UI.Assets.{fileName}"))
             {
                 using (StreamReader reader = new StreamReader(stream))
                 {

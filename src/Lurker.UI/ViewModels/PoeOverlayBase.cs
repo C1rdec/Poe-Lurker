@@ -60,9 +60,30 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public bool DebugEnabled => this._settingsService.DebugEnabled;
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="PoeOverlayBase"/> is hidden.
+        /// </summary>
+        protected bool Hidden { get; set; }
+
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Hides the view.
+        /// </summary>
+        protected void HideView()
+        {
+            this._view.Hide();
+        }
+
+        /// <summary>
+        /// Shows the view.
+        /// </summary>
+        protected void ShowView()
+        {
+            this._view.Show();
+        }
 
         /// <summary>
         /// Dockings the helper on foreground change.
@@ -73,11 +94,16 @@ namespace Lurker.UI.ViewModels
         {
             if (e)
             {
-                this._view.Show();
+                if (this.Hidden)
+                {
+                    return;
+                }
+
+                this.ShowView();
             }
             else
             {
-                this._view.Hide();
+                this.HideView();
             }
         }
 

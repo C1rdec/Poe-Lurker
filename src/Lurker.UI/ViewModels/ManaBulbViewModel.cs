@@ -39,6 +39,27 @@ namespace Lurker.UI.ViewModels
             this._settingsViewModel = settingsViewModel;
             this._eventAggregator = eventAggregator;
             this._eventAggregator.Subscribe(this);
+
+            lurker.LocationChanged += this.Lurker_LocationChanged;
+        }
+
+        /// <summary>
+        /// Lurkers the location changed.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
+        private void Lurker_LocationChanged(object sender, Patreon.Events.LocationChangedEvent e)
+        {
+            if (e.Location.EndsWith("Hideout"))
+            {
+                this.Hidden = false;
+                this.ShowView();
+            }
+            else
+            {
+                this.Hidden = true;
+                this.HideView();
+            }
         }
 
         #endregion

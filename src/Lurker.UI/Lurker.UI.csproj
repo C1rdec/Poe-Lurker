@@ -358,6 +358,7 @@
     <Resource Include="Assets\Fontin.ttf" />
     <None Include="app.manifest" />
     <EmbeddedResource Include="Assets\UpdateAnimation.json" />
+    <EmbeddedResource Include="Assets\UpdateSuccessAnimation.json" />
     <None Include="Lurker.nuspec" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

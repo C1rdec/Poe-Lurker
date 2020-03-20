@@ -43,6 +43,7 @@ namespace Lurker.UI
         private bool _needUpdate;
         private bool _showInTaskBar;
         private bool _isItemOverlayOpen;
+        private bool _showUpdateSuccess;
 
         #endregion
 
@@ -67,6 +68,7 @@ namespace Lurker.UI
             if (settingsService.FirstLaunch)
             {
                 settingsService.FirstLaunch = false;
+                this._showUpdateSuccess = true;
                 settingsService.Save();
                 Process.Start("https://github.com/C1rdec/Poe-Lurker/releases/latest");
             }
@@ -357,11 +359,17 @@ namespace Lurker.UI
             {
                 var message = new ManaBulbMessage()
                 {
-                    View = new UpdateViewModel(),
+                    View = new UpdateViewModel(true),
                     Action = async () => await updateManager.Update()
                 };
 
                 this._eventAggregator.PublishOnUIThread(message);
+            }
+            
+            if (this._showUpdateSuccess)
+            {
+                this._showUpdateSuccess = false;
+                this._eventAggregator.PublishOnUIThread(new ManaBulbMessage() { View = new UpdateViewModel(false), DisplayTime = TimeSpan.FromSeconds(5) });
             }
         }
 
