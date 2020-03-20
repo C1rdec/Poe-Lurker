@@ -282,6 +282,11 @@ namespace Lurker
         /// </summary>
         private async void Search()
         {
+            if (!this._settingsService.ItemHighlightEnabled)
+            {
+                return;
+            }
+
             var item = await this.GetItemInClipboard();
             if (item == null)
             {

@@ -238,6 +238,9 @@ namespace Lurker.Services
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [automatic kick enabled].
+        /// </summary>
         public bool AutoKickEnabled
         {
             get
@@ -248,6 +251,22 @@ namespace Lurker.Services
             set
             {
                 this._settings.AutoKickEnabled = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [item highlight enabled].
+        /// </summary>
+        public bool ItemHighlightEnabled
+        {
+            get
+            {
+                return this._settings.ItemHighlightEnabled;
+            }
+
+            set
+            {
+                this._settings.ItemHighlightEnabled = value;
             }
         }
 

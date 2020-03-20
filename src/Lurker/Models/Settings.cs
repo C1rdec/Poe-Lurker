@@ -83,6 +83,12 @@ namespace Lurker.Models
         public bool AutoKickEnabled { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [item highlight enabled].
+        /// </summary>
+        [DefaultValue(true)]
+        public bool ItemHighlightEnabled { get; set; }
+
+        /// <summary>
         /// Gets or sets the tooltip delay.
         /// </summary>
         [DefaultValue(1000)]

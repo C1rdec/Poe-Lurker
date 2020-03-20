@@ -241,6 +241,23 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [item highlight enabled].
+        /// </summary>
+        public bool ItemHighlightEnabled
+        {
+            get
+            {
+                return this._settingService.ItemHighlightEnabled;
+            }
+
+            set
+            {
+                this._settingService.ItemHighlightEnabled = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [debug enabled].
         /// </summary>
         public bool DebugEnabled
