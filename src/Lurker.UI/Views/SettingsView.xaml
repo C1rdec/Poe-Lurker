@@ -191,6 +191,11 @@
                                                Margin="30,0,0,0"
                                                Header="Item Highlight"
                                                IsChecked="{Binding ItemHighlightEnabled}"/>
+                            <TextBlock Margin="4 4 0 0"
+                                                   Foreground="{DynamicResource AccentColorBrush}"
+                                                   FontSize="12"
+                                                   VerticalAlignment="Top"
+                                                   Text="(Ctrl + F)" />
                         </StackPanel>
                         <Controls:ToggleSwitch Grid.Row="1"
                                            Margin="0,30,0,0"
