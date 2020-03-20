@@ -8,7 +8,6 @@ namespace Lurker.UI.Helpers
 {
     using Lurker.Services;
     using Squirrel;
-    using System;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -18,6 +17,8 @@ namespace Lurker.UI.Helpers
 
         private static readonly string PoeLukerGithubUrl = "https://github.com/C1rdec/Poe-Lurker";
         private SettingsService _settingsService;
+        private ClipboardLurker _clipboardLurker;
+        private ClientLurker _clientLurker;
 
         #endregion
 
@@ -27,8 +28,10 @@ namespace Lurker.UI.Helpers
         /// Initializes a new instance of the <see cref="UpdateManager"/> class.
         /// </summary>
         /// <param name="settingService">The setting service.</param>
-        public UpdateManager(SettingsService settingsService)
+        public UpdateManager(SettingsService settingsService, ClipboardLurker clipboardLurker, ClientLurker clientLurker)
         {
+            this._clipboardLurker = clipboardLurker;
+            this._clientLurker = clientLurker;
             this._settingsService = settingsService;
         }
 
@@ -43,6 +46,16 @@ namespace Lurker.UI.Helpers
         {
             this._settingsService.FirstLaunch = true;
             this._settingsService.Save();
+
+            if (this._clipboardLurker != null)
+            {
+                this._clipboardLurker.Dispose();
+            }
+
+            if (this._clientLurker != null)
+            {
+                this._clientLurker.Dispose();
+            }
 
             using (var updateManager = await Squirrel.UpdateManager.GitHubUpdateManager(PoeLukerGithubUrl))
             {

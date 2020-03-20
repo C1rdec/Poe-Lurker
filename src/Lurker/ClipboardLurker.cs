@@ -100,6 +100,7 @@ namespace Lurker
         {
             if (disposing)
             {
+                this._keyboardEvent.MouseClick -= this.KeyboardEvent_MouseClick;
                 this._keyboardEvent.Dispose();
                 this._clipboardMonitor.ClipboardChanged -= ClipboardMonitor_ClipboardChanged;
                 this._settingsService.OnSave -= this.SettingsService_OnSave;

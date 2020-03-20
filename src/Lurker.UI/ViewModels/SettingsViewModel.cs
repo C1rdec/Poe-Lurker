@@ -22,7 +22,6 @@ namespace Lurker.UI.ViewModels
 
         private KeyboardHelper _keyboardHelper;
         private SettingsService _settingService;
-        private UpdateManager _updateManager;
         private bool _needsUpdate;
         private bool _pledging;
         private int _alertVolume;
@@ -35,12 +34,11 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="SettingsViewModel"/> class.
         /// </summary>
-        public SettingsViewModel(IWindowManager windowManager, KeyboardHelper keyboardHelper, SettingsService settingsService, UpdateManager updateManager)
+        public SettingsViewModel(IWindowManager windowManager, KeyboardHelper keyboardHelper, SettingsService settingsService)
             : base(windowManager)
         {
             this._keyboardHelper = keyboardHelper;
             this._settingService = settingsService;
-            this._updateManager = updateManager;
             this.DisplayName = "Settings";
 
             this.PropertyChanged += this.SettingsViewModel_PropertyChanged;
@@ -358,7 +356,8 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public async void Update()
         {
-            await this._updateManager.Update();
+            var updateManager = IoC.Get<UpdateManager>();
+            await updateManager.Update();
         }
 
         /// <summary>
@@ -469,7 +468,8 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         private async void CheckForUpdate()
         {
-            this.NeedsUpdate = await this._updateManager.CheckForUpdate();
+            var updateManager = IoC.Get<UpdateManager>();
+            this.NeedsUpdate = await updateManager.CheckForUpdate();
         }
 
         /// <summary>

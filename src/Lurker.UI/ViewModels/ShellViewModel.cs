@@ -37,7 +37,6 @@ namespace Lurker.UI
         private ManaBulbViewModel _manaBulbOverlay;
         private SettingsService _settingsService;
         private ItemOverlayViewModel _itemOverlay;
-        private UpdateManager _updateManager;
         private SettingsViewModel _settingsViewModel;
         private IEventAggregator _eventAggregator;
         private bool _startWithWindows;
@@ -54,12 +53,11 @@ namespace Lurker.UI
         /// </summary>
         /// <param name="windowManager">The window manager.</param>
         /// <param name="container">The container.</param>
-        public ShellViewModel(SimpleContainer container, SettingsService settingsService, UpdateManager updateManager, SettingsViewModel settingsViewModel, IEventAggregator eventAggregator)
+        public ShellViewModel(SimpleContainer container, SettingsService settingsService, SettingsViewModel settingsViewModel, IEventAggregator eventAggregator)
         {
             this._eventAggregator = eventAggregator;
             this._settingsService = settingsService;
             this._container = container;
-            this._updateManager = updateManager;
             this._settingsViewModel = settingsViewModel;
 
             this.WaitForPoe();
@@ -248,7 +246,8 @@ namespace Lurker.UI
         public async void Update()
         {
             this.ShowInTaskBar = false;
-            await this._updateManager.Update();
+            var updateManager = IoC.Get<UpdateManager>();
+            await updateManager.Update();
         }
 
         /// <summary>
@@ -352,13 +351,14 @@ namespace Lurker.UI
         /// </summary>
         private async Task CheckForUpdate()
         {
-            this.NeedUpdate = await this._updateManager.CheckForUpdate();
+            var updateManager = IoC.Get<UpdateManager>();
+            this.NeedUpdate = await updateManager.CheckForUpdate();
             if (this.NeedUpdate)
             {
                 var message = new ManaBulbMessage()
                 {
                     View = new UpdateViewModel(),
-                    Action = async () => await this._updateManager.Update()
+                    Action = async () => await updateManager.Update()
                 };
 
                 this._eventAggregator.PublishOnUIThread(message);
