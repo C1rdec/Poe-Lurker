@@ -86,8 +86,8 @@ namespace Lurker
         /// </summary>
         public void BindGlobalClick()
         {
+            this._keyboardEvent.MouseClick += this.KeyboardEvent_MouseClick;
 #if (!DEBUG)
-            this._keyboardEvent.MouseDownExt += this.KeyboardEvent_MouseClick;
 #endif
         }
 
@@ -107,7 +107,7 @@ namespace Lurker
         {
             if (disposing)
             {
-                this._keyboardEvent.MouseDownExt -= this.KeyboardEvent_MouseClick;
+                this._keyboardEvent.MouseClick -= this.KeyboardEvent_MouseClick;
                 this._keyboardEvent.Dispose();
                 this._clipboardMonitor.ClipboardChanged -= ClipboardMonitor_ClipboardChanged;
                 this._settingsService.OnSave -= this.SettingsService_OnSave;
@@ -130,13 +130,12 @@ namespace Lurker
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.Windows.Forms.MouseEventArgs"/> instance containing the event data.</param>
-        private void KeyboardEvent_MouseClick(object sender, MouseEventExtArgs e)
+        private void KeyboardEvent_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             Task.Run(() =>
             {
                 if (e.Button == System.Windows.Forms.MouseButtons.Middle && this._settingsService.RemainingMonsterEnabled)
                 {
-                    e.Handled = true;
                     this._keyboardHelper.RemainingMonster();
                     return;
                 }
