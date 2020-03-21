@@ -212,6 +212,7 @@
     <Compile Include="Converters\CurrencyTypeConverter.cs" />
     <Compile Include="Helpers\DockingHelper.cs" />
     <Compile Include="Helpers\UpdateManager.cs" />
+    <Compile Include="Models\UpdateState.cs" />
     <Compile Include="Models\DoubleClickCommand.cs" />
     <Compile Include="Models\BulbMessage.cs" />
     <Compile Include="Models\ManaBulbMessage.cs" />
@@ -367,6 +368,7 @@
     <None Include="app.manifest" />
     <EmbeddedResource Include="Assets\UpdateAnimation.json" />
     <EmbeddedResource Include="Assets\UpdateSuccessAnimation.json" />
+    <EmbeddedResource Include="Assets\UpdateWorkingAnimation.json" />
     <None Include="Lurker.nuspec" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

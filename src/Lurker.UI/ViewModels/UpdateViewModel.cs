@@ -6,6 +6,7 @@
 
 namespace Lurker.UI.ViewModels
 {
+    using Lurker.UI.Models;
     using System;
     using System.IO;
     using System.Reflection;
@@ -17,25 +18,36 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateViewModel"/> class.
         /// </summary>
-        public UpdateViewModel(bool needUpdate)
+        public UpdateViewModel(UpdateState state)
         {
             if (!File.Exists(this.NeedUpdateFilePath))
             {
                 File.WriteAllText(this.NeedUpdateFilePath, this.GetResourceContent(this.NeedUpdateFileName));
             }
 
-            if (!File.Exists(this.AnimationFilePath))
+            if (!File.Exists(this.UpdateSuccessFilePath))
             {
                 File.WriteAllText(this.UpdateSuccessFilePath, this.GetResourceContent(this.UpdateSuccessFileName));
             }
 
-            if (needUpdate)
+            if (!File.Exists(this.UpdateWorkingFilePath))
             {
-                this.AnimationFilePath = this.NeedUpdateFilePath;
+                File.WriteAllText(this.UpdateWorkingFilePath, this.GetResourceContent(this.UpdateWorkingFileName));
             }
-            else
+
+            switch (state)
             {
-                this.AnimationFilePath = this.UpdateSuccessFilePath;
+                case UpdateState.NeedUpdate:
+                    this.AnimationFilePath = this.NeedUpdateFilePath;
+                    break;
+                case UpdateState.Success:
+                    this.AnimationFilePath = this.UpdateSuccessFilePath;
+                    break;
+                case UpdateState.Working:
+                    this.AnimationFilePath = this.UpdateWorkingFilePath;
+                    break;
+                default:
+                    throw new System.NotSupportedException();
             }
         }
 
@@ -59,6 +71,11 @@ namespace Lurker.UI.ViewModels
         public string UpdateSuccessFilePath => Path.Combine(this.SettingsFolderPath, this.UpdateSuccessFileName);
 
         /// <summary>
+        /// Gets the update success file path.
+        /// </summary>
+        public string UpdateWorkingFilePath => Path.Combine(this.SettingsFolderPath, this.UpdateWorkingFileName);
+
+        /// <summary>
         /// Gets the name of the folder.
         /// </summary>
         private string FolderName => "PoeLurker";
@@ -72,6 +89,11 @@ namespace Lurker.UI.ViewModels
         /// Gets the name of the update success file.
         /// </summary>
         private string UpdateSuccessFileName => "UpdateSuccessAnimation.json";
+
+        /// <summary>
+        /// Gets the name of the update working file.
+        /// </summary>
+        private string UpdateWorkingFileName => "UpdateWorkingAnimation.json";
 
         /// <summary>
         /// Gets the application data folder path.

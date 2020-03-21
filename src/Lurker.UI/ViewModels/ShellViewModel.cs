@@ -44,7 +44,6 @@ namespace Lurker.UI
         private bool _showInTaskBar;
         private bool _isItemOverlayOpen;
         private bool _showUpdateSuccess;
-        private System.Action _hideMana;
 
         #endregion
 
@@ -251,7 +250,14 @@ namespace Lurker.UI
         /// </summary>
         public async void Update()
         {
-            this._hideMana?.Invoke();
+            var message = new ManaBulbMessage()
+            {
+                View = new UpdateViewModel(UpdateState.Working)
+            };
+
+            this._eventAggregator.PublishOnUIThread(message);
+            this.CleanUp();
+
             this.ShowInTaskBar = false;
             var updateManager = IoC.Get<UpdateManager>();
             await updateManager.Update();
@@ -376,13 +382,12 @@ namespace Lurker.UI
         {
             var updateManager = IoC.Get<UpdateManager>();
             this.NeedUpdate = await updateManager.CheckForUpdate();
-            if (this.NeedUpdate)
+            if (!this.NeedUpdate)
             {
                 var message = new ManaBulbMessage()
                 {
-                    View = new UpdateViewModel(true),
+                    View = new UpdateViewModel(UpdateState.NeedUpdate),
                     Action = () => this.Update(),
-                    OnShow = (a) => this._hideMana = a
                 };
 
                 this._eventAggregator.PublishOnUIThread(message);
@@ -392,7 +397,7 @@ namespace Lurker.UI
             if (this._showUpdateSuccess)
             {
                 this._showUpdateSuccess = false;
-                this._eventAggregator.PublishOnUIThread(new ManaBulbMessage() { View = new UpdateViewModel(false), DisplayTime = TimeSpan.FromSeconds(5) });
+                this._eventAggregator.PublishOnUIThread(new ManaBulbMessage() { View = new UpdateViewModel(UpdateState.Success), DisplayTime = TimeSpan.FromSeconds(5) });
             }
         }
 
