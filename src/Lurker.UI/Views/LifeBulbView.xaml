@@ -14,7 +14,7 @@
         Title="LifeBulbView">
     <Grid>
         <ContentControl Height="80" x:Name="ActionView" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Ellipse Cursor="Hand" x:Name="Test" cal:Message.Attach="[Event MouseDown] = [Action OnClick()]">
+        <Ellipse Cursor="Hand" x:Name="Test" cal:Message.Attach="[Event MouseDown] = [Action OnClick()]" Visibility="{Binding HasAction, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Ellipse.Clip>
                 <RectangleGeometry x:Name="RectangleGeometry"/>
             </Ellipse.Clip>

@@ -73,10 +73,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Defaults the action.
         /// </summary>
-        protected override void DefaultAction()
-        {
-            this._keyboardHelper.JoinHideout();
-        }
+        protected override System.Action DefaultAction => () => this._keyboardHelper.JoinHideout();
 
         #endregion
     }

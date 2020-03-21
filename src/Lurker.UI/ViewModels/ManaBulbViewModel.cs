@@ -12,13 +12,13 @@ namespace Lurker.UI.ViewModels
     using Lurker.UI.Helpers;
     using Lurker.UI.Models;
     using Lurker.UI.Views;
+    using System;
 
     public class ManaBulbViewModel : BulbViewModel, IHandle<ManaBulbMessage>
     {
         #region Fields
 
         private IEventAggregator _eventAggregator;
-        private PoeKeyboardHelper _keyboardHelper;
         private SettingsViewModel _settingsViewModel;
 
         #endregion
@@ -35,12 +35,22 @@ namespace Lurker.UI.ViewModels
         public ManaBulbViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, DockingHelper dockingHelper, ClientLurker lurker, SettingsService settingsService, PoeKeyboardHelper keyboard, SettingsViewModel settingsViewModel) 
             : base(windowManager, dockingHelper, lurker, settingsService)
         {
-            this._keyboardHelper = keyboard;
             this._settingsViewModel = settingsViewModel;
             this._eventAggregator = eventAggregator;
             this._eventAggregator.Subscribe(this);
 
             lurker.LocationChanged += this.Lurker_LocationChanged;
+            lurker.RemainingMonsters += this.Lurker_RemainingMonsters;
+        }
+
+        /// <summary>
+        /// Lurkers the remaining monsters.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
+        private void Lurker_RemainingMonsters(object sender, Patreon.Events.MonstersRemainEvent e)
+        {
+            this.SetAction(new ManaBulbMessage() { View = new RemainingMonsterViewModel(e), DisplayTime = TimeSpan.FromSeconds(3)});
         }
 
         /// <summary>
@@ -50,16 +60,13 @@ namespace Lurker.UI.ViewModels
         /// <param name="e">The e.</param>
         private void Lurker_LocationChanged(object sender, Patreon.Events.LocationChangedEvent e)
         {
+            var message = new ManaBulbMessage();
             if (e.Location.EndsWith("Hideout"))
             {
-                this.Hidden = false;
-                this.ShowView();
+                message.Action = this.DefaultAction;
             }
-            else
-            {
-                this.Hidden = true;
-                this.HideView();
-            }
+
+            this.SetAction(message);
         }
 
         #endregion
@@ -95,10 +102,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Defaults the action.
         /// </summary>
-        protected override void DefaultAction()
-        {
-            this._eventAggregator.PublishOnUIThread(this._settingsViewModel);
-        }
+        protected override System.Action DefaultAction => () => this._eventAggregator.PublishOnUIThread(this._settingsViewModel);
 
         #endregion
     }

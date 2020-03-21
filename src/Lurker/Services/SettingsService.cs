@@ -271,6 +271,22 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [remaining monster enabled].
+        /// </summary>
+        public bool RemainingMonsterEnabled
+        {
+            get
+            {
+                return this._settings.RemainingMonsterEnabled;
+            }
+
+            set
+            {
+                this._settings.RemainingMonsterEnabled = value;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the alert volume.
         /// </summary>
         public float AlertVolume

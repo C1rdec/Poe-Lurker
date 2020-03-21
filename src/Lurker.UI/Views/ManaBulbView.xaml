@@ -14,7 +14,7 @@
         Title="ManaBulbView">
     <Grid>
         <ContentControl Height="160" x:Name="ActionView" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Ellipse Cursor="Hand" x:Name="Test" cal:Message.Attach="[Event MouseDown] = [Action OnClick()]">
+        <Ellipse Cursor="Hand" x:Name="Test" cal:Message.Attach="[Event MouseDown] = [Action OnClick()]" Visibility="{Binding HasAction, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Ellipse.Style>
                 <Style TargetType="{x:Type Ellipse}">
                     <Setter Property="Opacity" Value="0.002"/>

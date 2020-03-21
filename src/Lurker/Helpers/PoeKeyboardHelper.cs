@@ -26,6 +26,14 @@ namespace Lurker.Helpers
         #region Methods
 
         /// <summary>
+        /// Remainings the monster.
+        /// </summary>
+        public void RemainingMonster()
+        {
+            this.SendCommand("/remaining");
+        }
+
+        /// <summary>
         /// Whoes the is.
         /// </summary>
         /// <param name="playerName">Name of the player.</param>

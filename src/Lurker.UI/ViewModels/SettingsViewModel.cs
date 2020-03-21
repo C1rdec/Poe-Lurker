@@ -120,6 +120,26 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets the busy message.
+        /// </summary>
+        /// <value>
+        /// The busy message.
+        /// </value>
+        public bool RemainingMonsterEnabled
+        {
+            get
+            {
+                return this._settingService.RemainingMonsterEnabled;
+            }
+
+            set
+            {
+                this._settingService.RemainingMonsterEnabled = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the sold message.
         /// </summary>
         public string SoldMessage

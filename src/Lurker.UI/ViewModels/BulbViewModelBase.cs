@@ -21,6 +21,7 @@ namespace Lurker.UI.ViewModels
         private INotifyPropertyChanged _actionView;
         protected static readonly int DefaultBulbHeight = 220;
         protected System.Action _action;
+        private System.Action _previousAction;
 
         #endregion
 
@@ -36,6 +37,7 @@ namespace Lurker.UI.ViewModels
         public BulbViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ClientLurker lurker, SettingsService settingsService)
             : base(windowManager, dockingHelper, lurker, settingsService)
         {
+            this.SetDefaultAction();
         }
 
         #endregion
@@ -64,6 +66,11 @@ namespace Lurker.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Defaults the action.
+        /// </summary>
+        protected virtual System.Action DefaultAction => null;
+
         #endregion
 
         #region Methods
@@ -82,22 +89,23 @@ namespace Lurker.UI.ViewModels
             this._action.Invoke();
         }
 
-
-        /// <summary>
-        /// Defaults the action.
-        /// </summary>
-        protected virtual void DefaultAction()
-        {
-        }
-
         /// <summary>
         /// Hides this instance.
         /// </summary>
         protected void Hide()
         {
             this.ActionView = null;
-            this._action = null;
+            this._action = this._previousAction;
+            this._previousAction = null;
             this.NotifyOfPropertyChange(nameof(this.HasAction));
+        }
+
+        /// <summary>
+        /// Sets the default action.
+        /// </summary>
+        protected void SetDefaultAction()
+        {
+            this.SetAction(new BulbMessage() { Action = this.DefaultAction });
         }
 
         /// <summary>
@@ -107,6 +115,7 @@ namespace Lurker.UI.ViewModels
         protected void SetAction(BulbMessage message)
         {
             message.OnShow?.Invoke(this.Hide);
+            this._previousAction = this._action;
             this._action = message.Action;
             this.ActionView = message.View;
 

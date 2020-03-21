@@ -88,6 +88,12 @@ namespace Lurker.Models
         [DefaultValue(true)]
         public bool ItemHighlightEnabled { get; set; }
 
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [item highlight enabled].
+        /// </summary>
+        public bool RemainingMonsterEnabled { get; set; }
+
         /// <summary>
         /// Gets or sets the tooltip delay.
         /// </summary>

@@ -197,12 +197,17 @@
                                                    VerticalAlignment="Top"
                                                    Text="(Ctrl + F)" />
                         </StackPanel>
-                        <Controls:ToggleSwitch Grid.Row="1"
-                                           Margin="0,30,0,0"
-                                           VerticalAlignment="Top"
-                                           HorizontalAlignment="Center"
-                                           Header="Debug Mode"
-                                           IsChecked="{Binding DebugEnabled}"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,30,0,0" HorizontalAlignment="Center">
+                            <Controls:ToggleSwitch 
+                                               Header="Remaining Monster"
+                                               IsChecked="{Binding RemainingMonsterEnabled}"/>
+                            <Controls:ToggleSwitch Grid.Row="1"
+                                                   VerticalAlignment="Top"
+                                                   Margin="30,0,0,0"
+                                                   HorizontalAlignment="Center"
+                                                   Header="Debug Mode"
+                                                   IsChecked="{Binding DebugEnabled}"/>
+                        </StackPanel>
                     </StackPanel>
                 </Grid>
             </TabItem>

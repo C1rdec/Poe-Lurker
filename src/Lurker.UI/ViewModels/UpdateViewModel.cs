@@ -10,7 +10,7 @@ namespace Lurker.UI.ViewModels
     using System.IO;
     using System.Reflection;
 
-    public class UpdateViewModel: Caliburn.Micro.PropertyChangedBase
+    public class UpdateViewModel : Caliburn.Micro.PropertyChangedBase
     {
         #region Constructors
 
