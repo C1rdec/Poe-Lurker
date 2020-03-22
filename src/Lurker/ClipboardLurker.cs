@@ -151,8 +151,11 @@ namespace Lurker
         /// Gets the clipboard data.
         /// </summary>
         /// <returns>The clipboard text.</returns>
-        private string GetClipboardText()
+        private async Task<string> GetClipboardText()
         {
+            this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_C);
+            await Task.Delay(20);
+
             var clipboardText = string.Empty;
             Thread thread = new Thread(() => 
             {
@@ -275,10 +278,32 @@ namespace Lurker
         {
             try
             {
-                this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_C);
-                await Task.Delay(20);
-                var text = this.GetClipboardText();
+                var text = await this.GetClipboardText();
                 return this._itemParser.Parse(text);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Gets the item base type in clipboard.
+        /// </summary>
+        /// <returns></returns>
+        private async Task<string> GetItemBaseTypeInClipboard()
+        {
+            try
+            {
+                var text = await this.GetClipboardText();
+                try
+                {
+                    return this._itemParser.GetBaseType(text);
+                }
+                catch (System.InvalidOperationException)
+                {
+                    return null;
+                }
             }
             catch
             {
@@ -296,13 +321,13 @@ namespace Lurker
                 return;
             }
 
-            var item = await this.GetItemInClipboard();
-            if (item == null)
+            var baseType = await this.GetItemBaseTypeInClipboard();
+            if (string.IsNullOrEmpty(baseType))
             {
                 return;
             }
 
-            this._keyboardHelper.Write(item.BaseType);
+            this._keyboardHelper.Write(baseType);
         }
 
         /// <summary>
