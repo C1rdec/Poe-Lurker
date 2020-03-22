@@ -9,7 +9,6 @@ namespace Lurker
 {
     using Gma.System.MouseKeyHook;
     using Lurker.Helpers;
-    using Lurker.Patreon;
     using Lurker.Patreon.Events;
     using Lurker.Patreon.Models;
     using Lurker.Patreon.Parsers;
@@ -311,7 +310,10 @@ namespace Lurker
         /// </summary>
         private void RemainingMonster()
         {
-            this._keyboardHelper.RemainingMonster();
+            if (this._settingsService.RemainingMonsterEnabled)
+            {
+                this._keyboardHelper.RemainingMonster();
+            }
         }
 
         #endregion
