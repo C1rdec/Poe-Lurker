@@ -195,7 +195,7 @@ namespace Lurker.UI.ViewModels
                 if (!alreadySold)
                 {
                     this._lastOffers.Add(offer.Event);
-                    if (this._lastOffers.Count > 5)
+                    if (this._lastOffers.Count >= 5)
                     {
                         this._lastOffers.RemoveAt(0);
                     }
