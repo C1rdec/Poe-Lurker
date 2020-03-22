@@ -54,9 +54,11 @@ namespace Lurker
             this._clipboardMonitor.ClipboardChanged += this.ClipboardMonitor_ClipboardChanged;
 
             var search = Combination.FromString("Control+F");
+            var remainingMonster = Combination.FromString("Control+R");
             var assignment = new Dictionary<Combination, Action>
             {
                 {search, this.Search},
+                {remainingMonster, this.RemainingMonster },
             };
 
             this._keyboardEvent.OnCombination(assignment);
@@ -134,12 +136,6 @@ namespace Lurker
         {
             Task.Run(() =>
             {
-                if (e.Button == System.Windows.Forms.MouseButtons.Middle && this._settingsService.RemainingMonsterEnabled)
-                {
-                    this._keyboardHelper.RemainingMonster();
-                    return;
-                }
-
                 if (!this._settingsService.SearchEnabled || e.Button != System.Windows.Forms.MouseButtons.Left)
                 {
                     return;
@@ -308,6 +304,14 @@ namespace Lurker
             }
 
             this._keyboardHelper.Write(item.BaseType);
+        }
+
+        /// <summary>
+        /// Remainings the monster.
+        /// </summary>
+        private void RemainingMonster()
+        {
+            this._keyboardHelper.RemainingMonster();
         }
 
         #endregion
