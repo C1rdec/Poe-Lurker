@@ -40,20 +40,19 @@ namespace Lurker.Services
 
             if (!File.Exists(this.SettingsFilePath))
             {
-                using (var file = File.Create(this.SettingsFilePath))
-                { 
-                }
-
-                // Set default values
-                this.BusyMessage = DefaultBusyMessage;
-                this.SoldMessage = DefaultSoldMessage;
-                this.StillInterestedMessage = DefaultStillInterestedMessage;
-                this.ThankYouMessage = DefaultThankYouMessage;
-                this.Save();
+                this.CreateDefaultSettings();
             }
             else
             {
-                this._settings.ReadJsonFile(this.SettingsFilePath);
+                try
+                {
+                    this._settings.ReadJsonFile(this.SettingsFilePath);
+                }
+                catch
+                {
+                    File.Delete(this.SettingsFilePath);
+                    this.CreateDefaultSettings();
+                }
             }
 
             if (string.IsNullOrEmpty(this._settings.UserId))
@@ -354,6 +353,20 @@ namespace Lurker.Services
         {
             this._settings.WriteJsonFile(this.SettingsFilePath);
             this.OnSave?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void CreateDefaultSettings()
+        {
+            using (var file = File.Create(this.SettingsFilePath))
+            {
+            }
+
+            // Set default values
+            this.BusyMessage = DefaultBusyMessage;
+            this.SoldMessage = DefaultSoldMessage;
+            this.StillInterestedMessage = DefaultStillInterestedMessage;
+            this.ThankYouMessage = DefaultThankYouMessage;
+            this.Save();
         }
 
         #endregion
