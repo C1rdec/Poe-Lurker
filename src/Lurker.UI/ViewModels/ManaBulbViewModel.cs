@@ -60,13 +60,18 @@ namespace Lurker.UI.ViewModels
         /// <param name="e">The e.</param>
         private void Lurker_LocationChanged(object sender, Patreon.Events.LocationChangedEvent e)
         {
-            var message = new ManaBulbMessage();
             if (e.Location.EndsWith("Hideout"))
             {
-                message.Action = this.DefaultAction;
+                if (!this.HasAction)
+                {
+                    var message = new ManaBulbMessage()
+                    {
+                        Action = this.DefaultAction
+                    };
+                    this.SetAction(message);
+                }
             }
 
-            this.SetAction(message);
         }
 
         #endregion
@@ -98,11 +103,6 @@ namespace Lurker.UI.ViewModels
                 var lifeView = this._view as ManaBulbView;
             });
         }
-
-        /// <summary>
-        /// Defaults the action.
-        /// </summary>
-        protected override System.Action DefaultAction => () => this._eventAggregator.PublishOnUIThread(this._settingsViewModel);
 
         #endregion
     }

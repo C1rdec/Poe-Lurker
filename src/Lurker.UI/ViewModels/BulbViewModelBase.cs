@@ -22,6 +22,7 @@ namespace Lurker.UI.ViewModels
         protected static readonly int DefaultBulbHeight = 220;
         protected System.Action _action;
         private System.Action _previousAction;
+        private INotifyPropertyChanged _previousActionView;
 
         #endregion
 
@@ -96,7 +97,9 @@ namespace Lurker.UI.ViewModels
         {
             this.ActionView = null;
             this._action = this._previousAction;
+            this.ActionView = this._previousActionView;
             this._previousAction = null;
+            this._previousActionView = null;
             this.NotifyOfPropertyChange(nameof(this.HasAction));
         }
 
@@ -116,6 +119,7 @@ namespace Lurker.UI.ViewModels
         {
             message.OnShow?.Invoke(this.Hide);
             this._previousAction = this._action;
+            this._previousActionView = this._actionView;
             this._action = message.Action;
             this.ActionView = message.View;
 
