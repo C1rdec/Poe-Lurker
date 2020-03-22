@@ -9,6 +9,7 @@ namespace Lurker.UI.ViewModels
     using Caliburn.Micro;
     using Lurker.Helpers;
     using Lurker.Patreon.Events;
+    using Lurker.Patreon.Models;
     using Lurker.Services;
     using Lurker.UI.Helpers;
     using Lurker.UI.Models;
@@ -30,6 +31,7 @@ namespace Lurker.UI.ViewModels
         private List<OfferViewModel> _activeOffers = new List<OfferViewModel>();
         private IEventAggregator _eventAggregator;
         private System.Action _removeActive;
+        private List<TradeEvent> _lastOffers;
 
         #endregion
 
@@ -49,6 +51,7 @@ namespace Lurker.UI.ViewModels
             this._keyboardHelper = keyboardHelper;
             this._settingsService = settingsService;
             this.TradeOffers = new ObservableCollection<OfferViewModel>();
+            this._lastOffers = new List<TradeEvent>();
 
             this._lurker.IncomingOffer += this.Lurker_IncomingOffer;
             this._lurker.TradeAccepted += this.Lurker_TradeAccepted;
@@ -108,8 +111,33 @@ namespace Lurker.UI.ViewModels
 
             Execute.OnUIThread(() => 
             {
-                this.TradeOffers.Add(new OfferViewModel(e, this._keyboardHelper, this._context, this._settingsService));
+                this.TradeOffers.Add(new OfferViewModel(e, this._keyboardHelper, this._context, this._settingsService, this.CheckIfOfferIsAlreadySold(e)));
             });
+        }
+
+        /// <summary>
+        /// Checks if offer is already sold.
+        /// </summary>
+        /// <param name="tradeEvent">The trade event.</param>
+        private bool CheckIfOfferIsAlreadySold(TradeEvent tradeEvent)
+        {
+            var location = tradeEvent.Location.ToString();
+            var defaultLocation = new Location().ToString();
+            if (location != defaultLocation)
+            {
+                foreach (var lastOffer in this._lastOffers)
+                {
+                    if (tradeEvent.ItemName == lastOffer.ItemName)
+                    {
+                        if (location == lastOffer.Location.ToString())
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -161,6 +189,16 @@ namespace Lurker.UI.ViewModels
                 if (this._settingsService.AutoKickEnabled)
                 {
                     this._keyboardHelper.Kick(offer.PlayerName);
+                }
+
+                var alreadySold = this.CheckIfOfferIsAlreadySold(offer.Event);
+                if (!alreadySold)
+                {
+                    this._lastOffers.Add(offer.Event);
+                    if (this._lastOffers.Count > 5)
+                    {
+                        this._lastOffers.RemoveAt(0);
+                    }
                 }
 
                 this.RemoveOffer(offer);

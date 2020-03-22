@@ -39,104 +39,105 @@
                             </Style>
                         </Border.Style>
                         <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="auto"/>
-                            </Grid.RowDefinitions>
-                            <Border Grid.Row="2" CornerRadius="0,0,4,4">
-                                <Border.Style>
-                                    <Style TargetType="{x:Type Border}">
-                                        <Setter Property="Background" Value="#747771"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Status}" Value="{x:Static Local:OfferStatus.Invited}">
-                                                <Setter Property="Background" Value="Blue"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding Status}" Value="{x:Static Local:OfferStatus.Traded}">
-                                                <Setter Property="Background" Value="Green"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Border.Style>
-                            </Border>
-                            <Image Grid.RowSpan="3"
+                            <Grid Visibility="{Binding NotSold, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Border Grid.Row="2" CornerRadius="0,0,4,4">
+                                    <Border.Style>
+                                        <Style TargetType="{x:Type Border}">
+                                            <Setter Property="Background" Value="#747771"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Status}" Value="{x:Static Local:OfferStatus.Invited}">
+                                                    <Setter Property="Background" Value="Blue"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Status}" Value="{x:Static Local:OfferStatus.Traded}">
+                                                    <Setter Property="Background" Value="Green"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                </Border>
+                                <Image Grid.RowSpan="3"
                            Source="/Assets/Chaos.png"
                            Height="{Binding ActualHeight, ElementName=MainAction}"
                            Width="{Binding ActualWidth, ElementName=MainAction}"
                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Chaos}}"/>
-                            <Image Grid.RowSpan="3"
+                                <Image Grid.RowSpan="3"
                            Source="/Assets/Exalted.png"
                            Height="{Binding ActualHeight, ElementName=MainAction}"
                            Width="{Binding ActualWidth, ElementName=MainAction}"
                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Exalted}}"/>
-                            <Image Grid.RowSpan="3"
+                                <Image Grid.RowSpan="3"
                            Source="/Assets/Mirror.png"
                            Height="{Binding ActualHeight, ElementName=MainAction}"
                            Width="{Binding ActualWidth, ElementName=MainAction}"
                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Mirror}}"/>
-                            <Image Grid.RowSpan="3"
+                                <Image Grid.RowSpan="3"
                            Source="/Assets/Fusing.png"
                            Height="{Binding ActualHeight, ElementName=MainAction}"
                            Width="{Binding ActualWidth, ElementName=MainAction}"
                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Fusing}}"/>
-                            <Image Grid.RowSpan="3"
+                                <Image Grid.RowSpan="3"
                            Source="/Assets/Chromatic.png"
                            Height="{Binding ActualHeight, ElementName=MainAction}"
                            Width="{Binding ActualWidth, ElementName=MainAction}"
                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Chromatic}}"/>
-                            <Image Grid.RowSpan="3"
+                                <Image Grid.RowSpan="3"
                            Source="/Assets/Vaal.png"
                            Height="{Binding ActualHeight, ElementName=MainAction}"
                            Width="{Binding ActualWidth, ElementName=MainAction}"
                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Vaal}}"/>
-                            <Image Grid.RowSpan="3"
+                                <Image Grid.RowSpan="3"
                            Source="/Assets/Alchemy.png"
                            Height="{Binding ActualHeight, ElementName=MainAction}"
                            Width="{Binding ActualWidth, ElementName=MainAction}"
                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Alchemy}}"/>
-                            <Image Grid.RowSpan="3"
+                                <Image Grid.RowSpan="3"
                            Source="/Assets/Regal.png"
                            Height="{Binding ActualHeight, ElementName=MainAction}"
                            Width="{Binding ActualWidth, ElementName=MainAction}"
                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Regal}}"/>
-                            <Image Grid.RowSpan="3"
+                                <Image Grid.RowSpan="3"
                            Source="/Assets/Divine.png"
                            Height="{Binding ActualHeight, ElementName=MainAction}"
                            Width="{Binding ActualWidth, ElementName=MainAction}"
                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Divine}}"/>
-                            <Image Grid.RowSpan="3"
+                                <Image Grid.RowSpan="3"
                            Source="/Assets/Alteration.png"
                            Height="{Binding ActualHeight, ElementName=MainAction}"
                            Width="{Binding ActualWidth, ElementName=MainAction}"
                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Alteration}}"/>
-                            <Image Grid.RowSpan="3"
+                                <Image Grid.RowSpan="3"
                            Source="/Assets/Jeweller.png"
                            Height="{Binding ActualHeight, ElementName=MainAction}"
                            Width="{Binding ActualWidth, ElementName=MainAction}"
                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Jeweller}}"/>
-                            <local:IconPack HorizontalAlignment="Left"
+                                <local:IconPack HorizontalAlignment="Left"
                                             VerticalAlignment="Bottom"
                                             Foreground="White"
                                             Grid.Row="2"
@@ -145,23 +146,24 @@
                                             Height="15"
                                             Width="15"
                                             Data="{x:Static local:IconPackData.InInstance}"/>
-                            <TextBlock TextTrimming="CharacterEllipsis"
+                                <TextBlock TextTrimming="CharacterEllipsis"
                                HorizontalAlignment="Right" 
                                Foreground="White" 
                                VerticalAlignment="Bottom"
                                Margin="0,0,4,0" Grid.Row="2" FontSize="10" FontWeight="Bold">
-                                <TextBlock.Style>
-                                    <Style TargetType="{x:Type TextBlock}">
-                                        <Setter Property="Text" Value="{Binding NumberOffCurrency}"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding NumberOffCurrency}" Value="0">
-                                                <Setter Property="Text" Value="{Binding ItemName}"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
-                            <Button HorizontalAlignment="Left" Height="15" Width="15" cal:Message.Attach="[Event Click] = [Action Wait]" x:Name="IsWaiting">
+                                    <TextBlock.Style>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="Text" Value="{Binding NumberOffCurrency}"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding NumberOffCurrency}" Value="0">
+                                                    <Setter Property="Text" Value="{Binding ItemName}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
+                            <Button HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" cal:Message.Attach="[Event Click] = [Action Wait]" x:Name="IsWaiting" Visibility="{Binding NotSold, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <Button.Style>
                                     <Style TargetType="Button">
                                         <Setter Property="Template">
@@ -208,7 +210,7 @@
                                     </Style>
                                 </Button.Style>
                             </Button>
-                            <Button HorizontalAlignment="Right" Background="Red" Height="15" Width="15" cal:Message.Attach="[Event Click] = [Action Remove]" >
+                            <Button HorizontalAlignment="Right" VerticalAlignment="Top" Background="Red" Height="15" Width="15" cal:Message.Attach="[Event Click] = [Action Remove]" >
                                 <Button.Style>
                                     <Style TargetType="Button">
                                         <Setter Property="Template">
@@ -242,6 +244,15 @@
                                     </Style>
                                 </Button.Style>
                             </Button>
+                            <local:IconPack 
+                                            Foreground="Red"
+                                            FontWeight="Bold"
+                                            Visibility="{Binding AlreadySold, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                            Width="30"
+                                            Height="30"
+                                            Data="{x:Static local:IconPackData.Sold}"/>
+
+                            
                         </Grid>
                     </Border>
                 </ControlTemplate>

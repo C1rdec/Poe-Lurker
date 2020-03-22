@@ -424,6 +424,7 @@
   <ItemGroup>
     <Content Include="SVG\Beer.svg" />
     <Content Include="SVG\Lightning.svg" />
+    <Content Include="SVG\Sold.svg" />
     <Resource Include="Assets\Regal.png" />
     <Resource Include="Assets\Divine.png" />
     <Resource Include="Assets\TrayIconUpdate.ico" />

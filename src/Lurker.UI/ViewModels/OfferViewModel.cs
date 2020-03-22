@@ -29,6 +29,7 @@ namespace Lurker.UI.ViewModels
         private bool _active;
         private bool _skipMainAction;
         private bool _buyerInSameInstance;
+        private bool _alreadySold;
 
         #endregion
 
@@ -38,12 +39,13 @@ namespace Lurker.UI.ViewModels
         /// Initializes a new instance of the <see cref="TradeOfferViewModel"/> class.
         /// </summary>
         /// <param name="tradeEvent">The trade event.</param>
-        public OfferViewModel(TradeEvent tradeEvent, PoeKeyboardHelper keyboardHelper, TradebarContext tradebarContext, SettingsService settingsService)
+        public OfferViewModel(TradeEvent tradeEvent, PoeKeyboardHelper keyboardHelper, TradebarContext tradebarContext, SettingsService settingsService, bool sold)
         {
             this._tradeEvent = tradeEvent;
             this._keyboardHelper = keyboardHelper;
             this._tradebarContext = tradebarContext;
             this._settingsService = settingsService;
+            this._alreadySold = sold;
 
             this._settingsService.OnSave += this.SettingsService_OnSave;
         }
@@ -51,6 +53,16 @@ namespace Lurker.UI.ViewModels
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets a value indicating whether [already sold].
+        /// </summary>
+        public bool AlreadySold => this._alreadySold;
+
+        /// <summary>
+        /// Gets a value indicating whether [not sold].
+        /// </summary>
+        public bool NotSold => !this._alreadySold;
 
         /// <summary>
         /// Gets or sets the number off currency.
@@ -240,6 +252,12 @@ namespace Lurker.UI.ViewModels
             if (this._skipMainAction)
             {
                 this._skipMainAction = false;
+                return;
+            }
+
+            if (this.AlreadySold)
+            {
+                this.Sold();
                 return;
             }
 
