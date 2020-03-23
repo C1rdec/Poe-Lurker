@@ -81,6 +81,8 @@ namespace Lurker.UI
             }
 
             this._eventAggregator.Subscribe(this);
+
+            this.ActivateItem(IoC.Get<DashboardViewModel>());
         }
 
         #endregion

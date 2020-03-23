@@ -78,6 +78,12 @@
     <Reference Include="LiteDB, Version=5.0.4.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
       <HintPath>..\..\packages\LiteDB.5.0.4\lib\net45\LiteDB.dll</HintPath>
     </Reference>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="LottieSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\LottieSharp.1.0.0\lib\net461\LottieSharp.dll</HintPath>
     </Reference>
@@ -212,6 +218,7 @@
     <Compile Include="Converters\CurrencyTypeConverter.cs" />
     <Compile Include="Helpers\DockingHelper.cs" />
     <Compile Include="Helpers\UpdateManager.cs" />
+    <Compile Include="Models\MyCommand.cs" />
     <Compile Include="Models\UpdateState.cs" />
     <Compile Include="Models\DoubleClickCommand.cs" />
     <Compile Include="Models\BulbMessage.cs" />
@@ -226,6 +233,7 @@
       <DependentUpon>Svg.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AffixViewModel.cs" />
+    <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\ItemOverlayViewModel.cs" />
     <Compile Include="ViewModels\BulbViewModelBase.cs" />
     <Compile Include="ViewModels\ManaBulbViewModel.cs" />
@@ -233,6 +241,8 @@
     <Compile Include="ViewModels\OfferStatus.cs" />
     <Compile Include="ViewModels\OutgoingbarViewModel.cs" />
     <Compile Include="ViewModels\OutgoingOfferViewModel.cs" />
+    <Compile Include="ViewModels\ColumnChartViewModel.cs" />
+    <Compile Include="ViewModels\PieChartViewModel.cs" />
     <Compile Include="ViewModels\PoeOverlayBase.cs" />
     <Compile Include="ViewModels\PositionViewModel.cs" />
     <Compile Include="ViewModels\RemainingMonsterViewModel.cs" />
@@ -243,6 +253,12 @@
     <Compile Include="ViewModels\UpdateViewModel.cs" />
     <Compile Include="Views\AffixView.xaml.cs">
       <DependentUpon>AffixView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ColumnChartView.xaml.cs">
+      <DependentUpon>ColumnChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DashboardView.xaml.cs">
+      <DependentUpon>DashboardView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ItemOverlayView.xaml.cs">
       <DependentUpon>ItemOverlayView.xaml</DependentUpon>
@@ -258,6 +274,9 @@
     </Compile>
     <Compile Include="Views\OutgoingOfferView.xaml.cs">
       <DependentUpon>OutgoingOfferView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PieChartView.xaml.cs">
+      <DependentUpon>PieChartView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PositionView.xaml.cs">
       <DependentUpon>PositionView.xaml</DependentUpon>
@@ -293,6 +312,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ColumnChartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DashboardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ItemOverlayView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -310,6 +337,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\OutgoingOfferView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PieChartView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
