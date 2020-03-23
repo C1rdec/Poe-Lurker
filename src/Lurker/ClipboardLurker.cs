@@ -87,8 +87,8 @@ namespace Lurker
         /// </summary>
         public void BindGlobalClick()
         {
-            this._keyboardEvent.MouseClick += this.KeyboardEvent_MouseClick;
 #if (!DEBUG)
+            this._keyboardEvent.MouseClick += this.KeyboardEvent_MouseClick;
 #endif
         }
 
