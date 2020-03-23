@@ -53,10 +53,10 @@ namespace Lurker.UI
             this._container.Singleton<KeyboardHelper, KeyboardHelper>();
             this._container.Singleton<SettingsService, SettingsService>();
             this._container.Singleton<SettingsViewModel, SettingsViewModel>();
+            this._container.Singleton<DashboardViewModel, DashboardViewModel>();
 
             this._container.PerRequest<UpdateManager, UpdateManager>();
             this._container.PerRequest<ShellViewModel, ShellViewModel>(); 
-            this._container.PerRequest<DashboardViewModel, DashboardViewModel>();
             this._container.PerRequest<TradebarViewModel, TradebarViewModel>();
             this._container.PerRequest<OutgoingbarViewModel, OutgoingbarViewModel>();
             this._container.PerRequest<LifeBulbViewModel, LifeBulbViewModel>(); 

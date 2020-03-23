@@ -71,8 +71,16 @@ namespace Lurker.UI.ViewModels
                     this.SetAction(message);
                 }
             }
-
+            else
+            {
+                if (this.IsDefaultAction)
+                {
+                    this.SetAction(new ManaBulbMessage());
+                }
+            }
         }
+
+        protected override System.Action DefaultAction => () => this._eventAggregator.PublishOnUIThread(IoC.Get<DashboardViewModel>());
 
         #endregion
 

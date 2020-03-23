@@ -51,6 +51,14 @@ namespace Lurker.UI.ViewModels
         public bool HasAction => this._action != null;
 
         /// <summary>
+        /// Gets a value indicating whether this instance is default action.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is default action; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsDefaultAction => this.DefaultAction == this._action;
+
+        /// <summary>
         /// Gets the action view.
         /// </summary>
         public INotifyPropertyChanged ActionView

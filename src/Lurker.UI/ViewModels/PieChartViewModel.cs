@@ -66,7 +66,7 @@ namespace Lurker.UI.ViewModels
                 Values = new ChartValues<double>(new double[] { value }),
                 DataLabels = true,
                 FontSize = 20,
-                LabelPosition = PieLabelPosition.OutsideSlice,
+                LabelPosition = PieLabelPosition.InsideSlice,
             };
 
             this.SeriesCollection.Add(serie);

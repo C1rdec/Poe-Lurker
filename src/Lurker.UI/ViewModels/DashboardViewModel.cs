@@ -10,7 +10,6 @@ namespace Lurker.UI.ViewModels
     using Lurker.Patreon;
     using Lurker.Patreon.Events;
     using Lurker.Patreon.Models;
-    using Lurker.Services;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -19,8 +18,6 @@ namespace Lurker.UI.ViewModels
     {
         #region Fields
 
-        private SettingsService _settingsService;
-        private DatabaseService _databaseService;
         private PieChartViewModel _pieChart;
         private ColumnChartViewModel _columnChart;
         private PropertyChangedBase _activeChart;
@@ -34,14 +31,10 @@ namespace Lurker.UI.ViewModels
         /// Initializes a new instance of the <see cref="DashboardViewModel"/> class.
         /// </summary>
         /// <param name="windowManager">The window manager.</param>
-        public DashboardViewModel(IWindowManager windowManager, SettingsService settingsService) 
+        public DashboardViewModel(IWindowManager windowManager) 
             : base(windowManager)
         {
             this.DisplayName = "Dashboard";
-            this._settingsService = settingsService;
-            this._databaseService = new DatabaseService(@"C:\Users\cedri\Downloads\Trades (4).db");
-
-            this._settingsService.OnSave += this.SettingsService_OnSave;
         }
 
         #endregion
@@ -85,8 +78,12 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         protected override async void OnActivate()
         {
-            await this._databaseService.CheckPledgeStatus();
-            this._trades = this._databaseService.Get();
+            using (var service = new DatabaseService())
+            {
+                await service.CheckPledgeStatus();
+                this._trades = service.Get().Where(t => !t.IsOutgoing).ToArray();
+            }
+
             this._pieChart = this.GetPieChart();
             this._pieChart.OnPieClick += this.PieChartViewModel_OnPieClick;
             this.ActiveChart = this._pieChart;
@@ -99,7 +96,6 @@ namespace Lurker.UI.ViewModels
         /// <param name="close">Inidicates whether this instance will be closed.</param>
         protected override void OnDeactivate(bool close)
         {
-            this._databaseService.Dispose();
             base.OnDeactivate(close);
         }
 
@@ -136,17 +132,6 @@ namespace Lurker.UI.ViewModels
                 this.ActiveChart = this._columnChart;
                 this._pieChart.OnPieClick -= this.PieChartViewModel_OnPieClick;
             }
-        }
-
-        /// <summary>
-        /// Handles the OnSave event of the SettingsService control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        /// <exception cref="System.NotImplementedException"></exception>
-        private async void SettingsService_OnSave(object sender, System.EventArgs e)
-        {
-            await this._databaseService.CheckPledgeStatus();
         }
     }
 }
