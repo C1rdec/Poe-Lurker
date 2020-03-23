@@ -20,8 +20,9 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="PieChartViewModel"/> class.
         /// </summary>
-        public ColumnChartViewModel()
+        public ColumnChartViewModel(string[] labels)
         {
+            this.Labels = labels;
             this.SeriesCollection = new SeriesCollection();
             this.LegendLocation = LegendLocation.Bottom;
         }
@@ -29,6 +30,11 @@ namespace Lurker.UI.ViewModels
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the labels.
+        /// </summary>
+        public string[] Labels { get; set; }
 
         /// <summary>
         /// Creates new offer.

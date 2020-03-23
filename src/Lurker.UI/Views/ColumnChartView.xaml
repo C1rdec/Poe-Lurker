@@ -10,11 +10,14 @@
     <Grid>
         <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Left">
             <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="Salesman"></lvc:Axis>
+                <lvc:Axis Title="Items" Labels="{Binding Labels}" ShowLabels="False"></lvc:Axis>
             </lvc:CartesianChart.AxisX>
             <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Sold Apps"></lvc:Axis>
+                <lvc:Axis Title="Currency"></lvc:Axis>
             </lvc:CartesianChart.AxisY>
+            <lvc:CartesianChart.ChartLegend>
+                <lvc:DefaultLegend BulletSize="20" Foreground="White"></lvc:DefaultLegend>
+            </lvc:CartesianChart.ChartLegend>
         </lvc:CartesianChart>
     </Grid>
 </UserControl>

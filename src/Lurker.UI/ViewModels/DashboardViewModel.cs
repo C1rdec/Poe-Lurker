@@ -129,9 +129,9 @@ namespace Lurker.UI.ViewModels
         {
             if (Enum.TryParse<CurrencyType>(e.SeriesView.Title, true, out var value))
             {
-                var points = this._trades.Where(t => t.Price.CurrencyType == value).Select(t => t.Price.NumberOfCurrencies).ToArray();
-                var chart = new ColumnChartViewModel();
-                chart.Add(e.SeriesView.Title, points);
+                var trades = this._trades.Where(t => t.Price.CurrencyType == value);
+                var chart = new ColumnChartViewModel(trades.Select(t => t.ItemName).ToArray());
+                chart.Add(e.SeriesView.Title, trades.Select(t => t.Price.NumberOfCurrencies));
                 this._columnChart = chart;
                 this.ActiveChart = this._columnChart;
                 this._pieChart.OnPieClick -= this.PieChartViewModel_OnPieClick;
