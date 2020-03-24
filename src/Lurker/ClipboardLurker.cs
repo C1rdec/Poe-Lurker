@@ -9,6 +9,7 @@ namespace Lurker
 {
     using Gma.System.MouseKeyHook;
     using Lurker.Helpers;
+    using Lurker.Patreon.Events;
     using Lurker.Patreon.Models;
     using Lurker.Patreon.Parsers;
     using Lurker.Services;
@@ -228,8 +229,18 @@ namespace Lurker
                     return;
                 }
 
+                var isTradeMessage = false;
                 this._lastClipboardText = currentText;
-                if (TradeEventHelper.IsTradeMessage(currentText))
+                if (TradeEvent.IsTradeMessage(currentText))
+                {
+                    isTradeMessage = true;
+                }
+                else if (TradeEventHelper.IsTradeMessage(currentText))
+                {
+                    isTradeMessage = true;
+                }
+
+                if (isTradeMessage)
                 {
                     this.NewOffer?.Invoke(this, currentText);
                 }
