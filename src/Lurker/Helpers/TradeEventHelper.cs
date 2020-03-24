@@ -1,11 +1,19 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
+﻿//-----------------------------------------------------------------------
+// <copyright file="TradeEventHelper.cs" company="Wohs">
+//     Missing Copyright information from a valid stylecop.json file.
+// </copyright>
+//-----------------------------------------------------------------------
 
 namespace Lurker.Helpers
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+
     public static class TradeEventHelper
     {
+        #region Fields
+
         private static List<string> _regexes = new List<string>
         {
             "@.+Hi, I would like to buy.+", // english
@@ -16,14 +24,27 @@ namespace Lurker.Helpers
             "@.+Hi, ich möchte.+kaufen.+", // german
             "@.+Olá, eu gostaria de comprar o seu item.+", // portuguese
             "@.+Hola, quisiera comprar tu.+", // spanish
-        }; 
+        };
 
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Determines whether [is trade message] [the specified message].
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// 
         public static bool IsTradeMessage(string message)
         {
             if (string.IsNullOrEmpty(message))
+            {
                 return false;
+            }
 
             return _regexes.Any(pattern => Regex.Match(message, pattern).Success);
         }
+
+        #endregion
     }
 }

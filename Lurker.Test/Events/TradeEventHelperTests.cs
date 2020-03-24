@@ -1,8 +1,14 @@
-﻿using Lurker.Helpers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿//-----------------------------------------------------------------------
+// <copyright file="TradeEventHelperTests.cs" company="Wohs">
+//     Missing Copyright information from a valid stylecop.json file.
+// </copyright>
+//-----------------------------------------------------------------------
 
 namespace Lurker.Test.Events
 {
+    using Lurker.Helpers;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     [TestClass]
     public class TradeEventHelperTests
     {
