@@ -346,9 +346,12 @@ namespace Lurker.UI
                 this._clipboardLurker = null;
             }
 
-            this._currentLurker.PoeClosed -= this.CurrentLurker_PoeClosed;
-            this._currentLurker.Dispose();
-            this._currentLurker = null;
+            if (this._currentLurker != null)
+            {
+                this._currentLurker.PoeClosed -= this.CurrentLurker_PoeClosed;
+                this._currentLurker.Dispose();
+                this._currentLurker = null;
+            }
 
             if (this._currentDockingHelper != null)
             {
