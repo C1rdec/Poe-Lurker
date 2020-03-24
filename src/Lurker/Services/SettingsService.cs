@@ -286,6 +286,22 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [dashboard enabled].
+        /// </summary>
+        public bool DashboardEnabled
+        {
+            get
+            {
+                return this._settings.DashboardEnabled;
+            }
+
+            set
+            {
+                this._settings.DashboardEnabled = value;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the alert volume.
         /// </summary>
         public float AlertVolume

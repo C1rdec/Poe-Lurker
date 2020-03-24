@@ -245,9 +245,11 @@
                     </StackPanel>
                     <Grid Grid.Row="2" Height="70" Visibility="{Binding Pledging, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <StackPanel Margin="30,0,0,0" Orientation="Horizontal">
-                            <Controls:ToggleSwitch Grid.Row="1"
-                                           Header="Item Lurker"
-                                           IsChecked="{Binding SearchEnabled}"/>
+                            <Controls:ToggleSwitch Header="Item Lurker"
+                                                   IsChecked="{Binding SearchEnabled}"/>
+                            <Controls:ToggleSwitch Margin="30,0,0,0"
+                                                   Header="Dashboard"
+                                                   IsChecked="{Binding DashboardEnabled}"/>
                         </StackPanel>
                     </Grid>
                 </Grid>

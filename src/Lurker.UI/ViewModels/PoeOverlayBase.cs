@@ -26,8 +26,8 @@ namespace Lurker.UI.ViewModels
 
         protected Window _view;
         protected SettingsService _settingsService;
+        protected ClientLurker _lurker;
         private DockingHelper _dockingHelper;
-        private ClientLurker _lurker;
 
         #endregion
 

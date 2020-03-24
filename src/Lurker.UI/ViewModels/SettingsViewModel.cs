@@ -140,6 +140,23 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [dashboard enabled].
+        /// </summary>
+        public bool DashboardEnabled
+        {
+            get
+            {
+                return this._settingService.DashboardEnabled;
+            }
+
+            set
+            {
+                this._settingService.DashboardEnabled = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the sold message.
         /// </summary>
         public string SoldMessage
@@ -412,6 +429,7 @@ namespace Lurker.UI.ViewModels
                     if (this.Pledging)
                     {
                         this.SearchEnabled = true;
+                        this.DashboardEnabled = true;
                     }
 
                     this.NotifyOfPropertyChange("NotConnected");
@@ -476,6 +494,7 @@ namespace Lurker.UI.ViewModels
             if (!this.Pledging)
             {
                 this.SearchEnabled = false;
+                this.DashboardEnabled = false;
             }
 
             this.AlertVolume = (int)(this._settingService.AlertVolume * 100);

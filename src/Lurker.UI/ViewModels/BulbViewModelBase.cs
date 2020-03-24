@@ -91,7 +91,7 @@ namespace Lurker.UI.ViewModels
         {
             if (this._action == null)
             {
-                this.DefaultAction();
+                this.DefaultAction?.Invoke();
                 return;
             }
 

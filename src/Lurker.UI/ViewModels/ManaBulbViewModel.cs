@@ -7,7 +7,6 @@
 namespace Lurker.UI.ViewModels
 {
     using Caliburn.Micro;
-    using Lurker.Helpers;
     using Lurker.Services;
     using Lurker.UI.Helpers;
     using Lurker.UI.Models;
@@ -19,7 +18,6 @@ namespace Lurker.UI.ViewModels
         #region Fields
 
         private IEventAggregator _eventAggregator;
-        private SettingsViewModel _settingsViewModel;
 
         #endregion
 
@@ -32,55 +30,36 @@ namespace Lurker.UI.ViewModels
         /// <param name="dockingHelper">The docking helper.</param>
         /// <param name="lurker"></param>
         /// <param name="settingsService"></param>H
-        public ManaBulbViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, DockingHelper dockingHelper, ClientLurker lurker, SettingsService settingsService, PoeKeyboardHelper keyboard, SettingsViewModel settingsViewModel) 
+        public ManaBulbViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, DockingHelper dockingHelper, ClientLurker lurker, SettingsService settingsService) 
             : base(windowManager, dockingHelper, lurker, settingsService)
         {
-            this._settingsViewModel = settingsViewModel;
             this._eventAggregator = eventAggregator;
             this._eventAggregator.Subscribe(this);
 
-            lurker.LocationChanged += this.Lurker_LocationChanged;
-            lurker.RemainingMonsters += this.Lurker_RemainingMonsters;
+            this._lurker.LocationChanged += this.Lurker_LocationChanged;
+            this._lurker.RemainingMonsters += this.Lurker_RemainingMonsters;
+            this._settingsService.OnSave += this.SettingsService_OnSave;
         }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
-        /// Lurkers the remaining monsters.
+        /// Defaults the action.
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The e.</param>
-        private void Lurker_RemainingMonsters(object sender, Patreon.Events.MonstersRemainEvent e)
+        protected override System.Action DefaultAction
         {
-            this.SetAction(new ManaBulbMessage() { View = new RemainingMonsterViewModel(e), DisplayTime = TimeSpan.FromSeconds(3)});
-        }
+            get
+            {
+                if (!this._settingsService.DashboardEnabled)
+                {
+                    return null;
+                }
 
-        /// <summary>
-        /// Lurkers the location changed.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The e.</param>
-        private void Lurker_LocationChanged(object sender, Patreon.Events.LocationChangedEvent e)
-        {
-            if (e.Location.EndsWith("Hideout"))
-            {
-                if (!this.HasAction)
-                {
-                    var message = new ManaBulbMessage()
-                    {
-                        Action = this.DefaultAction
-                    };
-                    this.SetAction(message);
-                }
-            }
-            else
-            {
-                if (this.IsDefaultAction)
-                {
-                    this.SetAction(new ManaBulbMessage());
-                }
+                return () => this._eventAggregator.PublishOnUIThread(IoC.Get<DashboardViewModel>());
             }
         }
-
-        protected override System.Action DefaultAction => () => this._eventAggregator.PublishOnUIThread(IoC.Get<DashboardViewModel>());
 
         #endregion
 
@@ -110,6 +89,69 @@ namespace Lurker.UI.ViewModels
                 this._view.Top = windowInformation.Position.Bottom - value;
                 var lifeView = this._view as ManaBulbView;
             });
+        }
+
+        /// <summary>
+        /// Called when deactivating.
+        /// </summary>
+        /// <param name="close">Inidicates whether this instance will be closed.</param>
+        protected override void OnDeactivate(bool close)
+        {
+            if (close)
+            {
+                this._lurker.LocationChanged -= this.Lurker_LocationChanged;
+                this._lurker.RemainingMonsters -= this.Lurker_RemainingMonsters;
+                this._settingsService.OnSave -= this.SettingsService_OnSave;
+            }
+
+            base.OnDeactivate(close);
+        }
+
+        /// <summary>
+        /// Handles the OnSave event of the SettingsService control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+        private void SettingsService_OnSave(object sender, EventArgs e)
+        {
+            this.SetDefaultAction();
+        }
+
+        /// <summary>
+        /// Lurkers the remaining monsters.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
+        private void Lurker_RemainingMonsters(object sender, Patreon.Events.MonstersRemainEvent e)
+        {
+            this.SetAction(new ManaBulbMessage() { View = new RemainingMonsterViewModel(e), DisplayTime = TimeSpan.FromSeconds(3) });
+        }
+
+        /// <summary>
+        /// Lurkers the location changed.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
+        private void Lurker_LocationChanged(object sender, Patreon.Events.LocationChangedEvent e)
+        {
+            if (e.Location.EndsWith("Hideout"))
+            {
+                if (!this.HasAction)
+                {
+                    var message = new ManaBulbMessage()
+                    {
+                        Action = this.DefaultAction
+                    };
+                    this.SetAction(message);
+                }
+            }
+            else
+            {
+                if (this.IsDefaultAction)
+                {
+                    this.SetAction(new ManaBulbMessage());
+                }
+            }
         }
 
         #endregion

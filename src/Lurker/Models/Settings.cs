@@ -95,6 +95,11 @@ namespace Lurker.Models
         public bool RemainingMonsterEnabled { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [dashboard enabled].
+        /// </summary>
+        public bool DashboardEnabled { get; set; }
+
+        /// <summary>
         /// Gets or sets the tooltip delay.
         /// </summary>
         [DefaultValue(1000)]
