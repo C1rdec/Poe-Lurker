@@ -1,4 +1,4 @@
-# Poe Lurker <img src="LurkerIcon.png" width="100" height="100" />
+# Poe Lurker <img src="LurkerIcon.png" width="100" height="100" />   |  [Cheatsheet](assets/CheatSheet.md)
 Poe Lurker is a simple yet very powerful trade manager meant to ease the trading experience for Path of Exile. 
 
 If you like and use Poe Lurker please consider signing up for a small monthly [Patreon](https://www.patreon.com/poelurker) donation, even $2 can help tremendously. Furthermore you will become a [***Lurker Pro***](https://docs.google.com/presentation/d/1XhaSSNAFGxzouc5amzAW8c_6ifToNjnsQq5UmNgLXoo/present?slide=id.g71a37414b7_1_0) and you will unlock juicy features in the application.
