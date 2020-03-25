@@ -1,4 +1,4 @@
-# Poe Lurker cheat sheet
+# Cheat Sheet
 
 # [Incoming Trades](https://docs.google.com/presentation/d/1XhaSSNAFGxzouc5amzAW8c_6ifToNjnsQq5UmNgLXoo/present?slide=id.g6e2508016e_0_0):
 
