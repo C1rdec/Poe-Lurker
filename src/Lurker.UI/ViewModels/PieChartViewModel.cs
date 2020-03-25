@@ -6,51 +6,11 @@
 
 namespace Lurker.UI.ViewModels
 {
-    using Caliburn.Micro;
     using LiveCharts;
     using LiveCharts.Wpf;
-    using Lurker.UI.Models;
-    using System;
 
-    public class PieChartViewModel: PropertyChangedBase
+    public class PieChartViewModel: ChartViewModelBase
     {
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PieChartViewModel"/> class.
-        /// </summary>
-        public PieChartViewModel()
-        {
-            this.SeriesCollection = new SeriesCollection();
-            this.LegendLocation = LegendLocation.Bottom;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Creates new offer.
-        /// </summary>
-        public event EventHandler<ChartPoint> OnPieClick;
-
-        /// <summary>
-        /// Gets or sets the legend location.
-        /// </summary>
-        public LegendLocation LegendLocation { get; set; }
-
-        /// <summary>
-        /// Gets or sets the series collection.
-        /// </summary>
-        public SeriesCollection SeriesCollection { get; set; }
-
-        public MyCommand<ChartPoint> DataClickCommand => new MyCommand<ChartPoint>()
-        {
-            ExecuteDelegate = p => this.OnClick(p)
-        };
-
-        #endregion
-
         #region Methods
 
         /// <summary>
@@ -65,21 +25,31 @@ namespace Lurker.UI.ViewModels
                 Title = label,
                 Values = new ChartValues<double>(new double[] { value }),
                 DataLabels = true,
-                FontSize = 20,
-                LabelPosition = PieLabelPosition.InsideSlice,
+                FontSize = this.FontSize,
+                LabelPosition = this.LabelPosition,
             };
 
             this.SeriesCollection.Add(serie);
         }
 
+        #endregion
+
+        #region Properties
+
         /// <summary>
-        /// Called when [click].
+        /// Gets or sets the inner radius.
         /// </summary>
-        /// <param name="point">The point.</param>
-        private void OnClick(ChartPoint point)
-        {
-            this.OnPieClick?.Invoke(this, point);
-        }
+        public int InnerRadius { get; set; }
+
+        /// <summary>
+        /// Gets or sets the label position.
+        /// </summary>
+        public PieLabelPosition LabelPosition { get; set; }
+
+        /// <summary>
+        /// Gets or sets the size of the font.
+        /// </summary>
+        public double FontSize { get; set; }
 
         #endregion
     }

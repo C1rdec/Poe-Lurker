@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <lvc:PieChart x:Name="Pie" LegendLocation="{Binding LegendLocation}" InnerRadius="125" DataClickCommand="{Binding DataClickCommand}" Hoverable="True" DataTooltip="{x:Null}" Series="{Binding SeriesCollection}">
+        <lvc:PieChart x:Name="Pie" LegendLocation="{Binding LegendLocation}" InnerRadius="{Binding InnerRadius}" DataClickCommand="{Binding DataClickCommand}" Hoverable="True" DataTooltip="{x:Null}" Series="{Binding SeriesCollection}">
             <lvc:PieChart.ChartLegend>
                 <lvc:DefaultLegend BulletSize="20" Foreground="White"></lvc:DefaultLegend>
             </lvc:PieChart.ChartLegend>

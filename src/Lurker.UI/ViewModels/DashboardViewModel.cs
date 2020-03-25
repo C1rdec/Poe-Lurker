@@ -10,6 +10,7 @@ namespace Lurker.UI.ViewModels
     using Lurker.Patreon;
     using Lurker.Patreon.Events;
     using Lurker.Patreon.Models;
+    using Lurker.UI.Extensions;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -18,9 +19,11 @@ namespace Lurker.UI.ViewModels
     {
         #region Fields
 
-        private PieChartViewModel _pieChart;
-        private ColumnChartViewModel _columnChart;
-        private PropertyChangedBase _activeChart;
+        private PieChartViewModel _totalChart;
+        private ColumnChartViewModel _tradesChart;
+        private LineChartViewModel _networthChart;
+        private ChartViewModelBase _activeChart;
+        private PieChartViewModel _itemClassChart;
         private IEnumerable<SimpleTradeModel> _trades;
 
         #endregion
@@ -42,9 +45,19 @@ namespace Lurker.UI.ViewModels
         #region Properties
 
         /// <summary>
+        /// Gets a value indicating whether this instance has active chart.
+        /// </summary>
+        public bool NoActiveChart => this._activeChart == null;
+
+        /// <summary>
+        /// Gets a value indicating whether this instance has active chart.
+        /// </summary>
+        public bool HasActiveChart => !this.NoActiveChart;
+
+        /// <summary>
         /// Gets the active chart.
         /// </summary>
-        public PropertyChangedBase ActiveChart
+        public ChartViewModelBase ActiveChart
         {
             get
             {
@@ -55,22 +68,72 @@ namespace Lurker.UI.ViewModels
             {
                 this._activeChart = value;
                 this.NotifyOfPropertyChange();
+                this.NotifyOfPropertyChange("NoActiveChart");
+                this.NotifyOfPropertyChange("HasActiveChart");
+            }
+        }
+
+        /// <summary>
+        /// Gets the total chart.
+        /// </summary>
+        public PieChartViewModel TotalChart
+        {
+            get
+            {
+                return this._totalChart;
+            }
+
+            private set
+            {
+                this._totalChart = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets the networth chart.
+        /// </summary>
+        public LineChartViewModel NetworthChart
+        {
+            get
+            {
+                return this._networthChart;
+            }
+
+            private set
+            {
+                this._networthChart = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets the networth chart.
+        /// </summary>
+        public PieChartViewModel ItemClassChart
+        {
+            get
+            {
+                return this._itemClassChart;
+            }
+
+            private set
+            {
+                this._itemClassChart = value;
+                this.NotifyOfPropertyChange();
             }
         }
 
         #endregion
+
+        #region Methods
 
         /// <summary>
         /// Backs this instance.
         /// </summary>
         public void Back()
         {
-            if (ActiveChart is ColumnChartViewModel)
-            {
-                this._pieChart = this.GetPieChart();
-                this._pieChart.OnPieClick += this.PieChartViewModel_OnPieClick;
-                this.ActiveChart = this._pieChart;
-            }
+            this.ActiveChart = null;
         }
 
         /// <summary>
@@ -81,12 +144,14 @@ namespace Lurker.UI.ViewModels
             using (var service = new DatabaseService())
             {
                 await service.CheckPledgeStatus();
-                this._trades = service.Get().Where(t => !t.IsOutgoing).ToArray();
+                this._trades = service.Get().Where(t => !t.IsOutgoing).OrderBy(t => t.Date).ToArray();
             }
 
-            this._pieChart = this.GetPieChart();
-            this._pieChart.OnPieClick += this.PieChartViewModel_OnPieClick;
-            this.ActiveChart = this._pieChart;
+            this.ItemClassChart = this.CreateItemClassChart();
+            this.ItemClassChart.OnSerieClick += this.ItemClassChart_OnSerieClick;
+            this.NetworthChart = this.GetNetworthChart();
+            this.TotalChart = this.CreateTotalChart();
+            this.TotalChart.OnSerieClick += this.OnSerieClick;
             base.OnActivate();
         }
 
@@ -96,19 +161,96 @@ namespace Lurker.UI.ViewModels
         /// <param name="close">Inidicates whether this instance will be closed.</param>
         protected override void OnDeactivate(bool close)
         {
+            if (close)
+            {
+                this.ItemClassChart.OnSerieClick -= this.ItemClassChart_OnSerieClick;
+                this.TotalChart.OnSerieClick -= this.OnSerieClick;
+            }
+
             base.OnDeactivate(close);
+        }
+
+        /// <summary>
+        /// Items the class chart on serie click.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
+        private void ItemClassChart_OnSerieClick(object sender, LiveCharts.ChartPoint e)
+        {
+            if (Enum.TryParse<ItemClass>(e.SeriesView.Title, true, out var value))
+            {
+                var trades = this._trades.Where(t => t.ItemClass == value);
+                var chart = new ColumnChartViewModel(trades.Select(t => t.ItemName).ToArray());
+                chart.Add(e.SeriesView.Title, trades.Select(t => t.Price.CalculateValue()));
+                this._tradesChart = chart;
+                this.ActiveChart = this._tradesChart;
+            }
         }
 
         /// <summary>
         /// Gets the pie chart.
         /// </summary>
         /// <returns></returns>
-        private PieChartViewModel GetPieChart()
+        private PieChartViewModel CreateTotalChart()
         {
-            var pieChart = new PieChartViewModel();
+            var pieChart = new PieChartViewModel()
+            {
+                FontSize = 12,
+                LabelPosition = LiveCharts.PieLabelPosition.InsideSlice
+            };
 
-            var groups = this._trades.GroupBy(i => i.Price.CurrencyType).Select(g => new { Type = g.First().Price.CurrencyType, Sum = g.Sum(i => i.Price.NumberOfCurrencies) });
+            var groups = this._trades.GroupBy(i => i.Price.CurrencyType).Select(g => new { Type = g.First().Price.CurrencyType, Sum = g.Sum(i => i.Price.CalculateValue()) });
             foreach (var group in groups)
+            {
+                pieChart.Add(group.Type.ToString(), group.Sum);
+            }
+
+            return pieChart;
+        }
+
+        /// <summary>
+        /// Gets the networth chart.
+        /// </summary>
+        /// <returns>The networth graph.</returns>
+        private LineChartViewModel GetNetworthChart()
+        {
+            var lineChart = new LineChartViewModel();
+            var points = new List<double>();
+            double previousValue = 0;
+
+            foreach (var trade in this._trades)
+            {
+                var value = trade.Price.CalculateValue();
+                if (trade.IsOutgoing)
+                {
+                    previousValue -= value;
+                }
+                else
+                {
+                    previousValue += value;
+                }
+
+                points.Add(previousValue);
+            }
+
+            lineChart.Add("Networth", points);
+            return lineChart;
+        }
+
+        /// <summary>
+        /// Creates the item class chart.
+        /// </summary>
+        /// <returns></returns>
+        private PieChartViewModel CreateItemClassChart()
+        {
+            var pieChart = new PieChartViewModel()
+            {
+                InnerRadius = 85,
+                FontSize = 18,
+            };
+
+            var groups = this._trades.GroupBy(i => i.ItemClass).Select(g => new { Type = g.First().ItemClass, Sum = g.Sum(i => i.Price.CalculateValue()) });
+            foreach (var group in groups.OrderByDescending(g => g.Sum).Take(5))
             {
                 pieChart.Add(group.Type.ToString(), group.Sum);
             }
@@ -121,17 +263,18 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
-        private void PieChartViewModel_OnPieClick(object sender, LiveCharts.ChartPoint e)
+        private void OnSerieClick(object sender, LiveCharts.ChartPoint e)
         {
             if (Enum.TryParse<CurrencyType>(e.SeriesView.Title, true, out var value))
             {
                 var trades = this._trades.Where(t => t.Price.CurrencyType == value);
-                var chart = new ColumnChartViewModel(trades.Select(t => t.ItemName).ToArray());
+                var chart = new ColumnChartViewModel(trades.Select(t => t.ItemName).ToArray()); ;
                 chart.Add(e.SeriesView.Title, trades.Select(t => t.Price.NumberOfCurrencies));
-                this._columnChart = chart;
-                this.ActiveChart = this._columnChart;
-                this._pieChart.OnPieClick -= this.PieChartViewModel_OnPieClick;
+                this._tradesChart = chart;
+                this.ActiveChart = this._tradesChart;
             }
         }
+
+        #endregion
     }
 }

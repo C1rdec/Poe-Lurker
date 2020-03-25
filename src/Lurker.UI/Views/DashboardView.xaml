@@ -5,9 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lurker.UI.Views"
         mc:Ignorable="d"
-        Height="450" Width="800">
+        Height="600" Width="800">
     <Grid>
-        <Button x:Name="Back" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">Back</Button>
-        <ContentControl x:Name="ActiveChart"/>
+        <ContentControl x:Name="ActiveChart" Grid.ColumnSpan="2"  Grid.RowSpan="2"/>
+        <Grid Visibility="{Binding NoActiveChart, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"></RowDefinition>
+                <RowDefinition Height="60*"></RowDefinition>
+                <RowDefinition Height="5*"></RowDefinition>
+                <RowDefinition Height="30*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2">
+                <TextBlock FontSize="20" Foreground="White">Item Class</TextBlock>
+                <TextBlock FontSize="12" Margin="4,4,0,0" Foreground="White" VerticalAlignment="Center">(Top 5)</TextBlock>
+            </StackPanel>
+            <ContentControl x:Name="ItemClassChart" Grid.Row="1" Grid.ColumnSpan="2"/>
+
+            <TextBlock FontSize="20" Foreground="White" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">Total</TextBlock>
+
+            <ContentControl x:Name="TotalChart" Grid.Row="3" Grid.Column="1" />
+
+            <TextBlock FontSize="20" Foreground="White" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">Networth</TextBlock>
+            <ContentControl x:Name="NetworthChart" Grid.Row="3"/>
+        </Grid>
+        <Button x:Name="Back" Visibility="{Binding HasActiveChart, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">Back</Button>
     </Grid>
 </Window>

@@ -24,8 +24,6 @@ namespace Lurker.UI.ViewModels
         #region Fields
 
         private static int DefaultOverlayHeight = 60;
-
-        private ClientLurker _lurker;
         private PoeKeyboardHelper _keyboardHelper;
         private TradebarContext _context;
         private List<OfferViewModel> _activeOffers = new List<OfferViewModel>();
@@ -47,7 +45,6 @@ namespace Lurker.UI.ViewModels
             : base (windowManager, dockingHelper, lurker, settingsService)
         {
             this._eventAggregator = eventAggregator;
-            this._lurker = lurker;
             this._keyboardHelper = keyboardHelper;
             this._settingsService = settingsService;
             this.TradeOffers = new ObservableCollection<OfferViewModel>();

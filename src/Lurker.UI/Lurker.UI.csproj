@@ -217,6 +217,7 @@
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Converters\CurrencyTypeConverter.cs" />
+    <Compile Include="Extensions\PriceExtension.cs" />
     <Compile Include="Helpers\DockingHelper.cs" />
     <Compile Include="Helpers\UpdateManager.cs" />
     <Compile Include="Models\MyCommand.cs" />
@@ -234,6 +235,8 @@
       <DependentUpon>Svg.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AffixViewModel.cs" />
+    <Compile Include="ViewModels\ChartViewModelBase.cs" />
+    <Compile Include="ViewModels\LineChartViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\ItemOverlayViewModel.cs" />
     <Compile Include="ViewModels\BulbViewModelBase.cs" />
@@ -263,6 +266,9 @@
     </Compile>
     <Compile Include="Views\ItemOverlayView.xaml.cs">
       <DependentUpon>ItemOverlayView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LineChartView.xaml.cs">
+      <DependentUpon>LineChartView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ManaBulbView.xaml.cs">
       <DependentUpon>ManaBulbView.xaml</DependentUpon>
@@ -322,6 +328,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ItemOverlayView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LineChartView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -444,9 +454,7 @@
   <ItemGroup>
     <Resource Include="Assets\TradeBarIcon.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="TrayIcon.ico" />
   </ItemGroup>

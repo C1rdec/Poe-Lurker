@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ColumnChartViewModel.cs" company="Wohs">
+// <copyright file="LineChartViewModel.cs" company="Wohs">
 //     Missing Copyright information from a valid stylecop.json file.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -10,19 +10,8 @@ namespace Lurker.UI.ViewModels
     using LiveCharts.Wpf;
     using System.Collections.Generic;
 
-    public class ColumnChartViewModel : ChartViewModelBase
+    public class LineChartViewModel : ChartViewModelBase
     {
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PieChartViewModel"/> class.
-        /// </summary>
-        public ColumnChartViewModel(string[] labels)
-            : base(labels)
-        {
-        }
-
-        #endregion
 
         #region Methods
 
@@ -33,7 +22,7 @@ namespace Lurker.UI.ViewModels
         /// <param name="value">The value.</param>
         public void Add(string title, IEnumerable<double> values)
         {
-            this.SeriesCollection.Add(new ColumnSeries
+            this.SeriesCollection.Add(new LineSeries
             {
                 Title = title,
                 Values = new ChartValues<double>(values)
