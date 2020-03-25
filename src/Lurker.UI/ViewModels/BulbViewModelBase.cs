@@ -126,8 +126,13 @@ namespace Lurker.UI.ViewModels
         protected void SetAction(BulbMessage message)
         {
             message.OnShow?.Invoke(this.Hide);
-            this._previousAction = this._action;
-            this._previousActionView = this._actionView;
+
+            if (this._previousAction == null)
+            {
+                this._previousAction = this._action;
+                this._previousActionView = this._actionView;
+            }
+
             this._action = message.Action;
             this.ActionView = message.View;
 
