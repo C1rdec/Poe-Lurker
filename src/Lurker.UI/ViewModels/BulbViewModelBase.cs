@@ -12,6 +12,7 @@ namespace Lurker.UI.ViewModels
     using Lurker.UI.Models;
     using System;
     using System.ComponentModel;
+    using System.Threading;
     using System.Threading.Tasks;
 
     public abstract class BulbViewModel : PoeOverlayBase
@@ -23,6 +24,7 @@ namespace Lurker.UI.ViewModels
         protected System.Action _action;
         private System.Action _previousAction;
         private INotifyPropertyChanged _previousActionView;
+        private CancellationTokenSource _tokenSource;
 
         #endregion
 
@@ -123,8 +125,15 @@ namespace Lurker.UI.ViewModels
         /// Sets the action.
         /// </summary>
         /// <param name="message">The message.</param>
-        protected void SetAction(BulbMessage message)
+        protected virtual void SetAction(BulbMessage message)
         {
+            if (this._tokenSource != null)
+            {
+                this._tokenSource.Cancel();
+                this._tokenSource.Dispose();
+                this._tokenSource = null;
+            }
+
             message.OnShow?.Invoke(this.Hide);
 
             if (this._previousAction == null)
@@ -140,7 +149,17 @@ namespace Lurker.UI.ViewModels
 
             if (message.DisplayTime != TimeSpan.Zero)
             {
-                Task.Run(async () => await Task.Delay(message.DisplayTime)).ContinueWith((t) => this.Hide());
+                this._tokenSource = new CancellationTokenSource();
+                var token = this._tokenSource.Token;
+                Task.Run(async () => await Task.Delay(message.DisplayTime)).ContinueWith((t) => 
+                {
+                    if (token.IsCancellationRequested)
+                    {
+                        return;
+                    }
+
+                    this.Hide();
+                });
             }
         }
 

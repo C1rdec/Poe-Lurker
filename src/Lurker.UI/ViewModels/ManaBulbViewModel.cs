@@ -18,6 +18,7 @@ namespace Lurker.UI.ViewModels
         #region Fields
 
         private IEventAggregator _eventAggregator;
+        private bool _updateRequired;
 
         #endregion
 
@@ -71,7 +72,18 @@ namespace Lurker.UI.ViewModels
         /// <param name="message">The message.</param>
         public void Handle(ManaBulbMessage message)
         {
+            if (this._updateRequired && message.IsUpdate)
+            {
+                base.SetAction(message);
+                return;
+            }            
+
             this.SetAction(message);
+
+            if (message.IsUpdate)
+            {
+                this._updateRequired = true;
+            }
         }
 
         /// <summary>
@@ -105,6 +117,20 @@ namespace Lurker.UI.ViewModels
             }
 
             base.OnDeactivate(close);
+        }
+
+        /// <summary>
+        /// Sets the action.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        protected override void SetAction(BulbMessage message)
+        {
+            if (this._updateRequired)
+            {
+                return;
+            }
+
+            base.SetAction(message);
         }
 
         /// <summary>

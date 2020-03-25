@@ -252,6 +252,7 @@ namespace Lurker.UI
         {
             var message = new ManaBulbMessage()
             {
+                IsUpdate = true,
                 View = new UpdateViewModel(UpdateState.Working)
             };
 
@@ -385,10 +386,11 @@ namespace Lurker.UI
         {
             var updateManager = IoC.Get<UpdateManager>();
             this.NeedUpdate = await updateManager.CheckForUpdate();
-            if (this.NeedUpdate)
+            if (!this.NeedUpdate)
             {
                 var message = new ManaBulbMessage()
                 {
+                    IsUpdate = true,
                     View = new UpdateViewModel(UpdateState.NeedUpdate),
                     Action = () => this.Update(),
                 };
@@ -400,7 +402,7 @@ namespace Lurker.UI
             if (this._showUpdateSuccess)
             {
                 this._showUpdateSuccess = false;
-                this._eventAggregator.PublishOnUIThread(new ManaBulbMessage() { View = new UpdateViewModel(UpdateState.Success), DisplayTime = TimeSpan.FromSeconds(5) });
+                this._eventAggregator.PublishOnUIThread(new ManaBulbMessage() { IsUpdate = true, View = new UpdateViewModel(UpdateState.Success), DisplayTime = TimeSpan.FromSeconds(5) });
             }
         }
 
