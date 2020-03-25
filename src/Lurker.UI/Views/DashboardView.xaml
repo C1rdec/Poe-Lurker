@@ -30,7 +30,7 @@
 
             <ContentControl x:Name="TotalChart" Grid.Row="3" Grid.Column="1" />
 
-            <TextBlock FontSize="20" Foreground="White" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">Networth</TextBlock>
+            <TextBlock FontSize="20" Foreground="White" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">Net Worth</TextBlock>
             <ContentControl x:Name="NetworthChart" Grid.Row="3"/>
         </Grid>
         <Button x:Name="Back" Visibility="{Binding HasActiveChart, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">Back</Button>
