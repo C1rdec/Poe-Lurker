@@ -120,12 +120,6 @@ namespace Lurker.UI.ViewModels
         /// <param name="tradeEvent">The trade event.</param>
         private bool CheckIfOfferIsAlreadySold(TradeEvent tradeEvent)
         {
-            var itemClass = ItemClassParser.Parse(tradeEvent.ItemName);
-            if (itemClass == ItemClass.Map || itemClass == ItemClass.Currency)
-            {
-                return false;
-            }
-
             var location = tradeEvent.Location.ToString();
             var defaultLocation = new Location().ToString();
             if (location != defaultLocation)
@@ -196,13 +190,17 @@ namespace Lurker.UI.ViewModels
                     this._keyboardHelper.Kick(offer.PlayerName);
                 }
 
-                var alreadySold = this.CheckIfOfferIsAlreadySold(offer.Event);
-                if (!alreadySold)
+                var itemClass = ItemClassParser.Parse(offer.ItemName);
+                if (itemClass != ItemClass.Map && itemClass != ItemClass.Currency)
                 {
-                    this._lastOffers.Add(offer.Event);
-                    if (this._lastOffers.Count >= 5)
+                    var alreadySold = this.CheckIfOfferIsAlreadySold(offer.Event);
+                    if (!alreadySold)
                     {
-                        this._lastOffers.RemoveAt(0);
+                        this._lastOffers.Add(offer.Event);
+                        if (this._lastOffers.Count >= 5)
+                        {
+                            this._lastOffers.RemoveAt(0);
+                        }
                     }
                 }
 
