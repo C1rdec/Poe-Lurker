@@ -10,6 +10,7 @@ namespace Lurker.UI.ViewModels
     using Lurker.Helpers;
     using Lurker.Patreon.Events;
     using Lurker.Patreon.Models;
+    using Lurker.Patreon.Parsers;
     using Lurker.Services;
     using Lurker.UI.Helpers;
     using Lurker.UI.Models;
@@ -23,6 +24,7 @@ namespace Lurker.UI.ViewModels
     {
         #region Fields
 
+        private static readonly ItemClassParser ItemClassParser = new ItemClassParser();
         private static int DefaultOverlayHeight = 60;
         private PoeKeyboardHelper _keyboardHelper;
         private TradebarContext _context;
@@ -118,6 +120,12 @@ namespace Lurker.UI.ViewModels
         /// <param name="tradeEvent">The trade event.</param>
         private bool CheckIfOfferIsAlreadySold(TradeEvent tradeEvent)
         {
+            var itemClass = ItemClassParser.Parse(tradeEvent.ItemName);
+            if (itemClass == ItemClass.Map || itemClass == ItemClass.Currency)
+            {
+                return false;
+            }
+
             var location = tradeEvent.Location.ToString();
             var defaultLocation = new Location().ToString();
             if (location != defaultLocation)
