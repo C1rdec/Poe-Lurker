@@ -386,7 +386,7 @@ namespace Lurker.UI
         {
             var updateManager = IoC.Get<UpdateManager>();
             this.NeedUpdate = await updateManager.CheckForUpdate();
-            if (!this.NeedUpdate)
+            if (this.NeedUpdate)
             {
                 var message = new ManaBulbMessage()
                 {
