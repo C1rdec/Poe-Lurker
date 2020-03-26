@@ -13,10 +13,10 @@
                    FontSize="20"
                    FontWeight="Bold"
                    Text="{Binding StashName}"/>
-        <TextBlock FontFamily="pack://application:,,,/Assets/#Fontin"
+        <TextBlock HorizontalAlignment="Left" FontFamily="pack://application:,,,/Assets/#Fontin"
                    TextTrimming="CharacterEllipsis"
                    Foreground="White"
-                   FontSize="10"
-                   Text="{Binding itemName}"/>
+                   FontSize="15"
+                   Text="{Binding Location}"/>
     </StackPanel>
 </UserControl>

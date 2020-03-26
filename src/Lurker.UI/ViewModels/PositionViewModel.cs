@@ -41,7 +41,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets the name of the item.
         /// </summary>
-        public string ItemName => this._tradeEvent.ItemName;
+        public string Location => $"Left: {this._tradeEvent.Location.Left}, Top: {this._tradeEvent.Location.Top}";
 
         /// <summary>
         /// Gets or sets the item class.
