@@ -68,6 +68,11 @@ namespace Lurker
         /// <summary>
         /// Occurs when the player changed the location.
         /// </summary>
+        public event EventHandler<AfkEvent> AfkChanged;
+
+        /// <summary>
+        /// Occurs when the player changed the location.
+        /// </summary>
         public event EventHandler<LocationChangedEvent> LocationChanged;
 
         /// <summary>
@@ -400,6 +405,13 @@ namespace Lurker
                 if (locationEvent != null)
                 {
                     this.LocationChanged?.Invoke(this, locationEvent);
+                    return;
+                }
+
+                var afkEvent = AfkEvent.TryParse(newline);
+                if (afkEvent != null)
+                {
+                    this.AfkChanged?.Invoke(this, afkEvent);
                     return;
                 }
 

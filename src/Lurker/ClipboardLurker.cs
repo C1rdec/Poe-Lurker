@@ -301,14 +301,14 @@ namespace Lurker
         /// Gets the item base type in clipboard.
         /// </summary>
         /// <returns></returns>
-        private async Task<string> GetItemBaseTypeInClipboard()
+        private async Task<string> GetItemSearchValueInClipboard()
         {
             try
             {
                 var text = await this.GetClipboardText();
                 try
                 {
-                    return this._itemParser.GetBaseType(text);
+                    return this._itemParser.GetSearchValue(text);
                 }
                 catch (System.InvalidOperationException)
                 {
@@ -331,7 +331,7 @@ namespace Lurker
                 return;
             }
 
-            var baseType = await this.GetItemBaseTypeInClipboard();
+            var baseType = await this.GetItemSearchValueInClipboard();
             if (string.IsNullOrEmpty(baseType))
             {
                 return;
