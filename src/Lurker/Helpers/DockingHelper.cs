@@ -4,13 +4,13 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.UI.Helpers
+namespace Lurker.Helpers
 {
+    using Lurker.Models;
     using System;
     using System.Diagnostics;
     using System.Threading;
     using System.Threading.Tasks;
-    using Lurker.UI.Models;
     using static Lurker.Native;
 
     public class DockingHelper: IDisposable

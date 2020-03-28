@@ -8,6 +8,7 @@ namespace Lurker.UI.ViewModels
 {
     using Caliburn.Micro;
     using Lurker.Helpers;
+    using Lurker.Models;
     using Lurker.Patreon.Events;
     using Lurker.Patreon.Models;
     using Lurker.Patreon.Parsers;

@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.UI.Models
+namespace Lurker.Models
 {
     using System;
 

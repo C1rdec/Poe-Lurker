@@ -113,10 +113,13 @@
     <Compile Include="ClipboardLurker.cs" />
     <Compile Include="Extensions\ProcessExtension.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
+    <Compile Include="Helpers\DockingHelper.cs" />
     <Compile Include="Helpers\KeyboardHelper.cs" />
     <Compile Include="Helpers\PoeKeyboardHelper.cs" />
     <Compile Include="Helpers\TokenHelper.cs" />
     <Compile Include="Helpers\TradeEventHelper.cs" />
+    <Compile Include="Models\PoeApplicationContext.cs" />
+    <Compile Include="Models\PoeWindowInformation.cs" />
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Native.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
