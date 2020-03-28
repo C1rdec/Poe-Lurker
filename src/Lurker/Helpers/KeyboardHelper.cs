@@ -72,6 +72,8 @@ namespace Lurker.Helpers
 
                 // We are using the interop since SendWait block mouse input.
                 this._simulator.Keyboard.TextEntry(searchTerm);
+                this._simulator.Keyboard.Sleep(400);
+                this._simulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.RETURN);
             }
         }
 

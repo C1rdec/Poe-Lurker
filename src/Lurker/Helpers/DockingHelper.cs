@@ -31,7 +31,6 @@ namespace Lurker.Helpers
         private const uint ObjectHidden = 8003;
 
         private Process _myProcess;
-        private bool _isWindowInForeground;
         private readonly uint _windowProcessId, _windowOwnerId;
         private readonly WinEventDelegate _winEventDelegate;
         private CancellationTokenSource _tokenSource;
@@ -169,9 +168,9 @@ namespace Lurker.Helpers
                     inForeground = true;
                 }
 
-                if (this._isWindowInForeground != inForeground)
+                if (PoeApplicationContext.InForeground != inForeground)
                 {
-                    this._isWindowInForeground = inForeground;
+                    PoeApplicationContext.InForeground = inForeground;
                     this.OnForegroundChange?.Invoke(this, inForeground);
                 }
 

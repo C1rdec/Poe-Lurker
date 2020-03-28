@@ -326,18 +326,16 @@ namespace Lurker
         /// </summary>
         private async void Search()
         {
-            if (!this._settingsService.ItemHighlightEnabled)
+            if (this._settingsService.ItemHighlightEnabled && Models.PoeApplicationContext.InForeground)
             {
-                return;
-            }
+                var baseType = await this.GetItemSearchValueInClipboard();
+                if (string.IsNullOrEmpty(baseType))
+                {
+                    return;
+                }
 
-            var baseType = await this.GetItemSearchValueInClipboard();
-            if (string.IsNullOrEmpty(baseType))
-            {
-                return;
+                this._keyboardHelper.Write(baseType);
             }
-
-            this._keyboardHelper.Write(baseType);
         }
 
         /// <summary>
@@ -345,7 +343,7 @@ namespace Lurker
         /// </summary>
         private void RemainingMonster()
         {
-            if (this._settingsService.RemainingMonsterEnabled)
+            if (this._settingsService.RemainingMonsterEnabled && Models.PoeApplicationContext.InForeground)
             {
                 this._keyboardHelper.RemainingMonster();
             }

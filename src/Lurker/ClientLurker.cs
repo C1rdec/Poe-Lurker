@@ -383,6 +383,11 @@ namespace Lurker
                 var tradeEvent = TradeEvent.TryParse(newline);
                 if (tradeEvent != null)
                 {
+                    if (Models.PoeApplicationContext.InForeground)
+                    {
+                        // Send notification
+                    }
+
                     this.IncomingOffer?.Invoke(this, tradeEvent);
                     return;
                 }
@@ -411,6 +416,11 @@ namespace Lurker
                 var afkEvent = AfkEvent.TryParse(newline);
                 if (afkEvent != null)
                 {
+                    if (Models.PoeApplicationContext.IsAfk != afkEvent.AfkEnable)
+                    {
+                        Models.PoeApplicationContext.IsAfk = afkEvent.AfkEnable;
+                    }
+
                     this.AfkChanged?.Invoke(this, afkEvent);
                     return;
                 }
