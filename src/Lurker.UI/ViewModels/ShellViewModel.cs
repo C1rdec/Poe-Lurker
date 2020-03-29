@@ -298,7 +298,7 @@ namespace Lurker.UI
             Execute.OnUIThread(() =>
             {
                 var keyboarHelper = new PoeKeyboardHelper(windowHandle);
-                this._currentDockingHelper = new DockingHelper(windowHandle);
+                this._currentDockingHelper = new DockingHelper(windowHandle, this._settingsService);
                 this._clipboardLurker = new ClipboardLurker(this._settingsService, keyboarHelper);
                 this._clipboardLurker.Newitem += this.ClipboardLurker_Newitem;
 

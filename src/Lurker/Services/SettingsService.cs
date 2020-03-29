@@ -334,6 +334,22 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [hide in background].
+        /// </summary>
+        public bool HideInBackground
+        {
+            get
+            {
+                return this._settings.HideInBackground;
+            }
+
+            set
+            {
+                this._settings.HideInBackground = value;
+            }
+        }
+
+        /// <summary>
         /// Gets the name of the folder.
         /// </summary>
         private string FolderName => "PoeLurker";

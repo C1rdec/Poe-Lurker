@@ -360,6 +360,23 @@ namespace Lurker.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the tool tip delay.
+        /// </summary>
+        public bool AlwaysVisible
+        {
+            get
+            {
+                return !this._settingService.HideInBackground;
+            }
+
+            set
+            {
+                this._settingService.HideInBackground = !value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
         #endregion
 
         #region Methods

@@ -205,6 +205,12 @@
                                                    VerticalAlignment="Top"
                                                    Margin="30,0,0,0"
                                                    HorizontalAlignment="Center"
+                                                   Header="Always Visible"
+                                                   IsChecked="{Binding AlwaysVisible}"/>
+                            <Controls:ToggleSwitch Grid.Row="1"
+                                                   VerticalAlignment="Top"
+                                                   Margin="30,0,0,0"
+                                                   HorizontalAlignment="Center"
                                                    Header="Debug Mode"
                                                    IsChecked="{Binding DebugEnabled}"/>
                         </StackPanel>

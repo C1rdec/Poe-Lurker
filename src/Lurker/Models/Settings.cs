@@ -105,6 +105,12 @@ namespace Lurker.Models
         [DefaultValue(1000)]
         public int ToolTipDelay { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [hide in background].
+        /// </summary>
+        [DefaultValue(true)]
+        public bool HideInBackground { get; set; }
+
         #endregion
     }
 }

@@ -7,6 +7,7 @@
 namespace Lurker.Helpers
 {
     using Lurker.Models;
+    using Lurker.Services;
     using System;
     using System.Diagnostics;
     using System.Threading;
@@ -34,6 +35,7 @@ namespace Lurker.Helpers
         private readonly uint _windowProcessId, _windowOwnerId;
         private readonly WinEventDelegate _winEventDelegate;
         private CancellationTokenSource _tokenSource;
+        private SettingsService _settingsService;
         private IntPtr _hook;
         private IntPtr _windowHandle;
 
@@ -45,10 +47,11 @@ namespace Lurker.Helpers
         /// Initializes a new instance of the <see cref="DockingHelper"/> class.
         /// </summary>
         /// <param name="process">The process.</param>
-        public DockingHelper(IntPtr windowHandle)
+        public DockingHelper(IntPtr windowHandle, SettingsService settingsService)
         {
             this._myProcess = Process.GetCurrentProcess();
             this._tokenSource = new CancellationTokenSource();
+            this._settingsService = settingsService;
             this._windowHandle = windowHandle;
             this._windowOwnerId = GetWindowThreadProcessId(this._windowHandle, out this._windowProcessId);
             this._winEventDelegate = WhenWindowMoveStartsOrEnds;
@@ -171,7 +174,11 @@ namespace Lurker.Helpers
                 if (PoeApplicationContext.InForeground != inForeground)
                 {
                     PoeApplicationContext.InForeground = inForeground;
-                    this.OnForegroundChange?.Invoke(this, inForeground);
+
+                    if (this._settingsService.HideInBackground)
+                    {
+                        this.OnForegroundChange?.Invoke(this, inForeground);
+                    }
                 }
 
                 await Task.Delay(500);
