@@ -25,6 +25,7 @@ namespace Lurker.UI.ViewModels
         private ChartViewModelBase _activeChart;
         private PieChartViewModel _itemClassChart;
         private IEnumerable<SimpleTradeModel> _trades;
+        private IEnumerable<SimpleTradeModel> _allTradres;
 
         #endregion
 
@@ -137,6 +138,33 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Days this instance.
+        /// </summary>
+        public void Day()
+        {
+            this._trades = this._allTradres.Where(t => DateTime.Compare(t.Date, DateTime.Now.AddDays(-1)) > 0);
+            this.NetworthChart = this.GetNetworthChart();
+        }
+
+        /// <summary>
+        /// Weeks this instance.
+        /// </summary>
+        public void Week()
+        {
+            this._trades = this._allTradres.Where(t => DateTime.Compare(t.Date, DateTime.Now.AddDays(-7)) > 0);
+            this.NetworthChart = this.GetNetworthChart();
+        }
+
+        /// <summary>
+        /// Alls this instance.
+        /// </summary>
+        public void All()
+        {
+            this._trades = this._allTradres;
+            this.NetworthChart = this.GetNetworthChart();
+        }
+
+        /// <summary>
         /// Called when activating.
         /// </summary>
         protected override async void OnActivate()
@@ -145,6 +173,7 @@ namespace Lurker.UI.ViewModels
             {
                 await service.CheckPledgeStatus();
                 this._trades = service.Get().Where(t => !t.IsOutgoing).OrderBy(t => t.Date).ToArray();
+                this._allTradres = this._trades;
             }
 
             this.ItemClassChart = this.CreateItemClassChart();
