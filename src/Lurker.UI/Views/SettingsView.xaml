@@ -170,6 +170,50 @@
                     </StackPanel>
                 </Grid>
             </TabItem>
+            <TabItem Header="Action">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Content="Action" Style="{DynamicResource LabelHeaderStyle}" />
+                    <StackPanel Grid.Row="1" Margin="30,0,30,0">
+                        <StackPanel Orientation="Horizontal" Margin="0,30,0,0" HorizontalAlignment="Left">
+                            <Controls:ToggleSwitch
+                                               Margin="30,0,0,0"
+                                               Header="Item Highlight"
+                                               IsChecked="{Binding ItemHighlightEnabled}"/>
+                            <TextBlock Margin="4 4 0 0"
+                                                   Foreground="{DynamicResource AccentColorBrush}"
+                                                   FontSize="12"
+                                                   VerticalAlignment="Top"
+                                                   Text="(Ctrl + F)" />
+                            <Controls:ToggleSwitch 
+                                               Header="Remaining Monster"
+                                Margin="30,0,0,0"
+                                               IsChecked="{Binding RemainingMonsterEnabled}"/>
+                            <TextBlock Margin="4 4 0 0"
+                                                   Foreground="{DynamicResource AccentColorBrush}"
+                                                   FontSize="12"
+                                                   VerticalAlignment="Top"
+                                                   Text="(Ctrl + R)" />
+                        </StackPanel>
+                        <StackPanel Margin="0,30,0,0" HorizontalAlignment="Left" Orientation="Horizontal">
+                            <Controls:ToggleSwitch Grid.Row="1"
+                                                   VerticalAlignment="Top"
+                                                   Margin="30,0,0,0"
+                                                   HorizontalAlignment="Center"
+                                                   Header="Delete Item"
+                                                   IsChecked="{Binding DeleteItemEnabled}"/>
+                            <TextBlock Margin="4 4 0 0"
+                                                   Foreground="{DynamicResource AccentColorBrush}"
+                                                   FontSize="12"
+                                                   VerticalAlignment="Top"
+                                                   Text="(Delete)" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
             <TabItem Header="Advanced">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -187,23 +231,10 @@
                                                    Margin="30,0,0,0"
                                                Header="Auto Kick"
                                                IsChecked="{Binding AutoKickEnabled}"/>
-                            <Controls:ToggleSwitch
-                                               Margin="30,0,0,0"
-                                               Header="Item Highlight"
-                                               IsChecked="{Binding ItemHighlightEnabled}"/>
-                            <TextBlock Margin="4 4 0 0"
-                                                   Foreground="{DynamicResource AccentColorBrush}"
-                                                   FontSize="12"
-                                                   VerticalAlignment="Top"
-                                                   Text="(Ctrl + F)" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,30,0,0" HorizontalAlignment="Center">
-                            <Controls:ToggleSwitch 
-                                               Header="Remaining Monster"
-                                               IsChecked="{Binding RemainingMonsterEnabled}"/>
                             <Controls:ToggleSwitch Grid.Row="1"
                                                    VerticalAlignment="Top"
-                                                   Margin="30,0,0,0"
                                                    HorizontalAlignment="Center"
                                                    Header="Always Visible"
                                                    IsChecked="{Binding AlwaysVisible}"/>

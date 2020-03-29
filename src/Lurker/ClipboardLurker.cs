@@ -54,10 +54,12 @@ namespace Lurker
 
             var search = Combination.FromString("Control+F");
             var remainingMonster = Combination.FromString("Control+R");
+            var deleteItem = Combination.TriggeredBy(System.Windows.Forms.Keys.Delete);
             var assignment = new Dictionary<Combination, Action>
             {
                 {search, this.Search},
-                {remainingMonster, this.RemainingMonster },
+                {remainingMonster, this.RemainingMonster},
+                {deleteItem, this.DeleteItem},
             };
 
             this._keyboardEvent.OnCombination(assignment);
@@ -346,6 +348,18 @@ namespace Lurker
             if (this._settingsService.RemainingMonsterEnabled && Models.PoeApplicationContext.InForeground)
             {
                 this._keyboardHelper.RemainingMonster();
+            }
+        }
+
+        /// <summary>
+        /// Deletes the item.
+        /// </summary>
+        private void DeleteItem()
+        {
+            if (this._settingsService.DeleteItemEnabled && Models.PoeApplicationContext.InForeground)
+            {
+                this._simulator.Mouse.LeftButtonClick();
+                this._keyboardHelper.Destroy();
             }
         }
 

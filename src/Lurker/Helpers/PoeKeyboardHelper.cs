@@ -26,6 +26,14 @@ namespace Lurker.Helpers
         #region Methods
 
         /// <summary>
+        /// Destroys this instance.
+        /// </summary>
+        public void Destroy()
+        {
+            this.SendCommand("/destroy");
+        }
+
+        /// <summary>
         /// Remainings the monster.
         /// </summary>
         public void RemainingMonster()

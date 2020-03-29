@@ -350,6 +350,22 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [delete item enabled].
+        /// </summary>
+        public bool DeleteItemEnabled
+        {
+            get
+            {
+                return this._settings.DeleteItemEnabled;
+            }
+
+            set
+            {
+                this._settings.DeleteItemEnabled = value;
+            }
+        }
+
+        /// <summary>
         /// Gets the name of the folder.
         /// </summary>
         private string FolderName => "PoeLurker";

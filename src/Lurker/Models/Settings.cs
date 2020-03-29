@@ -111,6 +111,11 @@ namespace Lurker.Models
         [DefaultValue(true)]
         public bool HideInBackground { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [hide in background].
+        /// </summary>
+        public bool DeleteItemEnabled { get; set; }
+
         #endregion
     }
 }

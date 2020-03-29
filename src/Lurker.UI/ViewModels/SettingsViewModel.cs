@@ -377,6 +377,23 @@ namespace Lurker.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [delete item enabled].
+        /// </summary>
+        public bool DeleteItemEnabled
+        {
+            get
+            {
+                return this._settingService.DeleteItemEnabled;
+            }
+
+            set
+            {
+                this._settingService.DeleteItemEnabled = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
         #endregion
 
         #region Methods
