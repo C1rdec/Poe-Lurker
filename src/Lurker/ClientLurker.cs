@@ -66,6 +66,11 @@ namespace Lurker
         public event EventHandler PoeClosed;
 
         /// <summary>
+        /// Occurs when [request admin].
+        /// </summary>
+        public event EventHandler AdminRequested;
+
+        /// <summary>
         /// Occurs when the player changed the location.
         /// </summary>
         public event EventHandler<AfkEvent> AfkChanged;
@@ -276,7 +281,18 @@ namespace Lurker
         /// </summary>
         private void Lurk()
         {
-            this.FilePath = Path.Combine(Path.GetDirectoryName(this._pathOfExileProcess.GetMainModuleFileName()), ClientLogFolderName, ClientLogFileName);
+            string path = string.Empty;
+            try
+            {
+                path = this._pathOfExileProcess.GetMainModuleFileName();
+            }
+            catch (System.ComponentModel.Win32Exception)
+            {
+                this.AdminRequested?.Invoke(this, EventArgs.Empty);
+                return;
+            }
+
+            this.FilePath = Path.Combine(Path.GetDirectoryName(path), ClientLogFolderName, ClientLogFileName);
             this._lastLine = this.GetLastLine();
             this.LurkLastLine();
         }

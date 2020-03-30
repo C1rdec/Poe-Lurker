@@ -1,4 +1,10 @@
-﻿using System.Windows.Controls;
+﻿//-----------------------------------------------------------------------
+// <copyright file="PieChartView.xaml.cs" company="Wohs">
+//     Missing Copyright information from a valid stylecop.json file.
+// </copyright>
+//-----------------------------------------------------------------------
+
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace Lurker.UI.Views

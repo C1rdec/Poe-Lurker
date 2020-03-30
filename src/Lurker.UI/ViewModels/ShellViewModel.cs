@@ -20,8 +20,10 @@ namespace Lurker.UI
     using System.Reflection;
     using System.Runtime.InteropServices;
     using System.Runtime.InteropServices.ComTypes;
+    using System.Security.Principal;
     using System.Text;
     using System.Threading.Tasks;
+    using System.Windows;
 
     public class ShellViewModel : Conductor<Screen>.Collection.AllActive , IViewAware, IHandle<Screen>
     {
@@ -44,6 +46,7 @@ namespace Lurker.UI
         private bool _showInTaskBar;
         private bool _isItemOverlayOpen;
         private bool _showUpdateSuccess;
+        private bool _closing;
 
         #endregion
 
@@ -350,6 +353,7 @@ namespace Lurker.UI
             if (this._currentLurker != null)
             {
                 this._currentLurker.PoeClosed -= this.CurrentLurker_PoeClosed;
+                this._currentLurker.AdminRequested -= this.CurrentLurker_AdminRequested;
                 this._currentLurker.Dispose();
                 this._currentLurker = null;
             }
@@ -369,14 +373,30 @@ namespace Lurker.UI
             await AffixService.InitializeAsync();
 
             this._currentLurker = new ClientLurker();
+            this._currentLurker.AdminRequested += this.CurrentLurker_AdminRequested;
             this._currentLurker.PoeClosed += CurrentLurker_PoeClosed;
             var windowHandle = await this._currentLurker.WaitForPoe();
+
+            if (this._closing)
+            {
+                return;
+            }
 
             this.ShowOverlays(windowHandle);
             await this.CheckForUpdate();
 
             // Mouse Shuttering
             this._clipboardLurker.BindGlobalClick();
+        }
+
+        private void CurrentLurker_AdminRequested(object sender, EventArgs e)
+        {
+            if (IsAdministrator())
+            {
+                return;
+            }
+
+            this.RequestAdmin();
         }
 
         /// <summary>
@@ -416,6 +436,35 @@ namespace Lurker.UI
             this.IsItemOverlayOpen = false;
             this.ItemOverlayViewModel = new ItemOverlayViewModel(e, () => { this.IsItemOverlayOpen = false; });
             this.IsItemOverlayOpen = true;
+        }
+
+        /// <summary>
+        /// Requests the admin.
+        /// </summary>
+        public void RequestAdmin()
+        {
+            if (IsAdministrator())
+            {
+                return;
+            }
+
+            // Restart program and run as admin
+            var exeName = Process.GetCurrentProcess().MainModule.FileName;
+            ProcessStartInfo startInfo = new ProcessStartInfo(exeName);
+            startInfo.Verb = "runas";
+            Process.Start(startInfo);
+            Application.Current.Shutdown();
+            this._closing = true;
+        }
+
+        /// <summary>
+        /// Determines whether this instance is administrator.
+        /// </summary>
+        private static bool IsAdministrator()
+        {
+            var identity = WindowsIdentity.GetCurrent();
+            var principal = new WindowsPrincipal(identity);
+            return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
 
         /// <summary>
