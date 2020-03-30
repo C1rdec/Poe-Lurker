@@ -11,7 +11,7 @@
 - `Alt-Click`: set active offer.
 - `Ctrl-Click`: "Already Sold" message.
 - `Ctrl-Shift-Click`: "Still Interested?" message.
-- `Click` Health Globe: search for item in stash (must manually click the relevant stash tab).
+- `Click` Health Globe: search for item in stash.
 
 
 # [Outgoing Trades](https://docs.google.com/presentation/d/1XhaSSNAFGxzouc5amzAW8c_6ifToNjnsQq5UmNgLXoo/present?slide=id.g701d3dad04_0_23):
