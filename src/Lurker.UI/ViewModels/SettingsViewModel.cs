@@ -103,6 +103,9 @@ namespace Lurker.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether [up to date].
+        /// </summary>
         public bool UpToDate => !this.NeedsUpdate;
 
         /// <summary>
