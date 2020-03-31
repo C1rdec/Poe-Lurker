@@ -99,8 +99,11 @@ namespace Lurker.UI.ViewModels
             {
                 this._needsUpdate = value;
                 this.NotifyOfPropertyChange();
+                this.NotifyOfPropertyChange("UpToDate");
             }
         }
+
+        public bool UpToDate => !this.NeedsUpdate;
 
         /// <summary>
         /// Gets or sets the busy message.
@@ -437,6 +440,14 @@ namespace Lurker.UI.ViewModels
         public void UserGuide()
         {
             Process.Start(@"https://docs.google.com/presentation/d/1XhaSSNAFGxzouc5amzAW8c_6ifToNjnsQq5UmNgLXoo/present?slide=id.p");
+        }
+
+        /// <summary>
+        /// Cheats the sheet.
+        /// </summary>
+        public void CheatSheet()
+        {
+            Process.Start(@"https://github.com/C1rdec/Poe-Lurker/blob/master/assets/CheatSheet.md");
         }
 
         /// <summary>

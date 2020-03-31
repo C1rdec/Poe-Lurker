@@ -292,12 +292,19 @@
                 </Grid>
             </TabItem>
         </Controls:MetroAnimatedTabControl>
-        <Button x:Name="UserGuide"
-                Margin="36,8,8,8" 
+        <StackPanel Orientation="Horizontal" Visibility="{Binding UpToDate, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Button x:Name="UserGuide"
+                Margin="8,8,8,8" 
                 VerticalAlignment="Bottom" 
                 HorizontalAlignment="Left" 
-                Height="10" 
-                Width="80">User Guide</Button>
+                Height="10" >Guide</Button>
+            <Button x:Name="CheatSheet"
+                Margin="4,8,8,8" 
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Left" 
+                Height="10">Cheat Sheet</Button>
+        </StackPanel>
+        
         <Button x:Name="Update"
                 Margin="36,8,8,8" 
                 Visibility="{Binding NeedsUpdate, Converter={StaticResource BooleanToVisibilityConverter}}"
