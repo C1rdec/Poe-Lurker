@@ -63,14 +63,14 @@
       <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
-    <Reference Include="Sentry, Version=2.0.3.0, Culture=neutral, PublicKeyToken=fba2ec45388e2af0, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sentry.2.0.3\lib\net461\Sentry.dll</HintPath>
+    <Reference Include="Sentry, Version=2.1.1.0, Culture=neutral, PublicKeyToken=fba2ec45388e2af0, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sentry.2.1.1\lib\net461\Sentry.dll</HintPath>
     </Reference>
     <Reference Include="Sentry.PlatformAbstractions, Version=1.1.0.0, Culture=neutral, PublicKeyToken=fba2ec45388e2af0, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Sentry.PlatformAbstractions.1.1.0\lib\net471\Sentry.PlatformAbstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Sentry.Protocol, Version=2.0.0.0, Culture=neutral, PublicKeyToken=fba2ec45388e2af0, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sentry.Protocol.2.0.0\lib\net46\Sentry.Protocol.dll</HintPath>
+    <Reference Include="Sentry.Protocol, Version=2.1.1.0, Culture=neutral, PublicKeyToken=fba2ec45388e2af0, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sentry.Protocol.2.1.1\lib\net46\Sentry.Protocol.dll</HintPath>
     </Reference>
     <Reference Include="SharpClipboard, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\SharpClipboard.3.3.0\lib\SharpClipboard.dll</HintPath>
