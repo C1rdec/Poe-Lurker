@@ -208,7 +208,7 @@ namespace Lurker.UI.ViewModels
         {
             if (Enum.TryParse<ItemClass>(e.SeriesView.Title, true, out var value))
             {
-                var trades = this._trades.Where(t => t.ItemClass == value);
+                var trades = this._allTradres.Where(t => t.ItemClass == value);
                 var chart = new ColumnChartViewModel(trades.Select(t => t.ItemName).ToArray());
                 chart.Add(e.SeriesView.Title, trades.Select(t => t.Price.CalculateValue()));
                 this._tradesChart = chart;
@@ -296,7 +296,7 @@ namespace Lurker.UI.ViewModels
         {
             if (Enum.TryParse<CurrencyType>(e.SeriesView.Title, true, out var value))
             {
-                var trades = this._trades.Where(t => t.Price.CurrencyType == value);
+                var trades = this._allTradres.Where(t => t.Price.CurrencyType == value);
                 var chart = new ColumnChartViewModel(trades.Select(t => t.ItemName).ToArray()); ;
                 chart.Add(e.SeriesView.Title, trades.Select(t => t.Price.NumberOfCurrencies));
                 this._tradesChart = chart;

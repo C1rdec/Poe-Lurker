@@ -8,7 +8,6 @@ namespace Lurker
 {
     using Lurker.Extensions;
     using Lurker.Patreon.Events;
-    using Sentry;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -26,7 +25,7 @@ namespace Lurker
         #region Fields
 
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
-        private static readonly List<string> PossibleProcessNames = new List<string> { "PathOfExile", "PathOfExile_x64", "PathOfExileSteam", "PathOfExile_x64Steam" };
+        private static readonly List<string> PossibleProcessNames = new List<string> { "PathOfExile", "PathOfExile_x64", "PathOfExileSteam", "PathOfExile_x64Steam", "PathOfExile_x64_KG.exe", "PathOfExile_KG.exe" };
         private static readonly string ClientLogFileName = "Client.txt";
         private static readonly string ClientLogFolderName = "logs";
         private static readonly int WaitingTime = 5000;
