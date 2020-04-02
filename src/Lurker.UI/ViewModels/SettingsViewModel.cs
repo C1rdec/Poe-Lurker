@@ -529,9 +529,15 @@ namespace Lurker.UI.ViewModels
         {
             if (!this.NotConnected)
             {
-                using (var service = new Patreon.PatreonService())
+                try
                 {
-                    this.Pledging = await service.IsPledging();
+                    using (var service = new Patreon.PatreonService())
+                    {
+                        this.Pledging = await service.IsPledging();
+                    }
+                }
+                catch 
+                { 
                 }
             }
             else
