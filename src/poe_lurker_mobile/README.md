@@ -1,4 +1,4 @@
-# poe_lurker_mobile
+# Poe Lurker Mobile
 
 A new Flutter project.
 
