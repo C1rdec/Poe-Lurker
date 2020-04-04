@@ -11,6 +11,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lurker.UI", "src\Lurker.UI\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lurker.Test", "Lurker.Test\Lurker.Test.csproj", "{3FBDB2E3-2657-419A-A0AC-51939842F710}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Collaboration", "Collaboration", "{02208CDF-D611-4FA0-A548-F8B8F048EC54}"
+	ProjectSection(SolutionItems) = preProject
+		assets\Collaboration\Collaboration = assets\Collaboration\Collaboration
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

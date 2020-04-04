@@ -6,24 +6,15 @@
 
 namespace Lurker.Console
 {
-    using Lurker.Models;
-    using Newtonsoft.Json;
+    using Lurker.Services;
     using System;
 
     class Program
     {
         static void Main(string[] args)
         {
-            var model = new Collaboration()
-            {
-                Animation = "Animation",
-                ExpireDate = DateTime.Now,
-                Image = "Image",
-                Name = "Name",
-                Url = new Uri("https://www.google.com/"),
-            };
-
-            var value = JsonConvert.SerializeObject(model);
+            var service = new CollaborationService();
+            var model = service.GetCollaborationAsync().Result;
 
             //var lurker = new ClipboardLurker();
             using (var lurker = new ClientLurker())
