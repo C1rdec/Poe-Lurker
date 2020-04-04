@@ -18,7 +18,6 @@ namespace Lurker.UI.Views
     /// </summary>
     public partial class CollaborationView : UserControl
     {
-        private static readonly string AnimationName = "SponsorAnimation.json";
         public CollaborationView()
         {
             this.InitializeComponent();

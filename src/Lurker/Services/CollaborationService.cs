@@ -8,6 +8,7 @@ namespace Lurker.Services
 {
     using Lurker.Models;
     using Newtonsoft.Json;
+    using System;
     using System.Threading.Tasks;
 
     public class CollaborationService : HttpServiceBase
@@ -27,8 +28,18 @@ namespace Lurker.Services
         /// <returns></returns>
         public async Task<Collaboration> GetCollaborationAsync()
         {
-            var fileContent = await this.GetText(InformationFileUrl);
-            return JsonConvert.DeserializeObject<Collaboration>(fileContent);
+            try
+            {
+                var fileContent = await this.GetText(InformationFileUrl);
+                return JsonConvert.DeserializeObject<Collaboration>(fileContent);
+            }
+            catch
+            {
+                return new Collaboration()
+                {
+                    ExpireDate = DateTime.Now.AddDays(-1)
+                };
+            }
         }
 
         /// <summary>
