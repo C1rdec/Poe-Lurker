@@ -133,7 +133,12 @@ namespace Lurker
                 process = this.GetProcess();
             }
 
-            this.Lurk();
+            // Korean client are not logging chat activity in client.txt
+            if (!process.ProcessName.EndsWith("_KG.exe"))
+            {
+                this.Lurk();
+            }
+
             this.WaitForExit();
 
             return this.GetWindowHandle();

@@ -55,12 +55,22 @@ namespace Lurker.Services
         /// <summary>
         /// Creates the authorize URL.
         /// </summary>
-        /// <returns>The Authorize Url</returns>
-        protected async Task<string> Get(string url)
+        protected async Task<string> GetText(string url)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             var response = await this._client.SendAsync(request);
             return await response.Content.ReadAsStringAsync();
+        }
+
+        /// <summary>
+        /// Gets the content.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        protected async Task<byte[]> GetContent(string url)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
+            var response = await this._client.SendAsync(request);
+            return await response.Content.ReadAsByteArrayAsync();
         }
 
         #endregion

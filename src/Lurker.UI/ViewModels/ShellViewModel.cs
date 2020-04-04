@@ -30,8 +30,6 @@ namespace Lurker.UI
     {
         #region Fields
 
-        private Collaboration _collaboration;
-        private CollaborationService _collaborationService;
         private SimpleContainer _container;
         private ClientLurker _currentLurker;
         private DockingHelper _currentDockingHelper;
@@ -63,13 +61,12 @@ namespace Lurker.UI
         /// <param name="settingsViewModel">The settings view model.</param>
         /// <param name="eventAggregator">The event aggregator.</param>
         /// <param name="collaborationSerivce">The collaboration serivce.</param>
-        public ShellViewModel(SimpleContainer container, SettingsService settingsService, SettingsViewModel settingsViewModel, IEventAggregator eventAggregator, CollaborationService collaborationSerivce)
+        public ShellViewModel(SimpleContainer container, SettingsService settingsService, SettingsViewModel settingsViewModel, IEventAggregator eventAggregator)
         {
             this._eventAggregator = eventAggregator;
             this._settingsService = settingsService;
             this._container = container;
             this._settingsViewModel = settingsViewModel;
-            this._collaborationService = collaborationSerivce;
 
             this.WaitForPoe();
             this.StartWithWindows = File.Exists(this.ShortcutFilePath);
@@ -377,7 +374,6 @@ namespace Lurker.UI
         /// </summary>
         private async void WaitForPoe()
         {
-            this._collaboration = await this._collaborationService.GetCollaborationAsync();
             await AffixService.InitializeAsync();
 
             this._currentLurker = new ClientLurker();
@@ -431,9 +427,16 @@ namespace Lurker.UI
                 this._showUpdateSuccess = false;
                 this._eventAggregator.PublishOnUIThread(new ManaBulbMessage() { IsUpdate = true, View = new UpdateViewModel(UpdateState.Success), DisplayTime = TimeSpan.FromSeconds(5) });
             }
-            else if (!this._collaboration.IsExpired())
+            else
             {
-                this._eventAggregator.PublishOnUIThread(new ManaBulbMessage() { View = new CollaborationViewModel(this._collaboration), Action = this._collaboration.Open});
+                using (var service = new CollaborationService())
+                {
+                    var collaboration = await service.GetCollaborationAsync();
+                    if (!collaboration.IsExpired())
+                    {
+                        this._eventAggregator.PublishOnUIThread(new ManaBulbMessage() { View = new CollaborationViewModel(collaboration), Action = collaboration.Open, DisplayTime = TimeSpan.FromSeconds(10) });
+                    }
+                }
             }
         }
 
