@@ -52,6 +52,7 @@ namespace Lurker.UI
             this._container.Singleton<IEventAggregator, EventAggregator>();
             this._container.Singleton<KeyboardHelper, KeyboardHelper>();
             this._container.Singleton<SettingsService, SettingsService>();
+            this._container.Singleton<CollaborationService, CollaborationService>();
             this._container.Singleton<SettingsViewModel, SettingsViewModel>();
             this._container.Singleton<DashboardViewModel, DashboardViewModel>();
 

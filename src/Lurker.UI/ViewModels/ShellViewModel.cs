@@ -8,6 +8,7 @@ namespace Lurker.UI
 {
     using Caliburn.Micro;
     using Lurker.Helpers;
+    using Lurker.Models;
     using Lurker.Patreon;
     using Lurker.Patreon.Models;
     using Lurker.Services;
@@ -29,6 +30,8 @@ namespace Lurker.UI
     {
         #region Fields
 
+        private Collaboration _collaboration;
+        private CollaborationService _collaborationService;
         private SimpleContainer _container;
         private ClientLurker _currentLurker;
         private DockingHelper _currentDockingHelper;
@@ -53,16 +56,20 @@ namespace Lurker.UI
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ShellViewModel"/> class.
+        /// Initializes a new instance of the <see cref="ShellViewModel" /> class.
         /// </summary>
-        /// <param name="windowManager">The window manager.</param>
         /// <param name="container">The container.</param>
-        public ShellViewModel(SimpleContainer container, SettingsService settingsService, SettingsViewModel settingsViewModel, IEventAggregator eventAggregator)
+        /// <param name="settingsService">The settings service.</param>
+        /// <param name="settingsViewModel">The settings view model.</param>
+        /// <param name="eventAggregator">The event aggregator.</param>
+        /// <param name="collaborationSerivce">The collaboration serivce.</param>
+        public ShellViewModel(SimpleContainer container, SettingsService settingsService, SettingsViewModel settingsViewModel, IEventAggregator eventAggregator, CollaborationService collaborationSerivce)
         {
             this._eventAggregator = eventAggregator;
             this._settingsService = settingsService;
             this._container = container;
             this._settingsViewModel = settingsViewModel;
+            this._collaborationService = collaborationSerivce;
 
             this.WaitForPoe();
             this.StartWithWindows = File.Exists(this.ShortcutFilePath);
@@ -370,6 +377,7 @@ namespace Lurker.UI
         /// </summary>
         private async void WaitForPoe()
         {
+            this._collaboration = await this._collaborationService.GetCollaborationAsync();
             await AffixService.InitializeAsync();
 
             this._currentLurker = new ClientLurker();
@@ -418,11 +426,14 @@ namespace Lurker.UI
                 this._eventAggregator.PublishOnUIThread(message);
                 return;
             }
-            
-            if (this._showUpdateSuccess)
+            else if (this._showUpdateSuccess)
             {
                 this._showUpdateSuccess = false;
                 this._eventAggregator.PublishOnUIThread(new ManaBulbMessage() { IsUpdate = true, View = new UpdateViewModel(UpdateState.Success), DisplayTime = TimeSpan.FromSeconds(5) });
+            }
+            else if (!this._collaboration.IsExpired())
+            {
+                //
             }
         }
 
