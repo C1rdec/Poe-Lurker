@@ -13,7 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lurker.Test", "Lurker.Test\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Collaboration", "Collaboration", "{02208CDF-D611-4FA0-A548-F8B8F048EC54}"
 	ProjectSection(SolutionItems) = preProject
-		assets\Collaboration\Collaboration = assets\Collaboration\Collaboration
+		assets\Collaboration\Image = assets\Collaboration\Image
+		assets\Collaboration\Info = assets\Collaboration\Info
 	EndProjectSection
 EndProject
 Global

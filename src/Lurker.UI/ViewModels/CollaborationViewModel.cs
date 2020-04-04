@@ -6,6 +6,8 @@
 
 namespace Lurker.UI.ViewModels
 {
+    using System;
+    using Caliburn.Micro;
     using Lurker.Models;
 
     public class CollaborationViewModel : Caliburn.Micro.PropertyChangedBase
@@ -32,14 +34,9 @@ namespace Lurker.UI.ViewModels
         #region Properties
 
         /// <summary>
-        /// Gets a value indicating whether this instance has animation.
+        /// Gets the name.
         /// </summary>
-        public bool HasAnimation => !string.IsNullOrEmpty(this._collaboration.Animation);
-
-        /// <summary>
-        /// Gets a value indicating whether this instance has image.
-        /// </summary>
-        public bool HasImage => !string.IsNullOrEmpty(this._collaboration.Image);
+        public string Name => this._collaboration.Name;
 
         #endregion
     }

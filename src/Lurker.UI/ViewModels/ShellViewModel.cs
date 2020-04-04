@@ -433,7 +433,7 @@ namespace Lurker.UI
             }
             else if (!this._collaboration.IsExpired())
             {
-                //
+                this._eventAggregator.PublishOnUIThread(new ManaBulbMessage() { View = new CollaborationViewModel(this._collaboration), Action = this._collaboration.Open});
             }
         }
 

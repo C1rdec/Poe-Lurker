@@ -7,6 +7,7 @@
 namespace Lurker.Models
 {
     using System;
+    using System.Diagnostics;
 
     public class Collaboration
     {
@@ -27,16 +28,6 @@ namespace Lurker.Models
         /// </summary>
         public Uri Url { get; set; }
 
-        /// <summary>
-        /// Gets or sets the animation.
-        /// </summary>
-        public string Animation { get; set; }
-
-        /// <summary>
-        /// Gets or sets the image.
-        /// </summary>
-        public string Image { get; set; }
-
         #endregion
 
         #region Methods
@@ -47,6 +38,14 @@ namespace Lurker.Models
         public bool IsExpired()
         {
             return DateTime.Compare(DateTime.Now, this.ExpireDate) >= 0 ? true : false;
+        }
+
+        /// <summary>
+        /// Opens this instance.
+        /// </summary>
+        public void Open()
+        {
+            Process.Start(this.Url.ToString());
         }
 
         #endregion

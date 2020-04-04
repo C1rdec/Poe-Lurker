@@ -257,6 +257,9 @@
     <Compile Include="Views\AffixView.xaml.cs">
       <DependentUpon>AffixView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\CollaborationView.xaml.cs">
+      <DependentUpon>CollaborationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ColumnChartView.xaml.cs">
       <DependentUpon>ColumnChartView.xaml</DependentUpon>
     </Compile>
@@ -315,6 +318,10 @@
       <DependentUpon>UpdateView.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\AffixView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CollaborationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
