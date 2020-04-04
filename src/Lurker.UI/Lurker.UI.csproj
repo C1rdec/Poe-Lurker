@@ -234,6 +234,7 @@
     </Compile>
     <Compile Include="ViewModels\AffixViewModel.cs" />
     <Compile Include="ViewModels\ChartViewModelBase.cs" />
+    <Compile Include="ViewModels\CollaborationViewModel.cs" />
     <Compile Include="ViewModels\LineChartViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\ItemOverlayViewModel.cs" />
