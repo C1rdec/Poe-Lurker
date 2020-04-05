@@ -21,6 +21,7 @@
 - `Right-Click`: /Whois Seller.
 - `Left/Brown corner`: resend offer.
 - `Right/Red corner`: dismiss your offer.
+- `Holding Left Shift`: cancel the auto whisper out of third party trade sites.
 
 Misc:
 ---
