@@ -18,6 +18,7 @@ namespace Lurker
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
+    using System.Windows.Input;
     using WindowsInput;
     using WK.Libraries.SharpClipboardNS;
 
@@ -227,6 +228,11 @@ namespace Lurker
                 }
 
                 if (this._lastClipboardText == currentText)
+                {
+                    return;
+                }
+
+                if (Keyboard.IsKeyDown(Key.LeftShift))
                 {
                     return;
                 }
