@@ -123,6 +123,7 @@ namespace Lurker.UI.ViewModels
                 this._lurker.LocationChanged -= this.Lurker_LocationChanged;
                 this._lurker.RemainingMonsters -= this.Lurker_RemainingMonsters;
                 this._settingsService.OnSave -= this.SettingsService_OnSave;
+                this._eventAggregator.Unsubscribe(this);
             }
 
             base.OnDeactivate(close);
