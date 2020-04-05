@@ -8,6 +8,7 @@ namespace Lurker.Services
 {
     using System;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Threading.Tasks;
 
     public abstract class HttpServiceBase : IDisposable
@@ -26,6 +27,10 @@ namespace Lurker.Services
         protected HttpServiceBase()
         {
             this._client = new HttpClient();
+            this._client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue
+            {
+                NoCache = true
+            };
         }
 
         #endregion

@@ -60,7 +60,6 @@ namespace Lurker.UI
         /// <param name="settingsService">The settings service.</param>
         /// <param name="settingsViewModel">The settings view model.</param>
         /// <param name="eventAggregator">The event aggregator.</param>
-        /// <param name="collaborationSerivce">The collaboration serivce.</param>
         public ShellViewModel(SimpleContainer container, SettingsService settingsService, SettingsViewModel settingsViewModel, IEventAggregator eventAggregator)
         {
             this._eventAggregator = eventAggregator;
