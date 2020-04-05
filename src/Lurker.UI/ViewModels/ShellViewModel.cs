@@ -241,6 +241,20 @@ namespace Lurker.UI
         }
 
         /// <summary>
+        /// When the system tray opens.
+        /// </summary>
+        public void OnTrayOpen()
+        {
+            // Hide mana overlay for 10s
+            var message = new ManaBulbMessage()
+            {
+                NeedToHide = true
+            };
+
+            this._eventAggregator.PublishOnUIThread(message);
+        }
+
+        /// <summary>
         /// Gets the assembly version.
         /// </summary>
         /// <returns>The assembly version</returns>

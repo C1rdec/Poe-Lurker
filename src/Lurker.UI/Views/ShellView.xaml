@@ -14,7 +14,8 @@
                     Visibility="{Binding ShowInTaskBar, Converter={StaticResource BooleanToVisibilityConverter}}"
                     ToolTipText="Poe Lurker"
                     DoubleClickCommand="{Binding ShowSettingsCommand}"
-                    MenuActivation="LeftOrRightClick"
+                    MenuActivation="RightClick"
+                    cal:Message.Attach="[Event TrayContextMenuOpen] = [Action OnTrayOpen]"
                     PopupActivation="DoubleClick">
             <tb:TaskbarIcon.Style>
                 <Style TargetType="tb:TaskbarIcon">

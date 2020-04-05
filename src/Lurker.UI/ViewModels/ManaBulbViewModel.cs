@@ -10,10 +10,10 @@ namespace Lurker.UI.ViewModels
     using Lurker.Helpers;
     using Lurker.Models;
     using Lurker.Services;
-    using Lurker.UI.Helpers;
     using Lurker.UI.Models;
     using Lurker.UI.Views;
     using System;
+    using System.Threading.Tasks;
 
     public class ManaBulbViewModel : BulbViewModel, IHandle<ManaBulbMessage>
     {
@@ -72,8 +72,15 @@ namespace Lurker.UI.ViewModels
         /// Handles the message.
         /// </summary>
         /// <param name="message">The message.</param>
-        public void Handle(ManaBulbMessage message)
+        public async void Handle(ManaBulbMessage message)
         {
+            if (message.NeedToHide)
+            {
+                this.HideView();
+                await Task.Delay(5000);
+                this.ShowView();
+            }
+
             if (this._updateRequired && message.IsUpdate)
             {
                 base.SetAction(message);
