@@ -442,6 +442,15 @@ namespace Lurker.UI
             }
             else
             {
+                using (var patreonService = new PatreonService())
+                {
+                    var isPledging = await patreonService.IsPledging();
+                    if (isPledging)
+                    {
+                        return;
+                    }
+                }
+
                 using (var service = new CollaborationService())
                 {
                     var collaboration = await service.GetCollaborationAsync();
