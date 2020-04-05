@@ -434,7 +434,7 @@ namespace Lurker.UI
                     var collaboration = await service.GetCollaborationAsync();
                     if (!collaboration.IsExpired())
                     {
-                        this._eventAggregator.PublishOnUIThread(new ManaBulbMessage() { View = new CollaborationViewModel(collaboration), Action = collaboration.Open, DisplayTime = TimeSpan.FromSeconds(10) });
+                        this._eventAggregator.PublishOnUIThread(new ManaBulbMessage() { View = new CollaborationViewModel(collaboration), Action = collaboration.Open, DisplayTime = TimeSpan.FromSeconds(6) });
                     }
                 }
             }

@@ -23,7 +23,7 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Text="Sponsered by" HorizontalAlignment="Center" Foreground="White" FontFamily="pack://application:,,,/Assets/#Fontin" FontSize="16"/>
+        <TextBlock Text="Sponsored by" HorizontalAlignment="Center" Foreground="White" FontFamily="pack://application:,,,/Assets/#Fontin" FontSize="16"/>
         <Image Grid.Row="1" Height="80" Width="80" x:Name="Image"></Image>
     </Grid>
 </UserControl>
