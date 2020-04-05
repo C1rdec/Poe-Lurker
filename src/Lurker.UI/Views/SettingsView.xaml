@@ -276,7 +276,7 @@
                                             Visibility="{Binding NotPledging, Converter={StaticResource BooleanToVisibilityConverter}}"
                                             Data="{x:Static local:IconPackData.Beer}"/>
                         </Grid>
-                        <TextBlock HorizontalAlignment="Center" Visibility="{Binding Pledging, Converter={StaticResource BooleanToVisibilityConverter}}">The banana bread was fabulous. You made my day!</TextBlock>
+                        <TextBlock HorizontalAlignment="Center" Visibility="{Binding Pledging, Converter={StaticResource BooleanToVisibilityConverter}}">A blessing I can’t deny</TextBlock>
                         <Button x:Name="LoginToPatreon" Visibility="{Binding NotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">Login with Patreon</Button>
                         <Button x:Name="Pledge" Visibility="{Binding NotPledging, Converter={StaticResource BooleanToVisibilityConverter}}">Become a patron</Button>
                     </StackPanel>
