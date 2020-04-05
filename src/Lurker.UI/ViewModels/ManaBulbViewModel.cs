@@ -77,7 +77,7 @@ namespace Lurker.UI.ViewModels
             if (message.NeedToHide)
             {
                 this.HideView();
-                await Task.Delay(5000);
+                await Task.Delay(8000);
                 this.ShowView();
             }
 
