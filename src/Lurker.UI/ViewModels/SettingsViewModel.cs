@@ -14,6 +14,7 @@ namespace Lurker.UI.ViewModels
     using System;
     using System.Diagnostics;
     using System.Security.Authentication;
+    using System.Threading;
     using System.Threading.Tasks;
 
     public class SettingsViewModel: ScreenBase
@@ -24,8 +25,11 @@ namespace Lurker.UI.ViewModels
         private SettingsService _settingService;
         private bool _needsUpdate;
         private bool _pledging;
+        private bool _activated;
         private int _alertVolume;
         private Patreon.PatreonService _currentPatreonService;
+        private SoundService _soundService;
+        private CancellationTokenSource _currentTokenSource;
 
         #endregion
 
@@ -34,11 +38,12 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="SettingsViewModel"/> class.
         /// </summary>
-        public SettingsViewModel(IWindowManager windowManager, KeyboardHelper keyboardHelper, SettingsService settingsService)
+        public SettingsViewModel(IWindowManager windowManager, KeyboardHelper keyboardHelper, SettingsService settingsService, SoundService soundService)
             : base(windowManager)
         {
             this._keyboardHelper = keyboardHelper;
             this._settingService = settingsService;
+            this._soundService = soundService;
             this.DisplayName = "Settings";
 
             this.PropertyChanged += this.SettingsViewModel_PropertyChanged;
@@ -554,6 +559,8 @@ namespace Lurker.UI.ViewModels
             this.AlertVolume = (int)(this._settingService.AlertVolume * 100);
             this.CheckForUpdate();
             base.OnActivate();
+
+            this._activated = true;
         }
 
         /// <summary>
@@ -575,7 +582,37 @@ namespace Lurker.UI.ViewModels
             if (e.PropertyName == nameof(this.AlertVolume))
             {
                 this._settingService.AlertVolume = (float)this.AlertVolume / 100;
+
+                if (!this._activated)
+                {
+                    return;
+                }
+
+                if (this._currentTokenSource != null)
+                {
+                    this._currentTokenSource.Cancel();
+                    this._currentTokenSource.Dispose();
+                    this._currentTokenSource = null;
+                }
+
+                this._currentTokenSource = new CancellationTokenSource();
+                this.PlaySoundTest(this._currentTokenSource.Token);
             }
+        }
+
+        /// <summary>
+        /// Plays the sound test.
+        /// </summary>
+        /// <param name="token">The token.</param>
+        private async void PlaySoundTest(CancellationToken token)
+        {
+            await Task.Delay(300);
+            if (token.IsCancellationRequested)
+            {
+                return;
+            }
+
+            this._soundService.PlayTradeAlert(this._settingService.AlertVolume);
         }
 
         #endregion

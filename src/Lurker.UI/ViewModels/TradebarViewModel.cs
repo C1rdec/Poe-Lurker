@@ -13,10 +13,7 @@ namespace Lurker.UI.ViewModels
     using Lurker.Patreon.Models;
     using Lurker.Patreon.Parsers;
     using Lurker.Services;
-    using Lurker.UI.Helpers;
     using Lurker.UI.Models;
-    using NAudio.Wave;
-    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
@@ -33,6 +30,7 @@ namespace Lurker.UI.ViewModels
         private IEventAggregator _eventAggregator;
         private System.Action _removeActive;
         private List<TradeEvent> _lastOffers;
+        private SoundService _soundService;
 
         #endregion
 
@@ -44,12 +42,13 @@ namespace Lurker.UI.ViewModels
         /// <param name="lurker">The lurker.</param>
         /// <param name="dockingHelper">The docking helper.</param>
         /// <param name="keyboardHelper">The keyboard helper.</param>
-        public TradebarViewModel(IEventAggregator eventAggregator, ClientLurker lurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper, SettingsService settingsService, IWindowManager windowManager)
+        public TradebarViewModel(IEventAggregator eventAggregator, ClientLurker lurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper, SettingsService settingsService, IWindowManager windowManager, SoundService soundService)
             : base (windowManager, dockingHelper, lurker, settingsService)
         {
             this._eventAggregator = eventAggregator;
             this._keyboardHelper = keyboardHelper;
             this._settingsService = settingsService;
+            this._soundService = soundService;
             this.TradeOffers = new ObservableCollection<OfferViewModel>();
             this._lastOffers = new List<TradeEvent>();
 
@@ -145,29 +144,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         private void PlayAlert()
         {
-            try
-            {
-                var stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("Lurker.UI.Assets.TradeAlert.mp3");
-                var waveOut = new WaveOutEvent();
-                var mp3Reader = new Mp3FileReader(stream);
-                waveOut.Init(mp3Reader);
-                waveOut.Volume = this._settingsService.AlertVolume;
-                waveOut.Play();
-
-                EventHandler<StoppedEventArgs> handler = default;
-                handler = (object s, StoppedEventArgs e) =>
-                {
-                    stream.Dispose();
-                    mp3Reader.Dispose();
-                    waveOut.Dispose();
-                    waveOut.PlaybackStopped -= handler;
-                };
-
-                waveOut.PlaybackStopped += handler;
-            }
-            catch
-            {
-            }
+            this._soundService.PlayTradeAlert(this._settingsService.AlertVolume);
         }
 
         /// <summary>
