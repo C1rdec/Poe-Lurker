@@ -522,6 +522,7 @@ namespace Lurker.UI.ViewModels
             {
                 this._settingService.Save();
                 this.OnClose?.Invoke(this, EventArgs.Empty);
+                this._activated = false;
             }
 
             base.OnDeactivate(close);
