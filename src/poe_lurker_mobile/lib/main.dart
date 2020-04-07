@@ -8,8 +8,6 @@ import 'package:flutter/material.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  final FirebaseMessaging _fcm = FirebaseMessaging();
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,10 +23,6 @@ class MyApp extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Future<String> getTokenAsync() async {
-    return this._fcm.getToken();
   }
 }
 
