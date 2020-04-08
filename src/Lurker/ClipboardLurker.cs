@@ -138,6 +138,11 @@ namespace Lurker
             {
                 this.BindGlobalClick();
             }
+            else
+            {
+                this._keyboardEvent.MouseClick -= this.KeyboardEvent_MouseClick;
+                this._globalClickBinded = false;
+            }
         }
 
         /// <summary>

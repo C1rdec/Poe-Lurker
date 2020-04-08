@@ -79,6 +79,7 @@ namespace Lurker.UI.ViewModels
                 this.HideView();
                 await Task.Delay(8000);
                 this.ShowView();
+                return;
             }
 
             if (this._updateRequired && message.IsUpdate)
