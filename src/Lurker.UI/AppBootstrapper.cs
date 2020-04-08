@@ -14,6 +14,7 @@ namespace Lurker.UI
     using Sentry;
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
 
     public class AppBootstrapper : BootstrapperBase 
     {
@@ -115,8 +116,14 @@ namespace Lurker.UI
                 {
                     Id = settings.UserId,
                 };
-
             });
+
+            if (RunningInstance() != null)
+            {
+                System.Windows.MessageBox.Show("Another Instance Is Running");
+                System.Windows.Application.Current.Shutdown();
+                return;
+            }
 
             DisplayRootViewFor<ShellViewModel>();
         }
@@ -130,6 +137,29 @@ namespace Lurker.UI
         {
             this._sentry.Dispose();
             base.OnExit(sender, e);
+        }
+
+        /// <summary>
+        /// Runnings the instance.
+        /// </summary>
+        /// <returns>The other running instance</returns>
+        public static Process RunningInstance()
+        {
+            var currentProcess = Process.GetCurrentProcess();
+            var processes = Process.GetProcessesByName(currentProcess.ProcessName);
+
+            foreach (var process in processes)
+            {
+                if (process.Id != currentProcess.Id)
+                {
+                    if (process.MainModule.FileName == currentProcess.MainModule.FileName)
+                    { 
+                        return process;
+                    }
+                }
+            }
+
+            return null;
         }
 
         /// <summary>
