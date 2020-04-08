@@ -51,21 +51,9 @@ namespace Lurker
             this._settingsService = settingsService;
 
             this._settingsService.OnSave += this.SettingsService_OnSave;
-            this._keyboardEvent = Hook.GlobalEvents();
             this._clipboardMonitor.ClipboardChanged += this.ClipboardMonitor_ClipboardChanged;
-
-            var search = Combination.FromString("Control+F");
-            var remainingMonster = Combination.FromString("Control+R");
-            var deleteItem = Combination.TriggeredBy(System.Windows.Forms.Keys.Delete);
-            var assignment = new Dictionary<Combination, Action>
-            {
-                {search, this.Search},
-                {remainingMonster, this.RemainingMonster},
-                {deleteItem, this.DeleteItem},
-            };
-
-            this._keyboardEvent.OnCombination(assignment);
             this._itemParser.CheckPledgeStatus();
+            this.StartWatcher();
         }
 
         #endregion
@@ -97,9 +85,7 @@ namespace Lurker
             }
 
             this._globalClickBinded = true;
-#if (!DEBUG)
             this._keyboardEvent.MouseClick += this.KeyboardEvent_MouseClick;
-#endif
         }
 
         /// <summary>
@@ -134,6 +120,9 @@ namespace Lurker
         private async void SettingsService_OnSave(object sender, EventArgs e)
         {
             await this._itemParser.CheckPledgeStatus();
+            this.StopWatcher();
+            this.StartWatcher();
+
             if (this._settingsService.SearchEnabled)
             {
                 this.BindGlobalClick();
@@ -143,6 +132,32 @@ namespace Lurker
                 this._keyboardEvent.MouseClick -= this.KeyboardEvent_MouseClick;
                 this._globalClickBinded = false;
             }
+        }
+
+        private void StartWatcher()
+        {
+            var search = Combination.FromString("Control+F");
+            var remainingMonster = Combination.FromString("Control+R");
+            var deleteItem = Combination.TriggeredBy(System.Windows.Forms.Keys.Delete);
+
+            this._keyboardEvent = Hook.GlobalEvents();
+            var assignment = new Dictionary<Combination, Action>
+            {
+                {search, this.Search},
+                {remainingMonster, this.RemainingMonster},
+                {deleteItem, this.DeleteItem},
+            };
+
+            this._keyboardEvent.OnCombination(assignment);
+        }
+
+        /// <summary>
+        /// Stops the watcher.
+        /// </summary>
+        private void StopWatcher()
+        {
+            this._keyboardEvent.MouseClick -= this.KeyboardEvent_MouseClick;
+            this._keyboardEvent.Dispose();
         }
 
         /// <summary>
