@@ -33,6 +33,7 @@ namespace Lurker
         private SharpClipboard _clipboardMonitor;
         private string _lastClipboardText = string.Empty;
         private IKeyboardMouseEvents _keyboardEvent;
+        private bool _globalClickBinded;
 
         #endregion
 
@@ -90,6 +91,12 @@ namespace Lurker
         /// </summary>
         public void BindGlobalClick()
         {
+            if (this._globalClickBinded)
+            {
+                return;
+            }
+
+            this._globalClickBinded = true;
 #if (!DEBUG)
             this._keyboardEvent.MouseClick += this.KeyboardEvent_MouseClick;
 #endif
@@ -127,6 +134,10 @@ namespace Lurker
         private async void SettingsService_OnSave(object sender, EventArgs e)
         {
             await this._itemParser.CheckPledgeStatus();
+            if (this._settingsService.SearchEnabled)
+            {
+                this.BindGlobalClick();
+            }
         }
 
         /// <summary>

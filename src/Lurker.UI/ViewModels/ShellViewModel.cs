@@ -403,7 +403,10 @@ namespace Lurker.UI
             await this.CheckForUpdate();
 
             // Mouse Shuttering
-            this._clipboardLurker.BindGlobalClick();
+            if (this._settingsService.SearchEnabled)
+            {
+                this._clipboardLurker.BindGlobalClick();
+            }
         }
 
         private void CurrentLurker_AdminRequested(object sender, EventArgs e)
