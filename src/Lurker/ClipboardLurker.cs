@@ -134,6 +134,9 @@ namespace Lurker
             }
         }
 
+        /// <summary>
+        /// Starts the watcher.
+        /// </summary>
         private void StartWatcher()
         {
             var search = Combination.FromString("Control+F");
@@ -167,18 +170,15 @@ namespace Lurker
         /// <param name="e">The <see cref="System.Windows.Forms.MouseEventArgs"/> instance containing the event data.</param>
         private void KeyboardEvent_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            Task.Run(() =>
+            if (!this._settingsService.SearchEnabled || e.Button != System.Windows.Forms.MouseButtons.Left)
             {
-                if (!this._settingsService.SearchEnabled || e.Button != System.Windows.Forms.MouseButtons.Left)
-                {
-                    return;
-                }
+                return;
+            }
 
-                if (Native.IsKeyPressed(Native.VirtualKeyStates.VK_SHIFT) && Native.IsKeyPressed(Native.VirtualKeyStates.VK_CONTROL))
-                {
-                    this.ParseItem();
-                }
-            }).ConfigureAwait(false);
+            if (Native.IsKeyPressed(Native.VirtualKeyStates.VK_SHIFT) && Native.IsKeyPressed(Native.VirtualKeyStates.VK_CONTROL))
+            {
+                this.ParseItem();
+            }
         }
 
         /// <summary>
