@@ -37,9 +37,7 @@ namespace Lurker.Helpers
         private CancellationTokenSource _tokenSource;
         private SettingsService _settingsService;
         private IntPtr _hook;
-        private IntPtr _hookEx;
         private IntPtr _windowHandle;
-        private HookProc _procedure;
 
         #endregion
 
@@ -58,9 +56,6 @@ namespace Lurker.Helpers
             this._windowOwnerId = GetWindowThreadProcessId(this._windowHandle, out this._windowProcessId);
             this._winEventDelegate = WhenWindowMoveStartsOrEnds;
             this._hook = SetWinEventHook(0, MoveEnd, this._windowHandle, this._winEventDelegate, this._windowProcessId, this._windowOwnerId, 0);
-
-            this._procedure = new HookProc(this.TestProc);
-            this._hookEx = SetWindowsHookEx(HookType.WH_MOUSE_LL, this._procedure, IntPtr.Zero, 0);
             this.WindowInformation = this.GetWindowInformation();
             this.WatchForegound();
         }
@@ -94,18 +89,6 @@ namespace Lurker.Helpers
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Tests the proc.
-        /// </summary>
-        /// <param name="nCode">The n code.</param>
-        /// <param name="wParam">The w parameter.</param>
-        /// <param name="lParam">The l parameter.</param>
-        /// <returns></returns>
-        public int TestProc(int nCode, IntPtr wParam, IntPtr lParam)
-        {
-            return CallNextHookEx(this._hookEx, nCode, wParam, lParam);
-        }
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
