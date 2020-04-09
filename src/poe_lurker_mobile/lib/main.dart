@@ -33,20 +33,26 @@ class MessageHandler extends StatefulWidget {
 
 class MessageHandlerState extends State<MessageHandler> {
   final FirebaseMessaging _fcm = FirebaseMessaging();
-  String token = "Loading";
+  String lastMessage = "Waiting for message";
 
  @override
  void initState() {
     super.initState();
     this._fcm.configure(
       onMessage: (Map<String, dynamic> message) async {
-        print("onMessage: $message");
+        setState(() {
+          lastMessage = "$message";
+        });
       },
       onLaunch: (Map<String, dynamic> message) async {
-        print("onLaunch: $message");
+        setState(() {
+          lastMessage = "$message";
+        });
       },
       onResume: (Map<String, dynamic> message) async {
-        print("onResume: $message");
+        setState(() {
+          lastMessage = "$message";
+        });
       } 
     );
     getTokenAsync();
@@ -54,13 +60,10 @@ class MessageHandlerState extends State<MessageHandler> {
 
   @override
   Widget build(BuildContext context) {
-    return Text(this.token);
+    return Text(this.lastMessage);
   }
 
   void getTokenAsync() async {
-    var test = await this._fcm.getToken();
-    setState(() {
-      token = test;
-    });
+    await this._fcm.getToken();
   }
 }
