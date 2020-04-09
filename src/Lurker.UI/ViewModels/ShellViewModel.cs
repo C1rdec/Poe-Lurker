@@ -409,14 +409,17 @@ namespace Lurker.UI
             }
         }
 
+        /// <summary>
+        /// Handles the AdminRequested event of the CurrentLurker control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void CurrentLurker_AdminRequested(object sender, EventArgs e)
         {
-            if (IsAdministrator())
+            if (AdminRequestHelper.RequestAdmin())
             {
-                return;
+                this._closing = true;
             }
-
-            this.RequestAdmin();
         }
 
         /// <summary>
@@ -475,35 +478,6 @@ namespace Lurker.UI
             this.IsItemOverlayOpen = false;
             this.ItemOverlayViewModel = new ItemOverlayViewModel(e, () => { this.IsItemOverlayOpen = false; });
             this.IsItemOverlayOpen = true;
-        }
-
-        /// <summary>
-        /// Requests the admin.
-        /// </summary>
-        public void RequestAdmin()
-        {
-            if (IsAdministrator())
-            {
-                return;
-            }
-
-            // Restart program and run as admin
-            var exeName = Process.GetCurrentProcess().MainModule.FileName;
-            ProcessStartInfo startInfo = new ProcessStartInfo(exeName);
-            startInfo.Verb = "runas";
-            Process.Start(startInfo);
-            Application.Current.Shutdown();
-            this._closing = true;
-        }
-
-        /// <summary>
-        /// Determines whether this instance is administrator.
-        /// </summary>
-        private static bool IsAdministrator()
-        {
-            var identity = WindowsIdentity.GetCurrent();
-            var principal = new WindowsPrincipal(identity);
-            return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
 
         /// <summary>

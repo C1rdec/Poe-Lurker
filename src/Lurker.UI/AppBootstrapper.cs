@@ -8,6 +8,7 @@ namespace Lurker.UI
 {
     using Caliburn.Micro;
     using Lurker.Helpers;
+    using Lurker.Extensions;
     using Lurker.Services;
     using Lurker.UI.Helpers;
     using Lurker.UI.ViewModels;
@@ -15,6 +16,7 @@ namespace Lurker.UI
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Security.Principal;
 
     public class AppBootstrapper : BootstrapperBase 
     {
@@ -148,15 +150,23 @@ namespace Lurker.UI
             var currentProcess = Process.GetCurrentProcess();
             var processes = Process.GetProcessesByName(currentProcess.ProcessName);
 
-            foreach (var process in processes)
+            try
             {
-                if (process.Id != currentProcess.Id)
+                var currentFilePath = currentProcess.GetMainModuleFileName();
+                foreach (var process in processes)
                 {
-                    if (process.MainModule.FileName == currentProcess.MainModule.FileName)
-                    { 
-                        return process;
+                    if (process.Id != currentProcess.Id)
+                    {
+                        if (process.GetMainModuleFileName() == currentFilePath)
+                        {
+                            return process;
+                        }
                     }
                 }
+            }
+            catch (System.ComponentModel.Win32Exception)
+            {
+                AdminRequestHelper.RequestAdmin();
             }
 
             return null;

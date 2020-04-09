@@ -11,7 +11,7 @@ namespace Lurker.Extensions
     using System.Runtime.InteropServices;
     using System.Text;
 
-    internal static class Extensions
+    public static class Extensions
     {
         [DllImport("Kernel32.dll")]
         private static extern bool QueryFullProcessImageName([In] IntPtr hProcess, [In] uint dwFlags, [Out] StringBuilder lpExeName, [In, Out] ref uint lpdwSize);
