@@ -8,7 +8,6 @@ namespace Lurker.UI
 {
     using Caliburn.Micro;
     using Lurker.Helpers;
-    using Lurker.Models;
     using Lurker.Patreon;
     using Lurker.Patreon.Models;
     using Lurker.Services;
@@ -21,10 +20,8 @@ namespace Lurker.UI
     using System.Reflection;
     using System.Runtime.InteropServices;
     using System.Runtime.InteropServices.ComTypes;
-    using System.Security.Principal;
     using System.Text;
     using System.Threading.Tasks;
-    using System.Windows;
 
     public class ShellViewModel : Conductor<Screen>.Collection.AllActive , IViewAware, IHandle<Screen>
     {
