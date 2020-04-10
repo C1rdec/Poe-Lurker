@@ -1,0 +1,23 @@
+version: 1.0.{build}
+configuration: Release
+before_build:
+- ps: nuget restore
+build:
+  verbosity: minimal
+before_package:
+- pwsh: >-
+    $version = (get-item ".\src\Lurker.UI\bin\Release\PoeLurker.exe").VersionInfo | % {("{0}.{1}.{2}" -f $_.ProductMajorPart,$_.ProductMinorPart,$_.ProductBuildPart)}
+
+
+    .\packages\squirrel.windows.1.9.1\tools\Squirrel.exe --releasify .\src\Lurker.UI\bin\Release\PoeLurker.$($version).nupkg
+after_build:
+- pwsh: Rename-Item -Path ".\Releases\Setup.exe" -NewName "PoeLurker.exe"
+artifacts:
+- path: Releases\*.exe
+- path: Releases\*.nupkg
+- path: Releases\RELEASES
+deploy:
+- provider: Webhook
+  url: https://app.signpath.io/API/v1/882745a6-3bda-47cc-b355-ee465c5c6d7f/Integrations/AppVeyor?ProjectKey=Poe-Lurker&SigningPolicyKey=test-signing
+  authorization:
+    secure: HGEe+PVCmgokYetsh17bCbn9fnVkTOimXQ9Q+5OUfaUqAxO7+lhMuhtoIiRWmFfKBP10YQZQk1Nk3FJn3csAJQ==
