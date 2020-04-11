@@ -18,6 +18,6 @@ artifacts:
 - path: Releases\RELEASES
 deploy:
 - provider: Webhook
-  url: https://app.signpath.io/API/v1/882745a6-3bda-47cc-b355-ee465c5c6d7f/Integrations/AppVeyor?ProjectKey=Poe-Lurker&SigningPolicyKey=test-signing
+  url: https://app.signpath.io/API/v1/882745a6-3bda-47cc-b355-ee465c5c6d7f/Integrations/AppVeyor?ProjectKey=Poe-Lurker&SigningPolicyKey=release-signing
   authorization:
     secure: HGEe+PVCmgokYetsh17bCbn9fnVkTOimXQ9Q+5OUfaUqAxO7+lhMuhtoIiRWmFfKBP10YQZQk1Nk3FJn3csAJQ==
