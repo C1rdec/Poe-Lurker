@@ -13,6 +13,8 @@ namespace Lurker.UI.ViewModels
     using Lurker.Services;
     using Lurker.UI.Models;
     using System;
+    using System.Threading;
+    using System.Threading.Tasks;
     using System.Windows.Input;
 
     public class OfferViewModel: PropertyChangedBase, IDisposable
@@ -30,6 +32,7 @@ namespace Lurker.UI.ViewModels
         private bool _skipMainAction;
         private bool _buyerInSameInstance;
         private bool _alreadySold;
+        private CancellationTokenSource _tokenSource;
 
         #endregion
 
@@ -300,6 +303,45 @@ namespace Lurker.UI.ViewModels
         public void ThankYou()
         {
             this.Whisper(TokenHelper.ReplaceToken(this._settingsService.ThankYouMessage, this.Event));
+        }
+
+        /// <summary>
+        /// Called when [mouse down].
+        /// </summary>
+        public async void OnMouseDown()
+        {
+            if (this._tokenSource != null || this.Status == OfferStatus.Pending)
+            {
+                return;
+            }
+
+            try
+            {
+                this._tokenSource = new CancellationTokenSource();
+                await Task.Delay(500);
+                if (this._tokenSource.IsCancellationRequested)
+                {
+                    return;
+                }
+
+                this._keyboardHelper.Invite(this.PlayerName);
+            }
+            finally
+            {
+                this._tokenSource.Dispose();
+                this._tokenSource = null;
+            }
+        }
+
+        /// <summary>
+        /// Called when [mouse up].
+        /// </summary>
+        public void OnMouseUp()
+        {
+            if (this._tokenSource != null)
+            {
+                this._tokenSource.Cancel();
+            }
         }
 
         /// <summary>

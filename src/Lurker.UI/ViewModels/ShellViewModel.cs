@@ -384,7 +384,7 @@ namespace Lurker.UI
         /// </summary>
         private async void WaitForPoe()
         {
-            await AffixService.InitializeAsync();
+            var affixServiceTask = AffixService.InitializeAsync();
 
             this._currentLurker = new ClientLurker();
             this._currentLurker.AdminRequested += this.CurrentLurker_AdminRequested;
@@ -404,6 +404,8 @@ namespace Lurker.UI
             {
                 this._clipboardLurker.BindGlobalClick();
             }
+
+            await affixServiceTask;
         }
 
         /// <summary>
