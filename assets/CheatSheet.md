@@ -4,6 +4,7 @@
 
 
 - `First Click`: invite buyer to your party.
+- `Long mouse down (500ms)`: invite buyer to your party.
 - `Second Click`: send trade request.
 - `Left/Blue corner`: "Busy" message.
 - `Right/Red corner`: dismiss Buyer's offer.
