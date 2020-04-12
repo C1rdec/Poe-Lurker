@@ -21,7 +21,7 @@
                 </Style.Triggers>
             </Style>
         </Border.Style>
-        <Button
+        <Button x:Name="MainAction"
             ToolTipService.InitialShowDelay="{Binding ToolTipDelay}"
             cal:Message.Attach="[Event ClickEvent] = [Action MainAction]; [Event PreviewMouseDownEvent] = [Action OnMouseDown]; [Event PreviewMouseUpEvent] = [Action OnMouseUp]"
             MinWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
