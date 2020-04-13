@@ -7,7 +7,6 @@
 namespace Lurker.Helpers
 {
     using System;
-    using System.Threading;
     using WindowsInput;
 
     public class KeyboardHelper
@@ -67,12 +66,13 @@ namespace Lurker.Helpers
         {
             lock (CommandLock)
             {
+                this._simulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.LMENU);
                 Native.SetForegroundWindow(this._windowHandle);
                 this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_F);
 
                 // We are using the interop since SendWait block mouse input.
                 this._simulator.Keyboard.TextEntry(searchTerm);
-                this._simulator.Keyboard.Sleep(400);
+                this._simulator.Keyboard.Sleep(300);
                 this._simulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.RETURN);
             }
         }
