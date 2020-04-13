@@ -366,6 +366,22 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets the life foreground.
+        /// </summary>
+        public string LifeForeground
+        {
+            get
+            {
+                return this._settings.LifeForeground;
+            }
+
+            set
+            {
+                this._settings.LifeForeground = value;
+            }
+        }
+
+        /// <summary>
         /// Gets the name of the folder.
         /// </summary>
         private string FolderName => "PoeLurker";

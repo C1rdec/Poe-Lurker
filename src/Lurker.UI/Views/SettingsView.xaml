@@ -7,6 +7,7 @@
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:local="clr-namespace:Lurker.UI"
         WindowStartupLocation="CenterScreen"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         ResizeMode="CanMinimize"
         mc:Ignorable="d" Height="450" Width="800">
     <Grid>
@@ -168,6 +169,27 @@
                                 Value="{Binding ToolTipDelay}" />
                         </Grid>
                     </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Interface">
+                <Grid Margin="30,0,30,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Content="Interface" Style="{DynamicResource LabelHeaderStyle}" />
+
+                    <Grid Grid.Row="1" Margin="0,30,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock FontSize="18">Life Foreground</TextBlock>
+                        <xctk:ColorPicker SelectedColor="{Binding LifebarColor}" Foreground="Black" HorizontalAlignment="Left" Grid.Column="1" Margin="10,0,0,0" Width="100" AvailableColorsSortingMode="HueSaturationBrightness" ></xctk:ColorPicker>
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="Action">

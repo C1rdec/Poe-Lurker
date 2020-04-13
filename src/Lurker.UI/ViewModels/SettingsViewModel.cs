@@ -16,6 +16,7 @@ namespace Lurker.UI.ViewModels
     using System.Security.Authentication;
     using System.Threading;
     using System.Threading.Tasks;
+    using System.Windows.Media;
 
     public class SettingsViewModel: ScreenBase
     {
@@ -61,6 +62,23 @@ namespace Lurker.UI.ViewModels
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the color of the lifebar.
+        /// </summary>
+        public Color LifebarColor
+        {
+            get
+            {
+                return (Color)ColorConverter.ConvertFromString(this._settingService.LifeForeground);
+            }
+
+            set
+            {
+                this._settingService.LifeForeground = value.ToString();
+                this.NotifyOfPropertyChange();
+            }
+        }
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="SettingsViewModel"/> is connected.

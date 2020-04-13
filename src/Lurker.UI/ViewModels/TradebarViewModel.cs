@@ -274,7 +274,7 @@ namespace Lurker.UI.ViewModels
         {
             this._eventAggregator.PublishOnUIThread(new LifeBulbMessage()
             {
-                View = new PositionViewModel(tradeEvent),
+                View = new PositionViewModel(tradeEvent, this._settingsService),
                 OnShow = (a) => { this._removeActive = a; },
                 Action = this.SearchItem
             });

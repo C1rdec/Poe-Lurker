@@ -116,6 +116,12 @@ namespace Lurker.Models
         /// </summary>
         public bool DeleteItemEnabled { get; set; }
 
+        /// <summary>
+        /// Gets or sets the life foreground.
+        /// </summary>
+        [DefaultValue("#FFFFFFFF")]
+        public string LifeForeground { get; set; }
+
         #endregion
     }
 }
