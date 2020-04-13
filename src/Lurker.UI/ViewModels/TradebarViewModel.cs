@@ -96,7 +96,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The trade event.</param>
-        private void Lurker_IncomingOffer(object sender, Patreon.Events.TradeEvent e)
+        private void Lurker_IncomingOffer(object sender, TradeEvent e)
         {
             if (this.TradeOffers.Any(o => o.Event.Equals(e)))
             {
@@ -168,8 +168,8 @@ namespace Lurker.UI.ViewModels
                     this._keyboardHelper.Kick(offer.PlayerName);
                 }
 
-                var itemClass = ItemClassParser.Parse(offer.ItemName);
-                if (itemClass != ItemClass.Map && itemClass != ItemClass.Currency)
+                var itemClass = offer.Event.ItemClass;
+                if (itemClass != ItemClass.Map && itemClass != ItemClass.Currency && itemClass != ItemClass.DivinationCard)
                 {
                     var alreadySold = this.CheckIfOfferIsAlreadySold(offer.Event);
                     if (!alreadySold)
