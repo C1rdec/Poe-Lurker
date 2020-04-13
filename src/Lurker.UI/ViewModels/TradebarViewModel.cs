@@ -152,7 +152,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
-        private void Lurker_TradeAccepted(object sender, Patreon.Events.TradeAcceptedEvent e)
+        private void Lurker_TradeAccepted(object sender, TradeAcceptedEvent e)
         {
             var offer = this.TradeOffers.Where(t => t.Status == OfferStatus.Traded).FirstOrDefault();
             if (offer != null)
@@ -191,7 +191,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The PLayerJoined Event.</param>
-        private void Lurker_PlayerJoined(object sender, Patreon.Events.PlayerJoinedEvent e)
+        private void Lurker_PlayerJoined(object sender, PlayerJoinedEvent e)
         {
             foreach (var offer in this.TradeOffers.Where(o => o.PlayerName == e.PlayerName))
             {
@@ -204,7 +204,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
-        private void Lurker_PlayerLeft(object sender, Patreon.Events.PlayerLeftEvent e)
+        private void Lurker_PlayerLeft(object sender, PlayerLeftEvent e)
         {
             foreach (var offer in this.TradeOffers.Where(o => o.PlayerName == e.PlayerName))
             {
