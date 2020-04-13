@@ -12,6 +12,7 @@ namespace Lurker.UI.ViewModels
     using Lurker.Models;
     using Lurker.Services;
     using System;
+    using System.Threading.Tasks;
     using System.Windows;
 
     public abstract class PoeOverlayBase : ScreenBase, IViewAware
@@ -28,6 +29,7 @@ namespace Lurker.UI.ViewModels
         protected SettingsService _settingsService;
         protected ClientLurker _lurker;
         private DockingHelper _dockingHelper;
+        private bool _manualHide;
 
         #endregion
 
@@ -77,7 +79,25 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         protected void ShowView()
         {
+            if (this._manualHide)
+            {
+                return;
+            }
+
             this._view.Show();
+        }
+
+        /// <summary>
+        /// Hides the view.
+        /// </summary>
+        /// <param name="time">The time.</param>
+        protected async void HideView(int time)
+        {
+            this.HideView();
+            this._manualHide = true;
+            await Task.Delay(time);
+            this._manualHide = false;
+            this.ShowView();
         }
 
         /// <summary>

@@ -72,13 +72,11 @@ namespace Lurker.UI.ViewModels
         /// Handles the message.
         /// </summary>
         /// <param name="message">The message.</param>
-        public async void Handle(ManaBulbMessage message)
+        public void Handle(ManaBulbMessage message)
         {
             if (message.NeedToHide)
             {
-                this.HideView();
-                await Task.Delay(8000);
-                this.ShowView();
+                this.HideView(8000);
                 return;
             }
 
