@@ -64,6 +64,7 @@ class MessageHandlerState extends State<MessageHandler> {
   }
 
   void getTokenAsync() async {
-    await this._fcm.getToken();
+    String token = await this._fcm.getToken();
+    print(token);
   }
 }

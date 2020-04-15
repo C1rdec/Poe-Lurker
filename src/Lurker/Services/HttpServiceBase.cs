@@ -14,7 +14,7 @@ namespace Lurker.Services
     {
         #region Fields
 
-        private HttpClient _client;
+        protected HttpClient _client;
 
         #endregion
 
