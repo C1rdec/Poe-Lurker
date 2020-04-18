@@ -27,7 +27,7 @@ namespace Lurker.UI.ViewModels
 
         protected Window _view;
         protected SettingsService _settingsService;
-        protected ClientLurker _lurker;
+        protected ProcessLurker _processLurker;
         private DockingHelper _dockingHelper;
         private bool _manualHide;
 
@@ -40,16 +40,16 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="windowManager">The window manager.</param>
         /// <param name="dockingHelper">The docking helper.</param>
-        public PoeOverlayBase(IWindowManager windowManager, DockingHelper dockingHelper, ClientLurker lurker, SettingsService settingsService) 
+        public PoeOverlayBase(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService) 
             : base(windowManager)
         {
             this._dockingHelper = dockingHelper;
-            this._lurker = lurker;
+            this._processLurker = processLurker;
             this._settingsService = settingsService;
 
             this._dockingHelper.OnWindowMove += this.DockingHelper_OnWindowMove;
             this._dockingHelper.OnForegroundChange += this.DockingHelper_OnForegroundChange;
-            this._lurker.PoeClosed += this.Lurker_PoeClosed;
+            this._processLurker.ProcessClosed += this.Lurker_PoeClosed;
             this._settingsService.OnSave += this.SettingsService_OnSave;
         }
 
@@ -171,7 +171,7 @@ namespace Lurker.UI.ViewModels
         {
             if (close)
             {
-                this._lurker.PoeClosed -= this.Lurker_PoeClosed;
+                this._processLurker.ProcessClosed -= this.Lurker_PoeClosed;
                 this._settingsService.OnSave -= this.SettingsService_OnSave;
                 this._dockingHelper.OnWindowMove -= this.DockingHelper_OnWindowMove;
             }

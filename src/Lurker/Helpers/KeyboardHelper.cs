@@ -6,7 +6,9 @@
 
 namespace Lurker.Helpers
 {
+    using Lurker.Extensions;
     using System;
+    using System.Diagnostics;
     using WindowsInput;
 
     public class KeyboardHelper
@@ -14,9 +16,9 @@ namespace Lurker.Helpers
         #region Fields
 
         private readonly object CommandLock = new object();
-        private IntPtr _windowHandle;
+        private Process _process;
         private InputSimulator _simulator;
-        
+        private IntPtr _windowHandle;
 
         #endregion
 
@@ -26,10 +28,11 @@ namespace Lurker.Helpers
         /// Initializes a new instance of the <see cref="KeyboardHelper"/> class.
         /// </summary>
         /// <param name="windowHandle">The window handle.</param>
-        public KeyboardHelper(IntPtr windowHandle)
+        public KeyboardHelper(Process process)
             : this()
         {
-            this._windowHandle = windowHandle;
+            this._process = process;
+            this._windowHandle = this._process.GetWindowHandle();
         }
 
         /// <summary>

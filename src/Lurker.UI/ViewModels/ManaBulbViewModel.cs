@@ -13,7 +13,6 @@ namespace Lurker.UI.ViewModels
     using Lurker.UI.Models;
     using Lurker.UI.Views;
     using System;
-    using System.Threading.Tasks;
 
     public class ManaBulbViewModel : BulbViewModel, IHandle<ManaBulbMessage>
     {
@@ -21,6 +20,7 @@ namespace Lurker.UI.ViewModels
 
         private IEventAggregator _eventAggregator;
         private bool _updateRequired;
+        private ClientLurker _clientLurker;
 
         #endregion
 
@@ -33,14 +33,15 @@ namespace Lurker.UI.ViewModels
         /// <param name="dockingHelper">The docking helper.</param>
         /// <param name="lurker"></param>
         /// <param name="settingsService"></param>H
-        public ManaBulbViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, DockingHelper dockingHelper, ClientLurker lurker, SettingsService settingsService) 
-            : base(windowManager, dockingHelper, lurker, settingsService)
+        public ManaBulbViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, DockingHelper dockingHelper, ClientLurker clientLurker, ProcessLurker processLurker, SettingsService settingsService) 
+            : base(windowManager, dockingHelper, processLurker, settingsService)
         {
             this._eventAggregator = eventAggregator;
             this._eventAggregator.Subscribe(this);
+            this._clientLurker = clientLurker;
 
-            this._lurker.LocationChanged += this.Lurker_LocationChanged;
-            this._lurker.RemainingMonsters += this.Lurker_RemainingMonsters;
+            this._clientLurker.LocationChanged += this.Lurker_LocationChanged;
+            this._clientLurker.RemainingMonsters += this.Lurker_RemainingMonsters;
             this._settingsService.OnSave += this.SettingsService_OnSave;
         }
 
@@ -119,8 +120,8 @@ namespace Lurker.UI.ViewModels
         {
             if (close)
             {
-                this._lurker.LocationChanged -= this.Lurker_LocationChanged;
-                this._lurker.RemainingMonsters -= this.Lurker_RemainingMonsters;
+                this._clientLurker.LocationChanged -= this.Lurker_LocationChanged;
+                this._clientLurker.RemainingMonsters -= this.Lurker_RemainingMonsters;
                 this._settingsService.OnSave -= this.SettingsService_OnSave;
                 this._eventAggregator.Unsubscribe(this);
             }

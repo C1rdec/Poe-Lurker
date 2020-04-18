@@ -6,6 +6,7 @@
 
 namespace Lurker.Helpers
 {
+    using Lurker.Extensions;
     using Lurker.Models;
     using Lurker.Services;
     using System;
@@ -38,6 +39,7 @@ namespace Lurker.Helpers
         private SettingsService _settingsService;
         private IntPtr _hook;
         private IntPtr _windowHandle;
+        private Process _process;
 
         #endregion
 
@@ -47,12 +49,14 @@ namespace Lurker.Helpers
         /// Initializes a new instance of the <see cref="DockingHelper"/> class.
         /// </summary>
         /// <param name="process">The process.</param>
-        public DockingHelper(IntPtr windowHandle, SettingsService settingsService)
+        public DockingHelper(Process process, SettingsService settingsService)
         {
             this._myProcess = Process.GetCurrentProcess();
             this._tokenSource = new CancellationTokenSource();
             this._settingsService = settingsService;
-            this._windowHandle = windowHandle;
+            this._process = process;
+            this._windowHandle = this._process.GetWindowHandle();
+
             this._windowOwnerId = GetWindowThreadProcessId(this._windowHandle, out this._windowProcessId);
             this._winEventDelegate = WhenWindowMoveStartsOrEnds;
             this._hook = SetWinEventHook(0, MoveEnd, this._windowHandle, this._winEventDelegate, this._windowProcessId, this._windowOwnerId, 0);
@@ -158,14 +162,9 @@ namespace Lurker.Helpers
 
                 var inForeground = false;
                 var foregroundWindow = Native.GetForegroundWindow();
-
-                if (foregroundWindow == this._windowHandle)
-                {
-                    inForeground = true;
-                }
-
                 GetWindowThreadProcessId(foregroundWindow, out var processId);
-                if (processId == this._myProcess.Id)
+
+                if (processId == this._myProcess.Id || foregroundWindow == this._windowHandle)
                 {
                     inForeground = true;
                 }
@@ -173,7 +172,6 @@ namespace Lurker.Helpers
                 if (PoeApplicationContext.InForeground != inForeground)
                 {
                     PoeApplicationContext.InForeground = inForeground;
-
                     if (this._settingsService.HideInBackground)
                     {
                         this.OnForegroundChange?.Invoke(this, inForeground);

@@ -38,8 +38,8 @@ namespace Lurker.UI.ViewModels
         /// <param name="dockingHelper">The docking helper.</param>
         /// <param name="lurker"></param>
         /// <param name="settingsService"></param>H
-        public BulbViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ClientLurker lurker, SettingsService settingsService)
-            : base(windowManager, dockingHelper, lurker, settingsService)
+        public BulbViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService)
+            : base(windowManager, dockingHelper, processLurker, settingsService)
         {
             this.SetDefaultAction();
         }

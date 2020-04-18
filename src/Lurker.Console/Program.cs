@@ -21,21 +21,6 @@ namespace Lurker.Console
             };
 
             var test = JsonConvert.SerializeObject(model);
-
-            //var lurker = new ClipboardLurker();
-            using (var lurker = new ClientLurker())
-            {
-                lurker.WaitForPoe().Wait();
-                Console.WriteLine("Poe Found");
-                lurker.LocationChanged += Lurker_ChangedLocation;
-                lurker.RemainingMonsters += Watcher_RemainingMonsters;
-                lurker.PlayerJoined += Watcher_PlayerJoined;
-                lurker.PlayerLeft += Watcher_PlayerLeft;
-                lurker.Whispered += Watcher_Whispered;
-                lurker.IncomingOffer += Lurker_NewOffer;
-                Console.Read();
-            }
-
             Console.WriteLine("Yeah");
             Console.Read();
         }

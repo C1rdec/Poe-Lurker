@@ -8,8 +8,10 @@ namespace Lurker.Extensions
 {
     using System;
     using System.Diagnostics;
+    using System.Linq;
     using System.Runtime.InteropServices;
     using System.Text;
+    using System.Threading;
 
     public static class Extensions
     {
@@ -29,6 +31,39 @@ namespace Lurker.Extensions
             return QueryFullProcessImageName(process.Handle, 0, fileNameBuilder, ref bufferLength) ?
                 fileNameBuilder.ToString() :
                 null;
+        }
+
+        /// <summary>
+        /// Gets the window handle.
+        /// </summary>
+        /// <param name="process">The process.</param>
+        /// <returns></returns>
+        /// <exception cref="System.InvalidOperationException"></exception>
+        public static IntPtr GetWindowHandle(this Process process)
+        {
+            process.Refresh();
+            Process newProcess;
+
+            try
+            {
+                do
+                {
+                    newProcess = Process.GetProcessesByName(process.ProcessName).FirstOrDefault();
+                    Thread.Sleep(200);
+                    if (process == null)
+                    {
+                        throw new System.InvalidOperationException();
+                    }
+
+                }
+                while (newProcess.MainWindowHandle == IntPtr.Zero);
+            }
+            catch
+            {
+                return process.GetWindowHandle();
+            }
+
+            return newProcess.MainWindowHandle;
         }
     }
 }

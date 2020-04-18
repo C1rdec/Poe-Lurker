@@ -15,6 +15,7 @@ namespace Lurker.UI
     using Lurker.UI.Models;
     using Lurker.UI.ViewModels;
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
     using System.Reflection;
@@ -27,7 +28,10 @@ namespace Lurker.UI
     {
         #region Fields
 
+        private static readonly List<string> PossibleProcessNames = new List<string> { "PathOfExile", "PathOfExile_x64", "PathOfExileSteam", "PathOfExile_x64Steam", "PathOfExile_x64_KG.exe", "PathOfExile_KG.exe" };
+        
         private SimpleContainer _container;
+        private ProcessLurker _processLurker;
         private ClientLurker _currentLurker;
         private DockingHelper _currentDockingHelper;
         private ClipboardLurker _clipboardLurker;
@@ -310,15 +314,16 @@ namespace Lurker.UI
         /// <summary>
         /// Registers the instances.
         /// </summary>
-        private void ShowOverlays(IntPtr windowHandle)
+        private void ShowOverlays(Process parentProcess)
         {
             Execute.OnUIThread(() =>
             {
-                var keyboarHelper = new PoeKeyboardHelper(windowHandle);
-                this._currentDockingHelper = new DockingHelper(windowHandle, this._settingsService);
+                var keyboarHelper = new PoeKeyboardHelper(parentProcess);
+                this._currentDockingHelper = new DockingHelper(parentProcess, this._settingsService);
                 this._clipboardLurker = new ClipboardLurker(this._settingsService, keyboarHelper);
                 this._clipboardLurker.Newitem += this.ClipboardLurker_Newitem;
 
+                this._container.RegisterInstance(typeof(ProcessLurker), null, this._processLurker);
                 this._container.RegisterInstance(typeof(ClientLurker), null, this._currentLurker);
                 this._container.RegisterInstance(typeof(ClipboardLurker), null, this._clipboardLurker);
                 this._container.RegisterInstance(typeof(DockingHelper), null, this._currentDockingHelper);
@@ -341,7 +346,7 @@ namespace Lurker.UI
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void CurrentLurker_PoeClosed(object sender, System.EventArgs e)
+        private void PoeClosed(object sender, System.EventArgs e)
         {
             this.CleanUp();
             this.WaitForPoe();
@@ -353,6 +358,7 @@ namespace Lurker.UI
         private void CleanUp()
         {
             this._container.UnregisterHandler<ClientLurker>();
+            this._container.UnregisterHandler<ProcessLurker>();
             this._container.UnregisterHandler<DockingHelper>();
             this._container.UnregisterHandler<PoeKeyboardHelper>();
             this._container.UnregisterHandler<ClipboardLurker>();
@@ -366,10 +372,16 @@ namespace Lurker.UI
 
             if (this._currentLurker != null)
             {
-                this._currentLurker.PoeClosed -= this.CurrentLurker_PoeClosed;
                 this._currentLurker.AdminRequested -= this.CurrentLurker_AdminRequested;
                 this._currentLurker.Dispose();
                 this._currentLurker = null;
+            }
+
+            if (this._processLurker != null)
+            {
+                this._processLurker.ProcessClosed -= this.PoeClosed;
+                this._processLurker.Dispose();
+                this._processLurker = null;
             }
 
             if (this._currentDockingHelper != null)
@@ -386,17 +398,21 @@ namespace Lurker.UI
         {
             var affixServiceTask = AffixService.InitializeAsync();
 
-            this._currentLurker = new ClientLurker();
+            // Process Lurker
+            this._processLurker = new ProcessLurker(PossibleProcessNames);
+            this._processLurker.ProcessClosed += this.PoeClosed;
+            var process = await this._processLurker.WaitForProcess();
+
+            // Client Lurker
+            this._currentLurker = new ClientLurker(process);
             this._currentLurker.AdminRequested += this.CurrentLurker_AdminRequested;
-            this._currentLurker.PoeClosed += CurrentLurker_PoeClosed;
-            var windowHandle = await this._currentLurker.WaitForPoe();
 
             if (this._closing)
             {
                 return;
             }
 
-            this.ShowOverlays(windowHandle);
+            this.ShowOverlays(process);
             await this.CheckForUpdate();
 
             // Mouse Shuttering

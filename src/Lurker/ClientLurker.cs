@@ -26,10 +26,8 @@ namespace Lurker
         #region Fields
 
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
-        private static readonly List<string> PossibleProcessNames = new List<string> { "PathOfExile", "PathOfExile_x64", "PathOfExileSteam", "PathOfExile_x64Steam", "PathOfExile_x64_KG.exe", "PathOfExile_KG.exe" };
         private static readonly string ClientLogFileName = "Client.txt";
         private static readonly string ClientLogFolderName = "logs";
-        private static readonly int WaitingTime = 5000;
 
         private string _lastLine;
         private CancellationTokenSource _tokenSource;
@@ -42,9 +40,15 @@ namespace Lurker
         /// <summary>
         /// Initializes a new instance of the <see cref="ClientLurker" /> class.
         /// </summary>
-        public ClientLurker()
+        public ClientLurker(Process pathOfExileProcess)
         {
+            this._pathOfExileProcess = pathOfExileProcess;
             this._tokenSource = new CancellationTokenSource();
+
+            if (!this._pathOfExileProcess.ProcessName.EndsWith("_KG.exe"))
+            {
+                this.Lurk();
+            }
         }
 
         #endregion
@@ -59,11 +63,6 @@ namespace Lurker
         #endregion
 
         #region Events
-
-        /// <summary>
-        /// The poe ended
-        /// </summary>
-        public event EventHandler PoeClosed;
 
         /// <summary>
         /// Occurs when [request admin].
@@ -105,7 +104,6 @@ namespace Lurker
         /// </summary>
         public event EventHandler<WhisperEvent> Whispered;
 
-
         /// <summary>
         /// Creates new offer.
         /// </summary>
@@ -119,62 +117,6 @@ namespace Lurker
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Waits for poe.
-        /// </summary>
-        public async Task<IntPtr> WaitForPoe()
-        {
-            var process = this.GetProcess();
-
-            while (process == null)
-            {
-                await Task.Delay(WaitingTime);
-                process = this.GetProcess();
-            }
-
-            // Korean client are not logging chat activity in client.txt
-            if (!process.ProcessName.EndsWith("_KG.exe"))
-            {
-                this.Lurk();
-            }
-
-            this.WaitForExit();
-
-            return this.GetWindowHandle();
-        }
-
-        /// <summary>
-        /// Gets the window handle.
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="System.InvalidOperationException"></exception>
-        private IntPtr GetWindowHandle()
-        {
-            IntPtr windowHandle;
-
-            try
-            {
-                do
-                {
-                    var process = this.GetProcess();
-                    Thread.Sleep(200);
-                    if (process == null)
-                    {
-                        throw new System.InvalidOperationException();
-                    }
-
-                    windowHandle = process.MainWindowHandle;
-                }
-                while (windowHandle == IntPtr.Zero);
-            }
-            catch
-            {
-                windowHandle = this.GetWindowHandle();
-            }
-
-            return windowHandle;
-        }
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
@@ -284,7 +226,7 @@ namespace Lurker
         /// <summary>
         /// Lurks this instance.
         /// </summary>
-        private void Lurk()
+        public void Lurk()
         {
             string path = string.Empty;
             try
@@ -359,31 +301,6 @@ namespace Lurker
                     this.OnFileChanged(line);
                 }
             }
-        }
-
-        /// <summary>
-        /// Gets the process.
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="InvalidOperationException">Path of Exile is not running</exception>
-        private Process GetProcess()
-        {
-            if (this._pathOfExileProcess != null)
-            {
-                this._pathOfExileProcess.Dispose();
-            }
-
-            foreach (var processName in PossibleProcessNames)
-            {
-                var process = Process.GetProcessesByName(processName).FirstOrDefault();
-                if (process != null)
-                {
-                    this._pathOfExileProcess = process;
-                    return process;
-                }
-            }
-
-            return null;
         }
         
         /// <summary>
@@ -488,36 +405,6 @@ namespace Lurker
                 SentrySdk.CaptureException(ex);
 #endif
             }
-        }
-
-        /// <summary>
-        /// Waits for exit.
-        /// </summary>
-        private async void WaitForExit()
-        {
-            await Task.Run(() =>
-            {
-                try
-                {
-                    var token = this._tokenSource.Token;
-                    if (token.IsCancellationRequested)
-                    {
-                        return;
-                    }
-
-                    var process = this.GetProcess();
-                    while (process != null)
-                    {
-                        process.WaitForExit(WaitingTime);
-                        process = this.GetProcess();
-                    }
-                }
-                catch { }
-                finally
-                {
-                    this.PoeClosed?.Invoke(this, EventArgs.Empty);
-                }
-            });
         }
 
         /// <summary>

@@ -25,6 +25,7 @@ namespace Lurker.UI.ViewModels
         private static readonly ItemClassParser ItemClassParser = new ItemClassParser();
         private static int DefaultOverlayHeight = 60;
         private PoeKeyboardHelper _keyboardHelper;
+        private ClientLurker _clientLurker;
         private TradebarContext _context;
         private List<OfferViewModel> _activeOffers = new List<OfferViewModel>();
         private IEventAggregator _eventAggregator;
@@ -42,20 +43,21 @@ namespace Lurker.UI.ViewModels
         /// <param name="lurker">The lurker.</param>
         /// <param name="dockingHelper">The docking helper.</param>
         /// <param name="keyboardHelper">The keyboard helper.</param>
-        public TradebarViewModel(IEventAggregator eventAggregator, ClientLurker lurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper, SettingsService settingsService, IWindowManager windowManager, SoundService soundService)
-            : base (windowManager, dockingHelper, lurker, settingsService)
+        public TradebarViewModel(IEventAggregator eventAggregator, ClientLurker clientLurker, ProcessLurker processLurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper, SettingsService settingsService, IWindowManager windowManager, SoundService soundService)
+            : base (windowManager, dockingHelper, processLurker, settingsService)
         {
             this._eventAggregator = eventAggregator;
             this._keyboardHelper = keyboardHelper;
             this._settingsService = settingsService;
             this._soundService = soundService;
+            this._clientLurker = clientLurker;
             this.TradeOffers = new ObservableCollection<OfferViewModel>();
             this._lastOffers = new List<TradeEvent>();
 
-            this._lurker.IncomingOffer += this.Lurker_IncomingOffer;
-            this._lurker.TradeAccepted += this.Lurker_TradeAccepted;
-            this._lurker.PlayerJoined += this.Lurker_PlayerJoined;
-            this._lurker.PlayerLeft += this.Lurker_PlayerLeft;
+            this._clientLurker.IncomingOffer += this.Lurker_IncomingOffer;
+            this._clientLurker.TradeAccepted += this.Lurker_TradeAccepted;
+            this._clientLurker.PlayerJoined += this.Lurker_PlayerJoined;
+            this._clientLurker.PlayerLeft += this.Lurker_PlayerLeft;
 
             this._context = new TradebarContext(this.RemoveOffer, this.AddActiveOffer, this.SetActiveOffer);
             this.DisplayName = "Poe Lurker";
@@ -320,10 +322,10 @@ namespace Lurker.UI.ViewModels
         {
             if (close)
             {
-                this._lurker.IncomingOffer -= this.Lurker_IncomingOffer;
-                this._lurker.TradeAccepted -= this.Lurker_TradeAccepted;
-                this._lurker.PlayerJoined -= this.Lurker_PlayerJoined;
-                this._lurker.PlayerLeft -= this.Lurker_PlayerLeft;
+                this._clientLurker.IncomingOffer -= this.Lurker_IncomingOffer;
+                this._clientLurker.TradeAccepted -= this.Lurker_TradeAccepted;
+                this._clientLurker.PlayerJoined -= this.Lurker_PlayerJoined;
+                this._clientLurker.PlayerLeft -= this.Lurker_PlayerLeft;
             }
 
             base.OnDeactivate(close);

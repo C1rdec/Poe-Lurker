@@ -11,7 +11,6 @@ namespace Lurker.UI.ViewModels
     using Lurker.Models;
     using Lurker.Patreon.Events;
     using Lurker.Services;
-    using Lurker.UI.Helpers;
     using Lurker.UI.Models;
     using System.Collections.ObjectModel;
     using System.Linq;
@@ -27,8 +26,8 @@ namespace Lurker.UI.ViewModels
         #region Fields
 
         protected static int DefaultWidth = 55;
-        private ClientLurker _clientLurker;
         private ClipboardLurker _clipboardLurker;
+        private ClientLurker _clientLurker;
         private PoeKeyboardHelper _keyboardHelper;
         private Timer _timer;
         private IEventAggregator _eventAggregator;
@@ -46,16 +45,16 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="lurker">The lurker.</param>
         /// <param name="windowManager">The window manager.</param>
-        public OutgoingbarViewModel(IEventAggregator eventAggregator, ClipboardLurker clipboardLurker, ClientLurker clientLurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper, SettingsService settingsService, IWindowManager windowManager) 
-            : base(windowManager, dockingHelper, clientLurker, settingsService)
+        public OutgoingbarViewModel(IEventAggregator eventAggregator, ClipboardLurker clipboardLurker, ClientLurker clientLurker, ProcessLurker processLurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper, SettingsService settingsService, IWindowManager windowManager) 
+            : base(windowManager, dockingHelper, processLurker, settingsService)
         {
             this.Offers = new ObservableCollection<OutgoingOfferViewModel>();
             this._timer = new Timer(50);
             this._timer.Elapsed += this.Timer_Elapsed;
             this._keyboardHelper = keyboardHelper;
-            this._clientLurker = clientLurker;
             this._clipboardLurker = clipboardLurker;
             this._eventAggregator = eventAggregator;
+            this._clientLurker = clientLurker;
 
             this._clipboardLurker.NewOffer += this.ClipboardLurker_NewOffer;
             this._clientLurker.OutgoingOffer += this.Lurker_OutgoingOffer;
