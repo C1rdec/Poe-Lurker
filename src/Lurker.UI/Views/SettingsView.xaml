@@ -281,7 +281,7 @@
                     <StackPanel VerticalAlignment="Center" Grid.Row="1" HorizontalAlignment="Center" Margin="30,0,30,0">
                         <TextBlock TextWrapping="Wrap" TextAlignment="Center">Being a Lurker Pro is a good way to show your appreciation for the work I've done, and help support the future development of the program. Furthermore you will unlock juicy features that is currently being developed.</TextBlock>
 
-                        <Grid>
+                        <Grid Margin="0,-10,0,0">
                             <local:IconPack Foreground="{DynamicResource AccentColorBrush}"
                                             Width="225"
                                             Margin="0,20,0,10"
@@ -298,7 +298,7 @@
                                             Visibility="{Binding NotPledging, Converter={StaticResource BooleanToVisibilityConverter}}"
                                             Data="{x:Static local:IconPackData.Beer}"/>
                         </Grid>
-                        <TextBlock HorizontalAlignment="Center" Visibility="{Binding Pledging, Converter={StaticResource BooleanToVisibilityConverter}}">A blessing I can’t deny</TextBlock>
+                        <Button Style="{DynamicResource Tag}" Controls:ButtonHelper.PreserveTextCase="True" x:Name="GetPatreonId" HorizontalAlignment="Center" Visibility="{Binding Pledging, Converter={StaticResource BooleanToVisibilityConverter}}" FontSize="14">A blessing I can’t deny</Button>
                         <Button x:Name="LoginToPatreon" Visibility="{Binding NotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">Login with Patreon</Button>
                         <Button x:Name="Pledge" Visibility="{Binding NotPledging, Converter={StaticResource BooleanToVisibilityConverter}}">Become a patron</Button>
                     </StackPanel>

@@ -16,6 +16,7 @@ namespace Lurker.UI.ViewModels
     using System.Security.Authentication;
     using System.Threading;
     using System.Threading.Tasks;
+    using System.Windows;
     using System.Windows.Media;
 
     public class SettingsViewModel: ScreenBase
@@ -84,6 +85,11 @@ namespace Lurker.UI.ViewModels
         /// Gets a value indicating whether this <see cref="SettingsViewModel"/> is connected.
         /// </summary>
         public bool NotConnected => !new Patreon.TokenService().Connected;
+
+        /// <summary>
+        /// Gets the patreon identifier.
+        /// </summary>
+        public string PatreonId => new Patreon.TokenService().PatreonId;
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="SettingsViewModel"/> is pledging.
@@ -426,6 +432,14 @@ namespace Lurker.UI.ViewModels
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Gets the patreon identifier.
+        /// </summary>
+        public void GetPatreonId()
+        {
+            Clipboard.SetText(this.PatreonId);
+        }
 
         /// <summary>
         /// Inserts the buyer name token.

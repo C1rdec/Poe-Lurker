@@ -86,6 +86,13 @@
                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Jeweller}}"/>
+        <Image Grid.RowSpan="3"
+                           Source="/Assets/Gemcutter.png"
+                           Height="{Binding ActualHeight, ElementName=MainAction}"
+                           Width="{Binding ActualWidth, ElementName=MainAction}"
+                           Visibility="{Binding CurrencyType,
+                                            Converter={Converters:CurrencyTypeConverter}, 
+                                            ConverterParameter={x:Static Models:CurrencyType.Gemcutter}}"/>
         <TextBlock TextTrimming="CharacterEllipsis"
                    HorizontalAlignment="Right" 
                    Foreground="White" 
