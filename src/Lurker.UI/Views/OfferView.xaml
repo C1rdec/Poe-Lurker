@@ -164,7 +164,7 @@
                                     </TextBlock.Style>
                                 </TextBlock>
                             </Grid>
-                            <Button HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" cal:Message.Attach="[Event Click] = [Action Wait]" x:Name="IsWaiting" Visibility="{Binding NotSold, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Button HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" cal:Message.Attach="[Event Click] = [Action Wait]" Visibility="{Binding NotSold, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <Button.Style>
                                     <Style TargetType="Button">
                                         <Setter Property="Template">
@@ -175,7 +175,6 @@
                                                             <Style TargetType="{x:Type Border}">
                                                                 <Setter Property="Background" Value="Gray"/>
                                                                 <Setter Property="Opacity" Value="0.25"/>
-
                                                                 <Style.Triggers>
                                                                     <Trigger Property="IsMouseOver" Value="True">
                                                                         <Setter Property="Background" Value="Blue" />
