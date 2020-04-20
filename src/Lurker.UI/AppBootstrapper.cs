@@ -17,6 +17,7 @@ namespace Lurker.UI
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Security.Principal;
+    using Lurker.UI.Services;
 
     public class AppBootstrapper : BootstrapperBase 
     {
@@ -59,6 +60,7 @@ namespace Lurker.UI
             this._container.Singleton<SettingsViewModel, SettingsViewModel>();
             this._container.Singleton<DashboardViewModel, DashboardViewModel>();
             
+            this._container.PerRequest<AfkService, AfkService>();
             this._container.PerRequest<UpdateManager, UpdateManager>();
             this._container.PerRequest<ShellViewModel, ShellViewModel>(); 
             this._container.PerRequest<TradebarViewModel, TradebarViewModel>();

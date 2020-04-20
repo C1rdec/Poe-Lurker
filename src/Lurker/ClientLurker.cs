@@ -321,11 +321,6 @@ namespace Lurker
                 var tradeEvent = TradeEvent.TryParse(newline);
                 if (tradeEvent != null)
                 {
-                    if (Models.PoeApplicationContext.InForeground)
-                    {
-                        // Send notification
-                    }
-
                     this.IncomingOffer?.Invoke(this, tradeEvent);
                     return;
                 }

@@ -13,6 +13,7 @@ namespace Lurker.UI
     using Lurker.Services;
     using Lurker.UI.Helpers;
     using Lurker.UI.Models;
+    using Lurker.UI.Services;
     using Lurker.UI.ViewModels;
     using System;
     using System.Collections.Generic;
@@ -40,6 +41,7 @@ namespace Lurker.UI
         private LifeBulbViewModel _lifeBulbOverlay;
         private ManaBulbViewModel _manaBulbOverlay;
         private SettingsService _settingsService;
+        private AfkService _afkService;
         private ItemOverlayViewModel _itemOverlay;
         private SettingsViewModel _settingsViewModel;
         private IEventAggregator _eventAggregator;
@@ -333,6 +335,7 @@ namespace Lurker.UI
                 this._outgoingTradeBarOverlay = this._container.GetInstance<OutgoingbarViewModel>();
                 this._lifeBulbOverlay = this._container.GetInstance<LifeBulbViewModel>();
                 this._manaBulbOverlay = this._container.GetInstance<ManaBulbViewModel>();
+                this._afkService = this._container.GetInstance<AfkService>();
 
                 this.ActivateItem(this._incomingTradeBarOverlay);
                 this.ActivateItem(this._outgoingTradeBarOverlay);
@@ -388,6 +391,12 @@ namespace Lurker.UI
             {
                 this._currentDockingHelper.Dispose();
                 this._currentDockingHelper = null;
+            }
+
+            if (this._afkService != null)
+            {
+                this._afkService.Dispose();
+                this._afkService = null;
             }
         }
 
