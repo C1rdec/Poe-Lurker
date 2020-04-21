@@ -13,7 +13,7 @@ namespace Lurker.Extensions
     using System.Text;
     using System.Threading;
 
-    public static class Extensions
+    public static class ProcessExtensions
     {
         [DllImport("Kernel32.dll")]
         private static extern bool QueryFullProcessImageName([In] IntPtr hProcess, [In] uint dwFlags, [Out] StringBuilder lpExeName, [In, Out] ref uint lpdwSize);
@@ -65,5 +65,8 @@ namespace Lurker.Extensions
 
             return newProcess.MainWindowHandle;
         }
+
+        public static uint GetWindowThreadProcessId(this Process process)
+            => Native.GetWindowThreadProcessId(process.MainWindowHandle, out uint processId);
     }
 }

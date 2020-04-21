@@ -9,7 +9,7 @@ namespace Lurker.Extensions
 {
     using System.Linq;
 
-    public static class StringExtension
+    public static class StringExtensions
     {
         private static char WildCard = '*';
 

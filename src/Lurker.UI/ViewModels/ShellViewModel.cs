@@ -34,6 +34,7 @@ namespace Lurker.UI
         private SimpleContainer _container;
         private ProcessLurker _processLurker;
         private ClientLurker _currentLurker;
+        private MouseLurker _mouseLurker;
         private DockingHelper _currentDockingHelper;
         private ClipboardLurker _clipboardLurker;
         private TradebarViewModel _incomingTradeBarOverlay;
@@ -410,6 +411,9 @@ namespace Lurker.UI
             // Client Lurker
             this._currentLurker = new ClientLurker(process);
             this._currentLurker.AdminRequested += this.CurrentLurker_AdminRequested;
+            
+            // Mouse Lurker
+            this._mouseLurker = new MouseLurker(process);
 
             if (this._closing)
             {
