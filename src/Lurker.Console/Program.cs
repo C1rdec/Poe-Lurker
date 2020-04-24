@@ -10,11 +10,18 @@ namespace Lurker.Console
     using Lurker.Services;
     using Newtonsoft.Json;
     using System;
+    using System.Net.Http;
+    using System.Text;
 
     class Program
     {
         static void Main(string[] args)
         {
+            var httpClient = new HttpClient();
+            var json = JsonConvert.SerializeObject(new { Name = "Cedric", LastName = "Lampron"});
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+            var message = httpClient.PostAsync("https://us-central1-poe-lurker.cloudfunctions.net/sendTradeMessage", data).Result;
+
             var model = new Collaboration()
             {
                 ExpireDate = DateTime.Now.AddDays(10)
