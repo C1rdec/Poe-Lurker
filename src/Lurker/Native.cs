@@ -8,6 +8,7 @@ namespace Lurker
 {
     using System;
     using System.Runtime.InteropServices;
+    using System.Text;
 
     public static class Native
     {
@@ -58,6 +59,9 @@ namespace Lurker
 
         [DllImport("user32.dll", SetLastError = true)]
         public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+
+        [DllImport("Kernel32.dll")]
+        public static extern bool QueryFullProcessImageName([In] IntPtr hProcess, [In] uint dwFlags, [Out] StringBuilder lpExeName, [In, Out] ref uint lpdwSize);
 
         [DllImport("user32.dll", EntryPoint = "GetWindowLong")]
         public static extern IntPtr GetWindowLong(IntPtr hWnd, int nIndex);

@@ -6,7 +6,7 @@
 #include <regex>
 #include <string>
 
-#define LOGHOOKLIB 1
+#define LOGHOOKLIB 0
 #if _DEBUG && LOGHOOKLIB
 #define LOGHOOKLIBPATH TEXT("C:\\Temp\\HookLibMouseHookProc_")
 #include "DebugHelper.h"
@@ -52,7 +52,7 @@ void Initialize(HINSTANCE hinst)
     TCHAR configfilepath[kPathBufferSize];
     swprintf(configfilepath, sizeof(configfilepath), TEXT("%ls%ls%lX%d%d"),
         temppath,
-        std::regex_replace(modulepath, std::wregex(TEXT("[\\\\]|[/]|[:]")), TEXT("")).c_str(),
+        std::regex_replace(modulepath, std::wregex(TEXT("[\\\\]|[/]|[:]|[ ]")), TEXT("")).c_str(),
         PtrToInt(hinst),
         GetCurrentProcessId(), 
         GetThreadId(GetCurrentThread()));

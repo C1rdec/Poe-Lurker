@@ -63,6 +63,10 @@ namespace Lurker.Services
                         }
                     }
                 }
+                catch (System.IO.IOException)
+                {
+                    // TODO: Check if the exception can be filtered
+                }
                 catch (SocketException exception)
                 {
                     switch (exception.ErrorCode)

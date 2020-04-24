@@ -414,6 +414,7 @@ namespace Lurker.UI
             
             // Mouse Lurker
             this._mouseLurker = new MouseLurker(process);
+            this._mouseLurker.MouseMessageReceived += this.MouseLurker_MouseMessageReceived;
 
             if (this._closing)
             {
@@ -430,6 +431,11 @@ namespace Lurker.UI
             }
 
             await affixServiceTask;
+        }
+
+        private void MouseLurker_MouseMessageReceived(object sender, MouseMessageReceivedEventArgs e)
+        {
+            Debug.WriteLine("Mouse Message Code: {0}; X: {1}; Y: {2}; ", e.MessageCode, e.X, e.Y);
         }
 
         /// <summary>
