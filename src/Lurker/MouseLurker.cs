@@ -6,7 +6,6 @@
 
 namespace Lurker
 {
-    using Lurker.Extensions;
     using Lurker.Services;
     using System;
     using System.Diagnostics;
@@ -18,6 +17,8 @@ namespace Lurker
 
     public class MouseLurker : IDisposable
     {
+        #region Fields
+
         private const string HookHelperExeBaseName = "Lurker.HookHelper";
         private const int MouseHookMessageSizeInBytes = 20;
 
@@ -25,13 +26,33 @@ namespace Lurker
         private bool _disposed = false;
         private Mutex _hookHelperMutex;
 
+        #endregion
+
+        #region Events
+
+        /// <summary>
+        /// Occurs when [mouse message received].
+        /// </summary>
         public event EventHandler<MouseMessageReceivedEventArgs> MouseMessageReceived;
 
+        /// <summary>
+        /// Occurs when [left mouse button up].
+        /// </summary>
+        public event EventHandler LeftMouseButtonUp;
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MouseLurker"/> class.
+        /// </summary>
+        /// <param name="process">The process.</param>
         public MouseLurker(Process process)
         {
-            _socketMessageService = new SocketMessageService(MouseHookMessageSizeInBytes);
-            _socketMessageService.SocketMessageReceived += SocketMessageService_SocketMessageReceived;
-            _socketMessageService.StartListening();
+            this._socketMessageService = new SocketMessageService(MouseHookMessageSizeInBytes);
+            this._socketMessageService.SocketMessageReceived += SocketMessageService_SocketMessageReceived;
+            this._socketMessageService.StartListening();
 
             var allowEveryoneRule = new MutexAccessRule(
                 new SecurityIdentifier(WellKnownSidType.WorldSid, null),
@@ -41,7 +62,7 @@ namespace Lurker
             securitySettings.AddAccessRule(allowEveryoneRule);
             var hookHelperMutexGuid = Guid.NewGuid().ToString();
             var hookHelperMutex = $"Global\\{hookHelperMutexGuid}";
-            _hookHelperMutex = new Mutex(true, hookHelperMutex, out bool createdNew, securitySettings);
+            this._hookHelperMutex = new Mutex(true, hookHelperMutex, out bool createdNew, securitySettings);
 
             var is64Process = process.ProcessName.Contains("x64") || process.ProcessName.Contains("X64");
             var hookHelperExtension = (is64Process ? ".x64" : ".x86") + ".exe";
@@ -49,19 +70,65 @@ namespace Lurker
             var hookHelperExePath = Path.Combine(GeExecutingAssemblyDirectory(), hookHelperExeName);
 
             // Copy Lurker.HookLib.*.dll and Lurker.HookHelper.*.exe in Lurker.UI's folder
-            Process.Start(hookHelperExePath, $"{_socketMessageService.Port} {process.Id} {hookHelperMutexGuid}");
+            Process.Start(hookHelperExePath, $"{this._socketMessageService.Port} {process.Id} {hookHelperMutexGuid}");
         }
 
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        public void Dispose()
+        {
+            this.Dispose(true);
+        }
+
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this._disposed)
+            {
+                if (disposing)
+                {
+                    // Let exe unhook and terminate
+                    this._hookHelperMutex.ReleaseMutex();
+                }
+
+                this._disposed = true;
+            }
+        }
+
+        /// <summary>
+        /// Ges the executing assembly directory.
+        /// </summary>
+        /// <returns></returns>
         private string GeExecutingAssemblyDirectory()
         {
-            string codeBase = Assembly.GetExecutingAssembly().CodeBase;
-            UriBuilder uri = new UriBuilder(codeBase);
-            string path = Uri.UnescapeDataString(uri.Path);
+            var codeBase = Assembly.GetExecutingAssembly().CodeBase;
+            var uri = new UriBuilder(codeBase);
+            var path = Uri.UnescapeDataString(uri.Path);
+
             return Path.GetDirectoryName(path);
         }
 
+        /// <summary>
+        /// Handles the SocketMessageReceived event of the SocketMessageService control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="SocketMessageReceivedEventArgs"/> instance containing the event data.</param>
         private void SocketMessageService_SocketMessageReceived(object sender, SocketMessageReceivedEventArgs e)
         {
+            var code = BitConverter.ToInt32(e.MessageBytes, 0);
+            if (code == 514)
+            {
+                this.LeftMouseButtonUp?.Invoke(this, EventArgs.Empty);
+            }
+
             MouseMessageReceived?.Invoke(this, new MouseMessageReceivedEventArgs
             {
                 MessageCode = BitConverter.ToInt32(e.MessageBytes, 0),
@@ -72,24 +139,7 @@ namespace Lurker
             });
         }
 
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposed)
-            {
-                if (disposing)
-                {
-                    // Let exe unhook and terminate
-                    _hookHelperMutex.ReleaseMutex();
-                }
-
-                _disposed = true;
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-        }
+        #endregion
     }
 
     public class MouseMessageReceivedEventArgs : EventArgs

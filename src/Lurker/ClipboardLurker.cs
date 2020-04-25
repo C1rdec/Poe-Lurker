@@ -15,9 +15,7 @@ namespace Lurker
     using Lurker.Services;
     using System;
     using System.Collections.Generic;
-    using System.Threading;
     using System.Threading.Tasks;
-    using System.Windows;
     using System.Windows.Input;
     using WindowsInput;
     using WK.Libraries.SharpClipboardNS;
@@ -31,9 +29,9 @@ namespace Lurker
         private ItemParser _itemParser = new ItemParser();
         private SettingsService _settingsService;
         private SharpClipboard _clipboardMonitor;
+        private MouseLurker _mouseLurker;
         private string _lastClipboardText = string.Empty;
         private IKeyboardMouseEvents _keyboardEvent;
-        private bool _globalClickBinded;
 
         #endregion
 
@@ -42,9 +40,9 @@ namespace Lurker
         /// <summary>
         /// Initializes a new instance of the <see cref="ClipboardLurker"/> class.
         /// </summary>
-        public ClipboardLurker(SettingsService settingsService, PoeKeyboardHelper keyboardHelper)
+        public ClipboardLurker(SettingsService settingsService, PoeKeyboardHelper keyboardHelper, MouseLurker mouseLurker)
         {
-            this.ClearClipboard();
+            ClipboardHelper.ClearClipboard();
             this._keyboardHelper = keyboardHelper;
             this._simulator = new InputSimulator();
             this._clipboardMonitor = new SharpClipboard();
@@ -53,7 +51,9 @@ namespace Lurker
             this._settingsService.OnSave += this.SettingsService_OnSave;
             this._clipboardMonitor.ClipboardChanged += this.ClipboardMonitor_ClipboardChanged;
             this._itemParser.CheckPledgeStatus();
-            this.StartWatcher();
+            this._mouseLurker = mouseLurker;
+            this._mouseLurker.LeftMouseButtonUp += this.MouseLurker_LeftMouseButtonUp;
+            this.LurkForAction();
         }
 
         #endregion
@@ -75,20 +75,6 @@ namespace Lurker
         #region Methods
 
         /// <summary>
-        /// Binds the global click.
-        /// </summary>
-        public void BindGlobalClick()
-        {
-            if (this._globalClickBinded)
-            {
-                return;
-            }
-
-            this._globalClickBinded = true;
-            this._keyboardEvent.MouseClick += this.KeyboardEvent_MouseClick;
-        }
-
-        /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
         public void Dispose()
@@ -104,7 +90,6 @@ namespace Lurker
         {
             if (disposing)
             {
-                this._keyboardEvent.MouseClick -= this.KeyboardEvent_MouseClick;
                 this._keyboardEvent.Dispose();
                 this._clipboardMonitor.ClipboardChanged -= ClipboardMonitor_ClipboardChanged;
                 this._settingsService.OnSave -= this.SettingsService_OnSave;
@@ -120,24 +105,12 @@ namespace Lurker
         private async void SettingsService_OnSave(object sender, EventArgs e)
         {
             await this._itemParser.CheckPledgeStatus();
-            this.StopWatcher();
-            this.StartWatcher();
-
-            if (this._settingsService.SearchEnabled)
-            {
-                this.BindGlobalClick();
-            }
-            else
-            {
-                this._keyboardEvent.MouseClick -= this.KeyboardEvent_MouseClick;
-                this._globalClickBinded = false;
-            }
         }
 
         /// <summary>
         /// Starts the watcher.
         /// </summary>
-        private void StartWatcher()
+        private void LurkForAction()
         {
             var search = Combination.FromString("Control+F");
             var remainingMonster = Combination.FromString("Control+R");
@@ -155,22 +128,13 @@ namespace Lurker
         }
 
         /// <summary>
-        /// Stops the watcher.
-        /// </summary>
-        private void StopWatcher()
-        {
-            this._keyboardEvent.MouseClick -= this.KeyboardEvent_MouseClick;
-            this._keyboardEvent.Dispose();
-        }
-
-        /// <summary>
-        /// Handles the MouseClick event of the KeyboardEvent control.
+        /// Handles the LeftMouseButtonUp event of the MouseLurker control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Windows.Forms.MouseEventArgs"/> instance containing the event data.</param>
-        private void KeyboardEvent_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void MouseLurker_LeftMouseButtonUp(object sender, EventArgs e)
         {
-            if (!this._settingsService.SearchEnabled || e.Button != System.Windows.Forms.MouseButtons.Left)
+            if (!this._settingsService.SearchEnabled)
             {
                 return;
             }
@@ -179,67 +143,6 @@ namespace Lurker
             {
                 this.ParseItem();
             }
-        }
-
-        /// <summary>
-        /// Gets the clipboard data.
-        /// </summary>
-        /// <returns>The clipboard text.</returns>
-        private async Task<string> GetClipboardText()
-        {
-            this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_C);
-            await Task.Delay(20);
-
-            var clipboardText = string.Empty;
-            Thread thread = new Thread(() => 
-            {
-                var retryCount = 3;
-                while (retryCount != 0)
-                {
-                    try
-                    {
-                        clipboardText = Clipboard.GetText();
-                        break;
-                    }
-                    catch
-                    {
-                        retryCount--;
-                        Thread.Sleep(200);
-                    }
-                }
-            });
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
-            thread.Join();
-
-            return clipboardText;
-        }
-
-        /// <summary>
-        /// Clears the clipboard.
-        /// </summary>
-        private void ClearClipboard()
-        {
-            Thread thread = new Thread(() =>
-            {
-                var retryCount = 3;
-                while (retryCount != 0)
-                {
-                    try
-                    {
-                        Clipboard.Clear();
-                        break;
-                    }
-                    catch
-                    {
-                        retryCount--;
-                        Thread.Sleep(200);
-                    }
-                }
-            });
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
-            thread.Join();
         }
 
         /// <summary>
@@ -316,7 +219,7 @@ namespace Lurker
             }
 
             this.Newitem?.Invoke(this, item);
-            this.ClearClipboard();
+            ClipboardHelper.ClearClipboard();
         }
 
         /// <summary>
@@ -327,7 +230,9 @@ namespace Lurker
         {
             try
             {
-                var text = await this.GetClipboardText();
+                this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_C);
+                await Task.Delay(20);
+                var text = ClipboardHelper.GetClipboardText();
                 return this._itemParser.Parse(text);
             }
             catch
@@ -344,7 +249,10 @@ namespace Lurker
         {
             try
             {
-                var text = await this.GetClipboardText();
+                this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_C);
+                await Task.Delay(20);
+                var text = ClipboardHelper.GetClipboardText();
+
                 try
                 {
                     return this._itemParser.GetSearchValue(text);

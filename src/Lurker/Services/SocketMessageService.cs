@@ -1,13 +1,21 @@
-﻿using System;
-using System.Net;
-using System.Net.Sockets;
-using System.Threading;
-using System.Threading.Tasks;
+﻿//-----------------------------------------------------------------------
+// <copyright file="SocketMessageService.cs" company="Wohs">
+//     Missing Copyright information from a valid stylecop.json file.
+// </copyright>
+//-----------------------------------------------------------------------
 
 namespace Lurker.Services
 {
+    using System;
+    using System.Net;
+    using System.Net.Sockets;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     class SocketMessageService
     {
+        #region Fields
+
         private int _messageByteSize;
         private TcpListener _tcpListener;
         private CancellationTokenSource _cancellationTokenSource;
@@ -15,36 +23,70 @@ namespace Lurker.Services
         private Task _listeningTask;
         private ManualResetEvent _portSetEvent;
 
-        public event EventHandler<SocketMessageReceivedEventArgs> SocketMessageReceived;
+        #endregion
 
-        public int Port { get; private set; }
-        public bool IsListening => _listeningTask != null && !_listeningTask.IsCompleted;
+        #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SocketMessageService"/> class.
+        /// </summary>
+        /// <param name="messageByteSize">Size of the message byte.</param>
         public SocketMessageService(int messageByteSize)
         {
-            _messageByteSize = messageByteSize;
+            this._messageByteSize = messageByteSize;
         }
 
+        #endregion
+
+        #region Events
+
+        /// <summary>
+        /// Occurs when [socket message received].
+        /// </summary>
+        public event EventHandler<SocketMessageReceivedEventArgs> SocketMessageReceived;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the port.
+        /// </summary>
+        public int Port { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether this instance is listening.
+        /// </summary>
+        public bool IsListening => this._listeningTask != null && !this._listeningTask.IsCompleted;
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Starts the listening.
+        /// </summary>
         public void StartListening()
         {
-            _cancellationTokenSource = new CancellationTokenSource();
-            _cancellationToken = _cancellationTokenSource.Token;
-            _portSetEvent = new ManualResetEvent(false);
-            _listeningTask = Task.Run(() =>
+            this._cancellationTokenSource = new CancellationTokenSource();
+            this._cancellationToken = _cancellationTokenSource.Token;
+            this._portSetEvent = new ManualResetEvent(false);
+            this._listeningTask = Task.Run(() =>
             {
-                _tcpListener = new TcpListener(IPAddress.Loopback, 0);
-                _tcpListener.Start(1);
-                Port = ((IPEndPoint)_tcpListener.LocalEndpoint).Port;
-                _portSetEvent.Set();
+                this._tcpListener = new TcpListener(IPAddress.Loopback, 0);
+                this._tcpListener.Start(1);
+                Port = ((IPEndPoint)this._tcpListener.LocalEndpoint).Port;
+                this._portSetEvent.Set();
+
                 try
                 {
                     var bytes = new byte[this._messageByteSize];
-                    using var client = _tcpListener.AcceptTcpClient();
+                    using var client = this._tcpListener.AcceptTcpClient();
                     using var stream = client.GetStream();
                     int bytecount, offset = 0;
                     while ((bytecount = stream.Read(bytes, offset, bytes.Length - offset)) != 0)
                     {
-                        if (bytecount + offset == _messageByteSize)
+                        if (bytecount + offset == this._messageByteSize)
                         {
                             offset = 0;
                             SocketMessageReceived(this, new SocketMessageReceivedEventArgs
@@ -57,7 +99,7 @@ namespace Lurker.Services
                             offset = bytecount;
                         }
 
-                        if (_cancellationToken.IsCancellationRequested)
+                        if (this._cancellationToken.IsCancellationRequested)
                         {
                             break;
                         }
@@ -78,20 +120,25 @@ namespace Lurker.Services
                     }
                 }
             });
-            _portSetEvent.WaitOne();
+            this._portSetEvent.WaitOne();
         }
 
+        /// <summary>
+        /// Stops this instance.
+        /// </summary>
         public void Stop()
         {
-            if (_tcpListener != null)
+            if (this._tcpListener != null)
             {
-                _cancellationTokenSource.Cancel();
-                _tcpListener.Stop();
-                _portSetEvent.Reset();
+                this._cancellationTokenSource.Cancel();
+                this._tcpListener.Stop();
+                this._portSetEvent.Reset();
             }
 
             Port = 0;
         }
+
+        #endregion
     }
 
     public class SocketMessageReceivedEventArgs : EventArgs

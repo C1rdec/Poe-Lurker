@@ -321,9 +321,10 @@ namespace Lurker.UI
         {
             Execute.OnUIThread(() =>
             {
+                this._mouseLurker = new MouseLurker(parentProcess);
                 var keyboarHelper = new PoeKeyboardHelper(parentProcess);
                 this._currentDockingHelper = new DockingHelper(parentProcess, this._settingsService);
-                this._clipboardLurker = new ClipboardLurker(this._settingsService, keyboarHelper);
+                this._clipboardLurker = new ClipboardLurker(this._settingsService, keyboarHelper, this._mouseLurker);
                 this._clipboardLurker.Newitem += this.ClipboardLurker_Newitem;
 
                 this._container.RegisterInstance(typeof(ProcessLurker), null, this._processLurker);
@@ -367,6 +368,7 @@ namespace Lurker.UI
             this._container.UnregisterHandler<DockingHelper>();
             this._container.UnregisterHandler<PoeKeyboardHelper>();
             this._container.UnregisterHandler<ClipboardLurker>();
+            this._container.UnregisterHandler<MouseLurker>();
 
             if (this._clipboardLurker != null)
             {
@@ -411,10 +413,7 @@ namespace Lurker.UI
             // Client Lurker
             this._currentLurker = new ClientLurker(process);
             this._currentLurker.AdminRequested += this.CurrentLurker_AdminRequested;
-            
-            // Mouse Lurker
-            this._mouseLurker = new MouseLurker(process);
-            this._mouseLurker.MouseMessageReceived += this.MouseLurker_MouseMessageReceived;
+                        
 
             if (this._closing)
             {
@@ -424,18 +423,7 @@ namespace Lurker.UI
             this.ShowOverlays(process);
             await this.CheckForUpdate();
 
-            // Mouse Shuttering
-            if (this._settingsService.SearchEnabled)
-            {
-                this._clipboardLurker.BindGlobalClick();
-            }
-
             await affixServiceTask;
-        }
-
-        private void MouseLurker_MouseMessageReceived(object sender, MouseMessageReceivedEventArgs e)
-        {
-            Debug.WriteLine("Mouse Message Code: {0}; X: {1}; Y: {2}; ", e.MessageCode, e.X, e.Y);
         }
 
         /// <summary>

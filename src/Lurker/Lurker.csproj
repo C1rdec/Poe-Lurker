@@ -147,6 +147,7 @@
     <Compile Include="ClipboardLurker.cs" />
     <Compile Include="Extensions\ProcessExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Helpers\ClipboardHelper.cs" />
     <Compile Include="Helpers\DockingHelper.cs" />
     <Compile Include="Helpers\KeyboardHelper.cs" />
     <Compile Include="Helpers\PoeKeyboardHelper.cs" />
