@@ -1,0 +1,3 @@
+LIBRARY Lurker.HookLib.x86.dll
+EXPORTS
+    MouseHookProc @1
