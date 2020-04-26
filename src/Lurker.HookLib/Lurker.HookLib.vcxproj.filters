@@ -18,7 +18,7 @@
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FileStream.cpp">
+    <ClCompile Include="..\Lurker.Common\FileStream.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -26,22 +26,22 @@
     <ClInclude Include="Source.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DebugHelper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FileStream.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="StreamLineWriter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TimestampLogger.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MessageSender.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StreamLineReader.h">
+    <ClInclude Include="..\Lurker.Common\DebugHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Lurker.Common\FileStream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Lurker.Common\StreamLineReader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Lurker.Common\StreamLineWriter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Lurker.Common\TimestampLogger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -53,7 +53,7 @@ inline void TimestampLogger::WriteLine(const std::wstring& line)
     SYSTEMTIME filetime;
     GetLocalTime(&filetime);
     std::wstringstream wss;
-    wss << L"[" << GetTimestampString() << L"] ";
+    wss << TEXT("[") << GetTimestampString() << TEXT("] ");
     streamlinewriter_.WriteLine(wss.str() + line);
 
     LeaveCriticalSection(pwritecriticalsection_);
@@ -69,14 +69,14 @@ inline std::wstring TimestampLogger::GetTimestampString(BOOL asvalidfilename)
     SYSTEMTIME filetime;
     GetLocalTime(&filetime);
     std::wstringstream wss;
-    const auto timeseparator = asvalidfilename ? L"." : L":";
-    wss << filetime.wYear << L"-";
-    wss << std::setw(2) << std::setfill(L'0') << filetime.wMonth << L"-";
-    wss << std::setw(2) << std::setfill(L'0') << filetime.wDay << L"T";
-    wss << std::setw(2) << std::setfill(L'0') << filetime.wHour << timeseparator;
-    wss << std::setw(2) << std::setfill(L'0') << filetime.wMinute << timeseparator;
-    wss << std::setw(2) << std::setfill(L'0') << filetime.wSecond << L".";
-    wss << std::setw(3) << std::setfill(L'0') << filetime.wMilliseconds;
+    const auto timeseparator = asvalidfilename ? TEXT(".") : TEXT(":");
+    wss << filetime.wYear << TEXT("-");
+    wss << std::setw(2) << std::setfill(TEXT('0')) << filetime.wMonth << TEXT("-");
+    wss << std::setw(2) << std::setfill(TEXT('0')) << filetime.wDay << TEXT("T");
+    wss << std::setw(2) << std::setfill(TEXT('0')) << filetime.wHour << timeseparator;
+    wss << std::setw(2) << std::setfill(TEXT('0')) << filetime.wMinute << timeseparator;
+    wss << std::setw(2) << std::setfill(TEXT('0')) << filetime.wSecond << TEXT(".");
+    wss << std::setw(3) << std::setfill(TEXT('0')) << filetime.wMilliseconds;
 
     return wss.str();
 }

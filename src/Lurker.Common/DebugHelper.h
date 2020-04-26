@@ -274,13 +274,13 @@ const std::map<UINT, std::wstring> kWindowMessageCodeMap =
 inline std::wstring DebugHelper::FormatWindowMessage(MSG msg)
 {
     std::wstringstream wss;
-    wss << L"hwnd: " << std::setw(8) << std::setfill(L'0') << std::hex << msg.hwnd << L"; ";
-    auto messagecode = kWindowMessageCodeMap.find(msg.message) == kWindowMessageCodeMap.end() ? L"" : L" (" + kWindowMessageCodeMap.at(msg.message) + L")";
-    wss << L"message: " << std::setw(8) << std::setfill(L'0') << std::hex << msg.message << messagecode << L"; ";
-    wss << L"wParam: " << std::setw(8) << std::setfill(L'0') << std::hex << msg.wParam << L"; ";
-    wss << L"lParam: " << std::setw(8) << std::setfill(L'0') << std::hex << msg.lParam << L"; ";
-    wss << L"time: " << msg.time << L"; ";
-    wss << L"pt: (" << msg.pt.x << L", " << msg.pt.y << ")";
+    wss << TEXT("hwnd: ") << std::setw(8) << std::setfill(TEXT('0')) << std::hex << msg.hwnd << TEXT("; ");
+    auto messagecode = kWindowMessageCodeMap.find(msg.message) == kWindowMessageCodeMap.end() ? TEXT("") : TEXT(" (") + kWindowMessageCodeMap.at(msg.message) + TEXT(")");
+    wss << TEXT("message: ") << std::setw(8) << std::setfill(TEXT('0')) << std::hex << msg.message << messagecode << TEXT("; ");
+    wss << TEXT("wParam: ") << std::setw(8) << std::setfill(TEXT('0')) << std::hex << msg.wParam << TEXT("; ");
+    wss << TEXT("lParam: ") << std::setw(8) << std::setfill(TEXT('0')) << std::hex << msg.lParam << TEXT("; ");
+    wss << TEXT("time: ") << msg.time << TEXT("; ");
+    wss << TEXT("pt: (") << msg.pt.x << TEXT(", ") << msg.pt.y << ")";
 
     return wss.str();
 }
@@ -288,10 +288,10 @@ inline std::wstring DebugHelper::FormatWindowMessage(MSG msg)
 inline std::wstring DebugHelper::FormatWindowMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     std::wstringstream wss;
-    auto messagecode = kWindowMessageCodeMap.find(uMsg) == kWindowMessageCodeMap.end() ? L"" : L" (" + kWindowMessageCodeMap.at(uMsg) + L")";
-    wss << L"message: " << std::setw(8) << std::setfill(L'0') << std::hex << uMsg << messagecode << L"; ";
-    wss << L"wParam: " << std::setw(8) << std::setfill(L'0') << std::hex << wParam << L"; ";
-    wss << L"lParam: " << std::setw(8) << std::setfill(L'0') << std::hex << lParam << L"; ";
+    auto messagecode = kWindowMessageCodeMap.find(uMsg) == kWindowMessageCodeMap.end() ? TEXT("") : TEXT(" (") + kWindowMessageCodeMap.at(uMsg) + TEXT(")");
+    wss << TEXT("message: ") << std::setw(8) << std::setfill(TEXT('0')) << std::hex << uMsg << messagecode << TEXT("; ");
+    wss << TEXT("wParam: ") << std::setw(8) << std::setfill(TEXT('0')) << std::hex << wParam << TEXT("; ");
+    wss << TEXT("lParam: ") << std::setw(8) << std::setfill(TEXT('0')) << std::hex << lParam << TEXT("; ");
 
     return wss.str();
 }
@@ -300,13 +300,13 @@ inline std::wstring DebugHelper::FormatMouseHookMessage(int code, WPARAM wParam,
 {
     std::wstringstream wss;
     auto messagecode = (UINT)wParam;
-    auto messagecodestring = kWindowMessageCodeMap.find(messagecode) == kWindowMessageCodeMap.end() ? L"" : L" (" + kWindowMessageCodeMap.at(messagecode) + L")";
-    wss << L"code: " << code << L"; ";
-    wss << L"wParam: 0x" << std::setw(8) << std::setfill(L'0') << std::hex << messagecode << messagecodestring << L"; ";
+    auto messagecodestring = kWindowMessageCodeMap.find(messagecode) == kWindowMessageCodeMap.end() ? TEXT("") : TEXT(" (") + kWindowMessageCodeMap.at(messagecode) + TEXT(")");
+    wss << TEXT("code: ") << code << TEXT("; ");
+    wss << TEXT("wParam: 0x") << std::setw(8) << std::setfill(TEXT('0')) << std::hex << messagecode << messagecodestring << TEXT("; ");
     auto mousehookstructpointer = (PMOUSEHOOKSTRUCT)lParam;
-    wss << L"pt(" << std::dec << mousehookstructpointer->pt.x << L", " << mousehookstructpointer->pt.y << L"); ";
-    wss << L"hwnd: 0x" << std::setw(8) << std::setfill(L'0') << std::hex << PtrToInt(mousehookstructpointer->hwnd) << L"; ";
-    wss << L"HitTestCode: " << std::dec << mousehookstructpointer->wHitTestCode << L"; ";
+    wss << TEXT("pt(") << std::dec << mousehookstructpointer->pt.x << TEXT(", ") << mousehookstructpointer->pt.y << TEXT("); ");
+    wss << TEXT("hwnd: 0x") << std::setw(8) << std::setfill(TEXT('0')) << std::hex << PtrToInt(mousehookstructpointer->hwnd) << TEXT("; ");
+    wss << TEXT("HitTestCode: ") << std::dec << mousehookstructpointer->wHitTestCode << TEXT("; ");
 
     return wss.str();
 }

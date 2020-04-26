@@ -67,7 +67,7 @@ namespace Lurker
             var is64Process = process.ProcessName.Contains("x64") || process.ProcessName.Contains("X64");
             var hookHelperExtension = (is64Process ? ".x64" : ".x86") + ".exe";
             var hookHelperExeName = $"{HookHelperExeBaseName}{hookHelperExtension}";
-            var hookHelperExePath = Path.Combine(GeExecutingAssemblyDirectory(), hookHelperExeName);
+            var hookHelperExePath = Path.Combine(GetExecutingAssemblyDirectory(), hookHelperExeName);
 
             // Copy Lurker.HookLib.*.dll and Lurker.HookHelper.*.exe in Lurker.UI's folder
             Process.Start(hookHelperExePath, $"{this._socketMessageService.Port} {process.Id} {hookHelperMutexGuid}");
@@ -95,8 +95,14 @@ namespace Lurker
             {
                 if (disposing)
                 {
-                    // Let exe unhook and terminate
-                    this._hookHelperMutex.ReleaseMutex();
+                    try
+                    {
+                        // Let exe unhook and terminate
+                        this._hookHelperMutex.ReleaseMutex();
+                    }
+                    catch
+                    {
+                    }
                 }
 
                 this._disposed = true;
@@ -107,7 +113,7 @@ namespace Lurker
         /// Ges the executing assembly directory.
         /// </summary>
         /// <returns></returns>
-        private string GeExecutingAssemblyDirectory()
+        private string GetExecutingAssemblyDirectory()
         {
             var codeBase = Assembly.GetExecutingAssembly().CodeBase;
             var uri = new UriBuilder(codeBase);

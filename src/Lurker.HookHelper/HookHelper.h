@@ -2,7 +2,7 @@
 
 #define LOGHOOKHELPER 0
 #if _DEBUG && LOGHOOKHELPER
-#define LOGHOOKHELPERPATH TEXT("C:\\Temp\\ScratchWindow_")
+#define LOGHOOKHELPERPATH TEXT("C:\\Temp\\HookHelper_")
 #include "DebugHelper.h"
 #endif
 
@@ -11,7 +11,6 @@
 
 #include <Windows.h>
 #include <shellapi.h>
-#include <shlwapi.h>
 
 #include <string>
 #include <regex>
@@ -34,7 +33,7 @@ private:
 inline INT HookHelper::Run(HINSTANCE hInstance, INT nShowCmd)
 {
 #if _DEBUG && LOGHOOKHELPER
-    TimestampLogger logger(LOGHOOKHELPERPATH + TimestampLogger::GetTimestampString(TRUE) + L".log", TRUE);
+    TimestampLogger logger(LOGHOOKHELPERPATH + TimestampLogger::GetTimestampString(TRUE) + TEXT(".log"), TRUE);
 #endif
 
     INT argscount;
@@ -60,17 +59,18 @@ inline INT HookHelper::Run(HINSTANCE hInstance, INT nShowCmd)
     QueryFullProcessImageName(process, 0, processfullpath, &processfullpathsize);
     CloseHandle(process);
 
-    // Determine dll path
+    // Determine dll path - dll is in same folder as self
 
     TCHAR modulepath[kPathBufferSize];
     GetModuleFileName(NULL, modulepath, kPathBufferSize);
-    PathRemoveFileSpec(modulepath);
+    auto modulepathtmp = std::wstring(modulepath);
+    auto modulefolder = modulepathtmp.substr(0, modulepathtmp.find_last_of(TEXT("\\")) + 1);
+    TCHAR hooklibpath[kPathBufferSize];
+    swprintf(hooklibpath, sizeof(hooklibpath), TEXT("%ls%ls"),
+        modulefolder.c_str(), HOOKLIBNAME);
 
     // Load dll
 
-    TCHAR hooklibpath[kPathBufferSize];
-    swprintf(hooklibpath, sizeof(hooklibpath), TEXT("%ls\\%ls"),
-        modulepath, HOOKLIBNAME);
     auto hooklib = LoadLibrary(hooklibpath);
 
     // Build configuration file path

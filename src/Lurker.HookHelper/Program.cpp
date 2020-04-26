@@ -27,7 +27,7 @@ extern "C" FILE * __cdecl __iob_func(void) { return _iob; }
 #endif
 #endif
 
-int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLine, int nShowCmd)
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {
 	return HookHelper::Run(hInstance, nShowCmd);
 }
