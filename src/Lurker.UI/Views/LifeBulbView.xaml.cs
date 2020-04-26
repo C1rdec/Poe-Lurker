@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="LifeBulbView.xaml.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="LifeBulbView.xaml.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -10,12 +10,15 @@ namespace Lurker.UI.Views
     using System.Windows;
 
     /// <summary>
-    /// Interaction logic for LifeBulbView.xaml
+    /// Interaction logic for LifeBulbView.xaml.
     /// </summary>
     public partial class LifeBulbView : Window
     {
         private Window _parent;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LifeBulbView"/> class.
+        /// </summary>
         public LifeBulbView()
         {
             this.InitializeComponent();
@@ -52,8 +55,8 @@ namespace Lurker.UI.Views
                 Width = 1,
                 Height = 1,
 
-                WindowStyle = WindowStyle.ToolWindow, // Set window style as ToolWindow to avoid its icon in AltTab 
-                ShowInTaskbar = false
+                WindowStyle = WindowStyle.ToolWindow, // Set window style as ToolWindow to avoid its icon in AltTab
+                ShowInTaskbar = false,
             };
 
             this._parent.Show();

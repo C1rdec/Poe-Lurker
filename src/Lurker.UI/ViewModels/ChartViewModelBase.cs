@@ -1,16 +1,20 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ChartViewModelBase.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="ChartViewModelBase.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.UI.ViewModels
 {
+    using System;
     using Caliburn.Micro;
     using LiveCharts;
     using Lurker.UI.Models;
-    using System;
 
+    /// <summary>
+    /// Represent the chart.
+    /// </summary>
+    /// <seealso cref="Caliburn.Micro.PropertyChangedBase" />
     public class ChartViewModelBase : PropertyChangedBase
     {
         #region Constructors
@@ -58,7 +62,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public MyCommand<ChartPoint> DataClickCommand => new MyCommand<ChartPoint>()
         {
-            ExecuteDelegate = p => this.OnClick(p)
+            ExecuteDelegate = p => this.OnClick(p),
         };
 
         /// <summary>

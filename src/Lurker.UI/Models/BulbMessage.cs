@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="BulbMessage.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="BulbMessage.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -8,6 +8,9 @@ namespace Lurker.UI.Models
 {
     using System;
 
+    /// <summary>
+    /// Represents a bulbMessage.
+    /// </summary>
     public class BulbMessage
     {
         #region Properties

@@ -1,28 +1,34 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="BulbViewModelBase.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="BulbViewModelBase.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.UI.ViewModels
 {
-    using Caliburn.Micro;
-    using Lurker.Helpers;
-    using Lurker.Services;
-    using Lurker.UI.Helpers;
-    using Lurker.UI.Models;
     using System;
     using System.ComponentModel;
     using System.Threading;
     using System.Threading.Tasks;
+    using Caliburn.Micro;
+    using Lurker.Helpers;
+    using Lurker.Services;
+    using Lurker.UI.Models;
 
-    public abstract class BulbViewModel : PoeOverlayBase
+    /// <summary>
+    /// BulbViewModel.
+    /// </summary>
+    /// <seealso cref="Lurker.UI.ViewModels.PoeOverlayBase" />
+    public abstract class BulbViewModelBase : PoeOverlayBase
     {
         #region Fields
 
-        private INotifyPropertyChanged _actionView;
+        /// <summary>
+        /// The default bulb height.
+        /// </summary>
         protected static readonly int DefaultBulbHeight = 220;
-        protected System.Action _action;
+
+        private INotifyPropertyChanged _actionView;
         private System.Action _previousAction;
         private INotifyPropertyChanged _previousActionView;
         private CancellationTokenSource _tokenSource;
@@ -32,13 +38,13 @@ namespace Lurker.UI.ViewModels
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LifeBulbViewModel"/> class.
+        /// Initializes a new instance of the <see cref="BulbViewModelBase" /> class.
         /// </summary>
         /// <param name="windowManager">The window manager.</param>
         /// <param name="dockingHelper">The docking helper.</param>
-        /// <param name="lurker"></param>
-        /// <param name="settingsService"></param>H
-        public BulbViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService)
+        /// <param name="processLurker">The Processs lurker.</param>
+        /// <param name="settingsService">The settings serivce.</param>
+        public BulbViewModelBase(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService)
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
             this.SetDefaultAction();
@@ -51,7 +57,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets a value indicating whether this instance has action.
         /// </summary>
-        public bool HasAction => this._action != null;
+        public bool HasAction => this.Action != null;
 
         /// <summary>
         /// Gets a value indicating whether this instance is default action.
@@ -59,10 +65,10 @@ namespace Lurker.UI.ViewModels
         /// <value>
         ///   <c>true</c> if this instance is default action; otherwise, <c>false</c>.
         /// </value>
-        public bool IsDefaultAction => this.DefaultAction == this._action;
+        public bool IsDefaultAction => this.DefaultAction == this.Action;
 
         /// <summary>
-        /// Gets the action view.
+        /// Gets or sets the action view.
         /// </summary>
         public INotifyPropertyChanged ActionView
         {
@@ -79,9 +85,14 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
-        /// Defaults the action.
+        /// Gets the default action.
         /// </summary>
         protected virtual System.Action DefaultAction => null;
+
+        /// <summary>
+        /// Gets or sets the action.
+        /// </summary>
+        protected System.Action Action { get; set; }
 
         #endregion
 
@@ -92,13 +103,13 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public void OnClick()
         {
-            if (this._action == null)
+            if (this.Action == null)
             {
                 this.DefaultAction?.Invoke();
                 return;
             }
 
-            this._action.Invoke();
+            this.Action.Invoke();
         }
 
         /// <summary>
@@ -107,7 +118,7 @@ namespace Lurker.UI.ViewModels
         protected void Hide()
         {
             this.ActionView = null;
-            this._action = this._previousAction;
+            this.Action = this._previousAction;
             this.ActionView = this._previousActionView;
             this._previousAction = null;
             this._previousActionView = null;
@@ -139,11 +150,11 @@ namespace Lurker.UI.ViewModels
 
             if (this._previousAction == null)
             {
-                this._previousAction = this._action;
+                this._previousAction = this.Action;
                 this._previousActionView = this._actionView;
             }
 
-            this._action = message.Action;
+            this.Action = message.Action;
             this.ActionView = message.View;
 
             this.NotifyOfPropertyChange(nameof(this.HasAction));
@@ -152,7 +163,7 @@ namespace Lurker.UI.ViewModels
             {
                 this._tokenSource = new CancellationTokenSource();
                 var token = this._tokenSource.Token;
-                Task.Run(async () => await Task.Delay(message.DisplayTime)).ContinueWith((t) => 
+                Task.Run(async () => await Task.Delay(message.DisplayTime)).ContinueWith((t) =>
                 {
                     if (token.IsCancellationRequested)
                     {

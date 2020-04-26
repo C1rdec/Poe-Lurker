@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="RemainingMonsterView.xaml.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="RemainingMonsterView.xaml.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -9,10 +9,13 @@ namespace Lurker.UI.Views
     using System.Windows.Controls;
 
     /// <summary>
-    /// Interaction logic for RemainingMonsterView.xaml
+    /// Interaction logic for RemainingMonsterView.xaml.
     /// </summary>
     public partial class RemainingMonsterView : UserControl
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RemainingMonsterView"/> class.
+        /// </summary>
         public RemainingMonsterView()
         {
             this.InitializeComponent();

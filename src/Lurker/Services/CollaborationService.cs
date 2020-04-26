@@ -1,19 +1,24 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="CollaborationService.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="CollaborationService.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.Services
 {
-    using Lurker.Models;
-    using Newtonsoft.Json;
     using System;
     using System.Threading.Tasks;
+    using Lurker.Models;
+    using Newtonsoft.Json;
 
+    /// <summary>
+    /// Represents the collaboation Service.
+    /// </summary>
+    /// <seealso cref="Lurker.Services.HttpServiceBase" />
     public class CollaborationService : HttpServiceBase
     {
         #region Fields
+
         private static readonly string BaseGitUrl = "https://raw.githubusercontent.com/C1rdec/Poe-Lurker/master/assets/Collaboration/";
         private static readonly string InformationFileUrl = $"{BaseGitUrl}Info";
         private static readonly string ImageFileUrl = $"{BaseGitUrl}Image";
@@ -25,7 +30,7 @@ namespace Lurker.Services
         /// <summary>
         /// Gets the collaboration asynchronous.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The collaboration.</returns>
         public async Task<Collaboration> GetCollaborationAsync()
         {
             try
@@ -37,7 +42,7 @@ namespace Lurker.Services
             {
                 return new Collaboration()
                 {
-                    ExpireDate = DateTime.Now.AddDays(-1)
+                    ExpireDate = DateTime.Now.AddDays(-1),
                 };
             }
         }
@@ -45,10 +50,10 @@ namespace Lurker.Services
         /// <summary>
         /// Gets the image asynchronous.
         /// </summary>
-        /// <returns>The image content</returns>
-        public async Task<byte[]> GetImageAsync()
+        /// <returns>The image content.</returns>
+        public Task<byte[]> GetImageAsync()
         {
-            return await this.GetContent(ImageFileUrl);
+            return this.GetContent(ImageFileUrl);
         }
 
         #endregion

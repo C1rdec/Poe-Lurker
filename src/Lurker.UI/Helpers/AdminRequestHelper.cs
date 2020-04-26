@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="AdminRequestHeleper.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="AdminRequestHelper.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -9,6 +9,9 @@ namespace Lurker.UI.Helpers
     using System.Diagnostics;
     using System.Security.Principal;
 
+    /// <summary>
+    /// Represents the admin request helper.
+    /// </summary>
     public static class AdminRequestHelper
     {
         #region Methods

@@ -1,17 +1,21 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="AfkService.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="AfkService.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.UI.Services
 {
-    using Caliburn.Micro;
-    using Lurker.Patreon.Events;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Caliburn.Micro;
+    using Lurker.Patreon.Events;
 
+    /// <summary>
+    /// Represents the afk service.
+    /// </summary>
+    /// <seealso cref="System.IDisposable" />
     public class AfkService : IDisposable
     {
         #region Fields
@@ -26,9 +30,10 @@ namespace Lurker.UI.Services
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AfkService"/> class.
+        /// Initializes a new instance of the <see cref="AfkService" /> class.
         /// </summary>
         /// <param name="clientLurker">The client lurker.</param>
+        /// <param name="eventAggregator">The event aggregator.</param>
         public AfkService(ClientLurker clientLurker, IEventAggregator eventAggregator)
         {
             this._trades = new List<TradeEvent>();

@@ -1,0 +1,22 @@
+﻿{
+  "CodeElementSettings": {
+    "Enabled": false,
+    "MoveUsingsOnItemAdded": true,
+    "MoveUsingsOnItemOpened": true
+  },
+  "FileHeaderSettings": {
+    "CompanyName": "Wohs Inc.",
+    "Enabled": true,
+    "WriteHeaderOnItemAdded": true,
+    "WriteHeaderOnItemOpened": true,
+    "WriteHeaderOnItemRenamed": true
+  },
+  "LoggingSettings": {
+    "Enabled": true
+  },
+  "ProjectSettings": {
+    "ConfigurePowerToolsOnProjectAdded": false,
+    "ConfigureSigningOnProjectAdded": false,
+    "Enabled": false
+  }
+}

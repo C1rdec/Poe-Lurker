@@ -1,25 +1,27 @@
 //-----------------------------------------------------------------------
-// <copyright file="AppBootstrapper.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="AppBootstrapper.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.UI
 {
-    using Caliburn.Micro;
-    using Lurker.Helpers;
-    using Lurker.Extensions;
-    using Lurker.Services;
-    using Lurker.UI.Helpers;
-    using Lurker.UI.ViewModels;
-    using Sentry;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.Security.Principal;
+    using Caliburn.Micro;
+    using Lurker.Extensions;
+    using Lurker.Services;
+    using Lurker.UI.Helpers;
     using Lurker.UI.Services;
+    using Lurker.UI.ViewModels;
+    using Sentry;
 
-    public class AppBootstrapper : BootstrapperBase 
+    /// <summary>
+    /// Represents AppBootstrapper.
+    /// </summary>
+    /// <seealso cref="Caliburn.Micro.BootstrapperBase" />
+    public class AppBootstrapper : BootstrapperBase
     {
         #region Fields
 
@@ -35,7 +37,7 @@ namespace Lurker.UI
         /// <summary>
         /// Initializes a new instance of the <see cref="AppBootstrapper"/> class.
         /// </summary>
-        public AppBootstrapper() 
+        public AppBootstrapper()
         {
             AppDomain.CurrentDomain.UnhandledException += this.CurrentDomain_UnhandledException;
             this.Initialize();
@@ -48,7 +50,7 @@ namespace Lurker.UI
         /// <summary>
         /// Override to configure the framework and setup your IoC container.
         /// </summary>
-        protected override void Configure() 
+        protected override void Configure()
         {
             this._container = new SimpleContainer();
 
@@ -59,13 +61,13 @@ namespace Lurker.UI
             this._container.Singleton<CollaborationService, CollaborationService>();
             this._container.Singleton<SettingsViewModel, SettingsViewModel>();
             this._container.Singleton<DashboardViewModel, DashboardViewModel>();
-            
+
             this._container.PerRequest<AfkService, AfkService>();
             this._container.PerRequest<UpdateManager, UpdateManager>();
-            this._container.PerRequest<ShellViewModel, ShellViewModel>(); 
+            this._container.PerRequest<ShellViewModel, ShellViewModel>();
             this._container.PerRequest<TradebarViewModel, TradebarViewModel>();
             this._container.PerRequest<OutgoingbarViewModel, OutgoingbarViewModel>();
-            this._container.PerRequest<LifeBulbViewModel, LifeBulbViewModel>(); 
+            this._container.PerRequest<LifeBulbViewModel, LifeBulbViewModel>();
             this._container.PerRequest<ManaBulbViewModel, ManaBulbViewModel>();
             this._container.RegisterInstance(typeof(SimpleContainer), null, this._container);
         }
@@ -78,19 +80,19 @@ namespace Lurker.UI
         /// <returns>
         /// The located service.
         /// </returns>
-        protected override object GetInstance(Type service, string key) 
+        protected override object GetInstance(Type service, string key)
         {
             return this._container.GetInstance(service, key);
         }
 
         /// <summary>
-        /// Override this to provide an IoC specific implementation
+        /// Override this to provide an IoC specific implementation.
         /// </summary>
         /// <param name="service">The service to locate.</param>
         /// <returns>
         /// The located services.
         /// </returns>
-        protected override IEnumerable<object> GetAllInstances(Type service) 
+        protected override IEnumerable<object> GetAllInstances(Type service)
         {
             return this._container.GetAllInstances(service);
         }
@@ -99,7 +101,7 @@ namespace Lurker.UI
         /// Override this to provide an IoC specific implementation.
         /// </summary>
         /// <param name="instance">The instance to perform injection on.</param>
-        protected override void BuildUp(object instance) 
+        protected override void BuildUp(object instance)
         {
             this._container.BuildUp(instance);
         }
@@ -109,7 +111,7 @@ namespace Lurker.UI
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The args.</param>
-        protected override void OnStartup(object sender, System.Windows.StartupEventArgs e) 
+        protected override void OnStartup(object sender, System.Windows.StartupEventArgs e)
         {
             var settings = this._container.GetInstance<SettingsService>();
             this._sentry = SentrySdk.Init(Dsn);
@@ -128,7 +130,7 @@ namespace Lurker.UI
                 return;
             }
 
-            DisplayRootViewFor<ShellViewModel>();
+            this.DisplayRootViewFor<ShellViewModel>();
         }
 
         /// <summary>
@@ -145,7 +147,7 @@ namespace Lurker.UI
         /// <summary>
         /// Runnings the instance.
         /// </summary>
-        /// <returns>The other running instance</returns>
+        /// <returns>The other running instance.</returns>
         public static Process RunningInstance()
         {
             var currentProcess = Process.GetCurrentProcess();
@@ -180,10 +182,10 @@ namespace Lurker.UI
         /// <param name="e">The <see cref="UnhandledExceptionEventArgs"/> instance containing the event data.</param>
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            var exception = (e.ExceptionObject as Exception);
+            var exception = e.ExceptionObject as Exception;
             Logger.Error(exception, exception.Message);
 
-        #if (!DEBUG)
+        #if !DEBUG
             SentrySdk.CaptureException(exception);
         #endif
             this._sentry.Dispose();

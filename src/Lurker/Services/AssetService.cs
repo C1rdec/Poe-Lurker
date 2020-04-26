@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="AssetService.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="AssetService.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -9,6 +9,9 @@ namespace Lurker.Services
     using System;
     using System.IO;
 
+    /// <summary>
+    /// Represents the asset service.
+    /// </summary>
     public static class AssetService
     {
         #region Properties
@@ -36,7 +39,7 @@ namespace Lurker.Services
         /// Gets the specified file name.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
-        /// <returns>The file content</returns>
+        /// <returns>The file content.</returns>
         public static string Get(string fileName)
         {
             return File.ReadAllText(Path.Combine(SettingsFolderPath, fileName));

@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="Collaboration.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="Collaboration.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -9,6 +9,9 @@ namespace Lurker.Models
     using System;
     using System.Diagnostics;
 
+    /// <summary>
+    /// Represents a collaboration.
+    /// </summary>
     public class Collaboration
     {
         #region Properties
@@ -34,7 +37,10 @@ namespace Lurker.Models
 
         /// <summary>
         /// Determines whether this instance is expired.
-        /// </summary>  
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if this instance is expired; otherwise, <c>false</c>.
+        /// </returns>
         public bool IsExpired()
         {
             return DateTime.Compare(DateTime.Now, this.ExpireDate) >= 0 ? true : false;

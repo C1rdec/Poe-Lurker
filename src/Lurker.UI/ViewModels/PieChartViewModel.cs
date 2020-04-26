@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="PieChartViewModel.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="PieChartViewModel.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -9,7 +9,11 @@ namespace Lurker.UI.ViewModels
     using LiveCharts;
     using LiveCharts.Wpf;
 
-    public class PieChartViewModel: ChartViewModelBase
+    /// <summary>
+    /// Represents the PieChart.
+    /// </summary>
+    /// <seealso cref="Lurker.UI.ViewModels.ChartViewModelBase" />
+    public class PieChartViewModel : ChartViewModelBase
     {
         #region Methods
 

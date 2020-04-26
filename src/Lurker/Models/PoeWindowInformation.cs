@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="PoeWindowInformation.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="PoeWindowInformation.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -8,7 +8,11 @@ namespace Lurker.Models
 {
     using System;
 
-    public class PoeWindowInformation: EventArgs
+    /// <summary>
+    /// Represents the Poe window information.
+    /// </summary>
+    /// <seealso cref="System.EventArgs" />
+    public class PoeWindowInformation : EventArgs
     {
         #region Properties
 

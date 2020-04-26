@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ProcessLurker.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="ProcessLurker.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -13,13 +13,17 @@ namespace Lurker
     using System.Threading;
     using System.Threading.Tasks;
 
+    /// <summary>
+    /// Represents the process lurker.
+    /// </summary>
+    /// <seealso cref="System.IDisposable" />
     public class ProcessLurker : IDisposable
     {
         #region Fields
 
+        private static readonly int WaitingTime = 5000;
         private IEnumerable<string> _processNames;
         private CancellationTokenSource _tokenSource;
-        private static readonly int WaitingTime = 5000;
         private Process _activeProcess;
 
         #endregion
@@ -61,7 +65,7 @@ namespace Lurker
         /// <summary>
         /// Waits for process.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The process.</returns>
         public async Task<Process> WaitForProcess()
         {
             var process = this.GetProcess();
@@ -104,8 +108,8 @@ namespace Lurker
         /// <summary>
         /// Gets the process.
         /// </summary>
-        /// <returns></returns>
-        /// <exception cref="InvalidOperationException">Path of Exile is not running</exception>
+        /// <returns>The process.</returns>
+        /// <exception cref="InvalidOperationException">Path of Exile is not running.</exception>
         private Process GetProcess()
         {
             if (this._activeProcess != null)
@@ -148,7 +152,9 @@ namespace Lurker
                         process = this.GetProcess();
                     }
                 }
-                catch { }
+                catch
+                {
+                }
                 finally
                 {
                     this.ProcessClosed?.Invoke(this, EventArgs.Empty);
@@ -159,8 +165,7 @@ namespace Lurker
         /// <summary>
         /// Gets the window handle.
         /// </summary>
-        /// <returns></returns>
-        /// <exception cref="System.InvalidOperationException"></exception>
+        /// <returns>The process.</returns>
         private Process WaitForWindowHandle()
         {
             Process currentProcess;
@@ -171,12 +176,7 @@ namespace Lurker
                 {
                     var process = this.GetProcess();
                     Thread.Sleep(200);
-                    if (process == null)
-                    {
-                        throw new System.InvalidOperationException();
-                    }
-
-                    currentProcess = process;
+                    currentProcess = process ?? throw new InvalidOperationException();
                 }
                 while (currentProcess.MainWindowHandle == IntPtr.Zero);
             }

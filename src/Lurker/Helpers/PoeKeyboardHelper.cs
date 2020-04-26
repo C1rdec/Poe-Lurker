@@ -1,23 +1,26 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="PoeKeyboardHelper.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="PoeKeyboardHelper.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.Helpers
 {
-    using System;
     using System.Diagnostics;
 
+    /// <summary>
+    /// Represents the PoeKeyboardHelper.
+    /// </summary>
+    /// <seealso cref="Lurker.Helpers.KeyboardHelper" />
     public class PoeKeyboardHelper : KeyboardHelper
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PoeKeyboardHelper"/> class.
+        /// Initializes a new instance of the <see cref="PoeKeyboardHelper" /> class.
         /// </summary>
-        /// <param name="windowHandle">The window handle.</param>
-        public PoeKeyboardHelper(Process process) 
+        /// <param name="process">The process.</param>
+        public PoeKeyboardHelper(Process process)
             : base(process)
         {
         }

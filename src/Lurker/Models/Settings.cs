@@ -1,15 +1,18 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="Settings.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="Settings.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.Models
 {
-    using ConfOxide;
     using System.ComponentModel;
+    using ConfOxide;
 
-    public sealed class Settings: SettingsBase<Settings>
+    /// <summary>
+    /// Represents the settings.
+    /// </summary>
+    public sealed class Settings : SettingsBase<Settings>
     {
         #region Properties
 
@@ -87,7 +90,6 @@ namespace Lurker.Models
         /// </summary>
         [DefaultValue(true)]
         public bool ItemHighlightEnabled { get; set; }
-
 
         /// <summary>
         /// Gets or sets a value indicating whether [item highlight enabled].

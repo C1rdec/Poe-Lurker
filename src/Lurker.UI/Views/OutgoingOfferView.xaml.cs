@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="OutgoingOfferView.xaml.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="OutgoingOfferView.xaml.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -9,10 +9,13 @@ namespace Lurker.UI.Views
     using System.Windows.Controls;
 
     /// <summary>
-    /// Interaction logic for OutgoingOfferView.xaml
+    /// Interaction logic for OutgoingOfferView.xaml.
     /// </summary>
     public partial class OutgoingOfferView : UserControl
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OutgoingOfferView"/> class.
+        /// </summary>
         public OutgoingOfferView()
         {
             this.InitializeComponent();

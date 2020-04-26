@@ -1,23 +1,28 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="OfferViewModel.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="OfferViewModel.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.UI.ViewModels
 {
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using System.Windows.Input;
     using Caliburn.Micro;
     using Lurker.Helpers;
     using Lurker.Patreon.Events;
     using Lurker.Patreon.Models;
     using Lurker.Services;
     using Lurker.UI.Models;
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using System.Windows.Input;
 
-    public class OfferViewModel: PropertyChangedBase, IDisposable
+    /// <summary>
+    /// Represents an Offer.
+    /// </summary>
+    /// <seealso cref="Caliburn.Micro.PropertyChangedBase" />
+    /// <seealso cref="System.IDisposable" />
+    public class OfferViewModel : PropertyChangedBase, IDisposable
     {
         #region Fields
 
@@ -39,9 +44,13 @@ namespace Lurker.UI.ViewModels
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TradeOfferViewModel"/> class.
+        /// Initializes a new instance of the <see cref="OfferViewModel" /> class.
         /// </summary>
         /// <param name="tradeEvent">The trade event.</param>
+        /// <param name="keyboardHelper">The keyboard helper.</param>
+        /// <param name="tradebarContext">The tradebar context.</param>
+        /// <param name="settingsService">The settings service.</param>
+        /// <param name="sold">if set to <c>true</c> [sold].</param>
         public OfferViewModel(TradeEvent tradeEvent, PoeKeyboardHelper keyboardHelper, TradebarContext tradebarContext, SettingsService settingsService, bool sold)
         {
             this._tradeEvent = tradeEvent;
@@ -68,7 +77,7 @@ namespace Lurker.UI.ViewModels
         public bool NotSold => !this._alreadySold;
 
         /// <summary>
-        /// Gets or sets the number off currency.
+        /// Gets the number off currency.
         /// </summary>
         public double NumberOffCurrency => this._tradeEvent.Price.NumberOfCurrencies;
 
@@ -132,7 +141,7 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="TradeOfferViewModel"/> is waiting.
+        /// Gets or sets a value indicating whether this <see cref="OfferViewModel"/> is waiting.
         /// </summary>
         public bool Waiting
         {
@@ -396,7 +405,6 @@ namespace Lurker.UI.ViewModels
         {
             this._keyboardHelper.Whisper(this.PlayerName, TokenHelper.ReplaceToken(message, this._tradeEvent));
         }
-
 
         /// <summary>
         /// Handles the OnSave event of the SettingsService control.

@@ -1,20 +1,11 @@
 //-----------------------------------------------------------------------
-// <copyright file="ShellViewModel.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="ShellViewModel.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.UI
 {
-    using Caliburn.Micro;
-    using Lurker.Helpers;
-    using Lurker.Patreon;
-    using Lurker.Patreon.Models;
-    using Lurker.Services;
-    using Lurker.UI.Helpers;
-    using Lurker.UI.Models;
-    using Lurker.UI.Services;
-    using Lurker.UI.ViewModels;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -24,13 +15,24 @@ namespace Lurker.UI
     using System.Runtime.InteropServices.ComTypes;
     using System.Text;
     using System.Threading.Tasks;
+    using Caliburn.Micro;
+    using Lurker.Helpers;
+    using Lurker.Patreon;
+    using Lurker.Patreon.Models;
+    using Lurker.Services;
+    using Lurker.UI.Helpers;
+    using Lurker.UI.Models;
+    using Lurker.UI.Services;
+    using Lurker.UI.ViewModels;
 
-    public class ShellViewModel : Conductor<Screen>.Collection.AllActive , IViewAware, IHandle<Screen>
+    /// <summary>
+    /// Represents the SHellViewModel.
+    /// </summary>
+    public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware, IHandle<Screen>
     {
         #region Fields
 
         private static readonly List<string> PossibleProcessNames = new List<string> { "PathOfExile", "PathOfExile_x64", "PathOfExileSteam", "PathOfExile_x64Steam", "PathOfExile_x64_KG.exe", "PathOfExile_KG.exe" };
-        
         private SimpleContainer _container;
         private ProcessLurker _processLurker;
         private ClientLurker _currentLurker;
@@ -97,7 +99,7 @@ namespace Lurker.UI
         #region Properties
 
         /// <summary>
-        /// Gets the item overlay.
+        /// Gets or sets the item overlay view model.
         /// </summary>
         public ItemOverlayViewModel ItemOverlayViewModel
         {
@@ -153,7 +155,7 @@ namespace Lurker.UI
         }
 
         /// <summary>
-        /// Gets a value indicating whether [start with windows].
+        /// Gets or sets a value indicating whether [start with windows].
         /// </summary>
         public bool StartWithWindows
         {
@@ -250,7 +252,7 @@ namespace Lurker.UI
             // Hide mana overlay for 10s
             var message = new ManaBulbMessage()
             {
-                NeedToHide = true
+                NeedToHide = true,
             };
 
             this._eventAggregator.PublishOnUIThread(message);
@@ -259,7 +261,7 @@ namespace Lurker.UI
         /// <summary>
         /// Gets the assembly version.
         /// </summary>
-        /// <returns>The assembly version</returns>
+        /// <returns>The assembly version.</returns>
         private static string GetAssemblyVersion()
         {
             var assembly = Assembly.GetExecutingAssembly();
@@ -276,7 +278,7 @@ namespace Lurker.UI
             var message = new ManaBulbMessage()
             {
                 IsUpdate = true,
-                View = new UpdateViewModel(UpdateState.Working)
+                View = new UpdateViewModel(UpdateState.Working),
             };
 
             this._eventAggregator.PublishOnUIThread(message);
@@ -311,7 +313,6 @@ namespace Lurker.UI
             var file = (IPersistFile)link;
             file.Save(this.ShortcutFilePath, false);
         }
-
 
         /// <summary>
         /// Registers the instances.
@@ -521,6 +522,7 @@ namespace Lurker.UI
         #endregion
     }
 
+#pragma warning disable
     [ComImport]
     [Guid("00021401-0000-0000-C000-000000000046")]
     internal class ShellLink

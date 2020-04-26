@@ -1,0 +1,12 @@
+{
+  "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
+  "settings": {
+    "documentationRules": {
+      "companyName": "Wohs Inc.",
+      "copyrightText": "Copyright © {companyName}"
+    },
+    "layoutRules": {
+      "newlineAtEndOfFile": "omit"
+    }
+  }
+}

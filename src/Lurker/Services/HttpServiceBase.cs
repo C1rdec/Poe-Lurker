@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="HttpServiceBase.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="HttpServiceBase.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -10,14 +10,12 @@ namespace Lurker.Services
     using System.Net.Http;
     using System.Threading.Tasks;
 
+    /// <summary>
+    /// Http Service base.
+    /// </summary>
+    /// <seealso cref="System.IDisposable" />
     public abstract class HttpServiceBase : IDisposable
     {
-        #region Fields
-
-        protected HttpClient _client;
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
@@ -25,8 +23,17 @@ namespace Lurker.Services
         /// </summary>
         protected HttpServiceBase()
         {
-            this._client = new HttpClient();
+            this.Client = new HttpClient();
         }
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the client.
+        /// </summary>
+        protected HttpClient Client { get; set; }
+
+        #endregion
 
         #endregion
 
@@ -48,17 +55,19 @@ namespace Lurker.Services
         {
             if (isDisposing)
             {
-                this._client.Dispose();
+                this.Client.Dispose();
             }
         }
 
         /// <summary>
         /// Creates the authorize URL.
         /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <returns>The text.</returns>
         protected async Task<string> GetText(string url)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, url);
-            var response = await this._client.SendAsync(request);
+            var response = await this.Client.SendAsync(request);
             return await response.Content.ReadAsStringAsync();
         }
 
@@ -66,10 +75,11 @@ namespace Lurker.Services
         /// Gets the content.
         /// </summary>
         /// <param name="url">The URL.</param>
+        /// <returns>The byte­[].</returns>
         protected async Task<byte[]> GetContent(string url)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, url);
-            var response = await this._client.SendAsync(request);
+            var response = await this.Client.SendAsync(request);
             return await response.Content.ReadAsByteArrayAsync();
         }
 

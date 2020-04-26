@@ -1,11 +1,14 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="TradeBarViewModel.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="TradebarViewModel.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.UI.ViewModels
 {
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
     using Caliburn.Micro;
     using Lurker.Helpers;
     using Lurker.Models;
@@ -14,16 +17,17 @@ namespace Lurker.UI.ViewModels
     using Lurker.Patreon.Parsers;
     using Lurker.Services;
     using Lurker.UI.Models;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Linq;
 
+    /// <summary>
+    /// Represent the trade bar.
+    /// </summary>
+    /// <seealso cref="Lurker.UI.ViewModels.PoeOverlayBase" />
     public class TradebarViewModel : PoeOverlayBase
     {
         #region Fields
 
         private static readonly ItemClassParser ItemClassParser = new ItemClassParser();
-        private static int DefaultOverlayHeight = 60;
+        private static readonly int DefaultOverlayHeight = 60;
         private PoeKeyboardHelper _keyboardHelper;
         private ClientLurker _clientLurker;
         private TradebarContext _context;
@@ -38,17 +42,21 @@ namespace Lurker.UI.ViewModels
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TradeBarViewModal"/> class.
+        /// Initializes a new instance of the <see cref="TradebarViewModel" /> class.
         /// </summary>
-        /// <param name="lurker">The lurker.</param>
+        /// <param name="eventAggregator">The event aggregator.</param>
+        /// <param name="clientLurker">The client lurker.</param>
+        /// <param name="processLurker">The process lurker.</param>
         /// <param name="dockingHelper">The docking helper.</param>
         /// <param name="keyboardHelper">The keyboard helper.</param>
+        /// <param name="settingsService">The settings service.</param>
+        /// <param name="windowManager">The window manager.</param>
+        /// <param name="soundService">The sound service.</param>
         public TradebarViewModel(IEventAggregator eventAggregator, ClientLurker clientLurker, ProcessLurker processLurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper, SettingsService settingsService, IWindowManager windowManager, SoundService soundService)
-            : base (windowManager, dockingHelper, processLurker, settingsService)
+            : base(windowManager, dockingHelper, processLurker, settingsService)
         {
             this._eventAggregator = eventAggregator;
             this._keyboardHelper = keyboardHelper;
-            this._settingsService = settingsService;
             this._soundService = soundService;
             this._clientLurker = clientLurker;
             this.TradeOffers = new ObservableCollection<OfferViewModel>();
@@ -105,14 +113,14 @@ namespace Lurker.UI.ViewModels
                 return;
             }
 
-            if (this._settingsService.AlertEnabled)
+            if (this.SettingsService.AlertEnabled)
             {
                 this.PlayAlert();
             }
 
-            Execute.OnUIThread(() => 
+            Execute.OnUIThread(() =>
             {
-                this.TradeOffers.Add(new OfferViewModel(e, this._keyboardHelper, this._context, this._settingsService, this.CheckIfOfferIsAlreadySold(e)));
+                this.TradeOffers.Add(new OfferViewModel(e, this._keyboardHelper, this._context, this.SettingsService, this.CheckIfOfferIsAlreadySold(e)));
             });
         }
 
@@ -146,7 +154,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         private void PlayAlert()
         {
-            this._soundService.PlayTradeAlert(this._settingsService.AlertVolume);
+            this._soundService.PlayTradeAlert(this.SettingsService.AlertVolume);
         }
 
         /// <summary>
@@ -160,12 +168,12 @@ namespace Lurker.UI.ViewModels
             if (offer != null)
             {
                 this.InsertEvent(offer.Event);
-                if (!string.IsNullOrEmpty(this._settingsService.ThankYouMessage))
+                if (!string.IsNullOrEmpty(this.SettingsService.ThankYouMessage))
                 {
                     offer.ThankYou();
                 }
 
-                if (this._settingsService.AutoKickEnabled)
+                if (this.SettingsService.AutoKickEnabled)
                 {
                     this._keyboardHelper.Kick(offer.PlayerName);
                 }
@@ -234,8 +242,8 @@ namespace Lurker.UI.ViewModels
         {
             if (offer != null)
             {
-                Execute.OnUIThread(() => 
-                { 
+                Execute.OnUIThread(() =>
+                {
                     this.TradeOffers.Remove(offer);
                     this._activeOffers.Remove(offer);
 
@@ -264,7 +272,6 @@ namespace Lurker.UI.ViewModels
             this._activeOffers.Add(offer);
             this.ActiveOffer.Active = true;
 
-
             this.SendToLifeBulb(this.ActiveOffer.Event);
         }
 
@@ -276,9 +283,9 @@ namespace Lurker.UI.ViewModels
         {
             this._eventAggregator.PublishOnUIThread(new LifeBulbMessage()
             {
-                View = new PositionViewModel(tradeEvent, this._settingsService),
+                View = new PositionViewModel(tradeEvent, this.SettingsService),
                 OnShow = (a) => { this._removeActive = a; },
-                Action = this.SearchItem
+                Action = this.SearchItem,
             });
         }
 
@@ -334,7 +341,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Sets the window position.
         /// </summary>
-        /// <param name="windowInformation"></param>
+        /// <param name="windowInformation">The window information.</param>
         protected override void SetWindowPosition(PoeWindowInformation windowInformation)
         {
             var overlayHeight = DefaultOverlayHeight * windowInformation.FlaskBarHeight / DefaultFlaskBarHeight;
@@ -342,10 +349,10 @@ namespace Lurker.UI.ViewModels
 
             Execute.OnUIThread(() =>
             {
-                this._view.Height = overlayHeight;
-                this._view.Width = overlayWidth;
-                this._view.Left = windowInformation.Position.Left + windowInformation.FlaskBarWidth + Margin;
-                this._view.Top = windowInformation.Position.Bottom - overlayHeight - windowInformation.ExpBarHeight - Margin;
+                this.View.Height = overlayHeight;
+                this.View.Width = overlayWidth;
+                this.View.Left = windowInformation.Position.Left + windowInformation.FlaskBarWidth + Margin;
+                this.View.Top = windowInformation.Position.Bottom - overlayHeight - windowInformation.ExpBarHeight - Margin;
             });
         }
 

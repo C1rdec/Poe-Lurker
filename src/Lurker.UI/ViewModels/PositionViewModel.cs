@@ -1,16 +1,19 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="PositionViewModel.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="PositionViewModel.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
-
 namespace Lurker.UI.ViewModels
 {
+    using System.Windows.Media;
     using Lurker.Patreon.Events;
     using Lurker.Services;
-    using System.Windows.Media;
 
+    /// <summary>
+    /// The position view model.
+    /// </summary>
+    /// <seealso cref="Caliburn.Micro.PropertyChangedBase" />
     public class PositionViewModel : Caliburn.Micro.PropertyChangedBase
     {
         #region Fields
@@ -23,9 +26,10 @@ namespace Lurker.UI.ViewModels
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PositionViewModel"/> class.
+        /// Initializes a new instance of the <see cref="PositionViewModel" /> class.
         /// </summary>
         /// <param name="tradeEvent">The trade event.</param>
+        /// <param name="settingService">The setting service.</param>
         public PositionViewModel(TradeEvent tradeEvent, SettingsService settingService)
         {
             this._tradeEvent = tradeEvent;

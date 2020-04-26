@@ -1,11 +1,14 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="OfferStatus.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="OfferStatus.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.UI.ViewModels
 {
+    /// <summary>
+    /// Represents the OfferStatus.
+    /// </summary>
     public enum OfferStatus
     {
         /// <summary>
@@ -21,6 +24,6 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// The trade sended
         /// </summary>
-        Traded
+        Traded,
     }
 }

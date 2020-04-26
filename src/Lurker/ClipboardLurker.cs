@@ -1,28 +1,31 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ClipboardLurker.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="ClipboardLurker.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
-
 namespace Lurker
 {
-    using Gma.System.MouseKeyHook;
-    using Lurker.Helpers;
-    using Lurker.Patreon.Events;
-    using Lurker.Patreon.Models;
-    using Lurker.Patreon.Parsers;
-    using Lurker.Services;
     using System;
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Input;
+    using Gma.System.MouseKeyHook;
+    using Lurker.Helpers;
+    using Lurker.Patreon.Events;
+    using Lurker.Patreon.Models;
+    using Lurker.Patreon.Parsers;
+    using Lurker.Services;
     using WindowsInput;
     using WK.Libraries.SharpClipboardNS;
 
-    public class ClipboardLurker: IDisposable
+    /// <summary>
+    /// The clipboard lurker.
+    /// </summary>
+    /// <seealso cref="System.IDisposable" />
+    public class ClipboardLurker : IDisposable
     {
         #region Fields
 
@@ -40,8 +43,10 @@ namespace Lurker
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ClipboardLurker"/> class.
+        /// Initializes a new instance of the <see cref="ClipboardLurker" /> class.
         /// </summary>
+        /// <param name="settingsService">The settings service.</param>
+        /// <param name="keyboardHelper">The keyboard helper.</param>
         public ClipboardLurker(SettingsService settingsService, PoeKeyboardHelper keyboardHelper)
         {
             this.ClearClipboard();
@@ -106,11 +111,10 @@ namespace Lurker
             {
                 this._keyboardEvent.MouseClick -= this.KeyboardEvent_MouseClick;
                 this._keyboardEvent.Dispose();
-                this._clipboardMonitor.ClipboardChanged -= ClipboardMonitor_ClipboardChanged;
+                this._clipboardMonitor.ClipboardChanged -= this.ClipboardMonitor_ClipboardChanged;
                 this._settingsService.OnSave -= this.SettingsService_OnSave;
             }
         }
-
 
         /// <summary>
         /// Handles the OnSave event of the SettingsService control.
@@ -146,9 +150,9 @@ namespace Lurker
             this._keyboardEvent = Hook.GlobalEvents();
             var assignment = new Dictionary<Combination, Action>
             {
-                {search, this.Search},
-                {remainingMonster, this.RemainingMonster},
-                {deleteItem, this.DeleteItem},
+                { search, this.Search },
+                { remainingMonster, this.RemainingMonster },
+                { deleteItem, this.DeleteItem },
             };
 
             this._keyboardEvent.OnCombination(assignment);
@@ -191,7 +195,7 @@ namespace Lurker
             await Task.Delay(20);
 
             var clipboardText = string.Empty;
-            Thread thread = new Thread(() => 
+            Thread thread = new Thread(() =>
             {
                 var retryCount = 3;
                 while (retryCount != 0)
@@ -247,7 +251,6 @@ namespace Lurker
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="SharpClipboard.ClipboardChangedEventArgs"/> instance containing the event data.</param>
-        /// <exception cref="NotImplementedException"></exception>
         private void ClipboardMonitor_ClipboardChanged(object sender, SharpClipboard.ClipboardChangedEventArgs e)
         {
             if (e.ContentType == SharpClipboard.ContentTypes.Text)
@@ -322,7 +325,7 @@ namespace Lurker
         /// <summary>
         /// Gets the item in clipboard.
         /// </summary>
-        /// <returns>The item in the clipboard</returns>
+        /// <returns>The item in the clipboard.</returns>
         private async Task<PoeItem> GetItemInClipboard()
         {
             try
@@ -339,7 +342,7 @@ namespace Lurker
         /// <summary>
         /// Gets the item base type in clipboard.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The item search value.</returns>
         private async Task<string> GetItemSearchValueInClipboard()
         {
             try

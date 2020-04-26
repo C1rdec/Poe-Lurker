@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="TradeEventHelper.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="TradeEventHelper.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -10,6 +10,9 @@ namespace Lurker.Helpers
     using System.Linq;
     using System.Text.RegularExpressions;
 
+    /// <summary>
+    /// Represents the trade event helper.
+    /// </summary>
     public static class TradeEventHelper
     {
         #region Fields
@@ -34,7 +37,9 @@ namespace Lurker.Helpers
         /// Determines whether [is trade message] [the specified message].
         /// </summary>
         /// <param name="message">The message.</param>
-        /// 
+        /// <returns>
+        ///   <c>true</c> if [is trade message] [the specified message]; otherwise, <c>false</c>.
+        /// </returns>
         public static bool IsTradeMessage(string message)
         {
             if (string.IsNullOrEmpty(message))

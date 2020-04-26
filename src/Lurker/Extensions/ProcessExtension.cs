@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ProcessExtension.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="ProcessExtension.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -13,7 +13,10 @@ namespace Lurker.Extensions
     using System.Text;
     using System.Threading;
 
-    public static class Extensions
+    /// <summary>
+    /// Represents all the extension methods.
+    /// </summary>
+    public static class ProcessExtension
     {
         [DllImport("Kernel32.dll")]
         private static extern bool QueryFullProcessImageName([In] IntPtr hProcess, [In] uint dwFlags, [Out] StringBuilder lpExeName, [In, Out] ref uint lpdwSize);
@@ -37,8 +40,7 @@ namespace Lurker.Extensions
         /// Gets the window handle.
         /// </summary>
         /// <param name="process">The process.</param>
-        /// <returns></returns>
-        /// <exception cref="System.InvalidOperationException"></exception>
+        /// <returns>The window hande pointer.</returns>
         public static IntPtr GetWindowHandle(this Process process)
         {
             process.Refresh();
@@ -52,9 +54,8 @@ namespace Lurker.Extensions
                     Thread.Sleep(200);
                     if (process == null)
                     {
-                        throw new System.InvalidOperationException();
+                        throw new InvalidOperationException();
                     }
-
                 }
                 while (newProcess.MainWindowHandle == IntPtr.Zero);
             }

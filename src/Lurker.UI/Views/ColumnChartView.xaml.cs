@@ -1,28 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿//-----------------------------------------------------------------------
+// <copyright file="ColumnChartView.xaml.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
+// </copyright>
+//-----------------------------------------------------------------------
 
 namespace Lurker.UI.Views
 {
+    using System.Windows.Controls;
+
     /// <summary>
-    /// Interaction logic for ColumnChartView.xaml
+    /// Interaction logic for ColumnChartView.xaml.
     /// </summary>
     public partial class ColumnChartView : UserControl
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ColumnChartView"/> class.
+        /// </summary>
         public ColumnChartView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

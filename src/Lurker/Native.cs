@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="Native.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="Native.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -9,6 +9,7 @@ namespace Lurker
     using System;
     using System.Runtime.InteropServices;
 
+    #pragma warning disable
     public static class Native
     {
         public static bool IsKeyPressed(VirtualKeyStates nVirtKey)

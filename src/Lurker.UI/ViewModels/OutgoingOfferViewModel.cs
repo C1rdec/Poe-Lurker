@@ -1,18 +1,22 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="OutgoingOfferViewModel.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="OutgoingOfferViewModel.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.UI.ViewModels
 {
+    using System.Windows.Input;
     using Caliburn.Micro;
     using Lurker.Helpers;
     using Lurker.Patreon.Events;
     using Lurker.UI.Models;
-    using System.Windows.Input;
 
-    public class OutgoingOfferViewModel: PropertyChangedBase
+    /// <summary>
+    /// Represents the outgoing offer.
+    /// </summary>
+    /// <seealso cref="Caliburn.Micro.PropertyChangedBase" />
+    public class OutgoingOfferViewModel : PropertyChangedBase
     {
         #region Fields
 
@@ -30,9 +34,11 @@ namespace Lurker.UI.ViewModels
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OutgoingOfferViewModel"/> class.
+        /// Initializes a new instance of the <see cref="OutgoingOfferViewModel" /> class.
         /// </summary>
         /// <param name="tradeEvent">The trade event.</param>
+        /// <param name="keyboardHelper">The keyboard helper.</param>
+        /// <param name="context">The context.</param>
         public OutgoingOfferViewModel(OutgoingTradeEvent tradeEvent, PoeKeyboardHelper keyboardHelper, OutgoingbarContext context)
         {
             this._event = tradeEvent;
@@ -103,7 +109,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets or sets the delay to close.
         /// </summary>
-        public double DelayToClose 
+        public double DelayToClose
         {
             get
             {

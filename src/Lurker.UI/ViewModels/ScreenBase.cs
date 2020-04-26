@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ScreenBase.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="ScreenBase.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -8,7 +8,11 @@ namespace Lurker.UI.ViewModels
 {
     using Caliburn.Micro;
 
-    public class ScreenBase: Screen
+    /// <summary>
+    /// Represents the screen base class.
+    /// </summary>
+    /// <seealso cref="Caliburn.Micro.Screen" />
+    public class ScreenBase : Screen
     {
         #region Fields
 

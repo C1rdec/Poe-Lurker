@@ -1,20 +1,20 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="OutgoingbarViewModel.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="OutgoingbarViewModel.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.UI.ViewModels
 {
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Timers;
     using Caliburn.Micro;
     using Lurker.Helpers;
     using Lurker.Models;
     using Lurker.Patreon.Events;
     using Lurker.Services;
     using Lurker.UI.Models;
-    using System.Collections.ObjectModel;
-    using System.Linq;
-    using System.Timers;
 
     /// <summary>
     /// Represents the outgoing bar view model.
@@ -25,7 +25,6 @@ namespace Lurker.UI.ViewModels
     {
         #region Fields
 
-        protected static int DefaultWidth = 55;
         private ClipboardLurker _clipboardLurker;
         private ClientLurker _clientLurker;
         private PoeKeyboardHelper _keyboardHelper;
@@ -41,11 +40,17 @@ namespace Lurker.UI.ViewModels
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OutgoingbarViewModel"/> class.
+        /// Initializes a new instance of the <see cref="OutgoingbarViewModel" /> class.
         /// </summary>
-        /// <param name="lurker">The lurker.</param>
+        /// <param name="eventAggregator">The event aggregator.</param>
+        /// <param name="clipboardLurker">The clipboard lurker.</param>
+        /// <param name="clientLurker">The client lurker.</param>
+        /// <param name="processLurker">The process lurker.</param>
+        /// <param name="dockingHelper">The docking helper.</param>
+        /// <param name="keyboardHelper">The keyboard helper.</param>
+        /// <param name="settingsService">The settings service.</param>
         /// <param name="windowManager">The window manager.</param>
-        public OutgoingbarViewModel(IEventAggregator eventAggregator, ClipboardLurker clipboardLurker, ClientLurker clientLurker, ProcessLurker processLurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper, SettingsService settingsService, IWindowManager windowManager) 
+        public OutgoingbarViewModel(IEventAggregator eventAggregator, ClipboardLurker clipboardLurker, ClientLurker clientLurker, ProcessLurker processLurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper, SettingsService settingsService, IWindowManager windowManager)
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
             this.Offers = new ObservableCollection<OutgoingOfferViewModel>();
@@ -77,6 +82,11 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public bool AnyOffer => this.Offers.Any();
 
+        /// <summary>
+        /// Gets the default width.
+        /// </summary>
+        protected static int DefaultWidth => 55;
+
         #endregion
 
         #region Methods
@@ -88,7 +98,7 @@ namespace Lurker.UI.ViewModels
         /// <param name="newOfferText">The new offer text.</param>
         private void ClipboardLurker_NewOffer(object sender, string newOfferText)
         {
-            if (!this._settingsService.ClipboardEnabled || this._lastOutgoingOfferText == newOfferText)
+            if (!this.SettingsService.ClipboardEnabled || this._lastOutgoingOfferText == newOfferText)
             {
                 return;
             }
@@ -150,10 +160,10 @@ namespace Lurker.UI.ViewModels
                 return;
             }
 
-            if (!string.IsNullOrEmpty(this._settingsService.ThankYouMessage))
+            if (!string.IsNullOrEmpty(this.SettingsService.ThankYouMessage))
             {
                 var tradeEvent = this._activeOffer.Event;
-                this._keyboardHelper.Whisper(tradeEvent.PlayerName, TokenHelper.ReplaceToken(this._settingsService.ThankYouMessage, tradeEvent));
+                this._keyboardHelper.Whisper(tradeEvent.PlayerName, TokenHelper.ReplaceToken(this.SettingsService.ThankYouMessage, tradeEvent));
             }
 
             this.InsertEvent(this._activeOffer.Event);
@@ -194,7 +204,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Sets the window position.
         /// </summary>
-        /// <param name="windowInformation"></param>
+        /// <param name="windowInformation">The window information.</param>
         protected override void SetWindowPosition(PoeWindowInformation windowInformation)
         {
             var yPosition = windowInformation.FlaskBarWidth * (238 / (double)DefaultFlaskBarWidth);
@@ -202,10 +212,10 @@ namespace Lurker.UI.ViewModels
             var height = windowInformation.FlaskBarHeight - (Margin * 2);
             Execute.OnUIThread(() =>
             {
-                this._view.Height = height < 0 ? 1 : height;
-                this._view.Width = width;
-                this._view.Left = windowInformation.Position.Left + yPosition;
-                this._view.Top = windowInformation.Position.Bottom - windowInformation.FlaskBarHeight + Margin;
+                this.View.Height = height < 0 ? 1 : height;
+                this.View.Width = width;
+                this.View.Left = windowInformation.Position.Left + yPosition;
+                this.View.Top = windowInformation.Position.Bottom - windowInformation.FlaskBarHeight + Margin;
             });
         }
 
@@ -262,7 +272,7 @@ namespace Lurker.UI.ViewModels
             {
                 View = new TradeValueViewModel(offer.Event),
                 OnShow = (a) => { this._removeActive = a; },
-                Action = () => { this._keyboardHelper.Trade(offer.Event.PlayerName); }
+                Action = () => { this._keyboardHelper.Trade(offer.Event.PlayerName); },
             });
         }
 

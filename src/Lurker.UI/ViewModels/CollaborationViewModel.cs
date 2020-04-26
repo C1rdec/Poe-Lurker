@@ -1,15 +1,17 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="CollaborationViewModel.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="CollaborationViewModel.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.UI.ViewModels
 {
-    using System;
-    using Caliburn.Micro;
     using Lurker.Models;
 
+    /// <summary>
+    /// Represents the collaborationviewmodel.
+    /// </summary>
+    /// <seealso cref="Caliburn.Micro.PropertyChangedBase" />
     public class CollaborationViewModel : Caliburn.Micro.PropertyChangedBase
     {
         #region Fields

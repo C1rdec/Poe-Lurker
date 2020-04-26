@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="LifeBulbViewModel.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="LifeBulbViewModel.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -13,7 +13,11 @@ namespace Lurker.UI.ViewModels
     using Lurker.UI.Models;
     using Lurker.UI.Views;
 
-    public class LifeBulbViewModel : BulbViewModel, IHandle<LifeBulbMessage>
+    /// <summary>
+    /// Represents the life bulb viewmodel.
+    /// </summary>
+    /// <seealso cref="Lurker.UI.ViewModels.BulbViewModelBase" />
+    public class LifeBulbViewModel : BulbViewModelBase, IHandle<LifeBulbMessage>
     {
         #region Fields
 
@@ -25,13 +29,15 @@ namespace Lurker.UI.ViewModels
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LifeBulbViewModel"/> class.
+        /// Initializes a new instance of the <see cref="LifeBulbViewModel" /> class.
         /// </summary>
+        /// <param name="eventAggregator">The event aggregator.</param>
         /// <param name="windowManager">The window manager.</param>
         /// <param name="dockingHelper">The docking helper.</param>
-        /// <param name="lurker"></param>
-        /// <param name="settingsService"></param>H
-        public LifeBulbViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService, PoeKeyboardHelper keyboard) 
+        /// <param name="processLurker">The process lurker.</param>
+        /// <param name="settingsService">The settings service.</param>
+        /// <param name="keyboard">The keyboard.</param>
+        public LifeBulbViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService, PoeKeyboardHelper keyboard)
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
             this._keyboardHelper = keyboard;
@@ -55,23 +61,23 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Sets the window position.
         /// </summary>
-        /// <param name="windowInformation"></param>
+        /// <param name="windowInformation">The window information.</param>
         protected override void SetWindowPosition(PoeWindowInformation windowInformation)
         {
             var value = DefaultBulbHeight * windowInformation.Height / 1080;
             Execute.OnUIThread(() =>
             {
-                this._view.Height = value;
-                this._view.Width = value;
-                this._view.Left = windowInformation.Position.Left + 6;
-                this._view.Top = windowInformation.Position.Bottom - value;
-                var lifeView = this._view as LifeBulbView;
+                this.View.Height = value;
+                this.View.Width = value;
+                this.View.Left = windowInformation.Position.Left + 6;
+                this.View.Top = windowInformation.Position.Bottom - value;
+                var lifeView = this.View as LifeBulbView;
                 lifeView.ResizeLifeBulb();
             });
         }
 
         /// <summary>
-        /// Defaults the action.
+        /// Gets the default action.
         /// </summary>
         protected override System.Action DefaultAction => () => this._keyboardHelper.JoinHideout();
 
