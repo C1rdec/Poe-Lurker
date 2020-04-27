@@ -5,6 +5,10 @@ class Price {
   Price.fromJson(Map<dynamic, dynamic> json)
       : numberOfCurrencies = json['NumberOfCurrencies'],
         currencyType = json['CurrencyType'];
+
+  String toString(){
+    return "${this.numberOfCurrencies} ${this.currencyType}";
+  }
 }
 
 enum CurrencyType { 

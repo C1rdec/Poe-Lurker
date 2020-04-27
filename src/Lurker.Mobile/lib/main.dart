@@ -4,6 +4,7 @@
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:poe_lurker_mobile/components/itemWidget.dart';
 import 'models/item.dart';
 
 void main() => runApp(MyApp());
@@ -19,9 +20,7 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text('Poe Lurker'),
         ),
-        body: Center(
-          child: MessageHandler(),
-        ),
+        body: MessageHandler(),
       ),
     );
   }
@@ -35,6 +34,7 @@ class MessageHandler extends StatefulWidget {
 class MessageHandlerState extends State<MessageHandler> {
   final FirebaseMessaging _fcm = FirebaseMessaging();
   String lastMessage = "Waiting for message";
+  Item lastItem;
 
  @override
  void initState() {
@@ -43,16 +43,15 @@ class MessageHandlerState extends State<MessageHandler> {
       onMessage: (Map<String, dynamic> message) async {
         try
         {
-          var item = Item.fromJson(message["data"]);
-          print(item);
+          var newItem = Item.fromJson(message["data"]);
+          setState(() {
+            lastMessage = "item";
+            lastItem = newItem;
+          });
         }
         catch(e){
           print(e);
         }
-        
-        setState(() {
-          lastMessage = "item";
-        });
       },
       onLaunch: (Map<String, dynamic> message) async {
         setState(() {
@@ -70,7 +69,12 @@ class MessageHandlerState extends State<MessageHandler> {
 
   @override
   Widget build(BuildContext context) {
-    return Text(this.lastMessage);
+    if (this.lastItem == null){
+      return Text(this.lastMessage);
+    }
+    else {
+      return ItemWidget(poeItem: this.lastItem);
+    }
   }
 
   void getTokenAsync() async {
