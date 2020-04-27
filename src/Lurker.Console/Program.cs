@@ -7,9 +7,13 @@
 namespace Lurker.Console
 {
     using Lurker.Models;
+    using Lurker.Patreon;
+    using Lurker.Patreon.Events;
+    using Lurker.Patreon.Models;
     using Lurker.Services;
     using Newtonsoft.Json;
     using System;
+    using System.IO;
     using System.Net.Http;
     using System.Text;
 
@@ -18,9 +22,27 @@ namespace Lurker.Console
         static void Main(string[] args)
         {
             var httpClient = new HttpClient();
-            var json = JsonConvert.SerializeObject(new { Name = "Cedric", LastName = "Lampron"});
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
-            var message = httpClient.PostAsync("https://us-central1-poe-lurker.cloudfunctions.net/sendTradeMessage", data).Result;
+
+            while (true)
+            {
+                var tradeEvent = TradeEvent.TryParse("2020/04/13 00:38:33 611799171 acf [INFO Client 11220] @From <STONED> Resued_Delirium: Hi, I would like to buy your Hollow Fossil listed for 40 chaos in Delirium (stash tab \"qweq\"; position: left 3, top 7)");
+                var json = JsonConvert.SerializeObject(new 
+                { 
+                    ItemName = tradeEvent.ItemName,
+                    ItemClass = tradeEvent.ItemClass.ToString(),
+                    WhisperMessage = tradeEvent.WhisperMessage,
+                    PlayerName = tradeEvent.PlayerName,
+                    Date = tradeEvent.Date,
+                    Price = JsonConvert.SerializeObject(new { NumberOfCurrencies = tradeEvent.Price.NumberOfCurrencies.ToString(), CurrencyType = tradeEvent.Price.CurrencyType.ToString()})
+                });
+
+                var asd = JsonConvert.SerializeObject(tradeEvent);
+                var data = new StringContent(json, Encoding.UTF8, "application/json");
+                //var json = JsonConvert.SerializeObject(new { Test = "" });
+                //var data = new StringContent(json , Encoding.UTF8, "application/json");
+                var message = httpClient.PostAsync("https://us-central1-poe-lurker.cloudfunctions.net/sendTradeMessage", data).Result;
+                Console.Read();
+            }
 
             var model = new Collaboration()
             {

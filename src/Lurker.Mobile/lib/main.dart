@@ -4,6 +4,7 @@
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'models/item.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData( primarySwatch: Colors.indigo,  brightness: Brightness.light),
+      theme: ThemeData( primarySwatch: Colors.indigo, brightness: Brightness.light),
       color: Colors.red,
       title: 'Welcome to Flutter',
       home: Scaffold(
@@ -40,8 +41,17 @@ class MessageHandlerState extends State<MessageHandler> {
     super.initState();
     this._fcm.configure(
       onMessage: (Map<String, dynamic> message) async {
+        try
+        {
+          var item = Item.fromJson(message["data"]);
+          print(item);
+        }
+        catch(e){
+          print(e);
+        }
+        
         setState(() {
-          lastMessage = "$message";
+          lastMessage = "item";
         });
       },
       onLaunch: (Map<String, dynamic> message) async {
