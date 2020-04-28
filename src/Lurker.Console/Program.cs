@@ -25,7 +25,7 @@ namespace Lurker.Console
 
             while (true)
             {
-                var tradeEvent = TradeEvent.TryParse("2020/04/13 00:38:33 611799171 acf [INFO Client 11220] @From <STONED> Resued_Delirium: Hi, I would like to buy your Hollow Fossil listed for 99 chaos in Delirium (stash tab \"qweq\"; position: left 3, top 7)");
+                var tradeEvent = TradeEvent.TryParse("2020/04/13 00:38:33 611799171 acf [INFO Client 11220] @From <STONED> Resued_Delirium: Hi, I would like to buy your Hollow Fossil listed for 15 exalted in Delirium (stash tab \"qweq\"; position: left 3, top 7)");
                 var json = JsonConvert.SerializeObject(new 
                 { 
                     ItemName = tradeEvent.ItemName,

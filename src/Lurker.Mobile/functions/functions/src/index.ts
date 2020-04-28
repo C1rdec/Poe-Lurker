@@ -4,7 +4,7 @@ import config from './config';
 
 admin.initializeApp();
 const fcm = admin.messaging();
-const token = "c_QIkJm668Q:APA91bEN_AqY47lBMaK-rN6e7fk8r7Ey_tkUyRux3SeMVmlrNEkmBB7r6ujil5h-llJCV9itr5KfsPQjIIkhuXAnj_SBdSV_20gGtZsgPd2u1OtU4VO16aEDZE8WxAkgt8HnoASoma6l";
+const token = "fvLvwkY1BZU:APA91bGl2BGBEHSYusmP9RD8B5x5hYRUNDLX3cwUTO1GFRcXXsiYLH5SaHVNgbN0uknVSFGkzv2wGAJ0MBY0XZUzN2NzZpRgOslG2kKCd38-8wEPyPl_rqCQvzqt3PDmTQcJ__YBFwy_";
 
 // Start writing Firebase Functions
 // https://firebase.google.com/docs/functions/typescript
