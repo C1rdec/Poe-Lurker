@@ -19,6 +19,8 @@ namespace Lurker
     {
         #region Fields
 
+        private const int MsgCodeMouseLeftButtonUp = 0x0202; // WM_LBUTTONUP
+
         private const string HookHelperExeBaseName = "Lurker.HookHelper";
         private const int MouseHookMessageSizeInBytes = 20;
 
@@ -36,9 +38,9 @@ namespace Lurker
         public event EventHandler<MouseMessageReceivedEventArgs> MouseMessageReceived;
 
         /// <summary>
-        /// Occurs when [left mouse button up].
+        /// Occurs when [mouse left button up].
         /// </summary>
-        public event EventHandler LeftMouseButtonUp;
+        public event EventHandler MouseLeftButtonUp;
 
         #endregion
 
@@ -69,7 +71,7 @@ namespace Lurker
             var hookHelperExeName = $"{HookHelperExeBaseName}{hookHelperExtension}";
             var hookHelperExePath = Path.Combine(GetExecutingAssemblyDirectory(), hookHelperExeName);
 
-            // Copy Lurker.HookLib.*.dll and Lurker.HookHelper.*.exe in Lurker.UI's folder
+            // Lurker.HookLib.*.dll and Lurker.HookHelper.*.exe are located in Lurker.UI's folder
             Process.Start(hookHelperExePath, $"{this._socketMessageService.Port} {process.Id} {hookHelperMutexGuid}");
         }
 
@@ -80,10 +82,7 @@ namespace Lurker
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources.
         /// </summary>
-        public void Dispose()
-        {
-            this.Dispose(true);
-        }
+        public void Dispose() => this.Dispose(true);
 
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources.
@@ -96,9 +95,10 @@ namespace Lurker
                 if (disposing)
                 {
                     try
-                    {
-                        // Let exe unhook and terminate
-                        this._hookHelperMutex.ReleaseMutex();
+                    {                        
+                        this._hookHelperMutex.ReleaseMutex(); // Let exe unhook and terminate
+                        this._hookHelperMutex.Dispose();
+                        this._socketMessageService.Dispose();
                     }
                     catch
                     {
@@ -129,15 +129,17 @@ namespace Lurker
         /// <param name="e">The <see cref="SocketMessageReceivedEventArgs"/> instance containing the event data.</param>
         private void SocketMessageService_SocketMessageReceived(object sender, SocketMessageReceivedEventArgs e)
         {
-            var code = BitConverter.ToInt32(e.MessageBytes, 0);
-            if (code == 514)
+            var messageCode = BitConverter.ToInt32(e.MessageBytes, 0);
+            if (messageCode == MsgCodeMouseLeftButtonUp)
             {
-                this.LeftMouseButtonUp?.Invoke(this, EventArgs.Empty);
+                this.MouseLeftButtonUp?.Invoke(this, EventArgs.Empty);
             }
+
+            Debug.WriteLine($"Mouse Message Code: {messageCode}; X: {BitConverter.ToInt32(e.MessageBytes, 4)}; Y: {BitConverter.ToInt32(e.MessageBytes, 8)}");
 
             MouseMessageReceived?.Invoke(this, new MouseMessageReceivedEventArgs
             {
-                MessageCode = BitConverter.ToInt32(e.MessageBytes, 0),
+                MessageCode = messageCode,
                 X = BitConverter.ToInt32(e.MessageBytes, 4),
                 Y = BitConverter.ToInt32(e.MessageBytes, 8),
                 Handle = BitConverter.ToInt32(e.MessageBytes, 12),

@@ -12,7 +12,7 @@ namespace Lurker.Services
     using System.Threading;
     using System.Threading.Tasks;
 
-    class SocketMessageService
+    public class SocketMessageService : IDisposable
     {
         #region Fields
 
@@ -22,6 +22,8 @@ namespace Lurker.Services
         private CancellationToken _cancellationToken;
         private Task _listeningTask;
         private ManualResetEvent _portSetEvent;
+
+        private bool _disposed = false;
 
         #endregion
 
@@ -105,9 +107,16 @@ namespace Lurker.Services
                         }
                     }
                 }
-                catch (System.IO.IOException)
+                catch (System.IO.IOException exception)
                 {
-                    // TODO: Check if the exception can be filtered
+                    if (exception.InnerException is SocketException socketException)
+                    {
+                        // Connection gets reset when the hooked client terminates
+                        if (socketException.SocketErrorCode != SocketError.ConnectionReset)
+                        {
+                            throw;
+                        }
+                    }
                 }
                 catch (SocketException exception)
                 {
@@ -136,6 +145,35 @@ namespace Lurker.Services
             }
 
             Port = 0;
+        }
+
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        public void Dispose() => this.Dispose(true);
+
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this._disposed)
+            {
+                if (disposing)
+                {
+                    try
+                    {
+                        this._listeningTask?.Dispose();
+                        this._portSetEvent?.Dispose();
+                    }
+                    catch
+                    {
+                    }
+                }
+
+                this._disposed = true;
+            }
         }
 
         #endregion

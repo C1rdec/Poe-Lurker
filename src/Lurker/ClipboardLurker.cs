@@ -52,7 +52,7 @@ namespace Lurker
             this._clipboardMonitor.ClipboardChanged += this.ClipboardMonitor_ClipboardChanged;
             this._itemParser.CheckPledgeStatus();
             this._mouseLurker = mouseLurker;
-            this._mouseLurker.LeftMouseButtonUp += this.MouseLurker_LeftMouseButtonUp;
+            this._mouseLurker.MouseLeftButtonUp += this.MouseLurker_MouseLeftButtonUp;
             this.LurkForAction();
         }
 
@@ -133,7 +133,7 @@ namespace Lurker
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void MouseLurker_LeftMouseButtonUp(object sender, EventArgs e)
+        private void MouseLurker_MouseLeftButtonUp(object sender, EventArgs e)
         {
             if (!this._settingsService.SearchEnabled)
             {
