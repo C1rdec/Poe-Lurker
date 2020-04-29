@@ -1,6 +1,5 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
-import config from './config';
 
 admin.initializeApp();
 const fcm = admin.messaging();
@@ -10,6 +9,7 @@ const token = "fvLvwkY1BZU:APA91bGl2BGBEHSYusmP9RD8B5x5hYRUNDLX3cwUTO1GFRcXXsiYL
 // https://firebase.google.com/docs/functions/typescript
 
 export const sendTradeMessage = functions.https.onRequest((request, response) => {
- response.send(config.ClientSecret);
- return fcm.send({token: token, data: request.body});
+ response.send(request.body);
+ const item = JSON.parse(request.body.Item);
+ return fcm.send({token: token, data: item});
 });
