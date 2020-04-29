@@ -14,9 +14,9 @@ endif
 OBJECTS = obj/Source.o obj/FileStream.o
 
 ifeq (${DUMPMACHINE},x86_64-w64-mingw32) 
-	CFLAGS = -m64 -std=c++17 -I../Lurker.Common -I../../ref -I../../ref/asio -DWINVER=0x0603 -D_WIN32_WINNT=0x0603 -DUNICODE -D_UNICODE -D_FORTIFY_SOURCE=2 -D_GLIBCXX_ASSERTIONS -DASIO_STANDALONE -O2 ${WARNS} -fmessage-length=0 -fasynchronous-unwind-tables
+	CFLAGS = -m64 -std=c++17 -I../Lurker.Common -I../../3rd/asio/asio/include -DWINVER=0x0603 -D_WIN32_WINNT=0x0603 -DUNICODE -D_UNICODE -D_FORTIFY_SOURCE=2 -D_GLIBCXX_ASSERTIONS -DASIO_STANDALONE -O2 ${WARNS} -fmessage-length=0 -fasynchronous-unwind-tables
 else
-	CFLAGS = -std=c++17 -I../Lurker.Common -I../../ref -I../../ref/asio -DWINVER=0x0603 -D_WIN32_WINNT=0x0603 -DUNICODE -D_UNICODE -D_FORTIFY_SOURCE=2 -D_GLIBCXX_ASSERTIONS -DASIO_STANDALONE -O2 ${WARNS} -fmessage-length=0 -fasynchronous-unwind-tables
+	CFLAGS = -std=c++17 -I../Lurker.Common -I../../3rd/asio/asio/include -DWINVER=0x0603 -D_WIN32_WINNT=0x0603 -DUNICODE -D_UNICODE -D_FORTIFY_SOURCE=2 -D_GLIBCXX_ASSERTIONS -DASIO_STANDALONE -O2 ${WARNS} -fmessage-length=0 -fasynchronous-unwind-tables
 endif
 
 LDFLAGS = -s -shared -static -Wl,--subsystem,windows -lws2_32

@@ -2,7 +2,7 @@
 
 #include <Windows.h>
 
-#include "asio/asio.hpp"
+#include "asio.hpp"
 
 #define LOGHOOKLIBMESSAGESENDER 0
 #if _DEBUG && LOGHOOKLIBMESSAGESENDER
