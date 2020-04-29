@@ -17,6 +17,7 @@ namespace Lurker.UI.ViewModels
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
+    using System.Windows.Input;
     using System.Windows.Media;
 
     public class SettingsViewModel: ScreenBase
@@ -530,6 +531,12 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public void Pledge()
         {
+            if (Keyboard.IsKeyDown(Key.LeftCtrl))
+            {
+                this.GetPatreonId();
+                return;
+            }
+
             Process.Start("https://www.patreon.com/poelurker");
         }
 
