@@ -166,6 +166,7 @@
     <Compile Include="Services\AssetService.cs" />
     <Compile Include="Services\CollaborationService.cs" />
     <Compile Include="Services\HttpServiceBase.cs" />
+    <Compile Include="Services\MouseHookService.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\SoundService.cs" />
     <Compile Include="Services\SocketMessageService.cs" />
