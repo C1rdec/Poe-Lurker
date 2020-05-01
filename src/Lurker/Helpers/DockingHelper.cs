@@ -164,6 +164,13 @@ namespace Lurker.Helpers
                 var foregroundWindow = Native.GetForegroundWindow();
                 GetWindowThreadProcessId(foregroundWindow, out var processId);
 
+                var style = Native.GetWindowLong(this._windowHandle, -16);
+                if (PoeApplicationContext.WindowStyle != style)
+                {
+                    PoeApplicationContext.WindowStyle = style;
+                    this.InvokeWindowMove();
+                }
+
                 if (processId == this._myProcess.Id || foregroundWindow == this._windowHandle)
                 {
                     inForeground = true;
