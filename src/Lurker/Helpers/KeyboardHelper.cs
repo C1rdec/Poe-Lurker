@@ -32,17 +32,13 @@ namespace Lurker.Helpers
         /// </summary>
         /// <param name="process">The process.</param>
         public KeyboardHelper(Process process)
-            : this()
         {
-            this._process = process;
-            this._windowHandle = this._process.GetWindowHandle();
-        }
+            if (process != null)
+            {
+                this._process = process;
+                this._windowHandle = this._process.GetWindowHandle();
+            }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="KeyboardHelper"/> class.
-        /// </summary>
-        public KeyboardHelper()
-        {
             this._simulator = new InputSimulator();
         }
 

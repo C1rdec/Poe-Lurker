@@ -8,10 +8,13 @@ namespace Lurker.UI.ViewModels
 {
     using System;
     using System.Diagnostics;
+    using System.IO;
+    using System.Reflection;
     using System.Security.Authentication;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
+    using System.Windows.Input;
     using System.Windows.Media;
     using Caliburn.Micro;
     using Lurker.Helpers;
@@ -27,6 +30,7 @@ namespace Lurker.UI.ViewModels
     {
         #region Fields
 
+        private static readonly string LottieFileName = "LurckerIconSettings.json";
         private KeyboardHelper _keyboardHelper;
         private SettingsService _settingService;
         private bool _needsUpdate;
@@ -57,6 +61,11 @@ namespace Lurker.UI.ViewModels
             this.DisplayName = "Settings";
 
             this.PropertyChanged += this.SettingsViewModel_PropertyChanged;
+
+            if (!AssetService.Exists(LottieFileName))
+            {
+                AssetService.Create(LottieFileName, GetResourceContent(LottieFileName));
+            }
         }
 
         #endregion
@@ -71,6 +80,8 @@ namespace Lurker.UI.ViewModels
         #endregion
 
         #region Properties
+
+        public string AnimationFilePath => AssetService.GetFilePath(LottieFileName);
 
         /// <summary>
         /// Gets or sets the color of the lifebar.
@@ -114,13 +125,19 @@ namespace Lurker.UI.ViewModels
                 this._pledging = value;
                 this.NotifyOfPropertyChange();
                 this.NotifyOfPropertyChange("NotPledging");
+                this.NotifyOfPropertyChange("ConnectedWithoutPledging");
             }
         }
 
         /// <summary>
         /// Gets a value indicating whether [not pledgin].
         /// </summary>
-        public bool NotPledging => !this.Pledging && !this.NotConnected;
+        public bool NotPledging => !this.Pledging;
+
+        /// <summary>
+        /// Gets a value indicating whether [connected without pledge].
+        /// </summary>
+        public bool ConnectedWithoutPledging => !this.NotConnected && this.NotPledging;
 
         /// <summary>
         /// Gets or sets a value indicating whether [needs update].
@@ -535,6 +552,12 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public void Pledge()
         {
+            if (Keyboard.IsKeyDown(Key.LeftCtrl))
+            {
+                this.GetPatreonId();
+                return;
+            }
+
             Process.Start("https://www.patreon.com/poelurker");
         }
 
@@ -599,6 +622,22 @@ namespace Lurker.UI.ViewModels
             base.OnActivate();
 
             this._activated = true;
+        }
+
+        /// <summary>
+        /// Gets the content of the resource.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <returns>The resource content</returns>
+        private static string GetResourceContent(string fileName)
+        {
+            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"Lurker.UI.Assets.{fileName}"))
+            {
+                using (var reader = new StreamReader(stream))
+                {
+                    return reader.ReadToEnd();
+                }
+            }
         }
 
         /// <summary>

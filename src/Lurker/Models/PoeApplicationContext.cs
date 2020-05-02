@@ -6,6 +6,8 @@
 
 namespace Lurker.Models
 {
+    using System;
+
     /// <summary>
     /// Represents an applicaiton context.
     /// </summary>
@@ -22,6 +24,11 @@ namespace Lurker.Models
         /// Gets or sets a value indicating whether this instance is afk.
         /// </summary>
         public static bool IsAfk { get; set; }
+
+        /// <summary>
+        /// Gets or sets the window style.
+        /// </summary>
+        public static IntPtr WindowStyle { get; set; }
 
         #endregion
     }

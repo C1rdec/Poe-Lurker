@@ -36,6 +36,13 @@ namespace Lurker.Services
         #region Methods
 
         /// <summary>
+        /// Gets the file path.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <returns>The file path</returns>
+        public static string GetFilePath(string fileName) => Path.Combine(SettingsFolderPath, fileName);
+
+        /// <summary>
         /// Gets the specified file name.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
