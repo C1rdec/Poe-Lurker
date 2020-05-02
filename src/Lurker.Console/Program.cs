@@ -1,21 +1,16 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="Program.cs" company="Wohs">
+// <copyright file="Program.cs" company="Wohs Inc.">
 //     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.Console
 {
-    using Lurker.Models;
-    using Lurker.Patreon;
-    using Lurker.Patreon.Events;
-    using Lurker.Patreon.Models;
-    using Lurker.Services;
-    using Newtonsoft.Json;
     using System;
-    using System.IO;
     using System.Net.Http;
     using System.Text;
+    using Lurker.Patreon.Events;
+    using Newtonsoft.Json;
 
     class Program
     {
@@ -43,15 +38,6 @@ namespace Lurker.Console
                 var message = httpClient.PostAsync("https://us-central1-poe-lurker.cloudfunctions.net/sendTradeMessage", data).Result;
                 Console.Read();
             }
-
-            var model = new Collaboration()
-            {
-                ExpireDate = DateTime.Now.AddDays(10)
-            };
-
-            var test = JsonConvert.SerializeObject(model);
-            Console.WriteLine("Yeah");
-            Console.Read();
         }
 
         private static void Lurker_NewOffer(object sender, Patreon.Events.TradeEvent e)

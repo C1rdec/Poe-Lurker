@@ -17,6 +17,7 @@ namespace Lurker.UI
     using System.Threading.Tasks;
     using Caliburn.Micro;
     using Lurker.Helpers;
+    using Lurker.Models;
     using Lurker.Patreon;
     using Lurker.Patreon.Models;
     using Lurker.Services;

@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="SplashScreenViewModel.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="SplashscreenViewModel.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -10,6 +10,10 @@ namespace Lurker.UI.ViewModels
     using System.Reflection;
     using Lurker.Services;
 
+    /// <summary>
+    /// Represents a SplashScreen.
+    /// </summary>
+    /// <seealso cref="Caliburn.Micro.PropertyChangedBase" />
     public class SplashscreenViewModel : Caliburn.Micro.PropertyChangedBase
     {
         #region Fields
@@ -47,8 +51,10 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets the content of the resource.
         /// </summary>
-        /// <param name="resourceName">Name of the resource.</param>
-        /// <returns>The animation text.</returns>
+        /// <param name="fileName">Name of the file.</param>
+        /// <returns>
+        /// The animation text.
+        /// </returns>
         private static string GetResourceContent(string fileName)
         {
             using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"Lurker.UI.Assets.{fileName}"))

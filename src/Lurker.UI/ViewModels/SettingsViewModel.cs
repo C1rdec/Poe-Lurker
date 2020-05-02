@@ -81,6 +81,9 @@ namespace Lurker.UI.ViewModels
 
         #region Properties
 
+        /// <summary>
+        /// Gets the animation file path.
+        /// </summary>
         public string AnimationFilePath => AssetService.GetFilePath(LottieFileName);
 
         /// <summary>
@@ -628,7 +631,7 @@ namespace Lurker.UI.ViewModels
         /// Gets the content of the resource.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
-        /// <returns>The resource content</returns>
+        /// <returns>The resource content.</returns>
         private static string GetResourceContent(string fileName)
         {
             using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"Lurker.UI.Assets.{fileName}"))

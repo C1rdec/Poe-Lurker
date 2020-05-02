@@ -11,6 +11,7 @@ namespace Lurker.UI
     using System.Diagnostics;
     using Caliburn.Micro;
     using Lurker.Extensions;
+    using Lurker.Helpers;
     using Lurker.Services;
     using Lurker.UI.Helpers;
     using Lurker.UI.Services;
