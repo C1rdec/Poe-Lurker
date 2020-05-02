@@ -7,6 +7,7 @@
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:local="clr-namespace:Lurker.UI"
         WindowStartupLocation="CenterScreen"
+        xmlns:lottieSharp="clr-namespace:LottieSharp;assembly=LottieSharp"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         ResizeMode="CanMinimize"
         mc:Ignorable="d" Height="450" Width="800">
@@ -16,7 +17,7 @@
         </Grid.Resources>
 
         <Controls:MetroAnimatedTabControl Controls:TabControlHelper.IsUnderlined="True" Controls:TabControlHelper.Underlined="TabPanel" TabStripPlacement="Left">
-            <TabItem Header="Message">
+            <TabItem Header="Message" Width="175">
                 <StackPanel>
                     <Label Content="Message" Style="{DynamicResource LabelHeaderStyle}" />
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,30,0">
@@ -300,7 +301,7 @@
                         </Grid>
                         <Button Style="{DynamicResource Tag}" Controls:ButtonHelper.PreserveTextCase="True" x:Name="GetPatreonId" HorizontalAlignment="Center" Visibility="{Binding Pledging, Converter={StaticResource BooleanToVisibilityConverter}}" FontSize="14">A blessing I can’t deny</Button>
                         <Button x:Name="LoginToPatreon" Visibility="{Binding NotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">Login with Patreon</Button>
-                        <Button x:Name="Pledge" Visibility="{Binding NotPledging, Converter={StaticResource BooleanToVisibilityConverter}}">Become a patron</Button>
+                        <Button x:Name="Pledge" Visibility="{Binding ConnectedWithoutPledging, Converter={StaticResource BooleanToVisibilityConverter}}">Become a patron</Button>
                     </StackPanel>
                     <Grid Grid.Row="2" Height="70" Visibility="{Binding Pledging, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <StackPanel Margin="30,0,0,0" Orientation="Horizontal">
@@ -334,5 +335,17 @@
                 HorizontalAlignment="Left" 
                 Height="10" 
                 Width="80">Update</Button>
+        <lottieSharp:LottieAnimationView
+            x:Name="LottieAnimationView"
+            FileName="{Binding AnimationFilePath}"
+            Visibility="{Binding NotPledging, Converter={StaticResource BooleanToVisibilityConverter}}"
+            DefaultCacheStrategy="None"
+            SnapsToDevicePixels="True"
+            Margin="135,15,0,0"
+            Height="30"
+            AutoPlay="True"
+            RepeatCount="1"
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Left"/>
     </Grid>
 </Controls:MetroWindow>

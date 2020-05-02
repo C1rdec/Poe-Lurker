@@ -266,6 +266,7 @@
     <Compile Include="ViewModels\RemainingMonsterViewModel.cs" />
     <Compile Include="ViewModels\ScreenBase.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\SplashscreenViewModel.cs" />
     <Compile Include="ViewModels\TradebarViewModel.cs" />
     <Compile Include="ViewModels\TradeValueViewModel.cs" />
     <Compile Include="ViewModels\UpdateViewModel.cs" />
@@ -320,6 +321,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ViewModels\OfferViewModel.cs" />
+    <Compile Include="Views\SplashscreenView.xaml.cs">
+      <DependentUpon>SplashscreenView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TradebarView.xaml.cs">
       <DependentUpon>TradebarView.xaml</DependentUpon>
     </Compile>
@@ -392,6 +396,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\SplashscreenView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\TradebarView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -432,6 +440,8 @@
     <EmbeddedResource Include="Assets\UpdateAnimation.json" />
     <EmbeddedResource Include="Assets\UpdateSuccessAnimation.json" />
     <EmbeddedResource Include="Assets\UpdateWorkingAnimation.json" />
+    <EmbeddedResource Include="Assets\LurckerIcon.json" />
+    <EmbeddedResource Include="Assets\LurckerIconSettings.json" />
     <None Include="Lurker.nuspec" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

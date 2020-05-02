@@ -8,6 +8,7 @@ namespace Lurker.UI
 {
     using Caliburn.Micro;
     using Lurker.Helpers;
+    using Lurker.Models;
     using Lurker.Patreon;
     using Lurker.Patreon.Models;
     using Lurker.Services;
@@ -463,21 +464,29 @@ namespace Lurker.UI
             }
             else
             {
+                Collaboration validCollaboration = null;
                 using (var patreonService = new PatreonService())
                 {
                     var isPledging = await patreonService.IsPledging();
-                    if (isPledging)
+                    if (!isPledging)
                     {
-                        return;
+                        using (var service = new CollaborationService())
+                        {
+                            var collaboration = await service.GetCollaborationAsync();
+                            if (!collaboration.IsExpired())
+                            {
+                                validCollaboration = collaboration;
+                            }
+                        }
                     }
-                }
 
-                using (var service = new CollaborationService())
-                {
-                    var collaboration = await service.GetCollaborationAsync();
-                    if (!collaboration.IsExpired())
+                    if (validCollaboration != null)
                     {
-                        this._eventAggregator.PublishOnUIThread(new ManaBulbMessage() { View = new CollaborationViewModel(collaboration), Action = collaboration.Open, DisplayTime = TimeSpan.FromSeconds(6) });
+                        this._eventAggregator.PublishOnUIThread(new ManaBulbMessage() { View = new CollaborationViewModel(validCollaboration), Action = validCollaboration.Open, DisplayTime = TimeSpan.FromSeconds(6) });
+                    }
+                    else
+                    {
+                        this._eventAggregator.PublishOnUIThread(new ManaBulbMessage() { View = new SplashscreenViewModel(), DisplayTime = TimeSpan.FromSeconds(5) });
                     }
                 }
             }
