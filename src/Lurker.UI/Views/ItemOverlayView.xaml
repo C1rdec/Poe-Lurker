@@ -43,7 +43,6 @@
                                             HorizontalAlignment="Right"
                                             Foreground="#a6b1e1"
                                             Margin="0,0,2,0"
-                                            Visibility="{Binding BuyerInSameInstance, Converter={StaticResource BooleanToVisibilityConverter}}"
                                             Height="14"
                                             Width="14"
                                             Data="{x:Static local:IconPackData.Cold}"/>
@@ -68,7 +67,6 @@
                                         HorizontalAlignment="Right"
                                         Foreground="#ff9994"
                                         Margin="0,0,2,0"
-                                        Visibility="{Binding BuyerInSameInstance, Converter={StaticResource BooleanToVisibilityConverter}}"
                                         Height="14"
                                         Width="14"
                                         Data="{x:Static local:IconPackData.Fire}"/>
@@ -93,7 +91,6 @@
                                             Foreground="#af8404"
                                             Grid.Row="2"
                                             Margin="0,0,2,0"
-                                            Visibility="{Binding BuyerInSameInstance, Converter={StaticResource BooleanToVisibilityConverter}}"
                                             Height="14"
                                             Width="14"
                                             Data="{x:Static local:IconPackData.Lightning}"/>
