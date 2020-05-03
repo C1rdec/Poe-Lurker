@@ -7,16 +7,15 @@
 
 namespace Lurker
 {
-    using Gma.System.MouseKeyHook;
-    using Lurker.Helpers;
-    using Lurker.Patreon.Events;
-    using Lurker.Patreon.Models;
-    using Lurker.Patreon.Parsers;
-    using Lurker.Services;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using System.Windows.Input;
+    using Gma.System.MouseKeyHook;
+    using Lurker.Helpers;
+    using Lurker.Patreon.Events;
+    using Lurker.Patreon.Parsers;
+    using Lurker.Services;
     using WindowsInput;
     using WK.Libraries.SharpClipboardNS;
 
@@ -29,7 +28,6 @@ namespace Lurker
         private ItemParser _itemParser = new ItemParser();
         private SettingsService _settingsService;
         private SharpClipboard _clipboardMonitor;
-        private MouseLurker _mouseLurker;
         private string _lastClipboardText = string.Empty;
         private IKeyboardMouseEvents _keyboardEvent;
 
@@ -40,7 +38,7 @@ namespace Lurker
         /// <summary>
         /// Initializes a new instance of the <see cref="ClipboardLurker"/> class.
         /// </summary>
-        public ClipboardLurker(SettingsService settingsService, PoeKeyboardHelper keyboardHelper, MouseLurker mouseLurker)
+        public ClipboardLurker(SettingsService settingsService, PoeKeyboardHelper keyboardHelper)
         {
             ClipboardHelper.ClearClipboard();
             this._keyboardHelper = keyboardHelper;
@@ -51,19 +49,12 @@ namespace Lurker
             this._settingsService.OnSave += this.SettingsService_OnSave;
             this._clipboardMonitor.ClipboardChanged += this.ClipboardMonitor_ClipboardChanged;
             this._itemParser.CheckPledgeStatus();
-            this._mouseLurker = mouseLurker;
-            this._mouseLurker.MouseLeftButtonUp += this.MouseLurker_MouseLeftButtonUp;
             this.LurkForAction();
         }
 
         #endregion
 
         #region Events
-
-        /// <summary>
-        /// Occurs when a new item is in the clipboard.
-        /// </summary>
-        public event EventHandler<PoeItem> Newitem;
 
         /// <summary>
         /// Creates new offer.
@@ -90,7 +81,6 @@ namespace Lurker
         {
             if (disposing)
             {
-                this._mouseLurker.Dispose();
                 this._keyboardEvent.Dispose();
                 this._clipboardMonitor.ClipboardChanged -= ClipboardMonitor_ClipboardChanged;
                 this._settingsService.OnSave -= this.SettingsService_OnSave;
@@ -126,24 +116,6 @@ namespace Lurker
             };
 
             this._keyboardEvent.OnCombination(assignment);
-        }
-
-        /// <summary>
-        /// Handles the LeftMouseButtonUp event of the MouseLurker control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void MouseLurker_MouseLeftButtonUp(object sender, EventArgs e)
-        {
-            if (!this._settingsService.SearchEnabled)
-            {
-                return;
-            }
-
-            if (Native.IsKeyPressed(Native.VirtualKeyStates.VK_SHIFT) && Native.IsKeyPressed(Native.VirtualKeyStates.VK_CONTROL))
-            {
-                this.ParseItem();
-            }
         }
 
         /// <summary>
@@ -187,58 +159,6 @@ namespace Lurker
                 {
                     this.NewOffer?.Invoke(this, currentText);
                 }
-            }
-        }
-
-        /// <summary>
-        /// Parses the item.
-        /// </summary>
-        private async void ParseItem()
-        {
-            PoeItem item = default;
-            var retryCount = 2;
-            for (int i = 0; i < retryCount; i++)
-            {
-                item = await this.GetItemInClipboard();
-                if (item == null)
-                {
-                    return;
-                }
-
-                if (!item.Identified)
-                {
-                    await Task.Delay(50);
-                    continue;
-                }
-
-                break;
-            }
-
-            if (item == null || !item.Identified)
-            {
-                return;
-            }
-
-            this.Newitem?.Invoke(this, item);
-            ClipboardHelper.ClearClipboard();
-        }
-
-        /// <summary>
-        /// Gets the item in clipboard.
-        /// </summary>
-        /// <returns>The item in the clipboard</returns>
-        private async Task<PoeItem> GetItemInClipboard()
-        {
-            try
-            {
-                this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_C);
-                await Task.Delay(20);
-                var text = ClipboardHelper.GetClipboardText();
-                return this._itemParser.Parse(text);
-            }
-            catch
-            {
-                return null;
             }
         }
 

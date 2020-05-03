@@ -10,6 +10,7 @@ namespace Lurker.Helpers
     using Lurker.Patreon.Parsers;
     using System;
     using System.Threading;
+    using System.Threading.Tasks;
     using System.Windows;
 
     public static class ClipboardHelper
@@ -61,6 +62,15 @@ namespace Lurker.Helpers
             {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Checks the pledge asynchronous.
+        /// </summary>
+        /// <returns>The task awaiter</returns>
+        public static Task CheckPledgeStatusAsync()
+        {
+            return ItemParser.CheckPledgeStatus();
         }
 
         /// <summary>

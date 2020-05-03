@@ -8,22 +8,20 @@ namespace Lurker
 {
     using System;
     using System.Diagnostics;
+    using System.Threading.Tasks;
+    using Lurker.Helpers;
+    using Lurker.Patreon.Models;
+    using Lurker.Services;
+    using WindowsInput;
 
     public class MouseLurker : IDisposable
     {
         #region Fields
 
+        private InputSimulator _simulator;
+        private SettingsService _settingsService;
         private MouseHookService _mouseHookService;
         private bool _disposed = false;
-
-        #endregion
-
-        #region Events
-
-        /// <summary>
-        /// Occurs when [mouse left button up].
-        /// </summary>
-        public event EventHandler MouseLeftButtonUp;
 
         #endregion
 
@@ -33,16 +31,22 @@ namespace Lurker
         /// Initializes a new instance of the <see cref="MouseLurker"/> class.
         /// </summary>
         /// <param name="process">The process.</param>
-        public MouseLurker(Process process)
+        public MouseLurker(Process process, SettingsService settingsService)
         {
+            this._settingsService = settingsService;
+            this._simulator = new InputSimulator();
             this._mouseHookService = new MouseHookService(process);
             this._mouseHookService.MouseLeftButtonUp += MouseHookService_MouseLeftButtonUp;
         }
 
-        private void MouseHookService_MouseLeftButtonUp(object sender, EventArgs e)
-        {
-            this.MouseLeftButtonUp?.Invoke(this, EventArgs.Empty);
-        }
+        #endregion
+
+        #region Events
+
+        /// <summary>
+        /// Occurs when a new item is in the clipboard.
+        /// </summary>
+        public event EventHandler<PoeItem> Newitem;
 
         #endregion
 
@@ -64,7 +68,8 @@ namespace Lurker
                 if (disposing)
                 {
                     try
-                    {                        
+                    {
+                        this._mouseHookService.MouseLeftButtonUp -= this.MouseHookService_MouseLeftButtonUp;
                         this._mouseHookService.Dispose();
                     }
                     catch
@@ -74,6 +79,60 @@ namespace Lurker
 
                 this._disposed = true;
             }
+        }
+
+        /// <summary>
+        /// Handles the MouseLeftButtonUp event of the MouseHookService control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void MouseHookService_MouseLeftButtonUp(object sender, EventArgs e)
+        {
+            if (!this._settingsService.SearchEnabled)
+            {
+                return;
+            }
+
+            if (Native.IsKeyPressed(Native.VirtualKeyStates.VK_SHIFT) && Native.IsKeyPressed(Native.VirtualKeyStates.VK_CONTROL))
+            {
+                this.ParseItem();
+            }
+        }
+
+        /// <summary>
+        /// Parses the item.
+        /// </summary>
+        private async void ParseItem()
+        {
+            PoeItem item = default;
+            var retryCount = 2;
+            for (int i = 0; i < retryCount; i++)
+            {
+                this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_C);
+                await Task.Delay(20);
+                item = ClipboardHelper.GetItemInClipboard();
+
+                if (item == null)
+                {
+                    return;
+                }
+
+                if (!item.Identified)
+                {
+                    await Task.Delay(50);
+                    continue;
+                }
+
+                break;
+            }
+
+            if (item == null || !item.Identified)
+            {
+                return;
+            }
+
+            this.Newitem?.Invoke(this, item);
+            ClipboardHelper.ClearClipboard();
         }
 
         #endregion

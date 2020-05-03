@@ -74,7 +74,7 @@ namespace Lurker.UI
             this.WaitForPoe();
             this.StartWithWindows = File.Exists(this.ShortcutFilePath);
             this.ShowInTaskBar = true;
-
+            this._settingsService.OnSave += this.SettingsService_OnSave;
             if (settingsService.FirstLaunch)
             {
                 if (this.StartWithWindows)
@@ -313,6 +313,16 @@ namespace Lurker.UI
             file.Save(this.ShortcutFilePath, false);
         }
 
+        /// <summary>
+        /// Handles the OnSave event of the SettingsService control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <exception cref="System.NotImplementedException"></exception>
+        private async void SettingsService_OnSave(object sender, EventArgs e)
+        {
+            await this.CheckPledgeStatus();
+        }
 
         /// <summary>
         /// Registers the instances.
@@ -321,11 +331,12 @@ namespace Lurker.UI
         {
             Execute.OnUIThread(() =>
             {
-                this._mouseLurker = new MouseLurker(parentProcess);
+                this._mouseLurker = new MouseLurker(parentProcess, this._settingsService);
+                this._mouseLurker.Newitem += this.MouseLurker_Newitem;
+
                 var keyboarHelper = new PoeKeyboardHelper(parentProcess);
                 this._currentDockingHelper = new DockingHelper(parentProcess, this._settingsService);
-                this._clipboardLurker = new ClipboardLurker(this._settingsService, keyboarHelper, this._mouseLurker);
-                this._clipboardLurker.Newitem += this.ClipboardLurker_Newitem;
+                this._clipboardLurker = new ClipboardLurker(this._settingsService, keyboarHelper);
 
                 this._container.RegisterInstance(typeof(ProcessLurker), null, this._processLurker);
                 this._container.RegisterInstance(typeof(ClientLurker), null, this._currentLurker);
@@ -372,7 +383,6 @@ namespace Lurker.UI
 
             if (this._clipboardLurker != null)
             {
-                this._clipboardLurker.Newitem -= this.ClipboardLurker_Newitem;
                 this._clipboardLurker.Dispose();
                 this._clipboardLurker = null;
             }
@@ -396,6 +406,13 @@ namespace Lurker.UI
                 this._currentDockingHelper.Dispose();
                 this._currentDockingHelper = null;
             }
+
+            if (this._mouseLurker != null)
+            {
+                this._mouseLurker.Newitem -= this.MouseLurker_Newitem;
+                this._mouseLurker.Dispose();
+                this._mouseLurker = null;
+            }
         }
 
         /// <summary>
@@ -413,7 +430,6 @@ namespace Lurker.UI
             // Client Lurker
             this._currentLurker = new ClientLurker(process);
             this._currentLurker.AdminRequested += this.CurrentLurker_AdminRequested;
-                        
 
             if (this._closing)
             {
@@ -422,6 +438,7 @@ namespace Lurker.UI
 
             this.ShowOverlays(process);
             await this.CheckForUpdate();
+            await this.CheckPledgeStatus();
 
             await affixServiceTask;
         }
@@ -498,7 +515,7 @@ namespace Lurker.UI
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
-        private void ClipboardLurker_Newitem(object sender, PoeItem e)
+        private void MouseLurker_Newitem(object sender, PoeItem e)
         {
             this.IsItemOverlayOpen = false;
             this.ItemOverlayViewModel = new ItemOverlayViewModel(e, () => { this.IsItemOverlayOpen = false; });
@@ -517,6 +534,14 @@ namespace Lurker.UI
             }
 
             this.ActivateItem(screen);
+        }
+
+        /// <summary>
+        /// Checks the pledge status.
+        /// </summary>
+        private async Task CheckPledgeStatus()
+        {
+            await ClipboardHelper.CheckPledgeStatusAsync();
         }
 
         #endregion
