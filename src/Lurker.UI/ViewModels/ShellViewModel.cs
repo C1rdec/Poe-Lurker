@@ -484,7 +484,7 @@ namespace Lurker.UI
                     {
                         this._eventAggregator.PublishOnUIThread(new ManaBulbMessage() { View = new CollaborationViewModel(validCollaboration), Action = validCollaboration.Open, DisplayTime = TimeSpan.FromSeconds(6) });
                     }
-                    else
+                    else if (this._settingsService.ShowStartupAnimation)
                     {
                         this._eventAggregator.PublishOnUIThread(new ManaBulbMessage() { View = new SplashscreenViewModel(), DisplayTime = TimeSpan.FromSeconds(5) });
                     }

@@ -382,6 +382,38 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets the tradebar scaling.
+        /// </summary>
+        public double TradebarScaling
+        {
+            get
+            {
+                return this._settings.TradebarScaling;
+            }
+
+            set
+            {
+                this._settings.TradebarScaling = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [show startup animation].
+        /// </summary>
+        public bool ShowStartupAnimation
+        {
+            get
+            {
+                return this._settings.ShowStartupAnimation;
+            }
+
+            set
+            {
+                this._settings.ShowStartupAnimation = value;
+            }
+        }
+
+        /// <summary>
         /// Gets the name of the folder.
         /// </summary>
         private string FolderName => "PoeLurker";

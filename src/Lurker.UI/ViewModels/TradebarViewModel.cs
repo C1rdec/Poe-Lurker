@@ -337,7 +337,7 @@ namespace Lurker.UI.ViewModels
         /// <param name="windowInformation"></param>
         protected override void SetWindowPosition(PoeWindowInformation windowInformation)
         {
-            var overlayHeight = DefaultOverlayHeight * windowInformation.FlaskBarHeight / DefaultFlaskBarHeight;
+            var overlayHeight = DefaultOverlayHeight * windowInformation.FlaskBarHeight / DefaultFlaskBarHeight * this._settingsService.TradebarScaling;
             var overlayWidth = (windowInformation.Width - (windowInformation.FlaskBarWidth * 2)) / 2;
 
             Execute.OnUIThread(() =>

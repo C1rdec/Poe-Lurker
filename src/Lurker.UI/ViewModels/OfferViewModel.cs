@@ -12,12 +12,13 @@ namespace Lurker.UI.ViewModels
     using Lurker.Patreon.Models;
     using Lurker.Services;
     using Lurker.UI.Models;
+    using Lurker.UI.Views;
     using System;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows.Input;
 
-    public class OfferViewModel: PropertyChangedBase, IDisposable
+    public class OfferViewModel: Screen, IDisposable, IViewAware
     {
         #region Fields
 
@@ -56,6 +57,16 @@ namespace Lurker.UI.ViewModels
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets the height of the button.
+        /// </summary>
+        public double ButtonHeight { get; private set; }
+
+        /// <summary>
+        /// Gets the size of the font.
+        /// </summary>
+        public double FontSize { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether [already sold].
@@ -342,6 +353,19 @@ namespace Lurker.UI.ViewModels
             {
                 this._tokenSource.Cancel();
             }
+        }
+
+        /// <summary>
+        /// Called when an attached view's Loaded event fires.
+        /// </summary>
+        protected override void OnViewLoaded(object view)
+        {
+            var offerView = view as OfferView;
+            this.ButtonHeight = offerView.ActualHeight / 3;
+            this.FontSize = offerView.ActualHeight / 4;
+
+            this.NotifyOfPropertyChange("ButtonHeight");
+            this.NotifyOfPropertyChange("FontSize"); 
         }
 
         /// <summary>

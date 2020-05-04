@@ -122,6 +122,15 @@ namespace Lurker.Models
         [DefaultValue("#FFFFFFFF")]
         public string LifeForeground { get; set; }
 
+        /// <summary>
+        /// Gets or sets the trade bar scaling.
+        /// </summary>
+        [DefaultValue(1)]
+        public double TradebarScaling { get; set; }
+
+        [DefaultValue(true)]
+        public bool ShowStartupAnimation { get; set; }
+
         #endregion
     }
 }

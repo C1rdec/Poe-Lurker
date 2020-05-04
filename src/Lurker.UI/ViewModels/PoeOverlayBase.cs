@@ -124,6 +124,7 @@ namespace Lurker.UI.ViewModels
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void SettingsService_OnSave(object sender, EventArgs e)
         {
+            this.SetWindowPosition(this._dockingHelper.WindowInformation);
             this.NotifyOfPropertyChange(nameof(this.DebugEnabled));
         }
 
@@ -133,9 +134,9 @@ namespace Lurker.UI.ViewModels
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         /// <exception cref="System.NotImplementedException"></exception>
-        private void DockingHelper_OnWindowMove(object sender, PoeWindowInformation position)
+        private void DockingHelper_OnWindowMove(object sender, PoeWindowInformation information)
         {
-            this.SetWindowPosition(position);
+            this.SetWindowPosition(information);
         }
 
         /// <summary>

@@ -15,7 +15,7 @@ namespace Lurker.UI.Views
     {
         public OfferView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }
