@@ -205,7 +205,7 @@ namespace Lurker.UI.ViewModels
                 this._view.Height = height < 0 ? 1 : height;
                 this._view.Width = width;
                 this._view.Left = windowInformation.Position.Left + yPosition;
-                this._view.Top = windowInformation.Position.Bottom - windowInformation.FlaskBarHeight + Margin;
+                this._view.Top = windowInformation.Position.Bottom - windowInformation.FlaskBarHeight - Margin;
             });
         }
 

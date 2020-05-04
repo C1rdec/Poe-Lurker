@@ -21,7 +21,7 @@ namespace Lurker.UI.ViewModels
         #region Fields
 
         private INotifyPropertyChanged _actionView;
-        protected static readonly int DefaultBulbHeight = 220;
+        protected static readonly int DefaultBulbHeight = 215;
         protected System.Action _action;
         private System.Action _previousAction;
         private INotifyPropertyChanged _previousActionView;

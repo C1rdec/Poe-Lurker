@@ -106,8 +106,8 @@ namespace Lurker.UI.ViewModels
             {
                 this._view.Height = value;
                 this._view.Width = value;
-                this._view.Left = windowInformation.Position.Right - value -  6;
-                this._view.Top = windowInformation.Position.Bottom - value;
+                this._view.Left = windowInformation.Position.Right - value - 10;
+                this._view.Top = windowInformation.Position.Bottom - value - 10;
                 var lifeView = this._view as ManaBulbView;
             });
         }
