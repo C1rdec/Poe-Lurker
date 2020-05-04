@@ -4,7 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-
 namespace Lurker.UI.ViewModels
 {
     using Caliburn.Micro;
@@ -28,7 +27,7 @@ namespace Lurker.UI.ViewModels
         protected Window _view;
         protected SettingsService _settingsService;
         protected ProcessLurker _processLurker;
-        private DockingHelper _dockingHelper;
+        protected DockingHelper _dockingHelper;
         private bool _manualHide;
 
         #endregion
@@ -124,7 +123,6 @@ namespace Lurker.UI.ViewModels
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void SettingsService_OnSave(object sender, EventArgs e)
         {
-            this.SetWindowPosition(this._dockingHelper.WindowInformation);
             this.NotifyOfPropertyChange(nameof(this.DebugEnabled));
         }
 
