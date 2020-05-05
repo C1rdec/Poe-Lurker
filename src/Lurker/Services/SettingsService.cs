@@ -445,10 +445,13 @@ namespace Lurker.Services
         /// <summary>
         /// Saves this instance.
         /// </summary>
-        public void Save()
+        public void Save(bool raiseEvent = true)
         {
             this._settings.WriteJsonFile(this.SettingsFilePath);
-            this.OnSave?.Invoke(this, EventArgs.Empty);
+            if (raiseEvent)
+            {
+                this.OnSave?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         private void CreateDefaultSettings()
