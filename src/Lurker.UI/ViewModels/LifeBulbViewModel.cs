@@ -31,8 +31,8 @@ namespace Lurker.UI.ViewModels
         /// <param name="dockingHelper">The docking helper.</param>
         /// <param name="lurker"></param>
         /// <param name="settingsService"></param>H
-        public LifeBulbViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService, PoeKeyboardHelper keyboard) 
-            : base(windowManager, dockingHelper, processLurker, settingsService)
+        public LifeBulbViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, ClientLurker clientLurker,SettingsService settingsService, PoeKeyboardHelper keyboard) 
+            : base(windowManager, dockingHelper, processLurker, settingsService, clientLurker)
         {
             this._keyboardHelper = keyboard;
             this._eventAggregator = eventAggregator;

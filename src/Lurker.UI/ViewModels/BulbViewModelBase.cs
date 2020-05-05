@@ -8,8 +8,8 @@ namespace Lurker.UI.ViewModels
 {
     using Caliburn.Micro;
     using Lurker.Helpers;
+    using Lurker.Patreon.Events;
     using Lurker.Services;
-    using Lurker.UI.Helpers;
     using Lurker.UI.Models;
     using System;
     using System.ComponentModel;
@@ -23,6 +23,7 @@ namespace Lurker.UI.ViewModels
         private INotifyPropertyChanged _actionView;
         protected static readonly int DefaultBulbHeight = 215;
         protected System.Action _action;
+        protected ClientLurker _clientLurker;
         private System.Action _previousAction;
         private INotifyPropertyChanged _previousActionView;
         private CancellationTokenSource _tokenSource;
@@ -38,9 +39,10 @@ namespace Lurker.UI.ViewModels
         /// <param name="dockingHelper">The docking helper.</param>
         /// <param name="lurker"></param>
         /// <param name="settingsService"></param>H
-        public BulbViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService)
+        public BulbViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService, ClientLurker clientLurker)
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
+            this._clientLurker = clientLurker;
             this.SetDefaultAction();
         }
 
@@ -119,7 +121,14 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         protected void SetDefaultAction()
         {
-            this.SetAction(new BulbMessage() { Action = this.DefaultAction });
+            EventHandler<LocationChangedEvent> firstLocationChanged = default;
+            firstLocationChanged = (s, a) =>
+            {
+                this._clientLurker.LocationChanged -= firstLocationChanged;
+                this.SetAction(new BulbMessage() { Action = this.DefaultAction });
+            };
+            this._clientLurker.LocationChanged += firstLocationChanged;
+
         }
 
         /// <summary>

@@ -20,7 +20,6 @@ namespace Lurker.UI.ViewModels
 
         private IEventAggregator _eventAggregator;
         private bool _updateRequired;
-        private ClientLurker _clientLurker;
 
         #endregion
 
@@ -34,11 +33,10 @@ namespace Lurker.UI.ViewModels
         /// <param name="lurker"></param>
         /// <param name="settingsService"></param>H
         public ManaBulbViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, DockingHelper dockingHelper, ClientLurker clientLurker, ProcessLurker processLurker, SettingsService settingsService) 
-            : base(windowManager, dockingHelper, processLurker, settingsService)
+            : base(windowManager, dockingHelper, processLurker, settingsService, clientLurker)
         {
             this._eventAggregator = eventAggregator;
             this._eventAggregator.Subscribe(this);
-            this._clientLurker = clientLurker;
 
             this._clientLurker.LocationChanged += this.Lurker_LocationChanged;
             this._clientLurker.RemainingMonsters += this.Lurker_RemainingMonsters;
