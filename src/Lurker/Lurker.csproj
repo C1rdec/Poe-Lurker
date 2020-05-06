@@ -157,6 +157,7 @@
     <Compile Include="Models\PoeApplicationContext.cs" />
     <Compile Include="Models\PoeWindowInformation.cs" />
     <Compile Include="Models\Settings.cs" />
+    <Compile Include="Models\WindowStyle.cs" />
     <Compile Include="Native.cs" />
     <Compile Include="ProcessLurker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

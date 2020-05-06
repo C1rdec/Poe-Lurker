@@ -200,6 +200,7 @@ namespace Lurker.UI.ViewModels
             var yPosition = windowInformation.FlaskBarWidth * (238 / (double)DefaultFlaskBarWidth);
             var width = windowInformation.Height * DefaultWidth / 1080;
             var height = windowInformation.FlaskBarHeight - (Margin * 2);
+
             Execute.OnUIThread(() =>
             {
                 this._view.Height = height < 0 ? 1 : height;

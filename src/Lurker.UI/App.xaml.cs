@@ -17,5 +17,5 @@ namespace Lurker.UI
         {
             this.InitializeComponent();
         }
-    }
+    }   
 }

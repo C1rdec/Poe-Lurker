@@ -47,12 +47,14 @@
         protected override void SetWindowPosition(PoeWindowInformation windowInformation)
         {
             var value = DefaultSize * windowInformation.Height / 1080;
+            var margin = PoeApplicationContext.WindowStyle == WindowStyle.Windowed ? 10 : 0;
+
             Execute.OnUIThread(() =>
             {
                 this._view.Height = value;
                 this._view.Width = value;
-                this._view.Left = windowInformation.Position.Left + 10;
-                this._view.Top = windowInformation.Position.Bottom - value - 10;
+                this._view.Left = windowInformation.Position.Left + margin;
+                this._view.Top = windowInformation.Position.Bottom - value - margin;
             });
         }
     }
