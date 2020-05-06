@@ -23,7 +23,16 @@ namespace Lurker.UI.ViewModels
     {
         #region Fields
 
-        private DockingHelper _dockingHelper;
+        protected static int Margin = 4;
+        protected static int DefaultFlaskBarHeight = 122;
+        protected static int DefaultFlaskBarWidth = 550;
+        protected static int DefaultExpBarHeight = 24;
+        protected static int DefaultHeight = 1080;
+
+        protected Window _view;
+        protected SettingsService _settingsService;
+        protected ProcessLurker _processLurker;
+        protected DockingHelper _dockingHelper;
         private bool _manualHide;
 
         #endregion
@@ -168,10 +177,11 @@ namespace Lurker.UI.ViewModels
         /// Handles the OnWindowMove event of the DockingHelper control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="position">The position.</param>
-        private void DockingHelper_OnWindowMove(object sender, PoeWindowInformation position)
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <exception cref="System.NotImplementedException"></exception>
+        private void DockingHelper_OnWindowMove(object sender, PoeWindowInformation information)
         {
-            this.SetWindowPosition(position);
+            this.SetWindowPosition(information);
         }
 
         /// <summary>

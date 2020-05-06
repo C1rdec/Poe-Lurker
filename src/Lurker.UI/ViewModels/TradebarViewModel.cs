@@ -69,6 +69,7 @@ namespace Lurker.UI.ViewModels
 
             this._context = new TradebarContext(this.RemoveOffer, this.AddActiveOffer, this.SetActiveOffer);
             this.DisplayName = "Poe Lurker";
+            this._settingsService.OnSave += this.SettingsService_OnSave;
         }
 
         #endregion
@@ -344,7 +345,13 @@ namespace Lurker.UI.ViewModels
         /// <param name="windowInformation">The window information.</param>
         protected override void SetWindowPosition(PoeWindowInformation windowInformation)
         {
-            var overlayHeight = DefaultOverlayHeight * windowInformation.FlaskBarHeight / DefaultFlaskBarHeight;
+            // When Poe Lurker is updated we save the settings before the view are loaded
+            if (this._view == null)
+            {
+                return;
+            }
+
+            var overlayHeight = DefaultOverlayHeight * windowInformation.FlaskBarHeight / DefaultFlaskBarHeight * this._settingsService.TradebarScaling;
             var overlayWidth = (windowInformation.Width - (windowInformation.FlaskBarWidth * 2)) / 2;
 
             Execute.OnUIThread(() =>
@@ -354,6 +361,19 @@ namespace Lurker.UI.ViewModels
                 this.View.Left = windowInformation.Position.Left + windowInformation.FlaskBarWidth + Margin;
                 this.View.Top = windowInformation.Position.Bottom - overlayHeight - windowInformation.ExpBarHeight - Margin;
             });
+        }
+
+        /// <summary>
+        /// Handles the OnSave event of the _settingsService control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void SettingsService_OnSave(object sender, System.EventArgs e)
+        {
+            if (this._dockingHelper.WindowInformation != null)
+            {
+                this.SetWindowPosition(this._dockingHelper.WindowInformation);
+            }
         }
 
         #endregion

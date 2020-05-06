@@ -28,6 +28,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         protected static readonly int DefaultBulbHeight = 220;
 
+        protected ClientLurker _clientLurker;
         private INotifyPropertyChanged _actionView;
         private System.Action _previousAction;
         private INotifyPropertyChanged _previousActionView;
@@ -47,6 +48,7 @@ namespace Lurker.UI.ViewModels
         public BulbViewModelBase(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService)
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
+            this._clientLurker = clientLurker;
             this.SetDefaultAction();
         }
 
@@ -130,7 +132,14 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         protected void SetDefaultAction()
         {
-            this.SetAction(new BulbMessage() { Action = this.DefaultAction });
+            EventHandler<LocationChangedEvent> firstLocationChanged = default;
+            firstLocationChanged = (s, a) =>
+            {
+                this._clientLurker.LocationChanged -= firstLocationChanged;
+                this.SetAction(new BulbMessage() { Action = this.DefaultAction });
+            };
+            this._clientLurker.LocationChanged += firstLocationChanged;
+
         }
 
         /// <summary>

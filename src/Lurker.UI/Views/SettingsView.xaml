@@ -183,6 +183,8 @@
                     <Grid Grid.Row="1" Margin="0,30,0,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"></ColumnDefinition>
@@ -190,6 +192,24 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock FontSize="18">Life Foreground</TextBlock>
                         <xctk:ColorPicker SelectedColor="{Binding LifebarColor}" Foreground="Black" HorizontalAlignment="Left" Grid.Column="1" Margin="10,0,0,0" Width="100" AvailableColorsSortingMode="HueSaturationBrightness" ></xctk:ColorPicker>
+                        <TextBlock FontSize="18" Grid.Row="1" Margin="0,10,0,0">Scaling</TextBlock>
+                        <Slider Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="4,10,0,0"
+                                Controls:SliderHelper.ChangeValueBy="SmallChange"
+                                Controls:SliderHelper.EnableMouseWheel="MouseHover"
+                                LargeChange="0.2"
+                                Maximum="1.5"
+                                Minimum="1"
+                                Orientation="Horizontal"
+                                SmallChange="0.1"
+                                Value="{Binding TradebarScaling}" />
+                        <TextBlock Grid.Row="2" FontSize="18" Margin="0,10,0,0">Startup Animation</TextBlock>
+                        <Controls:ToggleSwitch Grid.Row="2"
+                                               Grid.Column="2"
+                                               Margin="20,4,0,0"
+                                               HorizontalAlignment="Left"
+                                               IsChecked="{Binding ShowStartupAnimation}"/>
                     </Grid>
                 </Grid>
             </TabItem>

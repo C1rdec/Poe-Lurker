@@ -104,6 +104,40 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets the tradebar scaling.
+        /// </summary>
+        public double TradebarScaling
+        {
+            get
+            {
+                return this._settingService.TradebarScaling;
+            }
+
+            set
+            {
+                this._settingService.TradebarScaling = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the show startup animation.
+        /// </summary>
+        public bool ShowStartupAnimation
+        {
+            get
+            {
+                return this._settingService.ShowStartupAnimation;
+            }
+
+            set
+            {
+                this._settingService.ShowStartupAnimation = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
         /// Gets a value indicating whether this <see cref="SettingsViewModel"/> is connected.
         /// </summary>
         public bool NotConnected => !new Patreon.TokenService().Connected;

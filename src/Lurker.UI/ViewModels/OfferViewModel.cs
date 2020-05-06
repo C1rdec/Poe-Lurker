@@ -67,6 +67,16 @@ namespace Lurker.UI.ViewModels
         #region Properties
 
         /// <summary>
+        /// Gets the height of the button.
+        /// </summary>
+        public double ButtonHeight { get; private set; }
+
+        /// <summary>
+        /// Gets the size of the font.
+        /// </summary>
+        public double FontSize { get; private set; }
+
+        /// <summary>
         /// Gets a value indicating whether [already sold].
         /// </summary>
         public bool AlreadySold => this._alreadySold;
@@ -351,6 +361,19 @@ namespace Lurker.UI.ViewModels
             {
                 this._tokenSource.Cancel();
             }
+        }
+
+        /// <summary>
+        /// Called when an attached view's Loaded event fires.
+        /// </summary>
+        protected override void OnViewLoaded(object view)
+        {
+            var offerView = view as OfferView;
+            this.ButtonHeight = offerView.ActualHeight / 3;
+            this.FontSize = offerView.ActualHeight / 4;
+
+            this.NotifyOfPropertyChange("ButtonHeight");
+            this.NotifyOfPropertyChange("FontSize"); 
         }
 
         /// <summary>
