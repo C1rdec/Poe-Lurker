@@ -12,6 +12,7 @@ namespace Lurker.UI.ViewModels
     using System.Threading.Tasks;
     using Caliburn.Micro;
     using Lurker.Helpers;
+    using Lurker.Patreon.Events;
     using Lurker.Services;
     using Lurker.UI.Models;
 
@@ -28,7 +29,6 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         protected static readonly int DefaultBulbHeight = 220;
 
-        protected ClientLurker _clientLurker;
         private INotifyPropertyChanged _actionView;
         private System.Action _previousAction;
         private INotifyPropertyChanged _previousActionView;
@@ -45,10 +45,11 @@ namespace Lurker.UI.ViewModels
         /// <param name="dockingHelper">The docking helper.</param>
         /// <param name="processLurker">The Processs lurker.</param>
         /// <param name="settingsService">The settings serivce.</param>
-        public BulbViewModelBase(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService)
+        /// <param name="clientLurker">The client lurker.</param>
+        public BulbViewModelBase(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService, ClientLurker clientLurker)
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
-            this._clientLurker = clientLurker;
+            this.ClientLurker = clientLurker;
             this.SetDefaultAction();
         }
 
@@ -85,6 +86,11 @@ namespace Lurker.UI.ViewModels
                 this.NotifyOfPropertyChange();
             }
         }
+
+        /// <summary>
+        /// Gets the client lurker.
+        /// </summary>
+        protected ClientLurker ClientLurker { get; private set; }
 
         /// <summary>
         /// Gets the default action.
@@ -135,11 +141,10 @@ namespace Lurker.UI.ViewModels
             EventHandler<LocationChangedEvent> firstLocationChanged = default;
             firstLocationChanged = (s, a) =>
             {
-                this._clientLurker.LocationChanged -= firstLocationChanged;
+                this.ClientLurker.LocationChanged -= firstLocationChanged;
                 this.SetAction(new BulbMessage() { Action = this.DefaultAction });
             };
-            this._clientLurker.LocationChanged += firstLocationChanged;
-
+            this.ClientLurker.LocationChanged += firstLocationChanged;
         }
 
         /// <summary>

@@ -23,16 +23,6 @@ namespace Lurker.UI.ViewModels
     {
         #region Fields
 
-        protected static int Margin = 4;
-        protected static int DefaultFlaskBarHeight = 122;
-        protected static int DefaultFlaskBarWidth = 550;
-        protected static int DefaultExpBarHeight = 24;
-        protected static int DefaultHeight = 1080;
-
-        protected Window _view;
-        protected SettingsService _settingsService;
-        protected ProcessLurker _processLurker;
-        protected DockingHelper _dockingHelper;
         private bool _manualHide;
 
         #endregion
@@ -49,12 +39,12 @@ namespace Lurker.UI.ViewModels
         public PoeOverlayBase(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService)
             : base(windowManager)
         {
-            this._dockingHelper = dockingHelper;
+            this.DockingHelper = dockingHelper;
             this.ProcessLurker = processLurker;
             this.SettingsService = settingsService;
 
-            this._dockingHelper.OnWindowMove += this.DockingHelper_OnWindowMove;
-            this._dockingHelper.OnForegroundChange += this.DockingHelper_OnForegroundChange;
+            this.DockingHelper.OnWindowMove += this.DockingHelper_OnWindowMove;
+            this.DockingHelper.OnForegroundChange += this.DockingHelper_OnForegroundChange;
             this.ProcessLurker.ProcessClosed += this.Lurker_PoeClosed;
             this.SettingsService.OnSave += this.SettingsService_OnSave;
         }
@@ -107,6 +97,11 @@ namespace Lurker.UI.ViewModels
         /// Gets the process lurker.
         /// </summary>
         protected ProcessLurker ProcessLurker { get; private set; }
+
+        /// <summary>
+        /// Gets the docking helper.
+        /// </summary>
+        protected DockingHelper DockingHelper { get; private set; }
 
         #endregion
 
@@ -177,8 +172,7 @@ namespace Lurker.UI.ViewModels
         /// Handles the OnWindowMove event of the DockingHelper control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        /// <exception cref="System.NotImplementedException"></exception>
+        /// <param name="information">The information.</param>
         private void DockingHelper_OnWindowMove(object sender, PoeWindowInformation information)
         {
             this.SetWindowPosition(information);
@@ -201,7 +195,7 @@ namespace Lurker.UI.ViewModels
         protected override void OnViewLoaded(object view)
         {
             this.View = view as Window;
-            this.SetWindowPosition(this._dockingHelper.WindowInformation);
+            this.SetWindowPosition(this.DockingHelper.WindowInformation);
         }
 
         /// <summary>
@@ -220,7 +214,7 @@ namespace Lurker.UI.ViewModels
             {
                 this.ProcessLurker.ProcessClosed -= this.Lurker_PoeClosed;
                 this.SettingsService.OnSave -= this.SettingsService_OnSave;
-                this._dockingHelper.OnWindowMove -= this.DockingHelper_OnWindowMove;
+                this.DockingHelper.OnWindowMove -= this.DockingHelper_OnWindowMove;
             }
 
             base.OnDeactivate(close);

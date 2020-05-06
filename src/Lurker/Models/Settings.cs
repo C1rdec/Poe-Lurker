@@ -130,6 +130,9 @@ namespace Lurker.Models
         [DefaultValue(1)]
         public double TradebarScaling { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [show startup animation].
+        /// </summary>
         [DefaultValue(true)]
         public bool ShowStartupAnimation { get; set; }
 

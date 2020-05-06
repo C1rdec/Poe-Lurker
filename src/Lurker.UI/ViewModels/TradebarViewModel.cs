@@ -69,7 +69,7 @@ namespace Lurker.UI.ViewModels
 
             this._context = new TradebarContext(this.RemoveOffer, this.AddActiveOffer, this.SetActiveOffer);
             this.DisplayName = "Poe Lurker";
-            this._settingsService.OnSave += this.SettingsService_OnSave;
+            this.SettingsService.OnSave += this.SettingsService_OnSave;
         }
 
         #endregion
@@ -346,12 +346,12 @@ namespace Lurker.UI.ViewModels
         protected override void SetWindowPosition(PoeWindowInformation windowInformation)
         {
             // When Poe Lurker is updated we save the settings before the view are loaded
-            if (this._view == null)
+            if (this.View == null)
             {
                 return;
             }
 
-            var overlayHeight = DefaultOverlayHeight * windowInformation.FlaskBarHeight / DefaultFlaskBarHeight * this._settingsService.TradebarScaling;
+            var overlayHeight = DefaultOverlayHeight * windowInformation.FlaskBarHeight / DefaultFlaskBarHeight * this.SettingsService.TradebarScaling;
             var overlayWidth = (windowInformation.Width - (windowInformation.FlaskBarWidth * 2)) / 2;
 
             Execute.OnUIThread(() =>
@@ -370,9 +370,9 @@ namespace Lurker.UI.ViewModels
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void SettingsService_OnSave(object sender, System.EventArgs e)
         {
-            if (this._dockingHelper.WindowInformation != null)
+            if (this.DockingHelper.WindowInformation != null)
             {
-                this.SetWindowPosition(this._dockingHelper.WindowInformation);
+                this.SetWindowPosition(this.DockingHelper.WindowInformation);
             }
         }
 

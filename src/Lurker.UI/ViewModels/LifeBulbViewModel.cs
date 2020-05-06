@@ -37,6 +37,7 @@ namespace Lurker.UI.ViewModels
         /// <param name="processLurker">The process lurker.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="keyboard">The keyboard.</param>
+        /// <param name="clientLurker">The client lurker.</param>
         public LifeBulbViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService, PoeKeyboardHelper keyboard, ClientLurker clientLurker)
             : base(windowManager, dockingHelper, processLurker, settingsService, clientLurker)
         {
@@ -67,10 +68,10 @@ namespace Lurker.UI.ViewModels
             var value = DefaultBulbHeight * windowInformation.Height / 1080;
             Execute.OnUIThread(() =>
             {
-                this._view.Height = value;
-                this._view.Width = value;
-                this._view.Left = windowInformation.Position.Left + 10;
-                this._view.Top = windowInformation.Position.Bottom - value - 10;
+                this.View.Height = value;
+                this.View.Width = value;
+                this.View.Left = windowInformation.Position.Left + 10;
+                this.View.Top = windowInformation.Position.Bottom - value - 10;
                 var lifeView = this.View as LifeBulbView;
                 lifeView.ResizeLifeBulb();
             });

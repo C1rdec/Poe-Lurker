@@ -451,6 +451,7 @@ namespace Lurker.Services
         /// <summary>
         /// Saves this instance.
         /// </summary>
+        /// <param name="raiseEvent">if set to <c>true</c> [raise event].</param>
         public void Save(bool raiseEvent = true)
         {
             this._settings.WriteJsonFile(this.SettingsFilePath);

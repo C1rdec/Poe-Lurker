@@ -121,7 +121,7 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the show startup animation.
+        /// Gets or sets a value indicating whether [show startup animation].
         /// </summary>
         public bool ShowStartupAnimation
         {

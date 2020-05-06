@@ -34,16 +34,18 @@ namespace Lurker.UI.ViewModels
         /// <param name="eventAggregator">The event aggregator.</param>
         /// <param name="windowManager">The window manager.</param>
         /// <param name="dockingHelper">The docking helper.</param>
-        /// <param name="lurker"></param>
-        /// <param name="settingsService"></param>H
-        public ManaBulbViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, DockingHelper dockingHelper, ClientLurker clientLurker, ProcessLurker processLurker, SettingsService settingsService) 
+        /// <param name="clientLurker">The client lurker.</param>
+        /// <param name="processLurker">The process lurker.</param>
+        /// <param name="settingsService">The settings service.</param>
+        /// H
+        public ManaBulbViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, DockingHelper dockingHelper, ClientLurker clientLurker, ProcessLurker processLurker, SettingsService settingsService)
             : base(windowManager, dockingHelper, processLurker, settingsService, clientLurker)
         {
             this._eventAggregator = eventAggregator;
             this._eventAggregator.Subscribe(this);
 
-            this._clientLurker.LocationChanged += this.Lurker_LocationChanged;
-            this._clientLurker.RemainingMonsters += this.Lurker_RemainingMonsters;
+            this.ClientLurker.LocationChanged += this.Lurker_LocationChanged;
+            this.ClientLurker.RemainingMonsters += this.Lurker_RemainingMonsters;
             this.SettingsService.OnSave += this.SettingsService_OnSave;
         }
 
@@ -106,10 +108,10 @@ namespace Lurker.UI.ViewModels
             var value = DefaultBulbHeight * windowInformation.Height / 1080;
             Execute.OnUIThread(() =>
             {
-                this._view.Height = value;
-                this._view.Width = value;
-                this._view.Left = windowInformation.Position.Right - value - 10;
-                this._view.Top = windowInformation.Position.Bottom - value - 10;
+                this.View.Height = value;
+                this.View.Width = value;
+                this.View.Left = windowInformation.Position.Right - value - 10;
+                this.View.Top = windowInformation.Position.Bottom - value - 10;
                 var lifeView = this.View as ManaBulbView;
             });
         }
@@ -122,8 +124,8 @@ namespace Lurker.UI.ViewModels
         {
             if (close)
             {
-                this._clientLurker.LocationChanged -= this.Lurker_LocationChanged;
-                this._clientLurker.RemainingMonsters -= this.Lurker_RemainingMonsters;
+                this.ClientLurker.LocationChanged -= this.Lurker_LocationChanged;
+                this.ClientLurker.RemainingMonsters -= this.Lurker_RemainingMonsters;
                 this.SettingsService.OnSave -= this.SettingsService_OnSave;
                 this._eventAggregator.Unsubscribe(this);
             }

@@ -16,13 +16,14 @@ namespace Lurker.UI.ViewModels
     using Lurker.Patreon.Models;
     using Lurker.Services;
     using Lurker.UI.Models;
+    using Lurker.UI.Views;
 
     /// <summary>
     /// Represents an Offer.
     /// </summary>
     /// <seealso cref="Caliburn.Micro.PropertyChangedBase" />
     /// <seealso cref="System.IDisposable" />
-    public class OfferViewModel : PropertyChangedBase, IDisposable
+    public class OfferViewModel : Screen, IDisposable
     {
         #region Fields
 
@@ -366,6 +367,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Called when an attached view's Loaded event fires.
         /// </summary>
+        /// <param name="view">The view.</param>
         protected override void OnViewLoaded(object view)
         {
             var offerView = view as OfferView;
@@ -373,7 +375,7 @@ namespace Lurker.UI.ViewModels
             this.FontSize = offerView.ActualHeight / 4;
 
             this.NotifyOfPropertyChange("ButtonHeight");
-            this.NotifyOfPropertyChange("FontSize"); 
+            this.NotifyOfPropertyChange("FontSize");
         }
 
         /// <summary>
