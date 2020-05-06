@@ -40,6 +40,7 @@ namespace Lurker.UI
         private OutgoingbarViewModel _outgoingTradeBarOverlay;
         private LifeBulbViewModel _lifeBulbOverlay;
         private ManaBulbViewModel _manaBulbOverlay;
+        private HideoutViewModel _hideoutOverlay;
         private SettingsService _settingsService;
         private ItemOverlayViewModel _itemOverlay;
         private SettingsViewModel _settingsViewModel;
@@ -334,11 +335,13 @@ namespace Lurker.UI
                 this._outgoingTradeBarOverlay = this._container.GetInstance<OutgoingbarViewModel>();
                 this._lifeBulbOverlay = this._container.GetInstance<LifeBulbViewModel>();
                 this._manaBulbOverlay = this._container.GetInstance<ManaBulbViewModel>();
+                this._hideoutOverlay = this._container.GetInstance<HideoutViewModel>();
 
                 this.ActivateItem(this._incomingTradeBarOverlay);
                 this.ActivateItem(this._outgoingTradeBarOverlay);
                 this.ActivateItem(this._lifeBulbOverlay);
                 this.ActivateItem(this._manaBulbOverlay);
+                this.ActivateItem(this._hideoutOverlay);
             });
         }
 

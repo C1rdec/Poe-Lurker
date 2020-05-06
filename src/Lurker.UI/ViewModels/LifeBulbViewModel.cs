@@ -18,7 +18,6 @@ namespace Lurker.UI.ViewModels
         #region Fields
 
         private IEventAggregator _eventAggregator;
-        private PoeKeyboardHelper _keyboardHelper;
 
         #endregion
 
@@ -31,10 +30,9 @@ namespace Lurker.UI.ViewModels
         /// <param name="dockingHelper">The docking helper.</param>
         /// <param name="lurker"></param>
         /// <param name="settingsService"></param>H
-        public LifeBulbViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, ClientLurker clientLurker,SettingsService settingsService, PoeKeyboardHelper keyboard) 
+        public LifeBulbViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, ClientLurker clientLurker,SettingsService settingsService) 
             : base(windowManager, dockingHelper, processLurker, settingsService, clientLurker)
         {
-            this._keyboardHelper = keyboard;
             this._eventAggregator = eventAggregator;
             this._eventAggregator.Subscribe(this);
         }
@@ -69,11 +67,6 @@ namespace Lurker.UI.ViewModels
                 lifeView.ResizeLifeBulb();
             });
         }
-
-        /// <summary>
-        /// Defaults the action.
-        /// </summary>
-        protected override System.Action DefaultAction => () => this._keyboardHelper.JoinHideout();
 
         #endregion
     }

@@ -250,6 +250,7 @@
     <Compile Include="ViewModels\AffixViewModel.cs" />
     <Compile Include="ViewModels\ChartViewModelBase.cs" />
     <Compile Include="ViewModels\CollaborationViewModel.cs" />
+    <Compile Include="ViewModels\HideoutViewModel.cs" />
     <Compile Include="ViewModels\LineChartViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\ItemOverlayViewModel.cs" />
@@ -281,6 +282,9 @@
     </Compile>
     <Compile Include="Views\DashboardView.xaml.cs">
       <DependentUpon>DashboardView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HideoutView.xaml.cs">
+      <DependentUpon>HideoutView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ItemOverlayView.xaml.cs">
       <DependentUpon>ItemOverlayView.xaml</DependentUpon>
@@ -349,6 +353,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DashboardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HideoutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
