@@ -6,10 +6,9 @@ If you like and use Poe Lurker please consider signing up for a small monthly [P
 ![GitHub All Releases](https://img.shields.io/github/downloads/C1rdec/Poe-Lurker/total?color=Blue&label=Official%20Lurker&style=for-the-badge) [![Discord](https://img.shields.io/discord/663088791539679244?style=for-the-badge)](https://discord.gg/hQERv7K) <a href="https://www.patreon.com/poelurker"><img src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.herokuapp.com%2FPoeLurker&style=for-the-badge" /> </a> [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg?style=for-the-badge)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WEYTVSDNTB8GY&currency_code=CAD&source=url)
 
 # Shoutouts
-* [SignPath.io](https://signpath.io/) for the free code signing.<br />
-<a href="https://signpath.io/" target="_blank"><img src="./assets/signpath_logo.png"></a>
-* [Winook](https://github.com/macote/Winook) for the thread level hook.<br />
-<a href="https://github.com/macote/Winook" target="_blank"><img height="42" src="./assets/WinookLogo.png"></a>
+| [SignPath.io](https://signpath.io/) for the free code signing | [Winook](https://github.com/macote/Winook) for the thread level hook |
+| ------------- | ------------- |
+| <a href="https://signpath.io/" target="_blank"><img src="./assets/signpath_logo.png"></a>  | <a href="https://github.com/macote/Winook" target="_blank"><img height="42" src="./assets/WinookLogo.png"></a> |
 
 ## Usage
 - Install ≥ [.NET Framework 4.8](https://dotnet.microsoft.com/download/dotnet-framework)
