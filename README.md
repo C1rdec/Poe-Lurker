@@ -8,6 +8,8 @@ If you like and use Poe Lurker please consider signing up for a small monthly [P
 # Shoutouts
 * [SignPath.io](https://signpath.io/) for the free code signing.<br />
 <a href="https://signpath.io/" target="_blank"><img src="./assets/signpath_logo.png"></a>
+* [Winhook](https://github.com/macote/Winook) for the thread level hook.<br />
+<a href="https://signpath.io/" target="_blank"><img height="42" src="./assets/WinookLogo.png"></a>
 
 ## Usage
 - Install ≥ [.NET Framework 4.8](https://dotnet.microsoft.com/download/dotnet-framework)
