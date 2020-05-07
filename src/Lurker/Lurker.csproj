@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\Winook.0.1.0-alpha\build\Winook.props" Condition="Exists('..\..\packages\Winook.0.1.0-alpha\build\Winook.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,6 +14,8 @@
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -141,6 +144,9 @@
     <Reference Include="WindowsInput, Version=1.0.4.0, Culture=neutral, PublicKeyToken=9b287f7dc5073cad, processorArchitecture=MSIL">
       <HintPath>..\..\packages\InputSimulator.1.0.4.0\lib\net20\WindowsInput.dll</HintPath>
     </Reference>
+    <Reference Include="Winook, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Winook.0.1.0-alpha\lib\net45\Winook.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientLurker.cs" />
@@ -166,10 +172,8 @@
     <Compile Include="Services\AssetService.cs" />
     <Compile Include="Services\CollaborationService.cs" />
     <Compile Include="Services\HttpServiceBase.cs" />
-    <Compile Include="Services\MouseHookService.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\SoundService.cs" />
-    <Compile Include="Services\SocketMessageService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -178,23 +182,11 @@
   <ItemGroup>
     <EmbeddedResource Include="Assets\TradeAlert.mp3" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\..\assets\Lurker.HookHelper.x64.exe">
-      <Link>Lurker.HookHelper.x64.exe</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\assets\Lurker.HookHelper.x86.exe">
-      <Link>Lurker.HookHelper.x86.exe</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\assets\Lurker.HookLib.x64.dll">
-      <Link>Lurker.HookLib.x64.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\assets\Lurker.HookLib.x86.dll">
-      <Link>Lurker.HookLib.x86.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\Winook.0.1.0-alpha\build\Winook.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Winook.0.1.0-alpha\build\Winook.props'))" />
+  </Target>
 </Project>

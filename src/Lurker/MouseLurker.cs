@@ -13,6 +13,7 @@ namespace Lurker
     using Lurker.Patreon.Models;
     using Lurker.Services;
     using WindowsInput;
+    using Winook;
 
     public class MouseLurker : IDisposable
     {
@@ -20,7 +21,7 @@ namespace Lurker
 
         private InputSimulator _simulator;
         private SettingsService _settingsService;
-        private MouseHookService _mouseHookService;
+        private MouseHook _mouseHook;
         private bool _disposed = false;
 
         #endregion
@@ -35,8 +36,9 @@ namespace Lurker
         {
             this._settingsService = settingsService;
             this._simulator = new InputSimulator();
-            this._mouseHookService = new MouseHookService(process);
-            this._mouseHookService.MouseLeftButtonUp += MouseHookService_MouseLeftButtonUp;
+            this._mouseHook = new MouseHook(process);
+            this._mouseHook.MouseLeftButtonUp += MouseHook_MouseLeftButtonUp;
+            this._mouseHook.Install();
         }
 
         #endregion
@@ -69,8 +71,8 @@ namespace Lurker
                 {
                     try
                     {
-                        this._mouseHookService.MouseLeftButtonUp -= this.MouseHookService_MouseLeftButtonUp;
-                        this._mouseHookService.Dispose();
+                        this._mouseHook.MouseLeftButtonUp -= this.MouseHook_MouseLeftButtonUp;
+                        this._mouseHook.Dispose();
                     }
                     catch
                     {
@@ -86,7 +88,7 @@ namespace Lurker
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void MouseHookService_MouseLeftButtonUp(object sender, EventArgs e)
+        private void MouseHook_MouseLeftButtonUp(object sender, EventArgs e)
         {
             if (!this._settingsService.SearchEnabled)
             {
