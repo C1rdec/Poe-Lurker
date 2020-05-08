@@ -37,7 +37,7 @@ namespace Lurker
             this._settingsService = settingsService;
             this._simulator = new InputSimulator();
             this._mouseHook = new MouseHook(process);
-            this._mouseHook.MouseLeftButtonUp += MouseHook_MouseLeftButtonUp;
+            this._mouseHook.MouseLeftButtonUp += this.MouseHook_MouseLeftButtonUp;
             this._mouseHook.Install();
         }
 
