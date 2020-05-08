@@ -62,8 +62,5 @@ namespace Lurker.Extensions
 
             return newProcess.MainWindowHandle;
         }
-
-        public static uint GetWindowThreadProcessId(this Process process)
-            => Native.GetWindowThreadProcessId(process.MainWindowHandle, out uint processId);
     }
 }
