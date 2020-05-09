@@ -37,7 +37,7 @@ namespace Lurker
             this._settingsService = settingsService;
             this._simulator = new InputSimulator();
             this._mouseHook = new MouseHook(process);
-            this._mouseHook.MouseLeftButtonUp += this.MouseHook_MouseLeftButtonUp;
+            this._mouseHook.LeftButtonUp += this.MouseHook_LeftButtonUp;
             this._mouseHook.Install();
         }
 
@@ -71,7 +71,7 @@ namespace Lurker
                 {
                     try
                     {
-                        this._mouseHook.MouseLeftButtonUp -= this.MouseHook_MouseLeftButtonUp;
+                        this._mouseHook.LeftButtonUp -= this.MouseHook_LeftButtonUp;
                         this._mouseHook.Dispose();
                     }
                     catch
@@ -88,7 +88,7 @@ namespace Lurker
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void MouseHook_MouseLeftButtonUp(object sender, EventArgs e)
+        private void MouseHook_LeftButtonUp(object sender, EventArgs e)
         {
             if (!this._settingsService.SearchEnabled)
             {
