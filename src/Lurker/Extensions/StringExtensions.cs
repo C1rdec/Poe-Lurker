@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="StringExtension.cs" company="Wohs Inc.">
+// <copyright file="StringExtensions.cs" company="Wohs Inc.">
 //     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------

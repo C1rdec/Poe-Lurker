@@ -1,18 +1,21 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ClipboardHelper.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="ClipboardHelper.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.Helpers
 {
-    using Lurker.Patreon.Models;
-    using Lurker.Patreon.Parsers;
     using System;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
+    using Lurker.Patreon.Models;
+    using Lurker.Patreon.Parsers;
 
+    /// <summary>
+    /// Represents the Clipboard helper.
+    /// </summary>
     public static class ClipboardHelper
     {
         #region Fields
@@ -30,7 +33,8 @@ namespace Lurker.Helpers
         public static string GetClipboardText()
         {
             var clipboardText = string.Empty;
-            RetryOnMainThread(() => {
+            RetryOnMainThread(() =>
+            {
                 clipboardText = Clipboard.GetText();
             });
 
@@ -42,7 +46,8 @@ namespace Lurker.Helpers
         /// </summary>
         public static void ClearClipboard()
         {
-            RetryOnMainThread(() => { 
+            RetryOnMainThread(() =>
+            {
                  Clipboard.Clear();
             });
         }
@@ -50,7 +55,7 @@ namespace Lurker.Helpers
         /// <summary>
         /// Gets the item in clipboard.
         /// </summary>
-        /// <returns>The item in the clipboard</returns>
+        /// <returns>The item in the clipboard.</returns>
         public static PoeItem GetItemInClipboard()
         {
             try
@@ -67,7 +72,7 @@ namespace Lurker.Helpers
         /// <summary>
         /// Checks the pledge asynchronous.
         /// </summary>
-        /// <returns>The task awaiter</returns>
+        /// <returns>The task awaiter.</returns>
         public static Task CheckPledgeStatusAsync()
         {
             return ItemParser.CheckPledgeStatus();

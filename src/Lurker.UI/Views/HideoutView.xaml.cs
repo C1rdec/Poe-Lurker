@@ -1,16 +1,24 @@
-﻿namespace Lurker.UI.Views
+﻿//-----------------------------------------------------------------------
+// <copyright file="HideoutView.xaml.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
+// </copyright>
+//-----------------------------------------------------------------------
+
+namespace Lurker.UI.Views
 {
     using System;
     using System.Windows;
 
     /// <summary>
-    /// Interaction logic for HideoutView.xaml
+    /// Interaction logic for HideoutView.xaml.
     /// </summary>
     public partial class HideoutView : Window
     {
         private Window _parent;
 
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HideoutView"/> class.
+        /// </summary>
         public HideoutView()
         {
             this.InitializeComponent();
@@ -39,9 +47,9 @@
                 Width = 1,
                 Height = 1,
 
-                // Set window style as ToolWindow to avoid its icon in AltTab 
-                WindowStyle = WindowStyle.ToolWindow, 
-                ShowInTaskbar = false
+                // Set window style as ToolWindow to avoid its icon in AltTab
+                WindowStyle = WindowStyle.ToolWindow,
+                ShowInTaskbar = false,
             };
 
             this._parent.Show();

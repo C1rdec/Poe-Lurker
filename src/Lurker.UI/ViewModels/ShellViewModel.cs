@@ -321,8 +321,7 @@ namespace Lurker.UI
         /// Handles the OnSave event of the SettingsService control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        /// <exception cref="System.NotImplementedException"></exception>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         private async void SettingsService_OnSave(object sender, EventArgs e)
         {
             await this.CheckPledgeStatus();

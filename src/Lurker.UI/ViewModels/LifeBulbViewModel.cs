@@ -33,9 +33,10 @@ namespace Lurker.UI.ViewModels
         /// <param name="eventAggregator">The event aggregator.</param>
         /// <param name="windowManager">The window manager.</param>
         /// <param name="dockingHelper">The docking helper.</param>
-        /// <param name="lurker"></param>
-        /// <param name="settingsService"></param>H
-        public LifeBulbViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, ClientLurker clientLurker,SettingsService settingsService) 
+        /// <param name="processLurker">The process lurker.</param>
+        /// <param name="clientLurker">The client lurker.</param>
+        /// <param name="settingsService">The settings service.</param>
+        public LifeBulbViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, ClientLurker clientLurker, SettingsService settingsService)
             : base(windowManager, dockingHelper, processLurker, settingsService, clientLurker)
         {
             this._eventAggregator = eventAggregator;

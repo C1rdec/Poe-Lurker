@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ProcessExtension.cs" company="Wohs Inc.">
+// <copyright file="ProcessExtensions.cs" company="Wohs Inc.">
 //     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
