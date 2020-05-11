@@ -16,11 +16,8 @@ namespace Lurker.Extensions
     /// <summary>
     /// Represents all the extension methods.
     /// </summary>
-    public static class ProcessExtension
+    public static class ProcessExtensions
     {
-        [DllImport("Kernel32.dll")]
-        private static extern bool QueryFullProcessImageName([In] IntPtr hProcess, [In] uint dwFlags, [Out] StringBuilder lpExeName, [In, Out] ref uint lpdwSize);
-
         /// <summary>
         /// Gets the name of the main module file.
         /// </summary>
@@ -31,7 +28,7 @@ namespace Lurker.Extensions
         {
             var fileNameBuilder = new StringBuilder(buffer);
             uint bufferLength = (uint)fileNameBuilder.Capacity + 1;
-            return QueryFullProcessImageName(process.Handle, 0, fileNameBuilder, ref bufferLength) ?
+            return Native.QueryFullProcessImageName(process.Handle, 0, fileNameBuilder, ref bufferLength) ?
                 fileNameBuilder.ToString() :
                 null;
         }

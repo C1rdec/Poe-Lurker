@@ -138,6 +138,11 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         protected void SetDefaultAction()
         {
+            if (this.DefaultAction == null)
+            {
+                return;
+            }
+
             EventHandler<LocationChangedEvent> firstLocationChanged = default;
             firstLocationChanged = (s, a) =>
             {

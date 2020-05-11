@@ -71,6 +71,7 @@ namespace Lurker.UI
             this._container.PerRequest<OutgoingbarViewModel, OutgoingbarViewModel>();
             this._container.PerRequest<LifeBulbViewModel, LifeBulbViewModel>();
             this._container.PerRequest<ManaBulbViewModel, ManaBulbViewModel>();
+            this._container.PerRequest<HideoutViewModel, HideoutViewModel>(); 
             this._container.RegisterInstance(typeof(SimpleContainer), null, this._container);
         }
 

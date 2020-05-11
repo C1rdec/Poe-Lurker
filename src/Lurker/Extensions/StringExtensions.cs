@@ -11,7 +11,7 @@ namespace Lurker.Extensions
     /// <summary>
     /// The string extensions.
     /// </summary>
-    public static class StringExtension
+    public static class StringExtensions
     {
         #region Fiels
 

@@ -28,7 +28,7 @@ namespace Lurker.Models
         /// <summary>
         /// Gets or sets the window style.
         /// </summary>
-        public static IntPtr WindowStyle { get; set; }
+        public static WindowStyle WindowStyle { get; set; }
 
         #endregion
     }

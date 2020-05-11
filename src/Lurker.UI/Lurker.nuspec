@@ -13,5 +13,6 @@
   </metadata>
   <files>
     <file src="*.*" target="lib\net45\" exclude="*.pdb;*.xml;*.nupkg;*.vshost.*"/>
+    <file src="winook.support\*.*" target="lib\net45\winook.support" exclude="*.pdb;*.xml;*.nupkg;*.vshost.*"/>
   </files>
 </package>

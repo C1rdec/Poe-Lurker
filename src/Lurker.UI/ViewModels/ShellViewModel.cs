@@ -37,12 +37,14 @@ namespace Lurker.UI
         private SimpleContainer _container;
         private ProcessLurker _processLurker;
         private ClientLurker _currentLurker;
+        private MouseLurker _mouseLurker;
         private DockingHelper _currentDockingHelper;
         private ClipboardLurker _clipboardLurker;
         private TradebarViewModel _incomingTradeBarOverlay;
         private OutgoingbarViewModel _outgoingTradeBarOverlay;
         private LifeBulbViewModel _lifeBulbOverlay;
         private ManaBulbViewModel _manaBulbOverlay;
+        private HideoutViewModel _hideoutOverlay;
         private SettingsService _settingsService;
         private AfkService _afkService;
         private ItemOverlayViewModel _itemOverlay;
@@ -76,7 +78,7 @@ namespace Lurker.UI
             this.WaitForPoe();
             this.StartWithWindows = File.Exists(this.ShortcutFilePath);
             this.ShowInTaskBar = true;
-
+            this._settingsService.OnSave += this.SettingsService_OnSave;
             if (settingsService.FirstLaunch)
             {
                 if (this.StartWithWindows)
@@ -316,16 +318,29 @@ namespace Lurker.UI
         }
 
         /// <summary>
+        /// Handles the OnSave event of the SettingsService control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <exception cref="System.NotImplementedException"></exception>
+        private async void SettingsService_OnSave(object sender, EventArgs e)
+        {
+            await this.CheckPledgeStatus();
+        }
+
+        /// <summary>
         /// Registers the instances.
         /// </summary>
         private void ShowOverlays(Process parentProcess)
         {
             Execute.OnUIThread(() =>
             {
+                this._mouseLurker = new MouseLurker(parentProcess, this._settingsService);
+                this._mouseLurker.Newitem += this.MouseLurker_Newitem;
+
                 var keyboarHelper = new PoeKeyboardHelper(parentProcess);
                 this._currentDockingHelper = new DockingHelper(parentProcess, this._settingsService);
                 this._clipboardLurker = new ClipboardLurker(this._settingsService, keyboarHelper);
-                this._clipboardLurker.Newitem += this.ClipboardLurker_Newitem;
 
                 this._container.RegisterInstance(typeof(ProcessLurker), null, this._processLurker);
                 this._container.RegisterInstance(typeof(ClientLurker), null, this._currentLurker);
@@ -338,11 +353,13 @@ namespace Lurker.UI
                 this._lifeBulbOverlay = this._container.GetInstance<LifeBulbViewModel>();
                 this._manaBulbOverlay = this._container.GetInstance<ManaBulbViewModel>();
                 this._afkService = this._container.GetInstance<AfkService>();
+                this._hideoutOverlay = this._container.GetInstance<HideoutViewModel>();
 
                 this.ActivateItem(this._incomingTradeBarOverlay);
                 this.ActivateItem(this._outgoingTradeBarOverlay);
                 this.ActivateItem(this._lifeBulbOverlay);
                 this.ActivateItem(this._manaBulbOverlay);
+                this.ActivateItem(this._hideoutOverlay);
             });
         }
 
@@ -367,10 +384,10 @@ namespace Lurker.UI
             this._container.UnregisterHandler<DockingHelper>();
             this._container.UnregisterHandler<PoeKeyboardHelper>();
             this._container.UnregisterHandler<ClipboardLurker>();
+            this._container.UnregisterHandler<MouseLurker>();
 
             if (this._clipboardLurker != null)
             {
-                this._clipboardLurker.Newitem -= this.ClipboardLurker_Newitem;
                 this._clipboardLurker.Dispose();
                 this._clipboardLurker = null;
             }
@@ -400,6 +417,13 @@ namespace Lurker.UI
                 this._afkService.Dispose();
                 this._afkService = null;
             }
+
+            if (this._mouseLurker != null)
+            {
+                this._mouseLurker.Newitem -= this.MouseLurker_Newitem;
+                this._mouseLurker.Dispose();
+                this._mouseLurker = null;
+            }
         }
 
         /// <summary>
@@ -425,12 +449,7 @@ namespace Lurker.UI
 
             this.ShowOverlays(process);
             await this.CheckForUpdate();
-
-            // Mouse Shuttering
-            if (this._settingsService.SearchEnabled)
-            {
-                this._clipboardLurker.BindGlobalClick();
-            }
+            await this.CheckPledgeStatus();
 
             await affixServiceTask;
         }
@@ -507,7 +526,7 @@ namespace Lurker.UI
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
-        private void ClipboardLurker_Newitem(object sender, PoeItem e)
+        private void MouseLurker_Newitem(object sender, PoeItem e)
         {
             this.IsItemOverlayOpen = false;
             this.ItemOverlayViewModel = new ItemOverlayViewModel(e, () => { this.IsItemOverlayOpen = false; });
@@ -526,6 +545,14 @@ namespace Lurker.UI
             }
 
             this.ActivateItem(screen);
+        }
+
+        /// <summary>
+        /// Checks the pledge status.
+        /// </summary>
+        private async Task CheckPledgeStatus()
+        {
+            await ClipboardHelper.CheckPledgeStatusAsync();
         }
 
         #endregion

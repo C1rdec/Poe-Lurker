@@ -36,7 +36,6 @@ namespace Lurker
         private SharpClipboard _clipboardMonitor;
         private string _lastClipboardText = string.Empty;
         private IKeyboardMouseEvents _keyboardEvent;
-        private bool _globalClickBinded;
 
         #endregion
 
@@ -49,7 +48,7 @@ namespace Lurker
         /// <param name="keyboardHelper">The keyboard helper.</param>
         public ClipboardLurker(SettingsService settingsService, PoeKeyboardHelper keyboardHelper)
         {
-            this.ClearClipboard();
+            ClipboardHelper.ClearClipboard();
             this._keyboardHelper = keyboardHelper;
             this._simulator = new InputSimulator();
             this._clipboardMonitor = new SharpClipboard();
@@ -58,17 +57,12 @@ namespace Lurker
             this._settingsService.OnSave += this.SettingsService_OnSave;
             this._clipboardMonitor.ClipboardChanged += this.ClipboardMonitor_ClipboardChanged;
             this._itemParser.CheckPledgeStatus();
-            this.StartWatcher();
+            this.LurkForAction();
         }
 
         #endregion
 
         #region Events
-
-        /// <summary>
-        /// Occurs when a new item is in the clipboard.
-        /// </summary>
-        public event EventHandler<PoeItem> Newitem;
 
         /// <summary>
         /// Creates new offer.
@@ -78,20 +72,6 @@ namespace Lurker
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Binds the global click.
-        /// </summary>
-        public void BindGlobalClick()
-        {
-            if (this._globalClickBinded)
-            {
-                return;
-            }
-
-            this._globalClickBinded = true;
-            this._keyboardEvent.MouseClick += this.KeyboardEvent_MouseClick;
-        }
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
@@ -109,7 +89,6 @@ namespace Lurker
         {
             if (disposing)
             {
-                this._keyboardEvent.MouseClick -= this.KeyboardEvent_MouseClick;
                 this._keyboardEvent.Dispose();
                 this._clipboardMonitor.ClipboardChanged -= this.ClipboardMonitor_ClipboardChanged;
                 this._settingsService.OnSave -= this.SettingsService_OnSave;
@@ -124,24 +103,12 @@ namespace Lurker
         private async void SettingsService_OnSave(object sender, EventArgs e)
         {
             await this._itemParser.CheckPledgeStatus();
-            this.StopWatcher();
-            this.StartWatcher();
-
-            if (this._settingsService.SearchEnabled)
-            {
-                this.BindGlobalClick();
-            }
-            else
-            {
-                this._keyboardEvent.MouseClick -= this.KeyboardEvent_MouseClick;
-                this._globalClickBinded = false;
-            }
         }
 
         /// <summary>
         /// Starts the watcher.
         /// </summary>
-        private void StartWatcher()
+        private void LurkForAction()
         {
             var search = Combination.FromString("Control+F");
             var remainingMonster = Combination.FromString("Control+R");
@@ -156,94 +123,6 @@ namespace Lurker
             };
 
             this._keyboardEvent.OnCombination(assignment);
-        }
-
-        /// <summary>
-        /// Stops the watcher.
-        /// </summary>
-        private void StopWatcher()
-        {
-            this._keyboardEvent.MouseClick -= this.KeyboardEvent_MouseClick;
-            this._keyboardEvent.Dispose();
-        }
-
-        /// <summary>
-        /// Handles the MouseClick event of the KeyboardEvent control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Windows.Forms.MouseEventArgs"/> instance containing the event data.</param>
-        private void KeyboardEvent_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            if (!this._settingsService.SearchEnabled || e.Button != System.Windows.Forms.MouseButtons.Left)
-            {
-                return;
-            }
-
-            if (Native.IsKeyPressed(Native.VirtualKeyStates.VK_SHIFT) && Native.IsKeyPressed(Native.VirtualKeyStates.VK_CONTROL))
-            {
-                this.ParseItem();
-            }
-        }
-
-        /// <summary>
-        /// Gets the clipboard data.
-        /// </summary>
-        /// <returns>The clipboard text.</returns>
-        private async Task<string> GetClipboardText()
-        {
-            this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_C);
-            await Task.Delay(20);
-
-            var clipboardText = string.Empty;
-            Thread thread = new Thread(() =>
-            {
-                var retryCount = 3;
-                while (retryCount != 0)
-                {
-                    try
-                    {
-                        clipboardText = Clipboard.GetText();
-                        break;
-                    }
-                    catch
-                    {
-                        retryCount--;
-                        Thread.Sleep(200);
-                    }
-                }
-            });
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
-            thread.Join();
-
-            return clipboardText;
-        }
-
-        /// <summary>
-        /// Clears the clipboard.
-        /// </summary>
-        private void ClearClipboard()
-        {
-            Thread thread = new Thread(() =>
-            {
-                var retryCount = 3;
-                while (retryCount != 0)
-                {
-                    try
-                    {
-                        Clipboard.Clear();
-                        break;
-                    }
-                    catch
-                    {
-                        retryCount--;
-                        Thread.Sleep(200);
-                    }
-                }
-            });
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
-            thread.Join();
         }
 
         /// <summary>
@@ -290,56 +169,6 @@ namespace Lurker
         }
 
         /// <summary>
-        /// Parses the item.
-        /// </summary>
-        private async void ParseItem()
-        {
-            PoeItem item = default;
-            var retryCount = 2;
-            for (int i = 0; i < retryCount; i++)
-            {
-                item = await this.GetItemInClipboard();
-                if (item == null)
-                {
-                    return;
-                }
-
-                if (!item.Identified)
-                {
-                    await Task.Delay(50);
-                    continue;
-                }
-
-                break;
-            }
-
-            if (item == null || !item.Identified)
-            {
-                return;
-            }
-
-            this.Newitem?.Invoke(this, item);
-            this.ClearClipboard();
-        }
-
-        /// <summary>
-        /// Gets the item in clipboard.
-        /// </summary>
-        /// <returns>The item in the clipboard.</returns>
-        private async Task<PoeItem> GetItemInClipboard()
-        {
-            try
-            {
-                var text = await this.GetClipboardText();
-                return this._itemParser.Parse(text);
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        /// <summary>
         /// Gets the item base type in clipboard.
         /// </summary>
         /// <returns>The item search value.</returns>
@@ -347,7 +176,10 @@ namespace Lurker
         {
             try
             {
-                var text = await this.GetClipboardText();
+                this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_C);
+                await Task.Delay(20);
+                var text = ClipboardHelper.GetClipboardText();
+
                 try
                 {
                     return this._itemParser.GetSearchValue(text);

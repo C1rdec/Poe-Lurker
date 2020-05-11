@@ -41,6 +41,7 @@ namespace Lurker.Helpers
         private SettingsService _settingsService;
         private IntPtr _hook;
         private IntPtr _windowHandle;
+        private IntPtr _currentWindowStyle;
         private Process _process;
 
         #endregion
@@ -180,9 +181,19 @@ namespace Lurker.Helpers
                 GetWindowThreadProcessId(foregroundWindow, out var processId);
 
                 var style = Native.GetWindowLong(this._windowHandle, -16);
-                if (PoeApplicationContext.WindowStyle != style)
+                if (this._currentWindowStyle != style)
                 {
-                    PoeApplicationContext.WindowStyle = style;
+                    switch ((uint)style)
+                    {
+                        case 0x14cf0000:
+                            PoeApplicationContext.WindowStyle = WindowStyle.Windowed;
+                            break;
+                        case 0x94000000:
+                            PoeApplicationContext.WindowStyle = WindowStyle.WindowedFullScreen;
+                            break;
+                    }
+
+                    this._currentWindowStyle = style;
                     this.InvokeWindowMove();
                 }
 
