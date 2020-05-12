@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="SettingsViewModel.cs" company="Wohs">
+// <copyright file="SettingsViewModel.cs" company="Wohs Inc.">
 //     Missing Copyright information from a valid stylecop.json file.
 // </copyright>
 //-----------------------------------------------------------------------
