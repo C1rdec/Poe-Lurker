@@ -39,9 +39,11 @@ namespace Lurker
         /// <param name="settingsService">The settings service.</param>
         public MouseLurker(Process process, SettingsService settingsService)
         {
+            var is64BitProcess = process.ProcessName.Contains("64");
+
             this._settingsService = settingsService;
             this._simulator = new InputSimulator();
-            this._mouseHook = new MouseHook(process);
+            this._mouseHook = new MouseHook(process.Id, is64BitProcess ? ProcessBitness.Is64Bit : ProcessBitness.Is32Bit);
             this._mouseHook.LeftButtonUp += this.MouseHook_LeftButtonUp;
             this._mouseHook.Install();
         }
