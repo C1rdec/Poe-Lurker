@@ -1,17 +1,29 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="UpdateState.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="UpdateState.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.UI.Models
 {
+    /// <summary>
+    /// The application update state.
+    /// </summary>
     public enum UpdateState
     {
+        /// <summary>
+        /// The need update
+        /// </summary>
         NeedUpdate,
 
+        /// <summary>
+        /// The success
+        /// </summary>
         Success,
 
+        /// <summary>
+        /// The working
+        /// </summary>
         Working,
-    } 
+    }
 }

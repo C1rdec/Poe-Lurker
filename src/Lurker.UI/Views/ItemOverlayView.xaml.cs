@@ -1,18 +1,21 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ItemOverlayView.xaml.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="ItemOverlayView.xaml.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System.Windows.Controls;
-
 namespace Lurker.UI.Views
 {
+    using System.Windows.Controls;
+
     /// <summary>
-    /// Interaction logic for ItemOverlayView.xaml
+    /// Interaction logic for ItemOverlayView.xaml.
     /// </summary>
     public partial class ItemOverlayView : UserControl
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ItemOverlayView"/> class.
+        /// </summary>
         public ItemOverlayView()
         {
             this.InitializeComponent();

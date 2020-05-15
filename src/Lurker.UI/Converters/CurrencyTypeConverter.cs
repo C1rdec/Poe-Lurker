@@ -1,16 +1,21 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="CurrencyTypeConverter.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="CurrencyTypeConverter.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.UI.Converters
 {
-    using Lurker.Patreon.Models;
     using System;
     using System.Windows.Data;
     using System.Windows.Markup;
+    using Lurker.Patreon.Models;
 
+    /// <summary>
+    /// CurrencyType converter.
+    /// </summary>
+    /// <seealso cref="System.Windows.Markup.MarkupExtension" />
+    /// <seealso cref="System.Windows.Data.IValueConverter" />
     public class CurrencyTypeConverter : MarkupExtension, IValueConverter
     {
         #region Declarations
@@ -22,7 +27,7 @@ namespace Lurker.UI.Converters
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OperationStatusConverter"/> class.
+        /// Initializes a new instance of the <see cref="CurrencyTypeConverter"/> class.
         /// </summary>
         public CurrencyTypeConverter()
         {

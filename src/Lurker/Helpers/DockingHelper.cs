@@ -1,40 +1,42 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="DockingHelper.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="DockingHelper.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.Helpers
 {
-    using Lurker.Extensions;
-    using Lurker.Models;
-    using Lurker.Services;
     using System;
     using System.Diagnostics;
     using System.Threading;
     using System.Threading.Tasks;
+    using Lurker.Extensions;
+    using Lurker.Models;
+    using Lurker.Services;
     using static Lurker.Native;
 
-    public class DockingHelper: IDisposable
+    /// <summary>
+    /// Represents DockingHelper.
+    /// </summary>
+    /// <seealso cref="System.IDisposable" />
+    public class DockingHelper : IDisposable
     {
         #region Fields
 
-        private static int DefaultFlaskBarHeight = 122;
-        private static int DefaultFlaskBarWidth = 550;
-        private static int DefaultExpBarHeight = 24;
-        private static int DefaultHeight = 1080;
-
-        private const uint LostFocus = 3;
         private const uint GainMouseCapture = 8;
         private const uint LostMouseCapture = 9;
         private const uint MoveEnd = 11;
-        private const uint Minimized = 22;
-        private const uint ObjectDestroy = 32769;
-        private const uint ObjectHidden = 8003;
+
+        private static readonly int DefaultFlaskBarHeight = 122;
+        private static readonly int DefaultFlaskBarWidth = 550;
+        private static readonly int DefaultExpBarHeight = 24;
+        private static readonly int DefaultHeight = 1080;
+
+        private readonly uint _windowProcessId;
+        private readonly uint _windowOwnerId;
+        private readonly WinEventDelegate _winEventDelegate;
 
         private Process _myProcess;
-        private readonly uint _windowProcessId, _windowOwnerId;
-        private readonly WinEventDelegate _winEventDelegate;
         private CancellationTokenSource _tokenSource;
         private SettingsService _settingsService;
         private IntPtr _hook;
@@ -47,9 +49,10 @@ namespace Lurker.Helpers
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DockingHelper"/> class.
+        /// Initializes a new instance of the <see cref="DockingHelper" /> class.
         /// </summary>
         /// <param name="process">The process.</param>
+        /// <param name="settingsService">The settings service.</param>
         public DockingHelper(Process process, SettingsService settingsService)
         {
             this._myProcess = Process.GetCurrentProcess();
@@ -59,7 +62,7 @@ namespace Lurker.Helpers
             this._windowHandle = this._process.GetWindowHandle();
 
             this._windowOwnerId = GetWindowThreadProcessId(this._windowHandle, out this._windowProcessId);
-            this._winEventDelegate = WhenWindowMoveStartsOrEnds;
+            this._winEventDelegate = this.WhenWindowMoveStartsOrEnds;
             this._hook = SetWinEventHook(0, MoveEnd, this._windowHandle, this._winEventDelegate, this._windowProcessId, this._windowOwnerId, 0);
             this.WindowInformation = this.GetWindowInformation();
             this.WatchForegound();
@@ -69,12 +72,24 @@ namespace Lurker.Helpers
 
         #region Events
 
+        /// <summary>
+        /// Occurs when [on window move].
+        /// </summary>
         public event EventHandler<PoeWindowInformation> OnWindowMove;
 
+        /// <summary>
+        /// Occurs when [on lost mouse capture].
+        /// </summary>
         public event EventHandler OnLostMouseCapture;
 
+        /// <summary>
+        /// Occurs when [on mouse capture].
+        /// </summary>
         public event EventHandler OnMouseCapture;
 
+        /// <summary>
+        /// Occurs when [on foreground change].
+        /// </summary>
         public event EventHandler<bool> OnForegroundChange;
 
         #endregion
@@ -134,7 +149,7 @@ namespace Lurker.Helpers
                 return;
             }
 
-            switch(eventType)
+            switch (eventType)
             {
                 case MoveEnd:
                     this.InvokeWindowMove();
@@ -154,7 +169,7 @@ namespace Lurker.Helpers
         private async void WatchForegound()
         {
             var token = this._tokenSource.Token;
-            while(true)
+            while (true)
             {
                 if (token.IsCancellationRequested)
                 {
@@ -221,7 +236,7 @@ namespace Lurker.Helpers
         /// <summary>
         /// Gets the window information.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The poe window information.</returns>
         private PoeWindowInformation GetWindowInformation()
         {
             Rect poePosition = default;

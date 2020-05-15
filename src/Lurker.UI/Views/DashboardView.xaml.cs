@@ -1,18 +1,21 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="DashboardView.xaml.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="DashboardView.xaml.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System.Windows;
-
 namespace Lurker.UI.Views
 {
+    using System.Windows;
+
     /// <summary>
-    /// Interaction logic for DashboardView.xaml
+    /// Interaction logic for DashboardView.xaml.
     /// </summary>
     public partial class DashboardView : Window
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DashboardView"/> class.
+        /// </summary>
         public DashboardView()
         {
             this.InitializeComponent();

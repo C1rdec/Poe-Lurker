@@ -1,20 +1,23 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ManaBulbViewModel.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="ManaBulbViewModel.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.UI.ViewModels
 {
+    using System;
     using Caliburn.Micro;
     using Lurker.Helpers;
     using Lurker.Models;
     using Lurker.Services;
     using Lurker.UI.Models;
     using Lurker.UI.Views;
-    using System;
 
-    public class ManaBulbViewModel : BulbViewModel, IHandle<ManaBulbMessage>
+    /// <summary>
+    /// Represents the Manabulbviewmodel.
+    /// </summary>
+    public class ManaBulbViewModel : BulbViewModelBase, IHandle<ManaBulbMessage>
     {
         #region Fields
 
@@ -26,21 +29,24 @@ namespace Lurker.UI.ViewModels
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LifeBulbViewModel"/> class.
+        /// Initializes a new instance of the <see cref="ManaBulbViewModel" /> class.
         /// </summary>
+        /// <param name="eventAggregator">The event aggregator.</param>
         /// <param name="windowManager">The window manager.</param>
         /// <param name="dockingHelper">The docking helper.</param>
-        /// <param name="lurker"></param>
-        /// <param name="settingsService"></param>H
-        public ManaBulbViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, DockingHelper dockingHelper, ClientLurker clientLurker, ProcessLurker processLurker, SettingsService settingsService) 
+        /// <param name="clientLurker">The client lurker.</param>
+        /// <param name="processLurker">The process lurker.</param>
+        /// <param name="settingsService">The settings service.</param>
+        /// H
+        public ManaBulbViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, DockingHelper dockingHelper, ClientLurker clientLurker, ProcessLurker processLurker, SettingsService settingsService)
             : base(windowManager, dockingHelper, processLurker, settingsService, clientLurker)
         {
             this._eventAggregator = eventAggregator;
             this._eventAggregator.Subscribe(this);
 
-            this._clientLurker.LocationChanged += this.Lurker_LocationChanged;
-            this._clientLurker.RemainingMonsters += this.Lurker_RemainingMonsters;
-            this._settingsService.OnSave += this.SettingsService_OnSave;
+            this.ClientLurker.LocationChanged += this.Lurker_LocationChanged;
+            this.ClientLurker.RemainingMonsters += this.Lurker_RemainingMonsters;
+            this.SettingsService.OnSave += this.SettingsService_OnSave;
         }
 
         #endregion
@@ -48,13 +54,13 @@ namespace Lurker.UI.ViewModels
         #region Properties
 
         /// <summary>
-        /// Defaults the action.
+        /// Gets the default action.
         /// </summary>
         protected override System.Action DefaultAction
         {
             get
             {
-                if (!this._settingsService.DashboardEnabled)
+                if (!this.SettingsService.DashboardEnabled)
                 {
                     return null;
                 }
@@ -83,7 +89,7 @@ namespace Lurker.UI.ViewModels
             {
                 base.SetAction(message);
                 return;
-            }            
+            }
 
             this.SetAction(message);
 
@@ -96,18 +102,18 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Sets the window position.
         /// </summary>
-        /// <param name="windowInformation"></param>
+        /// <param name="windowInformation">The wndow information.</param>
         protected override void SetWindowPosition(PoeWindowInformation windowInformation)
         {
             var value = DefaultBulbHeight * windowInformation.Height / 1080;
             var margin = PoeApplicationContext.WindowStyle == WindowStyle.Windowed ? 10 : 0;
             Execute.OnUIThread(() =>
             {
-                this._view.Height = value;
-                this._view.Width = value;
-                this._view.Left = windowInformation.Position.Right - value - margin;
-                this._view.Top = windowInformation.Position.Bottom - value - margin;
-                var lifeView = this._view as ManaBulbView;
+                this.View.Height = value;
+                this.View.Width = value;
+                this.View.Left = windowInformation.Position.Right - value - margin;
+                this.View.Top = windowInformation.Position.Bottom - value - margin;
+                var lifeView = this.View as ManaBulbView;
             });
         }
 
@@ -119,9 +125,9 @@ namespace Lurker.UI.ViewModels
         {
             if (close)
             {
-                this._clientLurker.LocationChanged -= this.Lurker_LocationChanged;
-                this._clientLurker.RemainingMonsters -= this.Lurker_RemainingMonsters;
-                this._settingsService.OnSave -= this.SettingsService_OnSave;
+                this.ClientLurker.LocationChanged -= this.Lurker_LocationChanged;
+                this.ClientLurker.RemainingMonsters -= this.Lurker_RemainingMonsters;
+                this.SettingsService.OnSave -= this.SettingsService_OnSave;
                 this._eventAggregator.Unsubscribe(this);
             }
 
@@ -175,7 +181,7 @@ namespace Lurker.UI.ViewModels
                 {
                     var message = new ManaBulbMessage()
                     {
-                        Action = this.DefaultAction
+                        Action = this.DefaultAction,
                     };
                     this.SetAction(message);
                 }

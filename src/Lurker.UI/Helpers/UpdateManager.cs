@@ -1,16 +1,19 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="UpdateManager.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="UpdateManager.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.UI.Helpers
 {
-    using Lurker.Services;
-    using Squirrel;
     using System.Linq;
     using System.Threading.Tasks;
+    using Lurker.Services;
+    using Squirrel;
 
+    /// <summary>
+    /// Represents the update manager.
+    /// </summary>
     public class UpdateManager
     {
         #region Fields
@@ -25,9 +28,11 @@ namespace Lurker.UI.Helpers
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UpdateManager"/> class.
+        /// Initializes a new instance of the <see cref="UpdateManager" /> class.
         /// </summary>
-        /// <param name="settingService">The setting service.</param>
+        /// <param name="settingsService">The settings service.</param>
+        /// <param name="clipboardLurker">The clipboard lurker.</param>
+        /// <param name="clientLurker">The client lurker.</param>
         public UpdateManager(SettingsService settingsService, ClipboardLurker clipboardLurker, ClientLurker clientLurker)
         {
             this._clipboardLurker = clipboardLurker;
@@ -42,6 +47,7 @@ namespace Lurker.UI.Helpers
         /// <summary>
         /// Updates this instance.
         /// </summary>
+        /// <returns>The task awaiter.</returns>
         public async Task Update()
         {
             this._settingsService.FirstLaunch = true;
@@ -67,10 +73,10 @@ namespace Lurker.UI.Helpers
         /// <summary>
         /// Updates this instance.
         /// </summary>
-        /// <returns>True if needs update</returns>
+        /// <returns>True if needs update.</returns>
         public async Task<bool> CheckForUpdate()
         {
-#if (DEBUG)
+#if DEBUG
             return false;
 #endif
 

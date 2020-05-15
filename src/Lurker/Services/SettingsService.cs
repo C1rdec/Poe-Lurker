@@ -1,17 +1,20 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="SettingsService.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="SettingsService.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.Services
 {
+    using System;
+    using System.IO;
     using ConfOxide;
     using Lurker.Helpers;
     using Lurker.Models;
-    using System;
-    using System.IO;
 
+    /// <summary>
+    /// The settings service.
+    /// </summary>
     public class SettingsService
     {
         #region Fields
@@ -66,6 +69,9 @@ namespace Lurker.Services
 
         #region Events
 
+        /// <summary>
+        /// Occurs when [on save].
+        /// </summary>
         public event EventHandler OnSave;
 
         #endregion
@@ -126,7 +132,7 @@ namespace Lurker.Services
         }
 
         /// <summary>
-        /// Gets or sets the first launch.
+        /// Gets or sets a value indicating whether [first launch].
         /// </summary>
         public bool FirstLaunch
         {
@@ -431,7 +437,7 @@ namespace Lurker.Services
         /// <summary>
         /// Gets the settings folder path.
         /// </summary>
-        private string SettingsFolderPath => System.IO.Path.Combine(AppDataFolderPath, FolderName);
+        private string SettingsFolderPath => System.IO.Path.Combine(this.AppDataFolderPath, this.FolderName);
 
         /// <summary>
         /// Gets the settings file path.
@@ -445,6 +451,7 @@ namespace Lurker.Services
         /// <summary>
         /// Saves this instance.
         /// </summary>
+        /// <param name="raiseEvent">if set to <c>true</c> [raise event].</param>
         public void Save(bool raiseEvent = true)
         {
             this._settings.WriteJsonFile(this.SettingsFilePath);
@@ -454,6 +461,9 @@ namespace Lurker.Services
             }
         }
 
+        /// <summary>
+        /// Creates the default settings.
+        /// </summary>
         private void CreateDefaultSettings()
         {
             using (var file = File.Create(this.SettingsFilePath))

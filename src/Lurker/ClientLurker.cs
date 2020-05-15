@@ -1,14 +1,11 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ClientLurker.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="ClientLurker.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker
 {
-    using Lurker.Extensions;
-    using Lurker.Patreon.Events;
-    using Sentry;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -17,6 +14,8 @@ namespace Lurker
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
+    using Lurker.Extensions;
+    using Lurker.Patreon.Events;
 
     /// <summary>
     /// Defines a file Watcher for the Client log file.
@@ -40,6 +39,7 @@ namespace Lurker
         /// <summary>
         /// Initializes a new instance of the <see cref="ClientLurker" /> class.
         /// </summary>
+        /// <param name="pathOfExileProcess">The path of exile process.</param>
         public ClientLurker(Process pathOfExileProcess)
         {
             this._pathOfExileProcess = pathOfExileProcess;
@@ -139,57 +139,13 @@ namespace Lurker
         }
 
         /// <summary>
-        /// Reads the last line from ut f8 encoded file.
-        /// </summary>
-        /// <param name="path">The path.</param>
-        /// <returns></returns>
-        /// <exception cref="System.IO.IOException">Error reading from file at " + path</exception>
-        private string GetLastLine()
-        {
-            using (var stream = new FileStream(this.FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-            {
-                if (stream.Length == 0)
-                {
-                    return null;
-                }
-                stream.Position = stream.Length - 1;
-
-                return GetLine(stream);
-            }
-        }
-
-        /// <summary>
-        /// Gets the new lines.
-        /// </summary>
-        /// <returns>The all the new lines</returns>
-        private IEnumerable<string> GetNewLines()
-        {
-            using (var stream = new FileStream(this.FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-            {
-                if (stream.Length == 0)
-                {
-                    return null;
-                }
-
-                stream.Position = stream.Length - 1;
-
-                var newLines = new List<string>();
-                var currentNewLine = GetLine(stream);
-                while (this._lastLine != currentNewLine)
-                {
-                    newLines.Add(currentNewLine);
-                    currentNewLine = GetLine(stream);
-                }
-
-                return newLines;
-            }
-        }
-
-        /// <summary>
         /// Gets the line.
         /// </summary>
         /// <param name="stream">The stream.</param>
-        /// <returns>The current line of the stream position</returns>
+        /// <returns>
+        /// The current line of the stream position.
+        /// </returns>
+        /// <exception cref="IOException">Error reading from file.</exception>
         private static string GetLine(Stream stream)
         {
             // while we have not yet reached start of file, read bytes backwards until '\n' byte is hit
@@ -215,12 +171,58 @@ namespace Lurker
             }
 
             var oldPosition = stream.Position;
-            // fs.Position will be right after the '\n' char or position 0 if no '\n' char
-            var bytes = new BinaryReader(stream).ReadBytes(lineLength -1);
+            var bytes = new BinaryReader(stream).ReadBytes(lineLength - 1);
 
             // -1 is the \n
             stream.Position = oldPosition - 1;
             return Encoding.UTF8.GetString(bytes).Replace(System.Environment.NewLine, string.Empty);
+        }
+
+        /// <summary>
+        /// Reads the last line from ut f8 encoded file.
+        /// </summary>
+        /// <returns>The last line.</returns>
+        /// <exception cref="System.IO.IOException">Error reading from file at " + path.</exception>
+        private string GetLastLine()
+        {
+            using (var stream = new FileStream(this.FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                if (stream.Length == 0)
+                {
+                    return null;
+                }
+
+                stream.Position = stream.Length - 1;
+
+                return GetLine(stream);
+            }
+        }
+
+        /// <summary>
+        /// Gets the new lines.
+        /// </summary>
+        /// <returns>The all the new lines.</returns>
+        private IEnumerable<string> GetNewLines()
+        {
+            using (var stream = new FileStream(this.FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                if (stream.Length == 0)
+                {
+                    return null;
+                }
+
+                stream.Position = stream.Length - 1;
+
+                var newLines = new List<string>();
+                var currentNewLine = GetLine(stream);
+                while (this._lastLine != currentNewLine)
+                {
+                    newLines.Add(currentNewLine);
+                    currentNewLine = GetLine(stream);
+                }
+
+                return newLines;
+            }
         }
 
         /// <summary>
@@ -269,7 +271,7 @@ namespace Lurker
                 while (fileInformation.LastWriteTimeUtc == lastWriteTime);
 
                 lastWriteTime = fileInformation.LastAccessTimeUtc;
-                this.OnFileChanged(GetLastLine());
+                this.OnFileChanged(this.GetLastLine());
             }
         }
 
@@ -302,12 +304,11 @@ namespace Lurker
                 }
             }
         }
-        
+
         /// <summary>
         /// Called when [file changed].
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="FileSystemEventArgs"/> instance containing the event data.</param>
+        /// <param name="newline">The newline.</param>
         private void OnFileChanged(string newline)
         {
             if (string.IsNullOrEmpty(newline))
@@ -321,11 +322,6 @@ namespace Lurker
                 var tradeEvent = TradeEvent.TryParse(newline);
                 if (tradeEvent != null)
                 {
-                    if (Models.PoeApplicationContext.InForeground)
-                    {
-                        // Send notification
-                    }
-
                     this.IncomingOffer?.Invoke(this, tradeEvent);
                     return;
                 }
@@ -387,7 +383,6 @@ namespace Lurker
                 var playerLeftEvent = PlayerLeftEvent.TryParse(newline);
                 if (playerLeftEvent != null)
                 {
-                    
                     this.PlayerLeft?.Invoke(this, playerLeftEvent);
                     return;
                 }
@@ -400,7 +395,7 @@ namespace Lurker
                 var exception = new Exception(lineError, ex);
                 Logger.Error(exception, exception.Message);
 
-#if (!DEBUG)
+#if !DEBUG
                 SentrySdk.AddBreadcrumb(message: lineError, level: Sentry.Protocol.BreadcrumbLevel.Error);
                 SentrySdk.CaptureException(ex);
 #endif

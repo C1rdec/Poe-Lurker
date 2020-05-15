@@ -1,16 +1,19 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="TradeValueViewModel.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="TradeValueViewModel.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
-
 
 namespace Lurker.UI.ViewModels
 {
     using Lurker.Patreon.Events;
     using Lurker.Patreon.Models;
 
-    public class TradeValueViewModel: Caliburn.Micro.PropertyChangedBase
+    /// <summary>
+    /// Represetns the trade value.
+    /// </summary>
+    /// <seealso cref="Caliburn.Micro.PropertyChangedBase" />
+    public class TradeValueViewModel : Caliburn.Micro.PropertyChangedBase
     {
         #region Fields
 
@@ -39,7 +42,7 @@ namespace Lurker.UI.ViewModels
         public CurrencyType CurrencyType => this._tradeEvent.Price.CurrencyType;
 
         /// <summary>
-        /// Gets or sets the number off currency.
+        /// Gets the number off currency.
         /// </summary>
         public double NumberOffCurrency => this._tradeEvent.Price.NumberOfCurrencies;
 

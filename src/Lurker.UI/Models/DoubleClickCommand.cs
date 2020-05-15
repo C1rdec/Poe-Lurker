@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="DoubleClickCommand.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="DoubleClickCommand.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -9,6 +9,10 @@ namespace Lurker.UI.Models
     using System;
     using System.Windows.Input;
 
+    /// <summary>
+    /// Represents a double click command.
+    /// </summary>
+    /// <seealso cref="System.Windows.Input.ICommand" />
     public class DoubleClickCommand : ICommand
     {
         #region Fields

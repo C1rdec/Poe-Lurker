@@ -1,23 +1,28 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="UpdateViewModel.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="UpdateViewModel.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.UI.ViewModels
 {
-    using Lurker.UI.Models;
     using System;
     using System.IO;
     using System.Reflection;
+    using Lurker.UI.Models;
 
+    /// <summary>
+    /// Represents the update view model.
+    /// </summary>
+    /// <seealso cref="Caliburn.Micro.PropertyChangedBase" />
     public class UpdateViewModel : Caliburn.Micro.PropertyChangedBase
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UpdateViewModel"/> class.
+        /// Initializes a new instance of the <see cref="UpdateViewModel" /> class.
         /// </summary>
+        /// <param name="state">The state.</param>
         public UpdateViewModel(UpdateState state)
         {
             if (!File.Exists(this.NeedUpdateFilePath))
@@ -103,7 +108,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets the settings folder path.
         /// </summary>
-        private string SettingsFolderPath => Path.Combine(AppDataFolderPath, FolderName);
+        private string SettingsFolderPath => Path.Combine(this.AppDataFolderPath, this.FolderName);
 
         #endregion
 
@@ -112,8 +117,10 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets the content of the resource.
         /// </summary>
-        /// <param name="resourceName">Name of the resource.</param>
-        /// <returns>The animation text.</returns>
+        /// <param name="fileName">Name of the file.</param>
+        /// <returns>
+        /// The animation text.
+        /// </returns>
         private string GetResourceContent(string fileName)
         {
             using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"Lurker.UI.Assets.{fileName}"))

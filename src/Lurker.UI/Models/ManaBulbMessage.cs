@@ -1,11 +1,15 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ManaBulbMessage.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="ManaBulbMessage.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.UI.Models
 {
+    /// <summary>
+    /// Represents the manabulb message.
+    /// </summary>
+    /// <seealso cref="Lurker.UI.Models.BulbMessage" />
     public class ManaBulbMessage : BulbMessage
     {
         #region Properties

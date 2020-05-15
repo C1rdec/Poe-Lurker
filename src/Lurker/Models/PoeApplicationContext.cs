@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="PoeApplicationContext.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="PoeApplicationContext.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -8,6 +8,9 @@ namespace Lurker.Models
 {
     using System;
 
+    /// <summary>
+    /// Represents an applicaiton context.
+    /// </summary>
     public static class PoeApplicationContext
     {
         #region Properties

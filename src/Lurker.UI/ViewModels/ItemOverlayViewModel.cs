@@ -1,17 +1,21 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ItemOverlayViewModel.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="ItemOverlayViewModel.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.UI.ViewModels
 {
-    using Lurker.Patreon.Models;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Lurker.Patreon.Models;
 
-    public class ItemOverlayViewModel: Caliburn.Micro.PropertyChangedBase
+    /// <summary>
+    /// Represents the ItemOverlay.
+    /// </summary>
+    /// <seealso cref="Caliburn.Micro.PropertyChangedBase" />
+    public class ItemOverlayViewModel : Caliburn.Micro.PropertyChangedBase
     {
         #region Fields
 
@@ -23,8 +27,10 @@ namespace Lurker.UI.ViewModels
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ItemOverlayViewModel"/> class.
+        /// Initializes a new instance of the <see cref="ItemOverlayViewModel" /> class.
         /// </summary>
+        /// <param name="item">The item.</param>
+        /// <param name="closeAction">The close action.</param>
         public ItemOverlayViewModel(PoeItem item, Action closeAction)
         {
             this._item = item;
@@ -112,7 +118,7 @@ namespace Lurker.UI.ViewModels
         /// Gets the socket information.
         /// </summary>
         /// <param name="item">The item.</param>
-        /// <returns>The socket information</returns>
+        /// <returns>The socket information.</returns>
         private static string GetSocketInformation(PoeItem item)
         {
             if (item is SocketableItem socketItem)

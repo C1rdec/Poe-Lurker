@@ -20,6 +20,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AE09C520-0052-4684-8E87-4E41784AA544}"
 	ProjectSection(SolutionItems) = preProject
 		appveyor.yml = appveyor.yml
+		PoeLurker.ruleset = PoeLurker.ruleset
+		stylecop.json = stylecop.json
+		XpertdocVsPowerTools-Settings.json = XpertdocVsPowerTools-Settings.json
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lurker.Uninstall", "Lurker.Uninstall\Lurker.Uninstall.csproj", "{0BC827AB-E8E2-4D60-8394-5B07841285DA}"

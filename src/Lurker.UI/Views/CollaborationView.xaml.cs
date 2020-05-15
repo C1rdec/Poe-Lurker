@@ -1,23 +1,26 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="CollaborationView.xaml.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="CollaborationView.xaml.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Lurker.Services;
-using System.IO;
-using System.Reflection;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media.Imaging;
-
 namespace Lurker.UI.Views
 {
+    using System.IO;
+    using System.Reflection;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Media.Imaging;
+    using Lurker.Services;
+
     /// <summary>
-    /// Interaction logic for CollaborationView.xaml
+    /// Interaction logic for CollaborationView.xaml.
     /// </summary>
     public partial class CollaborationView : UserControl
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CollaborationView"/> class.
+        /// </summary>
         public CollaborationView()
         {
             this.InitializeComponent();
@@ -38,22 +41,6 @@ namespace Lurker.UI.Views
                     bitMap.EndInit();
 
                     this.Image.Source = bitMap;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets the content of the resource.
-        /// </summary>
-        /// <param name="resourceName">Name of the resource.</param>
-        /// <returns>The animation text.</returns>
-        private static string GetResourceContent(string fileName)
-        {
-            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"Lurker.UI.Assets.{fileName}"))
-            {
-                using (StreamReader reader = new StreamReader(stream))
-                {
-                    return reader.ReadToEnd();
                 }
             }
         }

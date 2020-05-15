@@ -1,20 +1,24 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="DashboardViewModel.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="DashboardViewModel.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.UI.ViewModels
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Caliburn.Micro;
     using Lurker.Patreon;
     using Lurker.Patreon.Events;
     using Lurker.Patreon.Models;
     using Lurker.UI.Extensions;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
 
+    /// <summary>
+    /// Represents the DashboardViewModel.
+    /// </summary>
+    /// <seealso cref="Lurker.UI.ViewModels.ScreenBase" />
     public class DashboardViewModel : ScreenBase
     {
         #region Fields
@@ -35,7 +39,7 @@ namespace Lurker.UI.ViewModels
         /// Initializes a new instance of the <see cref="DashboardViewModel"/> class.
         /// </summary>
         /// <param name="windowManager">The window manager.</param>
-        public DashboardViewModel(IWindowManager windowManager) 
+        public DashboardViewModel(IWindowManager windowManager)
             : base(windowManager)
         {
             this.DisplayName = "Dashboard";
@@ -219,13 +223,13 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets the pie chart.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The PieChart.</returns>
         private PieChartViewModel CreateTotalChart()
         {
             var pieChart = new PieChartViewModel()
             {
                 FontSize = 12,
-                LabelPosition = LiveCharts.PieLabelPosition.InsideSlice
+                LabelPosition = LiveCharts.PieLabelPosition.InsideSlice,
             };
 
             var groups = this._trades.GroupBy(i => i.Price.CurrencyType).Select(g => new { Type = g.First().Price.CurrencyType, Sum = g.Sum(i => i.Price.CalculateValue()) });
@@ -269,7 +273,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Creates the item class chart.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The PieChart.</returns>
         private PieChartViewModel CreateItemClassChart()
         {
             var pieChart = new PieChartViewModel()
@@ -297,7 +301,7 @@ namespace Lurker.UI.ViewModels
             if (Enum.TryParse<CurrencyType>(e.SeriesView.Title, true, out var value))
             {
                 var trades = this._allTradres.Where(t => t.Price.CurrencyType == value);
-                var chart = new ColumnChartViewModel(trades.Select(t => t.ItemName).ToArray()); ;
+                var chart = new ColumnChartViewModel(trades.Select(t => t.ItemName).ToArray());
                 chart.Add(e.SeriesView.Title, trades.Select(t => t.Price.NumberOfCurrencies));
                 this._tradesChart = chart;
                 this.ActiveChart = this._tradesChart;

@@ -1,15 +1,18 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="SoundService.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="SoundService.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.Services
 {
-    using NAudio.Wave;
     using System;
     using System.IO;
+    using NAudio.Wave;
 
+    /// <summary>
+    /// Represents the sound services.
+    /// </summary>
     public class SoundService
     {
         #region Methods

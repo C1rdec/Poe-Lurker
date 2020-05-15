@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="MouseLurker.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="MouseLurker.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -15,6 +15,10 @@ namespace Lurker
     using WindowsInput;
     using Winook;
 
+    /// <summary>
+    /// Represents the mouse lurker.
+    /// </summary>
+    /// <seealso cref="System.IDisposable" />
     public class MouseLurker : IDisposable
     {
         #region Fields
@@ -29,9 +33,10 @@ namespace Lurker
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MouseLurker"/> class.
+        /// Initializes a new instance of the <see cref="MouseLurker" /> class.
         /// </summary>
         /// <param name="process">The process.</param>
+        /// <param name="settingsService">The settings service.</param>
         public MouseLurker(Process process, SettingsService settingsService)
         {
             this._settingsService = settingsService;

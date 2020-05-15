@@ -30,6 +30,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>8.0</LangVersion>
+    <CodeAnalysisRuleSet>..\..\PoeLurker.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Debug\PoeLurker.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -232,7 +234,7 @@
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Converters\CurrencyTypeConverter.cs" />
     <Compile Include="Extensions\PriceExtension.cs" />
-    <Compile Include="Helpers\AdminRequestHeleper.cs" />
+    <Compile Include="Helpers\AdminRequestHelper.cs" />
     <Compile Include="Helpers\UpdateManager.cs" />
     <Compile Include="Models\MyCommand.cs" />
     <Compile Include="Models\UpdateState.cs" />
@@ -242,6 +244,7 @@
     <Compile Include="Models\LifeBulbMessage.cs" />
     <Compile Include="Models\OutgoingbarContext.cs" />
     <Compile Include="Models\TradebarContext.cs" />
+    <Compile Include="Services\AfkService.cs" />
     <Compile Include="Svg.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -444,6 +447,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <Resource Include="Assets\Fontin.ttf" />
+    <AdditionalFiles Include="..\..\stylecop.json">
+      <Link>stylecop.json</Link>
+    </AdditionalFiles>
     <None Include="app.manifest" />
     <EmbeddedResource Include="Assets\UpdateAnimation.json" />
     <EmbeddedResource Include="Assets\UpdateSuccessAnimation.json" />
@@ -493,7 +499,10 @@
   <ItemGroup>
     <Resource Include="Assets\TradeBarIcon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="TrayIcon.ico" />
   </ItemGroup>

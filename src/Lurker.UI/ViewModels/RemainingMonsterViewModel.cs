@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="RemainingMonsterViewModel.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="RemainingMonsterViewModel.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -8,6 +8,10 @@ namespace Lurker.UI.ViewModels
 {
     using Lurker.Patreon.Events;
 
+    /// <summary>
+    /// Represents the remaining monster.
+    /// </summary>
+    /// <seealso cref="Caliburn.Micro.PropertyChangedBase" />
     public class RemainingMonsterViewModel : Caliburn.Micro.PropertyChangedBase
     {
         #region Fields
@@ -32,7 +36,7 @@ namespace Lurker.UI.ViewModels
         #region Properties
 
         /// <summary>
-        /// Gets or sets the monster remaining.
+        /// Gets the monster count.
         /// </summary>
         public int MonsterCount => this._monsterEvent.MonsterCount;
 

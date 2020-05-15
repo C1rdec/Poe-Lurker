@@ -1,16 +1,11 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="SettingsViewModel.cs" company="Wohs Inc.">
-//     Missing Copyright information from a valid stylecop.json file.
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.UI.ViewModels
 {
-    using Caliburn.Micro;
-    using Lurker.Helpers;
-    using Lurker.Services;
-    using Lurker.UI.Helpers;
-    using MahApps.Metro.Controls;
     using System;
     using System.Diagnostics;
     using System.IO;
@@ -21,8 +16,17 @@ namespace Lurker.UI.ViewModels
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Media;
+    using Caliburn.Micro;
+    using Lurker.Helpers;
+    using Lurker.Services;
+    using Lurker.UI.Helpers;
+    using MahApps.Metro.Controls;
 
-    public class SettingsViewModel: ScreenBase
+    /// <summary>
+    /// Represents the settings view model.
+    /// </summary>
+    /// <seealso cref="Lurker.UI.ViewModels.ScreenBase" />
+    public class SettingsViewModel : ScreenBase
     {
         #region Fields
 
@@ -42,8 +46,12 @@ namespace Lurker.UI.ViewModels
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SettingsViewModel"/> class.
+        /// Initializes a new instance of the <see cref="SettingsViewModel" /> class.
         /// </summary>
+        /// <param name="windowManager">The window manager.</param>
+        /// <param name="keyboardHelper">The keyboard helper.</param>
+        /// <param name="settingsService">The settings service.</param>
+        /// <param name="soundService">The sound service.</param>
         public SettingsViewModel(IWindowManager windowManager, KeyboardHelper keyboardHelper, SettingsService settingsService, SoundService soundService)
             : base(windowManager)
         {
@@ -73,6 +81,9 @@ namespace Lurker.UI.ViewModels
 
         #region Properties
 
+        /// <summary>
+        /// Gets the animation file path.
+        /// </summary>
         public string AnimationFilePath => AssetService.GetFilePath(LottieFileName);
 
         /// <summary>
@@ -110,7 +121,7 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the show startup animation.
+        /// Gets or sets a value indicating whether [show startup animation].
         /// </summary>
         public bool ShowStartupAnimation
         {
@@ -206,11 +217,8 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the busy message.
+        /// Gets or sets a value indicating whether [remaining monster enabled].
         /// </summary>
-        /// <value>
-        /// The busy message.
-        /// </value>
         public bool RemainingMonsterEnabled
         {
             get
@@ -447,7 +455,7 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the tool tip delay.
+        /// Gets or sets a value indicating whether [always visible].
         /// </summary>
         public bool AlwaysVisible
         {
@@ -572,7 +580,7 @@ namespace Lurker.UI.ViewModels
                 }
             }
             catch (AuthenticationException)
-            { 
+            {
             }
         }
 
@@ -593,7 +601,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Called when an attached view's Loaded event fires.
         /// </summary>
-        /// <param name="view"></param>
+        /// <param name="view">The view.</param>
         protected override void OnViewLoaded(object view)
         {
             var window = view as MetroWindow;
@@ -631,8 +639,8 @@ namespace Lurker.UI.ViewModels
                         this.Pledging = await service.IsPledging();
                     }
                 }
-                catch 
-                { 
+                catch
+                {
                 }
             }
             else
@@ -657,7 +665,7 @@ namespace Lurker.UI.ViewModels
         /// Gets the content of the resource.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
-        /// <returns>The resource content</returns>
+        /// <returns>The resource content.</returns>
         private static string GetResourceContent(string fileName)
         {
             using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"Lurker.UI.Assets.{fileName}"))

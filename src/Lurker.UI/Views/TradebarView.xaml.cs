@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="TradeBarView.xaml.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="TradebarView.xaml.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -11,7 +11,7 @@ namespace Lurker.UI.Views
     using System.Windows.Controls;
 
     /// <summary>
-    /// Interaction logic for TradeBarView.xaml
+    /// Interaction logic for TradeBarView.xaml.
     /// </summary>
     public partial class TradebarView : Window
     {
@@ -28,7 +28,7 @@ namespace Lurker.UI.Views
         /// </summary>
         public TradebarView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this.HideFromAltTab();
         }
 
@@ -58,8 +58,8 @@ namespace Lurker.UI.Views
                 Width = 1,
                 Height = 1,
 
-                WindowStyle = WindowStyle.ToolWindow, // Set window style as ToolWindow to avoid its icon in AltTab 
-                ShowInTaskbar = false
+                WindowStyle = WindowStyle.ToolWindow, // Set window style as ToolWindow to avoid its icon in AltTab
+                ShowInTaskbar = false,
             };
 
             this._parent.Show();

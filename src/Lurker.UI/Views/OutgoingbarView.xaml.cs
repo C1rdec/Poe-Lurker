@@ -1,9 +1,8 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="OutgoingbarView.xaml.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="OutgoingbarView.xaml.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
-
 
 namespace Lurker.UI.Views
 {
@@ -12,7 +11,7 @@ namespace Lurker.UI.Views
     using System.Windows.Controls;
 
     /// <summary>
-    /// Interaction logic for OutgoingbarView.xaml
+    /// Interaction logic for OutgoingbarView.xaml.
     /// </summary>
     public partial class OutgoingbarView : Window
     {
@@ -58,9 +57,8 @@ namespace Lurker.UI.Views
                 Left = -100,
                 Width = 1,
                 Height = 1,
-
-                WindowStyle = WindowStyle.ToolWindow, // Set window style as ToolWindow to avoid its icon in AltTab 
-                ShowInTaskbar = false
+                WindowStyle = WindowStyle.ToolWindow, // Set window style as ToolWindow to avoid its icon in AltTab
+                ShowInTaskbar = false,
             };
 
             this._parent.Show();

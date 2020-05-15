@@ -1,21 +1,24 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="KeyboardHelper.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="KeyboardHelper.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.Helpers
 {
-    using Lurker.Extensions;
     using System;
     using System.Diagnostics;
+    using Lurker.Extensions;
     using WindowsInput;
 
+    /// <summary>
+    /// Represents the keyboard helper.
+    /// </summary>
     public class KeyboardHelper
     {
         #region Fields
 
-        private readonly object CommandLock = new object();
+        private readonly object _commandLock = new object();
         private Process _process;
         private InputSimulator _simulator;
         private IntPtr _windowHandle;
@@ -25,9 +28,9 @@ namespace Lurker.Helpers
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="KeyboardHelper"/> class.
+        /// Initializes a new instance of the <see cref="KeyboardHelper" /> class.
         /// </summary>
-        /// <param name="windowHandle">The window handle.</param>
+        /// <param name="process">The process.</param>
         public KeyboardHelper(Process process)
         {
             if (process != null)
@@ -58,12 +61,12 @@ namespace Lurker.Helpers
         }
 
         /// <summary>
-        /// Simulates a search using Ctrl+F 
+        /// Simulates a search using Ctrl+F.
         /// </summary>
-        /// <param name="searchTerm">The search term to use</param>
+        /// <param name="searchTerm">The search term to use.</param>
         public void Search(string searchTerm)
         {
-            lock (CommandLock)
+            lock (this._commandLock)
             {
                 this._simulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.LMENU);
                 Native.SetForegroundWindow(this._windowHandle);
@@ -81,8 +84,8 @@ namespace Lurker.Helpers
         /// </summary>
         /// <param name="command">The command.</param>
         protected void SendCommand(string command)
-        {            
-            lock (CommandLock)
+        {
+            lock (this._commandLock)
             {
                 // This is to fix the first SetForegroundWindow
                 this._simulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.LMENU);

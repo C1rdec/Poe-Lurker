@@ -1,24 +1,33 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="StringExtension.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="StringExtensions.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
-
 
 namespace Lurker.Extensions
 {
     using System.Linq;
 
+    /// <summary>
+    /// The string extensions.
+    /// </summary>
     public static class StringExtensions
     {
-        private static char WildCard = '*';
+        #region Fiels
+
+        /// <summary>
+        /// The wild card.
+        /// </summary>
+        private static readonly char WildCard = '*';
+
+        #endregion
 
         /// <summary>
         /// Splits the specified split value.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="splitValue">The split value.</param>
-        /// <returns>Split the current string using another string</returns>
+        /// <returns>Split the current string using another string.</returns>
         public static string[] Split(this string value, string splitValue)
         {
             return value.Split(new string[] { splitValue }, System.StringSplitOptions.RemoveEmptyEntries);
@@ -57,7 +66,7 @@ namespace Lurker.Extensions
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="marker">The marker.</param>
-        /// <returns>The line</returns>
+        /// <returns>The line.</returns>
         public static string GetLineBefore(this string value, string marker)
         {
             var index = value.IndexOf(marker);
@@ -75,7 +84,7 @@ namespace Lurker.Extensions
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="marker">The marker.</param>
-        /// <returns>The full line of the marker</returns>
+        /// <returns>The full line of the marker.</returns>
         public static string GetLine(this string value, string marker)
         {
             var index = value.IndexOf(marker);
@@ -93,7 +102,7 @@ namespace Lurker.Extensions
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>If match</returns>
+        /// <returns>If match.</returns>
         public static bool Match(this string value, string criteria)
         {
             if (string.IsNullOrEmpty(criteria))

@@ -1,14 +1,17 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="TradeBarContext.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="TradebarContext.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
 namespace Lurker.UI.Models
 {
-    using Lurker.UI.ViewModels;
     using System;
+    using Lurker.UI.ViewModels;
 
+    /// <summary>
+    /// Represents the bar context.
+    /// </summary>
     public class TradebarContext
     {
         #region Fields
@@ -22,9 +25,11 @@ namespace Lurker.UI.Models
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TradebarContext"/> class.
+        /// Initializes a new instance of the <see cref="TradebarContext" /> class.
         /// </summary>
         /// <param name="removeAction">The remove action.</param>
+        /// <param name="addToActiveOfferAction">The add to active offer action.</param>
+        /// <param name="setActiveOffer">The set active offer.</param>
         public TradebarContext(Action<OfferViewModel> removeAction, Action<OfferViewModel> addToActiveOfferAction, Action<OfferViewModel> setActiveOffer)
         {
             this._remove = removeAction;

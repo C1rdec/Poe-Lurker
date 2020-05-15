@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="AffixViewModel.cs" company="Wohs">
-//     Missing Copyright information from a valid stylecop.json file.
+// <copyright file="AffixViewModel.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -8,6 +8,9 @@ namespace Lurker.UI.ViewModels
 {
     using Lurker.Patreon.Models;
 
+    /// <summary>
+    /// Represents the AffixViewModel.
+    /// </summary>
     public class AffixViewModel
     {
         #region Fields
@@ -44,7 +47,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets the actual value.
         /// </summary>
-        public string ActualValue => this._affix.ActualValue.Replace(" increased", "");
+        public string ActualValue => this._affix.ActualValue.Replace(" increased", string.Empty);
 
         #endregion
     }
