@@ -16,6 +16,7 @@ namespace Lurker
     using System.Threading.Tasks;
     using Lurker.Extensions;
     using Lurker.Patreon.Events;
+    using Sentry;
 
     /// <summary>
     /// Defines a file Watcher for the Client log file.
