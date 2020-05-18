@@ -4,7 +4,7 @@
     <id>PoeLurker</id>
     <!-- version will be replaced by MSBuild -->
     <version>0.0.0.0</version>
-    <title></title>
+    <title>Poe Lurker</title>
     <authors>C1rdec</authors>
 	<owners>C1rdec</owners>
     <description>My package description.</description>
