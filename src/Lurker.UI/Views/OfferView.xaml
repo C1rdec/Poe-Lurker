@@ -10,7 +10,7 @@
              xmlns:local="clr-namespace:Lurker.UI"
              mc:Ignorable="d" 
              d:DesignHeight="65" d:DesignWidth="65">
-    <Border BorderThickness="2" CornerRadius="4">
+    <Border BorderThickness="2" CornerRadius="4" cal:Message.Attach="[Event PreviewMouseDownEvent] = [Action OnMouseDown]; [Event PreviewMouseUpEvent] = [Action OnMouseUp]">
         <Border.Style>
             <Style TargetType="Border">
                 <Style.Triggers>
@@ -23,7 +23,6 @@
         </Border.Style>
         <Button x:Name="MainAction"
             ToolTipService.InitialShowDelay="{Binding ToolTipDelay}"
-            cal:Message.Attach="[Event ClickEvent] = [Action MainAction]; [Event PreviewMouseDownEvent] = [Action OnMouseDown]; [Event PreviewMouseUpEvent] = [Action OnMouseUp]"
             MinWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
             MaxWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
             <Button.Template>
