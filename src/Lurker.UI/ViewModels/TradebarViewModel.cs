@@ -245,13 +245,17 @@ namespace Lurker.UI.ViewModels
             {
                 Execute.OnUIThread(() =>
                 {
+                    if (offer.Active)
+                    {
+                        this._removeActive?.Invoke();
+                    }
+
                     this.TradeOffers.Remove(offer);
                     this._activeOffers.Remove(offer);
-
                     var activeOffer = this.ActiveOffer;
-                    if (this.ActiveOffer != null)
+                    if (activeOffer != null)
                     {
-                        this.ActiveOffer.Active = true;
+                        activeOffer.Active = true;
                         this.SendToLifeBulb(this.ActiveOffer.Event);
                     }
                     else
@@ -273,7 +277,10 @@ namespace Lurker.UI.ViewModels
             this._activeOffers.Add(offer);
             this.ActiveOffer.Active = true;
 
-            this.SendToLifeBulb(this.ActiveOffer.Event);
+            if (offer.Equals(this.ActiveOffer))
+            {
+                this.SendToLifeBulb(this.ActiveOffer.Event);
+            }
         }
 
         /// <summary>
