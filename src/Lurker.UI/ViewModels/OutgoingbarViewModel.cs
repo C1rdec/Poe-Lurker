@@ -261,6 +261,11 @@ namespace Lurker.UI.ViewModels
         /// <param name="offer">The offer.</param>
         private void SetActiveOffer(OutgoingOfferViewModel offer)
         {
+            if (offer.Active)
+            {
+                return;
+            }
+
             if (this._activeOffer != null)
             {
                 this._activeOffer.Active = false;
