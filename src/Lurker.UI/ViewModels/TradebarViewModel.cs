@@ -256,7 +256,7 @@ namespace Lurker.UI.ViewModels
                     if (activeOffer != null)
                     {
                         activeOffer.Active = true;
-                        this.SendToLifeBulb(this.ActiveOffer.Event);
+                        this.SendToLifeBulb(activeOffer.Event);
                     }
                     else
                     {
