@@ -92,12 +92,23 @@ namespace Lurker.Helpers
                 Native.SetForegroundWindow(this._windowHandle);
 
                 this._simulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.RETURN);
+                this.Wait();
                 this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_A);
+                this.Wait();
 
                 // We are using the interop since SendWait block mouse input.
                 this._simulator.Keyboard.TextEntry(command);
+                this.Wait();
                 this._simulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.RETURN);
             }
+        }
+
+        /// <summary>
+        /// Waits this instance.
+        /// </summary>
+        private void Wait()
+        {
+            this._simulator.Keyboard.Sleep(100);
         }
 
         #endregion
