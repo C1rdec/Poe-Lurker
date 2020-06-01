@@ -179,6 +179,7 @@ namespace Lurker
                 this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_C);
                 await Task.Delay(20);
                 var text = ClipboardHelper.GetClipboardText();
+                ClipboardHelper.ClearClipboard();
 
                 try
                 {
