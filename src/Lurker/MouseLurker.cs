@@ -7,7 +7,6 @@
 namespace Lurker
 {
     using System;
-    using System.Diagnostics;
     using System.Threading.Tasks;
     using Lurker.Helpers;
     using Lurker.Patreon.Models;
@@ -35,17 +34,15 @@ namespace Lurker
         /// <summary>
         /// Initializes a new instance of the <see cref="MouseLurker" /> class.
         /// </summary>
-        /// <param name="process">The process.</param>
+        /// <param name="processId">The process identifier.</param>
         /// <param name="settingsService">The settings service.</param>
-        public MouseLurker(Process process, SettingsService settingsService)
+        public MouseLurker(int processId, SettingsService settingsService)
         {
-            var is64BitProcess = process.ProcessName.Contains("64");
-
             this._settingsService = settingsService;
             this._simulator = new InputSimulator();
-            this._mouseHook = new MouseHook(process.Id, is64BitProcess ? ProcessBitness.Is64Bit : ProcessBitness.Is32Bit);
+            this._mouseHook = new MouseHook(processId);
             this._mouseHook.LeftButtonUp += this.MouseHook_LeftButtonUp;
-            this._mouseHook.Install();
+            this._mouseHook.InstallAsync();
         }
 
         #endregion

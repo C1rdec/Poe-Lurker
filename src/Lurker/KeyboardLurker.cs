@@ -1,0 +1,166 @@
+﻿//-----------------------------------------------------------------------
+// <copyright file="KeyboardLurker.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
+// </copyright>
+//-----------------------------------------------------------------------
+
+namespace Lurker
+{
+    using System;
+    using System.Threading.Tasks;
+    using Lurker.Helpers;
+    using Lurker.Patreon.Parsers;
+    using Lurker.Services;
+    using WindowsInput;
+    using Winook;
+
+    /// <summary>
+    /// Represents the keyboard lurker.
+    /// </summary>
+    public class KeyboardLurker
+    {
+        #region Fields
+
+        private static readonly ushort DeleteKeyCode = 46;
+        private KeyboardHook _keyboardHook;
+        private InputSimulator _simulator;
+        private ItemParser _itemParser;
+        private SettingsService _settingsService;
+        private PoeKeyboardHelper _keyboardHelper;
+        private bool _disposed;
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="KeyboardLurker" /> class.
+        /// </summary>
+        /// <param name="processId">The process identifier.</param>
+        /// <param name="settingsService">The settings service.</param>
+        /// <param name="keyboardHelper">The keyboard helper.</param>
+        public KeyboardLurker(int processId, SettingsService settingsService, PoeKeyboardHelper keyboardHelper)
+        {
+            this._settingsService = settingsService;
+            this._keyboardHelper = keyboardHelper;
+
+            this._itemParser = new ItemParser();
+            this._simulator = new InputSimulator();
+            this._keyboardHook = new KeyboardHook(processId);
+            this._keyboardHook.AddHandler('F', KeyDirection.Down, HotKeyModifiers.Control, this.SearchItem);
+            this._keyboardHook.AddHandler('R', HotKeyModifiers.Control, this.RemainingMonsters);
+            this._keyboardHook.AddHandler(DeleteKeyCode, this.DeleteItem);
+
+            this._itemParser.CheckPledgeStatus();
+            this._keyboardHook.InstallAsync();
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        public void Dispose() => this.Dispose(true);
+
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this._disposed)
+            {
+                if (disposing)
+                {
+                    try
+                    {
+                        this._keyboardHook.Dispose();
+                    }
+                    catch
+                    {
+                    }
+                }
+
+                this._disposed = true;
+            }
+        }
+
+        /// <summary>
+        /// Searches the item.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="KeyboardMessageEventArgs"/> instance containing the event data.</param>
+        private async void SearchItem(object sender, KeyboardMessageEventArgs e)
+        {
+            if (this._settingsService.ItemHighlightEnabled)
+            {
+                var baseType = await this.GetItemSearchValueInClipboard();
+                if (string.IsNullOrEmpty(baseType))
+                {
+                    return;
+                }
+
+                this._keyboardHelper.Write(baseType);
+            }
+        }
+
+        /// <summary>
+        /// Deletes the item.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="KeyboardMessageEventArgs"/> instance containing the event data.</param>
+        private void DeleteItem(object sender, KeyboardMessageEventArgs e)
+        {
+            if (this._settingsService.DeleteItemEnabled)
+            {
+                this._simulator.Mouse.LeftButtonClick();
+                this._keyboardHelper.Destroy();
+            }
+        }
+
+        /// <summary>
+        /// Remainings the monsters.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="KeyboardMessageEventArgs"/> instance containing the event data.</param>
+        private void RemainingMonsters(object sender, KeyboardMessageEventArgs e)
+        {
+            if (this._settingsService.RemainingMonsterEnabled)
+            {
+                this._keyboardHelper.RemainingMonster();
+            }
+        }
+
+        /// <summary>
+        /// Gets the item base type in clipboard.
+        /// </summary>
+        /// <returns>The item search value.</returns>
+        private async Task<string> GetItemSearchValueInClipboard()
+        {
+            try
+            {
+                this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_C);
+                await Task.Delay(20);
+                var text = ClipboardHelper.GetClipboardText();
+                ClipboardHelper.ClearClipboard();
+
+                try
+                {
+                    return this._itemParser.GetSearchValue(text);
+                }
+                catch (InvalidOperationException)
+                {
+                    return null;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        #endregion
+    }
+}

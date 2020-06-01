@@ -57,7 +57,6 @@ namespace Lurker
             this._settingsService.OnSave += this.SettingsService_OnSave;
             this._clipboardMonitor.ClipboardChanged += this.ClipboardMonitor_ClipboardChanged;
             this._itemParser.CheckPledgeStatus();
-            this.LurkForAction();
         }
 
         #endregion
@@ -106,26 +105,6 @@ namespace Lurker
         }
 
         /// <summary>
-        /// Starts the watcher.
-        /// </summary>
-        private void LurkForAction()
-        {
-            var search = Combination.FromString("Control+F");
-            var remainingMonster = Combination.FromString("Control+R");
-            var deleteItem = Combination.TriggeredBy(System.Windows.Forms.Keys.Delete);
-
-            this._keyboardEvent = Hook.GlobalEvents();
-            var assignment = new Dictionary<Combination, Action>
-            {
-                { search, this.Search },
-                { remainingMonster, this.RemainingMonster },
-                { deleteItem, this.DeleteItem },
-            };
-
-            this._keyboardEvent.OnCombination(assignment);
-        }
-
-        /// <summary>
         /// Handles the ClipboardChanged event of the ClipboardMonitor control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -165,74 +144,6 @@ namespace Lurker
                 {
                     this.NewOffer?.Invoke(this, currentText);
                 }
-            }
-        }
-
-        /// <summary>
-        /// Gets the item base type in clipboard.
-        /// </summary>
-        /// <returns>The item search value.</returns>
-        private async Task<string> GetItemSearchValueInClipboard()
-        {
-            try
-            {
-                this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_C);
-                await Task.Delay(20);
-                var text = ClipboardHelper.GetClipboardText();
-                ClipboardHelper.ClearClipboard();
-
-                try
-                {
-                    return this._itemParser.GetSearchValue(text);
-                }
-                catch (System.InvalidOperationException)
-                {
-                    return null;
-                }
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Searches this instance.
-        /// </summary>
-        private async void Search()
-        {
-            if (this._settingsService.ItemHighlightEnabled && Models.PoeApplicationContext.InForeground)
-            {
-                var baseType = await this.GetItemSearchValueInClipboard();
-                if (string.IsNullOrEmpty(baseType))
-                {
-                    return;
-                }
-
-                this._keyboardHelper.Write(baseType);
-            }
-        }
-
-        /// <summary>
-        /// Remainings the monster.
-        /// </summary>
-        private void RemainingMonster()
-        {
-            if (this._settingsService.RemainingMonsterEnabled && Models.PoeApplicationContext.InForeground)
-            {
-                this._keyboardHelper.RemainingMonster();
-            }
-        }
-
-        /// <summary>
-        /// Deletes the item.
-        /// </summary>
-        private void DeleteItem()
-        {
-            if (this._settingsService.DeleteItemEnabled && Models.PoeApplicationContext.InForeground)
-            {
-                this._simulator.Mouse.LeftButtonClick();
-                this._keyboardHelper.Destroy();
             }
         }
 

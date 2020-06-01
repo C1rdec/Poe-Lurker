@@ -38,6 +38,7 @@ namespace Lurker.UI
         private ProcessLurker _processLurker;
         private ClientLurker _currentLurker;
         private MouseLurker _mouseLurker;
+        private KeyboardLurker _keyboardLurker;
         private DockingHelper _currentDockingHelper;
         private ClipboardLurker _clipboardLurker;
         private TradebarViewModel _incomingTradeBarOverlay;
@@ -334,10 +335,14 @@ namespace Lurker.UI
         {
             Execute.OnUIThread(() =>
             {
-                this._mouseLurker = new MouseLurker(parentProcess, this._settingsService);
+                var id = parentProcess.Id;
+                var keyboarHelper = new PoeKeyboardHelper(parentProcess);
+
+                this._keyboardLurker = new KeyboardLurker(id, this._settingsService, keyboarHelper);
+
+                this._mouseLurker = new MouseLurker(id, this._settingsService);
                 this._mouseLurker.Newitem += this.MouseLurker_Newitem;
 
-                var keyboarHelper = new PoeKeyboardHelper(parentProcess);
                 this._currentDockingHelper = new DockingHelper(parentProcess, this._settingsService);
                 this._clipboardLurker = new ClipboardLurker(this._settingsService, keyboarHelper);
 
@@ -422,6 +427,11 @@ namespace Lurker.UI
                 this._mouseLurker.Newitem -= this.MouseLurker_Newitem;
                 this._mouseLurker.Dispose();
                 this._mouseLurker = null;
+            }
+
+            if (this._keyboardLurker != null)
+            {
+                this._keyboardLurker.Dispose();
             }
         }
 
