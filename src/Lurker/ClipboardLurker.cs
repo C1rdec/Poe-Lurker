@@ -7,15 +7,9 @@
 namespace Lurker
 {
     using System;
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using System.Windows;
     using System.Windows.Input;
-    using Gma.System.MouseKeyHook;
     using Lurker.Helpers;
     using Lurker.Patreon.Events;
-    using Lurker.Patreon.Models;
     using Lurker.Patreon.Parsers;
     using Lurker.Services;
     using WindowsInput;
@@ -29,13 +23,10 @@ namespace Lurker
     {
         #region Fields
 
-        private InputSimulator _simulator;
-        private PoeKeyboardHelper _keyboardHelper;
         private ItemParser _itemParser = new ItemParser();
         private SettingsService _settingsService;
         private SharpClipboard _clipboardMonitor;
         private string _lastClipboardText = string.Empty;
-        private IKeyboardMouseEvents _keyboardEvent;
 
         #endregion
 
@@ -45,12 +36,9 @@ namespace Lurker
         /// Initializes a new instance of the <see cref="ClipboardLurker" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
-        /// <param name="keyboardHelper">The keyboard helper.</param>
-        public ClipboardLurker(SettingsService settingsService, PoeKeyboardHelper keyboardHelper)
+        public ClipboardLurker(SettingsService settingsService)
         {
             ClipboardHelper.ClearClipboard();
-            this._keyboardHelper = keyboardHelper;
-            this._simulator = new InputSimulator();
             this._clipboardMonitor = new SharpClipboard();
             this._settingsService = settingsService;
 
@@ -88,7 +76,6 @@ namespace Lurker
         {
             if (disposing)
             {
-                this._keyboardEvent.Dispose();
                 this._clipboardMonitor.ClipboardChanged -= this.ClipboardMonitor_ClipboardChanged;
                 this._settingsService.OnSave -= this.SettingsService_OnSave;
             }

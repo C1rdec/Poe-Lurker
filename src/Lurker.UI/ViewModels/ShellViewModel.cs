@@ -336,15 +336,18 @@ namespace Lurker.UI
             Execute.OnUIThread(() =>
             {
                 var id = parentProcess.Id;
-                var keyboarHelper = new PoeKeyboardHelper(parentProcess);
 
+                // Keyboard
+                var keyboarHelper = new PoeKeyboardHelper(parentProcess);
                 this._keyboardLurker = new KeyboardLurker(id, this._settingsService, keyboarHelper);
 
+                // Mouse
                 this._mouseLurker = new MouseLurker(id, this._settingsService);
                 this._mouseLurker.Newitem += this.MouseLurker_Newitem;
 
+                // Clipboard
                 this._currentDockingHelper = new DockingHelper(parentProcess, this._settingsService);
-                this._clipboardLurker = new ClipboardLurker(this._settingsService, keyboarHelper);
+                this._clipboardLurker = new ClipboardLurker(this._settingsService);
 
                 this._container.RegisterInstance(typeof(ProcessLurker), null, this._processLurker);
                 this._container.RegisterInstance(typeof(ClientLurker), null, this._currentLurker);

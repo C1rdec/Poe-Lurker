@@ -142,18 +142,11 @@ namespace Lurker
             try
             {
                 this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_C);
-                await Task.Delay(20);
+                await Task.Delay(50);
                 var text = ClipboardHelper.GetClipboardText();
                 ClipboardHelper.ClearClipboard();
 
-                try
-                {
-                    return this._itemParser.GetSearchValue(text);
-                }
-                catch (InvalidOperationException)
-                {
-                    return null;
-                }
+                return this._itemParser.GetSearchValue(text);
             }
             catch
             {
