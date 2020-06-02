@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\packages\Winook.0.2.0-beta\build\Winook.props" Condition="Exists('..\..\packages\Winook.0.2.0-beta\build\Winook.props')" />
+  <Import Project="..\..\packages\Winook.0.2.0-beta3\build\Winook.props" Condition="Exists('..\..\packages\Winook.0.2.0-beta3\build\Winook.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -119,8 +119,8 @@
     <Reference Include="WindowsInput, Version=1.0.4.0, Culture=neutral, PublicKeyToken=9b287f7dc5073cad, processorArchitecture=MSIL">
       <HintPath>..\..\packages\InputSimulator.1.0.4.0\lib\net20\WindowsInput.dll</HintPath>
     </Reference>
-    <Reference Include="Winook, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Winook.0.2.0-beta\lib\net45\Winook.dll</HintPath>
+    <Reference Include="Winook, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Winook.0.2.0-beta3\lib\net45\Winook.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +169,6 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Winook.0.2.0-beta\build\Winook.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Winook.0.2.0-beta\build\Winook.props'))" />
+    <Error Condition="!Exists('..\..\packages\Winook.0.2.0-beta3\build\Winook.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Winook.0.2.0-beta3\build\Winook.props'))" />
   </Target>
 </Project>
