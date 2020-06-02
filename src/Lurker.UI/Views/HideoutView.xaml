@@ -13,30 +13,30 @@
         Focusable="False"
         mc:Ignorable="d"
         Title="HideoutView">
-    <Grid>
+    <Grid Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
         <local:IconPack Foreground="#c2d9ff"
                         Height="25"
                         HorizontalAlignment="Left"
                         Margin="4,0,0,4"
                         VerticalAlignment="Bottom"
                         Data="{x:Static local:IconPackData.Hideout}"/>
-    <Polygon cal:Message.Attach="[Event MouseDown] = [Action JoinHideout()]" Points="0,0 150,150, 0,150"  Cursor="Hand">
-        <Polygon.Style>
-            <Style TargetType="Polygon">
-                <Setter Property="Opacity" Value="0.002"/>
-                <Setter Property="Fill" Value="White"></Setter>
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding DebugEnabled}" Value="True">
-                        <Setter Property="Fill" Value="Green"/>
-                        <Setter Property="Opacity" Value="1"/>
-                    </DataTrigger>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Opacity" Value="0.05" />
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-        </Polygon.Style>
-    </Polygon>
+        <Polygon cal:Message.Attach="[Event MouseDown] = [Action JoinHideout()]" Points="0,0 150,150, 0,150"  Cursor="Hand">
+            <Polygon.Style>
+                <Style TargetType="Polygon">
+                    <Setter Property="Opacity" Value="0.002"/>
+                    <Setter Property="Fill" Value="White"></Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding DebugEnabled}" Value="True">
+                            <Setter Property="Fill" Value="Green"/>
+                            <Setter Property="Opacity" Value="1"/>
+                        </DataTrigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Opacity" Value="0.05" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Polygon.Style>
+        </Polygon>
     </Grid>
 
 </Window>
