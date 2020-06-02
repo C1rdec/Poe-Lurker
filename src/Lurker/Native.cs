@@ -29,6 +29,9 @@ namespace Lurker
             }
         }
 
+        [DllImport("user32.dll")]
+        public static extern int SetWindowLong(IntPtr hWnd, int nIndex, uint dwNewLong);
+
         public delegate int HookProc(int code, IntPtr wParam, IntPtr lParam);
 
         [DllImport("User32.dll")]

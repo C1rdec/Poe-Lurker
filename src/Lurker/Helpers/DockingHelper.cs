@@ -66,6 +66,11 @@ namespace Lurker.Helpers
             this._hook = SetWinEventHook(0, MoveEnd, this._windowHandle, this._winEventDelegate, this._windowProcessId, this._windowOwnerId, 0);
             this.WindowInformation = this.GetWindowInformation();
             this.WatchForegound();
+
+            if (settingsService.VulkanRenderer)
+            {
+                this.RemoveWindowBorder();
+            }
         }
 
         #endregion
@@ -130,6 +135,14 @@ namespace Lurker.Helpers
                 this._tokenSource.Cancel();
                 UnhookWinEvent(this._hook);
             }
+        }
+
+        /// <summary>
+        /// Removes the window border.
+        /// </summary>
+        private void RemoveWindowBorder()
+        {
+            Native.SetWindowLong(this._process.MainWindowHandle, -16, 0x10000000);
         }
 
         /// <summary>

@@ -136,6 +136,11 @@ namespace Lurker.Models
         [DefaultValue(true)]
         public bool ShowStartupAnimation { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="Settings"/> is vulkan.
+        /// </summary>
+        public bool VulkanRenderer { get; set; }
+
         #endregion
     }
 }

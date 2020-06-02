@@ -7,6 +7,7 @@
 namespace Lurker.Console
 {
     using System;
+    using System.Collections.Generic;
     using System.Net.Http;
     using System.Text;
     using Lurker.Patreon.Events;
@@ -14,30 +15,13 @@ namespace Lurker.Console
 
     class Program
     {
+        private static readonly List<string> PossibleProcessNames = new List<string> { "PathOfExile", "PathOfExile_x64", "PathOfExileSteam", "PathOfExile_x64Steam", "PathOfExile_x64_KG.exe", "PathOfExile_KG.exe" };
+
         static void Main(string[] args)
         {
-            var httpClient = new HttpClient();
-
-            while (true)
-            {
-                var tradeEvent = TradeEvent.TryParse("2020/04/13 00:38:33 611799171 acf [INFO Client 11220] @From <STONED> Resued_Delirium: Hi, I would like to buy your Hollow Fossil listed for 15 exalted in Delirium (stash tab \"qweq\"; position: left 3, top 7)");
-                var json = JsonConvert.SerializeObject(new 
-                { 
-                    ItemName = tradeEvent.ItemName,
-                    ItemClass = tradeEvent.ItemClass.ToString(),
-                    WhisperMessage = tradeEvent.WhisperMessage,
-                    PlayerName = tradeEvent.PlayerName,
-                    Date = tradeEvent.Date,
-                    Price = JsonConvert.SerializeObject(new { NumberOfCurrencies = tradeEvent.Price.NumberOfCurrencies.ToString(), CurrencyType = tradeEvent.Price.CurrencyType.ToString()})
-                });
-
-                var asd = JsonConvert.SerializeObject(tradeEvent);
-                var data = new StringContent(json, Encoding.UTF8, "application/json");
-                //var json = JsonConvert.SerializeObject(new { Test = "" });
-                //var data = new StringContent(json , Encoding.UTF8, "application/json");
-                var message = httpClient.PostAsync("https://us-central1-poe-lurker.cloudfunctions.net/sendTradeMessage", data).Result;
-                Console.Read();
-            }
+            var lurker = new ProcessLurker(PossibleProcessNames);
+            var process = lurker.WaitForProcess().Result;
+            Native.SetWindowLong(process.MainWindowHandle, -16, 0x10000000);
         }
 
         private static void Lurker_NewOffer(object sender, Patreon.Events.TradeEvent e)
