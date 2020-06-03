@@ -335,6 +335,7 @@ namespace Lurker.UI
         {
             Execute.OnUIThread(() =>
             {
+                this._currentDockingHelper = new DockingHelper(parentProcess, this._settingsService);
                 var id = parentProcess.Id;
 
                 // Keyboard
@@ -346,7 +347,6 @@ namespace Lurker.UI
                 this._mouseLurker.Newitem += this.MouseLurker_Newitem;
 
                 // Clipboard
-                this._currentDockingHelper = new DockingHelper(parentProcess, this._settingsService);
                 this._clipboardLurker = new ClipboardLurker(this._settingsService);
 
                 this._container.RegisterInstance(typeof(ProcessLurker), null, this._processLurker);

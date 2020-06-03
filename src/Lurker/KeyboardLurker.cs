@@ -47,7 +47,7 @@ namespace Lurker
             this._itemParser = new ItemParser();
             this._simulator = new InputSimulator();
             this._keyboardHook = new KeyboardHook(processId);
-            this._keyboardHook.AddHandler('F', KeyDirection.Down, Modifiers.Control, this.SearchItem);
+            this._keyboardHook.AddHandler('F', Modifiers.Alt, this.SearchItem);
             this._keyboardHook.AddHandler('R', Modifiers.Control, this.RemainingMonsters);
             this._keyboardHook.AddHandler(DeleteKeyCode, this.DeleteItem);
 
@@ -102,7 +102,7 @@ namespace Lurker
                     return;
                 }
 
-                this._keyboardHelper.Write(baseType);
+                this._keyboardHelper.Search(baseType);
             }
         }
 

@@ -37,6 +37,7 @@ namespace Lurker.UI.ViewModels
         /// <param name="processLurker">The process lurker.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="keyboardHelper">The keyboard helper.</param>
+        /// <param name="clientLurker">The client lurker.</param>
         public HideoutViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService, PoeKeyboardHelper keyboardHelper, ClientLurker clientLurker)
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
