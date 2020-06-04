@@ -488,6 +488,23 @@ namespace Lurker.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [vulkan renderer].
+        /// </summary>
+        public bool VulkanRenderer
+        {
+            get
+            {
+                return this._settingService.VulkanRenderer;
+            }
+
+            set
+            {
+                this._settingService.VulkanRenderer = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
         #endregion
 
         #region Methods

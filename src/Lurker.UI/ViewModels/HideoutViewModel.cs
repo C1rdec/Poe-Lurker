@@ -22,6 +22,8 @@ namespace Lurker.UI.ViewModels
 
         private static readonly int DefaultSize = 60;
         private PoeKeyboardHelper _keyboardHelper;
+        private ClientLurker _clientLurker;
+        private bool _isVisible;
 
         #endregion
 
@@ -35,13 +37,39 @@ namespace Lurker.UI.ViewModels
         /// <param name="processLurker">The process lurker.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="keyboardHelper">The keyboard helper.</param>
-        public HideoutViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService, PoeKeyboardHelper keyboardHelper)
+        /// <param name="clientLurker">The client lurker.</param>
+        public HideoutViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService, PoeKeyboardHelper keyboardHelper, ClientLurker clientLurker)
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
             this._keyboardHelper = keyboardHelper;
+            this._clientLurker = clientLurker;
+            this._clientLurker.LocationChanged += this.ClientLurker_LocationChanged;
         }
 
         #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets a value indicating whether this instance is visible.
+        /// </summary>
+        public bool IsVisible
+        {
+            get
+            {
+                return this._isVisible;
+            }
+
+            private set
+            {
+                this._isVisible = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// Joins the hideout.
@@ -68,5 +96,18 @@ namespace Lurker.UI.ViewModels
                 this.View.Top = windowInformation.Position.Bottom - value - margin;
             });
         }
+
+        /// <summary>
+        /// Clients the lurker location changed.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
+        private void ClientLurker_LocationChanged(object sender, Patreon.Events.LocationChangedEvent e)
+        {
+            this._clientLurker.LocationChanged -= this.ClientLurker_LocationChanged;
+            this.IsVisible = true;
+        }
+
+        #endregion
     }
 }

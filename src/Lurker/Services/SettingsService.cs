@@ -420,6 +420,22 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [vulkan renderer].
+        /// </summary>
+        public bool VulkanRenderer
+        {
+            get
+            {
+                return this._settings.VulkanRenderer;
+            }
+
+            set
+            {
+                this._settings.VulkanRenderer = value;
+            }
+        }
+
+        /// <summary>
         /// Gets the name of the folder.
         /// </summary>
         private string FolderName => "PoeLurker";

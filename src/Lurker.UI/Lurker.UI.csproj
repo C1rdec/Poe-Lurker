@@ -512,6 +512,7 @@
   <ItemGroup>
     <Resource Include="Assets\Gemcutter.png" />
     <Content Include="SVG\Beer.svg" />
+    <Content Include="SVG\Hideout.svg" />
     <Content Include="SVG\Lightning.svg" />
     <Content Include="SVG\Sold.svg" />
     <Resource Include="Assets\Regal.png" />

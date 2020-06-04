@@ -43,6 +43,7 @@ namespace Lurker.Helpers
         private IntPtr _windowHandle;
         private IntPtr _currentWindowStyle;
         private Process _process;
+        private bool _borderRemoved;
 
         #endregion
 
@@ -61,11 +62,17 @@ namespace Lurker.Helpers
             this._process = process;
             this._windowHandle = this._process.GetWindowHandle();
 
+            this._settingsService.OnSave += this.SettingsService_OnSave;
             this._windowOwnerId = GetWindowThreadProcessId(this._windowHandle, out this._windowProcessId);
             this._winEventDelegate = this.WhenWindowMoveStartsOrEnds;
             this._hook = SetWinEventHook(0, MoveEnd, this._windowHandle, this._winEventDelegate, this._windowProcessId, this._windowOwnerId, 0);
             this.WindowInformation = this.GetWindowInformation();
             this.WatchForegound();
+
+            if (settingsService.VulkanRenderer)
+            {
+                this.RemoveWindowBorder();
+            }
         }
 
         #endregion
@@ -126,10 +133,33 @@ namespace Lurker.Helpers
         {
             if (disposing)
             {
+                this._settingsService.OnSave -= this.SettingsService_OnSave;
                 this._myProcess.Dispose();
                 this._tokenSource.Cancel();
                 UnhookWinEvent(this._hook);
             }
+        }
+
+        /// <summary>
+        /// Handles the OnSave event of the SettingsService control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void SettingsService_OnSave(object sender, EventArgs e)
+        {
+            if (this._settingsService.VulkanRenderer && !this._borderRemoved)
+            {
+                this.RemoveWindowBorder();
+            }
+        }
+
+        /// <summary>
+        /// Removes the window border.
+        /// </summary>
+        private void RemoveWindowBorder()
+        {
+            Native.SetWindowLong(this._windowHandle, -16, 0x10000000);
+            this._borderRemoved = true;
         }
 
         /// <summary>
@@ -171,47 +201,53 @@ namespace Lurker.Helpers
             var token = this._tokenSource.Token;
             while (true)
             {
-                if (token.IsCancellationRequested)
+                try
                 {
-                    return;
-                }
-
-                var inForeground = false;
-                var foregroundWindow = Native.GetForegroundWindow();
-                GetWindowThreadProcessId(foregroundWindow, out var processId);
-
-                var style = Native.GetWindowLong(this._windowHandle, -16);
-                if (this._currentWindowStyle != style)
-                {
-                    switch ((uint)style)
+                    if (token.IsCancellationRequested)
                     {
-                        case 0x14cf0000:
-                            PoeApplicationContext.WindowStyle = WindowStyle.Windowed;
-                            break;
-                        case 0x94000000:
-                            PoeApplicationContext.WindowStyle = WindowStyle.WindowedFullScreen;
-                            break;
+                        return;
                     }
 
-                    this._currentWindowStyle = style;
-                    this.InvokeWindowMove();
-                }
+                    var inForeground = false;
+                    var foregroundWindow = Native.GetForegroundWindow();
+                    GetWindowThreadProcessId(foregroundWindow, out var processId);
 
-                if (processId == this._myProcess.Id || foregroundWindow == this._windowHandle)
-                {
-                    inForeground = true;
-                }
-
-                if (PoeApplicationContext.InForeground != inForeground)
-                {
-                    PoeApplicationContext.InForeground = inForeground;
-                    if (this._settingsService.HideInBackground)
+                    var style = Native.GetWindowLong(this._windowHandle, -16);
+                    if (this._currentWindowStyle != style)
                     {
-                        this.OnForegroundChange?.Invoke(this, inForeground);
-                    }
-                }
+                        switch ((uint)style)
+                        {
+                            case 0x14cf0000:
+                                PoeApplicationContext.WindowStyle = WindowStyle.Windowed;
+                                break;
+                            case 0x94000000:
+                                PoeApplicationContext.WindowStyle = WindowStyle.WindowedFullScreen;
+                                break;
+                        }
 
-                await Task.Delay(500);
+                        this._currentWindowStyle = style;
+                        this.InvokeWindowMove();
+                    }
+
+                    if (processId == this._myProcess.Id || foregroundWindow == this._windowHandle)
+                    {
+                        inForeground = true;
+                    }
+
+                    if (PoeApplicationContext.InForeground != inForeground)
+                    {
+                        PoeApplicationContext.InForeground = inForeground;
+                        if (this._settingsService.HideInBackground)
+                        {
+                            this.OnForegroundChange?.Invoke(this, inForeground);
+                        }
+                    }
+
+                    await Task.Delay(500);
+                }
+                catch
+                {
+                }
             }
         }
 

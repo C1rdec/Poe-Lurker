@@ -7,7 +7,6 @@
 namespace Lurker.UI
 {
     using System;
-    using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
     using System.Reflection;
@@ -33,11 +32,11 @@ namespace Lurker.UI
     {
         #region Fields
 
-        private static readonly List<string> PossibleProcessNames = new List<string> { "PathOfExile", "PathOfExile_x64", "PathOfExileSteam", "PathOfExile_x64Steam", "PathOfExile_x64_KG.exe", "PathOfExile_KG.exe" };
         private SimpleContainer _container;
         private ProcessLurker _processLurker;
         private ClientLurker _currentLurker;
         private MouseLurker _mouseLurker;
+        private KeyboardLurker _keyboardLurker;
         private DockingHelper _currentDockingHelper;
         private ClipboardLurker _clipboardLurker;
         private TradebarViewModel _incomingTradeBarOverlay;
@@ -334,12 +333,19 @@ namespace Lurker.UI
         {
             Execute.OnUIThread(() =>
             {
-                this._mouseLurker = new MouseLurker(parentProcess, this._settingsService);
+                this._currentDockingHelper = new DockingHelper(parentProcess, this._settingsService);
+                var id = parentProcess.Id;
+
+                // Keyboard
+                var keyboarHelper = new PoeKeyboardHelper(parentProcess);
+                this._keyboardLurker = new KeyboardLurker(id, this._settingsService, keyboarHelper);
+
+                // Mouse
+                this._mouseLurker = new MouseLurker(id, this._settingsService);
                 this._mouseLurker.Newitem += this.MouseLurker_Newitem;
 
-                var keyboarHelper = new PoeKeyboardHelper(parentProcess);
-                this._currentDockingHelper = new DockingHelper(parentProcess, this._settingsService);
-                this._clipboardLurker = new ClipboardLurker(this._settingsService, keyboarHelper);
+                // Clipboard
+                this._clipboardLurker = new ClipboardLurker(this._settingsService);
 
                 this._container.RegisterInstance(typeof(ProcessLurker), null, this._processLurker);
                 this._container.RegisterInstance(typeof(ClientLurker), null, this._currentLurker);
@@ -423,6 +429,11 @@ namespace Lurker.UI
                 this._mouseLurker.Dispose();
                 this._mouseLurker = null;
             }
+
+            if (this._keyboardLurker != null)
+            {
+                this._keyboardLurker.Dispose();
+            }
         }
 
         /// <summary>
@@ -433,7 +444,7 @@ namespace Lurker.UI
             var affixServiceTask = AffixService.InitializeAsync();
 
             // Process Lurker
-            this._processLurker = new ProcessLurker(PossibleProcessNames);
+            this._processLurker = new PathOfExileProcessLurker();
             this._processLurker.ProcessClosed += this.PoeClosed;
             var process = await this._processLurker.WaitForProcess();
 

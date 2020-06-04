@@ -66,7 +66,7 @@ namespace Lurker
         /// Waits for process.
         /// </summary>
         /// <returns>The process.</returns>
-        public async Task<Process> WaitForProcess()
+        public virtual async Task<Process> WaitForProcess()
         {
             var process = this.GetProcess();
 

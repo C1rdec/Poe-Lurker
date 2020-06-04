@@ -230,7 +230,7 @@
                                                    Foreground="{DynamicResource AccentColorBrush}"
                                                    FontSize="12"
                                                    VerticalAlignment="Top"
-                                                   Text="(Ctrl + F)" />
+                                                   Text="(Alt + F)" />
                             <Controls:ToggleSwitch 
                                                Header="Remaining Monster"
                                 Margin="30,0,0,0"
@@ -287,6 +287,12 @@
                                                    HorizontalAlignment="Center"
                                                    Header="Debug Mode"
                                                    IsChecked="{Binding DebugEnabled}"/>
+                            <Controls:ToggleSwitch Grid.Row="1"
+                                                   VerticalAlignment="Top"
+                                                   Margin="30,0,0,0"
+                                                   HorizontalAlignment="Center"
+                                                   Header="Vulkan"
+                                                   IsChecked="{Binding VulkanRenderer}"/>
                         </StackPanel>
                     </StackPanel>
                 </Grid>

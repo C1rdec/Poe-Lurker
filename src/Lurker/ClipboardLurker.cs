@@ -7,15 +7,9 @@
 namespace Lurker
 {
     using System;
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using System.Windows;
     using System.Windows.Input;
-    using Gma.System.MouseKeyHook;
     using Lurker.Helpers;
     using Lurker.Patreon.Events;
-    using Lurker.Patreon.Models;
     using Lurker.Patreon.Parsers;
     using Lurker.Services;
     using WindowsInput;
@@ -29,13 +23,10 @@ namespace Lurker
     {
         #region Fields
 
-        private InputSimulator _simulator;
-        private PoeKeyboardHelper _keyboardHelper;
         private ItemParser _itemParser = new ItemParser();
         private SettingsService _settingsService;
         private SharpClipboard _clipboardMonitor;
         private string _lastClipboardText = string.Empty;
-        private IKeyboardMouseEvents _keyboardEvent;
 
         #endregion
 
@@ -45,19 +36,15 @@ namespace Lurker
         /// Initializes a new instance of the <see cref="ClipboardLurker" /> class.
         /// </summary>
         /// <param name="settingsService">The settings service.</param>
-        /// <param name="keyboardHelper">The keyboard helper.</param>
-        public ClipboardLurker(SettingsService settingsService, PoeKeyboardHelper keyboardHelper)
+        public ClipboardLurker(SettingsService settingsService)
         {
             ClipboardHelper.ClearClipboard();
-            this._keyboardHelper = keyboardHelper;
-            this._simulator = new InputSimulator();
             this._clipboardMonitor = new SharpClipboard();
             this._settingsService = settingsService;
 
             this._settingsService.OnSave += this.SettingsService_OnSave;
             this._clipboardMonitor.ClipboardChanged += this.ClipboardMonitor_ClipboardChanged;
             this._itemParser.CheckPledgeStatus();
-            this.LurkForAction();
         }
 
         #endregion
@@ -89,7 +76,6 @@ namespace Lurker
         {
             if (disposing)
             {
-                this._keyboardEvent.Dispose();
                 this._clipboardMonitor.ClipboardChanged -= this.ClipboardMonitor_ClipboardChanged;
                 this._settingsService.OnSave -= this.SettingsService_OnSave;
             }
@@ -103,26 +89,6 @@ namespace Lurker
         private async void SettingsService_OnSave(object sender, EventArgs e)
         {
             await this._itemParser.CheckPledgeStatus();
-        }
-
-        /// <summary>
-        /// Starts the watcher.
-        /// </summary>
-        private void LurkForAction()
-        {
-            var search = Combination.FromString("Control+F");
-            var remainingMonster = Combination.FromString("Control+R");
-            var deleteItem = Combination.TriggeredBy(System.Windows.Forms.Keys.Delete);
-
-            this._keyboardEvent = Hook.GlobalEvents();
-            var assignment = new Dictionary<Combination, Action>
-            {
-                { search, this.Search },
-                { remainingMonster, this.RemainingMonster },
-                { deleteItem, this.DeleteItem },
-            };
-
-            this._keyboardEvent.OnCombination(assignment);
         }
 
         /// <summary>
@@ -165,74 +131,6 @@ namespace Lurker
                 {
                     this.NewOffer?.Invoke(this, currentText);
                 }
-            }
-        }
-
-        /// <summary>
-        /// Gets the item base type in clipboard.
-        /// </summary>
-        /// <returns>The item search value.</returns>
-        private async Task<string> GetItemSearchValueInClipboard()
-        {
-            try
-            {
-                this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_C);
-                await Task.Delay(20);
-                var text = ClipboardHelper.GetClipboardText();
-                ClipboardHelper.ClearClipboard();
-
-                try
-                {
-                    return this._itemParser.GetSearchValue(text);
-                }
-                catch (System.InvalidOperationException)
-                {
-                    return null;
-                }
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Searches this instance.
-        /// </summary>
-        private async void Search()
-        {
-            if (this._settingsService.ItemHighlightEnabled && Models.PoeApplicationContext.InForeground)
-            {
-                var baseType = await this.GetItemSearchValueInClipboard();
-                if (string.IsNullOrEmpty(baseType))
-                {
-                    return;
-                }
-
-                this._keyboardHelper.Write(baseType);
-            }
-        }
-
-        /// <summary>
-        /// Remainings the monster.
-        /// </summary>
-        private void RemainingMonster()
-        {
-            if (this._settingsService.RemainingMonsterEnabled && Models.PoeApplicationContext.InForeground)
-            {
-                this._keyboardHelper.RemainingMonster();
-            }
-        }
-
-        /// <summary>
-        /// Deletes the item.
-        /// </summary>
-        private void DeleteItem()
-        {
-            if (this._settingsService.DeleteItemEnabled && Models.PoeApplicationContext.InForeground)
-            {
-                this._simulator.Mouse.LeftButtonClick();
-                this._keyboardHelper.Destroy();
             }
         }
 
