@@ -201,47 +201,53 @@ namespace Lurker.Helpers
             var token = this._tokenSource.Token;
             while (true)
             {
-                if (token.IsCancellationRequested)
+                try
                 {
-                    return;
-                }
-
-                var inForeground = false;
-                var foregroundWindow = Native.GetForegroundWindow();
-                GetWindowThreadProcessId(foregroundWindow, out var processId);
-
-                var style = Native.GetWindowLong(this._windowHandle, -16);
-                if (this._currentWindowStyle != style)
-                {
-                    switch ((uint)style)
+                    if (token.IsCancellationRequested)
                     {
-                        case 0x14cf0000:
-                            PoeApplicationContext.WindowStyle = WindowStyle.Windowed;
-                            break;
-                        case 0x94000000:
-                            PoeApplicationContext.WindowStyle = WindowStyle.WindowedFullScreen;
-                            break;
+                        return;
                     }
 
-                    this._currentWindowStyle = style;
-                    this.InvokeWindowMove();
-                }
+                    var inForeground = false;
+                    var foregroundWindow = Native.GetForegroundWindow();
+                    GetWindowThreadProcessId(foregroundWindow, out var processId);
 
-                if (processId == this._myProcess.Id || foregroundWindow == this._windowHandle)
-                {
-                    inForeground = true;
-                }
-
-                if (PoeApplicationContext.InForeground != inForeground)
-                {
-                    PoeApplicationContext.InForeground = inForeground;
-                    if (this._settingsService.HideInBackground)
+                    var style = Native.GetWindowLong(this._windowHandle, -16);
+                    if (this._currentWindowStyle != style)
                     {
-                        this.OnForegroundChange?.Invoke(this, inForeground);
-                    }
-                }
+                        switch ((uint)style)
+                        {
+                            case 0x14cf0000:
+                                PoeApplicationContext.WindowStyle = WindowStyle.Windowed;
+                                break;
+                            case 0x94000000:
+                                PoeApplicationContext.WindowStyle = WindowStyle.WindowedFullScreen;
+                                break;
+                        }
 
-                await Task.Delay(500);
+                        this._currentWindowStyle = style;
+                        this.InvokeWindowMove();
+                    }
+
+                    if (processId == this._myProcess.Id || foregroundWindow == this._windowHandle)
+                    {
+                        inForeground = true;
+                    }
+
+                    if (PoeApplicationContext.InForeground != inForeground)
+                    {
+                        PoeApplicationContext.InForeground = inForeground;
+                        if (this._settingsService.HideInBackground)
+                        {
+                            this.OnForegroundChange?.Invoke(this, inForeground);
+                        }
+                    }
+
+                    await Task.Delay(500);
+                }
+                catch
+                {
+                }
             }
         }
 

@@ -7,7 +7,6 @@
 namespace Lurker.UI
 {
     using System;
-    using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
     using System.Reflection;
@@ -33,7 +32,6 @@ namespace Lurker.UI
     {
         #region Fields
 
-        private static readonly List<string> PossibleProcessNames = new List<string> { "PathOfExile", "PathOfExile_x64", "PathOfExileSteam", "PathOfExile_x64Steam", "PathOfExile_x64_KG.exe", "PathOfExile_KG.exe" };
         private SimpleContainer _container;
         private ProcessLurker _processLurker;
         private ClientLurker _currentLurker;
@@ -446,7 +444,7 @@ namespace Lurker.UI
             var affixServiceTask = AffixService.InitializeAsync();
 
             // Process Lurker
-            this._processLurker = new ProcessLurker(PossibleProcessNames);
+            this._processLurker = new PathOfExileProcessLurker();
             this._processLurker.ProcessClosed += this.PoeClosed;
             var process = await this._processLurker.WaitForProcess();
 

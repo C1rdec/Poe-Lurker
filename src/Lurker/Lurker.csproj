@@ -142,6 +142,7 @@
     <Compile Include="MouseLurker.cs" />
     <Compile Include="Models\WindowStyle.cs" />
     <Compile Include="Native.cs" />
+    <Compile Include="PathOfExileProcessLurker.cs" />
     <Compile Include="ProcessLurker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AssetService.cs" />
