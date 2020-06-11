@@ -8,6 +8,7 @@ namespace Lurker.Helpers
 {
     using System;
     using System.Diagnostics;
+    using System.Runtime.InteropServices;
     using System.Threading;
     using System.Threading.Tasks;
     using Lurker.Extensions;
@@ -158,6 +159,7 @@ namespace Lurker.Helpers
         /// </summary>
         private void RemoveWindowBorder()
         {
+            // Native.SetWindowLongPtr(new HandleRef(this, this._windowHandle), -16, (IntPtr)0x10000000);
             Native.SetWindowLong(this._windowHandle, -16, 0x10000000);
             this._borderRemoved = true;
         }
