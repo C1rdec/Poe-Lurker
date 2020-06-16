@@ -43,6 +43,9 @@
     <Reference Include="ConfOxide, Version=1.4.2.0, Culture=neutral, PublicKeyToken=934faed64f82030e, processorArchitecture=MSIL">
       <HintPath>..\..\packages\ConfOxide.1.4.2.0\lib\net40\ConfOxide.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.11.24.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\HtmlAgilityPack.1.11.24\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="LiteDB, Version=5.0.4.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
       <HintPath>..\..\packages\LiteDB.5.0.4\lib\net45\LiteDB.dll</HintPath>
     </Reference>
@@ -136,10 +139,13 @@
     <Compile Include="Helpers\TokenHelper.cs" />
     <Compile Include="Helpers\TradeEventHelper.cs" />
     <Compile Include="KeyboardLurker.cs" />
+    <Compile Include="Models\Build.cs" />
     <Compile Include="Models\Collaboration.cs" />
+    <Compile Include="Models\Gem.cs" />
     <Compile Include="Models\PoeApplicationContext.cs" />
     <Compile Include="Models\PoeWindowInformation.cs" />
     <Compile Include="Models\Settings.cs" />
+    <Compile Include="Models\Skill.cs" />
     <Compile Include="MouseLurker.cs" />
     <Compile Include="Models\WindowStyle.cs" />
     <Compile Include="Native.cs" />
