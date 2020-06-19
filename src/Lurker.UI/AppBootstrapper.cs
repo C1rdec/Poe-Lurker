@@ -68,6 +68,7 @@ namespace Lurker.UI
             this._container.PerRequest<UpdateManager, UpdateManager>();
             this._container.PerRequest<ShellViewModel, ShellViewModel>();
             this._container.PerRequest<TradebarViewModel, TradebarViewModel>();
+            this._container.PerRequest<BuildViewModel, BuildViewModel>();
             this._container.PerRequest<OutgoingbarViewModel, OutgoingbarViewModel>();
             this._container.PerRequest<LifeBulbViewModel, LifeBulbViewModel>();
             this._container.PerRequest<ManaBulbViewModel, ManaBulbViewModel>();

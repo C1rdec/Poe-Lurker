@@ -48,6 +48,7 @@ namespace Lurker.UI
         private AfkService _afkService;
         private ItemOverlayViewModel _itemOverlay;
         private SettingsViewModel _settingsViewModel;
+        private BuildViewModel _buildViewModel;
         private IEventAggregator _eventAggregator;
         private bool _startWithWindows;
         private bool _needUpdate;
@@ -324,6 +325,23 @@ namespace Lurker.UI
         private async void SettingsService_OnSave(object sender, EventArgs e)
         {
             await this.CheckPledgeStatus();
+
+            if (this._settingsService.BuildHelper)
+            {
+                if (this._buildViewModel == null)
+                {
+                    this._buildViewModel = this._container.GetInstance<BuildViewModel>();
+                    this.ActivateItem(this._buildViewModel);
+                }
+            }
+            else
+            {
+                if (this._buildViewModel != null)
+                {
+                    this.DeactivateItem(this._buildViewModel, true);
+                    this._buildViewModel = null;
+                }
+            }
         }
 
         /// <summary>
@@ -359,6 +377,12 @@ namespace Lurker.UI
                 this._manaBulbOverlay = this._container.GetInstance<ManaBulbViewModel>();
                 this._afkService = this._container.GetInstance<AfkService>();
                 this._hideoutOverlay = this._container.GetInstance<HideoutViewModel>();
+
+                if (this._settingsService.BuildHelper)
+                {
+                    this._buildViewModel = this._container.GetInstance<BuildViewModel>();
+                    this.ActivateItem(this._buildViewModel);
+                }
 
                 this.ActivateItem(this._incomingTradeBarOverlay);
                 this.ActivateItem(this._outgoingTradeBarOverlay);

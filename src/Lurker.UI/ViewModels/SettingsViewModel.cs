@@ -505,6 +505,23 @@ namespace Lurker.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [build helper].
+        /// </summary>
+        public bool BuildHelper
+        {
+            get
+            {
+                return this._settingService.BuildHelper;
+            }
+
+            set
+            {
+                this._settingService.BuildHelper = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
         #endregion
 
         #region Methods

@@ -141,6 +141,11 @@ namespace Lurker.Models
         /// </summary>
         public bool VulkanRenderer { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [path of building].
+        /// </summary>
+        public bool BuildHelper { get; set; }
+
         #endregion
     }
 }

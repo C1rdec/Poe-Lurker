@@ -436,6 +436,22 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [build helper].
+        /// </summary>
+        public bool BuildHelper
+        {
+            get
+            {
+                return this._settings.BuildHelper;
+            }
+
+            set
+            {
+                this._settings.BuildHelper = value;
+            }
+        }
+
+        /// <summary>
         /// Gets the name of the folder.
         /// </summary>
         private string FolderName => "PoeLurker";

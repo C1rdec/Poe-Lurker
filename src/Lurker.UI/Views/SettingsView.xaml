@@ -274,6 +274,10 @@
                                                    Margin="30,0,0,0"
                                                Header="Auto Kick"
                                                IsChecked="{Binding AutoKickEnabled}"/>
+                            <Controls:ToggleSwitch 
+                                                   Margin="30,0,0,0"
+                                               Header="Build Helper"
+                                               IsChecked="{Binding BuildHelper}"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,30,0,0" HorizontalAlignment="Center">
                             <Controls:ToggleSwitch Grid.Row="1"

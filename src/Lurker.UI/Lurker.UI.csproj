@@ -253,8 +253,10 @@
       <DependentUpon>Svg.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AffixViewModel.cs" />
+    <Compile Include="ViewModels\BuildViewModel.cs" />
     <Compile Include="ViewModels\ChartViewModelBase.cs" />
     <Compile Include="ViewModels\CollaborationViewModel.cs" />
+    <Compile Include="ViewModels\GemViewModel.cs" />
     <Compile Include="ViewModels\HideoutViewModel.cs" />
     <Compile Include="ViewModels\LineChartViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
@@ -272,12 +274,16 @@
     <Compile Include="ViewModels\RemainingMonsterViewModel.cs" />
     <Compile Include="ViewModels\ScreenBase.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\SkillViewModel.cs" />
     <Compile Include="ViewModels\SplashscreenViewModel.cs" />
     <Compile Include="ViewModels\TradebarViewModel.cs" />
     <Compile Include="ViewModels\TradeValueViewModel.cs" />
     <Compile Include="ViewModels\UpdateViewModel.cs" />
     <Compile Include="Views\AffixView.xaml.cs">
       <DependentUpon>AffixView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BuildView.xaml.cs">
+      <DependentUpon>BuildView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CollaborationView.xaml.cs">
       <DependentUpon>CollaborationView.xaml</DependentUpon>
@@ -287,6 +293,9 @@
     </Compile>
     <Compile Include="Views\DashboardView.xaml.cs">
       <DependentUpon>DashboardView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GemView.xaml.cs">
+      <DependentUpon>GemView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HideoutView.xaml.cs">
       <DependentUpon>HideoutView.xaml</DependentUpon>
@@ -330,6 +339,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ViewModels\OfferViewModel.cs" />
+    <Compile Include="Views\SkillView.xaml.cs">
+      <DependentUpon>SkillView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SplashscreenView.xaml.cs">
       <DependentUpon>SplashscreenView.xaml</DependentUpon>
     </Compile>
@@ -349,6 +361,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\BuildView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CollaborationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -358,6 +374,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DashboardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -408,6 +428,10 @@
     <Page Include="Views\ShellView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SkillView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SplashscreenView.xaml">
       <SubType>Designer</SubType>
