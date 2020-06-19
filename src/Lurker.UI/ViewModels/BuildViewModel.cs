@@ -6,9 +6,11 @@
 
 namespace Lurker.UI.ViewModels
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Net.Http;
     using System.Threading.Tasks;
     using Caliburn.Micro;
     using Lurker.Helpers;
@@ -106,15 +108,33 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public async void Import()
         {
-            if (this._currentTask != null)
+            try
             {
-                await this._currentTask;
-            }
+                if (this._currentTask != null)
+                {
+                    await this._currentTask;
+                }
 
-            var text = ClipboardHelper.GetClipboardText();
-            if (await this.Initialize(text))
+                var text = ClipboardHelper.GetClipboardText();
+                if (System.Uri.IsWellFormedUriString(text, System.UriKind.RelativeOrAbsolute))
+                {
+                    var url = new Uri(text);
+                    var rawUri = new Uri($"https://pastebin.com/raw{url.AbsolutePath}");
+                    using (var client = new HttpClient())
+                    {
+                        var request = new HttpRequestMessage(HttpMethod.Get, rawUri);
+                        var response = await client.SendAsync(request);
+                        text = await response.Content.ReadAsStringAsync();
+                    }
+                }
+
+                if (await this.Initialize(text))
+                {
+                    AssetService.Create(FileName, text);
+                }
+            }
+            catch
             {
-                AssetService.Create(FileName, text);
             }
         }
 
