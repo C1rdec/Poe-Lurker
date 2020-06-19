@@ -7,6 +7,7 @@
 namespace Lurker.Models
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Xml.Linq;
 
     /// <summary>
@@ -52,8 +53,11 @@ namespace Lurker.Models
         /// Froms the XML.
         /// </summary>
         /// <param name="element">The element.</param>
-        /// <returns>The skill.</returns>
-        public static Skill FromXml(XElement element)
+        /// <param name="knownGems">The known gems.</param>
+        /// <returns>
+        /// The skill.
+        /// </returns>
+        public static Skill FromXml(XElement element, IEnumerable<Gem> knownGems)
         {
             var skill = new Skill()
             {
@@ -62,13 +66,18 @@ namespace Lurker.Models
 
             foreach (var gemElement in element.Elements())
             {
-                var gem = Gem.FromXml(gemElement);
-                if (string.IsNullOrEmpty(gem.Name))
+                var gemId = gemElement.Attribute("skillId").Value;
+                var gem = knownGems.FirstOrDefault(g => g.Id == gemId);
+                if (gem == null)
                 {
-                    continue;
+                    gem = Gem.FromXml(gemElement);
+                    if (string.IsNullOrEmpty(gem.Name))
+                    {
+                        continue;
+                    }
                 }
 
-                skill.AddGem(Gem.FromXml(gemElement));
+                skill.AddGem(gem);
             }
 
             return skill;

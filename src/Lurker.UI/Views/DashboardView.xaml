@@ -6,6 +6,7 @@
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:local="clr-namespace:Lurker.UI.Views"
         mc:Ignorable="d"
+        xmlns:cal="http://www.caliburnproject.org"
         Height="600" Width="800">
     <Grid>
         <ContentControl x:Name="ActiveChart" Grid.ColumnSpan="2"  Grid.RowSpan="2"/>
@@ -20,7 +21,18 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-
+            <ItemsControl x:Name="Leagues" Grid.Column="1">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="{Binding DisplayName}" cal:Message.Attach="Filter($dataContext)"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2">
                 <TextBlock FontSize="20" Foreground="White">Item Class</TextBlock>
                 <TextBlock FontSize="12" Margin="4,4,0,0" Foreground="White" VerticalAlignment="Center">(Top 5)</TextBlock>

@@ -360,6 +360,7 @@ namespace Lurker.UI
                 this._afkService = this._container.GetInstance<AfkService>();
                 this._hideoutOverlay = this._container.GetInstance<HideoutViewModel>();
 
+                this.ActivateItem(IoC.Get<DashboardViewModel>());
                 this.ActivateItem(this._incomingTradeBarOverlay);
                 this.ActivateItem(this._outgoingTradeBarOverlay);
                 this.ActivateItem(this._lifeBulbOverlay);
