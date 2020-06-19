@@ -116,9 +116,8 @@ namespace Lurker.UI.ViewModels
                 }
 
                 var text = ClipboardHelper.GetClipboardText();
-                if (System.Uri.IsWellFormedUriString(text, System.UriKind.RelativeOrAbsolute))
+                if (Uri.TryCreate(text, UriKind.Absolute, out Uri url))
                 {
-                    var url = new Uri(text);
                     var rawUri = new Uri($"https://pastebin.com/raw{url.AbsolutePath}");
                     using (var client = new HttpClient())
                     {
