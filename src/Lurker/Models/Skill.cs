@@ -61,7 +61,7 @@ namespace Lurker.Models
         {
             var skill = new Skill()
             {
-                Slot = element.Attribute("slot").Value,
+                Slot = element.Attribute("slot")?.Value,
             };
 
             foreach (var gemElement in element.Elements())
