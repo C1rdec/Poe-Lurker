@@ -29,7 +29,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Content="{Binding DisplayName}" cal:Message.Attach="Filter($dataContext)"/>
+                        <Button Margin="4,0,0,0" Content="{Binding DisplayName}" cal:Message.Attach="Filter($dataContext)"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
