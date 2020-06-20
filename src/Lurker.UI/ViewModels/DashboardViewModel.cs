@@ -196,8 +196,20 @@ namespace Lurker.UI.ViewModels
         {
             this.SetLeagueTrades(league);
 
+            if (this.ItemClassChart != null)
+            {
+                this.ItemClassChart.OnSerieClick -= this.ItemClassChart_OnSerieClick;
+            }
+
+            if (this.TotalChart != null)
+            {
+                this.TotalChart.OnSerieClick -= this.OnSerieClick;
+            }
+
             this.ItemClassChart = this.CreateItemClassChart();
+            this.ItemClassChart.OnSerieClick += this.ItemClassChart_OnSerieClick;
             this.NetworthChart = this.CreateNetworthChart();
+            this.TotalChart.OnSerieClick += this.OnSerieClick;
             this.TotalChart = this.CreateTotalChart();
         }
 
