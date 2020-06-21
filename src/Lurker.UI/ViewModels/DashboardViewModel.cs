@@ -209,8 +209,8 @@ namespace Lurker.UI.ViewModels
             this.ItemClassChart = this.CreateItemClassChart();
             this.ItemClassChart.OnSerieClick += this.ItemClassChart_OnSerieClick;
             this.NetworthChart = this.CreateNetworthChart();
-            this.TotalChart.OnSerieClick += this.OnSerieClick;
             this.TotalChart = this.CreateTotalChart();
+            this.TotalChart.OnSerieClick += this.OnSerieClick;
         }
 
         /// <summary>
