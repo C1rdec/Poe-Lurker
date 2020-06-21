@@ -291,12 +291,6 @@
                                                    HorizontalAlignment="Center"
                                                    Header="Debug Mode"
                                                    IsChecked="{Binding DebugEnabled}"/>
-                            <Controls:ToggleSwitch Grid.Row="1"
-                                                   VerticalAlignment="Top"
-                                                   Margin="30,0,0,0"
-                                                   HorizontalAlignment="Center"
-                                                   Header="Vulkan"
-                                                   IsChecked="{Binding VulkanRenderer}"/>
                         </StackPanel>
                     </StackPanel>
                 </Grid>

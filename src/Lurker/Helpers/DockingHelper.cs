@@ -63,17 +63,16 @@ namespace Lurker.Helpers
             this._process = process;
             this._windowHandle = this._process.GetWindowHandle();
 
-            this._settingsService.OnSave += this.SettingsService_OnSave;
             this._windowOwnerId = GetWindowThreadProcessId(this._windowHandle, out this._windowProcessId);
             this._winEventDelegate = this.WhenWindowMoveStartsOrEnds;
             this._hook = SetWinEventHook(0, MoveEnd, this._windowHandle, this._winEventDelegate, this._windowProcessId, this._windowOwnerId, 0);
             this.WindowInformation = this.GetWindowInformation();
             this.WatchForegound();
 
-            if (settingsService.VulkanRenderer)
+            /*if (settingsService.VulkanRenderer)
             {
                 this.RemoveWindowBorder();
-            }
+            }*/
         }
 
         #endregion
@@ -134,23 +133,9 @@ namespace Lurker.Helpers
         {
             if (disposing)
             {
-                this._settingsService.OnSave -= this.SettingsService_OnSave;
                 this._myProcess.Dispose();
                 this._tokenSource.Cancel();
                 UnhookWinEvent(this._hook);
-            }
-        }
-
-        /// <summary>
-        /// Handles the OnSave event of the SettingsService control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void SettingsService_OnSave(object sender, EventArgs e)
-        {
-            if (this._settingsService.VulkanRenderer && !this._borderRemoved)
-            {
-                this.RemoveWindowBorder();
             }
         }
 
