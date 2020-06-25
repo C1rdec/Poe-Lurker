@@ -19,9 +19,9 @@ namespace Lurker.Helpers
         /// <summary>
         /// Initializes a new instance of the <see cref="PoeKeyboardHelper" /> class.
         /// </summary>
-        /// <param name="process">The process.</param>
-        public PoeKeyboardHelper(Process process)
-            : base(process)
+        /// <param name="processId">The process identifier.</param>
+        public PoeKeyboardHelper(int processId)
+            : base(processId)
         {
         }
 

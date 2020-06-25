@@ -53,26 +53,29 @@ namespace Lurker.Helpers
         /// <summary>
         /// Initializes a new instance of the <see cref="DockingHelper" /> class.
         /// </summary>
-        /// <param name="process">The process.</param>
+        /// <param name="processId">The process identifier.</param>
         /// <param name="settingsService">The settings service.</param>
-        public DockingHelper(Process process, SettingsService settingsService)
+        public DockingHelper(int processId, SettingsService settingsService)
         {
-            this._myProcess = Process.GetCurrentProcess();
-            this._tokenSource = new CancellationTokenSource();
-            this._settingsService = settingsService;
-            this._process = process;
-            this._windowHandle = this._process.GetWindowHandle();
-
-            this._windowOwnerId = GetWindowThreadProcessId(this._windowHandle, out this._windowProcessId);
-            this._winEventDelegate = this.WhenWindowMoveStartsOrEnds;
-            this._hook = SetWinEventHook(0, MoveEnd, this._windowHandle, this._winEventDelegate, this._windowProcessId, this._windowOwnerId, 0);
-            this.WindowInformation = this.GetWindowInformation();
-            this.WatchForegound();
-
-            /*if (settingsService.VulkanRenderer)
+            this._process = ProcessLurker.GetProcessById(processId);
+            if (this._process != null)
             {
-                this.RemoveWindowBorder();
-            }*/
+                this._myProcess = Process.GetCurrentProcess();
+                this._tokenSource = new CancellationTokenSource();
+                this._settingsService = settingsService;
+                this._windowHandle = this._process.GetWindowHandle();
+
+                this._windowOwnerId = GetWindowThreadProcessId(this._windowHandle, out this._windowProcessId);
+                this._winEventDelegate = this.WhenWindowMoveStartsOrEnds;
+                this._hook = SetWinEventHook(0, MoveEnd, this._windowHandle, this._winEventDelegate, this._windowProcessId, this._windowOwnerId, 0);
+                this.WindowInformation = this.GetWindowInformation();
+                this.WatchForegound();
+
+                /*if (settingsService.VulkanRenderer)
+                {
+                    this.RemoveWindowBorder();
+                }*/
+            }
         }
 
         #endregion

@@ -21,10 +21,11 @@ namespace Lurker
     {
         #region Fields
 
-        private static readonly int WaitingTime = 5000;
+        private static readonly int WaitingTime = 2000;
         private IEnumerable<string> _processNames;
         private CancellationTokenSource _tokenSource;
         private Process _activeProcess;
+        private int _processId;
 
         #endregion
 
@@ -63,10 +64,27 @@ namespace Lurker
         #region Methods
 
         /// <summary>
+        /// Gets my process by identifier.
+        /// </summary>
+        /// <param name="processId">The process identifier.</param>
+        /// <returns>The process.</returns>
+        public static Process GetProcessById(int processId)
+        {
+            try
+            {
+                return Process.GetProcessById(processId);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Waits for process.
         /// </summary>
         /// <returns>The process.</returns>
-        public virtual async Task<Process> WaitForProcess()
+        public virtual async Task<int> WaitForProcess()
         {
             var process = this.GetProcess();
 
@@ -155,18 +173,18 @@ namespace Lurker
                 catch
                 {
                 }
-                finally
-                {
-                    this.ProcessClosed?.Invoke(this, EventArgs.Empty);
-                }
+
+                this.ProcessClosed?.Invoke(this, EventArgs.Empty);
             });
         }
 
         /// <summary>
         /// Gets the window handle.
         /// </summary>
-        /// <returns>The process.</returns>
-        private Process WaitForWindowHandle()
+        /// <returns>
+        /// The process id.
+        /// </returns>
+        private int WaitForWindowHandle()
         {
             Process currentProcess;
 
@@ -179,13 +197,15 @@ namespace Lurker
                     currentProcess = process ?? throw new InvalidOperationException();
                 }
                 while (currentProcess.MainWindowHandle == IntPtr.Zero);
+
+                this._processId = currentProcess.Id;
             }
             catch
             {
-                currentProcess = this.WaitForWindowHandle();
+                this._processId = this.WaitForWindowHandle();
             }
 
-            return currentProcess;
+            return this._processId;
         }
 
         #endregion

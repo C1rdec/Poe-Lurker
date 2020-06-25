@@ -43,17 +43,19 @@ namespace Lurker
         /// <returns>
         /// The Path of Exile process.
         /// </returns>
-        public override async Task<Process> WaitForProcess()
+        public override async Task<int> WaitForProcess()
         {
-            var process = await base.WaitForProcess();
+            var processId = await base.WaitForProcess();
+            var process = GetProcessById(processId);
 
             // This is to filter the update window
-            while (process.MainWindowTitle != WindowTitle)
+            while (process == null || process.MainWindowTitle != WindowTitle)
             {
-                process = await base.WaitForProcess();
+                processId = await base.WaitForProcess();
+                process = GetProcessById(processId);
             }
 
-            return process;
+            return processId;
         }
 
         #endregion

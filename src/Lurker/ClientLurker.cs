@@ -40,15 +40,18 @@ namespace Lurker
         /// <summary>
         /// Initializes a new instance of the <see cref="ClientLurker" /> class.
         /// </summary>
-        /// <param name="pathOfExileProcess">The path of exile process.</param>
-        public ClientLurker(Process pathOfExileProcess)
+        /// <param name="processId">The process identifier.</param>
+        public ClientLurker(int processId)
         {
-            this._pathOfExileProcess = pathOfExileProcess;
-            this._tokenSource = new CancellationTokenSource();
-
-            if (!this._pathOfExileProcess.ProcessName.EndsWith("_KG.exe"))
+            this._pathOfExileProcess = ProcessLurker.GetProcessById(processId);
+            if (this._pathOfExileProcess != null)
             {
-                this.Lurk();
+                this._tokenSource = new CancellationTokenSource();
+
+                if (!this._pathOfExileProcess.ProcessName.EndsWith("_KG.exe"))
+                {
+                    this.Lurk();
+                }
             }
         }
 

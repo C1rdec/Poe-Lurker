@@ -56,6 +56,7 @@ namespace Lurker.UI
         private bool _isItemOverlayOpen;
         private bool _showUpdateSuccess;
         private bool _closing;
+        private Task _openingTask;
 
         #endregion
 
@@ -75,7 +76,7 @@ namespace Lurker.UI
             this._container = container;
             this._settingsViewModel = settingsViewModel;
 
-            this.WaitForPoe();
+            this._openingTask = this.WaitForPoe(false);
             this.StartWithWindows = File.Exists(this.ShortcutFilePath);
             this.ShowInTaskBar = true;
             this._settingsService.OnSave += this.SettingsService_OnSave;
@@ -347,19 +348,18 @@ namespace Lurker.UI
         /// <summary>
         /// Registers the instances.
         /// </summary>
-        private void ShowOverlays(Process parentProcess)
+        private void ShowOverlays(int processId)
         {
             Execute.OnUIThread(() =>
             {
-                this._currentDockingHelper = new DockingHelper(parentProcess, this._settingsService);
-                var id = parentProcess.Id;
+                this._currentDockingHelper = new DockingHelper(processId, this._settingsService);
 
                 // Keyboard
-                var keyboarHelper = new PoeKeyboardHelper(parentProcess);
-                this._keyboardLurker = new KeyboardLurker(id, this._settingsService, keyboarHelper);
+                var keyboarHelper = new PoeKeyboardHelper(processId);
+                this._keyboardLurker = new KeyboardLurker(processId, this._settingsService, keyboarHelper);
 
                 // Mouse
-                this._mouseLurker = new MouseLurker(id, this._settingsService);
+                this._mouseLurker = new MouseLurker(processId, this._settingsService);
                 this._mouseLurker.Newitem += this.MouseLurker_Newitem;
 
                 // Clipboard
@@ -397,10 +397,11 @@ namespace Lurker.UI
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void PoeClosed(object sender, System.EventArgs e)
+        private async void PoeClosed(object sender, EventArgs e)
         {
+            await this._openingTask;
             this.CleanUp();
-            this.WaitForPoe();
+            this._openingTask = this.WaitForPoe(true);
         }
 
         /// <summary>
@@ -463,7 +464,7 @@ namespace Lurker.UI
         /// <summary>
         /// Waits for poe.
         /// </summary>
-        private async void WaitForPoe()
+        private async Task WaitForPoe(bool fromClosing)
         {
             var affixServiceTask = AffixService.InitializeAsync();
 

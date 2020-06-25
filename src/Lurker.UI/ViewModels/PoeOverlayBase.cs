@@ -42,11 +42,14 @@ namespace Lurker.UI.ViewModels
             this.DockingHelper = dockingHelper;
             this.ProcessLurker = processLurker;
             this.SettingsService = settingsService;
-
-            this.DockingHelper.OnWindowMove += this.DockingHelper_OnWindowMove;
-            this.DockingHelper.OnForegroundChange += this.DockingHelper_OnForegroundChange;
             this.ProcessLurker.ProcessClosed += this.Lurker_PoeClosed;
             this.SettingsService.OnSave += this.SettingsService_OnSave;
+
+            if (this.DockingHelper != null)
+            {
+                this.DockingHelper.OnWindowMove += this.DockingHelper_OnWindowMove;
+                this.DockingHelper.OnForegroundChange += this.DockingHelper_OnForegroundChange;
+            }
         }
 
         #endregion

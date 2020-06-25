@@ -30,13 +30,17 @@ namespace Lurker.Helpers
         /// <summary>
         /// Initializes a new instance of the <see cref="KeyboardHelper" /> class.
         /// </summary>
-        /// <param name="process">The process.</param>
-        public KeyboardHelper(Process process)
+        /// <param name="processId">The process identifier.</param>
+        public KeyboardHelper(int processId)
         {
-            if (process != null)
+            // For the settings instance
+            if (processId != 0)
             {
-                this._process = process;
-                this._windowHandle = this._process.GetWindowHandle();
+                this._process = ProcessLurker.GetProcessById(processId);
+                if (this._process != null)
+                {
+                    this._windowHandle = this._process.GetWindowHandle();
+                }
             }
 
             this._simulator = new InputSimulator();
