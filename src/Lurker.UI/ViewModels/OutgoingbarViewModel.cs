@@ -197,7 +197,7 @@ namespace Lurker.UI.ViewModels
 
             this._timer.Stop();
             Execute.OnUIThread(() => this.Offers.Remove(offer));
-
+            this.DockingHelper.SetForeground();
             this._timer.Start();
         }
 
