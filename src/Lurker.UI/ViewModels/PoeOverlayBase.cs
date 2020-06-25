@@ -198,6 +198,7 @@ namespace Lurker.UI.ViewModels
         protected override void OnViewLoaded(object view)
         {
             this.View = view as Window;
+            this.View.ShowActivated = false;
             this.SetWindowPosition(this.DockingHelper.WindowInformation);
         }
 

@@ -265,6 +265,8 @@ namespace Lurker.UI.ViewModels
 
                     offer.Dispose();
                 });
+
+                this.DockingHelper.SetForeground();
             }
         }
 
