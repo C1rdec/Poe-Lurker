@@ -10,9 +10,7 @@ namespace Lurker
     using System.Windows.Input;
     using Lurker.Helpers;
     using Lurker.Patreon.Events;
-    using Lurker.Patreon.Parsers;
     using Lurker.Services;
-    using WindowsInput;
     using WK.Libraries.SharpClipboardNS;
 
     /// <summary>
@@ -23,7 +21,6 @@ namespace Lurker
     {
         #region Fields
 
-        private ItemParser _itemParser = new ItemParser();
         private SettingsService _settingsService;
         private SharpClipboard _clipboardMonitor;
         private string _lastClipboardText = string.Empty;
@@ -42,9 +39,7 @@ namespace Lurker
             this._clipboardMonitor = new SharpClipboard();
             this._settingsService = settingsService;
 
-            this._settingsService.OnSave += this.SettingsService_OnSave;
             this._clipboardMonitor.ClipboardChanged += this.ClipboardMonitor_ClipboardChanged;
-            this._itemParser.CheckPledgeStatus();
         }
 
         #endregion
@@ -77,18 +72,7 @@ namespace Lurker
             if (disposing)
             {
                 this._clipboardMonitor.ClipboardChanged -= this.ClipboardMonitor_ClipboardChanged;
-                this._settingsService.OnSave -= this.SettingsService_OnSave;
             }
-        }
-
-        /// <summary>
-        /// Handles the OnSave event of the SettingsService control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private async void SettingsService_OnSave(object sender, EventArgs e)
-        {
-            await this._itemParser.CheckPledgeStatus();
         }
 
         /// <summary>
@@ -101,17 +85,9 @@ namespace Lurker
             if (e.ContentType == SharpClipboard.ContentTypes.Text)
             {
                 var currentText = e.Content as string;
-                if (string.IsNullOrEmpty(currentText))
-                {
-                    return;
-                }
-
-                if (this._lastClipboardText == currentText)
-                {
-                    return;
-                }
-
-                if (Keyboard.IsKeyDown(Key.LeftShift))
+                if (string.IsNullOrEmpty(currentText)
+                    || this._lastClipboardText == currentText
+                    || Keyboard.IsKeyDown(Key.LeftShift))
                 {
                     return;
                 }
