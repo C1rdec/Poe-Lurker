@@ -21,7 +21,6 @@ namespace Lurker
     {
         #region Fields
 
-        private SettingsService _settingsService;
         private SharpClipboard _clipboardMonitor;
         private string _lastClipboardText = string.Empty;
 
@@ -32,12 +31,10 @@ namespace Lurker
         /// <summary>
         /// Initializes a new instance of the <see cref="ClipboardLurker" /> class.
         /// </summary>
-        /// <param name="settingsService">The settings service.</param>
-        public ClipboardLurker(SettingsService settingsService)
+        public ClipboardLurker()
         {
             ClipboardHelper.ClearClipboard();
             this._clipboardMonitor = new SharpClipboard();
-            this._settingsService = settingsService;
 
             this._clipboardMonitor.ClipboardChanged += this.ClipboardMonitor_ClipboardChanged;
         }

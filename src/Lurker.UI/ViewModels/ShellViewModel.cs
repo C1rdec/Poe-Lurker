@@ -363,7 +363,7 @@ namespace Lurker.UI
                 this._mouseLurker.Newitem += this.MouseLurker_Newitem;
 
                 // Clipboard
-                this._clipboardLurker = new ClipboardLurker(this._settingsService);
+                this._clipboardLurker = new ClipboardLurker();
 
                 this._container.RegisterInstance(typeof(ProcessLurker), null, this._processLurker);
                 this._container.RegisterInstance(typeof(ClientLurker), null, this._currentLurker);
