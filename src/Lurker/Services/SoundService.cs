@@ -18,6 +18,16 @@ namespace Lurker.Services
         #region Methods
 
         /// <summary>
+        /// Plays the join hideout.
+        /// </summary>
+        /// <param name="volume">The volume.</param>
+        public void PlayJoinHideout(float volume)
+        {
+            var stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("Lurker.Assets.JoinHideout.mp3");
+            this.Play(stream, volume);
+        }
+
+        /// <summary>
         /// Plays the trade alert.
         /// </summary>
         /// <param name="volume">The volume.</param>

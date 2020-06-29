@@ -62,10 +62,21 @@ namespace Lurker.Models
         public bool AlertEnabled { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [join hideout enabled].
+        /// </summary>
+        public bool JoinHideoutEnabled { get; set; }
+
+        /// <summary>
         /// Gets or sets the alert volume.
         /// </summary>
         [DefaultValue(1)]
         public float AlertVolume { get; set; }
+
+        /// <summary>
+        /// Gets or sets the join hideout volume.
+        /// </summary>
+        [DefaultValue(1)]
+        public float JoinHideoutVolume { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether [tool tip enabled].

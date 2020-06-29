@@ -212,6 +212,22 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [join hideout enabled].
+        /// </summary>
+        public bool JoinHideoutEnabled
+        {
+            get
+            {
+                return this._settings.JoinHideoutEnabled;
+            }
+
+            set
+            {
+                this._settings.JoinHideoutEnabled = value;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [tool tip enabled].
         /// </summary>
         public bool ToolTipEnabled
@@ -320,6 +336,22 @@ namespace Lurker.Services
             set
             {
                 this._settings.AlertVolume = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the join hideout volume.
+        /// </summary>
+        public float JoinHideoutVolume
+        {
+            get
+            {
+                return this._settings.JoinHideoutVolume;
+            }
+
+            set
+            {
+                this._settings.JoinHideoutVolume = value;
             }
         }
 

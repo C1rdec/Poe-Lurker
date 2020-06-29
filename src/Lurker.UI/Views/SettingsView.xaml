@@ -144,6 +144,31 @@
                                 SmallChange="1"
                                 Value="{Binding AlertVolume}" />
                         </Grid>
+                        <Grid Grid.Row="1" VerticalAlignment="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Controls:ToggleSwitch Grid.Row="1"
+                                           VerticalAlignment="Top"
+                                           HorizontalAlignment="Left"
+                                           Header="Join Hideout"
+                                           IsChecked="{Binding JoinHideoutEnabled}"/>
+                            <Label Grid.Column="1" Visibility="{Binding JoinHideoutEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Margin="0,-40,0,0" >Volume</Label>
+                            <Slider
+                                Grid.Column="1"
+                                Visibility="{Binding JoinHideoutEnabled, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                Margin="4,25,0,0"
+                                Controls:SliderHelper.ChangeValueBy="SmallChange"
+                                Controls:SliderHelper.EnableMouseWheel="MouseHover"
+                                AutoToolTipPlacement="TopLeft"
+                                LargeChange="10"
+                                Maximum="100"
+                                Minimum="0"
+                                Orientation="Horizontal"
+                                SmallChange="1"
+                                Value="{Binding JoinHideoutVolume}" />
+                        </Grid>
                         <Grid Grid.Row="2" VerticalAlignment="Top" Margin="0,15,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"/>

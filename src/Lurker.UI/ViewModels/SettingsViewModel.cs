@@ -37,6 +37,7 @@ namespace Lurker.UI.ViewModels
         private bool _pledging;
         private bool _activated;
         private int _alertVolume;
+        private int _joinHideoutVolume;
         private Patreon.PatreonService _currentPatreonService;
         private SoundService _soundService;
         private CancellationTokenSource _currentTokenSource;
@@ -319,6 +320,23 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [join hideout enabled].
+        /// </summary>
+        public bool JoinHideoutEnabled
+        {
+            get
+            {
+                return this._settingService.AlertEnabled;
+            }
+
+            set
+            {
+                this._settingService.AlertEnabled = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [alert enabled].
         /// </summary>
         public bool SearchEnabled
@@ -416,6 +434,23 @@ namespace Lurker.UI.ViewModels
             set
             {
                 this._alertVolume = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the join hideout volume.
+        /// </summary>
+        public int JoinHideoutVolume
+        {
+            get
+            {
+                return this._joinHideoutVolume;
+            }
+
+            set
+            {
+                this._joinHideoutVolume = value;
                 this.NotifyOfPropertyChange();
             }
         }
@@ -689,6 +724,7 @@ namespace Lurker.UI.ViewModels
             }
 
             this.AlertVolume = (int)(this._settingService.AlertVolume * 100);
+            this.JoinHideoutVolume = (int)(this._settingService.JoinHideoutVolume * 100);
             this.CheckForUpdate();
             base.OnActivate();
 
@@ -744,7 +780,26 @@ namespace Lurker.UI.ViewModels
                 }
 
                 this._currentTokenSource = new CancellationTokenSource();
-                this.PlaySoundTest(this._currentTokenSource.Token);
+                this.PlaySoundTest(this._currentTokenSource.Token, () => this._soundService.PlayTradeAlert(this._settingService.AlertVolume));
+            }
+            else if (e.PropertyName == nameof(this.JoinHideoutVolume))
+            {
+                this._settingService.JoinHideoutVolume = (float)this.JoinHideoutVolume / 100;
+
+                if (!this._activated)
+                {
+                    return;
+                }
+
+                if (this._currentTokenSource != null)
+                {
+                    this._currentTokenSource.Cancel();
+                    this._currentTokenSource.Dispose();
+                    this._currentTokenSource = null;
+                }
+
+                this._currentTokenSource = new CancellationTokenSource();
+                this.PlaySoundTest(this._currentTokenSource.Token, () => this._soundService.PlayJoinHideout(this._settingService.JoinHideoutVolume));
             }
         }
 
@@ -752,7 +807,8 @@ namespace Lurker.UI.ViewModels
         /// Plays the sound test.
         /// </summary>
         /// <param name="token">The token.</param>
-        private async void PlaySoundTest(CancellationToken token)
+        /// <param name="callback">The callback.</param>
+        private async void PlaySoundTest(CancellationToken token, System.Action callback)
         {
             await Task.Delay(300);
             if (token.IsCancellationRequested)
@@ -760,7 +816,7 @@ namespace Lurker.UI.ViewModels
                 return;
             }
 
-            this._soundService.PlayTradeAlert(this._settingService.AlertVolume);
+            callback();
         }
 
         #endregion
