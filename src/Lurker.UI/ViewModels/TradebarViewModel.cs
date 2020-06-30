@@ -211,7 +211,7 @@ namespace Lurker.UI.ViewModels
                 offer.BuyerInSameInstance = true;
             }
 
-            if (playNotification)
+            if (playNotification && this.SettingsService.JoinHideoutEnabled)
             {
                 this._soundService.PlayJoinHideout(this.SettingsService.JoinHideoutVolume);
             }

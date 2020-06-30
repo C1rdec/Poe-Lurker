@@ -326,12 +326,12 @@ namespace Lurker.UI.ViewModels
         {
             get
             {
-                return this._settingService.AlertEnabled;
+                return this._settingService.JoinHideoutEnabled;
             }
 
             set
             {
-                this._settingService.AlertEnabled = value;
+                this._settingService.JoinHideoutEnabled = value;
                 this.NotifyOfPropertyChange();
             }
         }
