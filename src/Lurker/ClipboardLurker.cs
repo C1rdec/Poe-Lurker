@@ -79,31 +79,33 @@ namespace Lurker
         /// <param name="e">The <see cref="SharpClipboard.ClipboardChangedEventArgs"/> instance containing the event data.</param>
         private void ClipboardMonitor_ClipboardChanged(object sender, SharpClipboard.ClipboardChangedEventArgs e)
         {
-            if (e.ContentType == SharpClipboard.ContentTypes.Text)
+            if (e.ContentType != SharpClipboard.ContentTypes.Text)
             {
-                var currentText = e.Content as string;
-                if (string.IsNullOrEmpty(currentText)
-                    || this._lastClipboardText == currentText
-                    || Keyboard.IsKeyDown(Key.LeftShift))
-                {
-                    return;
-                }
+                return;
+            }
 
-                var isTradeMessage = false;
-                this._lastClipboardText = currentText;
-                if (TradeEvent.IsTradeMessage(currentText))
-                {
-                    isTradeMessage = true;
-                }
-                else if (TradeEventHelper.IsTradeMessage(currentText))
-                {
-                    isTradeMessage = true;
-                }
+            var currentText = e.Content as string;
+            if (string.IsNullOrEmpty(currentText)
+                || this._lastClipboardText == currentText
+                || Keyboard.IsKeyDown(Key.LeftShift))
+            {
+                return;
+            }
 
-                if (isTradeMessage)
-                {
-                    this.NewOffer?.Invoke(this, currentText);
-                }
+            var isTradeMessage = false;
+            this._lastClipboardText = currentText;
+            if (TradeEvent.IsTradeMessage(currentText))
+            {
+                isTradeMessage = true;
+            }
+            else if (TradeEventHelper.IsTradeMessage(currentText))
+            {
+                isTradeMessage = true;
+            }
+
+            if (isTradeMessage)
+            {
+                this.NewOffer?.Invoke(this, currentText);
             }
         }
 

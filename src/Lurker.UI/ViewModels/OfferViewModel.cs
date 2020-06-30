@@ -39,6 +39,7 @@ namespace Lurker.UI.ViewModels
         private bool _buyerInSameInstance;
         private bool _alreadySold;
         private CancellationTokenSource _tokenSource;
+        private DockingHelper _dockingHelper;
 
         #endregion
 
@@ -52,13 +53,15 @@ namespace Lurker.UI.ViewModels
         /// <param name="tradebarContext">The tradebar context.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="sold">if set to <c>true</c> [sold].</param>
-        public OfferViewModel(TradeEvent tradeEvent, PoeKeyboardHelper keyboardHelper, TradebarContext tradebarContext, SettingsService settingsService, bool sold)
+        /// <param name="dockingHelper">The docking helper.</param>
+        public OfferViewModel(TradeEvent tradeEvent, PoeKeyboardHelper keyboardHelper, TradebarContext tradebarContext, SettingsService settingsService, bool sold, DockingHelper dockingHelper)
         {
             this._tradeEvent = tradeEvent;
             this._keyboardHelper = keyboardHelper;
             this._tradebarContext = tradebarContext;
             this._settingsService = settingsService;
             this._alreadySold = sold;
+            this._dockingHelper = dockingHelper;
 
             this._settingsService.OnSave += this.SettingsService_OnSave;
         }
@@ -249,6 +252,7 @@ namespace Lurker.UI.ViewModels
         {
             this._skipMainAction = true;
             this.RemoveFromTradebar();
+            this._dockingHelper.SetForeground();
         }
 
         /// <summary>

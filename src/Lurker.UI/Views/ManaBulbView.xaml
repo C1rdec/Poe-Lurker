@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         Background="Transparent"
+        ShowActivated="False"
         WindowStyle="None"
         Topmost="True"
         xmlns:cal="http://www.caliburnproject.org"

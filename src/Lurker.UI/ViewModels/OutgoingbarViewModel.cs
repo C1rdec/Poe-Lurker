@@ -145,7 +145,7 @@ namespace Lurker.UI.ViewModels
                 return;
             }
 
-            Execute.OnUIThread(() => this.Offers.Insert(0, new OutgoingOfferViewModel(e, this._keyboardHelper, this._context)));
+            Execute.OnUIThread(() => this.Offers.Insert(0, new OutgoingOfferViewModel(e, this._keyboardHelper, this._context, this.DockingHelper)));
         }
 
         /// <summary>
@@ -197,7 +197,6 @@ namespace Lurker.UI.ViewModels
 
             this._timer.Stop();
             Execute.OnUIThread(() => this.Offers.Remove(offer));
-            this.DockingHelper.SetForeground();
             this._timer.Start();
         }
 

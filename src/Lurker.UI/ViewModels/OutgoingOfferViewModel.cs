@@ -28,6 +28,7 @@ namespace Lurker.UI.ViewModels
         private bool _active;
         private double _delayToClose;
         private OutgoingbarContext _barContext;
+        private DockingHelper _dockingHelper;
 
         #endregion
 
@@ -39,12 +40,14 @@ namespace Lurker.UI.ViewModels
         /// <param name="tradeEvent">The trade event.</param>
         /// <param name="keyboardHelper">The keyboard helper.</param>
         /// <param name="context">The context.</param>
-        public OutgoingOfferViewModel(OutgoingTradeEvent tradeEvent, PoeKeyboardHelper keyboardHelper, OutgoingbarContext context)
+        /// <param name="dockingHelper">The docking helper.</param>
+        public OutgoingOfferViewModel(OutgoingTradeEvent tradeEvent, PoeKeyboardHelper keyboardHelper, OutgoingbarContext context, DockingHelper dockingHelper)
         {
             this._event = tradeEvent;
             this._keyboardHelper = keyboardHelper;
             this._barContext = context;
             this.DelayToClose = 100;
+            this._dockingHelper = dockingHelper;
         }
 
         #endregion
@@ -179,6 +182,7 @@ namespace Lurker.UI.ViewModels
         {
             this._skipMainAction = true;
             this._barContext.RemoveOffer(this);
+            this._dockingHelper.SetForeground();
         }
 
         /// <summary>

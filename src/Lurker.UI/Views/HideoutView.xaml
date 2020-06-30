@@ -9,6 +9,7 @@
         Topmost="True"
         xmlns:local="clr-namespace:Lurker.UI"
         AllowsTransparency="True"
+        ShowActivated="False"
         ShowInTaskbar="False"
         Focusable="False"
         mc:Ignorable="d"

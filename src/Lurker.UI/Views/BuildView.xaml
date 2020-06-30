@@ -8,6 +8,7 @@
         Topmost="True"
         WindowStyle="None"
         AllowsTransparency="True"
+        ShowActivated="False"
         ShowInTaskbar="False"
         Background="Transparent"
         Title="BuildView" Height="450" Width="800">

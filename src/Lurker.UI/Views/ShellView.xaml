@@ -4,6 +4,7 @@
         Topmost="True"
         WindowStyle="None"
         Visibility="Hidden"
+        ShowActivated="False"
         AllowsTransparency="True"
         Background="Transparent"
         xmlns:tb="http://www.hardcodet.net/taskbar"

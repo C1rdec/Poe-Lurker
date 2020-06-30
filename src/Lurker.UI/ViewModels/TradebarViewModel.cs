@@ -121,7 +121,7 @@ namespace Lurker.UI.ViewModels
 
             Execute.OnUIThread(() =>
             {
-                this.TradeOffers.Add(new OfferViewModel(e, this._keyboardHelper, this._context, this.SettingsService, this.CheckIfOfferIsAlreadySold(e)));
+                this.TradeOffers.Add(new OfferViewModel(e, this._keyboardHelper, this._context, this.SettingsService, this.CheckIfOfferIsAlreadySold(e), this.DockingHelper));
             });
         }
 
@@ -272,8 +272,6 @@ namespace Lurker.UI.ViewModels
 
                     offer.Dispose();
                 });
-
-                this.DockingHelper.SetForeground();
             }
         }
 
