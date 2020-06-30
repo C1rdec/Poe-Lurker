@@ -9,7 +9,6 @@
         xmlns:cal="http://www.caliburnproject.org"
         AllowsTransparency="True"
         ShowInTaskbar="False"
-        ShowActivated="False"
         mc:Ignorable="d"
         Focusable="False"
         Title="LifeBulbView">

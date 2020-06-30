@@ -8,7 +8,6 @@
         mc:Ignorable="d"
         Background="Transparent"
         WindowStyle="None"
-        ShowActivated="False"
         AllowsTransparency="True"
         ShowInTaskbar="False"
         Title="Lurker">

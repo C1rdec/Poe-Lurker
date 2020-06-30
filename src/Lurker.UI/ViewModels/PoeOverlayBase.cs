@@ -115,7 +115,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         protected void HideView()
         {
-            this.View.Hide();
+            this.View?.Hide();
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace Lurker.UI.ViewModels
                 return;
             }
 
-            this.View.Show();
+            this.View?.Show();
         }
 
         /// <summary>

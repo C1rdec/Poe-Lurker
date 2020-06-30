@@ -49,6 +49,7 @@ namespace Lurker.UI
         private ItemOverlayViewModel _itemOverlay;
         private SettingsViewModel _settingsViewModel;
         private BuildViewModel _buildViewModel;
+        private HelpViewModel _helpOverlay;
         private IEventAggregator _eventAggregator;
         private bool _startWithWindows;
         private bool _needUpdate;
@@ -329,18 +330,24 @@ namespace Lurker.UI
 
             if (this._settingsService.BuildHelper)
             {
-                if (this._buildViewModel == null)
+                if (this._helpOverlay == null)
                 {
-                    this._buildViewModel = this._container.GetInstance<BuildViewModel>();
-                    this.ActivateItem(this._buildViewModel);
+                    this._helpOverlay = this._container.GetInstance<HelpViewModel>();
+                    this._helpOverlay.Initialize(this.ToggleBuildHelper);
+                    this.ActivateItem(this._helpOverlay);
                 }
             }
             else
             {
+                if (this._helpOverlay != null)
+                {
+                    this.DeactivateItem(this._helpOverlay, true);
+                    this._helpOverlay = null;
+                }
+
                 if (this._buildViewModel != null)
                 {
                     this.DeactivateItem(this._buildViewModel, true);
-                    this._buildViewModel = null;
                 }
             }
         }
@@ -377,11 +384,13 @@ namespace Lurker.UI
                 this._manaBulbOverlay = this._container.GetInstance<ManaBulbViewModel>();
                 this._afkService = this._container.GetInstance<AfkService>();
                 this._hideoutOverlay = this._container.GetInstance<HideoutViewModel>();
+                this._helpOverlay = this._container.GetInstance<HelpViewModel>();
+                this._helpOverlay.Initialize(this.ToggleBuildHelper);
+                this._buildViewModel = this._container.GetInstance<BuildViewModel>();
 
                 if (this._settingsService.BuildHelper)
                 {
-                    this._buildViewModel = this._container.GetInstance<BuildViewModel>();
-                    this.ActivateItem(this._buildViewModel);
+                    this.ActivateItem(this._helpOverlay);
                 }
 
                 this.ActivateItem(this._incomingTradeBarOverlay);
@@ -390,6 +399,18 @@ namespace Lurker.UI
                 this.ActivateItem(this._manaBulbOverlay);
                 this.ActivateItem(this._hideoutOverlay);
             });
+        }
+
+        private void ToggleBuildHelper(bool show)
+        {
+            if (show)
+            {
+                this.ActivateItem(this._buildViewModel);
+            }
+            else
+            {
+                this.DeactivateItem(this._buildViewModel, true);
+            }
         }
 
         /// <summary>

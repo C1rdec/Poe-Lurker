@@ -257,6 +257,7 @@
     <Compile Include="ViewModels\ChartViewModelBase.cs" />
     <Compile Include="ViewModels\CollaborationViewModel.cs" />
     <Compile Include="ViewModels\GemViewModel.cs" />
+    <Compile Include="ViewModels\HelpViewModel.cs" />
     <Compile Include="ViewModels\HideoutViewModel.cs" />
     <Compile Include="ViewModels\LineChartViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
@@ -296,6 +297,9 @@
     </Compile>
     <Compile Include="Views\GemView.xaml.cs">
       <DependentUpon>GemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HelpView.xaml.cs">
+      <DependentUpon>HelpView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HideoutView.xaml.cs">
       <DependentUpon>HideoutView.xaml</DependentUpon>
@@ -378,6 +382,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\GemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HelpView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -539,6 +547,7 @@
     <Resource Include="Assets\Gemcutter.png" />
     <Resource Include="Assets\Chisel.png" />
     <Content Include="SVG\Beer.svg" />
+    <Content Include="SVG\Help.svg" />
     <Content Include="SVG\Hideout.svg" />
     <Content Include="SVG\Lightning.svg" />
     <Content Include="SVG\Sold.svg" />

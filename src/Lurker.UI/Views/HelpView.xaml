@@ -1,26 +1,26 @@
-﻿<Window x:Class="Lurker.UI.Views.HideoutView"
+﻿<Window x:Class="Lurker.UI.Views.HelpView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        Background="Transparent"
-        xmlns:cal="http://www.caliburnproject.org"
         xmlns:local="clr-namespace:Lurker.UI"
         WindowStyle="None"
         Topmost="True"
         AllowsTransparency="True"
         ShowInTaskbar="False"
+        Background="Transparent"
         Focusable="False"
+        xmlns:cal="http://www.caliburnproject.org"
         mc:Ignorable="d"
-        Title="HideoutView">
-    <Grid Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+        Title="HelpView">
+    <Grid>
         <local:IconPack Foreground="#c2d9ff"
                         Height="25"
-                        HorizontalAlignment="Left"
+                        HorizontalAlignment="Right"
                         Margin="4,0,0,4"
                         VerticalAlignment="Bottom"
-                        Data="{x:Static local:IconPackData.Hideout}"/>
-        <Polygon cal:Message.Attach="[Event MouseDown] = [Action JoinHideout()]" Points="0,0 150,150, 0,150"  Cursor="Hand">
+                        Data="{x:Static local:IconPackData.Help}"/>
+        <Polygon cal:Message.Attach="[Event MouseDown] = [Action Help()]" Points="0,60 60,0 150,150"  Cursor="Hand">
             <Polygon.Style>
                 <Style TargetType="Polygon">
                     <Setter Property="Opacity" Value="0.002"/>
@@ -38,5 +38,4 @@
             </Polygon.Style>
         </Polygon>
     </Grid>
-
 </Window>

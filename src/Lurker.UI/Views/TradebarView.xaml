@@ -8,7 +8,6 @@
         Icon="/Assets/TradeBarIcon.ico"
         WindowStyle="None"
         AllowsTransparency="True"
-        ShowActivated="False"
         ShowInTaskbar="False"
         Background="Transparent"
         mc:Ignorable="d"
