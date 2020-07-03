@@ -123,7 +123,7 @@ namespace Lurker.UI.ViewModels
             {
                 if (value <= 0)
                 {
-                    this.Remove();
+                    this.RemoveCore(false);
                 }
 
                 this._delayToClose = value;
@@ -180,9 +180,21 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public void Remove()
         {
+            this.RemoveCore(true);
+        }
+
+        /// <summary>
+        /// Removes the core.
+        /// </summary>
+        /// <param name="setForeground">if set to <c>true</c> [set foreground].</param>
+        public void RemoveCore(bool setForeground)
+        {
             this._skipMainAction = true;
             this._barContext.RemoveOffer(this);
-            this._dockingHelper.SetForeground();
+            if (setForeground)
+            {
+                this._dockingHelper.SetForeground();
+            }
         }
 
         /// <summary>
