@@ -20,5 +20,25 @@ namespace Lurker.UI.Views
         {
             this.InitializeComponent();
         }
+
+        /// <summary>
+        /// Handles the MouseEnter event of the Grid control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.MouseEventArgs"/> instance containing the event data.</param>
+        private void Grid_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            this.Popup.IsOpen = true;
+        }
+
+        /// <summary>
+        /// Handles the MouseLeave event of the Grid control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.MouseEventArgs"/> instance containing the event data.</param>
+        private void Grid_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            this.Popup.IsOpen = false;
+        }
     }
 }
