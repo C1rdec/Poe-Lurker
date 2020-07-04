@@ -70,6 +70,13 @@ namespace Lurker.Services
                 }
             }
 
+            var treeElement = document.Root.Element("Tree");
+            if (treeElement != null)
+            {
+                var urlElement = treeElement.Descendants("URL").FirstOrDefault();
+                build.SkillTreeUrl = urlElement.Value.Trim().Replace("passive-skill-tree", "fullscreen-passive-skill-tree");
+            }
+
             return build;
         }
 

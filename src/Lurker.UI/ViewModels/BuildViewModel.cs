@@ -8,6 +8,7 @@ namespace Lurker.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using System.Net.Http;
@@ -29,6 +30,7 @@ namespace Lurker.UI.ViewModels
         private Task _currentTask;
         private bool _isVisible;
         private bool _hasNoBuild;
+        private Build _build;
 
         #endregion
 
@@ -96,8 +98,14 @@ namespace Lurker.UI.ViewModels
             {
                 this._hasNoBuild = value;
                 this.NotifyOfPropertyChange();
+                this.NotifyOfPropertyChange("HasBuild");
             }
         }
+
+        /// <summary>
+        /// Gets a value indicating whether this instance has build.
+        /// </summary>
+        public bool HasBuild => !this.HasNoBuild;
 
         #endregion
 
@@ -138,6 +146,17 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Trees this instance.
+        /// </summary>
+        public void Tree()
+        {
+            if (this._build != null)
+            {
+                Process.Start(this._build.SkillTreeUrl);
+            }
+        }
+
+        /// <summary>
         /// Toggles this instance.
         /// </summary>
         public void Toggle()
@@ -152,14 +171,16 @@ namespace Lurker.UI.ViewModels
         /// <returns>Representing the asynchronous operation.</returns>
         public async Task<bool> Initialize(string buildValue)
         {
+            this._build = null;
+
             try
             {
                 using (var service = new PathOfBuildingService())
                 {
                     await service.InitializeAsync();
-                    var build = service.Decode(buildValue);
+                    this._build = service.Decode(buildValue);
 
-                    this.Skills = build.Skills.Select(s => new SkillViewModel(s));
+                    this.Skills = this._build.Skills.Select(s => new SkillViewModel(s));
                     this.NotifyOfPropertyChange("Skills");
                 }
             }

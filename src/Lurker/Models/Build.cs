@@ -38,6 +38,11 @@ namespace Lurker.Models
         /// </summary>
         public IEnumerable<Skill> Skills => this._skills;
 
+        /// <summary>
+        /// Gets or sets the tree URL.
+        /// </summary>
+        public string SkillTreeUrl { get; set; }
+
         #endregion
 
         #region Methods
