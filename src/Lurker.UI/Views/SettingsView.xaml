@@ -312,6 +312,7 @@
                                                    IsChecked="{Binding SoldDetection}"/>
                             <Controls:ToggleSwitch Grid.Row="1"
                                                    VerticalAlignment="Top"
+                                                   Margin="30,0,0,0"
                                                    HorizontalAlignment="Center"
                                                    Header="Always Visible"
                                                    IsChecked="{Binding AlwaysVisible}"/>
