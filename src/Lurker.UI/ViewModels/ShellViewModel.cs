@@ -330,7 +330,7 @@ namespace Lurker.UI
 
             if (this._settingsService.BuildHelper)
             {
-                if (this._helpOverlay == null)
+                if (this._helpOverlay == null && PoeApplicationContext.IsRunning)
                 {
                     this._helpOverlay = this._container.GetInstance<HelpViewModel>();
                     this._helpOverlay.Initialize(this.ToggleBuildHelper);

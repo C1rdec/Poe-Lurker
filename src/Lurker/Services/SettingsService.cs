@@ -484,6 +484,22 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [sold detection].
+        /// </summary>
+        public bool SoldDetection
+        {
+            get
+            {
+                return this._settings.SoldDetection;
+            }
+
+            set
+            {
+                this._settings.SoldDetection = value;
+            }
+        }
+
+        /// <summary>
         /// Gets the name of the folder.
         /// </summary>
         private string FolderName => "PoeLurker";

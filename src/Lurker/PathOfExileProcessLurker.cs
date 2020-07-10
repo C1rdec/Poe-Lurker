@@ -7,8 +7,8 @@
 namespace Lurker
 {
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Threading.Tasks;
+    using Lurker.Models;
 
     /// <summary>
     /// Represents the Path of Exile process lurker.
@@ -55,7 +55,16 @@ namespace Lurker
                 process = GetProcessById(processId);
             }
 
+            PoeApplicationContext.IsRunning = true;
             return processId;
+        }
+
+        /// <summary>
+        /// Called when [exit].
+        /// </summary>
+        protected override void OnExit()
+        {
+            PoeApplicationContext.IsRunning = false;
         }
 
         #endregion

@@ -107,6 +107,13 @@ namespace Lurker
         }
 
         /// <summary>
+        /// Called when [exit].
+        /// </summary>
+        protected virtual void OnExit()
+        {
+        }
+
+        /// <summary>
         /// Releases unmanaged and - optionally - managed resources.
         /// </summary>
         /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
@@ -174,6 +181,7 @@ namespace Lurker
                 {
                 }
 
+                this.OnExit();
                 this.ProcessClosed?.Invoke(this, EventArgs.Empty);
             });
         }

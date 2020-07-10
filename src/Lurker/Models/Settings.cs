@@ -157,6 +157,12 @@ namespace Lurker.Models
         /// </summary>
         public bool BuildHelper { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [sold detection].
+        /// </summary>
+        [DefaultValue(true)]
+        public bool SoldDetection { get; set; }
+
         #endregion
     }
 }

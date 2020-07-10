@@ -308,6 +308,11 @@
                             <Controls:ToggleSwitch Grid.Row="1"
                                                    VerticalAlignment="Top"
                                                    HorizontalAlignment="Center"
+                                                   Header="Detect Sold"
+                                                   IsChecked="{Binding SoldDetection}"/>
+                            <Controls:ToggleSwitch Grid.Row="1"
+                                                   VerticalAlignment="Top"
+                                                   HorizontalAlignment="Center"
                                                    Header="Always Visible"
                                                    IsChecked="{Binding AlwaysVisible}"/>
                             <Controls:ToggleSwitch Grid.Row="1"

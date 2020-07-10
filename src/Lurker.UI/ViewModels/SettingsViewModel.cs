@@ -557,6 +557,23 @@ namespace Lurker.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [sold detection].
+        /// </summary>
+        public bool SoldDetection
+        {
+            get
+            {
+                return this._settingService.SoldDetection;
+            }
+
+            set
+            {
+                this._settingService.SoldDetection = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
         #endregion
 
         #region Methods

@@ -6,14 +6,17 @@
 
 namespace Lurker.Models
 {
-    using System;
-
     /// <summary>
     /// Represents an applicaiton context.
     /// </summary>
     public static class PoeApplicationContext
     {
         #region Properties
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is running.
+        /// </summary>
+        public static bool IsRunning { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether [in foreground].
