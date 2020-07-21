@@ -178,7 +178,10 @@ namespace Lurker.UI.ViewModels
         /// <param name="information">The information.</param>
         private void DockingHelper_OnWindowMove(object sender, PoeWindowInformation information)
         {
-            this.SetWindowPosition(information);
+            if (this.View != null)
+            {
+                this.SetWindowPosition(information);
+            }
         }
 
         /// <summary>

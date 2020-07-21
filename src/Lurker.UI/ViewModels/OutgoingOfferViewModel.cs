@@ -10,6 +10,7 @@ namespace Lurker.UI.ViewModels
     using Caliburn.Micro;
     using Lurker.Helpers;
     using Lurker.Patreon.Events;
+    using Lurker.UI.Extensions;
     using Lurker.UI.Models;
 
     /// <summary>
@@ -20,7 +21,6 @@ namespace Lurker.UI.ViewModels
     {
         #region Fields
 
-        private static readonly int NumberOfCharacter = 4;
         private OutgoingTradeEvent _event;
         private PoeKeyboardHelper _keyboardHelper;
         private bool _skipMainAction;
@@ -48,6 +48,7 @@ namespace Lurker.UI.ViewModels
             this._barContext = context;
             this.DelayToClose = 100;
             this._dockingHelper = dockingHelper;
+            this.PriceValue = tradeEvent.Price.CalculateValue();
         }
 
         #endregion
@@ -55,20 +56,15 @@ namespace Lurker.UI.ViewModels
         #region Properties
 
         /// <summary>
-        /// Gets the display name.
+        /// Gets the price value.
         /// </summary>
-        public string DisplayName
-        {
-            get
-            {
-                if (this._event.PlayerName.Length <= NumberOfCharacter)
-                {
-                    return this._event.PlayerName;
-                }
+        public double PriceValue { get; }
 
-                return this._event.PlayerName.Substring(0, NumberOfCharacter);
-            }
-        }
+        /// <summary>
+        /// Gets the name of the player.
+        /// </summary>
+        public string PlayerName => this._event.PlayerName;
+
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="OutgoingOfferViewModel"/> is waiting.

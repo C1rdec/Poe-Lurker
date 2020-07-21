@@ -39,7 +39,7 @@
                                    TextTrimming="CharacterEllipsis"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center" 
-                                   Text="{Binding DisplayName}"/>
+                                   Text="{Binding PlayerName}"/>
                         <Button HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" cal:Message.Attach="[Event Click] = [Action ReSend]" x:Name="IsWaiting">
                             <Button.Style>
                                 <Style TargetType="Button">

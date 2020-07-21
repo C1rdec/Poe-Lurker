@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Lurker.UI.Views"
         Topmost="True"
         mc:Ignorable="d"
@@ -11,28 +12,40 @@
         AllowsTransparency="True"
         ShowInTaskbar="False"
         Title="Lurker">
-    <Grid>
-        <Grid.Style>
-            <Style TargetType="Grid">
-                <Setter Property="Background" Value="Transparent"/>
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding DebugEnabled}" Value="True">
-                        <Setter Property="Background" Value="Green"/>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding AnyOffer}" Value="True">
-                        <Setter Property="Background" Value="#212022"/>
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-        </Grid.Style>
-        <ScrollViewer HorizontalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Hidden">
-            <ItemsControl x:Name="Offers">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-        </ScrollViewer>
+    <Grid Visibility="{Binding AnyOffer, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="0.68*"/>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="SearchValue" Height="25" VerticalAlignment="Top" Grid.Column="1" Controls:TextBoxHelper.Watermark="Search" Margin="0,4,0,0" ></TextBox>
+        <Border Grid.Row="1" Grid.ColumnSpan="2">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding DebugEnabled}" Value="True">
+                            <Setter Property="Background" Value="Green"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding AnyOffer}" Value="True">
+                            <Setter Property="Background" Value="#212022"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <ScrollViewer  HorizontalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Hidden">
+                <ItemsControl x:Name="FilteredOffers">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
+        
     </Grid>
 </Window>

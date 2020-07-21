@@ -6,6 +6,7 @@
 
 namespace Lurker.UI.ViewModels
 {
+    using System;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Timers;
@@ -14,6 +15,7 @@ namespace Lurker.UI.ViewModels
     using Lurker.Models;
     using Lurker.Patreon.Events;
     using Lurker.Services;
+    using Lurker.UI.Extensions;
     using Lurker.UI.Models;
 
     /// <summary>
@@ -34,6 +36,7 @@ namespace Lurker.UI.ViewModels
         private System.Action _removeActive;
         private OutgoingOfferViewModel _activeOffer;
         private string _lastOutgoingOfferText;
+        private string _searchValue;
 
         #endregion
 
@@ -54,6 +57,7 @@ namespace Lurker.UI.ViewModels
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
             this.Offers = new ObservableCollection<OutgoingOfferViewModel>();
+            this.FilteredOffers = new ObservableCollection<OutgoingOfferViewModel>();
             this._timer = new Timer(50);
             this._timer.Elapsed += this.Timer_Elapsed;
             this._keyboardHelper = keyboardHelper;
@@ -73,6 +77,29 @@ namespace Lurker.UI.ViewModels
         #region Properties
 
         /// <summary>
+        /// Gets or sets the search value.
+        /// </summary>
+        public string SearchValue
+        {
+            get
+            {
+                return this._searchValue;
+            }
+
+            set
+            {
+                this._searchValue = value;
+                this.OnSearchValueChange(value);
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the filtered offer.
+        /// </summary>
+        public ObservableCollection<OutgoingOfferViewModel> FilteredOffers { get; set; }
+
+        /// <summary>
         /// Gets or sets the offers.
         /// </summary>
         public ObservableCollection<OutgoingOfferViewModel> Offers { get; set; }
@@ -85,11 +112,21 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets the default width.
         /// </summary>
-        protected static int DefaultWidth => 55;
+        protected static int DefaultWidth => 300;
 
         #endregion
 
         #region Methods
+
+        private void OnSearchValueChange(string value)
+        {
+            this.FilteredOffers.Clear();
+            var offers = string.IsNullOrEmpty(value) ? this.Offers.ToArray() : this.Offers.Where(o => o.PlayerName.ToLower().Contains(value.ToLower())).OrderBy(o => o.PlayerName).ToArray();
+            foreach (var offer in offers)
+            {
+                this.FilteredOffers.Add(offer);
+            }
+        }
 
         /// <summary>
         /// Clipboards the lurker new offer.
@@ -145,7 +182,23 @@ namespace Lurker.UI.ViewModels
                 return;
             }
 
-            Execute.OnUIThread(() => this.Offers.Insert(0, new OutgoingOfferViewModel(e, this._keyboardHelper, this._context, this.DockingHelper)));
+            Execute.OnUIThread(() =>
+            {
+                var index = 0;
+                if (this.AnyOffer)
+                {
+                    var value = e.Price.CalculateValue();
+                    var closestOffer = this.Offers.Aggregate((x, y) => Math.Abs(x.PriceValue - value) < Math.Abs(y.PriceValue - value) ? x : y);
+                    index = this.Offers.IndexOf(closestOffer);
+
+                    if (value >= closestOffer.PriceValue)
+                    {
+                        index++;
+                    }
+                }
+
+                this.Offers.Insert(index, new OutgoingOfferViewModel(e, this._keyboardHelper, this._context, this.DockingHelper));
+            });
         }
 
         /// <summary>
@@ -208,14 +261,14 @@ namespace Lurker.UI.ViewModels
         {
             var yPosition = windowInformation.FlaskBarWidth * (238 / (double)DefaultFlaskBarWidth);
             var width = windowInformation.Height * DefaultWidth / 1080;
-            var height = windowInformation.FlaskBarHeight - (Margin * 2);
+            var height = windowInformation.FlaskBarHeight + 25;
 
             Execute.OnUIThread(() =>
             {
                 this.View.Height = height < 0 ? 1 : height;
                 this.View.Width = width;
                 this.View.Left = windowInformation.Position.Left + yPosition;
-                this.View.Top = windowInformation.Position.Bottom - windowInformation.FlaskBarHeight + Margin;
+                this.View.Top = windowInformation.Position.Bottom - height - 12 + Margin;
             });
         }
 
@@ -249,6 +302,35 @@ namespace Lurker.UI.ViewModels
             else
             {
                 this._timer.Stop();
+            }
+
+            if (e.NewItems != null)
+            {
+                foreach (var offer in e.NewItems)
+                {
+                    var outgoingOffer = offer as OutgoingOfferViewModel;
+                    if (string.IsNullOrEmpty(this.SearchValue))
+                    {
+                        this.FilteredOffers.Insert(this.Offers.IndexOf(outgoingOffer), outgoingOffer);
+                    }
+                    else if (outgoingOffer.PlayerName.ToLower().Contains(this.SearchValue.ToLower()))
+                    {
+                        this.FilteredOffers.Insert(0, outgoingOffer);
+                    }
+                }
+            }
+
+            if (e.OldItems != null)
+            {
+                foreach (var offer in e.OldItems)
+                {
+                    this.FilteredOffers.Remove(offer as OutgoingOfferViewModel);
+                }
+            }
+
+            if (!this.AnyOffer)
+            {
+                this.SearchValue = string.Empty;
             }
 
             this.NotifyOfPropertyChange("AnyOffer");

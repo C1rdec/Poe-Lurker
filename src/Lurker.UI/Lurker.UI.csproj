@@ -234,6 +234,7 @@
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Converters\CurrencyTypeConverter.cs" />
+    <Compile Include="Extensions\ObservableCollectionExtension.cs" />
     <Compile Include="Extensions\PriceExtension.cs" />
     <Compile Include="Helpers\AdminRequestHelper.cs" />
     <Compile Include="Helpers\UpdateManager.cs" />

@@ -97,8 +97,7 @@ namespace Lurker.Helpers
 
                 this._simulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.RETURN);
                 this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_A);
-
-                // We are using the interop since SendWait block mouse input.
+                this._simulator.Keyboard.Sleep(50);
                 this._simulator.Keyboard.TextEntry(command);
                 this._simulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.RETURN);
             }
