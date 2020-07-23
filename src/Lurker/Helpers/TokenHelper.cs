@@ -47,7 +47,11 @@ namespace Lurker.Helpers
         {
             message = Regex.Replace(message, ItemName, trade.ItemName, RegexOptions.IgnoreCase);
             message = Regex.Replace(message, BuyerName, trade.PlayerName, RegexOptions.IgnoreCase);
-            message = Regex.Replace(message, Price, trade.Price.ToString(), RegexOptions.IgnoreCase);
+            if (trade.Price.CurrencyType != Patreon.Models.CurrencyType.Unknown)
+            {
+                message = Regex.Replace(message, Price, trade.Price.ToString(), RegexOptions.IgnoreCase);
+            }
+
             return message;
         }
 
