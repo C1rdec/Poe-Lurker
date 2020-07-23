@@ -16,6 +16,11 @@ namespace Lurker.UI.Models
         #region Properties
 
         /// <summary>
+        /// Gets or sets a value indicating whether this instance is sticky.
+        /// </summary>
+        public bool Sticky { get; set; }
+
+        /// <summary>
         /// Gets or sets the action.
         /// </summary>
         public Action Action { get; set; }

@@ -30,8 +30,8 @@ namespace Lurker.UI.ViewModels
         protected static readonly int DefaultBulbHeight = 220;
 
         private INotifyPropertyChanged _actionView;
-        private System.Action _previousAction;
-        private INotifyPropertyChanged _previousActionView;
+        private System.Action _stickyAction;
+        private INotifyPropertyChanged _stickyActionView;
         private CancellationTokenSource _tokenSource;
 
         #endregion
@@ -126,10 +126,10 @@ namespace Lurker.UI.ViewModels
         protected void Hide()
         {
             this.ActionView = null;
-            this.Action = this._previousAction;
-            this.ActionView = this._previousActionView;
-            this._previousAction = null;
-            this._previousActionView = null;
+            this.Action = this._stickyAction;
+            this.ActionView = this._stickyActionView;
+            this._stickyAction = null;
+            this._stickyActionView = null;
             this.NotifyOfPropertyChange(nameof(this.HasAction));
         }
 
@@ -167,10 +167,10 @@ namespace Lurker.UI.ViewModels
 
             message.OnShow?.Invoke(this.Hide);
 
-            if (this._previousAction == null)
+            if (message.Sticky)
             {
-                this._previousAction = this.Action;
-                this._previousActionView = this._actionView;
+                this._stickyAction = this.Action;
+                this._stickyActionView = this._actionView;
             }
 
             this.Action = message.Action;
