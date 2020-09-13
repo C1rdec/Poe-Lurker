@@ -46,6 +46,11 @@ namespace Lurker.UI.ViewModels
             : base(windowManager)
         {
             this.DisplayName = "Dashboard";
+
+            this._networkTrades = Enumerable.Empty<SimpleTradeModel>();
+            this._leagueTrades = Enumerable.Empty<SimpleTradeModel>();
+            this._allTradres = Enumerable.Empty<SimpleTradeModel>();
+            this._leagues = Enumerable.Empty<League>();
         }
 
         #endregion

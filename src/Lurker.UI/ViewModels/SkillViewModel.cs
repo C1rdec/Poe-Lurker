@@ -40,7 +40,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets the gems.
         /// </summary>
-        public IEnumerable<GemViewModel> Gems => this._skill.Gems.Select(g => new GemViewModel(g));
+        public IEnumerable<GemViewModel> Gems => this._skill.Gems.OrderBy(g => g.Support).Select(g => new GemViewModel(g));
 
         #endregion
     }
