@@ -79,7 +79,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\Lurker\Lurker.csproj">
+    <ProjectReference Include="..\Lurker\Lurker.csproj">
       <Project>{4e21f049-82d6-4853-8c59-b0addf3a4383}</Project>
       <Name>Lurker</Name>
     </ProjectReference>
