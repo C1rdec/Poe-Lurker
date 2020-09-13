@@ -50,6 +50,11 @@ namespace Lurker.Models
         /// </summary>
         public Uri ImageUrl { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="Gem"/> is support.
+        /// </summary>
+        public bool Support { get; set; }
+
         #endregion
 
         #region Methods

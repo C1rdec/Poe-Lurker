@@ -5,7 +5,7 @@ import 'package:poe_lurker_mobile/models/item.dart';
 class ItemWidget extends StatelessWidget {
   final Item poeItem;
 
-  ItemWidget({ this.poeItem });
+  ItemWidget({this.poeItem});
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +18,8 @@ class ItemWidget extends StatelessWidget {
             title: Text(this.poeItem.name),
             subtitle: Text(this.poeItem.price.toString()),
           )
-        ], 
+        ],
       ),
     );
   }
-} 
+}
