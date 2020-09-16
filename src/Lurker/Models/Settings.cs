@@ -47,6 +47,18 @@ namespace Lurker.Models
         public bool FirstLaunch { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [incoming trade enabled].
+        /// </summary>
+        [DefaultValue(true)]
+        public bool IncomingTradeEnabled { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [outgoing trade enabled].
+        /// </summary>
+        [DefaultValue(true)]
+        public bool OutgoingTradeEnabled { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [search enabled].
         /// </summary>
         public bool SearchEnabled { get; set; }

@@ -164,6 +164,38 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [incoming trade enabled].
+        /// </summary>
+        public bool IncomingTradeEnabled
+        {
+            get
+            {
+                return this._settings.IncomingTradeEnabled;
+            }
+
+            set
+            {
+                this._settings.IncomingTradeEnabled = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [outgoing trade enabled].
+        /// </summary>
+        public bool OutgoingTradeEnabled
+        {
+            get
+            {
+                return this._settings.OutgoingTradeEnabled;
+            }
+
+            set
+            {
+                this._settings.OutgoingTradeEnabled = value;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [search enabled].
         /// </summary>
         public bool SearchEnabled

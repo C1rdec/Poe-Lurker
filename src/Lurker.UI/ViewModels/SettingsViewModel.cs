@@ -218,6 +218,40 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [incoming trade enabled].
+        /// </summary>
+        public bool IncomingTradeEnabled
+        {
+            get
+            {
+                return this._settingService.IncomingTradeEnabled;
+            }
+
+            set
+            {
+                this._settingService.IncomingTradeEnabled = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [outgoing trade enabled].
+        /// </summary>
+        public bool OutgoingTradeEnabled
+        {
+            get
+            {
+                return this._settingService.OutgoingTradeEnabled;
+            }
+
+            set
+            {
+                this._settingService.OutgoingTradeEnabled = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [remaining monster enabled].
         /// </summary>
         public bool RemainingMonsterEnabled
