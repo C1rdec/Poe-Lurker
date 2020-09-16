@@ -156,7 +156,11 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public void Toggle()
         {
-            this.Visited = true;
+            if (this.Reached)
+            {
+                this.Visited = true;
+            }
+
             this.IsOpen = !this.IsOpen;
         }
 

@@ -116,7 +116,7 @@ namespace Lurker.Services
 
                 // Wait for location changed event to confirm the new player
                 var newPlayer = new Player() { Name = e.PlayerName, Levels = new List<int>() { e.Level } };
-                this._playerBank.Players.Add(newPlayer);
+                this._playerBank.Players.Insert(0, newPlayer);
                 this.PlayerChanged?.Invoke(this, e);
             }
             finally
