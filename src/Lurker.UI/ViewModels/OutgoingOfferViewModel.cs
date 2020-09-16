@@ -65,7 +65,6 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public string PlayerName => this._event.PlayerName;
 
-
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="OutgoingOfferViewModel"/> is waiting.
         /// </summary>

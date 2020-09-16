@@ -30,7 +30,6 @@ namespace Lurker.UI.ViewModels
         private Task _currentTask;
         private bool _isVisible;
         private bool _hasNoBuild;
-        private Build _build;
 
         #endregion
 
@@ -107,6 +106,11 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public bool HasBuild => !this.HasNoBuild;
 
+        /// <summary>
+        /// Gets or sets the build.
+        /// </summary>
+        public Build Build { get; set; }
+
         #endregion
 
         #region Methods
@@ -150,9 +154,9 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public void Tree()
         {
-            if (this._build != null)
+            if (this.Build != null)
             {
-                Process.Start(this._build.SkillTreeUrl);
+                Process.Start(this.Build.SkillTreeUrl);
             }
         }
 
@@ -171,16 +175,16 @@ namespace Lurker.UI.ViewModels
         /// <returns>Representing the asynchronous operation.</returns>
         public async Task<bool> Initialize(string buildValue)
         {
-            this._build = null;
+            this.Build = null;
 
             try
             {
                 using (var service = new PathOfBuildingService())
                 {
                     await service.InitializeAsync();
-                    this._build = service.Decode(buildValue);
+                    this.Build = service.Decode(buildValue);
 
-                    this.Skills = this._build.Skills.Select(s => new SkillViewModel(s));
+                    this.Skills = this.Build.Skills.Select(s => new SkillViewModel(s));
                     this.NotifyOfPropertyChange("Skills");
                 }
             }

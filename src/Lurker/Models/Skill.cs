@@ -24,9 +24,9 @@ namespace Lurker.Models
         #region Constructors
 
         /// <summary>
-        /// Prevents a default instance of the <see cref="Skill"/> class from being created.
+        /// Initializes a new instance of the <see cref="Skill"/> class.
         /// </summary>
-        private Skill()
+        public Skill()
         {
             this._gems = new List<Gem>();
         }

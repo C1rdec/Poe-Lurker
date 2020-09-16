@@ -93,8 +93,8 @@
     <Reference Include="LottieSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\LottieSharp.1.0.0\lib\net461\LottieSharp.dll</HintPath>
     </Reference>
-    <Reference Include="Lurker.Patreon, Version=1.0.20.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Lurker.Patreon.1.0.20\lib\net48\Lurker.Patreon.dll</HintPath>
+    <Reference Include="Lurker.Patreon, Version=1.0.23.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Lurker.Patreon.1.0.23\lib\net48\Lurker.Patreon.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MahApps.Metro.1.6.5\lib\net47\MahApps.Metro.dll</HintPath>
@@ -240,6 +240,7 @@
     <Compile Include="Helpers\UpdateManager.cs" />
     <Compile Include="Models\League.cs" />
     <Compile Include="Models\MyCommand.cs" />
+    <Compile Include="Models\TimelineInformation.cs" />
     <Compile Include="Models\UpdateState.cs" />
     <Compile Include="Models\DoubleClickCommand.cs" />
     <Compile Include="Models\BulbMessage.cs" />
@@ -276,8 +277,11 @@
     <Compile Include="ViewModels\RemainingMonsterViewModel.cs" />
     <Compile Include="ViewModels\ScreenBase.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\SkillTimelineViewModel.cs" />
     <Compile Include="ViewModels\SkillViewModel.cs" />
     <Compile Include="ViewModels\SplashscreenViewModel.cs" />
+    <Compile Include="ViewModels\TimelineItemViewModel.cs" />
+    <Compile Include="ViewModels\TimelineViewModel.cs" />
     <Compile Include="ViewModels\TradebarViewModel.cs" />
     <Compile Include="ViewModels\TradeValueViewModel.cs" />
     <Compile Include="ViewModels\UpdateViewModel.cs" />
@@ -344,11 +348,20 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ViewModels\OfferViewModel.cs" />
+    <Compile Include="Views\SkillTimelineView.xaml.cs">
+      <DependentUpon>SkillTimelineView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SkillView.xaml.cs">
       <DependentUpon>SkillView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SplashscreenView.xaml.cs">
       <DependentUpon>SplashscreenView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TimelineItemView.xaml.cs">
+      <DependentUpon>TimelineItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TimelineView.xaml.cs">
+      <DependentUpon>TimelineView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TradebarView.xaml.cs">
       <DependentUpon>TradebarView.xaml</DependentUpon>
@@ -438,11 +451,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\SkillTimelineView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SkillView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SplashscreenView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TimelineItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TimelineView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

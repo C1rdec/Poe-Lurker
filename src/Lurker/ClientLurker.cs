@@ -118,6 +118,11 @@ namespace Lurker
         /// </summary>
         public event EventHandler<OutgoingTradeEvent> OutgoingOffer;
 
+        /// <summary>
+        /// Occurs when [player level up].
+        /// </summary>
+        public event EventHandler<PlayerLevelUpEvent> PlayerLevelUp;
+
         #endregion
 
         #region Methods
@@ -334,6 +339,13 @@ namespace Lurker
                 if (outgoingTradeEvent != null)
                 {
                     this.OutgoingOffer?.Invoke(this, outgoingTradeEvent);
+                    return;
+                }
+
+                var levelUpEvent = PlayerLevelUpEvent.TryParse(newline);
+                if (levelUpEvent != null)
+                {
+                    this.PlayerLevelUp?.Invoke(this, levelUpEvent);
                     return;
                 }
 
