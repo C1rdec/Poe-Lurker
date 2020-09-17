@@ -425,7 +425,11 @@ namespace Lurker.UI
                     this.ActivateItem(this._outgoingTradeBarOverlay);
                 }
 
-                this.ActivateItem(this._skillTimelineOverlay);
+                if (this._settingsService.BuildHelperSettings.TimelineEnabled)
+                {
+                    this.ActivateItem(this._skillTimelineOverlay);
+                }
+
                 this.ActivateItem(this._lifeBulbOverlay);
                 this.ActivateItem(this._manaBulbOverlay);
                 this.ActivateItem(this._hideoutOverlay);

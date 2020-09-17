@@ -60,6 +60,8 @@ namespace Lurker.UI.ViewModels
 
             this.IsVisible = true;
             this._eventAggregator = IoC.Get<IEventAggregator>();
+            this.Skills = new ObservableCollection<SkillViewModel>();
+            this.SkillTimelineEnabled = this.SettingsService.BuildHelperSettings.TimelineEnabled;
         }
 
         #endregion
@@ -138,6 +140,9 @@ namespace Lurker.UI.ViewModels
 
         #region Methods
 
+        /// <summary>
+        /// Called when activating.
+        /// </summary>
         protected override void OnActivate()
         {
             if (this.Build != null)
@@ -268,8 +273,6 @@ namespace Lurker.UI.ViewModels
                     {
                         selectedSKill.Selected = true;
                     }
-
-                    this.SkillTimelineEnabled = this.SettingsService.BuildHelperSettings.TimelineEnabled;
 
                     // To notify that we are initialize.
                     this.NotifyOfPropertyChange("Skills");
