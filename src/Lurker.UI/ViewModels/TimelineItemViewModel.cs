@@ -10,6 +10,7 @@ namespace Lurker.UI.ViewModels
     using System.Windows;
     using Caliburn.Micro;
     using Lurker.UI.Models;
+    using Lurker.UI.Services;
 
     /// <summary>
     /// Represent the time line.
@@ -161,7 +162,14 @@ namespace Lurker.UI.ViewModels
                 this.Visited = true;
             }
 
-            this.IsOpen = !this.IsOpen;
+            if (this.IsOpen)
+            {
+                TimelineController.Close();
+            }
+            else
+            {
+                TimelineController.Open(this);
+            }
         }
 
         #endregion

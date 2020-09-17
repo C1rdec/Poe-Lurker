@@ -12,7 +12,6 @@ namespace Lurker.UI.ViewModels
     using Lurker.Models;
     using Lurker.Patreon.Events;
     using Lurker.Services;
-    using Lurker.UI.Models;
 
     /// <summary>
     /// Represent the overlay of the time line.

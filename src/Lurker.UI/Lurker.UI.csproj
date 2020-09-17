@@ -250,6 +250,7 @@
     <Compile Include="Models\OutgoingbarContext.cs" />
     <Compile Include="Models\TradebarContext.cs" />
     <Compile Include="Services\AfkService.cs" />
+    <Compile Include="Services\TimelineController.cs" />
     <Compile Include="Svg.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
