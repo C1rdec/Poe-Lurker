@@ -17,6 +17,11 @@ namespace Lurker.Models
         #region Properties
 
         /// <summary>
+        /// Gets or sets the build helper settings.
+        /// </summary>
+        public BuildHelperSettings BuildHelperSettings { get; set; }
+
+        /// <summary>
         /// Gets or sets the user identifier.
         /// </summary>
         public string UserId { get; set; }

@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
         Topmost="True"
         WindowStyle="None"
@@ -22,11 +23,14 @@
             </Style>
         </Grid.Style>
         <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <Border Background="Gray" Opacity="0.7" CornerRadius="5,5,0,0" />
+        <Border Background="Gray" Grid.RowSpan="3" Opacity="0.7" CornerRadius="5,5,0,0" />
+
+        <Controls:ToggleSwitch IsChecked="{Binding SkillTimelineEnabled}" HorizontalAlignment="Right" OnLabel="Skill Timeline" OffLabel="Skill Timeline"></Controls:ToggleSwitch>
+        <Grid Grid.Row="1" Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" >
             <Viewbox>
                 <ItemsControl  x:Name="Skills" >
                     <ItemsControl.ItemsPanel>
@@ -38,7 +42,7 @@
             </Viewbox>
             <TextBlock Visibility="{Binding HasNoBuild, Converter={StaticResource BooleanToVisibilityConverter}}" FontWeight="Bold" FontSize="24" TextWrapping="Wrap" VerticalAlignment="Center">Path of Building Code must be in the Clipboard to import!</TextBlock>
         </Grid>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>

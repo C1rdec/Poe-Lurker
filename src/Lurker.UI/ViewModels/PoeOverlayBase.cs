@@ -42,14 +42,6 @@ namespace Lurker.UI.ViewModels
             this.DockingHelper = dockingHelper;
             this.ProcessLurker = processLurker;
             this.SettingsService = settingsService;
-            this.ProcessLurker.ProcessClosed += this.Lurker_PoeClosed;
-            this.SettingsService.OnSave += this.SettingsService_OnSave;
-
-            if (this.DockingHelper != null)
-            {
-                this.DockingHelper.OnWindowMove += this.DockingHelper_OnWindowMove;
-                this.DockingHelper.OnForegroundChange += this.DockingHelper_OnForegroundChange;
-            }
         }
 
         #endregion
@@ -210,6 +202,23 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="windowInformation">The window information.</param>
         protected abstract void SetWindowPosition(PoeWindowInformation windowInformation);
+
+        /// <summary>
+        /// Called when activating.
+        /// </summary>
+        protected override void OnActivate()
+        {
+            this.ProcessLurker.ProcessClosed += this.Lurker_PoeClosed;
+            this.SettingsService.OnSave += this.SettingsService_OnSave;
+
+            if (this.DockingHelper != null)
+            {
+                this.DockingHelper.OnWindowMove += this.DockingHelper_OnWindowMove;
+                this.DockingHelper.OnForegroundChange += this.DockingHelper_OnForegroundChange;
+            }
+
+            base.OnActivate();
+        }
 
         /// <summary>
         /// Called when deactivating.

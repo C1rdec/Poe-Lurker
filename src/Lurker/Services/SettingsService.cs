@@ -79,6 +79,11 @@ namespace Lurker.Services
         #region Properties
 
         /// <summary>
+        /// Gets the build helper settings.
+        /// </summary>
+        public BuildHelperSettings BuildHelperSettings => this._settings.BuildHelperSettings;
+
+        /// <summary>
         /// Gets the user identifier.
         /// </summary>
         public string UserId => this._settings.UserId;

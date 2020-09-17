@@ -71,6 +71,14 @@ namespace Lurker.UI.ViewModels
         #region Methods
 
         /// <summary>
+        /// Clears this instance.
+        /// </summary>
+        public void Clear()
+        {
+            this.Items.Clear();
+        }
+
+        /// <summary>
         /// Sets the progess.
         /// </summary>
         /// <param name="value">The value.</param>

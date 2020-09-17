@@ -353,9 +353,23 @@ namespace Lurker.UI.ViewModels
                 this._clientLurker.TradeAccepted -= this.Lurker_TradeAccepted;
                 this._clientLurker.PlayerJoined -= this.Lurker_PlayerJoined;
                 this._clientLurker.PlayerLeft -= this.Lurker_PlayerLeft;
+                this.TradeOffers.Clear();
             }
 
             base.OnDeactivate(close);
+        }
+
+        /// <summary>
+        /// Called when activating.
+        /// </summary>
+        protected override void OnActivate()
+        {
+            this._clientLurker.IncomingOffer += this.Lurker_IncomingOffer;
+            this._clientLurker.TradeAccepted += this.Lurker_TradeAccepted;
+            this._clientLurker.PlayerJoined += this.Lurker_PlayerJoined;
+            this._clientLurker.PlayerLeft += this.Lurker_PlayerLeft;
+
+            base.OnActivate();
         }
 
         /// <summary>

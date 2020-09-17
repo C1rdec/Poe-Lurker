@@ -140,6 +140,7 @@
     <Compile Include="Helpers\TradeEventHelper.cs" />
     <Compile Include="KeyboardLurker.cs" />
     <Compile Include="Models\Build.cs" />
+    <Compile Include="Models\BuildHelperSettings.cs" />
     <Compile Include="Models\Collaboration.cs" />
     <Compile Include="Models\Gem.cs" />
     <Compile Include="Models\Player.cs" />

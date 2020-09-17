@@ -12,17 +12,19 @@ namespace Lurker.UI.ViewModels
     using Lurker.Models;
     using Lurker.Patreon.Events;
     using Lurker.Services;
+    using Lurker.UI.Models;
 
     /// <summary>
     /// Represent the overlay of the time line.
     /// </summary>
     /// <seealso cref="Lurker.UI.ViewModels.PoeOverlayBase" />
-    public class SkillTimelineViewModel : BuildViewModel
+    public class SkillTimelineViewModel : BuildViewModel, IHandle<Skill>
     {
         #region Fields
 
         private CharacterService _characterService;
         private string _characterName;
+        private IEventAggregator _eventAggregator;
 
         #endregion
 
@@ -55,6 +57,8 @@ namespace Lurker.UI.ViewModels
 
             this.PropertyChanged += this.SkillTimelineViewModel_PropertyChanged;
             this._characterService.PlayerChanged += this.PlayerChanged;
+
+            this._eventAggregator = IoC.Get<IEventAggregator>();
         }
 
         #endregion
@@ -86,6 +90,35 @@ namespace Lurker.UI.ViewModels
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Handles the message.
+        /// </summary>
+        /// <param name="skill">The skill.</param>
+        public void Handle(Skill skill)
+        {
+            this.Timeline.Clear();
+            this.AddSkillItems(skill);
+        }
+
+        /// <summary>
+        /// Called when activating.
+        /// </summary>
+        protected override void OnActivate()
+        {
+            this._eventAggregator.Subscribe(this);
+            base.OnActivate();
+        }
+
+        /// <summary>
+        /// Called when deactivating.
+        /// </summary>
+        /// <param name="close">Inidicates whether this instance will be closed.</param>
+        protected override void OnDeactivate(bool close)
+        {
+            this._eventAggregator.Unsubscribe(this);
+            base.OnDeactivate(close);
+        }
 
         /// <summary>
         /// Sets the window position.
@@ -133,22 +166,34 @@ namespace Lurker.UI.ViewModels
             // Wait for the initialize
             if (e.PropertyName == nameof(this.Skills))
             {
-                var mainSkill = this.Build.Skills.OrderByDescending(s => s.Gems.Count(g => g.Support)).FirstOrDefault();
-                foreach (var gems in mainSkill.Gems.GroupBy(g => g.Level))
+                var skill = this.Build.Skills.ElementAt(this.SettingsService.BuildHelperSettings.SkillSelected);
+                if (skill != null)
                 {
-                    var skill = new Skill();
-                    foreach (var gem in gems)
-                    {
-                        skill.AddGem(gem);
-                    }
-
-                    var item = new TimelineItemViewModel(gems.Key)
-                    {
-                        DetailedView = new SkillViewModel(skill),
-                    };
-
-                    this.Timeline.AddItem(item);
+                    this.AddSkillItems(skill);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Adds the skill items.
+        /// </summary>
+        /// <param name="mainSkill">The main skill.</param>
+        private void AddSkillItems(Skill mainSkill)
+        {
+            foreach (var gems in mainSkill.Gems.GroupBy(g => g.Level))
+            {
+                var skill = new Skill();
+                foreach (var gem in gems)
+                {
+                    skill.AddGem(gem);
+                }
+
+                var item = new TimelineItemViewModel(gems.Key)
+                {
+                    DetailedView = new SkillViewModel(skill),
+                };
+
+                this.Timeline.AddItem(item);
             }
         }
 

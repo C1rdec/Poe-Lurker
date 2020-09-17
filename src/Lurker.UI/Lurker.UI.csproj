@@ -240,6 +240,7 @@
     <Compile Include="Helpers\UpdateManager.cs" />
     <Compile Include="Models\League.cs" />
     <Compile Include="Models\MyCommand.cs" />
+    <Compile Include="Models\SkillTimelineMessage.cs" />
     <Compile Include="Models\TimelineInformation.cs" />
     <Compile Include="Models\UpdateState.cs" />
     <Compile Include="Models\DoubleClickCommand.cs" />

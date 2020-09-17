@@ -8,6 +8,7 @@ namespace Lurker.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.IO;
     using System.Linq;
@@ -17,6 +18,7 @@ namespace Lurker.UI.ViewModels
     using Lurker.Helpers;
     using Lurker.Models;
     using Lurker.Services;
+    using Lurker.UI.Models;
 
     /// <summary>
     /// Represents a build viewmodel.
@@ -30,6 +32,8 @@ namespace Lurker.UI.ViewModels
         private Task _currentTask;
         private bool _isVisible;
         private bool _hasNoBuild;
+        private bool _skillTimelineEnabled;
+        private IEventAggregator _eventAggregator;
 
         #endregion
 
@@ -55,6 +59,7 @@ namespace Lurker.UI.ViewModels
             }
 
             this.IsVisible = true;
+            this._eventAggregator = IoC.Get<IEventAggregator>();
         }
 
         #endregion
@@ -64,7 +69,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets or sets the skills.
         /// </summary>
-        public IEnumerable<SkillViewModel> Skills { get; set; }
+        public ObservableCollection<SkillViewModel> Skills { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is visible.
@@ -80,6 +85,24 @@ namespace Lurker.UI.ViewModels
             {
                 this._isVisible = value;
                 this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [skill timeline enabled].
+        /// </summary>
+        public bool SkillTimelineEnabled
+        {
+            get
+            {
+                return this._skillTimelineEnabled;
+            }
+
+            set
+            {
+                this._skillTimelineEnabled = value;
+                this.NotifyOfPropertyChange();
+                this.SetTimelineSettings(this._skillTimelineEnabled);
             }
         }
 
@@ -114,6 +137,34 @@ namespace Lurker.UI.ViewModels
         #endregion
 
         #region Methods
+
+        protected override void OnActivate()
+        {
+            if (this.Build != null)
+            {
+                foreach (var skill in this.Skills)
+                {
+                    skill.PropertyChanged -= this.Skill_PropertyChanged;
+                }
+
+                this.Skills.Clear();
+
+                var settings = this.SettingsService.BuildHelperSettings;
+                foreach (var skill in this.Build.Skills.Select(s => new SkillViewModel(s, settings.TimelineEnabled)))
+                {
+                    skill.PropertyChanged += this.Skill_PropertyChanged;
+                    this.Skills.Add(skill);
+                }
+
+                var selectedSKill = this.Skills.ElementAt(settings.SkillSelected);
+                if (selectedSKill != null)
+                {
+                    selectedSKill.Selected = true;
+                }
+            }
+
+            base.OnActivate();
+        }
 
         /// <summary>
         /// Imports this instance.
@@ -179,12 +230,28 @@ namespace Lurker.UI.ViewModels
 
             try
             {
+                var settings = this.SettingsService.BuildHelperSettings;
                 using (var service = new PathOfBuildingService())
                 {
                     await service.InitializeAsync();
                     this.Build = service.Decode(buildValue);
 
-                    this.Skills = this.Build.Skills.Select(s => new SkillViewModel(s));
+                    this.Skills = new ObservableCollection<SkillViewModel>();
+                    foreach (var skill in this.Build.Skills.Select(s => new SkillViewModel(s, settings.TimelineEnabled)))
+                    {
+                        skill.PropertyChanged += this.Skill_PropertyChanged;
+                        this.Skills.Add(skill);
+                    }
+
+                    var selectedSKill = this.Skills.ElementAt(settings.SkillSelected);
+                    if (selectedSKill != null)
+                    {
+                        selectedSKill.Selected = true;
+                    }
+
+                    this.SkillTimelineEnabled = this.SettingsService.BuildHelperSettings.TimelineEnabled;
+
+                    // To notify that we are initialize.
                     this.NotifyOfPropertyChange("Skills");
                 }
             }
@@ -195,6 +262,27 @@ namespace Lurker.UI.ViewModels
 
             this.HasNoBuild = false;
             return true;
+        }
+
+        /// <summary>
+        /// Handles the PropertyChanged event of the Skill control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
+        private void Skill_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            var skill = sender as SkillViewModel;
+            if (skill == null || e.PropertyName != "Selected")
+            {
+                return;
+            }
+
+            if (skill.Selected)
+            {
+                var index = this.Skills.IndexOf(skill);
+                this.SettingsService.BuildHelperSettings.SkillSelected = index;
+                this.SettingsService.Save();
+            }
         }
 
         /// <summary>
@@ -212,6 +300,24 @@ namespace Lurker.UI.ViewModels
                 this.View.Left = windowInformation.Position.Right - 350 - margin;
                 this.View.Top = windowInformation.Position.Bottom - value - 500 - margin;
             });
+        }
+
+        /// <summary>
+        /// Sets the timeline settings.
+        /// </summary>
+        /// <param name="enabled">if set to <c>true</c> [enabled].</param>
+        private void SetTimelineSettings(bool enabled)
+        {
+            this.SettingsService.BuildHelperSettings.TimelineEnabled = enabled;
+            this.SettingsService.Save();
+
+            foreach (var skill in this.Skills)
+            {
+                skill.SetSelectable(enabled);
+            }
+
+            // Handled in ShellviewModel
+            this._eventAggregator.PublishOnUIThread(new SkillTimelineMessage() { IsVisible = enabled });
         }
 
         #endregion

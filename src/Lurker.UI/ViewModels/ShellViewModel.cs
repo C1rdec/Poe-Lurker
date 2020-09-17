@@ -28,7 +28,7 @@ namespace Lurker.UI
     /// <summary>
     /// Represents the SHellViewModel.
     /// </summary>
-    public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware, IHandle<Screen>
+    public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware, IHandle<Screen>, IHandle<SkillTimelineMessage>
     {
         #region Fields
 
@@ -352,6 +352,24 @@ namespace Lurker.UI
                     this.DeactivateItem(this._buildViewModel, true);
                 }
             }
+
+            if (this._settingsService.IncomingTradeEnabled)
+            {
+                this.ActivateItem(this._incomingTradeBarOverlay);
+            }
+            else
+            {
+                this.DeactivateItem(this._incomingTradeBarOverlay, true);
+            }
+
+            if (this._settingsService.OutgoingTradeEnabled)
+            {
+                this.ActivateItem(this._outgoingTradeBarOverlay);
+            }
+            else
+            {
+                this.DeactivateItem(this._outgoingTradeBarOverlay, true);
+            }
         }
 
         /// <summary>
@@ -397,9 +415,17 @@ namespace Lurker.UI
                     this.ActivateItem(this._helpOverlay);
                 }
 
+                if (this._settingsService.IncomingTradeEnabled)
+                {
+                    this.ActivateItem(this._incomingTradeBarOverlay);
+                }
+
+                if (this._settingsService.OutgoingTradeEnabled)
+                {
+                    this.ActivateItem(this._outgoingTradeBarOverlay);
+                }
+
                 this.ActivateItem(this._skillTimelineOverlay);
-                this.ActivateItem(this._incomingTradeBarOverlay);
-                this.ActivateItem(this._outgoingTradeBarOverlay);
                 this.ActivateItem(this._lifeBulbOverlay);
                 this.ActivateItem(this._manaBulbOverlay);
                 this.ActivateItem(this._hideoutOverlay);
@@ -618,6 +644,22 @@ namespace Lurker.UI
             }
 
             this.ActivateItem(screen);
+        }
+
+        /// <summary>
+        /// Handles the message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        public void Handle(SkillTimelineMessage message)
+        {
+            if (message.IsVisible)
+            {
+                this.ActivateItem(this._skillTimelineOverlay);
+            }
+            else
+            {
+                this.DeactivateItem(this._skillTimelineOverlay, true);
+            }
         }
 
         /// <summary>
