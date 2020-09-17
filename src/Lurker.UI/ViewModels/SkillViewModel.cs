@@ -8,11 +8,8 @@ namespace Lurker.UI.ViewModels
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Windows.Media.TextFormatting;
     using Caliburn.Micro;
     using Lurker.Models;
-    using Lurker.UI.Models;
-    using NLog.LayoutRenderers.Wrappers;
 
     /// <summary>
     /// Represents a skill viewmodel.
@@ -56,6 +53,11 @@ namespace Lurker.UI.ViewModels
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets the skill.
+        /// </summary>
+        public Skill Skill => this._skill;
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="SkillViewModel"/> is selectable.

@@ -193,6 +193,11 @@ namespace Lurker.UI.ViewModels
                 if (await this.Initialize(text, true))
                 {
                     AssetService.Create(FileName, text);
+                    var selectedSKill = this.Skills.FirstOrDefault(s => s.Selected);
+                    if (selectedSKill != null)
+                    {
+                        this._eventAggregator.PublishOnUIThread(selectedSKill.Skill);
+                    }
                 }
             }
             catch
@@ -250,6 +255,8 @@ namespace Lurker.UI.ViewModels
                         if (mainSKill != null)
                         {
                             index = this.Skills.IndexOf(mainSKill);
+                            settings.SkillSelected = index;
+                            this.SettingsService.Save();
                         }
                     }
 
