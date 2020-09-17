@@ -51,7 +51,7 @@ namespace Lurker.UI.ViewModels
         {
             if (AssetService.Exists(FileName))
             {
-                this._currentTask = this.Initialize(File.ReadAllText(AssetService.GetFilePath(FileName)));
+                this._currentTask = this.Initialize(File.ReadAllText(AssetService.GetFilePath(FileName)), false);
             }
             else
             {
@@ -190,7 +190,7 @@ namespace Lurker.UI.ViewModels
                     }
                 }
 
-                if (await this.Initialize(text))
+                if (await this.Initialize(text, true))
                 {
                     AssetService.Create(FileName, text);
                 }
@@ -224,7 +224,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="buildValue">The build value.</param>
         /// <returns>Representing the asynchronous operation.</returns>
-        public async Task<bool> Initialize(string buildValue)
+        public async Task<bool> Initialize(string buildValue, bool findMainSkill)
         {
             this.Build = null;
 
@@ -241,6 +241,16 @@ namespace Lurker.UI.ViewModels
                     {
                         skill.PropertyChanged += this.Skill_PropertyChanged;
                         this.Skills.Add(skill);
+                    }
+
+                    var index = settings.SkillSelected;
+                    if (findMainSkill)
+                    {
+                        var mainSKill = this.Skills.OrderByDescending(s => s.Gems.Count(g => g.Support)).FirstOrDefault();
+                        if (mainSKill != null)
+                        {
+                            index = this.Skills.IndexOf(mainSKill);
+                        }
                     }
 
                     var selectedSKill = this.Skills.ElementAt(settings.SkillSelected);

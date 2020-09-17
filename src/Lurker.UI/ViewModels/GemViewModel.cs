@@ -58,6 +58,11 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public Uri ImageUrl => this._gem.ImageUrl;
 
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="GemViewModel"/> is support.
+        /// </summary>
+        public bool Support => this._gem.Support;
+
         #endregion
 
         #region Methods
