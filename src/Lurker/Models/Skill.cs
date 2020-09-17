@@ -66,7 +66,13 @@ namespace Lurker.Models
 
             foreach (var gemElement in element.Elements())
             {
-                var gemId = gemElement.Attribute("skillId").Value;
+                var attribute = gemElement.Attribute("skillId");
+                if (attribute == null)
+                {
+                    continue;
+                }
+
+                var gemId = attribute.Value;
                 var gem = knownGems.FirstOrDefault(g => g.Id == gemId);
                 if (gem == null)
                 {
