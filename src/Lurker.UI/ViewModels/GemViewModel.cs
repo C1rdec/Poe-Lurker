@@ -19,6 +19,7 @@ namespace Lurker.UI.ViewModels
     {
         #region Fields
 
+        private static readonly Uri DefaultImage = new Uri("https://static.wikia.nocookie.net/pathofexile_gamepedia/images/3/31/Portal_inventory_icon.png/revision/latest?cb=20130626162348");
         private Gem _gem;
 
         #endregion
@@ -56,7 +57,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets the image URL.
         /// </summary>
-        public Uri ImageUrl => this._gem.ImageUrl;
+        public Uri ImageUrl => this._gem.ImageUrl ?? DefaultImage;
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="GemViewModel"/> is support.

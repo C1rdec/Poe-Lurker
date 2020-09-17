@@ -228,7 +228,10 @@ namespace Lurker.UI.ViewModels
         /// Initializes the specified build value.
         /// </summary>
         /// <param name="buildValue">The build value.</param>
-        /// <returns>Representing the asynchronous operation.</returns>
+        /// <param name="findMainSkill">if set to <c>true</c> [find main skill].</param>
+        /// <returns>
+        /// Representing the asynchronous operation.
+        /// </returns>
         public async Task<bool> Initialize(string buildValue, bool findMainSkill)
         {
             this.Build = null;
