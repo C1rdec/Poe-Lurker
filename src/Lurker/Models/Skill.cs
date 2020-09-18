@@ -98,6 +98,40 @@ namespace Lurker.Models
             this._gems.Add(gem);
         }
 
+        /// <summary>
+        /// Determines whether the specified, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The  to compare with this instance.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified is equal to this instance; otherwise, <c>false</c>.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            var skill = obj as Skill;
+            if (skill == null)
+            {
+                return false;
+            }
+
+            if (skill.Gems.Count() != this.Gems.Count())
+            {
+                return false;
+            }
+
+            for (int i = 0; i < skill.Gems.Count(); i++)
+            {
+                var gem = skill.Gems.ElementAt(i);
+                var myGem = this.Gems.ElementAt(i);
+
+                if (gem.Id != myGem.Id || gem.Name != myGem.Name)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         #endregion
     }
 }

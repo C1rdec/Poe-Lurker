@@ -8,6 +8,7 @@ namespace Lurker.UI.Views
 {
     using System;
     using System.Windows;
+    using System.Windows.Controls;
 
     /// <summary>
     /// Interaction logic for BuildView.xaml.
@@ -64,6 +65,18 @@ namespace Lurker.UI.Views
             this._parent.Show();
             this.Owner = this._parent;
             this._parent.Hide();
+        }
+
+        /// <summary>
+        /// Handles the PreviewMouseWheel event of the ScrollViewer control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.MouseWheelEventArgs"/> instance containing the event data.</param>
+        private void ScrollViewer_PreviewMouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
+        {
+            var scrollViewer = (ScrollViewer)sender;
+            scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset - e.Delta);
+            e.Handled = true;
         }
 
         #endregion

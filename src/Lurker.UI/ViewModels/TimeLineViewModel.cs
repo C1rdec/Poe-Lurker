@@ -102,6 +102,17 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Sets the maximum value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        public void SetMaxValue(double value)
+        {
+            this._information.MaximumValue = value;
+            this.NotifyOfPropertyChange("Maximum");
+            this.NotifyOfPropertyChange("Progress");
+        }
+
+        /// <summary>
         /// Adds the item.
         /// </summary>
         /// <param name="item">The item.</param>

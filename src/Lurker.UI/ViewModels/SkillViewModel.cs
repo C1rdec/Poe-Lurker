@@ -10,6 +10,7 @@ namespace Lurker.UI.ViewModels
     using System.Linq;
     using Caliburn.Micro;
     using Lurker.Models;
+    using Lurker.UI.Models;
 
     /// <summary>
     /// Represents a skill viewmodel.
@@ -22,6 +23,7 @@ namespace Lurker.UI.ViewModels
         private Skill _skill;
         private bool _selected;
         private bool _selectable;
+        private bool _justChecked;
         private IEventAggregator _eventAggregator;
 
         #endregion
@@ -42,7 +44,6 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="skill">The skill.</param>
         /// <param name="selectable">if set to <c>true</c> [selectable].</param>
-        /// <param name="groupName">Name of the group.</param>
         public SkillViewModel(Skill skill, bool selectable)
         {
             this._skill = skill;
@@ -88,8 +89,11 @@ namespace Lurker.UI.ViewModels
 
             set
             {
-                this._selected = value;
-                this.NotifyOfPropertyChange();
+                if (this._selected != value)
+                {
+                    this._selected = value;
+                    this.NotifyOfPropertyChange();
+                }
             }
         }
 
@@ -107,10 +111,27 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public void OnClick()
         {
-            if (this.Selected)
+            if (this._justChecked)
             {
-                this._eventAggregator.PublishOnUIThread(this._skill);
+                this._justChecked = false;
+                if (this.Selected)
+                {
+                    this._eventAggregator.PublishOnUIThread(new SkillMessage() { Skill = this._skill });
+                }
+
+                return;
             }
+
+            this.Selected = false;
+            this._eventAggregator.PublishOnUIThread(new SkillMessage() { Skill = this._skill, Delete = true });
+        }
+
+        /// <summary>
+        /// Called when [checked].
+        /// </summary>
+        public void OnChecked()
+        {
+            this._justChecked = true;
         }
 
         /// <summary>

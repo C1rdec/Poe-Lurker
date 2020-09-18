@@ -6,6 +6,7 @@
 
 namespace Lurker.Models
 {
+    using System.Collections.Generic;
     using ConfOxide;
 
     /// <summary>
@@ -23,7 +24,7 @@ namespace Lurker.Models
         /// <summary>
         /// Gets or sets the skill selected.
         /// </summary>
-        public int SkillSelected { get; set; }
+        public List<int> SkillsSelected { get; set; }
 
         #endregion
     }

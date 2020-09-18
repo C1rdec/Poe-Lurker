@@ -161,11 +161,7 @@ namespace Lurker.UI.ViewModels
                     this.Skills.Add(skill);
                 }
 
-                var selectedSKill = this.Skills.ElementAt(settings.SkillSelected);
-                if (selectedSKill != null)
-                {
-                    selectedSKill.Selected = true;
-                }
+                this.SelectSkills(settings);
             }
 
             base.OnActivate();
@@ -201,7 +197,7 @@ namespace Lurker.UI.ViewModels
                     var selectedSKill = this.Skills.FirstOrDefault(s => s.Selected);
                     if (selectedSKill != null)
                     {
-                        this._eventAggregator.PublishOnUIThread(selectedSKill.Skill);
+                        this._eventAggregator.PublishOnUIThread(new SkillMessage() { Skill = selectedSKill.Skill });
                     }
                 }
             }
@@ -256,23 +252,19 @@ namespace Lurker.UI.ViewModels
                         this.Skills.Add(skill);
                     }
 
-                    var index = settings.SkillSelected;
                     if (findMainSkill)
                     {
                         var mainSKill = this.Skills.OrderByDescending(s => s.Gems.Count(g => g.Support)).FirstOrDefault();
                         if (mainSKill != null)
                         {
-                            index = this.Skills.IndexOf(mainSKill);
-                            settings.SkillSelected = index;
+                            var index = this.Skills.IndexOf(mainSKill);
+                            settings.SkillsSelected.Clear();
+                            settings.SkillsSelected.Add(index);
                             this.SettingsService.Save();
                         }
                     }
 
-                    var selectedSKill = this.Skills.ElementAt(settings.SkillSelected);
-                    if (selectedSKill != null)
-                    {
-                        selectedSKill.Selected = true;
-                    }
+                    this.SelectSkills(settings, true);
 
                     // To notify that we are initialize.
                     this.NotifyOfPropertyChange("Skills");
@@ -288,6 +280,33 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Selects the skills.
+        /// </summary>
+        /// <param name="settings">The settings.</param>
+        /// <param name="raiseEvent">if set to <c>true</c> [raise event].</param>
+        private void SelectSkills(BuildHelperSettings settings, bool raiseEvent = false)
+        {
+            foreach (var index in settings.SkillsSelected.ToArray())
+            {
+                if (index >= this.Skills.Count)
+                {
+                    continue;
+                }
+
+                var selectedSKill = this.Skills.ElementAt(index);
+                if (selectedSKill != null)
+                {
+                    selectedSKill.Selected = true;
+
+                    if (raiseEvent)
+                    {
+                        this._eventAggregator.PublishOnUIThread(new SkillMessage() { Skill = selectedSKill.Skill });
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Handles the PropertyChanged event of the Skill control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -300,12 +319,26 @@ namespace Lurker.UI.ViewModels
                 return;
             }
 
+            var index = this.Skills.IndexOf(skill);
             if (skill.Selected)
             {
-                var index = this.Skills.IndexOf(skill);
-                this.SettingsService.BuildHelperSettings.SkillSelected = index;
-                this.SettingsService.Save();
+                var skillIndex = this.SettingsService.BuildHelperSettings.SkillsSelected.IndexOf(index);
+                if (skillIndex == -1)
+                {
+                    this.SettingsService.BuildHelperSettings.SkillsSelected.Add(index);
+                }
             }
+            else
+            {
+                bool removed;
+                do
+                {
+                    removed = this.SettingsService.BuildHelperSettings.SkillsSelected.Remove(index);
+                }
+                while (removed);
+            }
+
+            this.SettingsService.Save();
         }
 
         /// <summary>

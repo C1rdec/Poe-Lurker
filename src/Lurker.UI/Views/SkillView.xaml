@@ -12,7 +12,11 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <RadioButton cal:Message.Attach="[Event Click] = [Action OnClick]" GroupName="Test" Visibility="{Binding Selectable, Converter={StaticResource BooleanToVisibilityConverter}}" x:Name="Selected" Margin="5,5,0,0" Cursor="Hand"/>
+        <RadioButton cal:Message.Attach="[Event Click] = [Action OnClick]; [Event Checked] = [Action OnChecked]"
+                     Visibility="{Binding Selectable, Converter={StaticResource BooleanToVisibilityConverter}}" 
+                     IsChecked="{Binding Selected}" 
+                     Margin="5,5,0,0" 
+                     Cursor="Hand"/>
         <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"  VerticalScrollBarVisibility="Hidden">
             <ItemsControl x:Name="Gems">
                 <ItemsControl.ItemsPanel>

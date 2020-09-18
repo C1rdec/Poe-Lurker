@@ -6,21 +6,25 @@
 
 namespace Lurker.UI.ViewModels
 {
+    using System.Collections.Generic;
     using System.Linq;
     using Caliburn.Micro;
     using Lurker.Helpers;
     using Lurker.Models;
     using Lurker.Patreon.Events;
     using Lurker.Services;
+    using Lurker.UI.Models;
 
     /// <summary>
     /// Represent the overlay of the time line.
     /// </summary>
     /// <seealso cref="Lurker.UI.ViewModels.PoeOverlayBase" />
-    public class SkillTimelineViewModel : BuildViewModel, IHandle<Skill>
+    public class SkillTimelineViewModel : BuildViewModel, IHandle<SkillMessage>
     {
         #region Fields
 
+        private static readonly int MaxLevel = 100;
+        private List<Skill> _skills;
         private CharacterService _characterService;
         private string _characterName;
         private IEventAggregator _eventAggregator;
@@ -50,14 +54,12 @@ namespace Lurker.UI.ViewModels
                 this.CharacterName = firstPlayer.Name;
             }
 
-            // 100 is the max level
-            this.Timeline = new TimelineViewModel(progress, 100);
+            this.Timeline = new TimelineViewModel(progress, MaxLevel);
             this.CharacterName = firstPlayer != null ? firstPlayer.Name : string.Empty;
-
-            this.PropertyChanged += this.SkillTimelineViewModel_PropertyChanged;
             this._characterService.PlayerChanged += this.PlayerChanged;
 
             this._eventAggregator = IoC.Get<IEventAggregator>();
+            this._skills = new List<Skill>();
         }
 
         #endregion
@@ -93,11 +95,29 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Handles the message.
         /// </summary>
-        /// <param name="skill">The skill.</param>
-        public void Handle(Skill skill)
+        /// <param name="message">The message.</param>
+        public void Handle(SkillMessage message)
         {
+            if (message.Delete)
+            {
+                bool removed;
+                do
+                {
+                    removed = this._skills.Remove(message.Skill);
+                }
+                while (removed);
+            }
+            else
+            {
+                var index = this._skills.IndexOf(message.Skill);
+                if (index == -1)
+                {
+                    this._skills.Add(message.Skill);
+                }
+            }
+
             this.Timeline.Clear();
-            this.AddSkillItems(skill);
+            this.AddSkillItems();
         }
 
         /// <summary>
@@ -156,30 +176,19 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
-        /// Handles the PropertyChanged event of the SkillTimelineViewModel control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
-        private void SkillTimelineViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            // Wait for the initialize
-            if (e.PropertyName == nameof(this.Skills))
-            {
-                var skill = this.Build.Skills.ElementAt(this.SettingsService.BuildHelperSettings.SkillSelected);
-                if (skill != null)
-                {
-                    this.AddSkillItems(skill);
-                }
-            }
-        }
-
-        /// <summary>
         /// Adds the skill items.
         /// </summary>
-        /// <param name="mainSkill">The main skill.</param>
-        private void AddSkillItems(Skill mainSkill)
+        private void AddSkillItems()
         {
-            foreach (var gems in mainSkill.Gems.GroupBy(g => g.Level))
+            if (!this._skills.Any())
+            {
+                this.Timeline.SetMaxValue(MaxLevel);
+                return;
+            }
+
+            var combineGems = this._skills.SelectMany(s => s.Gems);
+            this.Timeline.SetMaxValue(combineGems.Max(g => g.Level) + 1);
+            foreach (var gems in combineGems.GroupBy(g => g.Level))
             {
                 var skill = new Skill();
                 foreach (var gem in gems)
