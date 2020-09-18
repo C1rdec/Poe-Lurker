@@ -337,6 +337,11 @@ namespace Lurker.UI
                     this._helpOverlay = this._container.GetInstance<HelpViewModel>();
                     this._helpOverlay.Initialize(this.ToggleBuildHelper);
                     this.ActivateItem(this._helpOverlay);
+
+                    if (this._skillTimelineOverlay != null && this._settingsService.BuildHelperSettings.TimelineEnabled)
+                    {
+                        this.ActivateItem(this._skillTimelineOverlay);
+                    }
                 }
             }
             else
@@ -350,6 +355,11 @@ namespace Lurker.UI
                 if (this._buildViewModel != null)
                 {
                     this.DeactivateItem(this._buildViewModel, true);
+                }
+
+                if (this._skillTimelineOverlay != null)
+                {
+                    this.DeactivateItem(this._skillTimelineOverlay, true);
                 }
             }
 
