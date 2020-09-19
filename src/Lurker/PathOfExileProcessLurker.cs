@@ -7,7 +7,6 @@
 namespace Lurker
 {
     using System.Collections.Generic;
-    using System.Threading.Tasks;
     using Lurker.Models;
 
     /// <summary>
@@ -19,7 +18,6 @@ namespace Lurker
         #region Fields
 
         private static readonly List<string> PossibleProcessNames = new List<string> { "PathOfExile", "PathOfExile_x64", "PathOfExileSteam", "PathOfExile_x64Steam", "PathOfExile_x64_KG.exe", "PathOfExile_KG.exe" };
-        private static readonly string WindowTitle = "Path of Exile";
 
         #endregion
 
@@ -36,28 +34,6 @@ namespace Lurker
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Waits for process.
-        /// </summary>
-        /// <returns>
-        /// The Path of Exile process.
-        /// </returns>
-        public override async Task<int> WaitForProcess()
-        {
-            var processId = await base.WaitForProcess();
-            var process = GetProcessById(processId);
-
-            // This is to filter the update window
-            while (process == null || process.MainWindowTitle != WindowTitle)
-            {
-                processId = await base.WaitForProcess();
-                process = GetProcessById(processId);
-            }
-
-            PoeApplicationContext.IsRunning = true;
-            return processId;
-        }
 
         /// <summary>
         /// Called when [exit].

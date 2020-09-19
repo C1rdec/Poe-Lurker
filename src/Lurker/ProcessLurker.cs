@@ -88,7 +88,7 @@ namespace Lurker
         {
             var process = this.GetProcess();
 
-            while (process == null)
+            while (process == null || process.MainWindowTitle != "Path of Exile")
             {
                 await Task.Delay(WaitingTime);
                 process = this.GetProcess();
