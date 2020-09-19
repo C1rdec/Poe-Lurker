@@ -12,6 +12,10 @@
         Background="Transparent"
         Title="SkillTimelineView" Height="450" Width="800">
     <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
         <Grid.Style>
             <Style TargetType="Grid">
                 <Setter Property="Background" Value="Transparent"/>
@@ -22,6 +26,15 @@
                 </Style.Triggers>
             </Style>
         </Grid.Style>
-        <ContentControl x:Name="Timeline"/>
+        <ContentControl x:Name="Timeline" Margin="0,2,0,0"/>
+        <Border Grid.Row="1" HorizontalAlignment="Left" Cursor="Hand">
+            <Border.Background>
+                <SolidColorBrush Color="White" Opacity="0.003"/>
+            </Border.Background>
+        <StackPanel Orientation="Horizontal" Opacity="0.8">
+            <TextBlock x:Name="PlayerName" FontFamily="pack://application:,,,/Assets/#Fontin" Foreground="#f0d0a8"/>
+            <TextBlock x:Name="PlayerLevel" Margin="4,0,0,0" FontFamily="pack://application:,,,/Assets/#Fontin" Foreground="#f0d0a8"/>
+        </StackPanel>
+        </Border>
     </Grid>
 </Window>

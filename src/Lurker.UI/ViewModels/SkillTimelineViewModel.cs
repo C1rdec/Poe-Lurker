@@ -26,7 +26,8 @@ namespace Lurker.UI.ViewModels
         private static readonly int MaxLevel = 100;
         private List<Skill> _skills;
         private CharacterService _characterService;
-        private string _characterName;
+        private string _playerName;
+        private string _playerLevel;
         private IEventAggregator _eventAggregator;
 
         #endregion
@@ -51,11 +52,22 @@ namespace Lurker.UI.ViewModels
             if (firstPlayer != null)
             {
                 progress = firstPlayer.Levels.FirstOrDefault();
-                this.CharacterName = firstPlayer.Name;
+                this.PlayerName = firstPlayer.Name;
             }
 
             this.Timeline = new TimelineViewModel(progress, MaxLevel);
-            this.CharacterName = firstPlayer != null ? firstPlayer.Name : string.Empty;
+            this.PlayerName = firstPlayer != null ? firstPlayer.Name : string.Empty;
+
+            this.PlayerLevel = string.Empty;
+            if (firstPlayer != null)
+            {
+                var level = firstPlayer.Levels.FirstOrDefault();
+                if (level != 0)
+                {
+                    this.PlayerLevel = level.ToString();
+                }
+            }
+
             this._characterService.PlayerChanged += this.PlayerChanged;
 
             this._eventAggregator = IoC.Get<IEventAggregator>();
@@ -74,16 +86,33 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets the name of the character.
         /// </summary>
-        public string CharacterName
+        public string PlayerName
         {
             get
             {
-                return this._characterName;
+                return this._playerName;
             }
 
             private set
             {
-                this._characterName = value;
+                this._playerName = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets the player level.
+        /// </summary>
+        public string PlayerLevel
+        {
+            get
+            {
+                return this._playerLevel;
+            }
+
+            private set
+            {
+                this._playerLevel = value;
                 this.NotifyOfPropertyChange();
             }
         }
@@ -151,7 +180,7 @@ namespace Lurker.UI.ViewModels
                 return;
             }
 
-            var overlayHeight = 30 * windowInformation.FlaskBarHeight / DefaultFlaskBarHeight * this.SettingsService.TradebarScaling;
+            var overlayHeight = 35 * windowInformation.FlaskBarHeight / DefaultFlaskBarHeight * this.SettingsService.TradebarScaling;
             var overlayWidth = windowInformation.Width - (windowInformation.FlaskBarWidth * 2);
             var margin = PoeApplicationContext.WindowStyle == WindowStyle.Windowed ? 10 : 0;
 
@@ -171,7 +200,8 @@ namespace Lurker.UI.ViewModels
         /// <param name="e">The e.</param>
         private void PlayerChanged(object sender, PlayerLevelUpEvent e)
         {
-            this.CharacterName = e.PlayerName;
+            this.PlayerName = e.PlayerName;
+            this.PlayerLevel = e.Level.ToString();
             this.Timeline.SetProgess(e.Level);
         }
 
