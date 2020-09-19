@@ -32,7 +32,7 @@
         <Controls:ToggleSwitch IsChecked="{Binding SkillTimelineEnabled}" HorizontalAlignment="Right" OnLabel="Skill Timeline" OffLabel="Skill Timeline"></Controls:ToggleSwitch>
         <Grid Grid.Row="1" Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" >
             <ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Hidden">
-                <Viewbox HorizontalAlignment="Left" Stretch="UniformToFill">
+                <Viewbox HorizontalAlignment="Left" Stretch="UniformToFill" StretchDirection="DownOnly">
                     <ItemsControl  x:Name="Skills" >
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
