@@ -4,14 +4,9 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Lurker.Models;
-using Lurker.Services;
 using Newtonsoft.Json.Linq;
 
 namespace Lurker.Gem

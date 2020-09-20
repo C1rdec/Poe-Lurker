@@ -76,6 +76,7 @@ namespace Lurker.UI.Helpers
         /// <returns>True if needs update.</returns>
         public async Task<bool> CheckForUpdate()
         {
+            return false;
 #if DEBUG
             return false;
 #endif

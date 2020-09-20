@@ -22,7 +22,6 @@ namespace Lurker
     {
         #region Fields
 
-        private InputSimulator _simulator;
         private SettingsService _settingsService;
         private MouseHook _mouseHook;
         private bool _disposed = false;
@@ -39,7 +38,6 @@ namespace Lurker
         public MouseLurker(int processId, SettingsService settingsService)
         {
             this._settingsService = settingsService;
-            this._simulator = new InputSimulator();
             this._mouseHook = new MouseHook(processId, MouseMessageTypes.IgnoreMove);
             this._mouseHook.LeftButtonUp += this.MouseHook_LeftButtonUp;
             this._mouseHook.InstallAsync();
@@ -114,7 +112,7 @@ namespace Lurker
             var retryCount = 2;
             for (int i = 0; i < retryCount; i++)
             {
-                this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_C);
+                await Simulate.Events().ClickChord(WindowsInput.Events.KeyCode.LControlKey, WindowsInput.Events.KeyCode.C).Invoke();
                 await Task.Delay(20);
                 item = ClipboardHelper.GetItemInClipboard();
 
