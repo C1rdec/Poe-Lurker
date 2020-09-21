@@ -108,14 +108,13 @@ namespace Lurker
         /// Deletes the item.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="KeyboardMessageEventArgs"/> instance containing the event data.</param>
-        private void DeleteItem(object sender, KeyboardMessageEventArgs e)
+        /// <param name="e">The <see cref="KeyboardMessageEventArgs" /> instance containing the event data.</param>
+        private async void DeleteItem(object sender, KeyboardMessageEventArgs e)
         {
             if (this._settingsService.DeleteItemEnabled)
             {
-                //Simulate.Events().Click(K)
-                ////this._simulator.Mouse.LeftButtonClick();
-                //this._keyboardHelper.Destroy();
+                await Simulate.Events().Click(WindowsInput.Events.ButtonCode.Left).Invoke();
+                this._keyboardHelper.Destroy();
             }
         }
 

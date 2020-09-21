@@ -53,6 +53,7 @@ namespace Lurker.Helpers
         /// Writes the specified text.
         /// </summary>
         /// <param name="text">The text.</param>
+        /// <returns>The task awaiter.</returns>
         public async Task Write(string text)
         {
             if (string.IsNullOrEmpty(text))
@@ -67,13 +68,13 @@ namespace Lurker.Helpers
         /// Simulates a search using Ctrl+F.
         /// </summary>
         /// <param name="searchTerm">The search term to use.</param>
+        /// <returns>The task awaiter.</returns>
         public async Task Search(string searchTerm)
         {
             await Simulate.Events().Click(KeyCode.LMenu).Invoke();
             Native.SetForegroundWindow(this._windowHandle);
 
             var eventBuilder = Simulate.Events();
-            eventBuilder.Click(KeyCode.Return);
             eventBuilder.ClickChord(KeyCode.LControl, KeyCode.F);
             eventBuilder.Click(searchTerm);
             eventBuilder.Click(KeyCode.Return);
@@ -84,6 +85,7 @@ namespace Lurker.Helpers
         /// Sends the command.
         /// </summary>
         /// <param name="command">The command.</param>
+        /// <returns>The task awaiter.</returns>
         protected async Task SendCommand(string command)
         {
             await Simulate.Events().Click(KeyCode.LMenu).Invoke();

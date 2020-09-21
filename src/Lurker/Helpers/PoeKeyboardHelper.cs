@@ -6,8 +6,6 @@
 
 namespace Lurker.Helpers
 {
-    using System.Diagnostics;
-
     /// <summary>
     /// Represents the PoeKeyboardHelper.
     /// </summary>
@@ -32,53 +30,53 @@ namespace Lurker.Helpers
         /// <summary>
         /// Destroys this instance.
         /// </summary>
-        public void Destroy()
+        public async void Destroy()
         {
-            this.SendCommand("/destroy");
+            await this.SendCommand("/destroy");
         }
 
         /// <summary>
         /// Remainings the monster.
         /// </summary>
-        public void RemainingMonster()
+        public async void RemainingMonster()
         {
-            this.SendCommand("/remaining");
+            await this.SendCommand("/remaining");
         }
 
         /// <summary>
         /// Whoes the is.
         /// </summary>
         /// <param name="playerName">Name of the player.</param>
-        public void WhoIs(string playerName)
+        public async void WhoIs(string playerName)
         {
-            this.SendCommand($@"/whois {playerName}");
+            await this.SendCommand($@"/whois {playerName}");
         }
 
         /// <summary>
         /// Invites to party.
         /// </summary>
         /// <param name="playerName">Name of the player.</param>
-        public void Invite(string playerName)
+        public async void Invite(string playerName)
         {
-            this.SendCommand($@"/invite {playerName}");
+            await this.SendCommand($@"/invite {playerName}");
         }
 
         /// <summary>
         /// Kicks the specified player name.
         /// </summary>
         /// <param name="playerName">Name of the player.</param>
-        public void Kick(string playerName)
+        public async void Kick(string playerName)
         {
-            this.SendCommand($@"/kick {playerName}");
+            await this.SendCommand($@"/kick {playerName}");
         }
 
         /// <summary>
         /// Trades the specified character name.
         /// </summary>
         /// <param name="playerName">Name of the player.</param>
-        public void Trade(string playerName)
+        public async void Trade(string playerName)
         {
-            this.SendCommand($@"/tradewith {playerName}");
+            await this.SendCommand($@"/tradewith {playerName}");
         }
 
         /// <summary>
@@ -86,18 +84,18 @@ namespace Lurker.Helpers
         /// </summary>
         /// <param name="playerName">Name of the character.</param>
         /// <param name="message">The message.</param>
-        public void Whisper(string playerName, string message)
+        public async void Whisper(string playerName, string message)
         {
-            this.SendCommand($@"@{playerName} {message}");
+            await this.SendCommand($@"@{playerName} {message}");
         }
 
         /// <summary>
         /// Sends the message.
         /// </summary>
         /// <param name="message">The message.</param>
-        public void SendMessage(string message)
+        public async void SendMessage(string message)
         {
-            this.SendCommand(message);
+            await this.SendCommand(message);
         }
 
         /// <summary>
@@ -112,15 +110,15 @@ namespace Lurker.Helpers
         /// Joins the hideout.
         /// </summary>
         /// <param name="playerName">Name of the player.</param>
-        public void JoinHideout(string playerName)
+        public async void JoinHideout(string playerName)
         {
             if (string.IsNullOrEmpty(playerName))
             {
-                this.SendCommand($@"/hideout");
+                await this.SendCommand($@"/hideout");
                 return;
             }
 
-            this.SendCommand($@" /hideout {playerName}");
+            await this.SendCommand($@"/hideout {playerName}");
         }
 
         #endregion
