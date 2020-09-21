@@ -208,8 +208,8 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="WindowsInput, Version=1.0.4.0, Culture=neutral, PublicKeyToken=9b287f7dc5073cad, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\InputSimulator.1.0.4.0\lib\net20\WindowsInput.dll</HintPath>
+    <Reference Include="WindowsInput, Version=6.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\WindowsInput.6.1.1\lib\net461\WindowsInput.dll</HintPath>
     </Reference>
     <Reference Include="Xceed.Wpf.AvalonDock, Version=3.8.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Extended.Wpf.Toolkit.3.8.1\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
@@ -575,6 +575,7 @@
   <ItemGroup>
     <Resource Include="Assets\Gemcutter.png" />
     <Resource Include="Assets\Chisel.png" />
+    <Resource Include=".nuget\mouse-keyboard-hook-logo.png" />
     <Content Include="SVG\Beer.svg" />
     <Content Include="SVG\Help.svg" />
     <Content Include="SVG\Hideout.svg" />

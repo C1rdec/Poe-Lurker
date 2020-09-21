@@ -23,7 +23,6 @@ namespace Lurker
 
         private static readonly ushort DeleteKeyCode = 46;
         private KeyboardHook _keyboardHook;
-        private InputSimulator _simulator;
         private ItemParser _itemParser;
         private SettingsService _settingsService;
         private PoeKeyboardHelper _keyboardHelper;
@@ -45,7 +44,6 @@ namespace Lurker
             this._keyboardHelper = keyboardHelper;
 
             this._itemParser = new ItemParser();
-            this._simulator = new InputSimulator();
             this._keyboardHook = new KeyboardHook(processId);
             this._keyboardHook.AddHandler('F', Modifiers.Alt, this.SearchItem);
             this._keyboardHook.AddHandler('R', Modifiers.Control, this.RemainingMonsters);
@@ -102,7 +100,7 @@ namespace Lurker
                     return;
                 }
 
-                this._keyboardHelper.Search(baseType);
+                await this._keyboardHelper.Search(baseType);
             }
         }
 
@@ -110,12 +108,12 @@ namespace Lurker
         /// Deletes the item.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="KeyboardMessageEventArgs"/> instance containing the event data.</param>
-        private void DeleteItem(object sender, KeyboardMessageEventArgs e)
+        /// <param name="e">The <see cref="KeyboardMessageEventArgs" /> instance containing the event data.</param>
+        private async void DeleteItem(object sender, KeyboardMessageEventArgs e)
         {
             if (this._settingsService.DeleteItemEnabled)
             {
-                this._simulator.Mouse.LeftButtonClick();
+                await Simulate.Events().Click(WindowsInput.Events.ButtonCode.Left).Invoke();
                 this._keyboardHelper.Destroy();
             }
         }
@@ -141,7 +139,7 @@ namespace Lurker
         {
             try
             {
-                this._simulator.Keyboard.ModifiedKeyStroke(WindowsInput.Native.VirtualKeyCode.CONTROL, WindowsInput.Native.VirtualKeyCode.VK_C);
+                await Simulate.Events().ClickChord(WindowsInput.Events.KeyCode.LControlKey, WindowsInput.Events.KeyCode.C).Invoke();
                 await Task.Delay(50);
                 var text = ClipboardHelper.GetClipboardText();
                 ClipboardHelper.ClearClipboard();
