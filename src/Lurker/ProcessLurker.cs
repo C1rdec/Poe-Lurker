@@ -12,6 +12,7 @@ namespace Lurker
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using Lurker.Models;
 
     /// <summary>
     /// Represents the process lurker.
@@ -94,6 +95,7 @@ namespace Lurker
                 process = this.GetProcess();
             }
 
+            PoeApplicationContext.IsRunning = true;
             this.WaitForExit();
             return this.WaitForWindowHandle();
         }
