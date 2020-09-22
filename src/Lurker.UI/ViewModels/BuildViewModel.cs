@@ -61,7 +61,7 @@ namespace Lurker.UI.ViewModels
             this.IsVisible = true;
             this._eventAggregator = IoC.Get<IEventAggregator>();
             this.Skills = new ObservableCollection<SkillViewModel>();
-            this.SkillTimelineEnabled = this.SettingsService.BuildHelperSettings.TimelineEnabled;
+            this._skillTimelineEnabled = this.SettingsService.BuildHelperSettings.TimelineEnabled;
         }
 
         #endregion
