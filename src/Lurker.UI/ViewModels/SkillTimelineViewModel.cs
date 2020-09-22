@@ -127,6 +127,11 @@ namespace Lurker.UI.ViewModels
         /// <param name="message">The message.</param>
         public void Handle(SkillMessage message)
         {
+            if (message.Clear)
+            {
+                this._skills.Clear();
+            }
+
             if (message.Delete)
             {
                 bool removed;

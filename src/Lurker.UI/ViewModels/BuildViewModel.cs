@@ -197,7 +197,8 @@ namespace Lurker.UI.ViewModels
                     var selectedSKill = this.Skills.FirstOrDefault(s => s.Selected);
                     if (selectedSKill != null)
                     {
-                        this._eventAggregator.PublishOnUIThread(new SkillMessage() { Skill = selectedSKill.Skill });
+                        // Handled in SkillTimelineViewModel
+                        this._eventAggregator.PublishOnUIThread(new SkillMessage() { Clear = true, Skill = selectedSKill.Skill });
                     }
                 }
             }
