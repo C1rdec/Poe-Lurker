@@ -20,9 +20,9 @@ namespace Lurker.Helpers
     {
         #region Fields
 
-        private readonly object _commandLock = new object();
         private Process _process;
         private IntPtr _windowHandle;
+        private bool _firstCommand = true;
 
         #endregion
 
@@ -85,19 +85,33 @@ namespace Lurker.Helpers
         /// Sends the command.
         /// </summary>
         /// <param name="command">The command.</param>
-        /// <returns>The task awaiter.</returns>
+        /// <returns>
+        /// The task awaiter.
+        /// </returns>
         protected async Task SendCommand(string command)
         {
-            await Simulate.Events().Click(KeyCode.LMenu).Invoke();
-
             // This is to fix the first SetForegroundWindow
+            if (this._firstCommand)
+            {
+                this._firstCommand = false;
+                await Simulate.Events().Click(KeyCode.LMenu).Invoke();
+            }
+
             Native.SetForegroundWindow(this._windowHandle);
+
+            await Task.Delay(10);
 
             var eventBuilder = Simulate.Events();
             eventBuilder.Click(KeyCode.Return);
             eventBuilder.ClickChord(KeyCode.LControl, KeyCode.A);
             eventBuilder.Click(command);
             eventBuilder.Click(KeyCode.Return);
+
+            var foregroundWindow = Native.GetForegroundWindow();
+            if (this._windowHandle != foregroundWindow)
+            {
+                await Task.Delay(100);
+            }
 
             await eventBuilder.Invoke();
         }
