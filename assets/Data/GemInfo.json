@@ -160,6 +160,14 @@
 		"Support": false
 	},
 	{
+		"Id": "BlackHole",
+		"Name": "Void Sphere",
+		"Level": 34,
+		"WikiUrl": "https://pathofexile.gamepedia.com/Void_Sphere",
+		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/7/78/Void_Sphere_inventory_icon.png/revision/latest?cb=20200929172855",
+		"Support": false
+	},
+	{
 		"Id": "BladeBlast",
 		"Name": "Blade Blast",
 		"Level": 16,
@@ -317,6 +325,14 @@
 		"Level": 28,
 		"WikiUrl": "https://pathofexile.gamepedia.com/Charged_Dash",
 		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/a/a9/Charged_Dash_inventory_icon.png/revision/latest?cb=20170804100131",
+		"Support": false
+	},
+	{
+		"Id": "CircleOfPower",
+		"Name": "Sigil of Power",
+		"Level": 34,
+		"WikiUrl": "https://pathofexile.gamepedia.com/Sigil_of_Power",
+		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/4/41/Sigil_of_Power_inventory_icon.png/revision/latest?cb=20200929172842",
 		"Support": false
 	},
 	{
@@ -576,6 +592,14 @@
 		"Support": false
 	},
 	{
+		"Id": "Disintegrate",
+		"Name": "Crackling Lance",
+		"Level": 28,
+		"WikiUrl": "https://pathofexile.gamepedia.com/Crackling_Lance",
+		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/4/48/Crackling_Lance_inventory_icon.png/revision/latest?cb=20200929172801",
+		"Support": false
+	},
+	{
 		"Id": "DivineTempest",
 		"Name": "Divine Ire",
 		"Level": 28,
@@ -589,6 +613,14 @@
 		"Level": 28,
 		"WikiUrl": "https://pathofexile.gamepedia.com/Dominating_Blow",
 		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/8b/Dominating_Blow_inventory_icon.png/revision/latest?cb=20180831201513",
+		"Support": false
+	},
+	{
+		"Id": "DoomBlast",
+		"Name": "Hexblast",
+		"Level": 28,
+		"WikiUrl": "https://pathofexile.gamepedia.com/Hexblast",
+		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/b/bf/Hexblast_inventory_icon.png/revision/latest?cb=20200930010016",
 		"Support": false
 	},
 	{
@@ -637,6 +669,14 @@
 		"Level": 24,
 		"WikiUrl": "https://pathofexile.gamepedia.com/Elemental_Weakness",
 		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/7/77/Elemental_Weakness_inventory_icon.png/revision/latest?cb=20130626162238",
+		"Support": false
+	},
+	{
+		"Id": "Ember",
+		"Name": "Blazing Salvo",
+		"Level": 12,
+		"WikiUrl": "https://pathofexile.gamepedia.com/Blazing_Salvo",
+		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/c/c0/Blazing_Salvo_inventory_icon.png/revision/latest?cb=20200929172754",
 		"Support": false
 	},
 	{
@@ -762,9 +802,17 @@
 	{
 		"Id": "Firestorm",
 		"Name": "Firestorm",
-		"Level": 12,
+		"Level": 28,
 		"WikiUrl": "https://pathofexile.gamepedia.com/Firestorm",
 		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/3/35/Firestorm_inventory_icon.png/revision/latest?cb=20130626162246",
+		"Support": false
+	},
+	{
+		"Id": "Firewall",
+		"Name": "Flame Wall",
+		"Level": 4,
+		"WikiUrl": "https://pathofexile.gamepedia.com/Flame_Wall",
+		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/2/25/Flame_Wall_inventory_icon.png/revision/latest?cb=20200929172808",
 		"Support": false
 	},
 	{
@@ -885,6 +933,14 @@
 		"Level": 28,
 		"WikiUrl": "https://pathofexile.gamepedia.com/Winter_Orb",
 		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/9/91/Winter_Orb_inventory_icon.png/revision/latest?cb=20181207183045",
+		"Support": false
+	},
+	{
+		"Id": "FrostGlobe",
+		"Name": "Frost Shield",
+		"Level": 34,
+		"WikiUrl": "https://pathofexile.gamepedia.com/Frost_Shield",
+		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/ec/Frost_Shield_inventory_icon.png/revision/latest?cb=20200929172815",
 		"Support": false
 	},
 	{
@@ -1101,6 +1157,14 @@
 		"Level": 34,
 		"WikiUrl": "https://pathofexile.gamepedia.com/Immortal_Call",
 		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/8e/Immortal_Call_inventory_icon.png/revision/latest?cb=20130626162305",
+		"Support": false
+	},
+	{
+		"Id": "ImpactingSteel",
+		"Name": "Splitting Steel",
+		"Level": 1,
+		"WikiUrl": "https://pathofexile.gamepedia.com/Splitting_Steel",
+		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/6/61/Splitting_Steel_inventory_icon.png/revision/latest?cb=20200929172848",
 		"Support": false
 	},
 	{
@@ -1389,14 +1453,6 @@
 		"Level": 12,
 		"WikiUrl": "https://pathofexile.gamepedia.com/Power_Siphon",
 		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/5/52/Power_Siphon_inventory_icon.png/revision/latest?cb=20130626162348",
-		"Support": false
-	},
-	{
-		"Id": "ProjectileWeakness",
-		"Name": "Projectile Weakness",
-		"Level": 24,
-		"WikiUrl": "https://pathofexile.gamepedia.com/Projectile_Weakness",
-		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/3/30/Sniper%27s_Mark_inventory_icon.png/revision/latest?cb=20130626162349",
 		"Support": false
 	},
 	{
@@ -1733,6 +1789,14 @@
 		"Level": 5,
 		"WikiUrl": "https://pathofexile.gamepedia.com/Snipe",
 		"ImageUrl": null,
+		"Support": false
+	},
+	{
+		"Id": "SnipersMark",
+		"Name": "Sniper's Mark",
+		"Level": 24,
+		"WikiUrl": "https://pathofexile.gamepedia.com/Sniper%27s_Mark",
+		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/3/30/Sniper%27s_Mark_inventory_icon.png/revision/latest?cb=20130626162349",
 		"Support": false
 	},
 	{
@@ -2361,18 +2425,18 @@
 	},
 	{
 		"Id": "SupportCurseOnHit",
-		"Name": "Curse On Hit Support",
+		"Name": "Hextouch Support",
 		"Level": 38,
-		"WikiUrl": "https://pathofexile.gamepedia.com/Curse_On_Hit_Support",
-		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/89/Curse_On_Hit_Support_inventory_icon.png/revision/latest?cb=20160408161438",
+		"WikiUrl": "https://pathofexile.gamepedia.com/Hextouch_Support",
+		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/02/Hextouch_Support_inventory_icon.png/revision/latest?cb=20160408161438",
 		"Support": true
 	},
 	{
 		"Id": "SupportCurseOnHitPlus",
-		"Name": "Awakened Curse On Hit Support",
+		"Name": "Awakened Hextouch Support",
 		"Level": 72,
-		"WikiUrl": "https://pathofexile.gamepedia.com/Awakened_Curse_On_Hit_Support",
-		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/d/dd/Awakened_Curse_On_Hit_Support_inventory_icon.png/revision/latest?cb=20191213185014",
+		"WikiUrl": "https://pathofexile.gamepedia.com/Awakened_Hextouch_Support",
+		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/a/a1/Awakened_Hextouch_Support_inventory_icon.png/revision/latest?cb=20191213185014",
 		"Support": true
 	},
 	{
@@ -2437,6 +2501,14 @@
 		"Level": 72,
 		"WikiUrl": "https://pathofexile.gamepedia.com/Awakened_Elemental_Focus_Support",
 		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/4/4b/Awakened_Elemental_Focus_Support_inventory_icon.png/revision/latest?cb=20191213185018",
+		"Support": true
+	},
+	{
+		"Id": "SupportElementalPenetration",
+		"Name": "Elemental Penetration Support",
+		"Level": 31,
+		"WikiUrl": "https://pathofexile.gamepedia.com/Elemental_Penetration_Support",
+		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/0f/Elemental_Penetration_Support_inventory_icon.png/revision/latest?cb=20200930123027",
 		"Support": true
 	},
 	{
@@ -2857,10 +2929,10 @@
 	},
 	{
 		"Id": "SupportMinionFocusFire",
-		"Name": "Deathmark Support",
+		"Name": "Predator Support",
 		"Level": 18,
-		"WikiUrl": "https://pathofexile.gamepedia.com/Deathmark_Support",
-		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/e8/Deathmark_Support_inventory_icon.png/revision/latest?cb=20190906205632",
+		"WikiUrl": "https://pathofexile.gamepedia.com/Predator_Support",
+		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/0d/Predator_Support_inventory_icon.png/revision/latest?cb=20190906205632",
 		"Support": true
 	},
 	{
@@ -2997,6 +3069,14 @@
 		"Level": 18,
 		"WikiUrl": "https://pathofexile.gamepedia.com/Power_Charge_On_Critical_Support",
 		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/5/53/Power_Charge_On_Critical_Support_inventory_icon.png/revision/latest?cb=20130626162348",
+		"Support": true
+	},
+	{
+		"Id": "SupportProjectileIntensity",
+		"Name": "Pinpoint Support",
+		"Level": 31,
+		"WikiUrl": "https://pathofexile.gamepedia.com/Pinpoint_Support",
+		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/7/7b/Pinpoint_Support_inventory_icon.png/revision/latest?cb=20200929172832",
 		"Support": true
 	},
 	{
@@ -3664,6 +3744,14 @@
 		"Support": false
 	},
 	{
+		"Id": "ViciousHexSupport",
+		"Name": "Impending Doom Support",
+		"Level": 31,
+		"WikiUrl": "https://pathofexile.gamepedia.com/Impending_Doom_Support",
+		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/a/a3/Impending_Doom_Support_inventory_icon.png/revision/latest?cb=20200929172822",
+		"Support": true
+	},
+	{
 		"Id": "VigilantStrike",
 		"Name": "Vigilant Strike",
 		"Level": 4,
@@ -3682,7 +3770,7 @@
 	{
 		"Id": "Vitality",
 		"Name": "Vitality",
-		"Level": 24,
+		"Level": 10,
 		"WikiUrl": "https://pathofexile.gamepedia.com/Vitality",
 		"ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/c/c5/Vitality_inventory_icon.png/revision/latest?cb=20130626162440",
 		"Support": false
