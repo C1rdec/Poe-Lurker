@@ -4,7 +4,9 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
@@ -19,7 +21,7 @@ namespace Lurker.Gem
             {
                 Name = "Awakened Elemental Damage with Attacks Support",
             };
-            testGem.SetUrl();
+            testGem.ParseWiki();
 
             var client = new HttpClient();
             var request = new HttpRequestMessage(HttpMethod.Get, "https://raw.githubusercontent.com/brather1ng/RePoE/master/RePoE/data/gems.json");
@@ -58,9 +60,20 @@ namespace Lurker.Gem
                     Support = isSupport,
                 };
 
-                gem.SetUrl();
-
+                gem.ParseWiki();
                 gems.Add(gem);
+                Console.WriteLine(gems.Count);
+            }
+
+            foreach (var gem in gems.Where(g => g.Name.StartsWith("Vaal ")))
+            {
+                var normalGem = gems.FirstOrDefault(g => g.Name == gem.Name.Substring(5, gem.Name.Length - 5));
+                if (normalGem == null)
+                {
+                    continue;
+                }
+
+                gem.Location = normalGem.Location;
             }
 
             System.IO.File.WriteAllText("c:/temp/gemsinfo.txt", Newtonsoft.Json.JsonConvert.SerializeObject(gems));

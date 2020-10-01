@@ -7,6 +7,7 @@
 namespace Lurker.Models
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Xml.Linq;
     using HtmlAgilityPack;
@@ -55,6 +56,11 @@ namespace Lurker.Models
         /// </summary>
         public bool Support { get; set; }
 
+        /// <summary>
+        /// Gets or sets the location.
+        /// </summary>
+        public GemLocation Location { get; set; }
+
         #endregion
 
         #region Methods
@@ -85,13 +91,35 @@ namespace Lurker.Models
         /// <summary>
         /// Sets the URL.
         /// </summary>
-        public void SetUrl()
+        public void ParseWiki()
         {
             this.WikiUrl = CreateGemUri(this.Name);
 
+            this.SetImageUrl();
+            this.SetLocation();
+        }
+
+        /// <summary>
+        /// Creates the gem URI.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>The wiki url.</returns>
+        private static Uri CreateGemUri(string name)
+        {
+            // replace space encodes with '_' to match the link layout of the poe wiki and then url encode it
+            var itemLink = System.Net.WebUtility.UrlEncode(name.Replace(" ", "_"));
+            return new Uri(WikiBaseUri + itemLink);
+        }
+
+        /// <summary>
+        /// Sets the image URL.
+        /// </summary>
+        private void SetImageUrl()
+        {
             var webPage = new HtmlWeb();
             var fileUrl = $"https://pathofexile.gamepedia.com/File:{System.Net.WebUtility.UrlEncode(this.Name.Replace(" ", "_"))}_inventory_icon.png";
             var document = webPage.Load(fileUrl);
+
             var mediaElement = document.DocumentNode.Descendants().Where(e => e.Name == "div" && e.GetAttributeValue("class", string.Empty) == "fullMedia").FirstOrDefault();
             if (mediaElement == null)
             {
@@ -109,16 +137,70 @@ namespace Lurker.Models
             }
         }
 
-        /// <summary>
-        /// Creates the gem URI.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <returns>The wiki url.</returns>
-        private static Uri CreateGemUri(string name)
+        private void SetLocation()
         {
-            // replace space encodes with '_' to match the link layout of the poe wiki and then url encode it
-            var itemLink = System.Net.WebUtility.UrlEncode(name.Replace(" ", "_"));
-            return new Uri(WikiBaseUri + itemLink);
+            var webPage = new HtmlWeb();
+            var document = webPage.Load(this.WikiUrl);
+            var vendorRewardSpan = document.DocumentNode.Descendants().FirstOrDefault(e => e.Name == "span" && e.GetAttributeValue("id", string.Empty) == "Vendor_reward");
+
+            if (vendorRewardSpan == null)
+            {
+                return;
+            }
+
+            var h3Element = vendorRewardSpan.ParentNode;
+            var sibling = h3Element.NextSibling;
+            var siblingCount = 0;
+            while (sibling.Name != "table")
+            {
+                if (siblingCount >= 10)
+                {
+                    return;
+                }
+
+                sibling = sibling.NextSibling;
+                siblingCount++;
+            }
+
+            var tableBody = sibling.Descendants().FirstOrDefault(e => e.Name == "tbody");
+            if (tableBody == null)
+            {
+                return;
+            }
+
+            var classRow = tableBody.ChildNodes.FirstOrDefault();
+            if (classRow == null)
+            {
+                return;
+            }
+
+            var questRow = tableBody.ChildNodes.ElementAt(2);
+            var questHeader = questRow.ChildNodes.FirstOrDefault(c => c.Name == "th");
+            var gemLocation = new GemLocation();
+            var texts = questHeader.Descendants().Where(e => e.Name == "#text").Select(e => e.InnerText);
+            if (texts.Count() >= 3)
+            {
+                gemLocation.Quest = texts.ElementAt(0);
+                gemLocation.Act = texts.ElementAt(1);
+                gemLocation.Npc = texts.ElementAt(2);
+            }
+
+            // ✗; ✓
+            var availabilities = questRow.Descendants().Where(e => e.Name == "td").Select(e => e.InnerText);
+            var classValues = classRow.Descendants().Where(e => e.Name == "a").Select(e => e.InnerText);
+            var classes = new List<Class>();
+
+            for (int i = 0; i < availabilities.Count(); i++)
+            {
+                if (availabilities.ElementAt(i) == "✓")
+                {
+                    var classValue = classValues.ElementAt(i);
+                    classes.Add((Class)Enum.Parse(typeof(Class), classValue));
+                }
+            }
+
+            gemLocation.Classes = classes;
+            this.Location = gemLocation;
         }
 
         #endregion

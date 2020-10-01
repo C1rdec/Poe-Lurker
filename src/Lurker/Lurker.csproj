@@ -141,8 +141,10 @@
     <Compile Include="KeyboardLurker.cs" />
     <Compile Include="Models\Build.cs" />
     <Compile Include="Models\BuildHelperSettings.cs" />
+    <Compile Include="Models\Class.cs" />
     <Compile Include="Models\Collaboration.cs" />
     <Compile Include="Models\Gem.cs" />
+    <Compile Include="Models\GemLocation.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\PlayerBank.cs" />
     <Compile Include="Models\PoeApplicationContext.cs" />
