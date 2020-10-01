@@ -22,7 +22,6 @@ namespace Lurker.Helpers
 
         private Process _process;
         private IntPtr _windowHandle;
-        private bool _firstCommand = true;
 
         #endregion
 
@@ -91,11 +90,7 @@ namespace Lurker.Helpers
         protected async Task SendCommand(string command)
         {
             // This is to fix the first SetForegroundWindow
-            if (this._firstCommand)
-            {
-                this._firstCommand = false;
-                await Simulate.Events().Click(KeyCode.LMenu).Invoke();
-            }
+            await Simulate.Events().Click(KeyCode.LMenu).Invoke();
 
             Native.SetForegroundWindow(this._windowHandle);
 
