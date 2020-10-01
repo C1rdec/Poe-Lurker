@@ -9,6 +9,7 @@ namespace Lurker.UI.Views
     using System;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Input;
 
     /// <summary>
     /// Interaction logic for BuildView.xaml.
@@ -44,6 +45,19 @@ namespace Lurker.UI.Views
         {
             this._parent.Close();
             base.OnClosed(e);
+        }
+
+        /// <summary>
+        /// Handles the KeyDown event of the Window control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.KeyEventArgs"/> instance containing the event data.</param>
+        private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.System)
+            {
+                e.Handled = true;
+            }
         }
 
         /// <summary>

@@ -10,6 +10,7 @@
         AllowsTransparency="True"
         ShowInTaskbar="False"
         Background="Transparent"
+        KeyDown="Window_KeyDown"
         Title="SkillTimelineView" Height="450" Width="800">
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>

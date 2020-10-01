@@ -5,19 +5,24 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Converters="clr-namespace:Lurker.UI.Converters"
              xmlns:Models="clr-namespace:Lurker.Models;assembly=Lurker"
-             xmlns:local="clr-namespace:Lurker.UI.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="150" Height="30">
-    <StackPanel Orientation="Horizontal">
-        <Border Background="#333333" VerticalAlignment="Center" CornerRadius="4" Padding="2">
-            <TextBlock x:Name="Act" FontSize="16"  Foreground="White" FontFamily="pack://application:,,,/Assets/#Fontin" VerticalAlignment="Center"/>
-        </Border>
-        <Image Margin="4,0,0,0"  Source="/Assets/Witch.png" Visibility="{Binding Classes, Converter={Converters:PoeClassConverter}, ConverterParameter={x:Static Models:Class.Witch}}"/>
-        <Image Margin="4,0,0,0" Source="/Assets/Shadow.png" Visibility="{Binding Classes, Converter={Converters:PoeClassConverter}, ConverterParameter={x:Static Models:Class.Shadow}}"/>
-        <Image Margin="4,0,0,0" Source="/Assets/Ranger.png" Visibility="{Binding Classes, Converter={Converters:PoeClassConverter}, ConverterParameter={x:Static Models:Class.Ranger}}"/>
-        <Image Margin="4,0,0,0" Source="/Assets/Duelist.png" Visibility="{Binding Classes, Converter={Converters:PoeClassConverter}, ConverterParameter={x:Static Models:Class.Duelist}}"/>
-        <Image Margin="4,0,0,0" Source="/Assets/Marauder.png" Visibility="{Binding Classes, Converter={Converters:PoeClassConverter}, ConverterParameter={x:Static Models:Class.Marauder}}"/>
-        <Image Margin="4,0,0,0" Source="/Assets/Templar.png" Visibility="{Binding Classes, Converter={Converters:PoeClassConverter}, ConverterParameter={x:Static Models:Class.Templar}}"/>
-        <Image Margin="4,0,0,0" Source="/Assets/Scion.png" Visibility="{Binding Classes, Converter={Converters:PoeClassConverter}, ConverterParameter={x:Static Models:Class.Scion}}"/>
+             d:DesignHeight="450" d:DesignWidth="150">
+    <StackPanel>
+        <StackPanel Orientation="Horizontal" Height="30">
+            <Border Background="#333333" VerticalAlignment="Center" CornerRadius="4" Padding="2">
+                <TextBlock x:Name="Act" FontSize="16"  Foreground="White" FontFamily="pack://application:,,,/Assets/#Fontin" VerticalAlignment="Center"/>
+            </Border>
+            <Image Margin="4,0,0,0"  Source="/Assets/Witch.png" Visibility="{Binding Classes, Converter={Converters:PoeClassConverter}, ConverterParameter={x:Static Models:Class.Witch}}"/>
+            <Image Margin="4,0,0,0" Source="/Assets/Shadow.png" Visibility="{Binding Classes, Converter={Converters:PoeClassConverter}, ConverterParameter={x:Static Models:Class.Shadow}}"/>
+            <Image Margin="4,0,0,0" Source="/Assets/Ranger.png" Visibility="{Binding Classes, Converter={Converters:PoeClassConverter}, ConverterParameter={x:Static Models:Class.Ranger}}"/>
+            <Image Margin="4,0,0,0" Source="/Assets/Duelist.png" Visibility="{Binding Classes, Converter={Converters:PoeClassConverter}, ConverterParameter={x:Static Models:Class.Duelist}}"/>
+            <Image Margin="4,0,0,0" Source="/Assets/Marauder.png" Visibility="{Binding Classes, Converter={Converters:PoeClassConverter}, ConverterParameter={x:Static Models:Class.Marauder}}"/>
+            <Image Margin="4,0,0,0" Source="/Assets/Templar.png" Visibility="{Binding Classes, Converter={Converters:PoeClassConverter}, ConverterParameter={x:Static Models:Class.Templar}}"/>
+            <Image Margin="4,0,0,0" Source="/Assets/Scion.png" Visibility="{Binding Classes, Converter={Converters:PoeClassConverter}, ConverterParameter={x:Static Models:Class.Scion}}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0,2,0,0" HorizontalAlignment="Center">
+            <TextBlock x:Name="Quest" Foreground="White" FontFamily="pack://application:,,,/Assets/#Fontin" VerticalAlignment="Center"/>
+            <TextBlock x:Name="Npc" Margin="4,0,0,0" Foreground="Gray" FontFamily="pack://application:,,,/Assets/#Fontin" VerticalAlignment="Center"/>
+        </StackPanel>
     </StackPanel>
 </UserControl>

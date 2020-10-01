@@ -43,7 +43,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets the NPC.
         /// </summary>
-        public string Npc => this._location.Npc;
+        public string Npc => $"({this._location.Npc})";
 
         /// <summary>
         /// Gets the quest.
