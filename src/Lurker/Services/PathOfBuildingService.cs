@@ -37,7 +37,7 @@ namespace Lurker.Services
         /// </returns>
         public async Task InitializeAsync()
         {
-            var gemInformation = await this.GetText("https://raw.githubusercontent.com/C1rdec/Poe-Lurker/master/assets/Data/GemInfo.json");
+            var gemInformation = await this.GetText($"https://raw.githubusercontent.com/C1rdec/Poe-Lurker/master/assets/Data/GemInfo.json?{Guid.NewGuid()}");
             this._knownGems = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Gem>>(gemInformation);
         }
 
