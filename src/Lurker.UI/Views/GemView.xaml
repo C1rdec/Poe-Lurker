@@ -14,7 +14,10 @@
         </Grid.RowDefinitions>
         <Popup x:Name="Popup" Focusable="False" Placement="Left" AllowsTransparency="True">
             <Border Background="Black" CornerRadius="5" BorderThickness="2" BorderBrush="#e7b577">
-                <TextBlock Margin="8,4,8,4" FontSize="18" FontFamily="pack://application:,,,/Assets/#Fontin" Foreground="White" Text="{Binding Name}"></TextBlock>
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Center" Margin="8,4,8,4" FontSize="18" FontFamily="pack://application:,,,/Assets/#Fontin" Foreground="White" FontWeight="SemiBold" Text="{Binding Name}"/>
+                    <ContentControl HorizontalAlignment="Center" Margin="4,0,4,0" cal:View.Model="{Binding Path=GemLocation,Mode=OneWay}"/>
+                </StackPanel>
             </Border>
         </Popup>
         <Border Grid.Row="1" Background="Black" CornerRadius="20"/>

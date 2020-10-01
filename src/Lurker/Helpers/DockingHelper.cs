@@ -44,7 +44,6 @@ namespace Lurker.Helpers
         private IntPtr _windowHandle;
         private IntPtr _currentWindowStyle;
         private Process _process;
-        private bool _borderRemoved;
 
         #endregion
 
@@ -157,7 +156,6 @@ namespace Lurker.Helpers
         {
             // Native.SetWindowLongPtr(new HandleRef(this, this._windowHandle), -16, (IntPtr)0x10000000);
             Native.SetWindowLong(this._windowHandle, -16, 0x10000000);
-            this._borderRemoved = true;
         }
 
         /// <summary>

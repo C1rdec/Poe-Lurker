@@ -233,6 +233,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
+    <Compile Include="Converters\PoeClassConverter.cs" />
     <Compile Include="Converters\CurrencyTypeConverter.cs" />
     <Compile Include="Extensions\ObservableCollectionExtension.cs" />
     <Compile Include="Extensions\PriceExtension.cs" />
@@ -261,6 +262,7 @@
     <Compile Include="ViewModels\BuildViewModel.cs" />
     <Compile Include="ViewModels\ChartViewModelBase.cs" />
     <Compile Include="ViewModels\CollaborationViewModel.cs" />
+    <Compile Include="ViewModels\GemLocationViewModel.cs" />
     <Compile Include="ViewModels\GemViewModel.cs" />
     <Compile Include="ViewModels\HelpViewModel.cs" />
     <Compile Include="ViewModels\HideoutViewModel.cs" />
@@ -302,6 +304,9 @@
     </Compile>
     <Compile Include="Views\DashboardView.xaml.cs">
       <DependentUpon>DashboardView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GemLocationView.xaml.cs">
+      <DependentUpon>GemLocationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GemView.xaml.cs">
       <DependentUpon>GemView.xaml</DependentUpon>
@@ -395,6 +400,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DashboardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GemLocationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -576,6 +585,13 @@
     <Resource Include="Assets\Gemcutter.png" />
     <Resource Include="Assets\Chisel.png" />
     <Resource Include=".nuget\mouse-keyboard-hook-logo.png" />
+    <Resource Include="Assets\Duelist.png" />
+    <Resource Include="Assets\Marauder.png" />
+    <Resource Include="Assets\Ranger.png" />
+    <Resource Include="Assets\Scion.png" />
+    <Resource Include="Assets\Shadow.png" />
+    <Resource Include="Assets\Templar.png" />
+    <Resource Include="Assets\Witch.png" />
     <Content Include="SVG\Beer.svg" />
     <Content Include="SVG\Help.svg" />
     <Content Include="SVG\Hideout.svg" />

@@ -64,6 +64,11 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public bool Support => this._gem.Support;
 
+        /// <summary>
+        /// Gets the gem location.
+        /// </summary>
+        public GemLocationViewModel GemLocation => this._gem.Location != null ? new GemLocationViewModel(this._gem.Location) : null;
+
         #endregion
 
         #region Methods

@@ -6,7 +6,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
@@ -19,7 +18,7 @@ namespace Lurker.Gem
         {
             var testGem = new Models.Gem()
             {
-                Name = "Awakened Elemental Damage with Attacks Support",
+                Name = "Dash",
             };
             testGem.ParseWiki();
 

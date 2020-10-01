@@ -190,12 +190,26 @@ namespace Lurker.Models
             var classValues = classRow.Descendants().Where(e => e.Name == "a").Select(e => e.InnerText);
             var classes = new List<Class>();
 
-            for (int i = 0; i < availabilities.Count(); i++)
+            // All Classes
+            if (availabilities.Count() == 1)
             {
-                if (availabilities.ElementAt(i) == "✓")
+                classes.Add(Class.Witch);
+                classes.Add(Class.Shadow);
+                classes.Add(Class.Ranger);
+                classes.Add(Class.Duelist);
+                classes.Add(Class.Marauder);
+                classes.Add(Class.Templar);
+                classes.Add(Class.Scion);
+            }
+            else
+            {
+                for (int i = 0; i < availabilities.Count(); i++)
                 {
-                    var classValue = classValues.ElementAt(i);
-                    classes.Add((Class)Enum.Parse(typeof(Class), classValue));
+                    if (availabilities.ElementAt(i) == "✓")
+                    {
+                        var classValue = classValues.ElementAt(i);
+                        classes.Add((Class)Enum.Parse(typeof(Class), classValue));
+                    }
                 }
             }
 

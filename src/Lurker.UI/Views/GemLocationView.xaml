@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="Lurker.UI.Views.GemLocationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Converters="clr-namespace:Lurker.UI.Converters"
+             xmlns:Models="clr-namespace:Lurker.Models;assembly=Lurker"
+             xmlns:local="clr-namespace:Lurker.UI.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="150" Height="30">
+    <StackPanel Orientation="Horizontal">
+        <Border Background="#333333" VerticalAlignment="Center" CornerRadius="4" Padding="2">
+            <TextBlock x:Name="Act" FontSize="16"  Foreground="White" FontFamily="pack://application:,,,/Assets/#Fontin" VerticalAlignment="Center"/>
+        </Border>
+        <Image Margin="4,0,0,0"  Source="/Assets/Witch.png" Visibility="{Binding Classes, Converter={Converters:PoeClassConverter}, ConverterParameter={x:Static Models:Class.Witch}}"/>
+        <Image Margin="4,0,0,0" Source="/Assets/Shadow.png" Visibility="{Binding Classes, Converter={Converters:PoeClassConverter}, ConverterParameter={x:Static Models:Class.Shadow}}"/>
+        <Image Margin="4,0,0,0" Source="/Assets/Ranger.png" Visibility="{Binding Classes, Converter={Converters:PoeClassConverter}, ConverterParameter={x:Static Models:Class.Ranger}}"/>
+        <Image Margin="4,0,0,0" Source="/Assets/Duelist.png" Visibility="{Binding Classes, Converter={Converters:PoeClassConverter}, ConverterParameter={x:Static Models:Class.Duelist}}"/>
+        <Image Margin="4,0,0,0" Source="/Assets/Marauder.png" Visibility="{Binding Classes, Converter={Converters:PoeClassConverter}, ConverterParameter={x:Static Models:Class.Marauder}}"/>
+        <Image Margin="4,0,0,0" Source="/Assets/Templar.png" Visibility="{Binding Classes, Converter={Converters:PoeClassConverter}, ConverterParameter={x:Static Models:Class.Templar}}"/>
+        <Image Margin="4,0,0,0" Source="/Assets/Scion.png" Visibility="{Binding Classes, Converter={Converters:PoeClassConverter}, ConverterParameter={x:Static Models:Class.Scion}}"/>
+    </StackPanel>
+</UserControl>
