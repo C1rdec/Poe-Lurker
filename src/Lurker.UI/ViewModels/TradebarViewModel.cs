@@ -93,12 +93,12 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Searches the item.
         /// </summary>
-        public void SearchItem()
+        public async void SearchItem()
         {
             var activeOffer = this.ActiveOffer;
             if (activeOffer != null)
             {
-                this._keyboardHelper.Search(activeOffer.BuildSearchItemName());
+                await this._keyboardHelper.Search(activeOffer.BuildSearchItemName());
             }
         }
 
@@ -168,7 +168,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
-        private void Lurker_TradeAccepted(object sender, TradeAcceptedEvent e)
+        private async void Lurker_TradeAccepted(object sender, TradeAcceptedEvent e)
         {
             var offer = this.TradeOffers.Where(t => t.Status == OfferStatus.Traded).FirstOrDefault();
             if (offer != null)
@@ -176,12 +176,12 @@ namespace Lurker.UI.ViewModels
                 this.InsertEvent(offer.Event);
                 if (!string.IsNullOrEmpty(this.SettingsService.ThankYouMessage))
                 {
-                    offer.ThankYou();
+                    await offer.ThankYou();
                 }
 
                 if (this.SettingsService.AutoKickEnabled)
                 {
-                    this._keyboardHelper.Kick(offer.PlayerName);
+                    await this._keyboardHelper.Kick(offer.PlayerName);
                 }
 
                 var itemClass = offer.Event.ItemClass;

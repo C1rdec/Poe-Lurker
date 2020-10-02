@@ -232,9 +232,9 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Whoes the is.
         /// </summary>
-        public void WhoIs()
+        public async void WhoIs()
         {
-            this._keyboardHelper.WhoIs(this.PlayerName);
+            await this._keyboardHelper.WhoIs(this.PlayerName);
         }
 
         /// <summary>
@@ -258,17 +258,17 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Waits this instance.
         /// </summary>
-        public void Wait()
+        public async void Wait()
         {
             this._skipMainAction = true;
             this.Waiting = true;
-            this.Whisper(this._settingsService.BusyMessage);
+            await this.Whisper(this._settingsService.BusyMessage);
         }
 
         /// <summary>
         /// Answers this instance.
         /// </summary>
-        public void MainAction()
+        public async void MainAction()
         {
             if (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt))
             {
@@ -284,7 +284,7 @@ namespace Lurker.UI.ViewModels
 
             if (this.AlreadySold)
             {
-                this.Sold();
+                await this.Sold();
                 return;
             }
 
@@ -292,22 +292,22 @@ namespace Lurker.UI.ViewModels
             {
                 if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
                 {
-                    this.StillInterested();
+                    await this.StillInterested();
                     return;
                 }
 
-                this.Sold();
+                await this.Sold();
                 return;
             }
 
             switch (this._status)
             {
                 case OfferStatus.Pending:
-                    this.Invite();
+                    await this.Invite();
                     break;
                 case OfferStatus.Invited:
                 case OfferStatus.Traded:
-                    this.Trade();
+                    await this.Trade();
                     break;
             }
         }
@@ -324,9 +324,10 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Thanks you.
         /// </summary>
-        public void ThankYou()
+        /// <returns>The task.</returns>
+        public async Task ThankYou()
         {
-            this.Whisper(TokenHelper.ReplaceToken(this._settingsService.ThankYouMessage, this.Event));
+            await this.Whisper(this._settingsService.ThankYouMessage);
         }
 
         /// <summary>
@@ -348,7 +349,7 @@ namespace Lurker.UI.ViewModels
                     return;
                 }
 
-                this._keyboardHelper.Invite(this.PlayerName);
+                await this._keyboardHelper.Invite(this.PlayerName);
             }
             finally
             {
@@ -385,37 +386,38 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Tell the buyer that the item is sold.
         /// </summary>
-        private void Sold()
+        private async Task Sold()
         {
-            this.Whisper(this._settingsService.SoldMessage);
+            await this.Whisper(this._settingsService.SoldMessage);
             this.RemoveFromTradebar();
         }
 
         /// <summary>
         /// Stills the interested.
         /// </summary>
-        private void StillInterested()
+        private async Task StillInterested()
         {
-            this.Whisper(this._settingsService.StillInterestedMessage);
+            await this.Whisper(this._settingsService.StillInterestedMessage);
         }
 
         /// <summary>
         /// Invites the buyer.
         /// </summary>
-        private void Invite()
+        /// <returns>The task.</returns>
+        private async Task Invite()
         {
             this.Status = OfferStatus.Invited;
-            this._keyboardHelper.Invite(this.PlayerName);
+            await this._keyboardHelper.Invite(this.PlayerName);
             this._tradebarContext.AddToActiveOffer(this);
         }
 
         /// <summary>
         /// Trades the Buyer.
         /// </summary>
-        private void Trade()
+        private async Task Trade()
         {
             this.Status = OfferStatus.Traded;
-            this._keyboardHelper.Trade(this.PlayerName);
+            await this._keyboardHelper.Trade(this.PlayerName);
         }
 
         /// <summary>
@@ -430,9 +432,9 @@ namespace Lurker.UI.ViewModels
         /// Whispers the specified message.
         /// </summary>
         /// <param name="message">The message.</param>
-        private void Whisper(string message)
+        private async Task Whisper(string message)
         {
-            this._keyboardHelper.Whisper(this.PlayerName, TokenHelper.ReplaceToken(message, this._tradeEvent));
+            await this._keyboardHelper.Whisper(this.PlayerName, TokenHelper.ReplaceToken(message, this._tradeEvent));
         }
 
         /// <summary>

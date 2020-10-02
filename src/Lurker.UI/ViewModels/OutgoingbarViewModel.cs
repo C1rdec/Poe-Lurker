@@ -133,7 +133,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="newOfferText">The new offer text.</param>
-        private void ClipboardLurker_NewOffer(object sender, string newOfferText)
+        private async void ClipboardLurker_NewOffer(object sender, string newOfferText)
         {
             if (!this.SettingsService.ClipboardEnabled || this._lastOutgoingOfferText == newOfferText)
             {
@@ -141,7 +141,7 @@ namespace Lurker.UI.ViewModels
             }
 
             this._lastOutgoingOfferText = newOfferText;
-            this._keyboardHelper.SendMessage(newOfferText);
+            await this._keyboardHelper.SendMessage(newOfferText);
         }
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
-        private void Lurker_TradeAccepted(object sender, Patreon.Events.TradeAcceptedEvent e)
+        private async void Lurker_TradeAccepted(object sender, Patreon.Events.TradeAcceptedEvent e)
         {
             if (this._activeOffer == null)
             {
@@ -216,7 +216,7 @@ namespace Lurker.UI.ViewModels
             if (!string.IsNullOrEmpty(this.SettingsService.ThankYouMessage))
             {
                 var tradeEvent = this._activeOffer.Event;
-                this._keyboardHelper.Whisper(tradeEvent.PlayerName, TokenHelper.ReplaceToken(this.SettingsService.ThankYouMessage, tradeEvent));
+                await this._keyboardHelper.Whisper(tradeEvent.PlayerName, TokenHelper.ReplaceToken(this.SettingsService.ThankYouMessage, tradeEvent));
             }
 
             this.InsertEvent(this._activeOffer.Event);
@@ -359,7 +359,7 @@ namespace Lurker.UI.ViewModels
             {
                 View = new TradeValueViewModel(offer.Event),
                 OnShow = (a) => { this._removeActive = a; },
-                Action = () => { this._keyboardHelper.Trade(offer.Event.PlayerName); },
+                Action = async () => { await this._keyboardHelper.Trade(offer.Event.PlayerName); },
             });
         }
 

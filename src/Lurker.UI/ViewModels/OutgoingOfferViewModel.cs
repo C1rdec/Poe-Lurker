@@ -133,15 +133,15 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Whoes the is.
         /// </summary>
-        public void WhoIs()
+        public async void WhoIs()
         {
-            this._keyboardHelper.WhoIs(this._event.PlayerName);
+            await this._keyboardHelper.WhoIs(this._event.PlayerName);
         }
 
         /// <summary>
         /// Mains the action.
         /// </summary>
-        public void MainAction()
+        public async void MainAction()
         {
             if (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt))
             {
@@ -155,17 +155,17 @@ namespace Lurker.UI.ViewModels
                 return;
             }
 
-            this._keyboardHelper.JoinHideout(this._event.PlayerName);
+            await this._keyboardHelper.JoinHideout(this._event.PlayerName);
             this._barContext.SetActiveOffer(this);
         }
 
         /// <summary>
         /// Res the send the offer.
         /// </summary>
-        public void ReSend()
+        public async void ReSend()
         {
             this._skipMainAction = true;
-            this._keyboardHelper.Whisper(this._event.PlayerName, this._event.WhisperMessage);
+            await this._keyboardHelper.Whisper(this._event.PlayerName, this._event.WhisperMessage);
             this.Waiting = true;
             this.DelayToClose = 100;
         }

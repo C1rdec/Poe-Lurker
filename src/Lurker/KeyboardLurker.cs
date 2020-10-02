@@ -114,7 +114,7 @@ namespace Lurker
             if (this._settingsService.DeleteItemEnabled)
             {
                 await Simulate.Events().Click(WindowsInput.Events.ButtonCode.Left).Invoke();
-                this._keyboardHelper.Destroy();
+                await this._keyboardHelper.Destroy();
             }
         }
 
@@ -123,11 +123,11 @@ namespace Lurker
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="KeyboardMessageEventArgs"/> instance containing the event data.</param>
-        private void RemainingMonsters(object sender, KeyboardMessageEventArgs e)
+        private async void RemainingMonsters(object sender, KeyboardMessageEventArgs e)
         {
             if (this._settingsService.RemainingMonsterEnabled)
             {
-                this._keyboardHelper.RemainingMonster();
+                await this._keyboardHelper.RemainingMonster();
             }
         }
 
