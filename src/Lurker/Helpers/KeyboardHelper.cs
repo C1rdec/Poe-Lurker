@@ -90,17 +90,10 @@ namespace Lurker.Helpers
         /// </returns>
         protected async Task SendCommand(string command, bool setForegound = true)
         {
-            // This is to fix the first SetForegroundWindow
-            await Simulate.Events().Click(KeyCode.LMenu).Invoke();
-
-            var eventBuilder = Simulate.Events();
-            eventBuilder.Click(KeyCode.Return);
-            eventBuilder.ClickChord(KeyCode.LControl, KeyCode.A);
-            eventBuilder.Click(command);
-            eventBuilder.Click(KeyCode.Return);
-
             if (setForegound)
             {
+                // This is to fix the first SetForegroundWindow
+                await Simulate.Events().Click(KeyCode.LMenu).Invoke();
                 Native.SetForegroundWindow(this._windowHandle);
                 await Task.Delay(10);
                 var foregroundWindow = Native.GetForegroundWindow();
@@ -109,6 +102,12 @@ namespace Lurker.Helpers
                     await Task.Delay(100);
                 }
             }
+
+            var eventBuilder = Simulate.Events();
+            eventBuilder.Click(KeyCode.Return);
+            eventBuilder.ClickChord(KeyCode.LControl, KeyCode.A);
+            eventBuilder.Click(command);
+            eventBuilder.Click(KeyCode.Return);
 
             await eventBuilder.Invoke();
         }
