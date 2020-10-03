@@ -58,6 +58,7 @@ namespace Lurker.Services
                 try
                 {
                     this._playerBank.ReadJsonFile(this.SettingsFilePath);
+                    this.CleanExternalPlayers();
                 }
                 catch
                 {
@@ -67,11 +68,25 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Cleans the external players.
+        /// </summary>
+        private void CleanExternalPlayers()
+        {
+            var playersToRemove = this._playerBank.ExternalPlayers.Where(p => p.Levels.FirstOrDefault() == 0).ToArray();
+            foreach (var player in playersToRemove)
+            {
+                this._playerBank.ExternalPlayers.Remove(player);
+            }
+
+            this.Save();
+        }
+
+        /// <summary>
         /// Adds the external player.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
-        private void AddExternalPlayer(object sender, Patreon.Events.PlayerEvent e)
+        private void AddExternalPlayer(object sender, PlayerEvent e)
         {
             var player = this._playerBank.GetExternalPlayer(e.PlayerName);
             if (player == null)

@@ -4,14 +4,15 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using Newtonsoft.Json.Linq;
-
-namespace Lurker.Gem
+namespace Lurker.DataParser
 {
+
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net.Http;
+    using Newtonsoft.Json.Linq;
+
     class Program
     {
         static void Main(string[] args)

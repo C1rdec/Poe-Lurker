@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{CFC1C8A9-1E4C-4E9F-8876-66C889924B99}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Lurker.Gem</RootNamespace>
-    <AssemblyName>Lurker.Gem</AssemblyName>
+    <RootNamespace>Lurker.DataParser</RootNamespace>
+    <AssemblyName>Lurker.DataParser</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

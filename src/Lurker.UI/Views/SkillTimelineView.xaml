@@ -36,6 +36,6 @@
                 <TextBlock x:Name="PlayerLevel" Margin="4,0,0,0" FontFamily="pack://application:,,,/Assets/#Fontin" Foreground="#f0d0a8"/>
             </StackPanel>
         </Border>
-        <ContentControl x:Name="Timeline" Margin="0,2,0,0" Grid.Row="1"/>
+        <ContentControl x:Name="Timeline" Margin="0,2,6,0" Grid.Row="1"/>
     </Grid>
 </Window>
