@@ -19,7 +19,7 @@
             Margin="{Binding Margin}"
             Height="16"
             Width="16"
-            StrokeThickness="3">
+            StrokeThickness="2">
             <Ellipse.Style>
                 <Style TargetType="Ellipse">
                     <Setter Property="Stroke" Value="#757574"/>
@@ -27,9 +27,10 @@
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Visited}" Value="true">
                             <Setter Property="Stroke" Value="Transparent"/>
+                            <Setter Property="Fill" Value="#e7b577"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Reached}" Value="true">
-                            <Setter Property="Fill" Value="#e7b577"/>
+                            <Setter Property="Stroke" Value="#e7b577"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
