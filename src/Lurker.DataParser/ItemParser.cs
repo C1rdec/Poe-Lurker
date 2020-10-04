@@ -135,7 +135,7 @@ namespace Lurker.DataParser
                 }
             }
 
-            return Newtonsoft.Json.JsonConvert.SerializeObject(uniqueItems);
+            return Newtonsoft.Json.JsonConvert.SerializeObject(uniqueItems, Newtonsoft.Json.Formatting.Indented);
         }
 
         private static int GetLevel(string levelLine)

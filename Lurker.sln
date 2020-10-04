@@ -33,6 +33,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{872F0448-2198-4053-8455-394EA690471F}"
 	ProjectSection(SolutionItems) = preProject
 		assets\Data\GemInfo.json = assets\Data\GemInfo.json
+		assets\Data\UniqueInfo.json = assets\Data\UniqueInfo.json
 	EndProjectSection
 EndProject
 Global

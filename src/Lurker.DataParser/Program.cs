@@ -7,14 +7,19 @@
 namespace Lurker.DataParser
 {
     using System;
+    using System.IO;
 
     class Program
     {
+        private static readonly string BasePath = @"..\..\..\..\assets\data\";
+        private static readonly string ItemFilePath = Path.Combine(BasePath, "UniqueInfo.json");
+        private static readonly string GemFilePath = Path.Combine(BasePath, "GemInfo.json");
+
         static void Main(string[] args)
         {
-            System.IO.File.WriteAllText("c:/temp/itemInfo.json", ItemParser.Parse());
+            File.WriteAllText(ItemFilePath, ItemParser.Parse());
             Console.WriteLine();
-            System.IO.File.WriteAllText("c:/temp/gemsInfo.json", GemParser.Parse());
+            File.WriteAllText(GemFilePath, GemParser.Parse());
         }
     }
 }

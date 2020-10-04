@@ -74,7 +74,7 @@ namespace Lurker.DataParser
                 gem.Location = normalGem.Location;
             }
 
-            return Newtonsoft.Json.JsonConvert.SerializeObject(gems);
+            return Newtonsoft.Json.JsonConvert.SerializeObject(gems, Newtonsoft.Json.Formatting.Indented);
         }
 
         #endregion
