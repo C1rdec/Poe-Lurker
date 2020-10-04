@@ -11,15 +11,15 @@ namespace Lurker.Models
     using System.Linq;
     using System.Xml.Linq;
     using HtmlAgilityPack;
+    using Lurker.Helpers;
 
     /// <summary>
     /// Represents a gem.
     /// </summary>
-    public class Gem
+    public class Gem : WikiItem
     {
         #region Fields
 
-        private static readonly string WikiBaseUri = "https://pathofexile.gamepedia.com/";
         private static readonly string SupportValue = "Support";
 
         #endregion
@@ -30,26 +30,6 @@ namespace Lurker.Models
         /// Gets or sets the identifier.
         /// </summary>
         public string Id { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the level.
-        /// </summary>
-        public int Level { get; set; }
-
-        /// <summary>
-        /// Gets or sets the wiki URL.
-        /// </summary>
-        public Uri WikiUrl { get; set; }
-
-        /// <summary>
-        /// Gets or sets the image URL.
-        /// </summary>
-        public Uri ImageUrl { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="Gem"/> is support.
@@ -83,7 +63,7 @@ namespace Lurker.Models
             return new Gem()
             {
                 Name = name,
-                WikiUrl = CreateGemUri(name),
+                WikiUrl = WikiHelper.CreateItemUri(name),
                 Id = element.Attribute("skillId").Value,
             };
         }
@@ -93,22 +73,10 @@ namespace Lurker.Models
         /// </summary>
         public void ParseWiki()
         {
-            this.WikiUrl = CreateGemUri(this.Name);
+            this.WikiUrl = WikiHelper.CreateItemUri(this.Name);
 
             this.SetImageUrl();
             this.SetLocation();
-        }
-
-        /// <summary>
-        /// Creates the gem URI.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <returns>The wiki url.</returns>
-        private static Uri CreateGemUri(string name)
-        {
-            // replace space encodes with '_' to match the link layout of the poe wiki and then url encode it
-            var itemLink = System.Net.WebUtility.UrlEncode(name.Replace(" ", "_"));
-            return new Uri(WikiBaseUri + itemLink);
         }
 
         /// <summary>
@@ -116,27 +84,18 @@ namespace Lurker.Models
         /// </summary>
         private void SetImageUrl()
         {
-            var webPage = new HtmlWeb();
-            var fileUrl = $"https://pathofexile.gamepedia.com/File:{System.Net.WebUtility.UrlEncode(this.Name.Replace(" ", "_"))}_inventory_icon.png";
-            var document = webPage.Load(fileUrl);
-
-            var mediaElement = document.DocumentNode.Descendants().Where(e => e.Name == "div" && e.GetAttributeValue("class", string.Empty) == "fullMedia").FirstOrDefault();
-            if (mediaElement == null)
+            try
             {
-                return;
+                this.ImageUrl = WikiHelper.GetItemImageUrl(this.Name);
             }
-
-            var hyperlink = mediaElement.Descendants().Where(e => e.Name == "a").FirstOrDefault();
-            if (hyperlink != null)
+            catch (InvalidOperationException)
             {
-                var href = hyperlink.Attributes.Where(a => a.Name == "href").FirstOrDefault();
-                if (href != null)
-                {
-                    this.ImageUrl = new Uri(href.Value);
-                }
             }
         }
 
+        /// <summary>
+        /// Sets the location.
+        /// </summary>
         private void SetLocation()
         {
             var webPage = new HtmlWeb();

@@ -138,6 +138,7 @@
     <Compile Include="Helpers\PoeKeyboardHelper.cs" />
     <Compile Include="Helpers\TokenHelper.cs" />
     <Compile Include="Helpers\TradeEventHelper.cs" />
+    <Compile Include="Helpers\WikiHelper.cs" />
     <Compile Include="KeyboardLurker.cs" />
     <Compile Include="Models\Build.cs" />
     <Compile Include="Models\BuildHelperSettings.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="Models\PoeWindowInformation.cs" />
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Models\Skill.cs" />
+    <Compile Include="Models\UniqueItem.cs" />
     <Compile Include="MouseLurker.cs" />
     <Compile Include="Models\WindowStyle.cs" />
     <Compile Include="Native.cs" />
@@ -164,6 +166,7 @@
     <Compile Include="Services\PathOfBuildingService.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\SoundService.cs" />
+    <Compile Include="Models\WikiItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json">
