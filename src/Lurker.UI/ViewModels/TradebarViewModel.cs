@@ -241,10 +241,19 @@ namespace Lurker.UI.ViewModels
         /// <param name="tradeEvent">The trade event.</param>
         private void InsertEvent(TradeEvent tradeEvent)
         {
-            using (var service = new Lurker.Patreon.DatabaseService())
+            Caliburn.Micro.Execute.OnUIThread(() =>
             {
-                service.Insert(tradeEvent);
-            }
+                try
+                {
+                    using (var service = new Lurker.Patreon.DatabaseService())
+                    {
+                        service.Insert(tradeEvent);
+                    }
+                }
+                catch
+                {
+                }
+            });
         }
 
         /// <summary>
