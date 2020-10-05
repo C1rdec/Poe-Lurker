@@ -154,10 +154,7 @@ namespace Lurker.UI.ViewModels
         {
             if (this.Build != null)
             {
-                foreach (var skill in this.Skills)
-                {
-                    skill.PropertyChanged -= this.Skill_PropertyChanged;
-                }
+                this.ClearEventHandlers();
 
                 var settings = this.SettingsService.BuildHelperSettings;
 
@@ -169,14 +166,15 @@ namespace Lurker.UI.ViewModels
                     this.Skills.Add(skill);
                 }
 
-                this.SelectSkills(settings);
-
                 // Unique items
                 this.UniqueItems.Clear();
                 foreach (var item in this.Build.Items.Select(s => new UniqueItemViewModel(s, settings.TimelineEnabled)))
                 {
+                    item.PropertyChanged += this.Item_PropertyChanged;
                     this.UniqueItems.Add(item);
                 }
+
+                this.SelectItems(settings);
             }
 
             base.OnActivate();
@@ -212,7 +210,7 @@ namespace Lurker.UI.ViewModels
                     var selectedSKill = this.Skills.FirstOrDefault(s => s.Selected);
                     if (selectedSKill != null)
                     {
-                        // Handled in SkillTimelineViewModel
+                        // Handled in BuildTimelineViewModel
                         this._eventAggregator.PublishOnUIThread(new SkillMessage() { Clear = true, Skill = selectedSKill.Skill });
                     }
                 }
@@ -280,13 +278,14 @@ namespace Lurker.UI.ViewModels
                         }
                     }
 
-                    this.SelectSkills(settings, true);
-
                     this.UniqueItems.Clear();
                     foreach (var item in this.Build.Items.Select(s => new UniqueItemViewModel(s, settings.TimelineEnabled)))
                     {
+                        item.PropertyChanged += this.Item_PropertyChanged;
                         this.UniqueItems.Add(item);
                     }
+
+                    this.SelectItems(settings, true);
 
                     // To notify that we are initialize.
                     this.NotifyOfPropertyChange("Skills");
@@ -302,11 +301,89 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Sets the window position.
+        /// </summary>
+        /// <param name="windowInformation">The window information.</param>
+        protected override void SetWindowPosition(PoeWindowInformation windowInformation)
+        {
+            var value = 220 * windowInformation.Height / 1080;
+            var margin = PoeApplicationContext.WindowStyle == WindowStyle.Windowed ? 10 : 0;
+            Execute.OnUIThread(() =>
+            {
+                this.View.Height = 500;
+                this.View.Width = 350;
+                this.View.Left = windowInformation.Position.Right - 350 - margin;
+                this.View.Top = windowInformation.Position.Bottom - value - 500 - margin;
+            });
+        }
+
+        /// <summary>
+        /// Called when deactivating.
+        /// </summary>
+        /// <param name="close">Inidicates whether this instance will be closed.</param>
+        protected override void OnDeactivate(bool close)
+        {
+            this.ClearEventHandlers();
+            base.OnDeactivate(close);
+        }
+
+        /// <summary>
+        /// Clears the event handlers.
+        /// </summary>
+        private void ClearEventHandlers()
+        {
+            foreach (var skill in this.Skills)
+            {
+                skill.PropertyChanged -= this.Skill_PropertyChanged;
+            }
+
+            foreach (var item in this.UniqueItems)
+            {
+                item.PropertyChanged -= this.Item_PropertyChanged;
+            }
+        }
+
+        /// <summary>
+        /// Handles the PropertyChanged event of the Item control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
+        private void Item_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            var item = sender as UniqueItemViewModel;
+            if (item == null || e.PropertyName != "Selected")
+            {
+                return;
+            }
+
+            var index = this.UniqueItems.IndexOf(item);
+            if (item.Selected)
+            {
+                var itemIndex = this.SettingsService.BuildHelperSettings.ItemsSelected.IndexOf(index);
+                if (itemIndex == -1)
+                {
+                    this.SettingsService.BuildHelperSettings.ItemsSelected.Add(index);
+                }
+            }
+            else
+            {
+                bool removed;
+                do
+                {
+                    removed = this.SettingsService.BuildHelperSettings.ItemsSelected.Remove(index);
+                }
+                while (removed);
+            }
+
+            this.SettingsService.Save();
+        }
+
+        /// <summary>
         /// Selects the skills.
         /// </summary>
         /// <param name="settings">The settings.</param>
         /// <param name="raiseEvent">if set to <c>true</c> [raise event].</param>
-        private void SelectSkills(BuildHelperSettings settings, bool raiseEvent = false)
+        private void SelectItems(BuildHelperSettings settings, bool raiseEvent = false)
         {
             foreach (var index in settings.SkillsSelected.ToArray())
             {
@@ -323,6 +400,25 @@ namespace Lurker.UI.ViewModels
                     if (raiseEvent)
                     {
                         this._eventAggregator.PublishOnUIThread(new SkillMessage() { Skill = selectedSKill.Skill });
+                    }
+                }
+            }
+
+            foreach (var index in settings.ItemsSelected.ToArray())
+            {
+                if (index >= this.UniqueItems.Count)
+                {
+                    continue;
+                }
+
+                var selectedItem = this.UniqueItems.ElementAt(index);
+                if (selectedItem != null)
+                {
+                    selectedItem.Selected = true;
+
+                    if (raiseEvent)
+                    {
+                        this._eventAggregator.PublishOnUIThread(new ItemMessage() { Item = selectedItem.Item });
                     }
                 }
             }
@@ -361,23 +457,6 @@ namespace Lurker.UI.ViewModels
             }
 
             this.SettingsService.Save();
-        }
-
-        /// <summary>
-        /// Sets the window position.
-        /// </summary>
-        /// <param name="windowInformation">The window information.</param>
-        protected override void SetWindowPosition(PoeWindowInformation windowInformation)
-        {
-            var value = 220 * windowInformation.Height / 1080;
-            var margin = PoeApplicationContext.WindowStyle == WindowStyle.Windowed ? 10 : 0;
-            Execute.OnUIThread(() =>
-            {
-                this.View.Height = 500;
-                this.View.Width = 350;
-                this.View.Left = windowInformation.Position.Right - 350 - margin;
-                this.View.Top = windowInformation.Position.Bottom - value - 500 - margin;
-            });
         }
 
         /// <summary>

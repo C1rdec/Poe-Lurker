@@ -132,7 +132,7 @@ namespace Lurker.UI.ViewModels
         {
             if (message.Clear)
             {
-                this._skills.Clear();
+                this._items.Clear();
             }
 
             if (message.Delete)
@@ -166,6 +166,7 @@ namespace Lurker.UI.ViewModels
             if (message.Clear)
             {
                 this._skills.Clear();
+                this._items.Clear();
             }
 
             if (message.Delete)

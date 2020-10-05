@@ -26,6 +26,11 @@ namespace Lurker.Models
         /// </summary>
         public List<int> SkillsSelected { get; set; }
 
+        /// <summary>
+        /// Gets or sets the items selected.
+        /// </summary>
+        public List<int> ItemsSelected { get; set; }
+
         #endregion
     }
 }

@@ -47,6 +47,11 @@ namespace Lurker.UI.ViewModels
         #region Properties
 
         /// <summary>
+        /// Gets the item.
+        /// </summary>
+        public UniqueItem Item => this._item;
+
+        /// <summary>
         /// Gets a value indicating whether this <see cref="SkillViewModel"/> is selectable.
         /// </summary>
         public bool Selectable
