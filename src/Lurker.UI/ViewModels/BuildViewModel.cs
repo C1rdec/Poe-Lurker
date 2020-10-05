@@ -272,6 +272,7 @@ namespace Lurker.UI.ViewModels
                         if (mainSKill != null)
                         {
                             var index = this.Skills.IndexOf(mainSKill);
+                            settings.ItemsSelected.Clear();
                             settings.SkillsSelected.Clear();
                             settings.SkillsSelected.Add(index);
                             this.SettingsService.Save();
