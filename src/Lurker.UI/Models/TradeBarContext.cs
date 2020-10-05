@@ -19,6 +19,7 @@ namespace Lurker.UI.Models
         private Action<OfferViewModel> _remove;
         private Action<OfferViewModel> _addToActiveOffer;
         private Action<OfferViewModel> _setActiveOffer;
+        private Action _clearOffers;
 
         #endregion
 
@@ -30,11 +31,13 @@ namespace Lurker.UI.Models
         /// <param name="removeAction">The remove action.</param>
         /// <param name="addToActiveOfferAction">The add to active offer action.</param>
         /// <param name="setActiveOffer">The set active offer.</param>
-        public TradebarContext(Action<OfferViewModel> removeAction, Action<OfferViewModel> addToActiveOfferAction, Action<OfferViewModel> setActiveOffer)
+        /// <param name="clearOffers">The clear offers.</param>
+        public TradebarContext(Action<OfferViewModel> removeAction, Action<OfferViewModel> addToActiveOfferAction, Action<OfferViewModel> setActiveOffer, Action clearOffers)
         {
             this._remove = removeAction;
             this._addToActiveOffer = addToActiveOfferAction;
             this._setActiveOffer = setActiveOffer;
+            this._clearOffers = clearOffers;
         }
 
         #endregion
@@ -66,6 +69,14 @@ namespace Lurker.UI.Models
         public void SetActiveOffer(OfferViewModel offer)
         {
             this._setActiveOffer(offer);
+        }
+
+        /// <summary>
+        /// Clears the offers.
+        /// </summary>
+        public void ClearOffers()
+        {
+            this._clearOffers();
         }
 
         #endregion

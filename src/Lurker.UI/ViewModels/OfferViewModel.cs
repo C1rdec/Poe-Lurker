@@ -251,7 +251,15 @@ namespace Lurker.UI.ViewModels
         public void Remove()
         {
             this._skipMainAction = true;
-            this.RemoveFromTradebar();
+            if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+            {
+                this._tradebarContext.ClearOffers();
+            }
+            else
+            {
+                this.RemoveFromTradebar();
+            }
+
             this._dockingHelper.SetForeground();
         }
 

@@ -62,7 +62,7 @@ namespace Lurker.UI.ViewModels
             this.TradeOffers = new ObservableCollection<OfferViewModel>();
             this._lastOffers = new List<TradeEvent>();
 
-            this._context = new TradebarContext(this.RemoveOffer, this.AddActiveOffer, this.SetActiveOffer);
+            this._context = new TradebarContext(this.RemoveOffer, this.AddActiveOffer, this.SetActiveOffer, this.ClearOffers);
             this.DisplayName = "Poe Lurker";
             this.SettingsService.OnSave += this.SettingsService_OnSave;
         }
@@ -343,6 +343,18 @@ namespace Lurker.UI.ViewModels
             this.ActiveOffer.Active = true;
 
             this.SendToLifeBulb(offer.Event);
+        }
+
+        /// <summary>
+        /// Clears the offers.
+        /// </summary>
+        private void ClearOffers()
+        {
+            this.TradeOffers.Clear();
+            this._activeOffers.Clear();
+            this._removeActive?.Invoke();
+
+            this.NotifyOfPropertyChange("ActiveOffer");
         }
 
         /// <summary>
