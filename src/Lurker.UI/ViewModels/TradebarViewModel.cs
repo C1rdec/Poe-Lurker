@@ -62,11 +62,6 @@ namespace Lurker.UI.ViewModels
             this.TradeOffers = new ObservableCollection<OfferViewModel>();
             this._lastOffers = new List<TradeEvent>();
 
-            this._clientLurker.IncomingOffer += this.Lurker_IncomingOffer;
-            this._clientLurker.TradeAccepted += this.Lurker_TradeAccepted;
-            this._clientLurker.PlayerJoined += this.Lurker_PlayerJoined;
-            this._clientLurker.PlayerLeft += this.Lurker_PlayerLeft;
-
             this._context = new TradebarContext(this.RemoveOffer, this.AddActiveOffer, this.SetActiveOffer);
             this.DisplayName = "Poe Lurker";
             this.SettingsService.OnSave += this.SettingsService_OnSave;

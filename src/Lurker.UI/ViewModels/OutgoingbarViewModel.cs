@@ -118,6 +118,10 @@ namespace Lurker.UI.ViewModels
 
         #region Methods
 
+        /// <summary>
+        /// Called when [search value change].
+        /// </summary>
+        /// <param name="value">The value.</param>
         private void OnSearchValueChange(string value)
         {
             this.FilteredOffers.Clear();
