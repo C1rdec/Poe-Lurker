@@ -41,7 +41,7 @@ namespace Lurker.UI
         private DockingHelper _currentDockingHelper;
         private ClipboardLurker _clipboardLurker;
         private TradebarViewModel _incomingTradeBarOverlay;
-        private SkillTimelineViewModel _skillTimelineOverlay;
+        private BuildTimelineViewModel _skillTimelineOverlay;
         private OutgoingbarViewModel _outgoingTradeBarOverlay;
         private LifeBulbViewModel _lifeBulbOverlay;
         private ManaBulbViewModel _manaBulbOverlay;
@@ -409,7 +409,7 @@ namespace Lurker.UI
                 this._container.RegisterInstance(typeof(DockingHelper), null, this._currentDockingHelper);
                 this._container.RegisterInstance(typeof(PoeKeyboardHelper), null, keyboarHelper);
 
-                this._skillTimelineOverlay = this._container.GetInstance<SkillTimelineViewModel>();
+                this._skillTimelineOverlay = this._container.GetInstance<BuildTimelineViewModel>();
                 this._incomingTradeBarOverlay = this._container.GetInstance<TradebarViewModel>();
                 this._outgoingTradeBarOverlay = this._container.GetInstance<OutgoingbarViewModel>();
                 this._lifeBulbOverlay = this._container.GetInstance<LifeBulbViewModel>();

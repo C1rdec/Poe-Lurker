@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="SkillTimelineViewModel.cs" company="Wohs Inc.">
+// <copyright file="BuildTimelineViewModel.cs" company="Wohs Inc.">
 //     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -19,7 +19,7 @@ namespace Lurker.UI.ViewModels
     /// Represent the overlay of the time line.
     /// </summary>
     /// <seealso cref="Lurker.UI.ViewModels.PoeOverlayBase" />
-    public class SkillTimelineViewModel : BuildViewModel, IHandle<SkillMessage>
+    public class BuildTimelineViewModel : BuildViewModel, IHandle<SkillMessage>
     {
         #region Fields
 
@@ -35,14 +35,14 @@ namespace Lurker.UI.ViewModels
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SkillTimelineViewModel" /> class.
+        /// Initializes a new instance of the <see cref="BuildTimelineViewModel" /> class.
         /// </summary>
         /// <param name="windowManager">The window manager.</param>
         /// <param name="dockingHelper">The docking helper.</param>
         /// <param name="processLurker">The process lurker.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="characterService">The character service.</param>
-        public SkillTimelineViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService, CharacterService characterService)
+        public BuildTimelineViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService, CharacterService characterService)
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
             this._characterService = characterService;
@@ -194,7 +194,7 @@ namespace Lurker.UI.ViewModels
                 this.View.Height = overlayHeight;
                 this.View.Width = overlayWidth;
                 this.View.Left = windowInformation.Position.Left + windowInformation.FlaskBarWidth + Margin - margin;
-                this.View.Top = windowInformation.Position.Bottom - overlayHeight - windowInformation.ExpBarHeight - Margin;
+                this.View.Top = windowInformation.Position.Bottom - overlayHeight - windowInformation.ExpBarHeight + Margin;
             });
         }
 

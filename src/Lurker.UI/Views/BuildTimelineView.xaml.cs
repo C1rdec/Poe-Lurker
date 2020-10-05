@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="SkillTimelineView.xaml.cs" company="Wohs Inc.">
+// <copyright file="BuildTimelineView.xaml.cs" company="Wohs Inc.">
 //     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -13,7 +13,7 @@ namespace Lurker.UI.Views
     /// <summary>
     /// Interaction logic for SkillTimelineView.xaml.
     /// </summary>
-    public partial class SkillTimelineView : Window
+    public partial class BuildTimelineView : Window
     {
         #region Fields
 
@@ -26,7 +26,7 @@ namespace Lurker.UI.Views
         /// <summary>
         /// Initializes a new instance of the <see cref="SkillTimelineView"/> class.
         /// </summary>
-        public SkillTimelineView()
+        public BuildTimelineView()
         {
             this.InitializeComponent();
             this.HideFromAltTab();

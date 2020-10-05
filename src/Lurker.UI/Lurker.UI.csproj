@@ -282,7 +282,7 @@
     <Compile Include="ViewModels\RemainingMonsterViewModel.cs" />
     <Compile Include="ViewModels\ScreenBase.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
-    <Compile Include="ViewModels\SkillTimelineViewModel.cs" />
+    <Compile Include="ViewModels\BuildTimelineViewModel.cs" />
     <Compile Include="ViewModels\SkillViewModel.cs" />
     <Compile Include="ViewModels\SplashscreenViewModel.cs" />
     <Compile Include="ViewModels\TimelineItemViewModel.cs" />
@@ -356,8 +356,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ViewModels\OfferViewModel.cs" />
-    <Compile Include="Views\SkillTimelineView.xaml.cs">
-      <DependentUpon>SkillTimelineView.xaml</DependentUpon>
+    <Compile Include="Views\BuildTimelineView.xaml.cs">
+      <DependentUpon>BuildTimelineView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SkillView.xaml.cs">
       <DependentUpon>SkillView.xaml</DependentUpon>
@@ -463,7 +463,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\SkillTimelineView.xaml">
+    <Page Include="Views\BuildTimelineView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
