@@ -7,6 +7,7 @@
 namespace Lurker.Models
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Represents a build.
@@ -16,6 +17,7 @@ namespace Lurker.Models
         #region fields
 
         private List<Skill> _skills;
+        private List<UniqueItem> _items;
 
         #endregion
 
@@ -27,6 +29,7 @@ namespace Lurker.Models
         public Build()
         {
             this._skills = new List<Skill>();
+            this._items = new List<UniqueItem>();
         }
 
         #endregion
@@ -37,6 +40,11 @@ namespace Lurker.Models
         /// Gets the skills.
         /// </summary>
         public IEnumerable<Skill> Skills => this._skills;
+
+        /// <summary>
+        /// Gets the items.
+        /// </summary>
+        public IEnumerable<UniqueItem> Items => this._items;
 
         /// <summary>
         /// Gets or sets the tree URL.
@@ -54,6 +62,20 @@ namespace Lurker.Models
         public void AddSkill(Skill skill)
         {
             this._skills.Add(skill);
+        }
+
+        /// <summary>
+        /// Adds the item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        public void AddItem(UniqueItem item)
+        {
+            if (this._items.Any(i => i.Name == item.Name))
+            {
+                return;
+            }
+
+            this._items.Add(item);
         }
 
         #endregion

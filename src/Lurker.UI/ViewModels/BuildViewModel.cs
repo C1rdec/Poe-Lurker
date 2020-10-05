@@ -62,6 +62,8 @@ namespace Lurker.UI.ViewModels
             this._eventAggregator = IoC.Get<IEventAggregator>();
             this.Skills = new ObservableCollection<SkillViewModel>();
             this._skillTimelineEnabled = this.SettingsService.BuildHelperSettings.TimelineEnabled;
+
+            this.UniqueItems = new ObservableCollection<UniqueItemViewModel>();
         }
 
         #endregion
@@ -72,6 +74,11 @@ namespace Lurker.UI.ViewModels
         /// Gets or sets the skills.
         /// </summary>
         public ObservableCollection<SkillViewModel> Skills { get; set; }
+
+        /// <summary>
+        /// Gets or sets the unique items.
+        /// </summary>
+        public ObservableCollection<UniqueItemViewModel> UniqueItems { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is visible.
@@ -152,9 +159,10 @@ namespace Lurker.UI.ViewModels
                     skill.PropertyChanged -= this.Skill_PropertyChanged;
                 }
 
-                this.Skills.Clear();
-
                 var settings = this.SettingsService.BuildHelperSettings;
+
+                // Gems
+                this.Skills.Clear();
                 foreach (var skill in this.Build.Skills.Select(s => new SkillViewModel(s, settings.TimelineEnabled)))
                 {
                     skill.PropertyChanged += this.Skill_PropertyChanged;
@@ -162,6 +170,13 @@ namespace Lurker.UI.ViewModels
                 }
 
                 this.SelectSkills(settings);
+
+                // Unique items
+                this.UniqueItems.Clear();
+                foreach (var item in this.Build.Items.Select(s => new UniqueItemViewModel(s, settings.TimelineEnabled)))
+                {
+                    this.UniqueItems.Add(item);
+                }
             }
 
             base.OnActivate();
@@ -246,7 +261,7 @@ namespace Lurker.UI.ViewModels
                     await service.InitializeAsync();
                     this.Build = service.Decode(buildValue);
 
-                    this.Skills = new ObservableCollection<SkillViewModel>();
+                    this.Skills.Clear();
                     foreach (var skill in this.Build.Skills.Select(s => new SkillViewModel(s, settings.TimelineEnabled)))
                     {
                         skill.PropertyChanged += this.Skill_PropertyChanged;
@@ -266,6 +281,12 @@ namespace Lurker.UI.ViewModels
                     }
 
                     this.SelectSkills(settings, true);
+
+                    this.UniqueItems.Clear();
+                    foreach (var item in this.Build.Items.Select(s => new UniqueItemViewModel(s, settings.TimelineEnabled)))
+                    {
+                        this.UniqueItems.Add(item);
+                    }
 
                     // To notify that we are initialize.
                     this.NotifyOfPropertyChange("Skills");
@@ -371,6 +392,11 @@ namespace Lurker.UI.ViewModels
             foreach (var skill in this.Skills)
             {
                 skill.SetSelectable(enabled);
+            }
+
+            foreach (var item in this.UniqueItems)
+            {
+                item.SetSelectable(enabled);
             }
 
             // Handled in ShellviewModel

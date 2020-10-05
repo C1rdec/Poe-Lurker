@@ -15,7 +15,7 @@
         <RadioButton cal:Message.Attach="[Event Click] = [Action OnClick]; [Event Checked] = [Action OnChecked]"
                      Visibility="{Binding Selectable, Converter={StaticResource BooleanToVisibilityConverter}}" 
                      IsChecked="{Binding Selected}" 
-                     Margin="5,5,0,0" 
+                     Margin="5,5,0,0"
                      Cursor="Hand"/>
         <ItemsControl x:Name="Gems" Grid.Column="1">
             <ItemsControl.ItemsPanel>

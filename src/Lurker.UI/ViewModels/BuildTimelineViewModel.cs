@@ -14,17 +14,19 @@ namespace Lurker.UI.ViewModels
     using Lurker.Patreon.Events;
     using Lurker.Services;
     using Lurker.UI.Models;
+    using NuGet;
 
     /// <summary>
     /// Represent the overlay of the time line.
     /// </summary>
     /// <seealso cref="Lurker.UI.ViewModels.PoeOverlayBase" />
-    public class BuildTimelineViewModel : BuildViewModel, IHandle<SkillMessage>
+    public class BuildTimelineViewModel : PoeOverlayBase, IHandle<SkillMessage>, IHandle<ItemMessage>
     {
         #region Fields
 
         private static readonly int MaxLevel = 100;
         private List<Skill> _skills;
+        private List<UniqueItem> _items;
         private CharacterService _characterService;
         private string _playerName;
         private string _playerLevel;
@@ -72,6 +74,7 @@ namespace Lurker.UI.ViewModels
 
             this._eventAggregator = IoC.Get<IEventAggregator>();
             this._skills = new List<Skill>();
+            this._items = new List<UniqueItem>();
         }
 
         #endregion
@@ -125,6 +128,39 @@ namespace Lurker.UI.ViewModels
         /// Handles the message.
         /// </summary>
         /// <param name="message">The message.</param>
+        public void Handle(ItemMessage message)
+        {
+            if (message.Clear)
+            {
+                this._skills.Clear();
+            }
+
+            if (message.Delete)
+            {
+                bool removed;
+                do
+                {
+                    removed = this._items.Remove(message.Item);
+                }
+                while (removed);
+            }
+            else
+            {
+                var index = this._items.IndexOf(message.Item);
+                if (index == -1)
+                {
+                    this._items.Add(message.Item);
+                }
+            }
+
+            this.Timeline.Clear();
+            this.GenerateTimelineItems();
+        }
+
+        /// <summary>
+        /// Handles the message.
+        /// </summary>
+        /// <param name="message">The message.</param>
         public void Handle(SkillMessage message)
         {
             if (message.Clear)
@@ -151,7 +187,7 @@ namespace Lurker.UI.ViewModels
             }
 
             this.Timeline.Clear();
-            this.AddSkillItems();
+            this.GenerateTimelineItems();
         }
 
         /// <summary>
@@ -211,18 +247,32 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
-        /// Adds the skill items.
+        /// Generates the timeline items.
         /// </summary>
-        private void AddSkillItems()
+        private void GenerateTimelineItems()
         {
-            if (!this._skills.Any())
+            if (!this._skills.Any() && !this._items.Any())
             {
                 this.Timeline.SetMaxValue(MaxLevel);
                 return;
             }
 
+            var gemMaxValue = this.AddSkills();
+            var itemMaxValue = this.AddItems();
+
+            var maxValue = gemMaxValue > itemMaxValue ? gemMaxValue : itemMaxValue;
+            if (maxValue != 0)
+            {
+                this.Timeline.SetMaxValue(maxValue + 1);
+            }
+        }
+
+        /// <summary>
+        /// Adds the skill items.
+        /// </summary>
+        private int AddSkills()
+        {
             var combineGems = this._skills.SelectMany(s => s.Gems);
-            this.Timeline.SetMaxValue(combineGems.Max(g => g.Level) + 1);
             foreach (var gems in combineGems.GroupBy(g => g.Level))
             {
                 var skill = new Skill();
@@ -238,6 +288,36 @@ namespace Lurker.UI.ViewModels
 
                 this.Timeline.AddItem(item);
             }
+
+            if (combineGems.IsEmpty())
+            {
+                return 0;
+            }
+
+            return combineGems.Max(g => g.Level);
+        }
+
+        /// <summary>
+        /// Adds the items.
+        /// </summary>
+        private int AddItems()
+        {
+            foreach (var uniqueItem in this._items)
+            {
+                var item = new TimelineItemViewModel(uniqueItem.Level)
+                {
+                    DetailedView = new UniqueItemViewModel(uniqueItem, false),
+                };
+
+                this.Timeline.AddItem(item);
+            }
+
+            if (this._items.IsEmpty())
+            {
+                return 0;
+            }
+
+            return this._items.Max(g => g.Level);
         }
 
         #endregion

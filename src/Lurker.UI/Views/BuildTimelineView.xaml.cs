@@ -24,7 +24,7 @@ namespace Lurker.UI.Views
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SkillTimelineView"/> class.
+        /// Initializes a new instance of the <see cref="BuildTimelineView"/> class.
         /// </summary>
         public BuildTimelineView()
         {

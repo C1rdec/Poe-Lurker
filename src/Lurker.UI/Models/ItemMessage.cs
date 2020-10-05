@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="SkillMessage.cs" company="Wohs Inc.">
+// <copyright file="ItemMessage.cs" company="Wohs Inc.">
 //     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -9,19 +9,17 @@ namespace Lurker.UI.Models
     using Lurker.Models;
 
     /// <summary>
-    /// Represents the skill message.
+    /// Represents a Item message.
     /// </summary>
-    public class SkillMessage : TimelineMessage
+    /// <seealso cref="Lurker.UI.Models.TimelineMessage" />
+    public class ItemMessage : TimelineMessage
     {
         #region Properties
 
         /// <summary>
-        /// Gets or sets the skill.
+        /// Gets or sets the item.
         /// </summary>
-        /// <value>
-        /// The skill.
-        /// </value>
-        public Skill Skill { get; set; }
+        public UniqueItem Item { get; set; }
 
         #endregion
     }

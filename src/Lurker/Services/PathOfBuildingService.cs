@@ -14,6 +14,7 @@ namespace Lurker.Services
     using System.Text;
     using System.Threading.Tasks;
     using System.Xml.Linq;
+    using Lurker.Extensions;
     using Lurker.Models;
 
     /// <summary>
@@ -24,6 +25,7 @@ namespace Lurker.Services
         #region Fields
 
         private List<Gem> _knownGems;
+        private List<UniqueItem> _knownUniques;
 
         #endregion
 
@@ -38,7 +40,9 @@ namespace Lurker.Services
         public async Task InitializeAsync()
         {
             var gemInformation = await this.GetText($"https://raw.githubusercontent.com/C1rdec/Poe-Lurker/master/assets/Data/GemInfo.json?{Guid.NewGuid()}");
+            var uniqueInformation = await this.GetText($"https://raw.githubusercontent.com/C1rdec/Poe-Lurker/master/assets/Data/UniqueInfo.json?{Guid.NewGuid()}");
             this._knownGems = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Gem>>(gemInformation);
+            this._knownUniques = Newtonsoft.Json.JsonConvert.DeserializeObject<List<UniqueItem>>(uniqueInformation);
         }
 
         /// <summary>
@@ -75,6 +79,26 @@ namespace Lurker.Services
             {
                 var urlElement = treeElement.Descendants("URL").FirstOrDefault();
                 build.SkillTreeUrl = urlElement.Value.Trim().Replace("passive-skill-tree", "fullscreen-passive-skill-tree");
+            }
+
+            var itemsElement = document.Root.Element("Items");
+            foreach (var element in itemsElement.Elements())
+            {
+                var value = element.Value.GetLineAfter("Rarity: ");
+                if (value != null)
+                {
+                    var lines = value.Split('\n');
+                    var rarity = lines.FirstOrDefault();
+                    if (rarity == "UNIQUE" && lines.Length > 2)
+                    {
+                        var name = lines[1];
+                        var uniqueItem = this._knownUniques.FirstOrDefault(u => u.Name == name);
+                        if (uniqueItem != null)
+                        {
+                            build.AddItem(uniqueItem);
+                        }
+                    }
+                }
             }
 
             return build;
