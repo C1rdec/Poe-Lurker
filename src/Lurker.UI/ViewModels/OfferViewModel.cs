@@ -253,7 +253,7 @@ namespace Lurker.UI.ViewModels
             this._skipMainAction = true;
             if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
             {
-                this._tradebarContext.ClearOffers();
+                this._tradebarContext.ClearAll();
             }
             else
             {

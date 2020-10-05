@@ -65,11 +65,8 @@ namespace Lurker.UI.ViewModels
             this._eventAggregator = eventAggregator;
             this._clientLurker = clientLurker;
 
-            this._clipboardLurker.NewOffer += this.ClipboardLurker_NewOffer;
-            this._clientLurker.OutgoingOffer += this.Lurker_OutgoingOffer;
-            this._clientLurker.TradeAccepted += this.Lurker_TradeAccepted;
             this.Offers.CollectionChanged += this.Offers_CollectionChanged;
-            this._context = new OutgoingbarContext(this.RemoveOffer, this.SetActiveOffer);
+            this._context = new OutgoingbarContext(this.RemoveOffer, this.SetActiveOffer, this.ClearAll);
         }
 
         #endregion
@@ -117,6 +114,34 @@ namespace Lurker.UI.ViewModels
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Called when activating.
+        /// </summary>
+        protected override void OnActivate()
+        {
+            this._clipboardLurker.NewOffer += this.ClipboardLurker_NewOffer;
+            this._clientLurker.OutgoingOffer += this.Lurker_OutgoingOffer;
+            this._clientLurker.TradeAccepted += this.Lurker_TradeAccepted;
+
+            base.OnActivate();
+        }
+
+        /// <summary>
+        /// Called when deactivating.
+        /// </summary>
+        /// <param name="close">Inidicates whether this instance will be closed.</param>
+        protected override void OnDeactivate(bool close)
+        {
+            if (close)
+            {
+                this._clientLurker.OutgoingOffer -= this.Lurker_OutgoingOffer;
+                this._clientLurker.TradeAccepted -= this.Lurker_TradeAccepted;
+                this.Offers.CollectionChanged -= this.Offers_CollectionChanged;
+            }
+
+            base.OnDeactivate(close);
+        }
 
         /// <summary>
         /// Called when [search value change].
@@ -258,6 +283,15 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Clears all.
+        /// </summary>
+        private void ClearAll()
+        {
+            this._removeActive?.Invoke();
+            this.Offers.Clear();
+        }
+
+        /// <summary>
         /// Sets the window position.
         /// </summary>
         /// <param name="windowInformation">The window information.</param>
@@ -274,22 +308,6 @@ namespace Lurker.UI.ViewModels
                 this.View.Left = windowInformation.Position.Left + yPosition;
                 this.View.Top = windowInformation.Position.Bottom - height - 12 + Margin;
             });
-        }
-
-        /// <summary>
-        /// Called when deactivating.
-        /// </summary>
-        /// <param name="close">Inidicates whether this instance will be closed.</param>
-        protected override void OnDeactivate(bool close)
-        {
-            if (close)
-            {
-                this._clientLurker.OutgoingOffer -= this.Lurker_OutgoingOffer;
-                this._clientLurker.TradeAccepted -= this.Lurker_TradeAccepted;
-                this.Offers.CollectionChanged -= this.Offers_CollectionChanged;
-            }
-
-            base.OnDeactivate(close);
         }
 
         /// <summary>
