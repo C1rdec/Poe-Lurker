@@ -310,6 +310,10 @@
                                                    Margin="30,0,0,0"
                                                Header="Auto Kick"
                                                IsChecked="{Binding AutoKickEnabled}"/>
+                            <Controls:ToggleSwitch 
+                                                   Margin="30,0,0,0"
+                                               Header="Release Note"
+                                               IsChecked="{Binding ShowReleaseNote}"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,30,0,0" HorizontalAlignment="Center">
                             <Controls:ToggleSwitch Grid.Row="1"

@@ -180,6 +180,12 @@ namespace Lurker.Models
         [DefaultValue(true)]
         public bool SoldDetection { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [show release note].
+        /// </summary>
+        [DefaultValue(true)]
+        public bool ShowReleaseNote { get; set; }
+
         #endregion
     }
 }

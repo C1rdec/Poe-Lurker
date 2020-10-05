@@ -537,6 +537,22 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [show release note].
+        /// </summary>
+        public bool ShowReleaseNote
+        {
+            get
+            {
+                return this._settings.ShowReleaseNote;
+            }
+
+            set
+            {
+                this._settings.ShowReleaseNote = value;
+            }
+        }
+
+        /// <summary>
         /// Gets the name of the folder.
         /// </summary>
         private string FolderName => "PoeLurker";

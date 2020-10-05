@@ -95,7 +95,11 @@ namespace Lurker.UI
                 settingsService.FirstLaunch = false;
                 this._showUpdateSuccess = true;
                 settingsService.Save(false);
-                Process.Start("https://github.com/C1rdec/Poe-Lurker/releases/latest");
+
+                if (settingsService.ShowReleaseNote)
+                {
+                    Process.Start("https://github.com/C1rdec/Poe-Lurker/releases/latest");
+                }
             }
 
             this._eventAggregator.Subscribe(this);

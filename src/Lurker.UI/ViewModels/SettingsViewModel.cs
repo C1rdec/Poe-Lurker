@@ -608,6 +608,23 @@ namespace Lurker.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [show release note].
+        /// </summary>
+        public bool ShowReleaseNote
+        {
+            get
+            {
+                return this._settingService.ShowReleaseNote;
+            }
+
+            set
+            {
+                this._settingService.ShowReleaseNote = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
         #endregion
 
         #region Methods
