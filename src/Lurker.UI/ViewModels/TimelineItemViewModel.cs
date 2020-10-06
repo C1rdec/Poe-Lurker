@@ -130,6 +130,14 @@ namespace Lurker.UI.ViewModels
         #region Methods
 
         /// <summary>
+        /// Closes this instance.
+        /// </summary>
+        public void Close()
+        {
+            this.IsOpen = false;
+        }
+
+        /// <summary>
         /// Sets the information.
         /// </summary>
         /// <param name="lineInformation">The line information.</param>

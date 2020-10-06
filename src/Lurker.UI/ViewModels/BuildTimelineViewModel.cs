@@ -11,7 +11,6 @@ namespace Lurker.UI.ViewModels
     using Caliburn.Micro;
     using Lurker.Helpers;
     using Lurker.Models;
-    using Lurker.Patreon.Events;
     using Lurker.Services;
     using Lurker.UI.Models;
     using NuGet;
@@ -27,7 +26,7 @@ namespace Lurker.UI.ViewModels
         private static readonly int MaxLevel = 100;
         private List<Skill> _skills;
         private List<UniqueItem> _items;
-        private CharacterService _characterService;
+        private PlayerService _playerService;
         private string _playerName;
         private string _playerLevel;
         private IEventAggregator _eventAggregator;
@@ -43,12 +42,12 @@ namespace Lurker.UI.ViewModels
         /// <param name="dockingHelper">The docking helper.</param>
         /// <param name="processLurker">The process lurker.</param>
         /// <param name="settingsService">The settings service.</param>
-        /// <param name="characterService">The character service.</param>
-        public BuildTimelineViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService, CharacterService characterService)
+        /// <param name="playerService">The character service.</param>
+        public BuildTimelineViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService, PlayerService playerService)
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
-            this._characterService = characterService;
-            var firstPlayer = this._characterService.FirstPlayer;
+            this._playerService = playerService;
+            var firstPlayer = this._playerService.FirstPlayer;
 
             var progress = 0;
             if (firstPlayer != null)
@@ -70,16 +69,22 @@ namespace Lurker.UI.ViewModels
                 }
             }
 
-            this._characterService.PlayerChanged += this.PlayerChanged;
+            this._playerService.PlayerChanged += this.PlayerChanged;
 
             this._eventAggregator = IoC.Get<IEventAggregator>();
             this._skills = new List<Skill>();
             this._items = new List<UniqueItem>();
+            this.ActivePlayer = new PlayerViewModel(playerService);
         }
 
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the active player.
+        /// </summary>
+        public PlayerViewModel ActivePlayer { get; set; }
 
         /// <summary>
         /// Gets or sets the timeline.
@@ -240,11 +245,12 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
-        private void PlayerChanged(object sender, PlayerLevelUpEvent e)
+        private void PlayerChanged(object sender, Player e)
         {
-            this.PlayerName = e.PlayerName;
-            this.PlayerLevel = e.Level.ToString();
-            this.Timeline.SetProgess(e.Level);
+            this.PlayerName = e.Name;
+            var level = e.GetCurrentLevel();
+            this.PlayerLevel = level.ToString();
+            this.Timeline.SetProgess(level);
         }
 
         /// <summary>

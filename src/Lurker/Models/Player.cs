@@ -7,6 +7,7 @@
 namespace Lurker.Models
 {
     using System.Collections.Generic;
+    using System.Linq;
     using ConfOxide;
 
     /// <summary>
@@ -29,6 +30,15 @@ namespace Lurker.Models
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Gets the current level.
+        /// </summary>
+        /// <returns>The current known level.</returns>
+        public int GetCurrentLevel()
+        {
+            return this.Levels.FirstOrDefault();
+        }
 
         /// <summary>
         /// Adds the level.

@@ -35,7 +35,7 @@ namespace Lurker.UI
         private SimpleContainer _container;
         private ProcessLurker _processLurker;
         private ClientLurker _currentLurker;
-        private CharacterService _currentCharacterService;
+        private PlayerService _currentCharacterService;
         private MouseLurker _mouseLurker;
         private KeyboardLurker _keyboardLurker;
         private DockingHelper _currentDockingHelper;
@@ -408,7 +408,7 @@ namespace Lurker.UI
 
                 this._container.RegisterInstance(typeof(ProcessLurker), null, this._processLurker);
                 this._container.RegisterInstance(typeof(ClientLurker), null, this._currentLurker);
-                this._container.RegisterInstance(typeof(CharacterService), null, this._currentCharacterService);
+                this._container.RegisterInstance(typeof(PlayerService), null, this._currentCharacterService);
                 this._container.RegisterInstance(typeof(ClipboardLurker), null, this._clipboardLurker);
                 this._container.RegisterInstance(typeof(DockingHelper), null, this._currentDockingHelper);
                 this._container.RegisterInstance(typeof(PoeKeyboardHelper), null, keyboarHelper);
@@ -484,7 +484,7 @@ namespace Lurker.UI
         private void CleanUp()
         {
             this._container.UnregisterHandler<ClientLurker>();
-            this._container.UnregisterHandler<CharacterService>();
+            this._container.UnregisterHandler<PlayerService>();
             this._container.UnregisterHandler<ProcessLurker>();
             this._container.UnregisterHandler<DockingHelper>();
             this._container.UnregisterHandler<PoeKeyboardHelper>();
@@ -557,7 +557,7 @@ namespace Lurker.UI
             this._currentLurker = new ClientLurker(process);
             this._currentLurker.AdminRequested += this.CurrentLurker_AdminRequested;
 
-            this._currentCharacterService = new CharacterService(this._currentLurker);
+            this._currentCharacterService = new PlayerService(this._currentLurker);
 
             if (this._closing)
             {

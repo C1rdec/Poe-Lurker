@@ -15,7 +15,7 @@
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="0.75*"></RowDefinition>
+            <RowDefinition Height="1.5*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.Style>
             <Style TargetType="Grid">
@@ -27,15 +27,9 @@
                 </Style.Triggers>
             </Style>
         </Grid.Style>
-        <Border HorizontalAlignment="Left" Cursor="Hand" VerticalAlignment="Bottom">
-            <Border.Background>
-                <SolidColorBrush Color="White" Opacity="0.003"/>
-            </Border.Background>
-            <StackPanel Orientation="Horizontal" Opacity="0.8">
-                <TextBlock x:Name="PlayerName" FontFamily="pack://application:,,,/Assets/#Fontin" Foreground="#f0d0a8"/>
-                <TextBlock x:Name="PlayerLevel" Margin="4,0,0,0" FontFamily="pack://application:,,,/Assets/#Fontin" Foreground="#f0d0a8"/>
-            </StackPanel>
-        </Border>
+        <ContentControl x:Name="ActivePlayer" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+
+        
         <ContentControl x:Name="Timeline" Margin="0,2,6,0" Grid.Row="1"/>
     </Grid>
 </Window>
