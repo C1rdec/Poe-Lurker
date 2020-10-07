@@ -20,7 +20,7 @@
                         Margin="4,0,0,4"
                         VerticalAlignment="Bottom"
                         Data="{x:Static local:IconPackData.Help}"/>
-        <Polygon cal:Message.Attach="[Event MouseDown] = [Action Help()]" Points="0,60 60,0 150,150"  Cursor="Hand">
+        <Polygon cal:Message.Attach="[Event MouseDown] = [Action Help()]" Points="0,60 60,0 60,60"  Cursor="Hand">
             <Polygon.Style>
                 <Style TargetType="Polygon">
                     <Setter Property="Opacity" Value="0.002"/>

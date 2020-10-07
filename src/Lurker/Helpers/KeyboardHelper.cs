@@ -84,23 +84,19 @@ namespace Lurker.Helpers
         /// Sends the command.
         /// </summary>
         /// <param name="command">The command.</param>
-        /// <param name="setForegound">if set to <c>true</c> [set foregound].</param>
         /// <returns>
         /// The task awaiter.
         /// </returns>
-        protected async Task SendCommand(string command, bool setForegound = true)
+        protected async Task SendCommand(string command)
         {
-            if (setForegound)
+            // This is to fix the first SetForegroundWindow
+            await Simulate.Events().Click(KeyCode.LMenu).Invoke();
+            Native.SetForegroundWindow(this._windowHandle);
+            await Task.Delay(10);
+            var foregroundWindow = Native.GetForegroundWindow();
+            if (this._windowHandle != foregroundWindow)
             {
-                // This is to fix the first SetForegroundWindow
-                await Simulate.Events().Click(KeyCode.LMenu).Invoke();
-                Native.SetForegroundWindow(this._windowHandle);
-                await Task.Delay(10);
-                var foregroundWindow = Native.GetForegroundWindow();
-                if (this._windowHandle != foregroundWindow)
-                {
-                    await Task.Delay(100);
-                }
+                await Task.Delay(100);
             }
 
             var eventBuilder = Simulate.Events();

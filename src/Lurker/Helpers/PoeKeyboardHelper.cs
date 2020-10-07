@@ -95,21 +95,7 @@ namespace Lurker.Helpers
         /// <returns>The task.</returns>
         public async Task Whisper(string playerName, string message)
         {
-            await this.Whisper(playerName, message, true);
-        }
-
-        /// <summary>
-        /// Whispers the specified character name.
-        /// </summary>
-        /// <param name="playerName">Name of the character.</param>
-        /// <param name="message">The message.</param>
-        /// <param name="setForeground">if set to <c>true</c> [set foreground].</param>
-        /// <returns>
-        /// The task.
-        /// </returns>
-        public async Task Whisper(string playerName, string message, bool setForeground)
-        {
-            await this.SendCommand($@"@{playerName} {message}", setForeground);
+            await this.SendCommand($@"@{playerName} {message}");
         }
 
         /// <summary>
