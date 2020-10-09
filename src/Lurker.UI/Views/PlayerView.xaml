@@ -19,8 +19,7 @@
             </Border.Background>
 
             <StackPanel Orientation="Horizontal" Opacity="0.8">
-                <TextBlock x:Name="Name" FontFamily="pack://application:,,,/Assets/#Fontin" Foreground="#f0d0a8"/>
-                <TextBlock x:Name="Level" Margin="4,0,0,0" FontFamily="pack://application:,,,/Assets/#Fontin" Foreground="#f0d0a8"/>
+                <TextBlock x:Name="DisplayName" FontFamily="pack://application:,,,/Assets/#Fontin" Foreground="#f0d0a8"/>
             </StackPanel>
         </Border>
     </Grid>

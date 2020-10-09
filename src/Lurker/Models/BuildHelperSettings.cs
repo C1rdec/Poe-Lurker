@@ -17,9 +17,9 @@ namespace Lurker.Models
         #region Properties
 
         /// <summary>
-        /// Gets or sets a value indicating whether [timeline enabled].
+        /// Gets or sets the build.
         /// </summary>
-        public bool TimelineEnabled { get; set; }
+        public string Value { get; set; }
 
         /// <summary>
         /// Gets or sets the skill selected.

@@ -23,6 +23,11 @@ namespace Lurker.Models
         public string Name { get; set; }
 
         /// <summary>
+        /// Gets or sets the build.
+        /// </summary>
+        public BuildHelperSettings Build { get; set; }
+
+        /// <summary>
         /// Gets or sets the levels.
         /// </summary>
         public List<int> Levels { get; set; }

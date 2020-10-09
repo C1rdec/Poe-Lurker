@@ -52,6 +52,11 @@ namespace Lurker.UI.ViewModels
         #region Properties
 
         /// <summary>
+        /// Gets the display name.
+        /// </summary>
+        public string DisplayName => this._activePlayer == null ? string.Empty : $"{this.Name} ({this.Level})";
+
+        /// <summary>
         /// Gets or sets the players.
         /// </summary>
         public ObservableCollection<Player> Players { get; set; }
@@ -64,7 +69,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets the level.
         /// </summary>
-        public int Level => this._activePlayer.GetCurrentLevel();
+        public int Level => this._activePlayer == null ? 0 : this._activePlayer.GetCurrentLevel();
 
         /// <summary>
         /// Gets or sets the selected player.
@@ -140,8 +145,7 @@ namespace Lurker.UI.ViewModels
         private void Service_PlayerChanged(object sender, Player e)
         {
             this._activePlayer = e;
-            this.NotifyOfPropertyChange(() => this.Name);
-            this.NotifyOfPropertyChange(() => this.Level);
+            this.NotifyOfPropertyChange(() => this.DisplayName);
         }
 
         /// <summary>

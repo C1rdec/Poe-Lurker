@@ -145,6 +145,14 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Saves the specified raise event.
+        /// </summary>
+        public void Save()
+        {
+            this._playerBank.WriteJsonFile(this.SettingsFilePath);
+        }
+
+        /// <summary>
         /// Releases unmanaged and - optionally - managed resources.
         /// </summary>
         /// <param name="isDisposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
@@ -156,14 +164,6 @@ namespace Lurker.Services
                 this._clientLurker.PlayerJoined -= this.AddExternalPlayer;
                 this._clientLurker.PlayerLeft -= this.AddExternalPlayer;
             }
-        }
-
-        /// <summary>
-        /// Saves the specified raise event.
-        /// </summary>
-        private void Save()
-        {
-            this._playerBank.WriteJsonFile(this.SettingsFilePath);
         }
 
         /// <summary>

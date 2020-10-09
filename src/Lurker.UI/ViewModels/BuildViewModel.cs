@@ -7,10 +7,8 @@
 namespace Lurker.UI.ViewModels
 {
     using System;
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Diagnostics;
-    using System.IO;
     using System.Linq;
     using System.Net.Http;
     using System.Threading.Tasks;
@@ -28,30 +26,33 @@ namespace Lurker.UI.ViewModels
     {
         #region Fields
 
-        private static readonly string FileName = "build.pob";
         private Task _currentTask;
         private bool _isVisible;
         private bool _hasNoBuild;
         private bool _skillTimelineEnabled;
         private IEventAggregator _eventAggregator;
+        private PlayerService _playerService;
+        private Player _activePlayer;
 
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BuildViewModel"/> class.
+        /// Initializes a new instance of the <see cref="BuildViewModel" /> class.
         /// </summary>
         /// <param name="windowManager">The window manager.</param>
         /// <param name="dockingHelper">The docking helper.</param>
         /// <param name="processLurker">The process lurker.</param>
         /// <param name="settingsService">The settings service.</param>
-        public BuildViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService)
+        /// <param name="playerService">The player service.</param>
+        public BuildViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService, PlayerService playerService)
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
-            if (AssetService.Exists(FileName))
+            this._activePlayer = playerService.FirstPlayer;
+            if (this._activePlayer != null && !string.IsNullOrEmpty(this._activePlayer.Build.Value))
             {
-                this._currentTask = this.Initialize(File.ReadAllText(AssetService.GetFilePath(FileName)), false);
+                this._currentTask = this.Initialize(this._activePlayer.Build.Value, false);
             }
             else
             {
@@ -61,14 +62,22 @@ namespace Lurker.UI.ViewModels
             this.IsVisible = true;
             this._eventAggregator = IoC.Get<IEventAggregator>();
             this.Skills = new ObservableCollection<SkillViewModel>();
-            this._skillTimelineEnabled = this.SettingsService.BuildHelperSettings.TimelineEnabled;
-
+            this._skillTimelineEnabled = this.SettingsService.TimelineEnabled;
+            this._playerService = playerService;
             this.UniqueItems = new ObservableCollection<UniqueItemViewModel>();
+
+            this.ActivePlayer = new PlayerViewModel(playerService);
+            this._playerService.PlayerChanged += this.PlayerService_PlayerChanged;
         }
 
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets the active player.
+        /// </summary>
+        public PlayerViewModel ActivePlayer { get; private set; }
 
         /// <summary>
         /// Gets or sets the skills.
@@ -148,39 +157,6 @@ namespace Lurker.UI.ViewModels
         #region Methods
 
         /// <summary>
-        /// Called when activating.
-        /// </summary>
-        protected override void OnActivate()
-        {
-            if (this.Build != null)
-            {
-                this.ClearEventHandlers();
-
-                var settings = this.SettingsService.BuildHelperSettings;
-
-                // Gems
-                this.Skills.Clear();
-                foreach (var skill in this.Build.Skills.Select(s => new SkillViewModel(s, settings.TimelineEnabled)))
-                {
-                    skill.PropertyChanged += this.Skill_PropertyChanged;
-                    this.Skills.Add(skill);
-                }
-
-                // Unique items
-                this.UniqueItems.Clear();
-                foreach (var item in this.Build.Items.Select(s => new UniqueItemViewModel(s, settings.TimelineEnabled)))
-                {
-                    item.PropertyChanged += this.Item_PropertyChanged;
-                    this.UniqueItems.Add(item);
-                }
-
-                this.SelectItems(settings);
-            }
-
-            base.OnActivate();
-        }
-
-        /// <summary>
         /// Imports this instance.
         /// </summary>
         public async void Import()
@@ -206,7 +182,6 @@ namespace Lurker.UI.ViewModels
 
                 if (await this.Initialize(text, true))
                 {
-                    AssetService.Create(FileName, text);
                     var selectedSKill = this.Skills.FirstOrDefault(s => s.Selected);
                     if (selectedSKill != null)
                     {
@@ -249,25 +224,31 @@ namespace Lurker.UI.ViewModels
         /// </returns>
         public async Task<bool> Initialize(string buildValue, bool findMainSkill)
         {
+            if (string.IsNullOrEmpty(buildValue))
+            {
+                return false;
+            }
+
             this.Build = null;
 
             try
             {
-                var settings = this.SettingsService.BuildHelperSettings;
                 using (var service = new PathOfBuildingService())
                 {
                     await service.InitializeAsync();
                     this.Build = service.Decode(buildValue);
 
                     this.Skills.Clear();
-                    foreach (var skill in this.Build.Skills.Select(s => new SkillViewModel(s, settings.TimelineEnabled)))
+                    foreach (var skill in this.Build.Skills.Select(s => new SkillViewModel(s, this.SettingsService.ToolTipEnabled)))
                     {
                         skill.PropertyChanged += this.Skill_PropertyChanged;
                         this.Skills.Add(skill);
                     }
 
-                    if (findMainSkill)
+                    if (findMainSkill && this._activePlayer != null)
                     {
+                        var settings = this._activePlayer.Build;
+                        settings.Value = buildValue;
                         var mainSKill = this.Skills.OrderByDescending(s => s.Gems.Count(g => g.Support)).FirstOrDefault();
                         if (mainSKill != null)
                         {
@@ -275,18 +256,19 @@ namespace Lurker.UI.ViewModels
                             settings.ItemsSelected.Clear();
                             settings.SkillsSelected.Clear();
                             settings.SkillsSelected.Add(index);
-                            this.SettingsService.Save();
                         }
+
+                        this._playerService.Save();
                     }
 
                     this.UniqueItems.Clear();
-                    foreach (var item in this.Build.Items.Select(s => new UniqueItemViewModel(s, settings.TimelineEnabled)))
+                    foreach (var item in this.Build.Items.Select(s => new UniqueItemViewModel(s, this.SettingsService.ToolTipEnabled)))
                     {
                         item.PropertyChanged += this.Item_PropertyChanged;
                         this.UniqueItems.Add(item);
                     }
 
-                    this.SelectItems(settings, true);
+                    this.SelectItems(true);
 
                     // To notify that we are initialize.
                     this.NotifyOfPropertyChange("Skills");
@@ -299,6 +281,55 @@ namespace Lurker.UI.ViewModels
 
             this.HasNoBuild = false;
             return true;
+        }
+
+        /// <summary>
+        /// Clears the build.
+        /// </summary>
+        public void ClearBuild()
+        {
+            this.Build = null;
+            this.Skills.Clear();
+            this.UniqueItems.Clear();
+            this.HasNoBuild = true;
+
+            this._eventAggregator.PublishOnUIThread(new SkillMessage() { Clear = true });
+        }
+
+        /// <summary>
+        /// Called when activating.
+        /// </summary>
+        protected override void OnActivate()
+        {
+            if (this.View != null)
+            {
+                this.View.Deactivated += this.View_Deactivated;
+            }
+
+            if (this.Build != null)
+            {
+                this.ClearEventHandlers();
+
+                // Gems
+                this.Skills.Clear();
+                foreach (var skill in this.Build.Skills.Select(s => new SkillViewModel(s, this.SettingsService.TimelineEnabled)))
+                {
+                    skill.PropertyChanged += this.Skill_PropertyChanged;
+                    this.Skills.Add(skill);
+                }
+
+                // Unique items
+                this.UniqueItems.Clear();
+                foreach (var item in this.Build.Items.Select(s => new UniqueItemViewModel(s, this.SettingsService.TimelineEnabled)))
+                {
+                    item.PropertyChanged += this.Item_PropertyChanged;
+                    this.UniqueItems.Add(item);
+                }
+
+                this.SelectItems();
+            }
+
+            base.OnActivate();
         }
 
         /// <summary>
@@ -325,7 +356,59 @@ namespace Lurker.UI.ViewModels
         protected override void OnDeactivate(bool close)
         {
             this.ClearEventHandlers();
+            this.View.Deactivated -= this.View_Deactivated;
             base.OnDeactivate(close);
+        }
+
+        /// <summary>
+        /// Called when an attached view's Loaded event fires.
+        /// </summary>
+        /// <param name="view">The view.</param>
+        protected override void OnViewLoaded(object view)
+        {
+            base.OnViewLoaded(view);
+            this.View.Deactivated += this.View_Deactivated;
+        }
+
+        /// <summary>
+        /// Handles the Deactivated event of the View control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void View_Deactivated(object sender, System.EventArgs e)
+        {
+            if (this.ActivePlayer != null)
+            {
+                this.ActivePlayer.SelectionVisible = false;
+            }
+        }
+
+        /// <summary>
+        /// Players the service player changed.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
+        private async void PlayerService_PlayerChanged(object sender, Player e)
+        {
+            // First Character
+            if (this._activePlayer == null)
+            {
+                if (this.Build != null)
+                {
+                    e.Build.Value = this.Build.Value;
+                }
+
+                return;
+            }
+
+            this.ClearBuild();
+            this._activePlayer = e;
+            if (string.IsNullOrEmpty(e.Build.Value))
+            {
+                return;
+            }
+
+            await this.Initialize(e.Build.Value, false);
         }
 
         /// <summary>
@@ -358,12 +441,13 @@ namespace Lurker.UI.ViewModels
             }
 
             var index = this.UniqueItems.IndexOf(item);
+            var settings = this._activePlayer.Build;
             if (item.Selected)
             {
-                var itemIndex = this.SettingsService.BuildHelperSettings.ItemsSelected.IndexOf(index);
+                var itemIndex = settings.ItemsSelected.IndexOf(index);
                 if (itemIndex == -1)
                 {
-                    this.SettingsService.BuildHelperSettings.ItemsSelected.Add(index);
+                    settings.ItemsSelected.Add(index);
                 }
             }
             else
@@ -371,21 +455,26 @@ namespace Lurker.UI.ViewModels
                 bool removed;
                 do
                 {
-                    removed = this.SettingsService.BuildHelperSettings.ItemsSelected.Remove(index);
+                    removed = settings.ItemsSelected.Remove(index);
                 }
                 while (removed);
             }
 
-            this.SettingsService.Save();
+            this._playerService.Save();
         }
 
         /// <summary>
         /// Selects the skills.
         /// </summary>
-        /// <param name="settings">The settings.</param>
         /// <param name="raiseEvent">if set to <c>true</c> [raise event].</param>
-        private void SelectItems(BuildHelperSettings settings, bool raiseEvent = false)
+        private void SelectItems(bool raiseEvent = false)
         {
+            if (this._activePlayer == null)
+            {
+                return;
+            }
+
+            var settings = this._activePlayer.Build;
             foreach (var index in settings.SkillsSelected.ToArray())
             {
                 if (index >= this.Skills.Count)
@@ -439,12 +528,14 @@ namespace Lurker.UI.ViewModels
             }
 
             var index = this.Skills.IndexOf(skill);
+            var settings = this._activePlayer.Build;
+
             if (skill.Selected)
             {
-                var skillIndex = this.SettingsService.BuildHelperSettings.SkillsSelected.IndexOf(index);
+                var skillIndex = settings.SkillsSelected.IndexOf(index);
                 if (skillIndex == -1)
                 {
-                    this.SettingsService.BuildHelperSettings.SkillsSelected.Add(index);
+                    settings.SkillsSelected.Add(index);
                 }
             }
             else
@@ -452,12 +543,12 @@ namespace Lurker.UI.ViewModels
                 bool removed;
                 do
                 {
-                    removed = this.SettingsService.BuildHelperSettings.SkillsSelected.Remove(index);
+                    removed = settings.SkillsSelected.Remove(index);
                 }
                 while (removed);
             }
 
-            this.SettingsService.Save();
+            this._playerService.Save();
         }
 
         /// <summary>
@@ -466,7 +557,7 @@ namespace Lurker.UI.ViewModels
         /// <param name="enabled">if set to <c>true</c> [enabled].</param>
         private void SetTimelineSettings(bool enabled)
         {
-            this.SettingsService.BuildHelperSettings.TimelineEnabled = enabled;
+            this.SettingsService.TimelineEnabled = enabled;
             this.SettingsService.Save();
 
             foreach (var skill in this.Skills)

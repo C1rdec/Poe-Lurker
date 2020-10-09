@@ -59,7 +59,11 @@ namespace Lurker.Services
                 throw new InvalidOperationException("Must be initialized");
             }
 
-            var build = new Build();
+            var build = new Build()
+            {
+                Value = buildValue,
+            };
+
             var document = XDocument.Parse(GetXml(buildValue));
             var skillsElement = document.Root.Element("Skills");
             if (skillsElement != null)

@@ -14,6 +14,7 @@
         Title="BuildView" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
@@ -30,14 +31,23 @@
         <Grid.Resources>
             <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
         </Grid.Resources>
-        <Controls:MetroAnimatedTabControl Controls:TabControlHelper.IsUnderlined="True" Controls:TabControlHelper.Underlined="TabPanel" TabStripPlacement="Top">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border Background="#252525" CornerRadius="4,4,0,0" Grid.ColumnSpan="2"/>
+            <Controls:ToggleSwitch IsChecked="{Binding SkillTimelineEnabled}" Grid.Column="1" HorizontalAlignment="Right" OnLabel="Timeline" OffLabel="Timeline"></Controls:ToggleSwitch>
+            <ContentControl FontSize="18" x:Name="ActivePlayer"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Grid>
+
+        <Controls:MetroAnimatedTabControl Controls:TabControlHelper.IsUnderlined="True" Controls:TabControlHelper.Underlined="TabPanel" TabStripPlacement="Top" Grid.Row="1">
             <TabItem Header="Gems" Width="175">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Controls:ToggleSwitch IsChecked="{Binding SkillTimelineEnabled}" HorizontalAlignment="Right" OnLabel="Timeline" OffLabel="Timeline"></Controls:ToggleSwitch>
                     <Grid Grid.Row="1" Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" >
                         <ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Hidden">
                             <Viewbox HorizontalAlignment="Left" Stretch="UniformToFill" StretchDirection="DownOnly">
@@ -68,7 +78,7 @@
                 </ScrollViewer>
             </TabItem>
         </Controls:MetroAnimatedTabControl>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>

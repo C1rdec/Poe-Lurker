@@ -342,7 +342,7 @@ namespace Lurker.UI
                     this._helpOverlay.Initialize(this.ToggleBuildHelper);
                     this.ActivateItem(this._helpOverlay);
 
-                    if (this._skillTimelineOverlay != null && this._settingsService.BuildHelperSettings.TimelineEnabled)
+                    if (this._skillTimelineOverlay != null && this._settingsService.TimelineEnabled)
                     {
                         this.ActivateItem(this._skillTimelineOverlay);
                     }
@@ -439,7 +439,7 @@ namespace Lurker.UI
                     this.ActivateItem(this._outgoingTradeBarOverlay);
                 }
 
-                if (this._settingsService.BuildHelperSettings.TimelineEnabled)
+                if (this._settingsService.TimelineEnabled)
                 {
                     this.ActivateItem(this._skillTimelineOverlay);
                 }

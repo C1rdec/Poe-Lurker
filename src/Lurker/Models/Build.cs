@@ -51,6 +51,11 @@ namespace Lurker.Models
         /// </summary>
         public string SkillTreeUrl { get; set; }
 
+        /// <summary>
+        /// Gets or sets the value.
+        /// </summary>
+        public string Value { get; set; }
+
         #endregion
 
         #region Methods

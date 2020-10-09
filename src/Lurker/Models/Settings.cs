@@ -17,11 +17,6 @@ namespace Lurker.Models
         #region Properties
 
         /// <summary>
-        /// Gets or sets the build helper settings.
-        /// </summary>
-        public BuildHelperSettings BuildHelperSettings { get; set; }
-
-        /// <summary>
         /// Gets or sets the user identifier.
         /// </summary>
         public string UserId { get; set; }
@@ -185,6 +180,11 @@ namespace Lurker.Models
         /// </summary>
         [DefaultValue(true)]
         public bool ShowReleaseNote { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [timeline enabled].
+        /// </summary>
+        public bool TimelineEnabled { get; set; }
 
         #endregion
     }

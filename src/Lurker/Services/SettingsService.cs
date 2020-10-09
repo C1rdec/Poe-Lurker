@@ -79,11 +79,6 @@ namespace Lurker.Services
         #region Properties
 
         /// <summary>
-        /// Gets the build helper settings.
-        /// </summary>
-        public BuildHelperSettings BuildHelperSettings => this._settings.BuildHelperSettings;
-
-        /// <summary>
         /// Gets the user identifier.
         /// </summary>
         public string UserId => this._settings.UserId;
@@ -549,6 +544,22 @@ namespace Lurker.Services
             set
             {
                 this._settings.ShowReleaseNote = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [time line enabled].
+        /// </summary>
+        public bool TimelineEnabled
+        {
+            get
+            {
+                return this._settings.TimelineEnabled;
+            }
+
+            set
+            {
+                this._settings.TimelineEnabled = value;
             }
         }
 

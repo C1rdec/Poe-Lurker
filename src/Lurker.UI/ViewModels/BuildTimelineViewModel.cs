@@ -130,6 +130,16 @@ namespace Lurker.UI.ViewModels
         #region Methods
 
         /// <summary>
+        /// Called when an attached view's Loaded event fires.
+        /// </summary>
+        /// <param name="view">The view.</param>
+        protected override void OnViewLoaded(object view)
+        {
+            base.OnViewLoaded(view);
+            this.View.Deactivated += this.View_Deactivated;
+        }
+
+        /// <summary>
         /// Handles the message.
         /// </summary>
         /// <param name="message">The message.</param>
@@ -183,7 +193,7 @@ namespace Lurker.UI.ViewModels
                 }
                 while (removed);
             }
-            else
+            else if (message.Skill != null)
             {
                 var index = this._skills.IndexOf(message.Skill);
                 if (index == -1)
@@ -202,6 +212,11 @@ namespace Lurker.UI.ViewModels
         protected override void OnActivate()
         {
             this._eventAggregator.Subscribe(this);
+            if (this.View != null)
+            {
+                this.View.Deactivated += this.View_Deactivated;
+            }
+
             base.OnActivate();
         }
 
@@ -212,6 +227,7 @@ namespace Lurker.UI.ViewModels
         protected override void OnDeactivate(bool close)
         {
             this._eventAggregator.Unsubscribe(this);
+            this.View.Deactivated -= this.View_Deactivated;
             base.OnDeactivate(close);
         }
 
@@ -238,6 +254,19 @@ namespace Lurker.UI.ViewModels
                 this.View.Left = windowInformation.Position.Left + windowInformation.FlaskBarWidth + Margin - margin;
                 this.View.Top = windowInformation.Position.Bottom - overlayHeight - windowInformation.ExpBarHeight + Margin;
             });
+        }
+
+        /// <summary>
+        /// Handles the Deactivated event of the View control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void View_Deactivated(object sender, System.EventArgs e)
+        {
+            if (this.ActivePlayer != null)
+            {
+                this.ActivePlayer.SelectionVisible = false;
+            }
         }
 
         /// <summary>
