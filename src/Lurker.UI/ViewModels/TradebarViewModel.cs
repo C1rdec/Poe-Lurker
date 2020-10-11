@@ -319,6 +319,8 @@ namespace Lurker.UI.ViewModels
         /// <param name="offer">The offer.</param>
         private void SetActiveOffer(OfferViewModel offer)
         {
+            this.DockingHelper.SetForeground();
+
             var currentActiveOffer = this.ActiveOffer;
             if (currentActiveOffer == null)
             {
