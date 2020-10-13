@@ -262,6 +262,7 @@
     </Compile>
     <Compile Include="ViewModels\AffixViewModel.cs" />
     <Compile Include="ViewModels\BuildViewModel.cs" />
+    <Compile Include="ViewModels\GroupItemViewModel.cs" />
     <Compile Include="ViewModels\PlayerViewModel.cs" />
     <Compile Include="ViewModels\ChartViewModelBase.cs" />
     <Compile Include="ViewModels\CollaborationViewModel.cs" />
@@ -315,6 +316,9 @@
     </Compile>
     <Compile Include="Views\GemView.xaml.cs">
       <DependentUpon>GemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GroupItemView.xaml.cs">
+      <DependentUpon>GroupItemView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HelpView.xaml.cs">
       <DependentUpon>HelpView.xaml</DependentUpon>
@@ -419,6 +423,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\GemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GroupItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

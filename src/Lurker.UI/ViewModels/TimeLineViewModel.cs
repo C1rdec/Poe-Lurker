@@ -7,6 +7,7 @@
 namespace Lurker.UI.ViewModels
 {
     using System.Collections.ObjectModel;
+    using System.Linq;
     using Caliburn.Micro;
     using Lurker.UI.Models;
     using Lurker.UI.Views;
@@ -120,6 +121,12 @@ namespace Lurker.UI.ViewModels
         {
             item.SetInformation(this._information);
             this.Items.Add(item);
+
+            var maxValue = this.Items.Max(i => i.Value);
+            if (this.Maximum != maxValue)
+            {
+                this.SetMaxValue(maxValue + 1);
+            }
         }
 
         /// <summary>

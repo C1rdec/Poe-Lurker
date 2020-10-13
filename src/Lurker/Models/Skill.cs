@@ -77,7 +77,7 @@ namespace Lurker.Models
                 if (gem == null)
                 {
                     gem = Gem.FromXml(gemElement);
-                    if (string.IsNullOrEmpty(gem.Name))
+                    if (string.IsNullOrEmpty(gem.Name) || gem.Level == 0)
                     {
                         continue;
                     }
