@@ -185,7 +185,9 @@ namespace Lurker.UI.ViewModels
         public void RemoveCore(bool setForeground)
         {
             this._skipMainAction = true;
-            if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+            var controlPressed = false;
+            Execute.OnUIThread(() => controlPressed = Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl));
+            if (controlPressed)
             {
                 this._barContext.ClearAll();
             }

@@ -27,6 +27,7 @@ namespace Lurker.UI.ViewModels
     {
         #region Fields
 
+        private PlayerService _playerService;
         private ClipboardLurker _clipboardLurker;
         private ClientLurker _clientLurker;
         private PoeKeyboardHelper _keyboardHelper;
@@ -53,7 +54,8 @@ namespace Lurker.UI.ViewModels
         /// <param name="keyboardHelper">The keyboard helper.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="windowManager">The window manager.</param>
-        public OutgoingbarViewModel(IEventAggregator eventAggregator, ClipboardLurker clipboardLurker, ClientLurker clientLurker, ProcessLurker processLurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper, SettingsService settingsService, IWindowManager windowManager)
+        /// <param name="playerService">The player service.</param>
+        public OutgoingbarViewModel(IEventAggregator eventAggregator, ClipboardLurker clipboardLurker, ClientLurker clientLurker, ProcessLurker processLurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper, SettingsService settingsService, IWindowManager windowManager, PlayerService playerService)
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
             this.Offers = new ObservableCollection<OutgoingOfferViewModel>();
@@ -64,6 +66,7 @@ namespace Lurker.UI.ViewModels
             this._clipboardLurker = clipboardLurker;
             this._eventAggregator = eventAggregator;
             this._clientLurker = clientLurker;
+            this._playerService = playerService;
 
             this.Offers.CollectionChanged += this.Offers_CollectionChanged;
             this._context = new OutgoingbarContext(this.RemoveOffer, this.SetActiveOffer, this.ClearAll);
@@ -246,6 +249,12 @@ namespace Lurker.UI.ViewModels
             {
                 var tradeEvent = this._activeOffer.Event;
                 await this._keyboardHelper.Whisper(tradeEvent.PlayerName, TokenHelper.ReplaceToken(this.SettingsService.ThankYouMessage, tradeEvent));
+            }
+
+            var activePlayer = this._playerService.FirstPlayer;
+            if (activePlayer != null)
+            {
+                await this._keyboardHelper.Kick(activePlayer.Name);
             }
 
             this.InsertEvent(this._activeOffer.Event);
