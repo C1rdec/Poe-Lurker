@@ -252,7 +252,7 @@ namespace Lurker.UI.ViewModels
             }
 
             var activePlayer = this._playerService.FirstPlayer;
-            if (activePlayer != null)
+            if (activePlayer != null && this.SettingsService.AutoKickEnabled)
             {
                 await this._keyboardHelper.Kick(activePlayer.Name);
             }
