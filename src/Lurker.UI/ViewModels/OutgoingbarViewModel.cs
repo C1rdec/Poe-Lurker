@@ -69,6 +69,8 @@ namespace Lurker.UI.ViewModels
             this._playerService = playerService;
 
             this.Offers.CollectionChanged += this.Offers_CollectionChanged;
+            this._clipboardLurker.NewOffer += this.ClipboardLurker_NewOffer;
+
             this._context = new OutgoingbarContext(this.RemoveOffer, this.SetActiveOffer, this.ClearAll);
         }
 
@@ -123,7 +125,6 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         protected override void OnActivate()
         {
-            this._clipboardLurker.NewOffer += this.ClipboardLurker_NewOffer;
             this._clientLurker.OutgoingOffer += this.Lurker_OutgoingOffer;
             this._clientLurker.TradeAccepted += this.Lurker_TradeAccepted;
 
@@ -140,7 +141,6 @@ namespace Lurker.UI.ViewModels
             {
                 this._clientLurker.OutgoingOffer -= this.Lurker_OutgoingOffer;
                 this._clientLurker.TradeAccepted -= this.Lurker_TradeAccepted;
-                this.Offers.CollectionChanged -= this.Offers_CollectionChanged;
             }
 
             base.OnDeactivate(close);
