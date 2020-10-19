@@ -34,6 +34,11 @@
                     <MenuItem Header="Update" Visibility="{Binding NeedUpdate, Converter={StaticResource BooleanToVisibilityConverter}}" cal:Message.Attach="[Event Click] = [Action Update]"/>
                     <MenuItem IsChecked="{Binding StartWithWindows}" Header="Start with Windows" cal:Message.Attach="[Event Click] = [Action CreateShortCut]"/>
                     <MenuItem Header="Settings" cal:Message.Attach="[Event Click] = [Action ShowSettings]"/>
+                    <MenuItem StaysOpenOnClick="True" Visibility="{Binding ActivePlayerVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <MenuItem.Header>
+                            <ContentControl x:Name="ActivePlayer" cal:View.Model="{Binding ActivePlayer}"/>
+                        </MenuItem.Header>
+                    </MenuItem>
                     <MenuItem cal:Message.Attach="[Event Click] = [Action Close]">
                         <MenuItem.Header>
                             <Grid>

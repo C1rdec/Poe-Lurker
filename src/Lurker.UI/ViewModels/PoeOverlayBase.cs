@@ -24,6 +24,8 @@ namespace Lurker.UI.ViewModels
         #region Fields
 
         private bool _manualHide;
+        private double _scaleX;
+        private double _scaleY;
 
         #endregion
 
@@ -42,6 +44,10 @@ namespace Lurker.UI.ViewModels
             this.DockingHelper = dockingHelper;
             this.ProcessLurker = processLurker;
             this.SettingsService = settingsService;
+
+            // Default scale value
+            this._scaleY = 1;
+            this._scaleX = 1;
         }
 
         #endregion
@@ -103,6 +109,26 @@ namespace Lurker.UI.ViewModels
         #region Methods
 
         /// <summary>
+        /// Applies the scaling x.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>The scaled value.</returns>
+        protected double ApplyScalingX(double value)
+        {
+            return value / this._scaleX;
+        }
+
+        /// <summary>
+        /// Applies the scalling y.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>The scaled value.</returns>
+        protected double ApplyScalingY(double value)
+        {
+            return value / this._scaleY;
+        }
+
+        /// <summary>
         /// Hides the view.
         /// </summary>
         protected void HideView()
@@ -115,7 +141,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         protected void ShowView()
         {
-            if (this._manualHide)
+            if (this._manualHide || this.View == null || !this.View.IsLoaded)
             {
                 return;
             }
@@ -194,6 +220,14 @@ namespace Lurker.UI.ViewModels
         {
             this.View = view as Window;
             this.View.ShowActivated = false;
+
+            var source = PresentationSource.FromVisual(this.View);
+            if (source != null)
+            {
+                this._scaleX = source.CompositionTarget.TransformToDevice.M11;
+                this._scaleY = source.CompositionTarget.TransformToDevice.M22;
+            }
+
             this.SetWindowPosition(this.DockingHelper.WindowInformation);
         }
 

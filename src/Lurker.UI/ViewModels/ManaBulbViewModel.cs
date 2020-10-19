@@ -109,11 +109,10 @@ namespace Lurker.UI.ViewModels
             var margin = PoeApplicationContext.WindowStyle == WindowStyle.Windowed ? 10 : 0;
             Execute.OnUIThread(() =>
             {
-                this.View.Height = value;
-                this.View.Width = value;
-                this.View.Left = windowInformation.Position.Right - value - margin;
-                this.View.Top = windowInformation.Position.Bottom - value - margin;
-                var lifeView = this.View as ManaBulbView;
+                this.View.Height = this.ApplyScalingY(value);
+                this.View.Width = this.ApplyScalingX(value);
+                this.View.Left = this.ApplyScalingX(windowInformation.Position.Right - value - margin);
+                this.View.Top = this.ApplyScalingY(windowInformation.Position.Bottom - value - margin);
             });
         }
 

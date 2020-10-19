@@ -32,6 +32,7 @@ namespace Lurker.UI
     {
         #region Fields
 
+        private PlayerViewModel _activePlayer;
         private SimpleContainer _container;
         private ProcessLurker _processLurker;
         private ClientLurker _currentLurker;
@@ -108,6 +109,32 @@ namespace Lurker.UI
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets the active player.
+        /// </summary>
+        public PlayerViewModel ActivePlayer
+        {
+            get
+            {
+                return this._activePlayer;
+            }
+
+            private set
+            {
+                if (this._activePlayer != value)
+                {
+                    this._activePlayer = value;
+                    this.NotifyOfPropertyChange();
+                    this.NotifyOfPropertyChange("ActivePlayerVisible");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [active player visible].
+        /// </summary>
+        public bool ActivePlayerVisible => this.ActivePlayer != null;
 
         /// <summary>
         /// Gets or sets the item overlay view model.
@@ -483,6 +510,7 @@ namespace Lurker.UI
         /// </summary>
         private void CleanUp()
         {
+            this.ActivePlayer = null;
             this._container.UnregisterHandler<ClientLurker>();
             this._container.UnregisterHandler<PlayerService>();
             this._container.UnregisterHandler<ProcessLurker>();
@@ -558,6 +586,8 @@ namespace Lurker.UI
             this._currentLurker.AdminRequested += this.CurrentLurker_AdminRequested;
 
             this._currentCharacterService = new PlayerService(this._currentLurker);
+            this.ActivePlayer = new PlayerViewModel(this._currentCharacterService);
+            this.NotifyOfPropertyChange("ActivePlayer");
 
             if (this._closing)
             {

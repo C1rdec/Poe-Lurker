@@ -65,10 +65,10 @@ namespace Lurker.UI.ViewModels
             var value = DefaultBulbHeight * windowInformation.Height / 1080;
             Execute.OnUIThread(() =>
             {
-                this.View.Height = value;
-                this.View.Width = value;
-                this.View.Left = windowInformation.Position.Left + 10;
-                this.View.Top = windowInformation.Position.Bottom - value - 10;
+                this.View.Height = this.ApplyScalingY(value);
+                this.View.Width = this.ApplyScalingX(value);
+                this.View.Left = this.ApplyScalingX(windowInformation.Position.Left + 10);
+                this.View.Top = this.ApplyScalingY(windowInformation.Position.Bottom - value - 10);
                 var lifeView = this.View as LifeBulbView;
                 lifeView.ResizeLifeBulb();
             });

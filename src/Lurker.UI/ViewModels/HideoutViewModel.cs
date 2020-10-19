@@ -74,9 +74,9 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Joins the hideout.
         /// </summary>
-        public void JoinHideout()
+        public async void JoinHideout()
         {
-            this._keyboardHelper.JoinHideout();
+            await this._keyboardHelper.JoinHideout();
         }
 
         /// <summary>
@@ -90,10 +90,10 @@ namespace Lurker.UI.ViewModels
 
             Execute.OnUIThread(() =>
             {
-                this.View.Height = value;
-                this.View.Width = value;
-                this.View.Left = windowInformation.Position.Left + margin;
-                this.View.Top = windowInformation.Position.Bottom - value - margin;
+                this.View.Height = this.ApplyScalingY(value);
+                this.View.Width = this.ApplyScalingX(value);
+                this.View.Left = this.ApplyScalingX(windowInformation.Position.Left + margin);
+                this.View.Top = this.ApplyScalingY(windowInformation.Position.Bottom - value - margin);
             });
         }
 

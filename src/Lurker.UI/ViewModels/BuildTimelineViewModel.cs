@@ -249,10 +249,10 @@ namespace Lurker.UI.ViewModels
 
             Execute.OnUIThread(() =>
             {
-                this.View.Height = overlayHeight;
-                this.View.Width = overlayWidth;
-                this.View.Left = windowInformation.Position.Left + windowInformation.FlaskBarWidth + Margin - margin;
-                this.View.Top = windowInformation.Position.Bottom - overlayHeight - windowInformation.ExpBarHeight + Margin;
+                this.View.Height = this.ApplyScalingY(overlayHeight);
+                this.View.Width = this.ApplyScalingX(overlayWidth);
+                this.View.Left = this.ApplyScalingX(windowInformation.Position.Left + windowInformation.FlaskBarWidth + Margin - margin);
+                this.View.Top = this.ApplyScalingY(windowInformation.Position.Bottom - overlayHeight - windowInformation.ExpBarHeight + Margin);
             });
         }
 
