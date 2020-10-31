@@ -263,6 +263,7 @@
     <Compile Include="ViewModels\AffixViewModel.cs" />
     <Compile Include="ViewModels\BuildViewModel.cs" />
     <Compile Include="ViewModels\GroupItemViewModel.cs" />
+    <Compile Include="ViewModels\MapViewModel.cs" />
     <Compile Include="ViewModels\PlayerViewModel.cs" />
     <Compile Include="ViewModels\ChartViewModelBase.cs" />
     <Compile Include="ViewModels\CollaborationViewModel.cs" />
