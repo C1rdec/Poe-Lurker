@@ -8,7 +8,6 @@ namespace Lurker.UI.ViewModels
 {
     using System.Linq;
     using Lurker.Patreon.Models;
-    using Sentry.Protocol;
 
     /// <summary>
     /// Represents a map item.
@@ -23,6 +22,7 @@ namespace Lurker.UI.ViewModels
         private const string CannotRegenerateId = "stat_1910157106";
         private const string CannotLeechId = "stat_526251910";
         private const string TemporalChainsId = "stat_2326202293";
+        private System.Action _closeCallBack;
         private Map _map;
         private bool _reflectPhysical;
         private bool _reflectElemental;
@@ -35,12 +35,14 @@ namespace Lurker.UI.ViewModels
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MapViewModel"/> class.
+        /// Initializes a new instance of the <see cref="MapViewModel" /> class.
         /// </summary>
         /// <param name="map">The map.</param>
-        public MapViewModel(Map map)
+        /// <param name="closeCallback">The close callback.</param>
+        public MapViewModel(Map map, System.Action closeCallback)
         {
             this._map = map;
+            this._closeCallBack = closeCallback;
             foreach (var affix in this._map.DangerousAffixes.Where(d => d != null))
             {
                 switch (affix.Id)
@@ -90,12 +92,20 @@ namespace Lurker.UI.ViewModels
 
         /// <summary>
         /// Gets a value indicating whether [temporal chains].
-        /// </summary
+        /// </summary>
         public bool TemporalChains => this._temporalChains;
 
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Closes this instance.
+        /// </summary>
+        public void Close()
+        {
+            this._closeCallBack?.Invoke();
+        }
 
         /// <summary>
         /// Notifies the change.

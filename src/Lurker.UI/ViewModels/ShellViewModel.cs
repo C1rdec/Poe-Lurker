@@ -49,7 +49,7 @@ namespace Lurker.UI
         private HideoutViewModel _hideoutOverlay;
         private SettingsService _settingsService;
         private AfkService _afkService;
-        private ItemOverlayViewModel _itemOverlay;
+        private Caliburn.Micro.PropertyChangedBase _itemOverlay;
         private SettingsViewModel _settingsViewModel;
         private BuildViewModel _buildViewModel;
         private HelpViewModel _helpOverlay;
@@ -139,7 +139,7 @@ namespace Lurker.UI
         /// <summary>
         /// Gets or sets the item overlay view model.
         /// </summary>
-        public ItemOverlayViewModel ItemOverlayViewModel
+        public Caliburn.Micro.PropertyChangedBase ItemOverlayViewModel
         {
             get
             {
@@ -672,11 +672,24 @@ namespace Lurker.UI
         /// Clipboards the lurker newitem.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">The e.</param>
-        private void MouseLurker_Newitem(object sender, PoeItem e)
+        /// <param name="item">The item.</param>
+        private void MouseLurker_Newitem(object sender, PoeItem item)
         {
             this.IsItemOverlayOpen = false;
-            this.ItemOverlayViewModel = new ItemOverlayViewModel(e, () => { this.IsItemOverlayOpen = false; });
+            void Callback()
+            {
+                this.IsItemOverlayOpen = false;
+            }
+
+            if (item is Map map)
+            {
+                this.ItemOverlayViewModel = new MapViewModel(map, Callback);
+            }
+            else
+            {
+                this.ItemOverlayViewModel = new ItemOverlayViewModel(item, Callback);
+            }
+
             this.IsItemOverlayOpen = true;
         }
 

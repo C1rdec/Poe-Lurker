@@ -339,6 +339,9 @@
     <Compile Include="Views\LifeBulbView.xaml.cs">
       <DependentUpon>LifeBulbView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MapView.xaml.cs">
+      <DependentUpon>MapView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\OutgoingbarView.xaml.cs">
       <DependentUpon>OutgoingbarView.xaml</DependentUpon>
     </Compile>
@@ -452,6 +455,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\LifeBulbView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MapView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -620,6 +627,11 @@
     <Resource Include="Assets\Shadow.png" />
     <Resource Include="Assets\Templar.png" />
     <Resource Include="Assets\Witch.png" />
+    <Resource Include="Assets\NoLeech.png" />
+    <Resource Include="Assets\NoRegeneration.png" />
+    <Resource Include="Assets\ReflectElemental.png" />
+    <Resource Include="Assets\ReflectPhysical.png" />
+    <Resource Include="Assets\TemporalChain.png" />
     <Content Include="SVG\Beer.svg" />
     <Content Include="SVG\Help.svg" />
     <Content Include="SVG\Hideout.svg" />

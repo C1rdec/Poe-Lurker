@@ -10,7 +10,7 @@
     <Grid>
         <Popup IsOpen="{Binding IsOpen}" Margin="-100,-10,0,0" x:Name="Popup" Focusable="False" Placement="MousePoint" AllowsTransparency="True">
             <Border Background="Black" CornerRadius="5" BorderThickness="2" BorderBrush="#e7b577">
-                <Grid ShowGridLines="True">
+                <Grid>
                     <ContentControl Grid.RowSpan="2" Grid.ColumnSpan="2" cal:View.Model="{Binding Path=DetailedView,Mode=OneWay}"/>
                     <Button Height="20" Width="20" VerticalAlignment="Top" HorizontalAlignment="Right" Background="Red" cal:Message.Attach="[Event Click] = [Action Close]" >
                         <Button.Style>

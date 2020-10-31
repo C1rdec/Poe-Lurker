@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="Lurker.UI.Views.MapView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Lurker.UI.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Border Background="Black" CornerRadius="5" BorderThickness="2" BorderBrush="#e7b577">
+        <Grid>
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <Image  Source="/Assets/NoLeech.png"
+                Height="60"
+                Width="60"
+                Visibility="{Binding CannotLeech, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <Image  Source="/Assets/NoRegeneration.png"
+                Height="60"
+                Width="60"
+                Visibility="{Binding CannotRegenerate, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <Image  Source="/Assets/ReflectElemental.png"
+                Height="60"
+                Width="60"
+                Visibility="{Binding ReflectElemental, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <Image  Source="/Assets/ReflectPhysical.png"
+                Height="60"
+                Width="60"
+                Visibility="{Binding ReflectPhysical, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <Image  Source="/Assets/TemporalChain.png"
+                Height="60"
+                Width="60"
+                Visibility="{Binding TemporalChains, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            </StackPanel>
+            <Button Height="20" Width="20" VerticalAlignment="Top" HorizontalAlignment="Right" Background="Red" x:Name="Close" >
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border CornerRadius="0,0,0,20">
+                                        <Border.Style>
+                                            <Style TargetType="{x:Type Border}">
+                                                <Setter Property="Background" Value="Gray"/>
+                                                <Setter Property="Opacity" Value="0.25"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="Red" />
+                                                        <Setter Property="Opacity" Value="0.75"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
+    </Border>
+    
+</UserControl>
