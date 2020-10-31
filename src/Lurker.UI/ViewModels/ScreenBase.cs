@@ -36,8 +36,11 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         protected override void OnActivate()
         {
-            this._windowManager.ShowWindow(this);
-            base.OnActivate();
+            Execute.OnUIThread(() =>
+            {
+                this._windowManager.ShowWindow(this);
+                base.OnActivate();
+            });
         }
 
         #endregion

@@ -44,6 +44,7 @@ namespace Lurker.UI
         private TradebarViewModel _incomingTradeBarOverlay;
         private BuildTimelineViewModel _skillTimelineOverlay;
         private OutgoingbarViewModel _outgoingTradeBarOverlay;
+        private PopupViewModel _popup;
         private LifeBulbViewModel _lifeBulbOverlay;
         private ManaBulbViewModel _manaBulbOverlay;
         private HideoutViewModel _hideoutOverlay;
@@ -434,6 +435,7 @@ namespace Lurker.UI
                 this._clipboardLurker = new ClipboardLurker();
 
                 this._container.RegisterInstance(typeof(ProcessLurker), null, this._processLurker);
+                this._container.RegisterInstance(typeof(MouseLurker), null, this._mouseLurker);
                 this._container.RegisterInstance(typeof(ClientLurker), null, this._currentLurker);
                 this._container.RegisterInstance(typeof(PlayerService), null, this._currentCharacterService);
                 this._container.RegisterInstance(typeof(ClipboardLurker), null, this._clipboardLurker);
@@ -443,6 +445,7 @@ namespace Lurker.UI
                 this._skillTimelineOverlay = this._container.GetInstance<BuildTimelineViewModel>();
                 this._incomingTradeBarOverlay = this._container.GetInstance<TradebarViewModel>();
                 this._outgoingTradeBarOverlay = this._container.GetInstance<OutgoingbarViewModel>();
+                this._popup = this._container.GetInstance<PopupViewModel>();
                 this._lifeBulbOverlay = this._container.GetInstance<LifeBulbViewModel>();
                 this._manaBulbOverlay = this._container.GetInstance<ManaBulbViewModel>();
                 this._afkService = this._container.GetInstance<AfkService>();
@@ -676,21 +679,25 @@ namespace Lurker.UI
         private void MouseLurker_Newitem(object sender, PoeItem item)
         {
             this.IsItemOverlayOpen = false;
-            void Callback()
-            {
-                this.IsItemOverlayOpen = false;
-            }
 
             if (item is Map map)
             {
-                this.ItemOverlayViewModel = new MapViewModel(map, Callback);
+                if (this._popup.IsActive)
+                {
+                    Execute.OnUIThread(() =>
+                    {
+                        this.DeactivateItem(this._popup, true);
+                    });
+                }
+
+                this._popup.SetContent(new MapViewModel(map, this.ActivePlayer, () => this.DeactivateItem(this._popup, true)));
+                this.ActivateItem(this._popup);
             }
             else
             {
-                this.ItemOverlayViewModel = new ItemOverlayViewModel(item, Callback);
+                this.ItemOverlayViewModel = new ItemOverlayViewModel(item, () => this.IsItemOverlayOpen = false);
+                this.IsItemOverlayOpen = true;
             }
-
-            this.IsItemOverlayOpen = true;
         }
 
         /// <summary>

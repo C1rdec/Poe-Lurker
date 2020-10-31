@@ -25,6 +25,8 @@ namespace Lurker
         private SettingsService _settingsService;
         private MouseHook _mouseHook;
         private bool _disposed = false;
+        private int _x;
+        private int _y;
 
         #endregion
 
@@ -38,8 +40,9 @@ namespace Lurker
         public MouseLurker(int processId, SettingsService settingsService)
         {
             this._settingsService = settingsService;
-            this._mouseHook = new MouseHook(processId, MouseMessageTypes.IgnoreMove);
+            this._mouseHook = new MouseHook(processId, MouseMessageTypes.All);
             this._mouseHook.LeftButtonUp += this.MouseHook_LeftButtonUp;
+            this._mouseHook.MouseMove += this.MouseHook_MouseMove;
             this._mouseHook.InstallAsync();
         }
 
@@ -51,6 +54,20 @@ namespace Lurker
         /// Occurs when a new item is in the clipboard.
         /// </summary>
         public event EventHandler<PoeItem> Newitem;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the x.
+        /// </summary>
+        public int X => this._x;
+
+        /// <summary>
+        /// Gets the y.
+        /// </summary>
+        public int Y => this._y;
 
         #endregion
 
@@ -83,6 +100,17 @@ namespace Lurker
 
                 this._disposed = true;
             }
+        }
+
+        /// <summary>
+        /// Handles the MouseMove event of the MouseHook control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="MouseMessageEventArgs"/> instance containing the event data.</param>
+        private void MouseHook_MouseMove(object sender, MouseMessageEventArgs e)
+        {
+            this._x = e.X;
+            this._y = e.Y;
         }
 
         /// <summary>

@@ -38,10 +38,12 @@ namespace Lurker.UI.ViewModels
         /// Initializes a new instance of the <see cref="MapViewModel" /> class.
         /// </summary>
         /// <param name="map">The map.</param>
+        /// <param name="playerViewModel">The player view model.</param>
         /// <param name="closeCallback">The close callback.</param>
-        public MapViewModel(Map map, System.Action closeCallback)
+        public MapViewModel(Map map, PlayerViewModel playerViewModel, System.Action closeCallback)
         {
             this._map = map;
+            this.CurrentPlayer = playerViewModel;
             this._closeCallBack = closeCallback;
             foreach (var affix in this._map.DangerousAffixes.Where(d => d != null))
             {
@@ -69,6 +71,11 @@ namespace Lurker.UI.ViewModels
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets the current player.
+        /// </summary>
+        public PlayerViewModel CurrentPlayer { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether [reflect physical].
