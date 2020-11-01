@@ -50,7 +50,7 @@ namespace Lurker.UI
         private HideoutViewModel _hideoutOverlay;
         private SettingsService _settingsService;
         private AfkService _afkService;
-        private Caliburn.Micro.PropertyChangedBase _itemOverlay;
+        private PropertyChangedBase _itemOverlay;
         private SettingsViewModel _settingsViewModel;
         private BuildViewModel _buildViewModel;
         private HelpViewModel _helpOverlay;
@@ -682,16 +682,13 @@ namespace Lurker.UI
 
             if (item is Map map)
             {
-                if (this._popup.IsActive)
+                if (!this._popup.IsActive)
                 {
-                    Execute.OnUIThread(() =>
-                    {
-                        this.DeactivateItem(this._popup, true);
-                    });
+                    this.ActivateItem(this._popup);
                 }
 
+                this._popup.SetPosition();
                 this._popup.SetContent(new MapViewModel(map, this.ActivePlayer, () => this.DeactivateItem(this._popup, true)));
-                this.ActivateItem(this._popup);
             }
             else
             {

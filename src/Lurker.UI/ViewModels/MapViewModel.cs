@@ -59,6 +59,16 @@ namespace Lurker.UI.ViewModels
         public ObservableCollection<MapAffixViewModel> Affixes { get; set; }
 
         /// <summary>
+        /// Gets a value indicating whether this instance is safe.
+        /// </summary>
+        public bool Safe => !this.Affixes.Any();
+
+        /// <summary>
+        /// Gets a value indicating whether [not safe].
+        /// </summary>
+        public bool NotSafe => !this.Safe;
+
+        /// <summary>
         /// Gets the current player.
         /// </summary>
         public PlayerViewModel CurrentPlayer { get; private set; }

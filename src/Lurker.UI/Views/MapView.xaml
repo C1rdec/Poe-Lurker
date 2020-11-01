@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Lurker.UI.Views"
+             xmlns:local="clr-namespace:Lurker.UI"
+             xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Border Background="Black" CornerRadius="5" BorderThickness="2" BorderBrush="#e7b577">
@@ -12,6 +13,17 @@
                 <RowDefinition/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
+            <local:IconPack Foreground="Green"
+                            cal:Message.Attach="[Event MouseUp] = [Action Close]"
+                        Cursor="Hand"
+                        x:Name="Help"
+                        Height="80"
+                        Visibility="{Binding Safe, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        Data="{x:Static local:IconPackData.Checkbox}">
+                <local:IconPack.Background>
+                    <SolidColorBrush Color="White" Opacity="0.003"/>
+                </local:IconPack.Background>
+            </local:IconPack>
             <ItemsControl  x:Name="Affixes" >
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -19,7 +31,7 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-            <Button Height="20" Width="20" VerticalAlignment="Top" HorizontalAlignment="Right" Background="Red" x:Name="Close" >
+            <Button Height="20" Cursor="Hand" Width="20" VerticalAlignment="Top" HorizontalAlignment="Right" Background="Red" x:Name="Close"  Visibility="{Binding NotSafe, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Template">

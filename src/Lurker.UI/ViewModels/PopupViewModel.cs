@@ -59,6 +59,20 @@ namespace Lurker.UI.ViewModels
         #region Methods
 
         /// <summary>
+        /// Sets the position.
+        /// </summary>
+        public void SetPosition()
+        {
+            Execute.OnUIThread(() =>
+            {
+                this.View.SizeToContent = System.Windows.SizeToContent.Manual;
+                this.View.Top = this._mouseLurker.Y;
+                this.View.Left = this._mouseLurker.X;
+                this.View.SizeToContent = System.Windows.SizeToContent.WidthAndHeight;
+            });
+        }
+
+        /// <summary>
         /// Sets the content.
         /// </summary>
         /// <param name="content">The view.</param>
@@ -67,28 +81,6 @@ namespace Lurker.UI.ViewModels
             this.PopupContent = content;
             this.NotifyOfPropertyChange(() => this.PopupContent);
             this.NotifyOfPropertyChange(() => this.ContentVisible);
-        }
-
-        /// <summary>
-        /// Called when activating.
-        /// </summary>
-        protected override void OnActivate()
-        {
-            // Base first to set the View
-            base.OnActivate();
-
-            Execute.OnUIThread(() =>
-            {
-                this.View.SizeToContent = System.Windows.SizeToContent.Manual;
-                this.View.Top = this._mouseLurker.Y;
-                this.View.Left = this._mouseLurker.X;
-                this.View.SizeToContent = System.Windows.SizeToContent.WidthAndHeight;
-            });
-
-            if (this.View != null)
-            {
-                this.View.Deactivated += this.View_Deactivated;
-            }
         }
 
         /// <summary>
@@ -107,19 +99,6 @@ namespace Lurker.UI.ViewModels
         /// <param name="windowInformation">The window information.</param>
         protected override void SetWindowPosition(PoeWindowInformation windowInformation)
         {
-        }
-
-        /// <summary>
-        /// Handles the Deactivated event of the View control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void View_Deactivated(object sender, System.EventArgs e)
-        {
-            if (this.PopupContent != null)
-            {
-                this.SetContent(null);
-            }
         }
 
         #endregion
