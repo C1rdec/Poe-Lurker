@@ -12,28 +12,13 @@
                 <RowDefinition/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" Margin="10,10,10,0">
-                <Image  Source="/Assets/NoLeech.png"
-                Height="60"
-                Width="60"
-                Visibility="{Binding CannotLeech, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                <Image  Source="/Assets/NoRegeneration.png"
-                Height="60"
-                Width="60"
-                Visibility="{Binding CannotRegenerate, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                <Image  Source="/Assets/ReflectElemental.png"
-                Height="60"
-                Width="60"
-                Visibility="{Binding ReflectElemental, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                <Image  Source="/Assets/ReflectPhysical.png"
-                Height="60"
-                Width="60"
-                Visibility="{Binding ReflectPhysical, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                <Image  Source="/Assets/TemporalChain.png"
-                Height="60"
-                Width="60"
-                Visibility="{Binding TemporalChains, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-            </StackPanel>
+            <ItemsControl  x:Name="Affixes" >
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" Margin="10,10,10,0"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
             <Button Height="20" Width="20" VerticalAlignment="Top" HorizontalAlignment="Right" Background="Red" x:Name="Close" >
                 <Button.Style>
                     <Style TargetType="Button">

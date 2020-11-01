@@ -6,6 +6,7 @@
 
 namespace Lurker.UI.ViewModels
 {
+    using System.Collections.ObjectModel;
     using System.Linq;
     using Lurker.Patreon.Models;
 
@@ -24,11 +25,6 @@ namespace Lurker.UI.ViewModels
         private const string TemporalChainsId = "stat_2326202293";
         private System.Action _closeCallBack;
         private Map _map;
-        private bool _reflectPhysical;
-        private bool _reflectElemental;
-        private bool _cannotRegenerate;
-        private bool _cannotLeech;
-        private bool _temporalChains;
 
         #endregion
 
@@ -45,26 +41,11 @@ namespace Lurker.UI.ViewModels
             this._map = map;
             this.CurrentPlayer = playerViewModel;
             this._closeCallBack = closeCallback;
+
+            this.Affixes = new ObservableCollection<MapAffixViewModel>();
             foreach (var affix in this._map.DangerousAffixes.Where(d => d != null))
             {
-                switch (affix.Id)
-                {
-                    case ReflectPhysicalId:
-                        this._reflectPhysical = true;
-                        break;
-                    case ReflectElementalId:
-                        this._reflectElemental = true;
-                        break;
-                    case CannotRegenerateId:
-                        this._cannotRegenerate = true;
-                        break;
-                    case CannotLeechId:
-                        this._cannotLeech = true;
-                        break;
-                    case TemporalChainsId:
-                        this._temporalChains = true;
-                        break;
-                }
+                this.Affixes.Add(new MapAffixViewModel(affix));
             }
         }
 
@@ -73,34 +54,14 @@ namespace Lurker.UI.ViewModels
         #region Properties
 
         /// <summary>
+        /// Gets or sets the affixes.
+        /// </summary>
+        public ObservableCollection<MapAffixViewModel> Affixes { get; set; }
+
+        /// <summary>
         /// Gets the current player.
         /// </summary>
         public PlayerViewModel CurrentPlayer { get; private set; }
-
-        /// <summary>
-        /// Gets a value indicating whether [reflect physical].
-        /// </summary>
-        public bool ReflectPhysical => this._reflectPhysical;
-
-        /// <summary>
-        /// Gets a value indicating whether [reflect elemental].
-        /// </summary>
-        public bool ReflectElemental => this._reflectElemental;
-
-        /// <summary>
-        /// Gets a value indicating whether [cannot regenerate].
-        /// </summary>
-        public bool CannotRegenerate => this._cannotRegenerate;
-
-        /// <summary>
-        /// Gets a value indicating whether [cannot leech].
-        /// </summary>
-        public bool CannotLeech => this._cannotLeech;
-
-        /// <summary>
-        /// Gets a value indicating whether [temporal chains].
-        /// </summary>
-        public bool TemporalChains => this._temporalChains;
 
         #endregion
 
@@ -112,18 +73,6 @@ namespace Lurker.UI.ViewModels
         public void Close()
         {
             this._closeCallBack?.Invoke();
-        }
-
-        /// <summary>
-        /// Notifies the change.
-        /// </summary>
-        public void NotifyChange()
-        {
-            this.NotifyOfPropertyChange(() => this.ReflectPhysical);
-            this.NotifyOfPropertyChange(() => this.ReflectElemental);
-            this.NotifyOfPropertyChange(() => this.CannotRegenerate);
-            this.NotifyOfPropertyChange(() => this.CannotLeech);
-            this.NotifyOfPropertyChange(() => this.TemporalChains);
         }
 
         #endregion

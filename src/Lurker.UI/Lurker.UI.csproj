@@ -263,6 +263,7 @@
     <Compile Include="ViewModels\AffixViewModel.cs" />
     <Compile Include="ViewModels\BuildViewModel.cs" />
     <Compile Include="ViewModels\GroupItemViewModel.cs" />
+    <Compile Include="ViewModels\MapAffixViewModel.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />
     <Compile Include="ViewModels\PlayerViewModel.cs" />
     <Compile Include="ViewModels\ChartViewModelBase.cs" />
@@ -339,6 +340,9 @@
     </Compile>
     <Compile Include="Views\LifeBulbView.xaml.cs">
       <DependentUpon>LifeBulbView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MapAffixView.xaml.cs">
+      <DependentUpon>MapAffixView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MapView.xaml.cs">
       <DependentUpon>MapView.xaml</DependentUpon>
@@ -459,6 +463,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\LifeBulbView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MapAffixView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

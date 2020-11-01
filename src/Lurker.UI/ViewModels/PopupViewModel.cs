@@ -49,9 +49,25 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public PropertyChangedBase PopupContent { get; private set; }
 
+        /// <summary>
+        /// Gets a value indicating whether [content visible].
+        /// </summary>
+        public bool ContentVisible => this.PopupContent != null;
+
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Sets the content.
+        /// </summary>
+        /// <param name="content">The view.</param>
+        public void SetContent(PropertyChangedBase content)
+        {
+            this.PopupContent = content;
+            this.NotifyOfPropertyChange(() => this.PopupContent);
+            this.NotifyOfPropertyChange(() => this.ContentVisible);
+        }
 
         /// <summary>
         /// Called when activating.
@@ -63,19 +79,26 @@ namespace Lurker.UI.ViewModels
 
             Execute.OnUIThread(() =>
             {
+                this.View.SizeToContent = System.Windows.SizeToContent.Manual;
                 this.View.Top = this._mouseLurker.Y;
                 this.View.Left = this._mouseLurker.X;
+                this.View.SizeToContent = System.Windows.SizeToContent.WidthAndHeight;
             });
+
+            if (this.View != null)
+            {
+                this.View.Deactivated += this.View_Deactivated;
+            }
         }
 
         /// <summary>
-        /// Sets the content.
+        /// Called when an attached view's Loaded event fires.
         /// </summary>
-        /// <param name="content">The view.</param>
-        public void SetContent(PropertyChangedBase content)
+        /// <param name="view">The view.</param>
+        protected override void OnViewLoaded(object view)
         {
-            this.PopupContent = content;
-            this.NotifyOfPropertyChange(() => this.PopupContent);
+            base.OnViewLoaded(view);
+            this.View.Activate();
         }
 
         /// <summary>
@@ -84,6 +107,19 @@ namespace Lurker.UI.ViewModels
         /// <param name="windowInformation">The window information.</param>
         protected override void SetWindowPosition(PoeWindowInformation windowInformation)
         {
+        }
+
+        /// <summary>
+        /// Handles the Deactivated event of the View control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void View_Deactivated(object sender, System.EventArgs e)
+        {
+            if (this.PopupContent != null)
+            {
+                this.SetContent(null);
+            }
         }
 
         #endregion
