@@ -17,7 +17,7 @@
                             cal:Message.Attach="[Event MouseUp] = [Action Close]"
                         Cursor="Hand"
                         x:Name="Help"
-                        Height="80"
+                        Height="75"
                         Visibility="{Binding Safe, Converter={StaticResource BooleanToVisibilityConverter}}"
                         Data="{x:Static local:IconPackData.Checkbox}">
                 <local:IconPack.Background>
@@ -45,6 +45,33 @@
                                                 <Style.Triggers>
                                                     <Trigger Property="IsMouseOver" Value="True">
                                                         <Setter Property="Background" Value="Red" />
+                                                        <Setter Property="Opacity" Value="0.75"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+            <Button Height="20" Cursor="Hand" Width="20" VerticalAlignment="Top" HorizontalAlignment="Left" Background="Red" x:Name="ToggleModSelection">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border CornerRadius="0,0,20,0">
+                                        <Border.Style>
+                                            <Style TargetType="{x:Type Border}">
+                                                <Setter Property="Background" Value="Gray"/>
+                                                <Setter Property="Opacity" Value="0.25"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="Blue" />
                                                         <Setter Property="Opacity" Value="0.75"/>
                                                     </Trigger>
                                                 </Style.Triggers>

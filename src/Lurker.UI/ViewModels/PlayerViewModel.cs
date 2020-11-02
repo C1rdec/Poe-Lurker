@@ -6,6 +6,8 @@
 
 namespace Lurker.UI.ViewModels
 {
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using Lurker.Models;
     using Lurker.Services;
@@ -50,6 +52,11 @@ namespace Lurker.UI.ViewModels
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets the ignored mad mods.
+        /// </summary>
+        public IEnumerable<string> IgnoredMadMods => this._activePlayer.IgnoredMapMods;
 
         /// <summary>
         /// Gets the display name.
@@ -121,6 +128,29 @@ namespace Lurker.UI.ViewModels
         public void ToggleSelection()
         {
             this.SelectionVisible = !this.SelectionVisible;
+        }
+
+        /// <summary>
+        /// Adds the ignored map mod.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        public void AddIgnoredMapMod(string id)
+        {
+            if (!this._activePlayer.IgnoredMapMods.Contains(id))
+            {
+                this._activePlayer.IgnoredMapMods.Add(id);
+                this._service.Save();
+            }
+        }
+
+        /// <summary>
+        /// Removes the ignored map mod.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        public void RemoveIgnoredMapMod(string id)
+        {
+            this._activePlayer.IgnoredMapMods.Remove(id);
+            this._service.Save();
         }
 
         /// <summary>

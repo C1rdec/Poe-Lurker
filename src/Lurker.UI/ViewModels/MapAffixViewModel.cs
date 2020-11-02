@@ -6,6 +6,8 @@
 
 namespace Lurker.UI.ViewModels
 {
+    using System.Linq;
+    using Lurker.Patreon;
     using Lurker.Patreon.Models;
 
     /// <summary>
@@ -16,31 +18,56 @@ namespace Lurker.UI.ViewModels
     {
         #region Fields
 
-        private const string ReflectPhysicalId = "stat_3464419871";
-        private const string ReflectElementalId = "stat_2764017512";
-        private const string CannotRegenerateId = "stat_1910157106";
-        private const string CannotLeechId = "stat_526251910";
-        private const string TemporalChainsId = "stat_2326202293";
+        /// <summary>
+        /// The reflect physical identifier.
+        /// </summary>
+        public const string ReflectPhysicalId = "stat_3464419871";
+
+        /// <summary>
+        /// The reflect elemental identifier.
+        /// </summary>
+        public const string ReflectElementalId = "stat_2764017512";
+
+        /// <summary>
+        /// The cannot regenerate identifier.
+        /// </summary>
+        public const string CannotRegenerateId = "stat_1910157106";
+
+        /// <summary>
+        /// The cannot leech identifier.
+        /// </summary>
+        public const string CannotLeechId = "stat_526251910";
+
+        /// <summary>
+        /// The temporal chains identifier.
+        /// </summary>
+        public const string TemporalChainsId = "stat_2326202293";
+
+        private string _id;
+        private PlayerViewModel _playerViewModel;
         private Affix _affix;
         private bool _reflectPhysical;
         private bool _reflectElemental;
         private bool _cannotRegenerate;
         private bool _cannotLeech;
         private bool _temporalChains;
+        private bool _helpVisible;
+        private bool _selected;
 
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MapAffixViewModel"/> class.
+        /// Initializes a new instance of the <see cref="MapAffixViewModel" /> class.
         /// </summary>
-        /// <param name="affix">The affix.</param>
-        public MapAffixViewModel(Affix affix)
+        /// <param name="id">The identifier.</param>
+        /// <param name="selectable">if set to <c>true</c> [selectable].</param>
+        /// <param name="playerViewModel">The player view model.</param>
+        public MapAffixViewModel(string id, bool selectable, PlayerViewModel playerViewModel)
         {
-            this._affix = affix;
-
-            switch (affix.Id)
+            this.Selectable = selectable;
+            switch (id)
             {
                 case ReflectPhysicalId:
                     this._reflectPhysical = true;
@@ -58,11 +85,60 @@ namespace Lurker.UI.ViewModels
                     this._temporalChains = true;
                     break;
             }
+
+            this._id = id;
+            this._playerViewModel = playerViewModel;
+            this._selected = !this._playerViewModel.IgnoredMadMods.Contains(id);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MapAffixViewModel" /> class.
+        /// </summary>
+        /// <param name="affix">The affix.</param>
+        /// <param name="playerViewModel">The player view model.</param>
+        public MapAffixViewModel(Affix affix, PlayerViewModel playerViewModel)
+            : this(affix.Id, false, playerViewModel)
+        {
+            this._affix = affix;
         }
 
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="MapAffixViewModel"/> is selected.
+        /// </summary>
+        public bool Selected
+        {
+            get
+            {
+                return this._selected;
+            }
+
+            private set
+            {
+                this._selected = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [popup visible].
+        /// </summary>
+        public bool HelpVisible
+        {
+            get
+            {
+                return this._helpVisible;
+            }
+
+            private set
+            {
+                this._helpVisible = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
 
         /// <summary>
         /// Gets a value indicating whether [reflect physical].
@@ -92,7 +168,57 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets the name.
         /// </summary>
-        public string Name => this._affix.Text;
+        public string Name => this._affix == null ? string.Empty : this._affix.Text;
+
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="MapAffixViewModel"/> is selectable.
+        /// </summary>
+        public bool Selectable { get; private set; }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Called when [click].
+        /// </summary>
+        public void OnClick()
+        {
+            if (!this.Selectable)
+            {
+                return;
+            }
+
+            if (this.Selected)
+            {
+                this._playerViewModel.AddIgnoredMapMod(this._id);
+            }
+            else
+            {
+                this._playerViewModel.RemoveIgnoredMapMod(this._id);
+            }
+
+            this.Selected = !this.Selected;
+        }
+
+        /// <summary>
+        /// Mouses the enter.
+        /// </summary>
+        public void MouseEnter()
+        {
+            if (!this.Selectable)
+            {
+                this.HelpVisible = true;
+            }
+        }
+
+        /// <summary>
+        /// Mouses the leave.
+        /// </summary>
+        public void MouseLeave()
+        {
+            this.HelpVisible = false;
+        }
 
         #endregion
     }

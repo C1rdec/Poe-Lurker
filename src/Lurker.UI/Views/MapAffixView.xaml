@@ -7,7 +7,16 @@
              xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="100">
-    <Grid x:Name="mainGrid" MouseEnter="MainGrid_MouseEnter" MouseLeave="MainGrid_MouseLeave">
+    <Grid x:Name="mainGrid" cal:Message.Attach="[Event MouseEnter] = [Action MouseEnter]; [Event MouseLeave] = [Action MouseLeave]; [Event MouseUp] = [Action OnClick]">
+        <Grid.Style>
+            <Style TargetType="Grid">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Selected}" Value="False">
+                        <Setter Property="Opacity" Value="0.30"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
         <Image  Source="/Assets/NoLeech.png"
                 Height="60"
                 Width="60"
@@ -30,7 +39,7 @@
                 Visibility="{Binding TemporalChains, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         <local:IconPack Foreground="#878787"
                         Cursor="Hand"
-                        Visibility="Collapsed"
+                        Visibility="{Binding HelpVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
                         MouseEnter="Help_MouseEnter"
                         MouseLeave="Help_MouseLeave"
                         x:Name="Help"

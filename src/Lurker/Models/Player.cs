@@ -28,6 +28,11 @@ namespace Lurker.Models
         public BuildHelperSettings Build { get; set; }
 
         /// <summary>
+        /// Gets or sets the ignored map mods.
+        /// </summary>
+        public List<string> IgnoredMapMods { get; set; }
+
+        /// <summary>
         /// Gets or sets the levels.
         /// </summary>
         public List<int> Levels { get; set; }

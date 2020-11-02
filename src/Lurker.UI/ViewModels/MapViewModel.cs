@@ -8,7 +8,9 @@ namespace Lurker.UI.ViewModels
 {
     using System.Collections.ObjectModel;
     using System.Linq;
+    using Lurker.Models;
     using Lurker.Patreon.Models;
+    using Lurker.Services;
 
     /// <summary>
     /// Represents a map item.
@@ -25,6 +27,8 @@ namespace Lurker.UI.ViewModels
         private const string TemporalChainsId = "stat_2326202293";
         private System.Action _closeCallBack;
         private Map _map;
+        private bool _modsSelectionVisible;
+        private PlayerService _playerService;
 
         #endregion
 
@@ -35,18 +39,17 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="map">The map.</param>
         /// <param name="playerViewModel">The player view model.</param>
+        /// <param name="playerService">The player service.</param>
         /// <param name="closeCallback">The close callback.</param>
-        public MapViewModel(Map map, PlayerViewModel playerViewModel, System.Action closeCallback)
+        public MapViewModel(Map map, PlayerViewModel playerViewModel, PlayerService playerService, System.Action closeCallback)
         {
             this._map = map;
             this.CurrentPlayer = playerViewModel;
             this._closeCallBack = closeCallback;
-
+            this._playerService = playerService;
+            this._playerService.PlayerChanged += this.PlayerService_PlayerChanged;
             this.Affixes = new ObservableCollection<MapAffixViewModel>();
-            foreach (var affix in this._map.DangerousAffixes.Where(d => d != null))
-            {
-                this.Affixes.Add(new MapAffixViewModel(affix));
-            }
+            this.ShowMapMods();
         }
 
         #endregion
@@ -83,6 +86,61 @@ namespace Lurker.UI.ViewModels
         public void Close()
         {
             this._closeCallBack?.Invoke();
+        }
+
+        /// <summary>
+        /// Shows the mod selection.
+        /// </summary>
+        public void ToggleModSelection()
+        {
+            this.Affixes.Clear();
+
+            if (!this._modsSelectionVisible)
+            {
+                this.Affixes.Add(new MapAffixViewModel(MapAffixViewModel.CannotRegenerateId, true, this.CurrentPlayer));
+                this.Affixes.Add(new MapAffixViewModel(MapAffixViewModel.CannotLeechId, true, this.CurrentPlayer));
+                this.Affixes.Add(new MapAffixViewModel(MapAffixViewModel.ReflectElementalId, true, this.CurrentPlayer));
+                this.Affixes.Add(new MapAffixViewModel(MapAffixViewModel.ReflectPhysicalId, true, this.CurrentPlayer));
+                this.Affixes.Add(new MapAffixViewModel(MapAffixViewModel.TemporalChainsId, true, this.CurrentPlayer));
+                this.NotifyOfPropertyChange(() => this.Safe);
+            }
+            else
+            {
+                this.ShowMapMods();
+            }
+
+            this._modsSelectionVisible = !this._modsSelectionVisible;
+        }
+
+        /// <summary>
+        /// Players the service player changed.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
+        private void PlayerService_PlayerChanged(object sender, Player e)
+        {
+            this._modsSelectionVisible = false;
+            this.Affixes.Clear();
+            this.ShowMapMods();
+        }
+
+        /// <summary>
+        /// Shows the map mods.
+        /// </summary>
+        private void ShowMapMods()
+        {
+            foreach (var affix in this._map.DangerousAffixes.Where(d => d != null))
+            {
+                if (this.CurrentPlayer.IgnoredMadMods.Contains(affix.Id))
+                {
+                    continue;
+                }
+
+                this.Affixes.Add(new MapAffixViewModel(affix, this.CurrentPlayer));
+            }
+
+            this.NotifyOfPropertyChange(() => this.Safe);
+            this.NotifyOfPropertyChange(() => this.NotSafe);
         }
 
         #endregion

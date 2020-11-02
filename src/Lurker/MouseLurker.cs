@@ -140,6 +140,7 @@ namespace Lurker
             var retryCount = 2;
             for (int i = 0; i < retryCount; i++)
             {
+                await Task.Delay(100);
                 await Simulate.Events().ClickChord(WindowsInput.Events.KeyCode.LControlKey, WindowsInput.Events.KeyCode.C).Invoke();
                 await Task.Delay(20);
                 item = ClipboardHelper.GetItemInClipboard();

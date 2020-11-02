@@ -21,6 +21,9 @@ namespace Lurker.UI.ViewModels
         #region Fields
 
         private MouseLurker _mouseLurker;
+        private PoeWindowInformation _windowInformation;
+        private int _x;
+        private int _y;
 
         #endregion
 
@@ -65,9 +68,22 @@ namespace Lurker.UI.ViewModels
         {
             Execute.OnUIThread(() =>
             {
+                this._x = this._mouseLurker.X;
+                this._y = this._mouseLurker.Y;
+
+                var currentWidth = this.View.Width;
+                var rightSide = currentWidth + this._mouseLurker.X;
+                if (rightSide > this._windowInformation.Position.Right)
+                {
+                    this.View.Left = this._mouseLurker.X - (rightSide - this._windowInformation.Position.Right);
+                }
+                else
+                {
+                    this.View.Left = this._mouseLurker.X;
+                }
+
                 this.View.SizeToContent = System.Windows.SizeToContent.Manual;
                 this.View.Top = this._mouseLurker.Y;
-                this.View.Left = this._mouseLurker.X;
                 this.View.SizeToContent = System.Windows.SizeToContent.WidthAndHeight;
             });
         }
@@ -90,7 +106,25 @@ namespace Lurker.UI.ViewModels
         protected override void OnViewLoaded(object view)
         {
             base.OnViewLoaded(view);
-            this.View.Activate();
+            this.View.SizeChanged += this.View_SizeChanged;
+        }
+
+        /// <summary>
+        /// Handles the SizeChanged event of the View control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.SizeChangedEventArgs"/> instance containing the event data.</param>
+        private void View_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
+        {
+            var rightSide = e.NewSize.Width + this._x;
+            if (rightSide > this._windowInformation.Position.Right)
+            {
+                this.View.Left = this._x - (rightSide - this._windowInformation.Position.Right);
+            }
+            else
+            {
+                this.View.Left = this._x;
+            }
         }
 
         /// <summary>
@@ -99,6 +133,7 @@ namespace Lurker.UI.ViewModels
         /// <param name="windowInformation">The window information.</param>
         protected override void SetWindowPosition(PoeWindowInformation windowInformation)
         {
+            this._windowInformation = windowInformation;
         }
 
         #endregion

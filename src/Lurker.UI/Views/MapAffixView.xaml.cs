@@ -23,26 +23,6 @@ namespace Lurker.UI.Views
         }
 
         /// <summary>
-        /// Handles the MouseEnter event of the mainGrid control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="MouseEventArgs"/> instance containing the event data.</param>
-        private void MainGrid_MouseEnter(object sender, MouseEventArgs e)
-        {
-            this.Help.Visibility = System.Windows.Visibility.Visible;
-        }
-
-        /// <summary>
-        /// Handles the MouseLeave event of the mainGrid control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="MouseEventArgs"/> instance containing the event data.</param>
-        private void MainGrid_MouseLeave(object sender, MouseEventArgs e)
-        {
-            this.Help.Visibility = System.Windows.Visibility.Hidden;
-        }
-
-        /// <summary>
         /// Handles the MouseEnter event of the Help control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>

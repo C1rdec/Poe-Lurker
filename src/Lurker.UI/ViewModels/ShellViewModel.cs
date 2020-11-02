@@ -688,7 +688,7 @@ namespace Lurker.UI
                 }
 
                 this._popup.SetPosition();
-                this._popup.SetContent(new MapViewModel(map, this.ActivePlayer, () => this.DeactivateItem(this._popup, true)));
+                this._popup.SetContent(new MapViewModel(map, this.ActivePlayer, this._currentCharacterService, () => this.DeactivateItem(this._popup, true)));
             }
             else
             {
