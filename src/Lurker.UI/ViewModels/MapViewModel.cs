@@ -57,6 +57,11 @@ namespace Lurker.UI.ViewModels
         #region Properties
 
         /// <summary>
+        /// Gets a value indicating whether [mods selection visible].
+        /// </summary>
+        public bool ModsSelectionVisible => this._modsSelectionVisible;
+
+        /// <summary>
         /// Gets or sets the affixes.
         /// </summary>
         public ObservableCollection<MapAffixViewModel> Affixes { get; set; }
@@ -110,6 +115,7 @@ namespace Lurker.UI.ViewModels
             }
 
             this._modsSelectionVisible = !this._modsSelectionVisible;
+            this.NotifyOfPropertyChange(() => this.ModsSelectionVisible);
         }
 
         /// <summary>
