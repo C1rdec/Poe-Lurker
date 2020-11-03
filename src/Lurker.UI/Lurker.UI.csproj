@@ -649,6 +649,7 @@
     <Resource Include="Assets\ReflectPhysical.png" />
     <Resource Include="Assets\TemporalChain.png" />
     <Content Include="SVG\Beer.svg" />
+    <Content Include="SVG\Checkbox.svg" />
     <Content Include="SVG\Help.svg" />
     <Content Include="SVG\Hideout.svg" />
     <Content Include="SVG\Lightning.svg" />

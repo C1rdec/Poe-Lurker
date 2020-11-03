@@ -29,6 +29,7 @@ namespace Lurker.UI.ViewModels
         private Map _map;
         private bool _modsSelectionVisible;
         private PlayerService _playerService;
+        private int _ignoredModCount;
 
         #endregion
 
@@ -55,6 +56,28 @@ namespace Lurker.UI.ViewModels
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets the mod count.
+        /// </summary>
+        public int IgnoredModCount
+        {
+            get
+            {
+                return this._ignoredModCount;
+            }
+
+            private set
+            {
+                this._ignoredModCount = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [any ignored mod].
+        /// </summary>
+        public bool AnyIgnoredMod => this.IgnoredModCount != 0;
 
         /// <summary>
         /// Gets a value indicating whether [mods selection visible].
@@ -128,6 +151,7 @@ namespace Lurker.UI.ViewModels
             this._modsSelectionVisible = false;
             this.Affixes.Clear();
             this.ShowMapMods();
+            this.NotifyOfPropertyChange(() => this.ModsSelectionVisible);
         }
 
         /// <summary>
@@ -135,10 +159,12 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         private void ShowMapMods()
         {
+            this.IgnoredModCount = 0;
             foreach (var affix in this._map.DangerousAffixes.Where(d => d != null))
             {
                 if (this.CurrentPlayer.IgnoredMadMods.Contains(affix.Id))
                 {
+                    this.IgnoredModCount++;
                     continue;
                 }
 
@@ -147,6 +173,7 @@ namespace Lurker.UI.ViewModels
 
             this.NotifyOfPropertyChange(() => this.Safe);
             this.NotifyOfPropertyChange(() => this.NotSafe);
+            this.NotifyOfPropertyChange(() => this.AnyIgnoredMod);
         }
 
         #endregion

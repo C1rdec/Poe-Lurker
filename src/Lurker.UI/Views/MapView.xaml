@@ -14,7 +14,7 @@
                 <Setter Property="Background" Value="Black"/>
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding ModsSelectionVisible}" Value="True">
-                        <Setter Property="Background" Value="Gray"/>
+                        <Setter Property="Background" Value="#242424"/>
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
@@ -24,17 +24,19 @@
                 <RowDefinition/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <local:IconPack Foreground="Green"
+            <Grid Height="65" Width="80" Visibility="{Binding Safe, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <local:IconPack Foreground="Green"
                             cal:Message.Attach="[Event MouseUp] = [Action Close]"
                         Cursor="Hand"
                         x:Name="Help"
-                        Height="75"
-                        Visibility="{Binding Safe, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        Height="35"
                         Data="{x:Static local:IconPackData.Checkbox}">
-                <local:IconPack.Background>
-                    <SolidColorBrush Color="White" Opacity="0.003"/>
-                </local:IconPack.Background>
-            </local:IconPack>
+                    <local:IconPack.Background>
+                        <SolidColorBrush Color="White" Opacity="0.003"/>
+                    </local:IconPack.Background>
+                </local:IconPack>
+            </Grid>
+            
             <ItemsControl  x:Name="Affixes" >
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -42,13 +44,13 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-            <Button Height="20" Cursor="Hand" Width="20" VerticalAlignment="Top" HorizontalAlignment="Right" Background="Red" x:Name="Close"  Visibility="{Binding NotSafe, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Button Height="20" Cursor="Hand" Width="20" VerticalAlignment="Top" HorizontalAlignment="Right" Background="Red" x:Name="Close">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="Button">
-                                    <Border CornerRadius="0,0,0,20">
+                                    <Border CornerRadius="0,4,0,20">
                                         <Border.Style>
                                             <Style TargetType="{x:Type Border}">
                                                 <Setter Property="Background" Value="Gray"/>
@@ -75,19 +77,32 @@
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="Button">
-                                    <Border CornerRadius="0,0,20,0">
+                                    <Border CornerRadius="4,0,20,0">
                                         <Border.Style>
                                             <Style TargetType="{x:Type Border}">
                                                 <Setter Property="Background" Value="Gray"/>
                                                 <Setter Property="Opacity" Value="0.25"/>
+                                                
                                                 <Style.Triggers>
                                                     <Trigger Property="IsMouseOver" Value="True">
                                                         <Setter Property="Background" Value="Blue" />
                                                         <Setter Property="Opacity" Value="0.75"/>
                                                     </Trigger>
+                                                    <DataTrigger Binding="{Binding AnyIgnoredMod}" Value="True">
+                                                        <Setter Property="Background" Value="Blue" />
+                                                        <Setter Property="Opacity" Value="0.75"/>
+                                                    </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
                                         </Border.Style>
+                                        <TextBlock HorizontalAlignment="Center"
+                                                   Margin="-2,-2,0,0"
+                                                   FontFamily="pack://application:,,,/Assets/#Fontin" 
+                                                   VerticalAlignment="Center" 
+                                                   Foreground="White" 
+                                                   FontWeight="Bold"
+                                                   Visibility="{Binding AnyIgnoredMod, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                   Text="{Binding IgnoredModCount}"/>
                                     </Border>
                                 </ControlTemplate>
                             </Setter.Value>

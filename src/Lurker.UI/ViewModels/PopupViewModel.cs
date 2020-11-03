@@ -20,6 +20,7 @@ namespace Lurker.UI.ViewModels
     {
         #region Fields
 
+        private const int PopupMargin = 10;
         private MouseLurker _mouseLurker;
         private PoeWindowInformation _windowInformation;
         private int _x;
@@ -75,7 +76,7 @@ namespace Lurker.UI.ViewModels
                 var rightSide = currentWidth + this._mouseLurker.X;
                 if (rightSide > this._windowInformation.Position.Right)
                 {
-                    this.View.Left = this._mouseLurker.X - (rightSide - this._windowInformation.Position.Right);
+                    this.View.Left = this._mouseLurker.X - (rightSide - this._windowInformation.Position.Right) - PopupMargin;
                 }
                 else
                 {
@@ -119,7 +120,7 @@ namespace Lurker.UI.ViewModels
             var rightSide = e.NewSize.Width + this._x;
             if (rightSide > this._windowInformation.Position.Right)
             {
-                this.View.Left = this._x - (rightSide - this._windowInformation.Position.Right);
+                this.View.Left = this._x - (rightSide - this._windowInformation.Position.Right) - PopupMargin;
             }
             else
             {
