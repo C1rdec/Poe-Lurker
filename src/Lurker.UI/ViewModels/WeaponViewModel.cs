@@ -44,6 +44,16 @@ namespace Lurker.UI.ViewModels
         #region Properties
 
         /// <summary>
+        /// Gets the progress.
+        /// </summary>
+        public double Progress => (this.PhysicalDps * this.Width) / this._weapon.MaxPhysicalDps;
+
+        /// <summary>
+        /// Gets the width.
+        /// </summary>
+        public int Width => 150;
+
+        /// <summary>
         /// Gets a value indicating whether [higher physical dammage].
         /// </summary>
         public bool HigherPhysicalDammage { get; private set; }

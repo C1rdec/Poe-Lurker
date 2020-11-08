@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Lurker.UI.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Border CornerRadius="5" BorderThickness="2" BorderBrush="#e7b577" Height="70" Width="150">
+    <Border CornerRadius="5" BorderThickness="2" BorderBrush="#e7b577" Height="70" Width="{Binding Width}">
         <Border.Style>
             <Style TargetType="Border">
                 <Setter Property="Background" Value="Black"/>
@@ -39,7 +39,6 @@
                            Opacity="0.50"
                            Margin="0,-10,10,0" 
                            FontFamily="pack://application:,,,/Assets/#Fontin" />
-                <Line Grid.Row="1" VerticalAlignment="Bottom" Stroke="#f63fe6" StrokeThickness="3" X1="0" Y1="0" X2="50"></Line>
             </Grid>
             <Grid x:Name="PhysicalGrid" Visibility="{Binding HigherPhysicalDammage, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid.RowDefinitions>
@@ -62,7 +61,7 @@
                            Opacity="0.50"
                            Margin="0,-10,10,0" 
                            FontFamily="pack://application:,,,/Assets/#Fontin" />
-                <Line Grid.Row="1" VerticalAlignment="Bottom" Stroke="Red" StrokeThickness="3" X1="0" Y1="0" X2="80"></Line>
+                <Line Grid.Row="1" VerticalAlignment="Bottom" Stroke="Red" StrokeThickness="3" X1="0" Y1="0" X2="{Binding Progress}"></Line>
             </Grid>
             <Button Height="20" Cursor="Hand" Width="20" VerticalAlignment="Top" HorizontalAlignment="Right" Background="Red" x:Name="Close">
                 <Button.Style>

@@ -688,10 +688,10 @@ namespace Lurker.UI
                 }
 
                 this._popup.SetPosition();
-                this._popup.SetContent(new MapViewModel(map, this.ActivePlayer, this._currentCharacterService, () => 
+                this._popup.SetContent(new MapViewModel(map, this.ActivePlayer, this._currentCharacterService, () =>
                 {
                     this._popup.ClearContent();
-                    this.DeactivateItem(this._popup, true); 
+                    this.DeactivateItem(this._popup, true);
                 }));
             }
             else if (item is Weapon weapon)
