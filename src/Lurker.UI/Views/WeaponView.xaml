@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Lurker.UI.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Border CornerRadius="5" BorderThickness="2" BorderBrush="#e7b577" Height="70" Width="110">
+    <Border CornerRadius="5" BorderThickness="2" BorderBrush="#e7b577" Height="70" Width="150">
         <Border.Style>
             <Style TargetType="Border">
                 <Setter Property="Background" Value="Black"/>
@@ -18,29 +18,52 @@
             </Style>
         </Border.Style>
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Path Grid.RowSpan="2" Stroke="Gray" StrokeThickness="2" Stretch="Fill">
-                <Path.Data>
-                    <LineGeometry StartPoint="0,1" EndPoint="1,0" />
-                </Path.Data>
-            </Path>
-            <TextBlock x:Name="PhysicalDps" 
-                       Foreground="Yellow"
-                       FontSize="20"
-                       VerticalAlignment="Center" 
-                       Margin="10,0,0,0" 
-                       FontFamily="pack://application:,,,/Assets/#Fontin" />
-            <TextBlock x:Name="ElementalDps" 
-                       Grid.Row="1"
-                       HorizontalAlignment="Right" 
-                       VerticalAlignment="Center"
-                       FontSize="20"
-                       Foreground="#f63fe6" 
-                       Margin="0,0,10,0" 
-                       FontFamily="pack://application:,,,/Assets/#Fontin" />
+            <Grid x:Name="ElementalGrid" Visibility="{Binding HigherElementalDammage, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2.5*"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Viewbox>
+                    <TextBlock Text="{Binding ElementalDps}"
+                               HorizontalAlignment="Center"
+                               Foreground="#f63fe6"
+                               VerticalAlignment="Bottom" 
+                               FontFamily="pack://application:,,,/Assets/#Fontin" />
+                </Viewbox>
+                <TextBlock Text="{Binding PhysicalDps}"
+                           Grid.Row="1"
+                           HorizontalAlignment="Right" 
+                           VerticalAlignment="Center"
+                           FontSize="25"
+                           Foreground="Red" 
+                           Opacity="0.50"
+                           Margin="0,-10,10,0" 
+                           FontFamily="pack://application:,,,/Assets/#Fontin" />
+                <Line Grid.Row="1" VerticalAlignment="Bottom" Stroke="#f63fe6" StrokeThickness="3" X1="0" Y1="0" X2="50"></Line>
+            </Grid>
+            <Grid x:Name="PhysicalGrid" Visibility="{Binding HigherPhysicalDammage, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2.5*"></RowDefinition>
+                    <RowDefinition ></RowDefinition>
+                </Grid.RowDefinitions>
+                <Viewbox>
+                    <TextBlock Text="{Binding PhysicalDps}"
+                               HorizontalAlignment="Center"
+                               Foreground="Red"
+                               VerticalAlignment="Bottom" 
+                               FontFamily="pack://application:,,,/Assets/#Fontin" />
+                </Viewbox>
+                <TextBlock Text="{Binding ElementalDps}"
+                           Grid.Row="1"
+                           HorizontalAlignment="Right" 
+                           VerticalAlignment="Center"
+                           FontSize="25"
+                           Foreground="#f63fe6" 
+                           Opacity="0.50"
+                           Margin="0,-10,10,0" 
+                           FontFamily="pack://application:,,,/Assets/#Fontin" />
+                <Line Grid.Row="1" VerticalAlignment="Bottom" Stroke="Red" StrokeThickness="3" X1="0" Y1="0" X2="80"></Line>
+            </Grid>
             <Button Height="20" Cursor="Hand" Width="20" VerticalAlignment="Top" HorizontalAlignment="Right" Background="Red" x:Name="Close">
                 <Button.Style>
                     <Style TargetType="Button">

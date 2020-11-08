@@ -48,7 +48,7 @@
                         <RowDefinition Height="30"></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="1" Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" >
+                    <Grid Grid.Row="1" Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Hidden">
                             <Viewbox HorizontalAlignment="Left" Stretch="UniformToFill" StretchDirection="DownOnly">
                                 <ItemsControl  x:Name="Skills" >

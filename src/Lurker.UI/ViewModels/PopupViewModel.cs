@@ -101,6 +101,15 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Clears the content.
+        /// </summary>
+        public void ClearContent()
+        {
+            this.PopupContent = null;
+            this.NotifyOfPropertyChange(() => this.PopupContent);
+        }
+
+        /// <summary>
         /// Called when an attached view's Loaded event fires.
         /// </summary>
         /// <param name="view">The view.</param>

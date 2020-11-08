@@ -32,11 +32,26 @@ namespace Lurker.UI.ViewModels
         {
             this._weapon = weapon;
             this._closeCallback = closeCallback;
+
+            if (this.PhysicalDps >= this.ElementalDps)
+            {
+                this.HigherPhysicalDammage = true;
+            }
         }
 
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets a value indicating whether [higher physical dammage].
+        /// </summary>
+        public bool HigherPhysicalDammage { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether [higher elemental dammage].
+        /// </summary>
+        public bool HigherElementalDammage => !this.HigherPhysicalDammage;
 
         /// <summary>
         /// Gets the physical DPS.
