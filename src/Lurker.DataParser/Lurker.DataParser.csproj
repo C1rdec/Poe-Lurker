@@ -44,8 +44,8 @@
     <Reference Include="LiteDB, Version=5.0.4.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
       <HintPath>..\..\packages\LiteDB.5.0.4\lib\net45\LiteDB.dll</HintPath>
     </Reference>
-    <Reference Include="Lurker.Patreon, Version=1.0.29.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Lurker.Patreon.1.0.29\lib\net48\Lurker.Patreon.dll</HintPath>
+    <Reference Include="Lurker.Patreon, Version=1.0.30.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Lurker.Patreon.1.0.30\lib\net48\Lurker.Patreon.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>

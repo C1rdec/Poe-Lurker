@@ -93,8 +93,8 @@
     <Reference Include="LottieSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\LottieSharp.1.0.0\lib\net461\LottieSharp.dll</HintPath>
     </Reference>
-    <Reference Include="Lurker.Patreon, Version=1.0.29.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Lurker.Patreon.1.0.29\lib\net48\Lurker.Patreon.dll</HintPath>
+    <Reference Include="Lurker.Patreon, Version=1.0.30.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Lurker.Patreon.1.0.30\lib\net48\Lurker.Patreon.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MahApps.Metro.1.6.5\lib\net47\MahApps.Metro.dll</HintPath>
