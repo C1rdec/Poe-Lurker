@@ -46,7 +46,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets the progress.
         /// </summary>
-        public double Progress => (this.PhysicalDps * this.Width) / this._weapon.MaxPhysicalDps;
+        public double Progress => (this._weapon.QualityPhysicalDps * this.Width) / this._weapon.MaxPhysicalDps;
 
         /// <summary>
         /// Gets the width.
@@ -66,7 +66,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets the physical DPS.
         /// </summary>
-        public double PhysicalDps => this._weapon.PhysicalDps;
+        public double PhysicalDps => this._weapon.QualityPhysicalDps;
 
         /// <summary>
         /// Gets the elemental DPS.
