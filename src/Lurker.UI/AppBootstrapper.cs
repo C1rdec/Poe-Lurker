@@ -63,6 +63,7 @@ namespace Lurker.UI
             this._container.Singleton<CollaborationService, CollaborationService>();
             this._container.Singleton<SettingsViewModel, SettingsViewModel>();
             this._container.Singleton<DashboardViewModel, DashboardViewModel>();
+            this._container.Singleton<TutorialViewModel, TutorialViewModel>();
 
             this._container.PerRequest<AfkService, AfkService>();
             this._container.PerRequest<UpdateManager, UpdateManager>();

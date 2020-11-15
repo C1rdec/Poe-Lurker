@@ -211,6 +211,9 @@
     <Reference Include="WindowsInput, Version=6.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\WindowsInput.6.1.1\lib\net461\WindowsInput.dll</HintPath>
     </Reference>
+    <Reference Include="XamlAnimatedGif, Version=1.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\XamlAnimatedGif.1.2.3\lib\net45\XamlAnimatedGif.dll</HintPath>
+    </Reference>
     <Reference Include="Xceed.Wpf.AvalonDock, Version=3.8.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Extended.Wpf.Toolkit.3.8.1\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
@@ -296,6 +299,7 @@
     <Compile Include="ViewModels\TimelineViewModel.cs" />
     <Compile Include="ViewModels\TradebarViewModel.cs" />
     <Compile Include="ViewModels\TradeValueViewModel.cs" />
+    <Compile Include="ViewModels\TutorialViewModel.cs" />
     <Compile Include="ViewModels\UniqueItemViewModel.cs" />
     <Compile Include="ViewModels\UpdateViewModel.cs" />
     <Compile Include="ViewModels\WeaponViewModel.cs" />
@@ -404,6 +408,9 @@
     </Compile>
     <Compile Include="Views\TradeValueView.xaml.cs">
       <DependentUpon>TradeValueView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TutorialView.xaml.cs">
+      <DependentUpon>TutorialView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UniqueItemView.xaml.cs">
       <DependentUpon>UniqueItemView.xaml</DependentUpon>
@@ -543,6 +550,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TradeValueView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TutorialView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

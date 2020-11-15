@@ -104,6 +104,7 @@ namespace Lurker.UI
                 }
             }
 
+            this.ActivateItem(IoC.Get<TutorialViewModel>());
             this._eventAggregator.Subscribe(this);
         }
 
