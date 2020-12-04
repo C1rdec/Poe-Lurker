@@ -136,7 +136,7 @@ namespace Lurker.UI.ViewModels
         /// <param name="id">The identifier.</param>
         public void AddIgnoredMapMod(string id)
         {
-            if (!this._activePlayer.IgnoredMapMods.Contains(id))
+            if (this._activePlayer != null && !this._activePlayer.IgnoredMapMods.Contains(id))
             {
                 this._activePlayer.IgnoredMapMods.Add(id);
                 this._service.Save();
@@ -149,6 +149,11 @@ namespace Lurker.UI.ViewModels
         /// <param name="id">The identifier.</param>
         public void RemoveIgnoredMapMod(string id)
         {
+            if (this._activePlayer == null)
+            {
+                return;
+            }
+
             this._activePlayer.IgnoredMapMods.Remove(id);
             this._service.Save();
         }
