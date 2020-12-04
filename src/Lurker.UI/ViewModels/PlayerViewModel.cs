@@ -6,9 +6,9 @@
 
 namespace Lurker.UI.ViewModels
 {
-    using System.Collections;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Linq;
     using Lurker.Models;
     using Lurker.Services;
 
@@ -56,7 +56,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets the ignored mad mods.
         /// </summary>
-        public IEnumerable<string> IgnoredMadMods => this._activePlayer.IgnoredMapMods;
+        public IEnumerable<string> IgnoredMadMods => this._activePlayer == null ? Enumerable.Empty<string>() : this._activePlayer.IgnoredMapMods;
 
         /// <summary>
         /// Gets the display name.

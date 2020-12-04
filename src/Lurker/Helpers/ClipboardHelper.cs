@@ -12,7 +12,6 @@ namespace Lurker.Helpers
     using System.Windows;
     using Lurker.Patreon.Models;
     using Lurker.Patreon.Parsers;
-    using WK.Libraries.SharpClipboardNS;
 
     /// <summary>
     /// Represents the Clipboard helper.
@@ -22,7 +21,6 @@ namespace Lurker.Helpers
         #region Fields
 
         private static readonly ItemParser ItemParser = new ItemParser();
-        private static SharpClipboard SharpClipboard = new SharpClipboard();
 
         #endregion
 
@@ -34,7 +32,13 @@ namespace Lurker.Helpers
         /// <returns>The clipboard text.</returns>
         public static string GetClipboardText()
         {
-            return SharpClipboard.ClipboardText;
+            var clipboardText = string.Empty;
+            RetryOnMainThread(() =>
+            {
+                clipboardText = Clipboard.GetText();
+            });
+
+            return clipboardText;
         }
 
         /// <summary>
