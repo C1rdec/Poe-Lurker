@@ -239,7 +239,7 @@ namespace Lurker.UI.ViewModels
                     this.Build = service.Decode(buildValue);
 
                     this.Skills.Clear();
-                    foreach (var skill in this.Build.Skills.Select(s => new SkillViewModel(s, this.SettingsService.ToolTipEnabled)))
+                    foreach (var skill in this.Build.Skills.Select(s => new SkillViewModel(s, this.SettingsService.TimelineEnabled)))
                     {
                         skill.PropertyChanged += this.Skill_PropertyChanged;
                         this.Skills.Add(skill);
