@@ -440,6 +440,11 @@ namespace Lurker.UI.ViewModels
                 return;
             }
 
+            if (this._activePlayer == null)
+            {
+                return;
+            }
+
             var index = this.UniqueItems.IndexOf(item);
             var settings = this._activePlayer.Build;
             if (item.Selected)
@@ -523,6 +528,11 @@ namespace Lurker.UI.ViewModels
         {
             var skill = sender as SkillViewModel;
             if (skill == null || e.PropertyName != "Selected")
+            {
+                return;
+            }
+
+            if (this._activePlayer == null)
             {
                 return;
             }

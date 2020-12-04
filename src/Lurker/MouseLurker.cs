@@ -13,6 +13,7 @@ namespace Lurker
     using Lurker.Services;
     using WindowsInput;
     using Winook;
+    using WK.Libraries.SharpClipboardNS;
 
     /// <summary>
     /// Represents the mouse lurker.
@@ -118,7 +119,7 @@ namespace Lurker
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void MouseHook_LeftButtonUp(object sender, EventArgs e)
+        private async void MouseHook_LeftButtonUp(object sender, EventArgs e)
         {
             if (!this._settingsService.SearchEnabled)
             {
@@ -127,22 +128,22 @@ namespace Lurker
 
             if (Native.IsKeyPressed(Native.VirtualKeyStates.VK_SHIFT) && Native.IsKeyPressed(Native.VirtualKeyStates.VK_CONTROL))
             {
-                this.ParseItem();
+                await Task.Delay(100);
+                await this.ParseItem();
             }
         }
 
         /// <summary>
         /// Parses the item.
         /// </summary>
-        private async void ParseItem()
+        private async Task ParseItem()
         {
             PoeItem item = default;
             var retryCount = 2;
             for (int i = 0; i < retryCount; i++)
             {
-                await Task.Delay(100);
                 await Simulate.Events().ClickChord(WindowsInput.Events.KeyCode.LControlKey, WindowsInput.Events.KeyCode.C).Invoke();
-                await Task.Delay(20);
+                await Task.Delay(100);
                 item = ClipboardHelper.GetItemInClipboard();
 
                 if (item == null)

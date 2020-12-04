@@ -2108,13 +2108,6 @@
   },
   {
     "ItemClass": "Boots",
-    "Name": "Sin Trek",
-    "WikiUrl": "https://pathofexile.gamepedia.com/Sin_Trek",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/b/b7/Sin_Trek_inventory_icon.png/revision/latest?cb=20130626162413&amp;format=original",
-    "Level": 62
-  },
-  {
-    "ItemClass": "Boots",
     "Name": "The Stampede",
     "WikiUrl": "https://pathofexile.gamepedia.com/The_Stampede",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/6/65/The_Stampede_inventory_icon.png/revision/latest?cb=20190906203616&amp;format=original",
@@ -4029,13 +4022,6 @@
     "Name": "Apparitions",
     "WikiUrl": "https://pathofexile.gamepedia.com/Apparitions",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/1/18/Apparitions_inventory_icon.png/revision/latest?cb=20150702082249&amp;format=original",
-    "Level": 1
-  },
-  {
-    "ItemClass": "Jewel",
-    "Name": "Army of Bones",
-    "WikiUrl": "https://pathofexile.gamepedia.com/Army_of_Bones",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/87/To_Dust_inventory_icon.png/revision/latest?cb=20150429234954&amp;format=original",
     "Level": 1
   },
   {
@@ -6441,6 +6427,13 @@
   },
   {
     "ItemClass": "Shield",
+    "Name": "Whakatutuki o Matua",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Whakatutuki_o_Matua",
+    "ImageUrl": null,
+    "Level": 63
+  },
+  {
+    "ItemClass": "Shield",
     "Name": "Rathpith Globe",
     "WikiUrl": "https://pathofexile.gamepedia.com/Rathpith_Globe",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/5/5a/Rathpith_Globe_inventory_icon.png/revision/latest?cb=20130626162356&amp;format=original",
@@ -6452,13 +6445,6 @@
     "WikiUrl": "https://pathofexile.gamepedia.com/Sentari%27s_Answer",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/4/4e/Sentari%27s_Answer_inventory_icon.png/revision/latest?cb=20141023091928&amp;format=original",
     "Level": 33
-  },
-  {
-    "ItemClass": "Shield",
-    "Name": "Whakatutuki o Matua",
-    "WikiUrl": "https://pathofexile.gamepedia.com/Whakatutuki_o_Matua",
-    "ImageUrl": null,
-    "Level": 63
   },
   {
     "ItemClass": "Shield",
