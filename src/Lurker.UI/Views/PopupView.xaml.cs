@@ -36,6 +36,16 @@ namespace Lurker.UI.Views
         #region Methods
 
         /// <summary>
+        /// Raises the <see cref="E:System.Windows.Window.Closed" /> event.
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
+        protected override void OnClosed(EventArgs e)
+        {
+            this._parent.Close();
+            base.OnClosed(e);
+        }
+
+        /// <summary>
         /// Hides the window from alt tab.
         /// </summary>
         private void HideFromAltTab()
