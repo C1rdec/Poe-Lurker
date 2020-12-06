@@ -289,10 +289,12 @@ namespace Lurker.UI.ViewModels
         public void ClearBuild()
         {
             this.Build = null;
-            this.Skills.Clear();
-            this.UniqueItems.Clear();
+            Execute.OnUIThread(() =>
+            {
+                this.Skills.Clear();
+                this.UniqueItems.Clear();
+            });
             this.HasNoBuild = true;
-
             this._eventAggregator.PublishOnUIThread(new SkillMessage() { Clear = true });
         }
 
