@@ -87,6 +87,11 @@ namespace Lurker.UI.ViewModels
         #region Properties
 
         /// <summary>
+        /// Gets or sets the index of the select teb.
+        /// </summary>
+        public int SelectTabIndex { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [trial available].
         /// </summary>
         public bool TrialAvailable
@@ -849,6 +854,7 @@ namespace Lurker.UI.ViewModels
                 this._settingService.Save();
                 this.OnClose?.Invoke(this, EventArgs.Empty);
                 this._activated = false;
+                this.SelectTabIndex = 0;
             }
 
             base.OnDeactivate(close);
