@@ -924,6 +924,11 @@ namespace Lurker.UI.ViewModels
             this._activated = true;
         }
 
+        /// <summary>
+        /// Gets the blessing text.
+        /// </summary>
+        /// <param name="time">The time.</param>
+        /// <returns>The blessing trial text.</returns>
         private static string GetBlessingText(TimeSpan time)
         {
             var text = string.Empty;
