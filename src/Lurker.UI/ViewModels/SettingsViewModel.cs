@@ -806,7 +806,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public async void StartTrial()
         {
-            await this.ShowProgress("Hold on", "Preparing the trial...", async () => 
+            await this.ShowProgress("Hold on", "Preparing the trial...", async () =>
             {
                 using (var service = new Patreon.PatreonService())
                 {
