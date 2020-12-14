@@ -190,12 +190,15 @@ namespace Lurker.UI.ViewModels
         /// <param name="e">The e.</param>
         private void Service_PlayerListChanged(object sender, System.Collections.Generic.IEnumerable<Player> e)
         {
-            this.Players.Clear();
-
-            foreach (var player in e)
+            Caliburn.Micro.Execute.OnUIThread(() =>
             {
-                this.Players.Add(player);
-            }
+                this.Players.Clear();
+
+                foreach (var player in e)
+                {
+                    this.Players.Add(player);
+                }
+            });
         }
 
         #endregion
