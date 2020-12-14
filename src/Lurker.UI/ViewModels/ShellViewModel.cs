@@ -666,7 +666,7 @@ namespace Lurker.UI
                     }
                     else if (this._settingsService.ShowStartupAnimation)
                     {
-                        this._eventAggregator.PublishOnUIThread(new ManaBulbMessage() { View = new SplashscreenViewModel(), DisplayTime = TimeSpan.FromSeconds(5) });
+                        this._eventAggregator.PublishOnUIThread(new ManaBulbMessage() { View = new SplashscreenViewModel(this._settingsViewModel, this._eventAggregator), DisplayTime = TimeSpan.FromSeconds(10) });
                     }
                 }
             }

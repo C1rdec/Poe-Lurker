@@ -18,7 +18,7 @@
             <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
         </Grid.Resources>
 
-        <Controls:MetroAnimatedTabControl Controls:TabControlHelper.IsUnderlined="True" Controls:TabControlHelper.Underlined="TabPanel" TabStripPlacement="Left">
+        <Controls:MetroAnimatedTabControl Controls:TabControlHelper.IsUnderlined="True" SelectedIndex="{Binding SelectTabIndex}" Controls:TabControlHelper.Underlined="TabPanel" TabStripPlacement="Left">
             <TabItem Header="Message" Width="175">
                 <StackPanel>
                     <Label Content="Message" Style="{DynamicResource LabelHeaderStyle}" />

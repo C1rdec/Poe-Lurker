@@ -570,7 +570,7 @@ namespace Lurker.UI.ViewModels
         private void SetTimelineSettings(bool enabled)
         {
             this.SettingsService.TimelineEnabled = enabled;
-            this.SettingsService.Save();
+            this.SettingsService.Save(false);
 
             foreach (var skill in this.Skills)
             {

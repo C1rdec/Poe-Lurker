@@ -6,14 +6,25 @@
              xmlns:lottieSharp="clr-namespace:LottieSharp;assembly=LottieSharp"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <lottieSharp:LottieAnimationView 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <lottieSharp:LottieAnimationView 
             x:Name="LottieAnimationView"
             FileName="{Binding AnimationFilePath}"
-            DefaultCacheStrategy="None"
+            DefaultCacheStrategy="Strong"
             AutoPlay="True"
-            RepeatCount="1"
+            Loop="True"
+            RepeatCount="2"
             Opacity="0.75"
             Height="80"
             VerticalAlignment="Center" 
             HorizontalAlignment="Center"/>
+        <Button x:Name="OpenLurkerPro" 
+                Visibility="{Binding TrialAvailable, Converter={StaticResource BooleanToVisibilityConverter}}"
+                Grid.Row="1" Style="{DynamicResource Patreon}" Height="30" FontSize="15">Start Trial</Button>
+    </Grid>
+    
 </UserControl>
