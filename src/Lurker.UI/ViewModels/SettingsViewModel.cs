@@ -786,7 +786,7 @@ namespace Lurker.UI.ViewModels
                         {
                             this.TrialAvailable = false;
                             var time = this._currentPatreonService.GetTrialRemainingTime();
-                            this.BlessingText = $"{time.Days} days, {time.Hours} hours, {time.Minutes} minutes";
+                            this.BlessingText = GetBlessingText(time);
                         }
 
                         this.SearchEnabled = true;
@@ -818,7 +818,7 @@ namespace Lurker.UI.ViewModels
                         this.DashboardEnabled = true;
 
                         var time = service.GetTrialRemainingTime();
-                        this.BlessingText = $"{time.Days} days, {time.Hours} hours, {time.Minutes} minutes";
+                        this.BlessingText = GetBlessingText(time);
                     }
 
                     this.TrialAvailable = false;
@@ -906,7 +906,7 @@ namespace Lurker.UI.ViewModels
                         if (service.IsTrialValid())
                         {
                             var time = service.GetTrialRemainingTime();
-                            this.BlessingText = $"{time.Days} days, {time.Hours} hours, {time.Minutes} minutes";
+                            this.BlessingText = GetBlessingText(time);
                         }
                         else
                         {
@@ -922,6 +922,22 @@ namespace Lurker.UI.ViewModels
             base.OnActivate();
 
             this._activated = true;
+        }
+
+        private static string GetBlessingText(TimeSpan time)
+        {
+            var text = string.Empty;
+            if (time.Days > 0)
+            {
+                return $"{time.Days} days, {time.Hours} hours, {time.Minutes} minutes";
+            }
+
+            if (time.Hours > 0)
+            {
+                return $"{time.Hours} hours, {time.Minutes} minutes";
+            }
+
+            return $"{time.Minutes} minutes";
         }
 
         /// <summary>
