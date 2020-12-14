@@ -37,6 +37,7 @@ namespace Lurker.UI.ViewModels
         private bool _trialAvailable;
         private KeyboardHelper _keyboardHelper;
         private SettingsService _settingService;
+        private bool _modified;
         private string _blessingtext;
         private bool _needsUpdate;
         private bool _pledging;
@@ -91,6 +92,23 @@ namespace Lurker.UI.ViewModels
         /// Gets or sets the index of the select teb.
         /// </summary>
         public int SelectTabIndex { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="SettingsViewModel"/> is saved.
+        /// </summary>
+        public bool Modified
+        {
+            get
+            {
+                return this._modified;
+            }
+
+            private set
+            {
+                this._modified = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
 
         /// <summary>
         /// Gets or sets a value indicating whether [trial available].
@@ -788,10 +806,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public async void StartTrial()
         {
-            var coordinator = DialogCoordinator.Instance;
-            var controller = await coordinator.ShowProgressAsync(this, "Hold on", "Preparing the trial...");
-            controller.SetIndeterminate();
-            await Task.Run(async () =>
+            await this.ShowProgress("Hold on", "Preparing the trial...", async () => 
             {
                 using (var service = new Patreon.PatreonService())
                 {
@@ -810,9 +825,15 @@ namespace Lurker.UI.ViewModels
                     this.Pledging = pledging;
                 }
             });
+        }
 
-            SentrySdk.CaptureMessage("Trial Started", Sentry.Protocol.SentryLevel.Info);
-            await controller.CloseAsync();
+        /// <summary>
+        /// Saves the settings.
+        /// </summary>
+        public async void SaveSettings()
+        {
+            await this.ShowProgress("Hold on", "Saving setings...", () => this._settingService.Save());
+            this.Modified = false;
         }
 
         /// <summary>
@@ -871,11 +892,11 @@ namespace Lurker.UI.ViewModels
             {
                 using (var service = new Patreon.PatreonService())
                 {
-                    this.TrialAvailable = service.TrialAvailable;
                     this.Pledging = await service.IsPledging();
 
                     if (!this.Pledging)
                     {
+                        this.TrialAvailable = service.TrialAvailable;
                         this.SearchEnabled = false;
                         this.DashboardEnabled = false;
                     }
@@ -934,6 +955,16 @@ namespace Lurker.UI.ViewModels
         /// <param name="e">The <see cref="System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
         private void SettingsViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
+            if (e.PropertyName != nameof(this.SelectTabIndex) && e.PropertyName != nameof(this.Modified))
+            {
+                if (!this._activated || !this._activateTask.IsCompleted)
+                {
+                    return;
+                }
+
+                this.Modified = true;
+            }
+
             if (e.PropertyName == nameof(this.AlertVolume))
             {
                 this._settingService.AlertVolume = (float)this.AlertVolume / 100;
@@ -988,6 +1019,26 @@ namespace Lurker.UI.ViewModels
             }
 
             callback();
+        }
+
+        /// <summary>
+        /// Shows the progress.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        /// <param name="message">The message.</param>
+        /// <param name="action">The action.</param>
+        private async Task ShowProgress(string title, string message, System.Action action)
+        {
+            var coordinator = DialogCoordinator.Instance;
+            var controller = await coordinator.ShowProgressAsync(this, title, message);
+            controller.SetIndeterminate();
+
+            await Task.Run(() =>
+            {
+                action?.Invoke();
+            });
+
+            await controller.CloseAsync();
         }
 
         #endregion
