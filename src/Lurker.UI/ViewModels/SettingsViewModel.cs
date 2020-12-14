@@ -878,6 +878,7 @@ namespace Lurker.UI.ViewModels
                 this.OnClose?.Invoke(this, EventArgs.Empty);
                 this._activated = false;
                 this.SelectTabIndex = 0;
+                this.Modified = false;
             }
 
             base.OnDeactivate(close);
