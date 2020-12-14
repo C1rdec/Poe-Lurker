@@ -422,7 +422,7 @@
         </Controls:MetroAnimatedTabControl>
         <StackPanel Orientation="Horizontal" Visibility="{Binding UpToDate, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Button x:Name="UserGuide"
-                Margin="8,8,8,8" 
+                Margin="20,8,8,8" 
                 VerticalAlignment="Bottom" 
                 HorizontalAlignment="Left" 
                 Height="10" >Guide</Button>

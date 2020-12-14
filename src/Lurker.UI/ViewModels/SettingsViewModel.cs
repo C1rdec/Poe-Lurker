@@ -22,6 +22,7 @@ namespace Lurker.UI.ViewModels
     using Lurker.UI.Helpers;
     using MahApps.Metro.Controls;
     using MahApps.Metro.Controls.Dialogs;
+    using Sentry;
 
     /// <summary>
     /// Represents the settings view model.
@@ -810,6 +811,7 @@ namespace Lurker.UI.ViewModels
                 }
             });
 
+            SentrySdk.CaptureMessage("Trial Started", Sentry.Protocol.SentryLevel.Info);
             await controller.CloseAsync();
         }
 
