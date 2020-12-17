@@ -111,7 +111,6 @@ namespace Lurker.Models
         /// <summary>
         /// Gets or sets a value indicating whether [item highlight enabled].
         /// </summary>
-        [DefaultValue(true)]
         public bool ItemHighlightEnabled { get; set; }
 
         /// <summary>

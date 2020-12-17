@@ -92,7 +92,7 @@ namespace Lurker
         /// <param name="e">The <see cref="KeyboardMessageEventArgs"/> instance containing the event data.</param>
         private async void SearchItem(object sender, KeyboardMessageEventArgs e)
         {
-            if (this._settingsService.ItemHighlightEnabled)
+            if (this._settingsService.ItemHighlightEnabled && Native.IsKeyPressed(Native.VirtualKeyStates.VK_MENU))
             {
                 var baseType = await this.GetItemSearchValueInClipboard();
                 if (string.IsNullOrEmpty(baseType))

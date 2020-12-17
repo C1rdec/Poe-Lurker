@@ -41,15 +41,19 @@ namespace Lurker.UI.ViewModels
                 AssetService.Create(LottieFileName, GetResourceContent(LottieFileName));
             }
 
-            using (var service = new Patreon.PatreonService())
+            Execute.OnUIThread(async () =>
             {
-                if (service.IsPledging().Result)
+                using (var service = new Patreon.PatreonService())
                 {
-                    return;
-                }
+                    var result = await service.IsPledging();
+                    if (result)
+                    {
+                        return;
+                    }
 
-                this.TrialAvailable = service.TrialAvailable;
-            }
+                    this.TrialAvailable = service.TrialAvailable;
+                }
+            });
         }
 
         #endregion
