@@ -17,7 +17,17 @@ namespace Lurker
     {
         #region Fields
 
-        private static readonly List<string> PossibleProcessNames = new List<string> { "PathOfExile", "PathOfExile_x64", "PathOfExileSteam", "PathOfExile_x64Steam", "PathOfExile_x64_KG.exe", "PathOfExile_KG.exe" };
+        private static readonly List<string> PossibleProcessNames = new List<string>
+        {
+            "PathOfExile",
+            "PathOfExile_x64",
+            "PathOfExileSteam",
+            "PathOfExile_x64Steam",
+            "PathOfExile_x64_KG.exe",
+            "PathOfExile_KG.exe",
+            "PathOfExile_X64EGS.exe",
+            "PathOfExileEGS.exe",
+        };
 
         #endregion
 
