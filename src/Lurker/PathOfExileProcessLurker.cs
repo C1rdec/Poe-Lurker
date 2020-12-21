@@ -23,10 +23,10 @@ namespace Lurker
             "PathOfExile_x64",
             "PathOfExileSteam",
             "PathOfExile_x64Steam",
-            "PathOfExile_x64_KG.exe",
-            "PathOfExile_KG.exe",
-            "PathOfExile_X64EGS.exe",
-            "PathOfExileEGS.exe",
+            "PathOfExile_x64_KG",
+            "PathOfExile_KG",
+            "PathOfExile_x64EGS",
+            "PathOfExileEGS",
         };
 
         #endregion
