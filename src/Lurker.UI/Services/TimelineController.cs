@@ -29,7 +29,6 @@ namespace Lurker.UI.Services
         public static void Open(TimelineItemViewModel item)
         {
             Close();
-
             item.IsOpen = true;
             _currentItem = item;
         }

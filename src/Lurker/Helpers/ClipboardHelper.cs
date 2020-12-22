@@ -34,14 +34,7 @@ namespace Lurker.Helpers
         /// <returns>The clipboard text.</returns>
         public static string GetClipboardText()
         {
-            var text = Clipboard.ClipboardText;
-            if (_lastText == text)
-            {
-                return string.Empty;
-            }
-
-            _lastText = text;
-            return text;
+            return GetLegacy();
         }
 
         /// <summary>
@@ -106,6 +99,33 @@ namespace Lurker.Helpers
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
             thread.Join();
+        }
+
+        private static string GetLegacy()
+        {
+            var clipboardText = string.Empty;
+            RetryOnMainThread(() =>
+            {
+                clipboardText = System.Windows.Clipboard.GetText();
+            });
+
+            return clipboardText;
+        }
+
+        /// <summary>
+        /// Gets the sharp clipboard.
+        /// </summary>
+        /// <returns>The text.</returns>
+        private static string GetSharpClipboard()
+        {
+            var text = Clipboard.ClipboardText;
+            if (_lastText == text)
+            {
+                return string.Empty;
+            }
+
+            _lastText = text;
+            return text;
         }
 
         #endregion

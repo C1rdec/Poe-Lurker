@@ -12,5 +12,5 @@
         ShowInTaskbar="False"
         SizeToContent="WidthAndHeight"
         Title="PopupView">
-    <ContentControl x:Name="PopupContent" Visibility="{Binding ContentVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+    <ContentControl Opacity="{Binding Opacity}" x:Name="PopupContent" Visibility="{Binding ContentVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 </Window>

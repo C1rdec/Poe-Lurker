@@ -11,6 +11,8 @@ namespace Lurker.UI.ViewModels
     using Lurker.Helpers;
     using Lurker.Models;
     using Lurker.Services;
+    using Lurker.UI.Models;
+    using Winook;
 
     /// <summary>
     /// Represent the popup.
@@ -20,11 +22,15 @@ namespace Lurker.UI.ViewModels
     {
         #region Fields
 
+        private const int MouseMargin = 160;
         private const int PopupMargin = 10;
         private MouseLurker _mouseLurker;
         private PoeWindowInformation _windowInformation;
         private int _x;
         private int _y;
+        private double _opacity;
+        private double _width;
+        private double _height;
 
         #endregion
 
@@ -42,6 +48,7 @@ namespace Lurker.UI.ViewModels
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
             this._mouseLurker = mouseLurker;
+            this._opacity = 1;
         }
 
         #endregion
@@ -57,6 +64,26 @@ namespace Lurker.UI.ViewModels
         /// Gets a value indicating whether [content visible].
         /// </summary>
         public bool ContentVisible => this.PopupContent != null;
+
+        /// <summary>
+        /// Gets the opacity.
+        /// </summary>
+        public double Opacity
+        {
+            get
+            {
+                return this._opacity;
+            }
+
+            private set
+            {
+                if (this._opacity != value)
+                {
+                    this._opacity = value;
+                    this.NotifyOfPropertyChange();
+                }
+            }
+        }
 
         #endregion
 
@@ -98,6 +125,8 @@ namespace Lurker.UI.ViewModels
             this.PopupContent = content;
             this.NotifyOfPropertyChange(() => this.PopupContent);
             this.NotifyOfPropertyChange(() => this.ContentVisible);
+
+            this._mouseLurker.MouseMove += this.MouseLurker_MouseMove;
         }
 
         /// <summary>
@@ -107,6 +136,7 @@ namespace Lurker.UI.ViewModels
         {
             this.PopupContent = null;
             this.NotifyOfPropertyChange(() => this.PopupContent);
+            this._mouseLurker.MouseMove -= this.MouseLurker_MouseMove;
         }
 
         /// <summary>
@@ -120,20 +150,52 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Handles the MouseMove event of the MouseLurker control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="MouseMessageEventArgs"/> instance containing the event data.</param>
+        private void MouseLurker_MouseMove(object sender, MouseMessageEventArgs e)
+        {
+            var rayon = this._width / 2;
+            var center = new Position()
+            {
+                X = (int)(this._x + rayon),
+                Y = (int)(this._y + (this._height / 2)),
+            };
+
+            var differenceX = System.Math.Abs(center.X - e.X);
+            var differenceY = System.Math.Abs(center.Y - e.Y);
+            var hypothenuse = System.Math.Sqrt(System.Math.Pow(differenceX, 2) + System.Math.Pow(differenceY, 2));
+
+            var difference = MouseMargin + rayon - hypothenuse + 30;
+            if (difference <= 0)
+            {
+                this.ClearContent();
+            }
+            else
+            {
+                this.Opacity = difference / MouseMargin;
+            }
+        }
+
+        /// <summary>
         /// Handles the SizeChanged event of the View control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.Windows.SizeChangedEventArgs"/> instance containing the event data.</param>
         private void View_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
         {
-            var rightSide = e.NewSize.Width + this._x;
+            this._height = e.NewSize.Height;
+            this._width = e.NewSize.Width;
+
+            var rightSide = e.NewSize.Width + this._x + 15;
             if (rightSide > this._windowInformation.Position.Right)
             {
                 this.View.Left = this._x - (rightSide - this._windowInformation.Position.Right) - PopupMargin;
             }
             else
             {
-                this.View.Left = this._x;
+                this.View.Left = this._x + 15;
             }
         }
 

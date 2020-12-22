@@ -24,7 +24,7 @@ namespace Lurker.UI.ViewModels
         private TimelineInformation _lineInformation;
         private bool _visited;
         private bool _reached;
-        private INotifyPropertyChanged _detailedView;
+        private PropertyChangedBase _detailedView;
         private bool _isOpen;
 
         #endregion
@@ -52,7 +52,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets or sets the detailed view.
         /// </summary>
-        public INotifyPropertyChanged DetailedView
+        public PropertyChangedBase DetailedView
         {
             get
             {

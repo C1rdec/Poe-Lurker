@@ -56,6 +56,11 @@ namespace Lurker
         /// </summary>
         public event EventHandler<PoeItem> Newitem;
 
+        /// <summary>
+        /// Occurs when [mouse mouve].
+        /// </summary>
+        public event EventHandler<MouseMessageEventArgs> MouseMove;
+
         #endregion
 
         #region Properties
@@ -112,6 +117,8 @@ namespace Lurker
         {
             this._x = e.X;
             this._y = e.Y;
+
+            this.MouseMove?.Invoke(this, e);
         }
 
         /// <summary>
