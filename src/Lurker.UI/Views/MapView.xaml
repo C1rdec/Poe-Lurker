@@ -26,8 +26,6 @@
             </Grid.RowDefinitions>
             <Grid Height="65" Width="80" Visibility="{Binding Safe, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <local:IconPack Foreground="Green"
-                            cal:Message.Attach="[Event MouseUp] = [Action Close]"
-                        Cursor="Hand"
                         x:Name="Help"
                         Height="35"
                         Data="{x:Static local:IconPackData.Checkbox}">
@@ -36,7 +34,7 @@
                     </local:IconPack.Background>
                 </local:IconPack>
             </Grid>
-            
+
             <ItemsControl  x:Name="Affixes" >
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -44,32 +42,6 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-            <Button Height="20" Cursor="Hand" Width="20" VerticalAlignment="Top" HorizontalAlignment="Right" Background="Red" x:Name="Close">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="Button">
-                                    <Border CornerRadius="0,4,0,20">
-                                        <Border.Style>
-                                            <Style TargetType="{x:Type Border}">
-                                                <Setter Property="Background" Value="Gray"/>
-                                                <Setter Property="Opacity" Value="0.25"/>
-                                                <Style.Triggers>
-                                                    <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter Property="Background" Value="Red" />
-                                                        <Setter Property="Opacity" Value="0.75"/>
-                                                    </Trigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Border.Style>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </Button.Style>
-            </Button>
 
             <Button Height="20" Cursor="Hand" Width="20" VerticalAlignment="Top" HorizontalAlignment="Left" Background="Red" x:Name="ToggleModSelection">
                 <Button.Style>

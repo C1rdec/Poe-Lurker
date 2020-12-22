@@ -63,32 +63,6 @@
                            FontFamily="pack://application:,,,/Assets/#Fontin" />
                 <Line Grid.Row="1" VerticalAlignment="Bottom" Stroke="Red" StrokeThickness="3" X1="0" Y1="0" X2="{Binding Progress}"></Line>
             </Grid>
-            <Button Height="20" Cursor="Hand" Width="20" VerticalAlignment="Top" HorizontalAlignment="Right" Background="Red" x:Name="Close">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="Button">
-                                    <Border CornerRadius="0,4,0,20">
-                                        <Border.Style>
-                                            <Style TargetType="{x:Type Border}">
-                                                <Setter Property="Background" Value="Gray"/>
-                                                <Setter Property="Opacity" Value="0.25"/>
-                                                <Style.Triggers>
-                                                    <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter Property="Background" Value="Red" />
-                                                        <Setter Property="Opacity" Value="0.75"/>
-                                                    </Trigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Border.Style>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </Button.Style>
-            </Button>
         </Grid>
     </Border>
 </UserControl>
