@@ -54,9 +54,5 @@
                 </ContextMenu>
             </tb:TaskbarIcon.ContextMenu>
         </tb:TaskbarIcon>
-
-        <Popup IsOpen="{Binding IsItemOverlayOpen}" Placement="MousePoint" VerticalOffset="-25" HorizontalOffset="-25">
-            <ContentControl cal:View.Model="{Binding ItemOverlayViewModel}"/>
-        </Popup>
     </Grid>
 </Window>

@@ -50,7 +50,6 @@ namespace Lurker.UI
         private HideoutViewModel _hideoutOverlay;
         private SettingsService _settingsService;
         private AfkService _afkService;
-        private PropertyChangedBase _itemOverlay;
         private SettingsViewModel _settingsViewModel;
         private BuildViewModel _buildViewModel;
         private HelpViewModel _helpOverlay;
@@ -58,7 +57,6 @@ namespace Lurker.UI
         private bool _startWithWindows;
         private bool _needUpdate;
         private bool _showInTaskBar;
-        private bool _isItemOverlayOpen;
         private bool _showUpdateSuccess;
         private bool _closing;
         private Task _openingTask;
@@ -139,23 +137,6 @@ namespace Lurker.UI
         public bool ActivePlayerVisible => this.ActivePlayer != null;
 
         /// <summary>
-        /// Gets or sets the item overlay view model.
-        /// </summary>
-        public Caliburn.Micro.PropertyChangedBase ItemOverlayViewModel
-        {
-            get
-            {
-                return this._itemOverlay;
-            }
-
-            set
-            {
-                this._itemOverlay = value;
-                this.NotifyOfPropertyChange();
-            }
-        }
-
-        /// <summary>
         /// Gets the command.
         /// </summary>
         public DoubleClickCommand ShowSettingsCommand => new DoubleClickCommand(this.ShowSettings);
@@ -173,23 +154,6 @@ namespace Lurker.UI
             set
             {
                 this._showInTaskBar = value;
-                this.NotifyOfPropertyChange();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance is item open.
-        /// </summary>
-        public bool IsItemOverlayOpen
-        {
-            get
-            {
-                return this._isItemOverlayOpen;
-            }
-
-            set
-            {
-                this._isItemOverlayOpen = value;
                 this.NotifyOfPropertyChange();
             }
         }
@@ -679,40 +643,22 @@ namespace Lurker.UI
         /// <param name="item">The item.</param>
         private void MouseLurker_Newitem(object sender, PoeItem item)
         {
-            this.IsItemOverlayOpen = false;
+            if (!this._popup.IsActive)
+            {
+                this.ActivateItem(this._popup);
+            }
 
             if (item is Map map)
             {
-                if (!this._popup.IsActive)
-                {
-                    this.ActivateItem(this._popup);
-                }
-
-                this._popup.SetPosition();
-                this._popup.SetContent(new MapViewModel(map, this.ActivePlayer, this._currentCharacterService, () =>
-                {
-                    this._popup.ClearContent();
-                    this.DeactivateItem(this._popup, true);
-                }));
+                this._popup.Open(new MapViewModel(map, this.ActivePlayer, this._currentCharacterService));
             }
             else if (item is Weapon weapon)
             {
-                if (!this._popup.IsActive)
-                {
-                    this.ActivateItem(this._popup);
-                }
-
-                this._popup.SetPosition();
-                this._popup.SetContent(new WeaponViewModel(weapon, () =>
-                {
-                    this._popup.ClearContent();
-                    this.DeactivateItem(this._popup, true);
-                }));
+                this._popup.Open(new WeaponViewModel(weapon));
             }
-            else
+            else if (item.Rarity != Rarity.Currency)
             {
-                this.ItemOverlayViewModel = new ItemOverlayViewModel(item, () => this.IsItemOverlayOpen = false);
-                this.IsItemOverlayOpen = true;
+                this._popup.Open(new ItemOverlayViewModel(item));
             }
         }
 

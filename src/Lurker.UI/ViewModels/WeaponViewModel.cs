@@ -17,7 +17,6 @@ namespace Lurker.UI.ViewModels
         #region Fields
 
         private Weapon _weapon;
-        private System.Action _closeCallback;
 
         #endregion
 
@@ -27,11 +26,9 @@ namespace Lurker.UI.ViewModels
         /// Initializes a new instance of the <see cref="WeaponViewModel" /> class.
         /// </summary>
         /// <param name="weapon">The weapon.</param>
-        /// <param name="closeCallback">The close callback.</param>
-        public WeaponViewModel(Weapon weapon, System.Action closeCallback)
+        public WeaponViewModel(Weapon weapon)
         {
             this._weapon = weapon;
-            this._closeCallback = closeCallback;
 
             if (this.PhysicalDps >= this.ElementalDps)
             {
@@ -72,18 +69,6 @@ namespace Lurker.UI.ViewModels
         /// Gets the elemental DPS.
         /// </summary>
         public double ElementalDps => this._weapon.ElementalDps;
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Closes this instance.
-        /// </summary>
-        public void Close()
-        {
-            this._closeCallback?.Invoke();
-        }
 
         #endregion
     }

@@ -25,7 +25,6 @@ namespace Lurker.UI.ViewModels
         private const string CannotRegenerateId = "stat_1910157106";
         private const string CannotLeechId = "stat_526251910";
         private const string TemporalChainsId = "stat_2326202293";
-        private System.Action _closeCallBack;
         private Map _map;
         private bool _modsSelectionVisible;
         private PlayerService _playerService;
@@ -41,12 +40,10 @@ namespace Lurker.UI.ViewModels
         /// <param name="map">The map.</param>
         /// <param name="playerViewModel">The player view model.</param>
         /// <param name="playerService">The player service.</param>
-        /// <param name="closeCallback">The close callback.</param>
-        public MapViewModel(Map map, PlayerViewModel playerViewModel, PlayerService playerService, System.Action closeCallback)
+        public MapViewModel(Map map, PlayerViewModel playerViewModel, PlayerService playerService)
         {
             this._map = map;
             this.CurrentPlayer = playerViewModel;
-            this._closeCallBack = closeCallback;
             this._playerService = playerService;
             this._playerService.PlayerChanged += this.PlayerService_PlayerChanged;
             this.Affixes = new ObservableCollection<MapAffixViewModel>();
@@ -107,14 +104,6 @@ namespace Lurker.UI.ViewModels
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Closes this instance.
-        /// </summary>
-        public void Close()
-        {
-            this._closeCallBack?.Invoke();
-        }
 
         /// <summary>
         /// Shows the mod selection.

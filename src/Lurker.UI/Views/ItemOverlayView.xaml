@@ -10,7 +10,7 @@
     <Button Width="200">
         <Button.Template>
             <ControlTemplate TargetType="{x:Type Button}">
-                <Border Background="Black" CornerRadius="4" cal:Message.Attach="[Event MouseLeave] = [Action Close()]" BorderThickness="2" BorderBrush="#e7b577">
+                <Border Background="Black" CornerRadius="4" BorderThickness="2" BorderBrush="#e7b577">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>

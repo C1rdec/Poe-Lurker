@@ -6,7 +6,6 @@
 
 namespace Lurker.UI.ViewModels
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Lurker.Patreon.Models;
@@ -19,7 +18,6 @@ namespace Lurker.UI.ViewModels
     {
         #region Fields
 
-        private Action _closeAction;
         private PoeItem _item;
 
         #endregion
@@ -30,11 +28,9 @@ namespace Lurker.UI.ViewModels
         /// Initializes a new instance of the <see cref="ItemOverlayViewModel" /> class.
         /// </summary>
         /// <param name="item">The item.</param>
-        /// <param name="closeAction">The close action.</param>
-        public ItemOverlayViewModel(PoeItem item, Action closeAction)
+        public ItemOverlayViewModel(PoeItem item)
         {
             this._item = item;
-            this._closeAction = closeAction;
             this.SocketInformation = GetSocketInformation(item);
         }
 
@@ -105,14 +101,6 @@ namespace Lurker.UI.ViewModels
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Closes this instance.
-        /// </summary>
-        public void Close()
-        {
-            this._closeAction?.Invoke();
-        }
 
         /// <summary>
         /// Gets the socket information.

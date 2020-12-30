@@ -90,9 +90,42 @@ namespace Lurker.UI.ViewModels
         #region Methods
 
         /// <summary>
+        /// Opens the specified content.
+        /// </summary>
+        /// <param name="content">The content.</param>
+        public void Open(PropertyChangedBase content)
+        {
+            this.ClearContent();
+            this.SetPosition();
+            this.SetContent(content);
+            this._mouseLurker.MouseMove += this.MouseLurker_MouseMove;
+        }
+
+        /// <summary>
+        /// Called when an attached view's Loaded event fires.
+        /// </summary>
+        /// <param name="view">The view.</param>
+        protected override void OnViewLoaded(object view)
+        {
+            base.OnViewLoaded(view);
+            this.View.SizeChanged += this.View_SizeChanged;
+        }
+
+        /// <summary>
+        /// Sets the content.
+        /// </summary>
+        /// <param name="content">The view.</param>
+        private void SetContent(PropertyChangedBase content)
+        {
+            this.PopupContent = content;
+            this.NotifyOfPropertyChange(() => this.PopupContent);
+            this.NotifyOfPropertyChange(() => this.ContentVisible);
+        }
+
+        /// <summary>
         /// Sets the position.
         /// </summary>
-        public void SetPosition()
+        private void SetPosition()
         {
             Execute.OnUIThread(() =>
             {
@@ -117,36 +150,13 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
-        /// Sets the content.
-        /// </summary>
-        /// <param name="content">The view.</param>
-        public void SetContent(PropertyChangedBase content)
-        {
-            this.PopupContent = content;
-            this.NotifyOfPropertyChange(() => this.PopupContent);
-            this.NotifyOfPropertyChange(() => this.ContentVisible);
-
-            this._mouseLurker.MouseMove += this.MouseLurker_MouseMove;
-        }
-
-        /// <summary>
         /// Clears the content.
         /// </summary>
-        public void ClearContent()
+        private void ClearContent()
         {
             this.PopupContent = null;
             this.NotifyOfPropertyChange(() => this.PopupContent);
             this._mouseLurker.MouseMove -= this.MouseLurker_MouseMove;
-        }
-
-        /// <summary>
-        /// Called when an attached view's Loaded event fires.
-        /// </summary>
-        /// <param name="view">The view.</param>
-        protected override void OnViewLoaded(object view)
-        {
-            base.OnViewLoaded(view);
-            this.View.SizeChanged += this.View_SizeChanged;
         }
 
         /// <summary>

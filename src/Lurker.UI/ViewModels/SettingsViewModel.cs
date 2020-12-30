@@ -979,7 +979,7 @@ namespace Lurker.UI.ViewModels
         /// <param name="e">The <see cref="System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
         private void SettingsViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName != nameof(this.SelectTabIndex) && e.PropertyName != nameof(this.Modified))
+            if (e.PropertyName != nameof(this.SelectTabIndex) && e.PropertyName != nameof(this.Modified) && e.PropertyName != nameof(this.IsActive))
             {
                 if (!this._activated || !this._activateTask.IsCompleted)
                 {
