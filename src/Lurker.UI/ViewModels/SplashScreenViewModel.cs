@@ -52,6 +52,10 @@ namespace Lurker.UI.ViewModels
                     }
 
                     this.TrialAvailable = service.TrialAvailable;
+                    if (!this.TrialAvailable)
+                    {
+                        this.ShowPatreon = true;
+                    }
                 }
             });
         }
@@ -69,6 +73,11 @@ namespace Lurker.UI.ViewModels
         /// Gets or sets a value indicating whether [trial available].
         /// </summary>
         public bool TrialAvailable { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [show patreon].
+        /// </summary>
+        public bool ShowPatreon { get; set; }
 
         #endregion
 

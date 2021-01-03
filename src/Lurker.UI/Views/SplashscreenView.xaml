@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:lottieSharp="clr-namespace:LottieSharp;assembly=LottieSharp"
+             xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -22,9 +23,18 @@
             Height="80"
             VerticalAlignment="Center" 
             HorizontalAlignment="Center"/>
+        <Image Height="30"
+               Cursor="Hand"
+               cal:Message.Attach="[Event MouseDown] = [Action OpenLurkerPro]"
+               Source="https://user-images.githubusercontent.com/5436436/88303508-1a537980-ccd5-11ea-9e27-9139f994101a.png"
+               Visibility="{Binding ShowPatreon, Converter={StaticResource BooleanToVisibilityConverter}}"
+               Grid.Row="1"/>
         <Button x:Name="OpenLurkerPro" 
                 Visibility="{Binding TrialAvailable, Converter={StaticResource BooleanToVisibilityConverter}}"
-                Grid.Row="1" Style="{DynamicResource Patreon}" Height="30" FontSize="15">Start Trial</Button>
+                Grid.Row="1" 
+                Style="{DynamicResource Patreon}" 
+                Height="30" 
+                FontSize="15">Start Trial</Button>
     </Grid>
     
 </UserControl>
