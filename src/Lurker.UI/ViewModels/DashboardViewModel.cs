@@ -300,8 +300,11 @@ namespace Lurker.UI.ViewModels
             {
                 this._leagueTrades = this._allTradres;
             }
+            else
+            {
+                this._leagueTrades = this._allTradres.Where(t => !string.IsNullOrEmpty(t.LeagueName) && league.PossibleNames.Contains(t.LeagueName));
+            }
 
-            this._leagueTrades = this._allTradres.Where(t => !string.IsNullOrEmpty(t.LeagueName) && league.PossibleNames.Contains(t.LeagueName));
             this._networkTrades = this._leagueTrades;
         }
 
