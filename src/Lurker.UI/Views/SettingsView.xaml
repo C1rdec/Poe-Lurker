@@ -415,6 +415,7 @@
                             <Controls:ToggleSwitch Margin="30,0,0,0"
                                                    Header="Dashboard"
                                                    IsChecked="{Binding DashboardEnabled}"/>
+                            <Button x:Name="OpenDashboard" Height="50" Style="{DynamicResource Tag}" FontSize="18">Open </Button>
                         </StackPanel>
                     </Grid>
                 </Grid>

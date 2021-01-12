@@ -445,6 +445,10 @@ namespace Lurker.UI
             });
         }
 
+        /// <summary>
+        /// Toggles the build helper.
+        /// </summary>
+        /// <param name="show">if set to <c>true</c> [show].</param>
         private void ToggleBuildHelper(bool show)
         {
             if (show)

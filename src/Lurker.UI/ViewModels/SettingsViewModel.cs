@@ -698,6 +698,16 @@ namespace Lurker.UI.ViewModels
         #region Methods
 
         /// <summary>
+        /// Opens the dashboard.
+        /// </summary>
+        public void OpenDashboard()
+        {
+            var dashBoard = IoC.Get<DashboardViewModel>();
+            var eventAggregator = IoC.Get<IEventAggregator>();
+            eventAggregator.PublishOnUIThread(dashBoard);
+        }
+
+        /// <summary>
         /// Gets the patreon identifier.
         /// </summary>
         public void GetPatreonId()

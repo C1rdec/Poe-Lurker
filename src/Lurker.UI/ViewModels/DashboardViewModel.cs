@@ -33,6 +33,7 @@ namespace Lurker.UI.ViewModels
         private IEnumerable<SimpleTradeModel> _leagueTrades;
         private IEnumerable<SimpleTradeModel> _allTradres;
         private IEnumerable<League> _leagues;
+        private League _selectedLeague;
 
         #endregion
 
@@ -100,6 +101,28 @@ namespace Lurker.UI.ViewModels
             {
                 this._leagues = value;
                 this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the selected league.
+        /// </summary>
+        /// <value>The selected league.</value>
+        public League SelectedLeague
+        {
+            get
+            {
+                return this._selectedLeague;
+            }
+
+            set
+            {
+
+                if (this._selectedLeague != value)
+                {
+                    this._selectedLeague = value;
+                    this.Filter(this._selectedLeague);
+                }
             }
         }
 
@@ -268,6 +291,11 @@ namespace Lurker.UI.ViewModels
         /// <param name="league">The league.</param>
         private void SetLeagueTrades(League league)
         {
+            this._selectedLeague = league;
+
+            // Needs to be notified manually
+            this.NotifyOfPropertyChange(nameof(this.SelectedLeague));
+
             if (league == null)
             {
                 this._leagueTrades = this._allTradres;
