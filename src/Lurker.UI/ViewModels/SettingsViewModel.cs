@@ -782,12 +782,9 @@ namespace Lurker.UI.ViewModels
                     this.Pledging = await this._currentPatreonService.IsPledging();
                     if (this.Pledging)
                     {
-                        if (this._currentPatreonService.IsTrialValid())
-                        {
-                            this.TrialAvailable = false;
-                            var time = this._currentPatreonService.GetTrialRemainingTime();
-                            this.BlessingText = GetBlessingText(time);
-                        }
+                        this.TrialAvailable = false;
+                        var time = this._currentPatreonService.GetTrialRemainingTime();
+                        this.BlessingText = GetBlessingText(time);
 
                         this.SearchEnabled = true;
                         this.DashboardEnabled = true;
@@ -933,6 +930,11 @@ namespace Lurker.UI.ViewModels
         /// <returns>The blessing trial text.</returns>
         private static string GetBlessingText(TimeSpan time)
         {
+            if (time == TimeSpan.Zero)
+            {
+                return "A blessing I can’t deny";
+            }
+
             var text = string.Empty;
             if (time.Days > 0)
             {
