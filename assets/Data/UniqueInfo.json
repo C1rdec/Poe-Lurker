@@ -682,21 +682,21 @@
     "ItemClass": "Axe",
     "Name": "Wings of Entropy",
     "WikiUrl": "https://pathofexile.gamepedia.com/Wings_of_Entropy",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/e2/Wings_of_Entropy_inventory_icon.png/revision/latest?cb=20131129142826&amp;format=original",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/e2/Wings_of_Entropy_inventory_icon.png/revision/latest?cb=20201223003253&amp;format=original",
     "Level": 62
   },
   {
     "ItemClass": "Axe",
     "Name": "Replica Wings of Entropy",
     "WikiUrl": "https://pathofexile.gamepedia.com/Replica_Wings_of_Entropy",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/e2/Wings_of_Entropy_inventory_icon.png/revision/latest?cb=20131129142826&amp;format=original",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/e2/Wings_of_Entropy_inventory_icon.png/revision/latest?cb=20201223003253&amp;format=original",
     "Level": 62
   },
   {
     "ItemClass": "Axe",
     "Name": "Wings of Entropy",
     "WikiUrl": "https://pathofexile.gamepedia.com/Wings_of_Entropy",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/e2/Wings_of_Entropy_inventory_icon.png/revision/latest?cb=20131129142826&amp;format=original",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/e2/Wings_of_Entropy_inventory_icon.png/revision/latest?cb=20201223003253&amp;format=original",
     "Level": 60
   },
   {
@@ -731,7 +731,7 @@
     "ItemClass": "Belt",
     "Name": "Replica Bated Breath",
     "WikiUrl": "https://pathofexile.gamepedia.com/Replica_Bated_Breath",
-    "ImageUrl": null,
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/ee/Bated_Breath_inventory_icon.png/revision/latest?cb=20141213090636&amp;format=original",
     "Level": 22
   },
   {
@@ -1936,7 +1936,7 @@
     "Name": "Beacon of Madness",
     "WikiUrl": "https://pathofexile.gamepedia.com/Beacon_of_Madness",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/88/Beacon_of_Madness_inventory_icon.png/revision/latest?cb=20200313185018&amp;format=original",
-    "Level": 70
+    "Level": 1
   },
   {
     "ItemClass": "Boots",
@@ -2010,13 +2010,6 @@
   },
   {
     "ItemClass": "Boots",
-    "Name": "Beacon of Madness",
-    "WikiUrl": "https://pathofexile.gamepedia.com/Beacon_of_Madness",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/88/Beacon_of_Madness_inventory_icon.png/revision/latest?cb=20200313185018&amp;format=original",
-    "Level": 70
-  },
-  {
-    "ItemClass": "Boots",
     "Name": "Death's Door",
     "WikiUrl": "https://pathofexile.gamepedia.com/Death%27s_Door",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/4/4e/Death%27s_Door_inventory_icon.png/revision/latest?cb=20160607091813&amp;format=original",
@@ -2049,13 +2042,6 @@
     "WikiUrl": "https://pathofexile.gamepedia.com/Wake_of_Destruction",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/9/9b/Wake_of_Destruction_inventory_icon.png/revision/latest?cb=20130626162440&amp;format=original",
     "Level": 28
-  },
-  {
-    "ItemClass": "Boots",
-    "Name": "Beacon of Madness",
-    "WikiUrl": "https://pathofexile.gamepedia.com/Beacon_of_Madness",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/88/Beacon_of_Madness_inventory_icon.png/revision/latest?cb=20200313185018&amp;format=original",
-    "Level": 70
   },
   {
     "ItemClass": "Boots",
@@ -3664,7 +3650,7 @@
     "ItemClass": "Helmet",
     "Name": "Black Sun Crest",
     "WikiUrl": "https://pathofexile.gamepedia.com/Black_Sun_Crest",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/83/Black_Sun_Crest_inventory_icon.png/revision/latest?cb=20150204095639&amp;format=original",
+    "ImageUrl": null,
     "Level": 51
   },
   {
