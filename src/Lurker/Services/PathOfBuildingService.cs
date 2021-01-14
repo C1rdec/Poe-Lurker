@@ -65,6 +65,20 @@ namespace Lurker.Services
             };
 
             var document = XDocument.Parse(GetXml(buildValue));
+
+            var buildElement = document.Root.Element("Build");
+            var classAttribute = buildElement.Attribute("className");
+            if (classAttribute != null)
+            {
+                build.Class = classAttribute.Value;
+            }
+
+            var ascendancyAttribute = buildElement.Attribute("ascendClassName");
+            if (ascendancyAttribute != null)
+            {
+                build.Ascendancy = ascendancyAttribute.Value;
+            }
+
             var skillsElement = document.Root.Element("Skills");
             if (skillsElement != null)
             {
@@ -108,6 +122,11 @@ namespace Lurker.Services
             return build;
         }
 
+        /// <summary>
+        /// Gets the XML.
+        /// </summary>
+        /// <param name="build">The build.</param>
+        /// <returns>System.String.</returns>
         private static string GetXml(string build)
         {
             using (var output = new MemoryStream())

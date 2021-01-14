@@ -56,6 +56,18 @@ namespace Lurker.Models
         /// </summary>
         public string Value { get; set; }
 
+        /// <summary>
+        /// Gets or sets the class.
+        /// </summary>
+        /// <value>The class.</value>
+        public string Class { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ascendancy.
+        /// </summary>
+        /// <value>The ascendancy.</value>
+        public string Ascendancy { get; set; }
+
         #endregion
 
         #region Methods

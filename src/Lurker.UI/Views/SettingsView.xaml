@@ -19,6 +19,18 @@
         </Grid.Resources>
 
         <Controls:MetroAnimatedTabControl Controls:TabControlHelper.IsUnderlined="True" SelectedIndex="{Binding SelectTabIndex}" Controls:TabControlHelper.Underlined="TabPanel" TabStripPlacement="Left">
+            <TabItem Header="Builds" Width="175">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Content="Builds" Style="{DynamicResource LabelHeaderStyle}" />
+
+                    <ContentControl x:Name="BuildManager" Grid.Row="1"/>
+                </Grid>
+            </TabItem>
+
             <TabItem Header="Message" Width="175">
                 <StackPanel>
                     <Label Content="Message" Style="{DynamicResource LabelHeaderStyle}" />

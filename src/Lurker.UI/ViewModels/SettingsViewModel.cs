@@ -73,6 +73,8 @@ namespace Lurker.UI.ViewModels
             {
                 AssetService.Create(LottieFileName, GetResourceContent(LottieFileName));
             }
+
+            this.BuildManager = new BuildManagerViewModel(this.ShowMessage);
         }
 
         #endregion
@@ -87,6 +89,12 @@ namespace Lurker.UI.ViewModels
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the build manager.
+        /// </summary>
+        /// <value>The build manager.</value>
+        public BuildManagerViewModel BuildManager { get; set; }
 
         /// <summary>
         /// Gets or sets the index of the select teb.
@@ -1075,6 +1083,17 @@ namespace Lurker.UI.ViewModels
             });
 
             await controller.CloseAsync();
+        }
+
+        /// <summary>
+        /// Shows the message.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        /// <param name="message">The message.</param>
+        private async Task ShowMessage(string title, string message)
+        {
+            var coordinator = DialogCoordinator.Instance;
+            await coordinator.ShowMessageAsync(this, title, message);
         }
 
         #endregion
