@@ -99,9 +99,11 @@ namespace Lurker.DataParser
 
                     if (firstLuaObject is LuaTable table)
                     {
+                        var count = 0;
                         foreach (var value in table.Values)
                         {
-                            Console.Write($"\rParsing Unique Items information... ({uniqueItems.Count})");
+                            count++;
+                            Console.Write($"\rParsing Unique Items information... ({count})");
 
                             if (value is string stringValue)
                             {
@@ -128,6 +130,7 @@ namespace Lurker.DataParser
                                     }
 
                                     uniqueItems.Add(item);
+                                    count++;
                                 }
                             }
                         }

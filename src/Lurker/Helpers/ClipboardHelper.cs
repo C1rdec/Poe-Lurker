@@ -21,8 +21,6 @@ namespace Lurker.Helpers
         #region Fields
 
         private static readonly ItemParser ItemParser = new ItemParser();
-        private static readonly SharpClipboard Clipboard = new SharpClipboard();
-        private static string _lastText;
 
         #endregion
 
@@ -110,22 +108,6 @@ namespace Lurker.Helpers
             });
 
             return clipboardText;
-        }
-
-        /// <summary>
-        /// Gets the sharp clipboard.
-        /// </summary>
-        /// <returns>The text.</returns>
-        private static string GetSharpClipboard()
-        {
-            var text = Clipboard.ClipboardText;
-            if (_lastText == text)
-            {
-                return string.Empty;
-            }
-
-            _lastText = text;
-            return text;
         }
 
         #endregion

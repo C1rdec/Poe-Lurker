@@ -3015,7 +3015,7 @@
     },
     "Name": "Magma Orb",
     "WikiUrl": "https://pathofexile.gamepedia.com/Magma_Orb",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/5/55/Magma_Orb_inventory_icon.png/revision/latest?cb=20150707194421&amp;format=original",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/d/da/Rolling_Magma_inventory_icon.png/revision/latest?cb=20150707194421&amp;format=original",
     "Level": 1
   },
   {
@@ -5528,16 +5528,7 @@
   {
     "Id": "SupportDecay",
     "Support": true,
-    "Location": {
-      "Quest": "The Eternal Nightmare",
-      "Act": "Act 4",
-      "Npc": "Petarus and Vanja",
-      "Classes": [
-        "Witch",
-        "Shadow",
-        "Scion"
-      ]
-    },
+    "Location": null,
     "Name": "Decay Support",
     "WikiUrl": "https://pathofexile.gamepedia.com/Decay_Support",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/c/c9/Decay_Support_inventory_icon.png/revision/latest?cb=20170804100426&amp;format=original",
