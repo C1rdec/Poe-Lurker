@@ -133,7 +133,7 @@ namespace Lurker
                 return;
             }
 
-            if (Native.IsKeyPressed(Native.VirtualKeyStates.VK_SHIFT))
+            if (Native.IsKeyPressed(Native.VirtualKeyStates.VK_SHIFT) && Native.IsKeyPressed(Native.VirtualKeyStates.VK_MENU))
             {
                 await Task.Delay(100);
                 await this.ParseItem();

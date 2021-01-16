@@ -8,6 +8,7 @@ namespace Lurker.UI.ViewModels
 {
     using System.Collections.ObjectModel;
     using System.Linq;
+    using Caliburn.Micro;
     using Lurker.Models;
     using Lurker.Patreon.Models;
     using Lurker.Services;
@@ -138,7 +139,7 @@ namespace Lurker.UI.ViewModels
         private void PlayerService_PlayerChanged(object sender, Player e)
         {
             this._modsSelectionVisible = false;
-            this.Affixes.Clear();
+            Execute.OnUIThread(() => this.Affixes.Clear());
             this.ShowMapMods();
             this.NotifyOfPropertyChange(() => this.ModsSelectionVisible);
         }
