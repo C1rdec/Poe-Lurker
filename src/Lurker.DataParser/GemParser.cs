@@ -28,10 +28,9 @@ namespace Lurker.DataParser
             var jobject = JObject.Parse(gemInfo);
 
             var gems = new List<Models.Gem>();
-            var count = 0;
             foreach (var element in jobject.Children())
             {
-                Console.Write($"\rParsing Gems information... ({count})");
+                Console.Write($"\rParsing Gems information... ({gems.Count()})");
 
                 var children = element.Children();
 
@@ -61,7 +60,6 @@ namespace Lurker.DataParser
 
                 gem.ParseWiki();
                 gems.Add(gem);
-                count++;
             }
 
             // Update Location for Vaal Gems

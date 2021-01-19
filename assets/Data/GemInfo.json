@@ -5528,7 +5528,16 @@
   {
     "Id": "SupportDecay",
     "Support": true,
-    "Location": null,
+    "Location": {
+      "Quest": "The Eternal Nightmare",
+      "Act": "Act 4",
+      "Npc": "Petarus and Vanja",
+      "Classes": [
+        "Witch",
+        "Shadow",
+        "Scion"
+      ]
+    },
     "Name": "Decay Support",
     "WikiUrl": "https://pathofexile.gamepedia.com/Decay_Support",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/c/c9/Decay_Support_inventory_icon.png/revision/latest?cb=20170804100426&amp;format=original",
@@ -5538,9 +5547,9 @@
     "Id": "SupportEfficacy",
     "Support": true,
     "Location": {
-      "Quest": "A Fixture of Fate",
-      "Act": "Act 3",
-      "Npc": "Clarissa",
+      "Quest": "The Caged Brute",
+      "Act": "Act 1",
+      "Npc": "Nessa",
       "Classes": [
         "Witch",
         "Shadow",
@@ -5587,7 +5596,7 @@
     "Location": null,
     "Name": "Elemental Penetration Support",
     "WikiUrl": "https://pathofexile.gamepedia.com/Elemental_Penetration_Support",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/0f/Elemental_Penetration_Support_inventory_icon.png/revision/latest?cb=20200930123026&amp;format=original",
+    "ImageUrl": null,
     "Level": 31
   },
   {

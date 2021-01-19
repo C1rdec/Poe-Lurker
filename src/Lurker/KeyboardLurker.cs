@@ -139,7 +139,7 @@ namespace Lurker
         {
             try
             {
-                await Simulate.Events().ClickChord(WindowsInput.Events.KeyCode.LControlKey, WindowsInput.Events.KeyCode.C).Invoke();
+                await Simulate.Events().ClickChord(WindowsInput.Events.KeyCode.Control, WindowsInput.Events.KeyCode.C).Invoke();
                 await Task.Delay(50);
                 var text = ClipboardHelper.GetClipboardText();
                 ClipboardHelper.ClearClipboard();
