@@ -307,6 +307,19 @@ namespace Lurker.UI
         }
 
         /// <summary>
+        /// Desactivate the item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <param name="close">if set to <c>true</c> [close].</param>
+        public override void DeactivateItem(Screen item, bool close)
+        {
+            if (item.IsActive)
+            {
+                base.DeactivateItem(item, close);
+            }
+        }
+
+        /// <summary>
         /// Creates the link.
         /// </summary>
         private void CreateLink()
