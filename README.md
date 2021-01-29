@@ -16,7 +16,7 @@ If you like and use Poe Lurker please consider signing up for a small monthly [P
 
 ## Usage
 - Install ≥ [.NET Framework 4.8](https://dotnet.microsoft.com/download/dotnet-framework)
-- Download and run [`PoeLurker.exe`](https://github.com/C1rdec/Poe-Lurker/releases/latest/download/PoeLurker.exe) from the [Releases Page](https://github.com/C1rdec/PoeLurker/releases).
+- Download and run [`PoeLurkerSetup.exe`](https://github.com/C1rdec/Poe-Lurker/releases/latest/download/PoeLurkerSetup.exe) from the [Releases Page](https://github.com/C1rdec/PoeLurker/releases).
 
 ## Key Features
 
