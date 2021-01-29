@@ -15,10 +15,10 @@ namespace Lurker.UI.ViewModels
 
     /// <summary>
     /// Class BuildManagerViewModel.
-    /// Implements the <see cref="Caliburn.Micro.PropertyChangedBase" />
+    /// Implements the <see cref="Caliburn.Micro.PropertyChangedBase" />.
     /// </summary>
     /// <seealso cref="Caliburn.Micro.PropertyChangedBase" />
-    public class BuildManagerViewModel: Caliburn.Micro.PropertyChangedBase
+    public class BuildManagerViewModel : Caliburn.Micro.PropertyChangedBase
     {
         #region Fields
 

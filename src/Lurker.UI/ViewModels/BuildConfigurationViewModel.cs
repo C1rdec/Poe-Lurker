@@ -11,10 +11,10 @@ namespace Lurker.UI.ViewModels
 
     /// <summary>
     /// Class BuildConfigurationViewModel.
-    /// Implements the <see cref="Caliburn.Micro.PropertyChangedBase" />
+    /// Implements the <see cref="Caliburn.Micro.PropertyChangedBase" />.
     /// </summary>
     /// <seealso cref="Caliburn.Micro.PropertyChangedBase" />
-    public class BuildConfigurationViewModel: Caliburn.Micro.PropertyChangedBase
+    public class BuildConfigurationViewModel : Caliburn.Micro.PropertyChangedBase
     {
         #region Fields
 
