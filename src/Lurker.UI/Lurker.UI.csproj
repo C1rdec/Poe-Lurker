@@ -249,6 +249,7 @@
     <Compile Include="Extensions\PriceExtension.cs" />
     <Compile Include="Helpers\AdminRequestHelper.cs" />
     <Compile Include="Helpers\UpdateManager.cs" />
+    <Compile Include="Models\BuildManagerContext.cs" />
     <Compile Include="Models\ItemMessage.cs" />
     <Compile Include="Models\League.cs" />
     <Compile Include="Models\MyCommand.cs" />

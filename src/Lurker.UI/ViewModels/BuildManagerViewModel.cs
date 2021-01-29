@@ -12,6 +12,7 @@ namespace Lurker.UI.ViewModels
     using System.Threading.Tasks;
     using Lurker.Helpers;
     using Lurker.Services;
+    using Lurker.UI.Models;
 
     /// <summary>
     /// Class BuildManagerViewModel.
@@ -24,6 +25,10 @@ namespace Lurker.UI.ViewModels
 
         private ObservableCollection<BuildConfigurationViewModel> _configurations;
         private Func<string, string, Task> _showMessage;
+        private BuildManagerContext _context;
+        private bool _skipOpen;
+        private bool _isFlyoutOpen;
+        private BuildConfigurationViewModel _selectedConfiguration;
 
         #endregion
 
@@ -37,11 +42,46 @@ namespace Lurker.UI.ViewModels
         {
             this._showMessage = showMessage;
             this._configurations = new ObservableCollection<BuildConfigurationViewModel>();
+            this._context = new BuildManagerContext(this.Remove, this.Open);
         }
 
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is flyout open.
+        /// </summary>
+        public bool IsFlyoutOpen
+        {
+            get
+            {
+                return this._isFlyoutOpen;
+            }
+
+            set
+            {
+                this._isFlyoutOpen = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the selected configuration.
+        /// </summary>
+        public BuildConfigurationViewModel SelectedConfiguration
+        {
+            get
+            {
+                return this._selectedConfiguration;
+            }
+
+            set
+            {
+                this._selectedConfiguration = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the path of building code.
@@ -98,7 +138,7 @@ namespace Lurker.UI.ViewModels
                 await service.InitializeAsync();
                 try
                 {
-                    this.Configurations.Add(new BuildConfigurationViewModel(service.Decode(text)));
+                    this.Configurations.Add(new BuildConfigurationViewModel(service.Decode(text), this._context));
                 }
                 catch
                 {
@@ -114,6 +154,32 @@ namespace Lurker.UI.ViewModels
         private Task ShowError()
         {
             return this._showMessage("Oups!", "You need to have a POB code in the clipboard.");
+        }
+
+        /// <summary>
+        /// Opens the specified configuration.
+        /// </summary>
+        /// <param name="configuration">The configuration.</param>
+        public void Open(BuildConfigurationViewModel configuration)
+        {
+            if (this._skipOpen)
+            {
+                this._skipOpen = false;
+                return;
+            }
+
+            this.IsFlyoutOpen = true;
+            this.SelectedConfiguration = configuration;
+        }
+
+        /// <summary>
+        /// Removes the specified configuration.
+        /// </summary>
+        /// <param name="configuration">The configuration.</param>
+        public void Remove(BuildConfigurationViewModel configuration)
+        {
+            this._skipOpen = true;
+            this.Configurations.Remove(configuration);
         }
 
         #endregion

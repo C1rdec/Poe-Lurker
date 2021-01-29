@@ -8,6 +8,7 @@ namespace Lurker.UI.ViewModels
 {
     using System.Linq;
     using Lurker.Models;
+    using Lurker.UI.Models;
 
     /// <summary>
     /// Class BuildConfigurationViewModel.
@@ -19,18 +20,21 @@ namespace Lurker.UI.ViewModels
         #region Fields
 
         private Build _build;
+        private BuildManagerContext _context;
 
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BuildConfigurationViewModel"/> class.
+        /// Initializes a new instance of the <see cref="BuildConfigurationViewModel" /> class.
         /// </summary>
         /// <param name="build">The build.</param>
-        public BuildConfigurationViewModel(Build build)
+        /// <param name="context">The context.</param>
+        public BuildConfigurationViewModel(Build build, BuildManagerContext context)
         {
             this._build = build;
+            this._context = context;
             var mainSkill = build.Skills.OrderByDescending(s => s.Gems.Count(g => g.Support)).FirstOrDefault();
             if (mainSkill != null)
             {

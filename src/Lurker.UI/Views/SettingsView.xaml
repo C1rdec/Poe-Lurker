@@ -25,8 +25,13 @@
                         <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
+                    <Controls:ToggleSwitch 
+                        Margin="30,0,0,0"
+                        HorizontalAlignment="Left"
+                        Header="Build Helper"
+                        IsChecked="{Binding BuildHelper}"/>
                     <Label Content="Builds" Style="{DynamicResource LabelHeaderStyle}" />
-
+                    
                     <ContentControl x:Name="BuildManager" Grid.Row="1"/>
                 </Grid>
             </TabItem>
@@ -275,12 +280,6 @@
                                                Margin="30,0,0,0"
                                                Header="Outgoing Trade"
                                                IsChecked="{Binding OutgoingTradeEnabled}"/>
-                            <Controls:ToggleSwitch 
-                                                   Margin="30,0,0,0"
-                                               Header="Build Helper"
-                                               IsChecked="{Binding BuildHelper}"/>
-                        </StackPanel>
-                        <StackPanel Grid.Row="1"  Orientation="Horizontal" HorizontalAlignment="Left">
                             <Controls:ToggleSwitch
                                                Margin="30,0,0,0"
                                                Header="Item Highlight"
@@ -290,19 +289,19 @@
                                                    FontSize="12"
                                                    VerticalAlignment="Top"
                                                    Text="(Alt + F)" />
-                            <Controls:ToggleSwitch 
-                                               Header="Remaining Monster"
-                                Margin="30,0,0,0"
-                                               IsChecked="{Binding RemainingMonsterEnabled}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1"  Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Controls:ToggleSwitch Grid.Row="1"
+                                                   Margin="30,0,0,0"
+                                                   Header="Delete Item"
+                                                   IsChecked="{Binding DeleteItemEnabled}"/>
+                            <Controls:ToggleSwitch Header="Remaining Monster" Margin="30,0,0,0" IsChecked="{Binding RemainingMonsterEnabled}"/>
                             <TextBlock Margin="4 4 0 0"
                                                    Foreground="{DynamicResource AccentColorBrush}"
                                                    FontSize="12"
                                                    VerticalAlignment="Top"
                                                    Text="(Ctrl + R)" />
-                            <Controls:ToggleSwitch Grid.Row="1"
-                                                   Margin="30,0,0,0"
-                                                   Header="Delete Item"
-                                                   IsChecked="{Binding DeleteItemEnabled}"/>
+                            
                         </StackPanel>
                     </Grid>
                 </Grid>
