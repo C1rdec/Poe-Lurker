@@ -101,7 +101,7 @@ namespace Lurker.DataParser
                     {
                         foreach (var value in table.Values)
                         {
-                            Console.Write($"\rParsing Unique Items information... ({uniqueItems.Count})");
+                            Console.Write($"\rParsing Unique Items information... ({uniqueItems.Count()})");
 
                             if (value is string stringValue)
                             {

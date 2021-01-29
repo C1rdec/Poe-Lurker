@@ -30,7 +30,7 @@ namespace Lurker.DataParser
             var gems = new List<Models.Gem>();
             foreach (var element in jobject.Children())
             {
-                Console.Write($"\rParsing Gems information... ({gems.Count})");
+                Console.Write($"\rParsing Gems information... ({gems.Count()})");
 
                 var children = element.Children();
 

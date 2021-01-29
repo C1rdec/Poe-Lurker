@@ -117,7 +117,6 @@ namespace Lurker.UI.ViewModels
 
             set
             {
-
                 if (this._selectedLeague != value)
                 {
                     this._selectedLeague = value;
