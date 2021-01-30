@@ -729,6 +729,14 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Inserts the buyer name token.
+        /// </summary>
+        public async void InsertLocationToken()
+        {
+            await this._keyboardHelper.Write(TokenHelper.Location);
+        }
+
+        /// <summary>
         /// Inserts the price token.
         /// </summary>
         public async void InsertPriceToken()

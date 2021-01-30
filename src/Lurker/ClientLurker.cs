@@ -359,6 +359,7 @@ namespace Lurker
                 var locationEvent = LocationChangedEvent.TryParse(newline);
                 if (locationEvent != null)
                 {
+                    Models.PoeApplicationContext.Location = locationEvent.Location;
                     this.LocationChanged?.Invoke(this, locationEvent);
                     return;
                 }
