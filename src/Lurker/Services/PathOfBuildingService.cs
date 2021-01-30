@@ -43,6 +43,7 @@ namespace Lurker.Services
             var uniqueInformation = await this.GetText($"https://raw.githubusercontent.com/C1rdec/Poe-Lurker/master/assets/Data/UniqueInfo.json?{Guid.NewGuid()}");
             this._knownGems = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Gem>>(gemInformation);
             this._knownUniques = Newtonsoft.Json.JsonConvert.DeserializeObject<List<UniqueItem>>(uniqueInformation);
+            this.IsInitialize = true;
         }
 
         /// <summary>
@@ -141,6 +142,15 @@ namespace Lurker.Services
                 }
             }
         }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets a value indicating whether this instance is initialize.
+        /// </summary>
+        public bool IsInitialize { get; private set; }
 
         #endregion
     }

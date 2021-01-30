@@ -1098,10 +1098,19 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="title">The title.</param>
         /// <param name="message">The message.</param>
-        private async Task ShowMessage(string title, string message)
+        /// <param name="style">The style.</param>
+        /// <returns>The result.</returns>
+        private Task<MessageDialogResult> ShowMessage(string title, string message, MessageDialogStyle? style)
         {
             var coordinator = DialogCoordinator.Instance;
-            await coordinator.ShowMessageAsync(this, title, message);
+            if (style.HasValue)
+            {
+                return coordinator.ShowMessageAsync(this, title, message, style.Value);
+            }
+            else
+            {
+                return coordinator.ShowMessageAsync(this, title, message);
+            }
         }
 
         #endregion

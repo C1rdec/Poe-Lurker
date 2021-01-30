@@ -11,8 +11,10 @@ namespace Lurker.UI.ViewModels
     using System.Net.Http;
     using System.Threading.Tasks;
     using Lurker.Helpers;
+    using Lurker.Models;
     using Lurker.Services;
     using Lurker.UI.Models;
+    using MahApps.Metro.Controls.Dialogs;
 
     /// <summary>
     /// Class BuildManagerViewModel.
@@ -24,11 +26,12 @@ namespace Lurker.UI.ViewModels
         #region Fields
 
         private ObservableCollection<BuildConfigurationViewModel> _configurations;
-        private Func<string, string, Task> _showMessage;
+        private Func<string, string, MessageDialogStyle?, Task<MessageDialogResult>> _showMessage;
         private BuildManagerContext _context;
         private bool _skipOpen;
         private bool _isFlyoutOpen;
         private BuildConfigurationViewModel _selectedConfiguration;
+        private BuildService _buildService;
 
         #endregion
 
@@ -38,11 +41,17 @@ namespace Lurker.UI.ViewModels
         /// Initializes a new instance of the <see cref="BuildManagerViewModel" /> class.
         /// </summary>
         /// <param name="showMessage">The show message.</param>
-        public BuildManagerViewModel(Func<string, string, Task> showMessage)
+        public BuildManagerViewModel(Func<string, string, MessageDialogStyle?, Task<MessageDialogResult>> showMessage)
         {
+            this._buildService = new BuildService();
             this._showMessage = showMessage;
             this._configurations = new ObservableCollection<BuildConfigurationViewModel>();
             this._context = new BuildManagerContext(this.Remove, this.Open);
+
+            foreach (var build in this._buildService.Builds)
+            {
+                this._configurations.Add(new BuildConfigurationViewModel(build));
+            }
         }
 
         #endregion
@@ -138,7 +147,10 @@ namespace Lurker.UI.ViewModels
                 await service.InitializeAsync();
                 try
                 {
-                    this.Configurations.Add(new BuildConfigurationViewModel(service.Decode(text), this._context));
+                    var build = service.Decode(text);
+                    var simpleBuild = this._buildService.AddBuild(build);
+                    this._buildService.Save();
+                    this.Configurations.Add(new BuildConfigurationViewModel(simpleBuild));
                 }
                 catch
                 {
@@ -153,7 +165,7 @@ namespace Lurker.UI.ViewModels
         /// <returns>Task.</returns>
         private Task ShowError()
         {
-            return this._showMessage("Oups!", "You need to have a POB code in the clipboard.");
+            return this._showMessage("Oups!", "You need to have a POB code in the clipboard.", MessageDialogStyle.Affirmative);
         }
 
         /// <summary>
@@ -173,13 +185,28 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Raises the Close event.
+        /// </summary>
+        public void OnClose()
+        {
+            this._buildService.Save();
+        }
+
+        /// <summary>
         /// Removes the specified configuration.
         /// </summary>
         /// <param name="configuration">The configuration.</param>
-        public void Remove(BuildConfigurationViewModel configuration)
+        public async void Remove(BuildConfigurationViewModel configuration)
         {
             this._skipOpen = true;
-            this.Configurations.Remove(configuration);
+            var result = await this._showMessage("Are you sure?", $"You are about to delete {configuration.BuildName}", MessageDialogStyle.AffirmativeAndNegative);
+
+            if (result == MessageDialogResult.Affirmative)
+            {
+                this.Configurations.Remove(configuration);
+                this._buildService.RemoveBuild(configuration.Id);
+                this._buildService.Save();
+            }
         }
 
         #endregion

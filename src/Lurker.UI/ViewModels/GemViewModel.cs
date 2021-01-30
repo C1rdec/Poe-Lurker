@@ -25,13 +25,15 @@ namespace Lurker.UI.ViewModels
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GemViewModel"/> class.
+        /// Initializes a new instance of the <see cref="GemViewModel" /> class.
         /// </summary>
         /// <param name="gem">The gem.</param>
-        public GemViewModel(Gem gem)
+        /// <param name="showLevel">if set to <c>true</c> [show level].</param>
+        public GemViewModel(Gem gem, bool showLevel = true)
             : base(gem)
         {
             this._gem = gem;
+            this.ShowLevel = showLevel;
         }
 
         #endregion
@@ -47,6 +49,11 @@ namespace Lurker.UI.ViewModels
         /// Gets a value indicating whether this <see cref="GemViewModel"/> is support.
         /// </summary>
         public bool Support => this._gem.Support;
+
+        /// <summary>
+        /// Gets a value indicating whether [show level].
+        /// </summary>
+        public bool ShowLevel { get; private set; }
 
         /// <summary>
         /// Gets the gem location.

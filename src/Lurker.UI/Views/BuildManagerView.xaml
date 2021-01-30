@@ -40,7 +40,7 @@
                                             <RowDefinition></RowDefinition>
                                             <RowDefinition></RowDefinition>
                                         </Grid.RowDefinitions>
-                                        <TextBlock Grid.RowSpan="2" FontSize="24" Text="{Binding Name}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.RowSpan="2" FontSize="24" Text="{Binding DisplayName}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                         <ContentControl Grid.RowSpan="2" Grid.Column="1" cal:View.Model="{Binding Path=GemViewModel,Mode=OneWay}" HorizontalAlignment="Center"/>
                                         <Button Grid.Column="1" Background="Red" cal:Message.Attach="[Event Click] = [Action Remove($dataContext)]" Width="30" HorizontalAlignment="Right" >
                                             <Button.Style>
@@ -102,8 +102,8 @@
         </Button>
 
         <!-- The Margin is to remove Header-->
-        <MahApps:Flyout IsOpen="{Binding IsFlyoutOpen}" FlowDirection="LeftToRight" Position="Right" Width="625" Margin="0,-60,0,0">
-            <ContentControl cal:View.Model="{Binding Path=SelectedConfiguration,Mode=OneWay}" HorizontalAlignment="Center"/>
+        <MahApps:Flyout cal:Message.Attach="[Event ClosingFinished] = [Action OnClose]" IsOpen="{Binding IsFlyoutOpen}" FlowDirection="LeftToRight" Position="Right" Width="625" Margin="0,-60,0,0">
+            <ContentControl cal:View.Model="{Binding Path=SelectedConfiguration,Mode=OneWay}" VerticalAlignment="Top"/>
         </MahApps:Flyout>
     </Grid>
 </UserControl>

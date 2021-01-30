@@ -17,7 +17,7 @@ namespace Lurker.Services
     /// <summary>
     /// Represent the player Service.
     /// </summary>
-    public class PlayerService : IDisposable
+    public class PlayerService : ServiceBase, IDisposable
     {
         #region Fields
 
@@ -40,14 +40,10 @@ namespace Lurker.Services
             this._clientLurker.PlayerLeft += this.AddExternalPlayer;
 
             this._playerBank = new PlayerBank();
-            if (!Directory.Exists(this.SettingsFolderPath))
-            {
-                Directory.CreateDirectory(this.SettingsFolderPath);
-            }
 
-            if (!File.Exists(this.SettingsFilePath))
+            if (!File.Exists(this.FilePath))
             {
-                using (var file = File.Create(this.SettingsFilePath))
+                using (var file = File.Create(this.FilePath))
                 {
                 }
 
@@ -57,12 +53,12 @@ namespace Lurker.Services
             {
                 try
                 {
-                    this._playerBank.ReadJsonFile(this.SettingsFilePath);
+                    this._playerBank.ReadJsonFile(this.FilePath);
                     this.CleanExternalPlayers();
                 }
                 catch
                 {
-                    File.Delete(this.SettingsFilePath);
+                    File.Delete(this.FilePath);
                 }
             }
         }
@@ -82,29 +78,9 @@ namespace Lurker.Services
         public IEnumerable<Player> Players => this._playerBank.Players;
 
         /// <summary>
-        /// Gets the name of the folder.
-        /// </summary>
-        private string FolderName => "PoeLurker";
-
-        /// <summary>
         /// Gets the name of the file.
         /// </summary>
-        private string FileName => "Players.json";
-
-        /// <summary>
-        /// Gets the application data folder path.
-        /// </summary>
-        private string AppDataFolderPath => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-
-        /// <summary>
-        /// Gets the settings folder path.
-        /// </summary>
-        private string SettingsFolderPath => System.IO.Path.Combine(this.AppDataFolderPath, this.FolderName);
-
-        /// <summary>
-        /// Gets the settings file path.
-        /// </summary>
-        private string SettingsFilePath => System.IO.Path.Combine(this.SettingsFolderPath, this.FileName);
+        protected override string FileName => "Players.json";
 
         #endregion
 
@@ -149,7 +125,7 @@ namespace Lurker.Services
         /// </summary>
         public void Save()
         {
-            this._playerBank.WriteJsonFile(this.SettingsFilePath);
+            this._playerBank.WriteJsonFile(this.FilePath);
         }
 
         /// <summary>
