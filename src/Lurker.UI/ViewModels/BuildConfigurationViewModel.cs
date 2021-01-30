@@ -84,8 +84,20 @@ namespace Lurker.UI.ViewModels
             {
                 this._buildConfiguration.Name = value;
                 this.NotifyOfPropertyChange();
+                this.NotifyOfPropertyChange("HasBuildName");
+                this.NotifyOfPropertyChange("HasNoBuildName");
             }
         }
+
+        /// <summary>
+        /// Gets a value indicating whether this instance has build name.
+        /// </summary>
+        public bool HasBuildName => !string.IsNullOrEmpty(this.BuildName);
+
+        /// <summary>
+        /// Gets a value indicating whether this instance has no build name.
+        /// </summary>
+        public bool HasNoBuildName => !this.HasBuildName;
 
         /// <summary>
         /// Gets or sets the youtube.

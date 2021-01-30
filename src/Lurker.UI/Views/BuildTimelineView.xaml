@@ -28,8 +28,6 @@
             </Style>
         </Grid.Style>
         <ContentControl x:Name="ActivePlayer" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
-
-        
         <ContentControl x:Name="Timeline" Margin="0,2,6,0" Grid.Row="1"/>
     </Grid>
 </Window>

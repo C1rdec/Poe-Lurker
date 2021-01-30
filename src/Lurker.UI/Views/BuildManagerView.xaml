@@ -40,7 +40,12 @@
                                             <RowDefinition></RowDefinition>
                                             <RowDefinition></RowDefinition>
                                         </Grid.RowDefinitions>
-                                        <TextBlock Grid.RowSpan="2" FontSize="24" Text="{Binding DisplayName}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Grid Visibility="{Binding HasNoBuildName, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.RowSpan="2" >
+                                            <TextBlock FontSize="24" Text="{Binding DisplayName}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Grid>
+                                        <Grid Visibility="{Binding HasBuildName, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.RowSpan="2">
+                                            <TextBlock  FontSize="24" Text="{Binding BuildName}" TextTrimming="WordEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Grid>
                                         <ContentControl Grid.RowSpan="2" Grid.Column="1" cal:View.Model="{Binding Path=GemViewModel,Mode=OneWay}" HorizontalAlignment="Center"/>
                                         <Button Grid.Column="1" Background="Red" cal:Message.Attach="[Event Click] = [Action Remove($dataContext)]" Width="30" HorizontalAlignment="Right" >
                                             <Button.Style>

@@ -25,6 +25,5 @@
             </ScrollViewer>
         </StackPanel>
         <ContentControl x:Name="GemViewModel" HorizontalAlignment="Right" Margin="0,-60,10,0" VerticalAlignment="Top"/>
-        
     </Grid>
 </UserControl>
