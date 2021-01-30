@@ -68,7 +68,7 @@ namespace Lurker.UI.ViewModels
         /// Gets the name.
         /// </summary>
         /// <value>The name.</value>
-        public string DisplayName => $"{this._build.Class} ({this._build.Ascendancy})";
+        public string DisplayName => this._build == null ? string.Empty : $"{this._build.Class} ({this._build.Ascendancy})";
 
         /// <summary>
         /// Gets or sets the name.
@@ -137,6 +137,7 @@ namespace Lurker.UI.ViewModels
         private void DecodeBuild(SimpleBuild simpleBuild)
         {
             this._build = PathOfBuildingService.Decode(simpleBuild.PathOfBuildingCode);
+            this.NotifyOfPropertyChange("DisplayName");
             var mainSkill = this._build.Skills.OrderByDescending(s => s.Gems.Count(g => g.Support)).FirstOrDefault();
             if (mainSkill != null)
             {
