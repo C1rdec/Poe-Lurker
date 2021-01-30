@@ -81,7 +81,7 @@
                                     </StackPanel>
                                 </DataTemplate>
                             </Controls:MetroHeader.HeaderTemplate>
-                            <TextBox Text="{Binding BusyMessage, UpdateSourceTrigger=PropertyChanged}" x:Name="BusyMessage"/>
+                            <TextBox Text="{Binding BusyMessage, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0,0,0,1" x:Name="BusyMessage"/>
                         </Controls:MetroHeader>
                         <Controls:MetroHeader Header="Still Interested">
                             <Controls:MetroHeader.HeaderTemplate>
@@ -100,7 +100,7 @@
                                     </StackPanel>
                                 </DataTemplate>
                             </Controls:MetroHeader.HeaderTemplate>
-                            <TextBox Text="{Binding StillInterestedMessage, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox Text="{Binding StillInterestedMessage, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0,0,0,1" />
                         </Controls:MetroHeader>
                         <Controls:MetroHeader Header="Sold">
                             <Controls:MetroHeader.HeaderTemplate>
@@ -118,7 +118,7 @@
                                     </StackPanel>
                                 </DataTemplate>
                             </Controls:MetroHeader.HeaderTemplate>
-                            <TextBox Text="{Binding SoldMessage, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Text="{Binding SoldMessage, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0,0,0,1"/>
                         </Controls:MetroHeader>
                         <Controls:MetroHeader Header="Thank you">
                             <Controls:MetroHeader.HeaderTemplate>
@@ -131,7 +131,7 @@
                                     </StackPanel>
                                 </DataTemplate>
                             </Controls:MetroHeader.HeaderTemplate>
-                            <TextBox Text="{Binding ThankYouMessage, UpdateSourceTrigger=PropertyChanged}" Controls:TextBoxHelper.Watermark="No whisper"/>
+                            <TextBox Text="{Binding ThankYouMessage, UpdateSourceTrigger=PropertyChanged}" Controls:TextBoxHelper.Watermark="No whisper" BorderThickness="0,0,0,1"/>
                         </Controls:MetroHeader>
                     </StackPanel>
                 </StackPanel>
