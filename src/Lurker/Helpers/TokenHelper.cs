@@ -7,6 +7,7 @@
 namespace Lurker.Helpers
 {
     using System.Text.RegularExpressions;
+    using Lurker.Models;
     using Lurker.Patreon.Events;
 
     /// <summary>
@@ -31,6 +32,11 @@ namespace Lurker.Helpers
         /// </summary>
         public static readonly string Price = "{Price}";
 
+        /// <summary>
+        /// The location.
+        /// </summary>
+        public static readonly string Location = "{Location}";
+
         #endregion
 
         #region Methods
@@ -47,6 +53,7 @@ namespace Lurker.Helpers
         {
             message = Regex.Replace(message, ItemName, trade.ItemName, RegexOptions.IgnoreCase);
             message = Regex.Replace(message, BuyerName, trade.PlayerName, RegexOptions.IgnoreCase);
+            message = Regex.Replace(message, Location, PoeApplicationContext.Location, RegexOptions.IgnoreCase);
             if (trade.Price.CurrencyType != Patreon.Models.CurrencyType.Unknown)
             {
                 message = Regex.Replace(message, Price, trade.Price.ToString(), RegexOptions.IgnoreCase);

@@ -57,6 +57,12 @@
                                 cal:Message.Attach="[Event Click] = [Action InsertPriceToken]"
                                 Margin="4,0,0,0">
                         </Button>
+                        <Button Style="{DynamicResource Tag}"
+                                Content="Location"
+                                Focusable="False"
+                                cal:Message.Attach="[Event Click] = [Action InsertLocationToken]"
+                                Margin="4,0,0,0">
+                        </Button>
                     </StackPanel>
                     <StackPanel Margin="30,0,30,0">
                         <StackPanel.Resources>

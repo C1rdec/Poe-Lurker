@@ -33,7 +33,6 @@ namespace Lurker.UI.ViewModels
         private PoeKeyboardHelper _keyboardHelper;
         private Timer _timer;
         private IEventAggregator _eventAggregator;
-        private OutgoingbarContext _context;
         private System.Action _removeActive;
         private OutgoingOfferViewModel _activeOffer;
         private string _lastOutgoingOfferText;
@@ -70,8 +69,6 @@ namespace Lurker.UI.ViewModels
 
             this.Offers.CollectionChanged += this.Offers_CollectionChanged;
             this._clipboardLurker.NewOffer += this.ClipboardLurker_NewOffer;
-
-            this._context = new OutgoingbarContext(this.RemoveOffer, this.SetActiveOffer, this.ClearAll);
         }
 
         #endregion
@@ -144,6 +141,15 @@ namespace Lurker.UI.ViewModels
             }
 
             base.OnDeactivate(close);
+        }
+
+        /// <summary>
+        /// Creates the context.
+        /// </summary>
+        /// <returns>The context.</returns>
+        private OutgoingbarContext CreateContext()
+        {
+            return new OutgoingbarContext(this.RemoveOffer, this.SetActiveOffer, this.ClearAll);
         }
 
         /// <summary>
@@ -229,7 +235,7 @@ namespace Lurker.UI.ViewModels
                     }
                 }
 
-                this.Offers.Insert(index, new OutgoingOfferViewModel(e, this._keyboardHelper, this._context, this.DockingHelper));
+                this.Offers.Insert(index, new OutgoingOfferViewModel(e, this._keyboardHelper, this.CreateContext(), this.DockingHelper));
             });
         }
 
