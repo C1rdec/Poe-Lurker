@@ -31,7 +31,7 @@ namespace Lurker.Models
         /// <summary>
         /// Gets or sets the location.
         /// </summary>
-        public static string Location { get; set; }
+        public static string Location { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the window style.
