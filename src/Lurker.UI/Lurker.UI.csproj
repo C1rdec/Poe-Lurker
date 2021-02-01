@@ -677,6 +677,7 @@
     <Resource Include="Assets\InInstance.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="SVG\ThreeDot.svg" />
     <Resource Include="Assets\Gemcutter.png" />
     <Resource Include="Assets\Chisel.png" />
     <Resource Include=".nuget\mouse-keyboard-hook-logo.png" />

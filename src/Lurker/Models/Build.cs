@@ -50,6 +50,11 @@ namespace Lurker.Models
         public string Value { get; set; }
 
         /// <summary>
+        /// Gets or sets the XML.
+        /// </summary>
+        public string Xml { get; set; }
+
+        /// <summary>
         /// Gets or sets the class.
         /// </summary>
         /// <value>The class.</value>

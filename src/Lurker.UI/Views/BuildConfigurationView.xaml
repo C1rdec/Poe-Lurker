@@ -4,14 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-             xmlns:local="clr-namespace:Lurker.UI.Views"
              mc:Ignorable="d" 
+             xmlns:local="clr-namespace:Lurker.UI"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <StackPanel Margin="20,0,20,0">
 
             <TextBox BorderThickness="0,0,0,1" Margin="0,0,0,50" x:Name="BuildName" HorizontalContentAlignment="Center" FontSize="36" Controls:TextBoxHelper.Watermark="Name"/>
-
+            
             <TextBox x:Name="Youtube" BorderThickness="0,0,0,1" FontSize="18" Controls:TextBoxHelper.Watermark="Youtube" Margin="0,0,0,5"/>
             <TextBox x:Name="Forum"  BorderThickness="0,0,0,1" FontSize="18" Controls:TextBoxHelper.Watermark="Forum Post"/>
             <ScrollViewer Margin="0,30,0,0" HorizontalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Hidden">
@@ -25,5 +25,23 @@
             </ScrollViewer>
         </StackPanel>
         <ContentControl x:Name="GemViewModel" HorizontalAlignment="Right" Margin="0,-60,10,0" VerticalAlignment="Top"/>
+        <Button Width="50"
+                x:Name="OpenTree"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Cursor="Hand"
+                ToolTip="Passive Tree"
+                Height="50"
+                Margin="0,0,10,-50" Style="{DynamicResource MetroCircleButtonStyle}">
+            <Button.Content>
+                <local:IconPack HorizontalAlignment="Right"
+                                            VerticalAlignment="Bottom"
+                                            Foreground="#af8404"
+                                            Grid.Row="2"
+                                            Height="20"
+                                            Width="20"
+                                            Data="{x:Static local:IconPackData.ThreeDot}"/>
+            </Button.Content>
+        </Button>
     </Grid>
 </UserControl>

@@ -8,8 +8,11 @@ namespace Lurker.UI.ViewModels
 {
     using System;
     using System.Collections.ObjectModel;
+    using System.IO;
+    using System.Linq;
     using System.Net.Http;
     using System.Threading.Tasks;
+    using Caliburn.Micro;
     using Lurker.Helpers;
     using Lurker.Models;
     using Lurker.Services;
@@ -43,15 +46,10 @@ namespace Lurker.UI.ViewModels
         /// <param name="showMessage">The show message.</param>
         public BuildManagerViewModel(Func<string, string, MessageDialogStyle?, Task<MessageDialogResult>> showMessage)
         {
-            this._buildService = new BuildService();
+            this._buildService = IoC.Get<BuildService>();
             this._showMessage = showMessage;
             this._configurations = new ObservableCollection<BuildConfigurationViewModel>();
             this._context = new BuildManagerContext(this.Remove, this.Open);
-
-            foreach (var build in this._buildService.Builds)
-            {
-                this._configurations.Add(new BuildConfigurationViewModel(build));
-            }
         }
 
         #endregion
@@ -120,6 +118,17 @@ namespace Lurker.UI.ViewModels
         #region Methods
 
         /// <summary>
+        /// Synchronizes this instance.
+        /// </summary>
+        public void Sync()
+        {
+            Execute.OnUIThread(async () =>
+            {
+                await this.PopulateBuilds();
+            });
+        }
+
+        /// <summary>
         /// Adds this instance.
         /// </summary>
         public async void Add()
@@ -156,6 +165,19 @@ namespace Lurker.UI.ViewModels
                 {
                     await this.ShowError();
                 }
+            }
+        }
+
+        /// <summary>
+        /// Populates the builds.
+        /// </summary>
+        private async Task PopulateBuilds()
+        {
+            // Sync with Path of Building
+            await this._buildService.Sync();
+            foreach (var build in this._buildService.Builds)
+            {
+                this._configurations.Add(new BuildConfigurationViewModel(build));
             }
         }
 

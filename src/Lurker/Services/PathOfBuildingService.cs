@@ -65,7 +65,8 @@ namespace Lurker.Services
                 Value = buildValue,
             };
 
-            var document = XDocument.Parse(GetXml(buildValue));
+            build.Xml = GetXml(buildValue);
+            var document = XDocument.Parse(build.Xml);
 
             var buildElement = document.Root.Element("Build");
             var classAttribute = buildElement.Attribute("className");
@@ -96,7 +97,7 @@ namespace Lurker.Services
             var treeElement = document.Root.Element("Tree");
             if (treeElement != null)
             {
-                var urlElement = treeElement.Descendants("URL").FirstOrDefault();
+                var urlElement = treeElement.Descendants("URL").OrderByDescending(d => d.Value).FirstOrDefault();
                 build.SkillTreeUrl = urlElement.Value.Trim().Replace("passive-skill-tree", "fullscreen-passive-skill-tree");
             }
 
@@ -124,12 +125,37 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Encodes the specified build.
+        /// </summary>
+        /// <param name="build">The build.</param>
+        /// <returns>The Path of Building code.</returns>
+        public string Encode(string build)
+        {
+            using (var output = new MemoryStream())
+            {
+                using (var input = new MemoryStream(Encoding.ASCII.GetBytes(build)))
+                {
+                    using (var decompressor = new GZipStream(output, CompressionMode.Compress))
+                    {
+                        input.CopyTo(decompressor);
+                        return Convert.ToBase64String(output.ToArray());
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets the XML.
         /// </summary>
         /// <param name="build">The build.</param>
         /// <returns>System.String.</returns>
         private static string GetXml(string build)
         {
+            if (IsValidXml(build))
+            {
+                return build;
+            }
+
             using (var output = new MemoryStream())
             {
                 using (var input = new MemoryStream(Convert.FromBase64String(build.Replace("_", "/").Replace("-", "+"))))
@@ -140,6 +166,26 @@ namespace Lurker.Services
                         return Encoding.UTF8.GetString(output.ToArray());
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Determines whether [is valid XML].
+        /// </summary>
+        /// <param name="xml">The XML.</param>
+        /// <returns>
+        ///   <c>true</c> if [is valid XML] [the specified XML]; otherwise, <c>false</c>.
+        /// </returns>
+        private static bool IsValidXml(string xml)
+        {
+            try
+            {
+                XDocument.Parse(xml);
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
 

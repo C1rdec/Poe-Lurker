@@ -6,9 +6,11 @@
 
 namespace Lurker.Services
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Threading.Tasks;
     using ConfOxide;
     using Lurker.Models;
 
@@ -61,11 +63,43 @@ namespace Lurker.Services
         /// <summary>
         /// Gets the name of the file.
         /// </summary>
-        protected override string FileName => "Build.json";
+        protected override string FileName => "Builds.json";
 
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Synchronizes this instance.
+        /// </summary>
+        /// <returns>The task.</returns>
+        public async Task Sync()
+        {
+            using (var service = new PathOfBuildingService())
+            {
+                await service.InitializeAsync();
+
+                var pathOfBuildingFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Path of Building", "Builds");
+                if (Directory.Exists(pathOfBuildingFolder))
+                {
+                    foreach (var file in Directory.GetFiles(pathOfBuildingFolder))
+                    {
+                        var buildName = Path.GetFileName(file).Replace(".xml", string.Empty);
+                        var existingBuild = this.Builds.FirstOrDefault(b => b.Name == buildName);
+                        if (existingBuild == null)
+                        {
+                            this.AddBuild(new SimpleBuild() { PathOfBuildingCode = File.ReadAllText(file), Name = buildName });
+                        }
+                        else
+                        {
+                            existingBuild.PathOfBuildingCode = File.ReadAllText(file);
+                        }
+                    }
+
+                    this.Save();
+                }
+            }
+        }
 
         /// <summary>
         /// Saves the specified raise event.
@@ -84,12 +118,20 @@ namespace Lurker.Services
         {
             var simpleBuild = new SimpleBuild()
             {
-                PathOfBuildingCode = build.Value,
+                PathOfBuildingCode = build.Xml,
             };
 
-            this._buildManager.Builds.Add(simpleBuild);
-
+            this.AddBuild(simpleBuild);
             return simpleBuild;
+        }
+
+        /// <summary>
+        /// Adds the build.
+        /// </summary>
+        /// <param name="build">The build.</param>
+        public void AddBuild(SimpleBuild build)
+        {
+            this._buildManager.Builds.Add(build);
         }
 
         /// <summary>

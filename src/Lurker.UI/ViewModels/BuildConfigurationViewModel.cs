@@ -7,6 +7,7 @@
 namespace Lurker.UI.ViewModels
 {
     using System.Collections.ObjectModel;
+    using System.Diagnostics;
     using System.Linq;
     using Lurker.Models;
     using Lurker.Services;
@@ -141,6 +142,17 @@ namespace Lurker.UI.ViewModels
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Opens the tree.
+        /// </summary>
+        public void OpenTree()
+        {
+            if (this._build != null)
+            {
+                Process.Start(this._build.SkillTreeUrl);
+            }
+        }
 
         /// <summary>
         /// Decodes the build.

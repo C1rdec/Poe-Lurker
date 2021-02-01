@@ -12,88 +12,96 @@
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <ItemsControl x:Name="Configurations">
-            <ItemsControl.ItemTemplate>
-                <ItemContainerTemplate>
-                    <Button Margin="8,4,8,0" cal:Message.Attach="[Event Click] = [Action Open($dataContext)]" Cursor="Hand">
-                        <Button.Template>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <Border CornerRadius="4" BorderBrush="#4d4d4d">
-                                    <Border.Style>
-                                        <Style TargetType="{x:Type Border}">
-                                            <Setter Property="Background" Value="#1a1a1a"/>
-                                            <Setter Property="BorderThickness" Value="0,0,1,1"/>
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="#333333"/>
-                                                    <Setter Property="BorderThickness" Value="0"/>
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Border.Style>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition></ColumnDefinition>
-                                            <ColumnDefinition></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition></RowDefinition>
-                                            <RowDefinition></RowDefinition>
-                                        </Grid.RowDefinitions>
-                                        <Grid Visibility="{Binding HasNoBuildName, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.RowSpan="2" >
-                                            <TextBlock FontSize="24" Text="{Binding DisplayName}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <ScrollViewer  HorizontalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Hidden">
+            <ItemsControl x:Name="Configurations">
+                <ItemsControl.ItemTemplate>
+                    <ItemContainerTemplate>
+                        <Button Margin="8,4,8,0" cal:Message.Attach="[Event Click] = [Action Open($dataContext)]" Cursor="Hand">
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border CornerRadius="4" BorderBrush="#4d4d4d">
+                                        <Border.Style>
+                                            <Style TargetType="{x:Type Border}">
+                                                <Setter Property="Background" Value="#1a1a1a"/>
+                                                <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#333333"/>
+                                                        <Setter Property="BorderThickness" Value="0"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Grid Grid.Column="1" Visibility="{Binding HasNoBuildName, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.RowSpan="2" >
+                                                <TextBlock FontSize="24" Text="{Binding DisplayName}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Grid>
+                                            <Grid Grid.Column="1" Visibility="{Binding HasBuildName, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.RowSpan="2" >
+                                                <TextBlock FontSize="24" Text="{Binding BuildName}" TextTrimming="WordEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Grid>
+                                            <StackPanel Grid.Column="2" Orientation="Horizontal" Grid.RowSpan="2" Margin="0,0,30,0">
+                                                <Image Source="C:\Users\cedri\Pictures\Ascent\Ascendant_avatar.png" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
+                                                <ContentControl Height="40" cal:View.Model="{Binding Path=GemViewModel,Mode=OneWay}" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                            
+
+                                            <Button Grid.Column="2" Background="Red" cal:Message.Attach="[Event Click] = [Action Remove($dataContext)]" Width="25" HorizontalAlignment="Right" >
+                                                <Button.Style>
+                                                    <Style TargetType="Button">
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate TargetType="Button">
+                                                                    <Border CornerRadius="0,4,0,20">
+                                                                        <Border.Style>
+                                                                            <Style TargetType="{x:Type Border}">
+                                                                                <Setter Property="Background" Value="LightGray"/>
+                                                                                <Setter Property="Opacity" Value="0.25"/>
+                                                                                <Style.Triggers>
+                                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                                        <Setter Property="Background" Value="Red" />
+                                                                                        <Setter Property="Opacity" Value="0.75"/>
+                                                                                    </Trigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </Border.Style>
+                                                                    </Border>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="False">
+                                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
+                                            </Button>
                                         </Grid>
-                                        <Grid Visibility="{Binding HasBuildName, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.RowSpan="2">
-                                            <TextBlock  FontSize="24" Text="{Binding BuildName}" TextTrimming="WordEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Grid>
-                                        <ContentControl Grid.RowSpan="2" Grid.Column="1" cal:View.Model="{Binding Path=GemViewModel,Mode=OneWay}" HorizontalAlignment="Center"/>
-                                        <Button Grid.Column="1" Background="Red" cal:Message.Attach="[Event Click] = [Action Remove($dataContext)]" Width="30" HorizontalAlignment="Right" >
-                                            <Button.Style>
-                                                <Style TargetType="Button">
-                                                    <Setter Property="Template">
-                                                        <Setter.Value>
-                                                            <ControlTemplate TargetType="Button">
-                                                                <Border CornerRadius="0,4,0,20">
-                                                                    <Border.Style>
-                                                                        <Style TargetType="{x:Type Border}">
-                                                                            <Setter Property="Background" Value="LightGray"/>
-                                                                            <Setter Property="Opacity" Value="0.25"/>
-                                                                            <Style.Triggers>
-                                                                                <Trigger Property="IsMouseOver" Value="True">
-                                                                                    <Setter Property="Background" Value="Red" />
-                                                                                    <Setter Property="Opacity" Value="0.75"/>
-                                                                                </Trigger>
-                                                                            </Style.Triggers>
-                                                                        </Style>
-                                                                    </Border.Style>
-                                                                </Border>
-                                                            </ControlTemplate>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="True">
-                                                            <Setter Property="Visibility" Value="Visible"/>
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="False">
-                                                            <Setter Property="Visibility" Value="Collapsed"/>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Button.Style>
-                                        </Button>
-                                    </Grid>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                </ItemContainerTemplate>
-            </ItemsControl.ItemTemplate>
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </ItemContainerTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
         <Button Width="50"
                 x:Name="Add"
                 HorizontalAlignment="Right"
@@ -105,7 +113,6 @@
                 <TextBlock FontWeight="ExtraBold" FontSize="25" FontFamily="pack://application:,,,/Assets/#Fontin">+</TextBlock>
             </Button.Content>
         </Button>
-
         <!-- The Margin is to remove Header-->
         <MahApps:Flyout cal:Message.Attach="[Event ClosingFinished] = [Action OnClose]" IsOpen="{Binding IsFlyoutOpen}" FlowDirection="LeftToRight" Position="Right" Width="625" Margin="0,-60,0,0">
             <ContentControl cal:View.Model="{Binding Path=SelectedConfiguration,Mode=OneWay}" VerticalAlignment="Top"/>

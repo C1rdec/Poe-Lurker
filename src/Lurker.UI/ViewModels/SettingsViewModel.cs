@@ -914,6 +914,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         protected override void OnActivate()
         {
+            this.BuildManager.Sync();
             this._activateTask = Task.Run(async () =>
             {
                 using (var service = new Patreon.PatreonService())
