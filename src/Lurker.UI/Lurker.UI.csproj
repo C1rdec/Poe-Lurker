@@ -243,6 +243,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
+    <Compile Include="Converters\StringConverter.cs" />
     <Compile Include="Converters\PoeClassConverter.cs" />
     <Compile Include="Converters\CurrencyTypeConverter.cs" />
     <Compile Include="Extensions\ObservableCollectionExtension.cs" />
@@ -677,6 +678,25 @@
     <Resource Include="Assets\InInstance.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Assets\Ascendant_avatar.png" />
+    <Resource Include="Assets\Assassin_avatar.png" />
+    <Resource Include="Assets\Berserker_avatar.png" />
+    <Resource Include="Assets\Champion_avatar.png" />
+    <Resource Include="Assets\Chieftain_avatar.png" />
+    <Resource Include="Assets\Deadeye_avatar.png" />
+    <Resource Include="Assets\Elementalist_avatar.png" />
+    <Resource Include="Assets\Gladiator_avatar.png" />
+    <Resource Include="Assets\Guardian_avatar.png" />
+    <Resource Include="Assets\Hierophant_avatar.png" />
+    <Resource Include="Assets\Inquisitor_avatar.png" />
+    <Resource Include="Assets\Juggernaut_avatar.png" />
+    <Resource Include="Assets\Necromancer_avatar.png" />
+    <Resource Include="Assets\Occultist_avatar.png" />
+    <Resource Include="Assets\Pathfinder_avatar.png" />
+    <Resource Include="Assets\Raider_avatar.png" />
+    <Resource Include="Assets\Saboteur_avatar.png" />
+    <Resource Include="Assets\Slayer_avatar.png" />
+    <Resource Include="Assets\Trickster_avatar.png" />
     <Content Include="SVG\ThreeDot.svg" />
     <Resource Include="Assets\Gemcutter.png" />
     <Resource Include="Assets\Chisel.png" />

@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Lurker.UI.Views"
              xmlns:MahApps="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:cal="http://www.caliburnproject.org"
+             xmlns:Converters="clr-namespace:Lurker.UI.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -49,7 +50,120 @@
                                                 <TextBlock FontSize="24" Text="{Binding BuildName}" TextTrimming="WordEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                             </Grid>
                                             <StackPanel Grid.Column="2" Orientation="Horizontal" Grid.RowSpan="2" Margin="0,0,30,0">
-                                                <Image Source="C:\Users\cedri\Pictures\Ascent\Ascendant_avatar.png" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
+                                                <Image Source="/Assets/Assassin_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Assassin'}"/>
+                                                <Image Source="/Assets/Ascendant_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Ascendant'}"/>
+                                                <Image Source="/Assets/Berserker_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Berserker'}"/>
+                                                <Image Source="/Assets/Champion_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Champion'}"/>
+                                                <Image Source="/Assets/Chieftain_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Chieftain'}"/>
+                                                <Image Source="/Assets/Deadeye_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Deadeye'}"/>
+                                                <Image Source="/Assets/Elementalist_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Elementalist'}"/>
+                                                <Image Source="/Assets/Gladiator_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Gladiator'}"/>
+                                                <Image Source="/Assets/Guardian_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Guardian'}"/>
+                                                <Image Source="/Assets/Hierophant_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Hierophant'}"/>
+                                                <Image Source="/Assets/Inquisitor_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Inquisitor'}"/>
+                                                <Image Source="/Assets/Juggernaut_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Juggernaut'}"/>
+                                                <Image Source="/Assets/Necromancer_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Necromancer'}"/>
+                                                <Image Source="/Assets/Occultist_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Occultist'}"/>
+                                                <Image Source="/Assets/Pathfinder_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Pathfinder'}"/>
+                                                <Image Source="/Assets/Raider_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Raider'}"/>
+                                                <Image Source="/Assets/Saboteur_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Saboteur'}"/>
+                                                <Image Source="/Assets/Slayer_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Slayer'}"/>
+                                                <Image Source="/Assets/Trickster_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Trickster'}"/>
                                                 <ContentControl Height="40" cal:View.Model="{Binding Path=GemViewModel,Mode=OneWay}" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
                                             </StackPanel>
                                             

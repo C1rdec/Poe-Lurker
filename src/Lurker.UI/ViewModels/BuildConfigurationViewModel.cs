@@ -24,6 +24,7 @@ namespace Lurker.UI.ViewModels
         private static readonly PathOfBuildingService PathOfBuildingService = new PathOfBuildingService();
         private Build _build;
         private SimpleBuild _buildConfiguration;
+        private string _ascendency;
 
         #endregion
 
@@ -53,6 +54,23 @@ namespace Lurker.UI.ViewModels
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets the ascendancy.
+        /// </summary>
+        public string Ascendancy
+        {
+            get
+            {
+                return this._ascendency;
+            }
+
+            private set
+            {
+                this._ascendency = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the gem view model.
@@ -161,6 +179,7 @@ namespace Lurker.UI.ViewModels
         private void DecodeBuild(SimpleBuild simpleBuild)
         {
             this._build = PathOfBuildingService.Decode(simpleBuild.PathOfBuildingCode);
+            this.Ascendancy = this._build.Ascendancy;
             this.NotifyOfPropertyChange("DisplayName");
             var mainSkill = this._build.Skills.OrderByDescending(s => s.Gems.Count(g => g.Support)).FirstOrDefault();
             if (mainSkill != null)
