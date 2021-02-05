@@ -299,7 +299,11 @@ namespace Lurker.UI.ViewModels
         /// <param name="offer">The offer.</param>
         private void AddActiveOffer(OfferViewModel offer)
         {
-            this._activeOffers.Add(offer);
+            if (!this._activeOffers.Contains(offer))
+            {
+                this._activeOffers.Add(offer);
+            }
+
             this.ActiveOffer.Active = true;
 
             if (offer.Equals(this.ActiveOffer))
