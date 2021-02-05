@@ -66,6 +66,11 @@ namespace Lurker.Models
         /// <value>The ascendancy.</value>
         public string Ascendancy { get; set; }
 
+        /// <summary>
+        /// Gets or sets the notes.
+        /// </summary>
+        public string Notes { get; set; }
+
         #endregion
 
         #region Methods

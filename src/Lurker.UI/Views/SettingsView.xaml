@@ -24,18 +24,23 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition></RowDefinition>
+                        <RowDefinition Height="80"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Controls:ToggleSwitch 
-                        Margin="30,0,0,0"
-                        HorizontalAlignment="Left"
+                    <StackPanel Margin="30,0,0,0" Grid.Row="2" HorizontalAlignment="Left" Orientation="Horizontal" VerticalAlignment="Center">
+                        <Controls:ToggleSwitch 
                         Header="Build Helper"
                         IsChecked="{Binding BuildHelper}"/>
+                        <Controls:ToggleSwitch 
+                        Header="Sync"
+                            Margin="20,0,0,0"
+                        IsChecked="{Binding BuildHelper}"/>
+                    </StackPanel>
+
                     <Label Content="Builds" Style="{DynamicResource LabelHeaderStyle}" />
-                    
-                    <ContentControl x:Name="BuildManager" Grid.Row="1"/>
+
+                    <ContentControl x:Name="BuildManager" Grid.Row="1" Grid.RowSpan="2"/>
                 </Grid>
             </TabItem>
-
             <TabItem Header="Message" Width="175">
                 <StackPanel>
                     <Label Content="Message" Style="{DynamicResource LabelHeaderStyle}" />

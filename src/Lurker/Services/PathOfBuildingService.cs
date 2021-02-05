@@ -81,6 +81,12 @@ namespace Lurker.Services
                 build.Ascendancy = ascendancyAttribute.Value;
             }
 
+            var notesElement = document.Root.Element("Notes");
+            if (notesElement != null)
+            {
+                build.Notes = notesElement.Value.Trim();
+            }
+
             var skillsElement = document.Root.Element("Skills");
             if (skillsElement != null)
             {

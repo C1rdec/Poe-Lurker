@@ -27,12 +27,16 @@ namespace Lurker.UI.ViewModels
         #region Fields
 
         private Task _currentTask;
+        private string _ascendancy;
         private bool _isVisible;
         private bool _hasNoBuild;
         private bool _skillTimelineEnabled;
         private IEventAggregator _eventAggregator;
         private PlayerService _playerService;
         private Player _activePlayer;
+        private BuildService _buildService;
+        private ObservableCollection<SimpleBuild> _builds;
+        private SimpleBuild _currentBuild;
 
         #endregion
 
@@ -45,14 +49,24 @@ namespace Lurker.UI.ViewModels
         /// <param name="dockingHelper">The docking helper.</param>
         /// <param name="processLurker">The process lurker.</param>
         /// <param name="settingsService">The settings service.</param>
+        /// <param name="buildService">The build service.</param>
         /// <param name="playerService">The player service.</param>
-        public BuildViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService, PlayerService playerService)
+        public BuildViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService, BuildService buildService, PlayerService playerService)
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
             this._activePlayer = playerService.FirstPlayer;
-            if (this._activePlayer != null && !string.IsNullOrEmpty(this._activePlayer.Build.Value))
+            if (this._activePlayer != null && !string.IsNullOrEmpty(this._activePlayer.Build.BuildId))
             {
-                this._currentTask = this.Initialize(this._activePlayer.Build.Value, false);
+                var build = buildService.Builds.FirstOrDefault(b => b.Id == this._activePlayer.Build.BuildId);
+                if (build == null)
+                {
+                    this._hasNoBuild = true;
+                }
+                else
+                {
+                    this._currentBuild = build;
+                    this._currentTask = this.Initialize(build.PathOfBuildingCode, false);
+                }
             }
             else
             {
@@ -68,11 +82,51 @@ namespace Lurker.UI.ViewModels
 
             this.ActivePlayer = new PlayerViewModel(playerService);
             this._playerService.PlayerChanged += this.PlayerService_PlayerChanged;
+            this._buildService = buildService;
+            this._builds = new ObservableCollection<SimpleBuild>();
+
+            foreach (var build in this._buildService.Builds)
+            {
+                this._builds.Add(build);
+            }
         }
 
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets the ascendancy.
+        /// </summary>
+        public string Ascendancy
+        {
+            get
+            {
+                return this._ascendancy;
+            }
+
+            private set
+            {
+                this._ascendancy = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets the builds.
+        /// </summary>
+        public ObservableCollection<SimpleBuild> Builds
+        {
+            get
+            {
+                return this._builds;
+            }
+
+            private set
+            {
+                this._builds = value;
+            }
+        }
 
         /// <summary>
         /// Gets the active player.
@@ -152,9 +206,33 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public Build Build { get; set; }
 
+        /// <summary>
+        /// Gets the data click command.
+        /// </summary>
+        public MyCommand<SimpleBuild> DataClickCommand => new MyCommand<SimpleBuild>()
+        {
+            ExecuteDelegate = p => this.SelectBuild(p),
+        };
+
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Selects the build.
+        /// </summary>
+        /// <param name="build">The build.</param>
+        public async void SelectBuild(SimpleBuild build)
+        {
+            this._currentBuild = build;
+            if (this._activePlayer != null)
+            {
+                this._activePlayer.SetBuild(build.Id);
+                this._playerService.Save();
+            }
+
+            await this.Initialize(build.PathOfBuildingCode, true);
+        }
 
         /// <summary>
         /// Imports this instance.
@@ -237,7 +315,7 @@ namespace Lurker.UI.ViewModels
                 {
                     await service.InitializeAsync();
                     this.Build = service.Decode(buildValue);
-
+                    this.Ascendancy = this.Build.Ascendancy;
                     this.Skills.Clear();
                     foreach (var skill in this.Build.Skills.Select(s => new SkillViewModel(s, this.SettingsService.TimelineEnabled)))
                     {
@@ -248,7 +326,6 @@ namespace Lurker.UI.ViewModels
                     if (findMainSkill && this._activePlayer != null)
                     {
                         var settings = this._activePlayer.Build;
-                        settings.Value = buildValue;
                         var mainSKill = this.Skills.OrderByDescending(s => s.Gems.Count(g => g.Support)).FirstOrDefault();
                         if (mainSKill != null)
                         {
@@ -395,9 +472,9 @@ namespace Lurker.UI.ViewModels
             // First Character
             if (this._activePlayer == null)
             {
-                if (this.Build != null)
+                if (this._currentBuild != null)
                 {
-                    e.Build.Value = this.Build.Value;
+                    e.Build.BuildId = this._currentBuild.Id;
                 }
 
                 return;
@@ -405,12 +482,13 @@ namespace Lurker.UI.ViewModels
 
             this.ClearBuild();
             this._activePlayer = e;
-            if (string.IsNullOrEmpty(e.Build.Value))
+            if (string.IsNullOrEmpty(e.Build.BuildId))
             {
                 return;
             }
 
-            await this.Initialize(e.Build.Value, false);
+            var build = this._buildService.Builds.FirstOrDefault(b => b.Id == e.Build.BuildId);
+            await this.Initialize(build.PathOfBuildingCode, false);
         }
 
         /// <summary>

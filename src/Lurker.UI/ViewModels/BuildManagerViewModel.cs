@@ -122,10 +122,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public void Sync()
         {
-            Execute.OnUIThread(async () =>
-            {
-                await this.PopulateBuilds();
-            });
+            this.PopulateBuilds();
         }
 
         /// <summary>
@@ -171,11 +168,12 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Populates the builds.
         /// </summary>
-        private async Task PopulateBuilds()
+        private void PopulateBuilds()
         {
             // Sync with Path of Building
-            await this._buildService.Sync();
-            foreach (var build in this._buildService.Builds)
+            this._buildService.Sync();
+            this._configurations.Clear();
+            foreach (var build in this._buildService.Builds.OrderBy(b => b.Name))
             {
                 this._configurations.Add(new BuildConfigurationViewModel(build));
             }

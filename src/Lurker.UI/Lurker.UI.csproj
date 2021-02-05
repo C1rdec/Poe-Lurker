@@ -697,6 +697,8 @@
     <Resource Include="Assets\Saboteur_avatar.png" />
     <Resource Include="Assets\Slayer_avatar.png" />
     <Resource Include="Assets\Trickster_avatar.png" />
+    <Content Include="SVG\DotsMenu.svg" />
+    <Content Include="SVG\Open.svg" />
     <Content Include="SVG\ThreeDot.svg" />
     <Resource Include="Assets\Gemcutter.png" />
     <Resource Include="Assets\Chisel.png" />

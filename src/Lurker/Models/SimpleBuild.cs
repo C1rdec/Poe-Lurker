@@ -52,6 +52,11 @@ namespace Lurker.Models
         /// </summary>
         public string ForumUrl { get; set; }
 
+        /// <summary>
+        /// Gets or sets the notes.
+        /// </summary>
+        public string Notes { get; set; }
+
         #endregion
     }
 }

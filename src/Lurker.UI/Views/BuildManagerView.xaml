@@ -13,7 +13,7 @@
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <ScrollViewer  HorizontalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Hidden">
+        <ScrollViewer  HorizontalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Hidden" Margin="0,0,0,100">
             <ItemsControl x:Name="Configurations">
                 <ItemsControl.ItemTemplate>
                     <ItemContainerTemplate>
@@ -44,12 +44,12 @@
                                                 <RowDefinition></RowDefinition>
                                             </Grid.RowDefinitions>
                                             <Grid Grid.Column="1" Visibility="{Binding HasNoBuildName, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.RowSpan="2" >
-                                                <TextBlock FontSize="24" Text="{Binding DisplayName}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                <TextBlock FontSize="24" Text="{Binding DisplayName}" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center"/>
                                             </Grid>
                                             <Grid Grid.Column="1" Visibility="{Binding HasBuildName, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.RowSpan="2" >
-                                                <TextBlock FontSize="24" Text="{Binding BuildName}" TextTrimming="WordEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                <TextBlock FontSize="24" Text="{Binding BuildName}" TextTrimming="WordEllipsis" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center"/>
                                             </Grid>
-                                            <StackPanel Grid.Column="2" Orientation="Horizontal" Grid.RowSpan="2" Margin="0,0,30,0">
+                                            <StackPanel Grid.Column="0" Orientation="Horizontal" Grid.RowSpan="2" Margin="20,0,0,0">
                                                 <Image Source="/Assets/Assassin_avatar.png"
                                                        Height="50" VerticalAlignment="Center"
                                                        HorizontalAlignment="Center"
@@ -228,8 +228,8 @@
             </Button.Content>
         </Button>
         <!-- The Margin is to remove Header-->
-        <MahApps:Flyout cal:Message.Attach="[Event ClosingFinished] = [Action OnClose]" IsOpen="{Binding IsFlyoutOpen}" FlowDirection="LeftToRight" Position="Right" Width="625" Margin="0,-60,0,0">
-            <ContentControl cal:View.Model="{Binding Path=SelectedConfiguration,Mode=OneWay}" VerticalAlignment="Top"/>
+        <MahApps:Flyout cal:Message.Attach="[Event ClosingFinished] = [Action OnClose]" IsOpen="{Binding IsFlyoutOpen}" FlowDirection="LeftToRight" Position="Right" Width="625" Margin="0,-53,0,0">
+            <ContentControl cal:View.Model="{Binding Path=SelectedConfiguration,Mode=OneWay}"/>
         </MahApps:Flyout>
     </Grid>
 </UserControl>

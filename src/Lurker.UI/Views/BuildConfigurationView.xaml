@@ -7,32 +7,86 @@
              mc:Ignorable="d" 
              xmlns:local="clr-namespace:Lurker.UI"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <StackPanel Margin="20,0,20,0">
-
-            <TextBox BorderThickness="0,0,0,1" Margin="0,0,0,50" x:Name="BuildName" HorizontalContentAlignment="Center" FontSize="36" Controls:TextBoxHelper.Watermark="Name"/>
-            
-            <TextBox x:Name="Youtube" BorderThickness="0,0,0,1" FontSize="18" Controls:TextBoxHelper.Watermark="Youtube" Margin="0,0,0,5"/>
-            <TextBox x:Name="Forum"  BorderThickness="0,0,0,1" FontSize="18" Controls:TextBoxHelper.Watermark="Forum Post"/>
-            <ScrollViewer Margin="0,30,0,0" HorizontalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Hidden">
-                <ItemsControl x:Name="Items" HorizontalAlignment="Center">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
-            </ScrollViewer>
-        </StackPanel>
-        <ContentControl x:Name="GemViewModel" HorizontalAlignment="Right" Margin="0,-60,10,0" VerticalAlignment="Top"/>
+    <Grid  Margin="10,0,10,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBox BorderThickness="0,0,0,1" x:Name="BuildName" FontFamily="pack://application:,,,/Assets/#Fontin" HorizontalContentAlignment="Center" FontSize="28" Controls:TextBoxHelper.Watermark="Name"/>
+        <Grid Grid.Row="1">
+            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="Youtube" BorderThickness="0,0,0,1" FontSize="18" FontFamily="pack://application:,,,/Assets/#Fontin" Controls:TextBoxHelper.Watermark="Youtube" Controls:TextBoxHelper.UseFloatingWatermark="True" Margin="0,0,0,5"/>
+                    <Button Width="30"
+                            x:Name="OpenYoutube"
+                            Grid.Column="1"
+                            Cursor="Hand"
+                            ToolTip="Open"
+                            BorderThickness="0"
+                            Height="30" 
+                            Visibility="{Binding HasYoutube, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            Style="{DynamicResource MetroCircleButtonStyle}">
+                        <Button.Content>
+                            <local:IconPack HorizontalAlignment="Right"
+                                            VerticalAlignment="Bottom"
+                                            Foreground="#af8404"
+                                            Grid.Row="2"
+                                            Height="20"
+                                            Width="20"
+                                            Data="{x:Static local:IconPackData.Open}"/>
+                        </Button.Content>
+                    </Button>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="Forum"  BorderThickness="0,0,0,1" FontSize="18" FontFamily="pack://application:,,,/Assets/#Fontin" Controls:TextBoxHelper.Watermark="Forum Post" Controls:TextBoxHelper.UseFloatingWatermark="True"/>
+                    <Button Width="30"
+                            x:Name="OpenForum"
+                            Grid.Column="1"
+                            Cursor="Hand"
+                            ToolTip="Open"
+                            BorderThickness="0"
+                            Height="30"
+                            Visibility="{Binding HasForum, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            Style="{DynamicResource MetroCircleButtonStyle}">
+                        <Button.Content>
+                            <local:IconPack HorizontalAlignment="Right"
+                                            VerticalAlignment="Bottom"
+                                            Foreground="#af8404"
+                                            Grid.Row="2"
+                                            Height="20"
+                                            Width="20"
+                                            Data="{x:Static local:IconPackData.Open}"/>
+                        </Button.Content>
+                    </Button>
+                </Grid>
+            </StackPanel>
+        </Grid>
+        <ScrollViewer Grid.Row="2" Margin="0,0,0,30" HorizontalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Hidden">
+            <ItemsControl x:Name="Items" HorizontalAlignment="Center">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
         <Button Width="50"
+                Grid.Row="2"
                 x:Name="OpenTree"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Cursor="Hand"
                 ToolTip="Passive Tree"
-                Height="50"
-                Margin="0,0,10,-50" Style="{DynamicResource MetroCircleButtonStyle}">
+                Height="50" Style="{DynamicResource MetroCircleButtonStyle}">
             <Button.Content>
                 <local:IconPack HorizontalAlignment="Right"
                                             VerticalAlignment="Bottom"
@@ -43,5 +97,6 @@
                                             Data="{x:Static local:IconPackData.ThreeDot}"/>
             </Button.Content>
         </Button>
+        <ContentControl x:Name="GemViewModel" HorizontalAlignment="Right" Margin="0,-60,10,0" VerticalAlignment="Top"/>
     </Grid>
 </UserControl>

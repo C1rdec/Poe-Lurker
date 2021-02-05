@@ -11,6 +11,7 @@ namespace Lurker.Services
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
+    using System.Xml.Linq;
     using ConfOxide;
     using Lurker.Models;
 
@@ -72,32 +73,34 @@ namespace Lurker.Services
         /// <summary>
         /// Synchronizes this instance.
         /// </summary>
-        /// <returns>The task.</returns>
-        public async Task Sync()
+        public void Sync()
         {
-            using (var service = new PathOfBuildingService())
+            var pathOfBuildingFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Path of Building", "Builds");
+            if (Directory.Exists(pathOfBuildingFolder))
             {
-                await service.InitializeAsync();
-
-                var pathOfBuildingFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Path of Building", "Builds");
-                if (Directory.Exists(pathOfBuildingFolder))
+                foreach (var file in Directory.GetFiles(pathOfBuildingFolder))
                 {
-                    foreach (var file in Directory.GetFiles(pathOfBuildingFolder))
+                    var buildName = Path.GetFileName(file).Replace(".xml", string.Empty);
+                    var existingBuild = this.Builds.FirstOrDefault(b => b.Name == buildName);
+                    if (existingBuild == null)
                     {
-                        var buildName = Path.GetFileName(file).Replace(".xml", string.Empty);
-                        var existingBuild = this.Builds.FirstOrDefault(b => b.Name == buildName);
-                        if (existingBuild == null)
+                        var xml = File.ReadAllText(file);
+                        var notesElement = XDocument.Parse(xml).Root.Element("Notes");
+                        var notes = string.Empty;
+                        if (notesElement != null)
                         {
-                            this.AddBuild(new SimpleBuild() { PathOfBuildingCode = File.ReadAllText(file), Name = buildName });
+                            notes = notesElement.Value.Trim();
                         }
-                        else
-                        {
-                            existingBuild.PathOfBuildingCode = File.ReadAllText(file);
-                        }
-                    }
 
-                    this.Save();
+                        this.AddBuild(new SimpleBuild() { PathOfBuildingCode = xml, Name = buildName, Notes = notes });
+                    }
+                    else
+                    {
+                        existingBuild.PathOfBuildingCode = File.ReadAllText(file);
+                    }
                 }
+
+                this.Save();
             }
         }
 

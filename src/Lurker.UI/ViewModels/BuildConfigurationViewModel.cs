@@ -6,6 +6,7 @@
 
 namespace Lurker.UI.ViewModels
 {
+    using System;
     using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.Linq;
@@ -114,6 +115,16 @@ namespace Lurker.UI.ViewModels
         public bool HasBuildName => !string.IsNullOrEmpty(this.BuildName);
 
         /// <summary>
+        /// Gets a value indicating whether this instance has youtube.
+        /// </summary>
+        public bool HasYoutube => !string.IsNullOrEmpty(this.Youtube);
+
+        /// <summary>
+        /// Gets a value indicating whether this instance has forum.
+        /// </summary>
+        public bool HasForum => !string.IsNullOrEmpty(this.Forum);
+
+        /// <summary>
         /// Gets a value indicating whether this instance has no build name.
         /// </summary>
         public bool HasNoBuildName => !this.HasBuildName;
@@ -132,6 +143,7 @@ namespace Lurker.UI.ViewModels
             {
                 this._buildConfiguration.YoutubeUrl = value;
                 this.NotifyOfPropertyChange();
+                this.NotifyOfPropertyChange("HasYoutube");
             }
         }
 
@@ -149,6 +161,7 @@ namespace Lurker.UI.ViewModels
             {
                 this._buildConfiguration.ForumUrl = value;
                 this.NotifyOfPropertyChange();
+                this.NotifyOfPropertyChange("HasForum");
             }
         }
 
@@ -156,6 +169,23 @@ namespace Lurker.UI.ViewModels
         /// Gets the identifier.
         /// </summary>
         public string Id => this._buildConfiguration.Id;
+
+        /// <summary>
+        /// Gets or sets the notes.
+        /// </summary>
+        public string Notes
+        {
+            get
+            {
+                return this._buildConfiguration.Notes;
+            }
+
+            set
+            {
+                this._buildConfiguration.Notes = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
 
         #endregion
 
@@ -169,6 +199,34 @@ namespace Lurker.UI.ViewModels
             if (this._build != null)
             {
                 Process.Start(this._build.SkillTreeUrl);
+            }
+        }
+
+        /// <summary>
+        /// Opens the youtube.
+        /// </summary>
+        public void OpenYoutube()
+        {
+            OpenUrl(this.Youtube);
+        }
+
+        /// <summary>
+        /// Opens the forum.
+        /// </summary>
+        public void OpenForum()
+        {
+            OpenUrl(this.Forum);
+        }
+
+        /// <summary>
+        /// Opens the URL.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        private static void OpenUrl(string value)
+        {
+            if (Uri.TryCreate(value, UriKind.Absolute, out Uri _))
+            {
+                Process.Start(value);
             }
         }
 

@@ -569,7 +569,7 @@ namespace Lurker.UI
             this._processLurker.ProcessClosed += this.PoeClosed;
             var process = await this._processLurker.WaitForProcess();
 
-            await this._buildService.Sync();
+            this._buildService.Sync();
             this._currentLurker = new ClientLurker(process);
             this._currentLurker.AdminRequested += this.CurrentLurker_AdminRequested;
 
