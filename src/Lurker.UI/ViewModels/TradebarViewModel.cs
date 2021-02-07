@@ -34,7 +34,7 @@ namespace Lurker.UI.ViewModels
         private List<OfferViewModel> _activeOffers = new List<OfferViewModel>();
         private IEventAggregator _eventAggregator;
         private System.Action _removeActive;
-        private List<TradeEvent> _lastOffers;
+        private List<TradeEvent> _soldOffers;
         private SoundService _soundService;
 
         #endregion
@@ -60,9 +60,9 @@ namespace Lurker.UI.ViewModels
             this._soundService = soundService;
             this._clientLurker = clientLurker;
             this.TradeOffers = new ObservableCollection<OfferViewModel>();
-            this._lastOffers = new List<TradeEvent>();
+            this._soldOffers = new List<TradeEvent>();
 
-            this._context = new TradebarContext(this.RemoveOffer, this.AddActiveOffer, this.SetActiveOffer, this.ClearAll);
+            this._context = new TradebarContext(this.RemoveOffer, this.AddActiveOffer, this.AddToSoldOffer, this.SetActiveOffer, this.ClearAll);
             this.DisplayName = "Poe Lurker";
             this.SettingsService.OnSave += this.SettingsService_OnSave;
         }
@@ -135,7 +135,7 @@ namespace Lurker.UI.ViewModels
             var defaultLocation = new Location().ToString();
             if (location != defaultLocation)
             {
-                foreach (var lastOffer in this._lastOffers)
+                foreach (var lastOffer in this._soldOffers)
                 {
                     if (tradeEvent.ItemName == lastOffer.ItemName)
                     {
@@ -185,15 +185,24 @@ namespace Lurker.UI.ViewModels
                     var alreadySold = this.CheckIfOfferIsAlreadySold(offer.Event);
                     if (!alreadySold)
                     {
-                        this._lastOffers.Add(offer.Event);
-                        if (this._lastOffers.Count >= 5)
-                        {
-                            this._lastOffers.RemoveAt(0);
-                        }
+                        this.AddToSoldOffer(offer);
                     }
                 }
 
                 this.RemoveOffer(offer);
+            }
+        }
+
+        /// <summary>
+        /// Adds to sold offer.
+        /// </summary>
+        /// <param name="offer">The offer.</param>
+        private void AddToSoldOffer(OfferViewModel offer)
+        {
+            this._soldOffers.Add(offer.Event);
+            if (this._soldOffers.Count >= 5)
+            {
+                this._soldOffers.RemoveAt(0);
             }
         }
 
@@ -290,7 +299,11 @@ namespace Lurker.UI.ViewModels
         /// <param name="offer">The offer.</param>
         private void AddActiveOffer(OfferViewModel offer)
         {
-            this._activeOffers.Add(offer);
+            if (!this._activeOffers.Contains(offer))
+            {
+                this._activeOffers.Add(offer);
+            }
+
             this.ActiveOffer.Active = true;
 
             if (offer.Equals(this.ActiveOffer))

@@ -3013,8 +3013,8 @@
         "Scion"
       ]
     },
-    "Name": "Magma Orb",
-    "WikiUrl": "https://pathofexile.gamepedia.com/Magma_Orb",
+    "Name": "Rolling Magma",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Rolling_Magma",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/d/da/Rolling_Magma_inventory_icon.png/revision/latest?cb=20150707194421&amp;format=original",
     "Level": 1
   },
@@ -3216,6 +3216,15 @@
     "Name": "Sunder",
     "WikiUrl": "https://pathofexile.gamepedia.com/Sunder",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/2/2c/Sunder_inventory_icon.png/revision/latest?cb=20160310154922&amp;format=original",
+    "Level": 12
+  },
+  {
+    "Id": "OilArrow",
+    "Support": false,
+    "Location": null,
+    "Name": "Flammable Shot",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Flammable_Shot",
+    "ImageUrl": null,
     "Level": 12
   },
   {
@@ -3644,8 +3653,8 @@
     "Id": "Replicate",
     "Support": false,
     "Location": null,
-    "Name": "[DNT] Replicate",
-    "WikiUrl": "https://pathofexile.gamepedia.com/%5BDNT%5D_Replicate",
+    "Name": "[UNUSED] Replicate",
+    "WikiUrl": "https://pathofexile.gamepedia.com/%5BUNUSED%5D_Replicate",
     "ImageUrl": null,
     "Level": 18
   },
@@ -3787,8 +3796,8 @@
     "Id": "SerpentStrike",
     "Support": false,
     "Location": null,
-    "Name": "[DNT] Serpent Strike",
-    "WikiUrl": "https://pathofexile.gamepedia.com/%5BDNT%5D_Serpent_Strike",
+    "Name": "[UNUSED] Serpent Strike",
+    "WikiUrl": "https://pathofexile.gamepedia.com/%5BUNUSED%5D_Serpent_Strike",
     "ImageUrl": null,
     "Level": 28
   },
@@ -3982,8 +3991,8 @@
     "Id": "SliceAndDice",
     "Support": false,
     "Location": null,
-    "Name": "[DNT] Slice And Dice",
-    "WikiUrl": "https://pathofexile.gamepedia.com/%5BDNT%5D_Slice_And_Dice",
+    "Name": "[UNUSED] Slice And Dice",
+    "WikiUrl": "https://pathofexile.gamepedia.com/%5BUNUSED%5D_Slice_And_Dice",
     "ImageUrl": null,
     "Level": 1
   },
@@ -5560,7 +5569,7 @@
     "Name": "Efficacy Support",
     "WikiUrl": "https://pathofexile.gamepedia.com/Efficacy_Support",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/a/a5/Efficacy_Support_inventory_icon.png/revision/latest?cb=20170804100437&amp;format=original",
-    "Level": 31
+    "Level": 8
   },
   {
     "Id": "SupportElementalFocus",
@@ -5596,7 +5605,7 @@
     "Location": null,
     "Name": "Elemental Penetration Support",
     "WikiUrl": "https://pathofexile.gamepedia.com/Elemental_Penetration_Support",
-    "ImageUrl": null,
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/0f/Elemental_Penetration_Support_inventory_icon.png/revision/latest?cb=20200930123026&amp;format=original",
     "Level": 31
   },
   {
@@ -5934,8 +5943,8 @@
     "Id": "SupportHandcastRapidFire",
     "Support": true,
     "Location": null,
-    "Name": "DNT Handcast Rapid Fire",
-    "WikiUrl": "https://pathofexile.gamepedia.com/DNT_Handcast_Rapid_Fire",
+    "Name": "[UNUSED] Handcast Rapid Fire",
+    "WikiUrl": "https://pathofexile.gamepedia.com/%5BUNUSED%5D_Handcast_Rapid_Fire",
     "ImageUrl": null,
     "Level": 38
   },
@@ -7324,6 +7333,24 @@
     "Level": 31
   },
   {
+    "Id": "SupportTrinity",
+    "Support": true,
+    "Location": {
+      "Quest": "The Siren's Cadence",
+      "Act": "Act 1",
+      "Npc": "Nessa",
+      "Classes": [
+        "Witch",
+        "Shadow",
+        "Templar"
+      ]
+    },
+    "Name": "Trinity Support",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Trinity_Support",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/2/29/Trinity_Support_inventory_icon.png/revision/latest?cb=20210120050406&amp;format=original",
+    "Level": 18
+  },
+  {
     "Id": "SupportTutorial",
     "Support": true,
     "Location": null,
@@ -8435,6 +8462,24 @@
     "WikiUrl": "https://pathofexile.gamepedia.com/Warlord%27s_Mark",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/a/a1/Warlord%27s_Mark_inventory_icon.png/revision/latest?cb=20140829205050&amp;format=original",
     "Level": 24
+  },
+  {
+    "Id": "WaterSphere",
+    "Support": false,
+    "Location": {
+      "Quest": "The Siren's Cadence",
+      "Act": "Act 1",
+      "Npc": "Nessa",
+      "Classes": [
+        "Witch",
+        "Shadow",
+        "Templar"
+      ]
+    },
+    "Name": "Hydrosphere",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Hydrosphere",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/83/Hydrosphere_inventory_icon.png/revision/latest?cb=20210120050353&amp;format=original",
+    "Level": 34
   },
   {
     "Id": "WhirlingBlades",

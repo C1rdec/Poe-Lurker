@@ -304,6 +304,7 @@ namespace Lurker.UI.ViewModels
                     return;
                 }
 
+                this._tradebarContext.AddToSoldOffer(this);
                 await this.Sold();
                 return;
             }

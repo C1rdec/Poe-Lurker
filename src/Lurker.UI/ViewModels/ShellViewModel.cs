@@ -50,6 +50,7 @@ namespace Lurker.UI
         private HideoutViewModel _hideoutOverlay;
         private SettingsService _settingsService;
         private AfkService _afkService;
+        private BuildService _buildService;
         private SettingsViewModel _settingsViewModel;
         private BuildViewModel _buildViewModel;
         private HelpViewModel _helpOverlay;
@@ -70,12 +71,14 @@ namespace Lurker.UI
         /// </summary>
         /// <param name="container">The container.</param>
         /// <param name="settingsService">The settings service.</param>
+        /// <param name="buildService">The build service.</param>
         /// <param name="settingsViewModel">The settings view model.</param>
         /// <param name="eventAggregator">The event aggregator.</param>
-        public ShellViewModel(SimpleContainer container, SettingsService settingsService, SettingsViewModel settingsViewModel, IEventAggregator eventAggregator)
+        public ShellViewModel(SimpleContainer container, SettingsService settingsService, BuildService buildService, SettingsViewModel settingsViewModel, IEventAggregator eventAggregator)
         {
             this._eventAggregator = eventAggregator;
             this._settingsService = settingsService;
+            this._buildService = buildService;
             this._container = container;
             this._settingsViewModel = settingsViewModel;
 
@@ -315,7 +318,7 @@ namespace Lurker.UI
         {
             if (item.IsActive)
             {
-                base.DeactivateItem(item, close);
+                Execute.OnUIThread(() => { base.DeactivateItem(item, close); });
             }
         }
 
@@ -566,7 +569,11 @@ namespace Lurker.UI
             this._processLurker.ProcessClosed += this.PoeClosed;
             var process = await this._processLurker.WaitForProcess();
 
-            // Client Lurker
+            if (this._settingsService.SyncBuild)
+            {
+                this._buildService.Sync();
+            }
+
             this._currentLurker = new ClientLurker(process);
             this._currentLurker.AdminRequested += this.CurrentLurker_AdminRequested;
 

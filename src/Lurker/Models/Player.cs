@@ -59,6 +59,15 @@ namespace Lurker.Models
             this.Levels.Insert(0, level);
         }
 
+        /// <summary>
+        /// Sets the build.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        public void SetBuild(string id)
+        {
+            this.Build.BuildId = id;
+        }
+
         #endregion
     }
 }

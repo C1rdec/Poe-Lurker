@@ -14,13 +14,6 @@ namespace Lurker.Models
     /// </summary>
     public class Build
     {
-        #region fields
-
-        private List<Skill> _skills;
-        private List<UniqueItem> _items;
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
@@ -28,8 +21,8 @@ namespace Lurker.Models
         /// </summary>
         public Build()
         {
-            this._skills = new List<Skill>();
-            this._items = new List<UniqueItem>();
+            this.Skills = new List<Skill>();
+            this.Items = new List<UniqueItem>();
         }
 
         #endregion
@@ -39,12 +32,12 @@ namespace Lurker.Models
         /// <summary>
         /// Gets the skills.
         /// </summary>
-        public IEnumerable<Skill> Skills => this._skills;
+        public IList<Skill> Skills { get; private set; }
 
         /// <summary>
         /// Gets the items.
         /// </summary>
-        public IEnumerable<UniqueItem> Items => this._items;
+        public IList<UniqueItem> Items { get; private set; }
 
         /// <summary>
         /// Gets or sets the tree URL.
@@ -55,6 +48,11 @@ namespace Lurker.Models
         /// Gets or sets the value.
         /// </summary>
         public string Value { get; set; }
+
+        /// <summary>
+        /// Gets or sets the XML.
+        /// </summary>
+        public string Xml { get; set; }
 
         /// <summary>
         /// Gets or sets the class.
@@ -68,6 +66,11 @@ namespace Lurker.Models
         /// <value>The ascendancy.</value>
         public string Ascendancy { get; set; }
 
+        /// <summary>
+        /// Gets or sets the notes.
+        /// </summary>
+        public string Notes { get; set; }
+
         #endregion
 
         #region Methods
@@ -78,7 +81,7 @@ namespace Lurker.Models
         /// <param name="skill">The skill.</param>
         public void AddSkill(Skill skill)
         {
-            this._skills.Add(skill);
+            this.Skills.Add(skill);
         }
 
         /// <summary>
@@ -87,12 +90,12 @@ namespace Lurker.Models
         /// <param name="item">The item.</param>
         public void AddItem(UniqueItem item)
         {
-            if (this._items.Any(i => i.Name == item.Name))
+            if (this.Items.Any(i => i.Name == item.Name))
             {
                 return;
             }
 
-            this._items.Add(item);
+            this.Items.Add(item);
         }
 
         #endregion

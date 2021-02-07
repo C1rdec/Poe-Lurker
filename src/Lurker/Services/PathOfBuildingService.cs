@@ -43,6 +43,7 @@ namespace Lurker.Services
             var uniqueInformation = await this.GetText($"https://raw.githubusercontent.com/C1rdec/Poe-Lurker/master/assets/Data/UniqueInfo.json?{Guid.NewGuid()}");
             this._knownGems = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Gem>>(gemInformation);
             this._knownUniques = Newtonsoft.Json.JsonConvert.DeserializeObject<List<UniqueItem>>(uniqueInformation);
+            this.IsInitialize = true;
         }
 
         /// <summary>
@@ -64,7 +65,8 @@ namespace Lurker.Services
                 Value = buildValue,
             };
 
-            var document = XDocument.Parse(GetXml(buildValue));
+            build.Xml = GetXml(buildValue);
+            var document = XDocument.Parse(build.Xml);
 
             var buildElement = document.Root.Element("Build");
             var classAttribute = buildElement.Attribute("className");
@@ -77,6 +79,12 @@ namespace Lurker.Services
             if (ascendancyAttribute != null)
             {
                 build.Ascendancy = ascendancyAttribute.Value;
+            }
+
+            var notesElement = document.Root.Element("Notes");
+            if (notesElement != null)
+            {
+                build.Notes = notesElement.Value.Trim();
             }
 
             var skillsElement = document.Root.Element("Skills");
@@ -95,7 +103,7 @@ namespace Lurker.Services
             var treeElement = document.Root.Element("Tree");
             if (treeElement != null)
             {
-                var urlElement = treeElement.Descendants("URL").FirstOrDefault();
+                var urlElement = treeElement.Descendants("URL").OrderByDescending(d => d.Value).FirstOrDefault();
                 build.SkillTreeUrl = urlElement.Value.Trim().Replace("passive-skill-tree", "fullscreen-passive-skill-tree");
             }
 
@@ -123,12 +131,37 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Encodes the specified build.
+        /// </summary>
+        /// <param name="build">The build.</param>
+        /// <returns>The Path of Building code.</returns>
+        public string Encode(string build)
+        {
+            using (var output = new MemoryStream())
+            {
+                using (var input = new MemoryStream(Encoding.ASCII.GetBytes(build)))
+                {
+                    using (var decompressor = new GZipStream(output, CompressionMode.Compress))
+                    {
+                        input.CopyTo(decompressor);
+                        return Convert.ToBase64String(output.ToArray());
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets the XML.
         /// </summary>
         /// <param name="build">The build.</param>
         /// <returns>System.String.</returns>
         private static string GetXml(string build)
         {
+            if (IsValidXml(build))
+            {
+                return build;
+            }
+
             using (var output = new MemoryStream())
             {
                 using (var input = new MemoryStream(Convert.FromBase64String(build.Replace("_", "/").Replace("-", "+"))))
@@ -141,6 +174,35 @@ namespace Lurker.Services
                 }
             }
         }
+
+        /// <summary>
+        /// Determines whether [is valid XML].
+        /// </summary>
+        /// <param name="xml">The XML.</param>
+        /// <returns>
+        ///   <c>true</c> if [is valid XML] [the specified XML]; otherwise, <c>false</c>.
+        /// </returns>
+        private static bool IsValidXml(string xml)
+        {
+            try
+            {
+                XDocument.Parse(xml);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets a value indicating whether this instance is initialize.
+        /// </summary>
+        public bool IsInitialize { get; private set; }
 
         #endregion
     }

@@ -24,13 +24,23 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition></RowDefinition>
+                        <RowDefinition Height="80"></RowDefinition>
                     </Grid.RowDefinitions>
+                    <StackPanel Margin="30,0,0,0" Grid.Row="2" HorizontalAlignment="Left" Orientation="Horizontal" VerticalAlignment="Center">
+                        <Controls:ToggleSwitch 
+                        Header="Build Helper"
+                        IsChecked="{Binding BuildHelper}"/>
+                        <Controls:ToggleSwitch 
+                        Header="Sync"
+                            Margin="20,0,0,0"
+                        IsChecked="{Binding SyncBuild}"/>
+                    </StackPanel>
+
                     <Label Content="Builds" Style="{DynamicResource LabelHeaderStyle}" />
 
-                    <ContentControl x:Name="BuildManager" Grid.Row="1"/>
+                    <ContentControl x:Name="BuildManager" Grid.Row="1" Grid.RowSpan="2"/>
                 </Grid>
             </TabItem>
-
             <TabItem Header="Message" Width="175">
                 <StackPanel>
                     <Label Content="Message" Style="{DynamicResource LabelHeaderStyle}" />
@@ -52,6 +62,12 @@
                                 cal:Message.Attach="[Event Click] = [Action InsertPriceToken]"
                                 Margin="4,0,0,0">
                         </Button>
+                        <Button Style="{DynamicResource Tag}"
+                                Content="Location"
+                                Focusable="False"
+                                cal:Message.Attach="[Event Click] = [Action InsertLocationToken]"
+                                Margin="4,0,0,0">
+                        </Button>
                     </StackPanel>
                     <StackPanel Margin="30,0,30,0">
                         <StackPanel.Resources>
@@ -70,7 +86,7 @@
                                     </StackPanel>
                                 </DataTemplate>
                             </Controls:MetroHeader.HeaderTemplate>
-                            <TextBox Text="{Binding BusyMessage, UpdateSourceTrigger=PropertyChanged}" x:Name="BusyMessage"/>
+                            <TextBox Text="{Binding BusyMessage, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0,0,0,1" x:Name="BusyMessage"/>
                         </Controls:MetroHeader>
                         <Controls:MetroHeader Header="Still Interested">
                             <Controls:MetroHeader.HeaderTemplate>
@@ -89,7 +105,7 @@
                                     </StackPanel>
                                 </DataTemplate>
                             </Controls:MetroHeader.HeaderTemplate>
-                            <TextBox Text="{Binding StillInterestedMessage, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox Text="{Binding StillInterestedMessage, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0,0,0,1" />
                         </Controls:MetroHeader>
                         <Controls:MetroHeader Header="Sold">
                             <Controls:MetroHeader.HeaderTemplate>
@@ -107,7 +123,7 @@
                                     </StackPanel>
                                 </DataTemplate>
                             </Controls:MetroHeader.HeaderTemplate>
-                            <TextBox Text="{Binding SoldMessage, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Text="{Binding SoldMessage, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0,0,0,1"/>
                         </Controls:MetroHeader>
                         <Controls:MetroHeader Header="Thank you">
                             <Controls:MetroHeader.HeaderTemplate>
@@ -120,7 +136,7 @@
                                     </StackPanel>
                                 </DataTemplate>
                             </Controls:MetroHeader.HeaderTemplate>
-                            <TextBox Text="{Binding ThankYouMessage, UpdateSourceTrigger=PropertyChanged}" Controls:TextBoxHelper.Watermark="No whisper"/>
+                            <TextBox Text="{Binding ThankYouMessage, UpdateSourceTrigger=PropertyChanged}" Controls:TextBoxHelper.Watermark="No whisper" BorderThickness="0,0,0,1"/>
                         </Controls:MetroHeader>
                     </StackPanel>
                 </StackPanel>
@@ -275,12 +291,6 @@
                                                Margin="30,0,0,0"
                                                Header="Outgoing Trade"
                                                IsChecked="{Binding OutgoingTradeEnabled}"/>
-                            <Controls:ToggleSwitch 
-                                                   Margin="30,0,0,0"
-                                               Header="Build Helper"
-                                               IsChecked="{Binding BuildHelper}"/>
-                        </StackPanel>
-                        <StackPanel Grid.Row="1"  Orientation="Horizontal" HorizontalAlignment="Left">
                             <Controls:ToggleSwitch
                                                Margin="30,0,0,0"
                                                Header="Item Highlight"
@@ -290,19 +300,19 @@
                                                    FontSize="12"
                                                    VerticalAlignment="Top"
                                                    Text="(Alt + F)" />
-                            <Controls:ToggleSwitch 
-                                               Header="Remaining Monster"
-                                Margin="30,0,0,0"
-                                               IsChecked="{Binding RemainingMonsterEnabled}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1"  Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Controls:ToggleSwitch Grid.Row="1"
+                                                   Margin="30,0,0,0"
+                                                   Header="Delete Item"
+                                                   IsChecked="{Binding DeleteItemEnabled}"/>
+                            <Controls:ToggleSwitch Header="Remaining Monster" Margin="30,0,0,0" IsChecked="{Binding RemainingMonsterEnabled}"/>
                             <TextBlock Margin="4 4 0 0"
                                                    Foreground="{DynamicResource AccentColorBrush}"
                                                    FontSize="12"
                                                    VerticalAlignment="Top"
                                                    Text="(Ctrl + R)" />
-                            <Controls:ToggleSwitch Grid.Row="1"
-                                                   Margin="30,0,0,0"
-                                                   Header="Delete Item"
-                                                   IsChecked="{Binding DeleteItemEnabled}"/>
+                            
                         </StackPanel>
                     </Grid>
                 </Grid>

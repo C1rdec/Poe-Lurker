@@ -6,7 +6,10 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
         Topmost="True"
+        xmlns:cal="http://www.caliburnproject.org"
         WindowStyle="None"
+        xmlns:Converters="clr-namespace:Lurker.UI.Converters"
+        xmlns:local="clr-namespace:Lurker.UI"
         AllowsTransparency="True"
         ShowInTaskbar="False"
         Background="Transparent"
@@ -16,9 +19,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid.Style>
+        <!--<Grid.Style>
             <Style TargetType="{x:Type Grid}">
                 <Setter Property="Opacity" Value="0.25"/>
                 <Style.Triggers>
@@ -27,21 +29,186 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
-        </Grid.Style>
+        </Grid.Style>-->
         <Grid.Resources>
             <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
         </Grid.Resources>
+        <Border Background="#252525" CornerRadius="4" Grid.RowSpan="2"/>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Border Background="#252525" CornerRadius="4,4,0,0" Grid.ColumnSpan="2"/>
-            <Controls:ToggleSwitch IsChecked="{Binding SkillTimelineEnabled}" Grid.Column="1" HorizontalAlignment="Right" OnLabel="Timeline" OffLabel="Timeline"></Controls:ToggleSwitch>
-            <ContentControl FontSize="18" x:Name="ActivePlayer"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        </Grid>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Controls:DropDownButton Width="100" BorderThickness="0" ItemsSource="{Binding Builds}" DisplayMemberPath="Name">
+                    <Controls:DropDownButton.ItemContainerStyle>
+                        <Style BasedOn="{StaticResource {x:Type MenuItem}}" TargetType="{x:Type MenuItem}">
+                            <Setter Property="Command" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:DropDownButton}}, Path=DataContext.DataClickCommand}" />
+                            <Setter Property="CommandParameter" Value="{Binding}" />
+                        </Style>
+                    </Controls:DropDownButton.ItemContainerStyle>
+                    <Controls:DropDownButton.Content>
+                        <Grid Visibility="{Binding HasBuild, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Image Source="/Assets/Assassin_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Assassin'}"/>
+                            <Image Source="/Assets/Ascendant_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Ascendant'}"/>
+                            <Image Source="/Assets/Berserker_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Berserker'}"/>
+                            <Image Source="/Assets/Champion_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Champion'}"/>
+                            <Image Source="/Assets/Chieftain_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Chieftain'}"/>
+                            <Image Source="/Assets/Deadeye_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Deadeye'}"/>
+                            <Image Source="/Assets/Elementalist_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Elementalist'}"/>
+                            <Image Source="/Assets/Gladiator_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Gladiator'}"/>
+                            <Image Source="/Assets/Guardian_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Guardian'}"/>
+                            <Image Source="/Assets/Hierophant_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Hierophant'}"/>
+                            <Image Source="/Assets/Inquisitor_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Inquisitor'}"/>
+                            <Image Source="/Assets/Juggernaut_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Juggernaut'}"/>
+                            <Image Source="/Assets/Necromancer_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Necromancer'}"/>
+                            <Image Source="/Assets/Occultist_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Occultist'}"/>
+                            <Image Source="/Assets/Pathfinder_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Pathfinder'}"/>
+                            <Image Source="/Assets/Raider_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Raider'}"/>
+                            <Image Source="/Assets/Saboteur_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Saboteur'}"/>
+                            <Image Source="/Assets/Slayer_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Slayer'}"/>
+                            <Image Source="/Assets/Trickster_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Trickster'}"/>
+                        </Grid>
+                    </Controls:DropDownButton.Content>
+                </Controls:DropDownButton>
+                <Button Width="32"
+                x:Name="Tree"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Cursor="Hand"
+                ToolTip="Passive Tree"
+                Height="32"
+                Style="{DynamicResource MetroCircleButtonStyle}">
+                    <Button.Content>
+                        <local:IconPack HorizontalAlignment="Right"
+                                            VerticalAlignment="Bottom"
+                                            Foreground="#af8404"
+                                            Grid.Row="2"
+                                            Height="12"
+                                            Width="12"
+                                            Data="{x:Static local:IconPackData.ThreeDot}"/>
+                    </Button.Content>
+                </Button>
+                <Button Width="32"
+                        x:Name="ShowOption"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Cursor="Hand"
+                        ToolTip="Option"
+                        Height="32"
+                        BorderThickness="0"
+                        Style="{DynamicResource MetroCircleButtonStyle}">
+                    <Button.Content>
+                        <local:IconPack HorizontalAlignment="Right"
+                                            VerticalAlignment="Bottom"
+                                            Foreground="White"
+                                            Grid.Row="2"
+                                            Height="18"
+                                            Width="18"
+                                            Data="{x:Static local:IconPackData.DotsMenu}"/>
+                    </Button.Content>
+                </Button>
+            </StackPanel>
 
-        <Controls:MetroAnimatedTabControl Controls:TabControlHelper.IsUnderlined="True" Controls:TabControlHelper.Underlined="TabPanel" TabStripPlacement="Top" Grid.Row="1">
+            <!--<Controls:ToggleSwitch IsChecked="{Binding SkillTimelineEnabled}" Grid.Column="1" HorizontalAlignment="Right" OnLabel="Timeline" OffLabel="Timeline"></Controls:ToggleSwitch>-->
+            <ContentControl FontSize="18" x:Name="ActivePlayer"  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+        </Grid>
+        <Controls:MetroAnimatedTabControl Visibility="{Binding HasBuild, Converter={StaticResource BooleanToVisibilityConverter}}" Controls:TabControlHelper.IsUnderlined="True" Controls:TabControlHelper.Underlined="TabPanel" TabStripPlacement="Top" Grid.Row="1">
             <TabItem Header="Gems" Width="175">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -60,8 +227,7 @@
                                 </ItemsControl>
                             </Viewbox>
                         </ScrollViewer>
-                        <TextBlock Visibility="{Binding HasNoBuild, Converter={StaticResource BooleanToVisibilityConverter}}" FontWeight="Bold" FontSize="24" TextWrapping="Wrap" VerticalAlignment="Center">Path of Building Code must be in the Clipboard to import!</TextBlock>
-                    </Grid>
+                    </Grid> 
                 </Grid>
             </TabItem>
             <TabItem Header="Items" Width="175">
@@ -78,13 +244,11 @@
                 </ScrollViewer>
             </TabItem>
         </Controls:MetroAnimatedTabControl>
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Button x:Name="Tree" Content="Skill Tree" IsEnabled="{Binding HasBuild}"/>
-            <Button x:Name="Import" Grid.Column="1"  Content="Import"/>
-        </Grid>
+        <Controls:Flyout Grid.RowSpan="2" IsOpen="{Binding IsOptionOpen}" FlowDirection="LeftToRight" Position="Right" Width="200" Header="Options">
+            <Grid Margin="10">
+                <Controls:ToggleSwitch IsChecked="{Binding SkillTimelineEnabled}" Grid.Column="1" HorizontalAlignment="Center" OnLabel="Timeline" OffLabel="Timeline"></Controls:ToggleSwitch>
+                <Button x:Name="NewBuild" Margin="0,10,0,10" Cursor="Hand" VerticalAlignment="Bottom">New Build</Button>
+            </Grid>
+        </Controls:Flyout>
     </Grid>
 </Window>
