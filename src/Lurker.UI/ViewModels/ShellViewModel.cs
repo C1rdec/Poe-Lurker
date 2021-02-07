@@ -318,7 +318,7 @@ namespace Lurker.UI
         {
             if (item.IsActive)
             {
-                base.DeactivateItem(item, close);
+                Execute.OnUIThread(() => { base.DeactivateItem(item, close); });
             }
         }
 
@@ -569,7 +569,11 @@ namespace Lurker.UI
             this._processLurker.ProcessClosed += this.PoeClosed;
             var process = await this._processLurker.WaitForProcess();
 
-            this._buildService.Sync();
+            if (this._settingsService.SyncBuild)
+            {
+                this._buildService.Sync();
+            }
+
             this._currentLurker = new ClientLurker(process);
             this._currentLurker.AdminRequested += this.CurrentLurker_AdminRequested;
 

@@ -701,6 +701,23 @@ namespace Lurker.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [synchronize build].
+        /// </summary>
+        public bool SyncBuild
+        {
+            get
+            {
+                return this._settingService.SyncBuild;
+            }
+
+            set
+            {
+                this._settingService.SyncBuild = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -914,7 +931,8 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         protected override void OnActivate()
         {
-            this.BuildManager.Sync();
+            this.BuildManager.PopulateBuilds(this.SyncBuild);
+
             this._activateTask = Task.Run(async () =>
             {
                 using (var service = new Patreon.PatreonService())
@@ -1055,6 +1073,13 @@ namespace Lurker.UI.ViewModels
 
                 this._currentTokenSource = new CancellationTokenSource();
                 this.PlaySoundTest(this._currentTokenSource.Token, () => this._soundService.PlayJoinHideout(this._settingService.JoinHideoutVolume));
+            }
+            else if (e.PropertyName == nameof(this.SyncBuild))
+            {
+                if (this.SyncBuild)
+                {
+                    this.BuildManager.PopulateBuilds(true);
+                }
             }
         }
 

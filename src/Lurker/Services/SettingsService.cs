@@ -564,6 +564,22 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [synchronize build].
+        /// </summary>
+        public bool SyncBuild
+        {
+            get
+            {
+                return this._settings.SyncBuild;
+            }
+
+            set
+            {
+                this._settings.SyncBuild = value;
+            }
+        }
+
+        /// <summary>
         /// Gets the name of the folder.
         /// </summary>
         private string FolderName => "PoeLurker";

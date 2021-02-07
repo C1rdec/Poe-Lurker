@@ -185,6 +185,12 @@ namespace Lurker.Models
         /// </summary>
         public bool TimelineEnabled { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [synchronize build].
+        /// </summary>
+        [DefaultValue(true)]
+        public bool SyncBuild { get; set; }
+
         #endregion
     }
 }

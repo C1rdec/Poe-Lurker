@@ -33,7 +33,7 @@
                         <Controls:ToggleSwitch 
                         Header="Sync"
                             Margin="20,0,0,0"
-                        IsChecked="{Binding BuildHelper}"/>
+                        IsChecked="{Binding SyncBuild}"/>
                     </StackPanel>
 
                     <Label Content="Builds" Style="{DynamicResource LabelHeaderStyle}" />

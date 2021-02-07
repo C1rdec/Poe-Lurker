@@ -28,6 +28,7 @@ namespace Lurker.UI.ViewModels
 
         private Task _currentTask;
         private string _ascendancy;
+        private bool _isOptionOpen;
         private bool _isVisible;
         private bool _hasNoBuild;
         private bool _skillTimelineEnabled;
@@ -37,6 +38,7 @@ namespace Lurker.UI.ViewModels
         private BuildService _buildService;
         private ObservableCollection<SimpleBuild> _builds;
         private SimpleBuild _currentBuild;
+        private SettingsViewModel _settings;
 
         #endregion
 
@@ -51,7 +53,8 @@ namespace Lurker.UI.ViewModels
         /// <param name="settingsService">The settings service.</param>
         /// <param name="buildService">The build service.</param>
         /// <param name="playerService">The player service.</param>
-        public BuildViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService, BuildService buildService, PlayerService playerService)
+        /// <param name="settingsViewModel">The settings view model.</param>
+        public BuildViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService, BuildService buildService, PlayerService playerService, SettingsViewModel settingsViewModel)
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
             this._activePlayer = playerService.FirstPlayer;
@@ -74,6 +77,7 @@ namespace Lurker.UI.ViewModels
             }
 
             this.IsVisible = true;
+            this._settings = settingsViewModel;
             this._eventAggregator = IoC.Get<IEventAggregator>();
             this.Skills = new ObservableCollection<SkillViewModel>();
             this._skillTimelineEnabled = this.SettingsService.TimelineEnabled;
@@ -84,16 +88,28 @@ namespace Lurker.UI.ViewModels
             this._playerService.PlayerChanged += this.PlayerService_PlayerChanged;
             this._buildService = buildService;
             this._builds = new ObservableCollection<SimpleBuild>();
-
-            foreach (var build in this._buildService.Builds)
-            {
-                this._builds.Add(build);
-            }
         }
 
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is option open.
+        /// </summary>
+        public bool IsOptionOpen
+        {
+            get
+            {
+                return this._isOptionOpen;
+            }
+
+            set
+            {
+                this._isOptionOpen = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
 
         /// <summary>
         /// Gets the ascendancy.
@@ -232,6 +248,14 @@ namespace Lurker.UI.ViewModels
             }
 
             await this.Initialize(build.PathOfBuildingCode, true);
+        }
+
+        /// <summary>
+        /// Opens the option.
+        /// </summary>
+        public void ShowOption()
+        {
+            this.IsOptionOpen = true;
         }
 
         /// <summary>
@@ -376,6 +400,16 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Creates new build.
+        /// </summary>
+        public void NewBuild()
+        {
+            // Set to build tab
+            this._settings.SelectTabIndex = 0;
+            this._eventAggregator.PublishOnUIThread(this._settings);
+        }
+
+        /// <summary>
         /// Called when activating.
         /// </summary>
         protected override void OnActivate()
@@ -406,6 +440,12 @@ namespace Lurker.UI.ViewModels
                 }
 
                 this.SelectItems();
+            }
+
+            this.Builds.Clear();
+            foreach (var build in this._buildService.Builds)
+            {
+                this.Builds.Add(build);
             }
 
             base.OnActivate();
@@ -488,7 +528,10 @@ namespace Lurker.UI.ViewModels
             }
 
             var build = this._buildService.Builds.FirstOrDefault(b => b.Id == e.Build.BuildId);
-            await this.Initialize(build.PathOfBuildingCode, false);
+            if (build != null)
+            {
+                await this.Initialize(build.PathOfBuildingCode, false);
+            }
         }
 
         /// <summary>

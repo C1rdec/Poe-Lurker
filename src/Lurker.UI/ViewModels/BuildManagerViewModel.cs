@@ -118,14 +118,6 @@ namespace Lurker.UI.ViewModels
         #region Methods
 
         /// <summary>
-        /// Synchronizes this instance.
-        /// </summary>
-        public void Sync()
-        {
-            this.PopulateBuilds();
-        }
-
-        /// <summary>
         /// Adds this instance.
         /// </summary>
         public async void Add()
@@ -168,10 +160,15 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Populates the builds.
         /// </summary>
-        private void PopulateBuilds()
+        /// <param name="sync">if set to <c>true</c> [synchronize].</param>
+        public void PopulateBuilds(bool sync)
         {
             // Sync with Path of Building
-            this._buildService.Sync();
+            if (sync)
+            {
+                this._buildService.Sync();
+            }
+
             this._configurations.Clear();
             foreach (var build in this._buildService.Builds.OrderBy(b => b.Name))
             {
