@@ -247,7 +247,7 @@
         <Controls:Flyout Grid.RowSpan="2" IsOpen="{Binding IsOptionOpen}" FlowDirection="LeftToRight" Position="Right" Width="200" Header="Options">
             <Grid Margin="10">
                 <Controls:ToggleSwitch IsChecked="{Binding SkillTimelineEnabled}" Grid.Column="1" HorizontalAlignment="Center" OnLabel="Timeline" OffLabel="Timeline"></Controls:ToggleSwitch>
-                <Button x:Name="NewBuild" Margin="0,10,0,10" Cursor="Hand" VerticalAlignment="Bottom">New Build</Button>
+                <Button Style="{DynamicResource Tag}" x:Name="NewBuild" Margin="0,10,0,10" Cursor="Hand" VerticalAlignment="Bottom">New Build</Button>
             </Grid>
         </Controls:Flyout>
     </Grid>

@@ -361,7 +361,7 @@
                     </StackPanel>
                 </Grid>
             </TabItem>
-            <TabItem Header="Lurker Pro" >
+            <TabItem Header="Lurker Pro">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
