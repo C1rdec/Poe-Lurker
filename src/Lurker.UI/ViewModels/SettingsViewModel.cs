@@ -73,6 +73,8 @@ namespace Lurker.UI.ViewModels
             {
                 AssetService.Create(LottieFileName, GetResourceContent(LottieFileName));
             }
+
+            this.BuildManager = new BuildManagerViewModel(this.ShowMessage);
         }
 
         #endregion
@@ -87,6 +89,12 @@ namespace Lurker.UI.ViewModels
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the build manager.
+        /// </summary>
+        /// <value>The build manager.</value>
+        public BuildManagerViewModel BuildManager { get; set; }
 
         /// <summary>
         /// Gets or sets the index of the select teb.
@@ -693,6 +701,23 @@ namespace Lurker.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [synchronize build].
+        /// </summary>
+        public bool SyncBuild
+        {
+            get
+            {
+                return this._settingService.SyncBuild;
+            }
+
+            set
+            {
+                this._settingService.SyncBuild = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -906,6 +931,8 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         protected override void OnActivate()
         {
+            this.BuildManager.PopulateBuilds(this.SyncBuild);
+
             this._activateTask = Task.Run(async () =>
             {
                 using (var service = new Patreon.PatreonService())
@@ -1047,6 +1074,13 @@ namespace Lurker.UI.ViewModels
                 this._currentTokenSource = new CancellationTokenSource();
                 this.PlaySoundTest(this._currentTokenSource.Token, () => this._soundService.PlayJoinHideout(this._settingService.JoinHideoutVolume));
             }
+            else if (e.PropertyName == nameof(this.SyncBuild))
+            {
+                if (this.SyncBuild)
+                {
+                    this.BuildManager.PopulateBuilds(true);
+                }
+            }
         }
 
         /// <summary>
@@ -1083,6 +1117,26 @@ namespace Lurker.UI.ViewModels
             });
 
             await controller.CloseAsync();
+        }
+
+        /// <summary>
+        /// Shows the message.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        /// <param name="message">The message.</param>
+        /// <param name="style">The style.</param>
+        /// <returns>The result.</returns>
+        private Task<MessageDialogResult> ShowMessage(string title, string message, MessageDialogStyle? style)
+        {
+            var coordinator = DialogCoordinator.Instance;
+            if (style.HasValue)
+            {
+                return coordinator.ShowMessageAsync(this, title, message, style.Value);
+            }
+            else
+            {
+                return coordinator.ShowMessageAsync(this, title, message);
+            }
         }
 
         #endregion

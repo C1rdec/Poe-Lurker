@@ -17,9 +17,9 @@ namespace Lurker.Models
         #region Properties
 
         /// <summary>
-        /// Gets or sets the build.
+        /// Gets or sets the build identifier.
         /// </summary>
-        public string Value { get; set; }
+        public string BuildId { get; set; }
 
         /// <summary>
         /// Gets or sets the skill selected.

@@ -1,0 +1,235 @@
+﻿<UserControl x:Class="Lurker.UI.Views.BuildManagerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Lurker.UI.Views"
+             xmlns:MahApps="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:Converters="clr-namespace:Lurker.UI.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <ScrollViewer  HorizontalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Hidden" Margin="0,0,0,100">
+            <ItemsControl x:Name="Configurations">
+                <ItemsControl.ItemTemplate>
+                    <ItemContainerTemplate>
+                        <Button Margin="8,4,8,0" cal:Message.Attach="[Event Click] = [Action Open($dataContext)]" Cursor="Hand">
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border CornerRadius="4" BorderBrush="#4d4d4d">
+                                        <Border.Style>
+                                            <Style TargetType="{x:Type Border}">
+                                                <Setter Property="Background" Value="#1a1a1a"/>
+                                                <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#333333"/>
+                                                        <Setter Property="BorderThickness" Value="0"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Grid Grid.Column="1" Visibility="{Binding HasNoBuildName, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.RowSpan="2" >
+                                                <TextBlock FontSize="24" Text="{Binding DisplayName}" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center"/>
+                                            </Grid>
+                                            <Grid Grid.Column="1" Visibility="{Binding HasBuildName, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.RowSpan="2" >
+                                                <TextBlock FontSize="24" Text="{Binding BuildName}" TextTrimming="WordEllipsis" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center"/>
+                                            </Grid>
+                                            <StackPanel Grid.Column="0" Orientation="Horizontal" Grid.RowSpan="2" Margin="20,0,0,0">
+                                                <Image Source="/Assets/Assassin_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Assassin'}"/>
+                                                <Image Source="/Assets/Ascendant_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Ascendant'}"/>
+                                                <Image Source="/Assets/Berserker_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Berserker'}"/>
+                                                <Image Source="/Assets/Champion_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Champion'}"/>
+                                                <Image Source="/Assets/Chieftain_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Chieftain'}"/>
+                                                <Image Source="/Assets/Deadeye_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Deadeye'}"/>
+                                                <Image Source="/Assets/Elementalist_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Elementalist'}"/>
+                                                <Image Source="/Assets/Gladiator_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Gladiator'}"/>
+                                                <Image Source="/Assets/Guardian_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Guardian'}"/>
+                                                <Image Source="/Assets/Hierophant_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Hierophant'}"/>
+                                                <Image Source="/Assets/Inquisitor_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Inquisitor'}"/>
+                                                <Image Source="/Assets/Juggernaut_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Juggernaut'}"/>
+                                                <Image Source="/Assets/Necromancer_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Necromancer'}"/>
+                                                <Image Source="/Assets/Occultist_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Occultist'}"/>
+                                                <Image Source="/Assets/Pathfinder_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Pathfinder'}"/>
+                                                <Image Source="/Assets/Raider_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Raider'}"/>
+                                                <Image Source="/Assets/Saboteur_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Saboteur'}"/>
+                                                <Image Source="/Assets/Slayer_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Slayer'}"/>
+                                                <Image Source="/Assets/Trickster_avatar.png"
+                                                       Height="50" VerticalAlignment="Center"
+                                                       HorizontalAlignment="Center"
+                                                       Visibility="{Binding Ascendancy,
+                                                                    Converter={Converters:StringConverter}, 
+                                                                    ConverterParameter='Trickster'}"/>
+                                                <ContentControl Height="40" cal:View.Model="{Binding Path=GemViewModel,Mode=OneWay}" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                            
+
+                                            <Button Grid.Column="2" Background="Red" cal:Message.Attach="[Event Click] = [Action Remove($dataContext)]" Width="25" HorizontalAlignment="Right" >
+                                                <Button.Style>
+                                                    <Style TargetType="Button">
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate TargetType="Button">
+                                                                    <Border CornerRadius="0,4,0,20">
+                                                                        <Border.Style>
+                                                                            <Style TargetType="{x:Type Border}">
+                                                                                <Setter Property="Background" Value="LightGray"/>
+                                                                                <Setter Property="Opacity" Value="0.25"/>
+                                                                                <Style.Triggers>
+                                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                                        <Setter Property="Background" Value="Red" />
+                                                                                        <Setter Property="Opacity" Value="0.75"/>
+                                                                                    </Trigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </Border.Style>
+                                                                    </Border>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="False">
+                                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
+                                            </Button>
+                                        </Grid>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </ItemContainerTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
+        <Button Width="50"
+                x:Name="Add"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Height="50"
+                Margin="0,-50,10,0"
+                    Style="{DynamicResource MetroCircleButtonStyle}">
+            <Button.Content>
+                <TextBlock FontWeight="ExtraBold" FontSize="25" FontFamily="pack://application:,,,/Assets/#Fontin">+</TextBlock>
+            </Button.Content>
+        </Button>
+        <!-- The Margin is to remove Header-->
+        <MahApps:Flyout cal:Message.Attach="[Event ClosingFinished] = [Action OnClose]" IsOpen="{Binding IsFlyoutOpen}" FlowDirection="LeftToRight" Position="Right" Width="625" Margin="0,-53,0,0">
+            <ContentControl cal:View.Model="{Binding Path=SelectedConfiguration,Mode=OneWay}"/>
+        </MahApps:Flyout>
+    </Grid>
+</UserControl>

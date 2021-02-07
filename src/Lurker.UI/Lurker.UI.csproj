@@ -243,12 +243,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
+    <Compile Include="Converters\StringConverter.cs" />
     <Compile Include="Converters\PoeClassConverter.cs" />
     <Compile Include="Converters\CurrencyTypeConverter.cs" />
     <Compile Include="Extensions\ObservableCollectionExtension.cs" />
     <Compile Include="Extensions\PriceExtension.cs" />
     <Compile Include="Helpers\AdminRequestHelper.cs" />
     <Compile Include="Helpers\UpdateManager.cs" />
+    <Compile Include="Models\BuildManagerContext.cs" />
     <Compile Include="Models\ItemMessage.cs" />
     <Compile Include="Models\League.cs" />
     <Compile Include="Models\MyCommand.cs" />
@@ -272,6 +274,8 @@
       <DependentUpon>Svg.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AffixViewModel.cs" />
+    <Compile Include="ViewModels\BuildConfigurationViewModel.cs" />
+    <Compile Include="ViewModels\BuildManagerViewModel.cs" />
     <Compile Include="ViewModels\BuildViewModel.cs" />
     <Compile Include="ViewModels\GroupItemViewModel.cs" />
     <Compile Include="ViewModels\MapAffixViewModel.cs" />
@@ -314,6 +318,12 @@
     <Compile Include="ViewModels\WikiItemBaseViewModel.cs" />
     <Compile Include="Views\AffixView.xaml.cs">
       <DependentUpon>AffixView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BuildConfigurationView.xaml.cs">
+      <DependentUpon>BuildConfigurationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BuildManagerView.xaml.cs">
+      <DependentUpon>BuildManagerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\BuildView.xaml.cs">
       <DependentUpon>BuildView.xaml</DependentUpon>
@@ -430,6 +440,14 @@
       <DependentUpon>WeaponView.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\AffixView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BuildConfigurationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BuildManagerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -660,6 +678,28 @@
     <Resource Include="Assets\InInstance.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Assets\Ascendant_avatar.png" />
+    <Resource Include="Assets\Assassin_avatar.png" />
+    <Resource Include="Assets\Berserker_avatar.png" />
+    <Resource Include="Assets\Champion_avatar.png" />
+    <Resource Include="Assets\Chieftain_avatar.png" />
+    <Resource Include="Assets\Deadeye_avatar.png" />
+    <Resource Include="Assets\Elementalist_avatar.png" />
+    <Resource Include="Assets\Gladiator_avatar.png" />
+    <Resource Include="Assets\Guardian_avatar.png" />
+    <Resource Include="Assets\Hierophant_avatar.png" />
+    <Resource Include="Assets\Inquisitor_avatar.png" />
+    <Resource Include="Assets\Juggernaut_avatar.png" />
+    <Resource Include="Assets\Necromancer_avatar.png" />
+    <Resource Include="Assets\Occultist_avatar.png" />
+    <Resource Include="Assets\Pathfinder_avatar.png" />
+    <Resource Include="Assets\Raider_avatar.png" />
+    <Resource Include="Assets\Saboteur_avatar.png" />
+    <Resource Include="Assets\Slayer_avatar.png" />
+    <Resource Include="Assets\Trickster_avatar.png" />
+    <Content Include="SVG\DotsMenu.svg" />
+    <Content Include="SVG\Open.svg" />
+    <Content Include="SVG\ThreeDot.svg" />
     <Resource Include="Assets\Gemcutter.png" />
     <Resource Include="Assets\Chisel.png" />
     <Resource Include=".nuget\mouse-keyboard-hook-logo.png" />

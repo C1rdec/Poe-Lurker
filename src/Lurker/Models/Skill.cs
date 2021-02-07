@@ -15,12 +15,6 @@ namespace Lurker.Models
     /// </summary>
     public class Skill
     {
-        #region fields
-
-        private List<Gem> _gems;
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
@@ -28,7 +22,7 @@ namespace Lurker.Models
         /// </summary>
         public Skill()
         {
-            this._gems = new List<Gem>();
+            this.Gems = new List<Gem>();
         }
 
         #endregion
@@ -38,7 +32,7 @@ namespace Lurker.Models
         /// <summary>
         /// Gets the skills.
         /// </summary>
-        public IEnumerable<Gem> Gems => this._gems;
+        public IList<Gem> Gems { get; private set; }
 
         /// <summary>
         /// Gets or sets the slot.
@@ -95,7 +89,7 @@ namespace Lurker.Models
         /// <param name="gem">The gem.</param>
         public void AddGem(Gem gem)
         {
-            this._gems.Add(gem);
+            this.Gems.Add(gem);
         }
 
         /// <summary>

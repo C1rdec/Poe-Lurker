@@ -27,6 +27,6 @@
         </Popup>
         <Border Grid.Row="1" Background="Black" CornerRadius="20"/>
         <Image Source="{Binding ImageUrl}" Grid.RowSpan="2"/>
-        <TextBlock Grid.Row="1" x:Name="Level" HorizontalAlignment="Right" Margin="0,0,6,2" FontSize="20" VerticalAlignment="Bottom" Foreground="White" FontWeight="Bold"/>
+        <TextBlock Visibility="{Binding ShowLevel, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Row="1" x:Name="Level" HorizontalAlignment="Right" Margin="0,0,6,2" FontSize="20" VerticalAlignment="Bottom" Foreground="White" FontWeight="Bold"/>
     </Grid>
 </UserControl>
