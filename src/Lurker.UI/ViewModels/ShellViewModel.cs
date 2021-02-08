@@ -437,6 +437,11 @@ namespace Lurker.UI
 
                 if (this._settingsService.BuildHelper)
                 {
+                    this.ActivateItem(this._buildViewModel);
+                }
+
+                if (this._settingsService.BuildHelper)
+                {
                     this.ActivateItem(this._helpOverlay);
                 }
 
@@ -469,11 +474,11 @@ namespace Lurker.UI
         {
             if (show)
             {
-                this.ActivateItem(this._buildViewModel);
+                this._buildViewModel.IsOpen = true;
             }
             else
             {
-                this.DeactivateItem(this._buildViewModel, true);
+                this._buildViewModel.IsOpen = false;
             }
         }
 

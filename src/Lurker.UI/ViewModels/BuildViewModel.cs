@@ -27,9 +27,10 @@ namespace Lurker.UI.ViewModels
         #region Fields
 
         private Task _currentTask;
+        private bool _isOpen;
+        private bool _isVisible;
         private string _ascendancy;
         private bool _isOptionOpen;
-        private bool _isVisible;
         private bool _hasNoBuild;
         private bool _skillTimelineEnabled;
         private IEventAggregator _eventAggregator;
@@ -93,6 +94,23 @@ namespace Lurker.UI.ViewModels
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is open.
+        /// </summary>
+        public bool IsOpen
+        {
+            get
+            {
+                return this._isOpen;
+            }
+
+            set
+            {
+                this._isOpen = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is option open.
