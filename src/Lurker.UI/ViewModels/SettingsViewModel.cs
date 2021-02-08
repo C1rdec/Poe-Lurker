@@ -864,7 +864,7 @@ namespace Lurker.UI.ViewModels
                     this.TrialAvailable = false;
                     this.Pledging = pledging;
 
-                    SentrySdk.CaptureMessage("New Trial", Sentry.Protocol.SentryLevel.Info);
+                    SentrySdk.CaptureMessage("New Trial", SentryLevel.Info);
                 }
             });
         }

@@ -126,7 +126,7 @@ namespace Lurker.UI
             this._sentry = SentrySdk.Init(Dsn);
             SentrySdk.ConfigureScope((c) =>
             {
-                c.User = new Sentry.Protocol.User()
+                c.User = new User()
                 {
                     Id = settings.UserId,
                 };
