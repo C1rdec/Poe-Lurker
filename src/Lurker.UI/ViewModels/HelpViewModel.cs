@@ -22,8 +22,7 @@ namespace Lurker.UI.ViewModels
 
         private static readonly int DefaultSize = 60;
         private IWindowManager _windowManager;
-        private System.Action<bool> _onClick;
-        private bool _isShown;
+        private System.Action _onClick;
 
         #endregion
 
@@ -51,15 +50,14 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public void Help()
         {
-            this._isShown = !this._isShown;
-            this._onClick?.Invoke(this._isShown);
+            this._onClick?.Invoke();
         }
 
         /// <summary>
         /// Helps this instance.
         /// </summary>
         /// <param name="onClick">The on click.</param>
-        public void Initialize(System.Action<bool> onClick)
+        public void Initialize(System.Action onClick)
         {
             this._onClick = onClick;
         }

@@ -199,8 +199,6 @@
                         </Button.Content>
                     </Button>
                 </StackPanel>
-
-                <!--<Controls:ToggleSwitch IsChecked="{Binding SkillTimelineEnabled}" Grid.Column="1" HorizontalAlignment="Right" OnLabel="Timeline" OffLabel="Timeline"></Controls:ToggleSwitch>-->
                 <ContentControl FontSize="18" x:Name="ActivePlayer"  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
             </Grid>
             <Controls:MetroAnimatedTabControl Visibility="{Binding HasBuild, Converter={StaticResource BooleanToVisibilityConverter}}" Controls:TabControlHelper.IsUnderlined="True" Controls:TabControlHelper.Underlined="TabPanel" TabStripPlacement="Top" Grid.Row="1">
@@ -239,6 +237,7 @@
                     </ScrollViewer>
                 </TabItem>
             </Controls:MetroAnimatedTabControl>
+            <ContentControl x:Name="BuildSelector" Grid.Row="1" Visibility="{Binding HasNoBuild, Converter={StaticResource BooleanToVisibilityConverter}}" Background="Red"/>
             <Controls:Flyout Grid.RowSpan="2" IsOpen="{Binding IsOptionOpen}" FlowDirection="LeftToRight" Position="Right" Width="200" Header="Options">
                 <Grid Margin="10">
                     <Controls:ToggleSwitch IsChecked="{Binding SkillTimelineEnabled}" Grid.Column="1" HorizontalAlignment="Center" OnLabel="Timeline" OffLabel="Timeline"></Controls:ToggleSwitch>

@@ -45,6 +45,7 @@ namespace Lurker
 
             this._itemParser = new ItemParser();
             this._keyboardHook = new KeyboardHook(processId);
+            this._keyboardHook.AddHandler('B', Modifiers.Control, this.ToggleBuild);
             this._keyboardHook.AddHandler('F', Modifiers.Alt, this.SearchItem);
             this._keyboardHook.AddHandler('R', Modifiers.Control, this.RemainingMonsters);
             this._keyboardHook.AddHandler(DeleteKeyCode, this.DeleteItem);
@@ -55,7 +56,26 @@ namespace Lurker
 
         #endregion
 
+        #region Events
+
+        /// <summary>
+        /// Occurs when [build toggled].
+        /// </summary>
+        public event EventHandler BuildToggled;
+
+        #endregion
+
         #region Methods
+
+        /// <summary>
+        /// Toggles the build.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="KeyboardMessageEventArgs"/> instance containing the event data.</param>
+        public void ToggleBuild(object sender, KeyboardMessageEventArgs e)
+        {
+            this.BuildToggled?.Invoke(this, EventArgs.Empty);
+        }
 
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources.

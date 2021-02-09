@@ -312,6 +312,7 @@
     <Compile Include="ViewModels\AffixViewModel.cs" />
     <Compile Include="ViewModels\BuildConfigurationViewModel.cs" />
     <Compile Include="ViewModels\BuildManagerViewModel.cs" />
+    <Compile Include="ViewModels\BuildSelectorViewModel.cs" />
     <Compile Include="ViewModels\BuildViewModel.cs" />
     <Compile Include="ViewModels\GroupItemViewModel.cs" />
     <Compile Include="ViewModels\MapAffixViewModel.cs" />
@@ -360,6 +361,9 @@
     </Compile>
     <Compile Include="Views\BuildManagerView.xaml.cs">
       <DependentUpon>BuildManagerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BuildSelectorView.xaml.cs">
+      <DependentUpon>BuildSelectorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\BuildView.xaml.cs">
       <DependentUpon>BuildView.xaml</DependentUpon>
@@ -484,6 +488,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BuildManagerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BuildSelectorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

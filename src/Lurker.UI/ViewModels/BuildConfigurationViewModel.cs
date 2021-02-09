@@ -57,6 +57,11 @@ namespace Lurker.UI.ViewModels
         #region Properties
 
         /// <summary>
+        /// Gets the simple build.
+        /// </summary>
+        public SimpleBuild SimpleBuild => this._buildConfiguration;
+
+        /// <summary>
         /// Gets the ascendancy.
         /// </summary>
         public string Ascendancy

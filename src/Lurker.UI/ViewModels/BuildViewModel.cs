@@ -89,11 +89,19 @@ namespace Lurker.UI.ViewModels
             this._playerService.PlayerChanged += this.PlayerService_PlayerChanged;
             this._buildService = buildService;
             this._builds = new ObservableCollection<SimpleBuild>();
+
+            this.BuildSelector = new BuildSelectorViewModel(buildService);
+            this.BuildSelector.BuildSelected += this.BuildSelector_BuildSelected;
         }
 
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the build selector.
+        /// </summary>
+        public BuildSelectorViewModel BuildSelector { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is open.
@@ -413,7 +421,6 @@ namespace Lurker.UI.ViewModels
                 this.Skills.Clear();
                 this.UniqueItems.Clear();
             });
-            this.HasNoBuild = true;
             this._eventAggregator.PublishOnUIThread(new SkillMessage() { Clear = true });
         }
 
@@ -508,6 +515,16 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Builds the selector build selected.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
+        private void BuildSelector_BuildSelected(object sender, SimpleBuild e)
+        {
+            this.SelectBuild(e);
+        }
+
+        /// <summary>
         /// Handles the Deactivated event of the View control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -549,6 +566,10 @@ namespace Lurker.UI.ViewModels
             if (build != null)
             {
                 await this.Initialize(build.PathOfBuildingCode, false);
+            }
+            else
+            {
+                this.HasNoBuild = true;
             }
         }
 

@@ -407,6 +407,7 @@ namespace Lurker.UI
                 // Keyboard
                 var keyboarHelper = new PoeKeyboardHelper(processId);
                 this._keyboardLurker = new KeyboardLurker(processId, this._settingsService, keyboarHelper);
+                this._keyboardLurker.BuildToggled += this.KeyboardLurker_BuildToggled;
 
                 // Mouse
                 this._mouseLurker = new MouseLurker(processId, this._settingsService);
@@ -467,19 +468,21 @@ namespace Lurker.UI
         }
 
         /// <summary>
+        /// Handles the BuildToggled event of the KeyboardLurker control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void KeyboardLurker_BuildToggled(object sender, EventArgs e)
+        {
+            this.ToggleBuildHelper();
+        }
+
+        /// <summary>
         /// Toggles the build helper.
         /// </summary>
-        /// <param name="show">if set to <c>true</c> [show].</param>
-        private void ToggleBuildHelper(bool show)
+        private void ToggleBuildHelper()
         {
-            if (show)
-            {
-                this._buildViewModel.IsOpen = true;
-            }
-            else
-            {
-                this._buildViewModel.IsOpen = false;
-            }
+            this._buildViewModel.IsOpen = !this._buildViewModel.IsOpen;
         }
 
         /// <summary>
@@ -558,6 +561,7 @@ namespace Lurker.UI
 
             if (this._keyboardLurker != null)
             {
+                this._keyboardLurker.BuildToggled -= this.KeyboardLurker_BuildToggled;
                 this._keyboardLurker.Dispose();
             }
         }
