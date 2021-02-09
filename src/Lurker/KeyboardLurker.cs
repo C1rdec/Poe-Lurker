@@ -45,7 +45,7 @@ namespace Lurker
 
             this._itemParser = new ItemParser();
             this._keyboardHook = new KeyboardHook(processId);
-            this._keyboardHook.AddHandler('B', Modifiers.Control, this.ToggleBuild);
+            this._keyboardHook.AddHandler(222, this.ToggleBuild);
             this._keyboardHook.AddHandler('F', Modifiers.Alt, this.SearchItem);
             this._keyboardHook.AddHandler('R', Modifiers.Control, this.RemainingMonsters);
             this._keyboardHook.AddHandler(DeleteKeyCode, this.DeleteItem);
