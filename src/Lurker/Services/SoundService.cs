@@ -21,6 +21,7 @@ namespace Lurker.Services
         /// The trade alert file name.
         /// </summary>
         public static readonly string TradeAlertFileName = "TradeAlert.mp3";
+        private WaveOutEvent _currentSound;
 
         #endregion
 
@@ -76,6 +77,14 @@ namespace Lurker.Services
                 var mp3Reader = new Mp3FileReader(stream);
                 waveOut.Init(mp3Reader);
                 waveOut.Volume = volume;
+
+                if (this._currentSound != null)
+                {
+                    this._currentSound.Stop();
+                    this._currentSound = null;
+                }
+
+                this._currentSound = waveOut;
                 waveOut.Play();
 
                 EventHandler<StoppedEventArgs> handler = default;
