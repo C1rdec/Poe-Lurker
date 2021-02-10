@@ -159,7 +159,26 @@
                                            HorizontalAlignment="Left"
                                            Header="Offer Alert"
                                            IsChecked="{Binding AlertEnabled}"/>
-                            <Label Grid.Column="1" Visibility="{Binding AlertEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Margin="0,-40,0,0" >Volume</Label>
+                            <StackPanel Grid.Column="1" Visibility="{Binding AlertEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" Orientation="Horizontal">
+                                <Label  Visibility="{Binding AlertEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Margin="0,-40,0,0" >Volume</Label>
+                                <ToggleButton Grid.Column="1" 
+                                              IsChecked="{Binding HasCustomTradeSound}"
+                                              x:Name="SelectCustomSound"
+                                              HorizontalAlignment="Left" 
+                                              ToolTip="Custom Sound" 
+                                              Cursor="Hand" 
+                                              VerticalAlignment="Top"
+                                              Height="35" Width="35" 
+                                              Style="{DynamicResource MetroCircleToggleButtonStyle}"
+                                              Margin="5,-6,0,0">
+                                    <local:IconPack Foreground="White"
+                                                    Opacity="0.8"
+                                                    Margin="1,1,0,0"
+                                                    Width="20"
+                                                    Height="20"
+                                            Data="{x:Static local:IconPackData.CustomSound}"/>
+                                </ToggleButton>
+                            </StackPanel>
                             <Slider
                                 Grid.Column="1"
                                 Visibility="{Binding AlertEnabled, Converter={StaticResource BooleanToVisibilityConverter}}"

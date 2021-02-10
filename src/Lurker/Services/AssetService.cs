@@ -82,6 +82,16 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Creates the specified file name.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="content">The content.</param>
+        public static void Create(string fileName, byte[] content)
+        {
+            File.WriteAllBytes(Path.Combine(SettingsFolderPath, fileName), content);
+        }
+
+        /// <summary>
         /// Updates the specified file name.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>

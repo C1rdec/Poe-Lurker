@@ -15,7 +15,27 @@ namespace Lurker.Services
     /// </summary>
     public class SoundService
     {
+        #region Fields
+
+        /// <summary>
+        /// The trade alert file name.
+        /// </summary>
+        public static readonly string TradeAlertFileName = "TradeAlert.mp3";
+
+        #endregion
+
         #region Methods
+
+        /// <summary>
+        /// Determines whether [has custom trade alert].
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if [has custom trade alert]; otherwise, <c>false</c>.
+        /// </returns>
+        public bool HasCustomTradeAlert()
+        {
+            return AssetService.Exists(TradeAlertFileName);
+        }
 
         /// <summary>
         /// Plays the join hideout.
@@ -31,10 +51,16 @@ namespace Lurker.Services
         /// Plays the trade alert.
         /// </summary>
         /// <param name="volume">The volume.</param>
-        public void PlayTradeAlert(float volume)
+        /// <returns>The trade alert.</returns>
+        public WaveOutEvent PlayTradeAlert(float volume)
         {
+            if (AssetService.Exists(TradeAlertFileName))
+            {
+                return this.Play(File.OpenRead(AssetService.GetFilePath(TradeAlertFileName)), volume);
+            }
+
             var stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("Lurker.Assets.TradeAlert.mp3");
-            this.Play(stream, volume);
+            return this.Play(stream, volume);
         }
 
         /// <summary>
@@ -42,7 +68,7 @@ namespace Lurker.Services
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="volume">The volume.</param>
-        private void Play(Stream stream, float volume)
+        private WaveOutEvent Play(Stream stream, float volume)
         {
             try
             {
@@ -62,9 +88,11 @@ namespace Lurker.Services
                 };
 
                 waveOut.PlaybackStopped += handler;
+                return waveOut;
             }
             catch
             {
+                return null;
             }
         }
 

@@ -22,6 +22,8 @@ namespace Lurker.UI.ViewModels
     using Lurker.UI.Helpers;
     using MahApps.Metro.Controls;
     using MahApps.Metro.Controls.Dialogs;
+    using Microsoft.Win32;
+    using NAudio.Wave;
     using Sentry;
 
     /// <summary>
@@ -47,6 +49,8 @@ namespace Lurker.UI.ViewModels
         private Patreon.PatreonService _currentPatreonService;
         private SoundService _soundService;
         private CancellationTokenSource _currentTokenSource;
+        private bool _hasCustomTradeSound;
+        private WaveOutEvent _currentTradeAlert;
 
         #endregion
 
@@ -89,6 +93,23 @@ namespace Lurker.UI.ViewModels
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance has custom trade sound.
+        /// </summary>
+        public bool HasCustomTradeSound
+        {
+            get
+            {
+                return this._hasCustomTradeSound;
+            }
+
+            set
+            {
+                this._hasCustomTradeSound = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the build manager.
@@ -723,6 +744,54 @@ namespace Lurker.UI.ViewModels
         #region Methods
 
         /// <summary>
+        /// Selects the custom sound.
+        /// </summary>
+        public void SelectCustomSound()
+        {
+            if (!this.HasCustomTradeSound)
+            {
+                try
+                {
+                    if (this._currentTradeAlert != null)
+                    {
+                        this._currentTradeAlert.Stop();
+                        this._currentTradeAlert = null;
+                    }
+
+                    AssetService.Delete(SoundService.TradeAlertFileName);
+                }
+                catch
+                {
+                    // Sound was playing.
+                    this.HasCustomTradeSound = true;
+                }
+
+                return;
+            }
+
+            var openFileDialog = new OpenFileDialog
+            {
+                Filter = "MP3 files (*.mp3)|*.mp3",
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                var fileName = openFileDialog.FileName;
+                if (!File.Exists(fileName))
+                {
+                    return;
+                }
+
+                var content = File.ReadAllBytes(fileName);
+                AssetService.Create(SoundService.TradeAlertFileName, content);
+            }
+            else
+            {
+                this.HasCustomTradeSound = false;
+            }
+        }
+
+        /// <summary>
         /// Opens the dashboard.
         /// </summary>
         public void OpenDashboard()
@@ -931,8 +1000,8 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         protected override void OnActivate()
         {
+            this.HasCustomTradeSound = this._soundService.HasCustomTradeAlert();
             this.BuildManager.PopulateBuilds(this.SyncBuild);
-
             this._activateTask = Task.Run(async () =>
             {
                 using (var service = new Patreon.PatreonService())
@@ -1053,7 +1122,10 @@ namespace Lurker.UI.ViewModels
                 }
 
                 this._currentTokenSource = new CancellationTokenSource();
-                this.PlaySoundTest(this._currentTokenSource.Token, () => this._soundService.PlayTradeAlert(this._settingService.AlertVolume));
+                this.PlaySoundTest(this._currentTokenSource.Token, () =>
+                {
+                    this._currentTradeAlert = this._soundService.PlayTradeAlert(this._settingService.AlertVolume);
+                });
             }
             else if (e.PropertyName == nameof(this.JoinHideoutVolume))
             {
