@@ -51,6 +51,8 @@ namespace Lurker.UI.ViewModels
         private CancellationTokenSource _currentTokenSource;
         private bool _hasCustomTradeSound;
         private WaveOutEvent _currentTradeAlert;
+        private bool _isCharaterOpen;
+        private CharacterManagerViewModel _characterManager;
 
         #endregion
 
@@ -95,6 +97,23 @@ namespace Lurker.UI.ViewModels
         #region Properties
 
         /// <summary>
+        /// Gets or sets a value indicating whether this instance is character open.
+        /// </summary>
+        public bool IsCharacterOpen
+        {
+            get
+            {
+                return this._isCharaterOpen;
+            }
+
+            set
+            {
+                this._isCharaterOpen = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether this instance has custom trade sound.
         /// </summary>
         public bool HasCustomTradeSound
@@ -116,6 +135,23 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <value>The build manager.</value>
         public BuildManagerViewModel BuildManager { get; set; }
+
+        /// <summary>
+        /// Gets the character manager.
+        /// </summary>
+        public CharacterManagerViewModel CharacterManager
+        {
+            get
+            {
+                return this._characterManager;
+            }
+
+            private set
+            {
+                this._characterManager = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the index of the select teb.
@@ -744,6 +780,15 @@ namespace Lurker.UI.ViewModels
         #region Methods
 
         /// <summary>
+        /// Opens the characters.
+        /// </summary>
+        public void OpenCharacters()
+        {
+            this.CharacterManager = new CharacterManagerViewModel(this.ShowMessage);
+            this.IsCharacterOpen = true;
+        }
+
+        /// <summary>
         /// Selects the custom sound.
         /// </summary>
         public void SelectCustomSound()
@@ -1095,7 +1140,7 @@ namespace Lurker.UI.ViewModels
         /// <param name="e">The <see cref="System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
         private void SettingsViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName != nameof(this.SelectTabIndex) && e.PropertyName != nameof(this.Modified) && e.PropertyName != nameof(this.IsActive))
+            if (e.PropertyName != nameof(this.SelectTabIndex) && e.PropertyName != nameof(this.IsCharacterOpen) && e.PropertyName != nameof(this.CharacterManager) && e.PropertyName != nameof(this.Modified) && e.PropertyName != nameof(this.IsActive))
             {
                 if (!this._activated || !this._activateTask.IsCompleted)
                 {

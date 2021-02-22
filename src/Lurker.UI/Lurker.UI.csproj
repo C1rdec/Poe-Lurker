@@ -314,6 +314,7 @@
     </Compile>
     <Compile Include="ViewModels\AffixViewModel.cs" />
     <Compile Include="ViewModels\BuildConfigurationViewModel.cs" />
+    <Compile Include="ViewModels\CharacterManagerViewModel.cs" />
     <Compile Include="ViewModels\BuildManagerViewModel.cs" />
     <Compile Include="ViewModels\BuildSelectorViewModel.cs" />
     <Compile Include="ViewModels\BuildViewModel.cs" />
@@ -370,6 +371,9 @@
     </Compile>
     <Compile Include="Views\BuildView.xaml.cs">
       <DependentUpon>BuildView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CharacterManagerView.xaml.cs">
+      <DependentUpon>CharacterManagerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CollaborationView.xaml.cs">
       <DependentUpon>CollaborationView.xaml</DependentUpon>
@@ -499,6 +503,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BuildView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CharacterManagerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -746,6 +754,7 @@
     <Resource Include="Assets\Trickster_avatar.png" />
     <Content Include="SVG\CustomSound.svg" />
     <Content Include="SVG\DotsMenu.svg" />
+    <Content Include="SVG\Group.svg" />
     <Content Include="SVG\Open.svg" />
     <Content Include="SVG\ThreeDot.svg" />
     <Resource Include="Assets\Gemcutter.png" />

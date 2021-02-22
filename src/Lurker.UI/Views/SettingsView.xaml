@@ -37,8 +37,26 @@
                     </StackPanel>
 
                     <Label Content="Builds" Style="{DynamicResource LabelHeaderStyle}" />
+                    <Button Width="50"
+                            x:Name="OpenCharacters"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            ToolTip="Characters"
+                            Height="50"
+                            Margin="150,0,0,0"
+                    Style="{DynamicResource MetroCircleButtonStyle}">
+                        <Button.Content>
+                            <local:IconPack Foreground="White"
+                                            Width="25"
+                                    HorizontalAlignment="Center"
+                                            Data="{x:Static local:IconPackData.Group}"/>
+                        </Button.Content>
+                    </Button>
 
                     <ContentControl x:Name="BuildManager" Grid.Row="1" Grid.RowSpan="2"/>
+                    <Controls:Flyout IsOpen="{Binding IsCharacterOpen}" Header="Characters" FlowDirection="LeftToRight" Position="Right" Grid.RowSpan="3" Width="622">
+                        <ContentControl x:Name="CharacterManager"/>
+                    </Controls:Flyout>
                 </Grid>
             </TabItem>
             <TabItem Header="Message" Width="175">
@@ -246,47 +264,6 @@
                     </StackPanel>
                 </Grid>
             </TabItem>
-            <TabItem Header="Interface">
-                <Grid Margin="30,0,30,0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Label Content="Interface" Style="{DynamicResource LabelHeaderStyle}" />
-
-                    <Grid Grid.Row="1" Margin="0,30,0,0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock FontSize="18">Life Foreground</TextBlock>
-                        <xctk:ColorPicker SelectedColor="{Binding LifebarColor}" Foreground="Black" HorizontalAlignment="Left" Grid.Column="1" Margin="10,0,0,0" Width="100" AvailableColorsSortingMode="HueSaturationBrightness" ></xctk:ColorPicker>
-                        <TextBlock FontSize="18" Grid.Row="1" Margin="0,10,0,0">Scaling</TextBlock>
-                        <Slider Grid.Row="1"
-                                Grid.Column="1"
-                                Margin="4,10,0,0"
-                                Controls:SliderHelper.ChangeValueBy="SmallChange"
-                                Controls:SliderHelper.EnableMouseWheel="MouseHover"
-                                LargeChange="0.2"
-                                Maximum="1.5"
-                                Minimum="1"
-                                Orientation="Horizontal"
-                                SmallChange="0.1"
-                                Value="{Binding TradebarScaling}" />
-                        <TextBlock Grid.Row="2" FontSize="18" Margin="0,10,0,0">Startup Animation</TextBlock>
-                        <Controls:ToggleSwitch Grid.Row="2"
-                                               Grid.Column="2"
-                                               Margin="20,4,0,0"
-                                               HorizontalAlignment="Left"
-                                               IsChecked="{Binding ShowStartupAnimation}"/>
-                    </Grid>
-                </Grid>
-            </TabItem>
             <TabItem Header="Feature">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -345,7 +322,32 @@
                     <Label Content="Advanced" Style="{DynamicResource LabelHeaderStyle}" />
 
                     <StackPanel Grid.Row="1" Margin="30,0,30,0">
-                        <StackPanel Orientation="Horizontal" Margin="0,30,0,0" HorizontalAlignment="Center">
+                        <Grid Grid.Row="1" Margin="0,30,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock FontSize="18">Life Foreground</TextBlock>
+                            <xctk:ColorPicker SelectedColor="{Binding LifebarColor}" Foreground="Black" HorizontalAlignment="Left" Grid.Column="1" Margin="10,0,0,0" Width="100" AvailableColorsSortingMode="HueSaturationBrightness" ></xctk:ColorPicker>
+                            <TextBlock FontSize="18" Grid.Row="1" Margin="0,30,0,0">UI Scaling</TextBlock>
+                            <Slider Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="4,30,0,0"
+                                Controls:SliderHelper.ChangeValueBy="SmallChange"
+                                Controls:SliderHelper.EnableMouseWheel="MouseHover"
+                                LargeChange="0.2"
+                                Maximum="1.5"
+                                Minimum="1"
+                                Orientation="Horizontal"
+                                SmallChange="0.1"
+                                Value="{Binding TradebarScaling}" />
+                        </Grid>
+                        <StackPanel Orientation="Horizontal" Margin="0,30,0,0" HorizontalAlignment="Left">
                             <Controls:ToggleSwitch 
                                                Header="Auto Whisper"
                                                IsChecked="{Binding ClipboardEnabled}"/>
@@ -358,7 +360,7 @@
                                                Header="Release Note"
                                                IsChecked="{Binding ShowReleaseNote}"/>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,30,0,0" HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" Margin="0,30,0,0" HorizontalAlignment="Left">
                             <Controls:ToggleSwitch Grid.Row="1"
                                                    VerticalAlignment="Top"
                                                    HorizontalAlignment="Center"
@@ -376,6 +378,12 @@
                                                    HorizontalAlignment="Center"
                                                    Header="Debug Mode"
                                                    IsChecked="{Binding DebugEnabled}"/>
+                            <Controls:ToggleSwitch Grid.Row="2"
+                                               Grid.Column="2"
+                                               Header="Startup Animation"
+                                               Margin="30,0,0,0"
+                                               HorizontalAlignment="Left"
+                                               IsChecked="{Binding ShowStartupAnimation}"/>
                         </StackPanel>
                     </StackPanel>
                 </Grid>

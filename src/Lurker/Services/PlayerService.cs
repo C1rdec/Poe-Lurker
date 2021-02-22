@@ -31,13 +31,24 @@ namespace Lurker.Services
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayerService"/> class.
         /// </summary>
+        public PlayerService()
+            : this(null)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PlayerService"/> class.
+        /// </summary>
         /// <param name="clientLurker">The lurker.</param>
         public PlayerService(ClientLurker clientLurker)
         {
-            this._clientLurker = clientLurker;
-            this._clientLurker.PlayerLevelUp += this.Lurker_PlayerLevelUp;
-            this._clientLurker.PlayerJoined += this.AddExternalPlayer;
-            this._clientLurker.PlayerLeft += this.AddExternalPlayer;
+            if (clientLurker != null)
+            {
+                this._clientLurker = clientLurker;
+                this._clientLurker.PlayerLevelUp += this.Lurker_PlayerLevelUp;
+                this._clientLurker.PlayerJoined += this.AddExternalPlayer;
+                this._clientLurker.PlayerLeft += this.AddExternalPlayer;
+            }
 
             this._playerBank = new PlayerBank();
 
@@ -110,6 +121,45 @@ namespace Lurker.Services
             this.Save();
 
             this.PlayerChanged?.Invoke(this, player);
+        }
+
+        /// <summary>
+        /// Removes the specified player.
+        /// </summary>
+        /// <param name="player">The player.</param>
+        public void Remove(Player player)
+        {
+            var knownPlayer = this._playerBank.GetKnownPlayer(player.Name);
+            if (knownPlayer != null)
+            {
+                var index = this._playerBank.Players.IndexOf(knownPlayer);
+                this._playerBank.Players.Remove(knownPlayer);
+                this.Save();
+
+                if (index == 0)
+                {
+                    // invoke change
+                }
+            }
+        }
+
+        /// <summary>
+        /// Adds the specified player.
+        /// </summary>
+        /// <param name="player">The player.</param>
+        /// <returns>if succeed.</returns>
+        public bool Add(Player player)
+        {
+            var knownPlayer = this._playerBank.GetKnownPlayer(player.Name);
+            if (knownPlayer == null)
+            {
+                this._playerBank.Players.Add(player);
+                this.Save();
+
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
