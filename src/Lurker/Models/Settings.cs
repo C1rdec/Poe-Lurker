@@ -186,6 +186,11 @@ namespace Lurker.Models
         public bool TimelineEnabled { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [group by skill].
+        /// </summary>
+        public bool GroupBySkill { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [synchronize build].
         /// </summary>
         [DefaultValue(true)]

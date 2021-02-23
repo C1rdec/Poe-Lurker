@@ -301,6 +301,12 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         private void AddItems()
         {
+            if (this.SettingsService.GroupBySkill)
+            {
+                this.GroupBySKill();
+                return;
+            }
+
             var combineGems = this._skills.SelectMany(s => s.Gems).AsEnumerable<WikiItem>();
             var combineItems = combineGems.Concat(this._items);
 
@@ -336,6 +342,47 @@ namespace Lurker.UI.ViewModels
                     };
                     this.Timeline.AddItem(timelineItem);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Groups the by s kill.
+        /// </summary>
+        private void GroupBySKill()
+        {
+            var skillGroups = this._skills.GroupBy(s => s.Gems.Max(g => g.Level));
+            foreach (var group in skillGroups)
+            {
+                var timelineItem = new TimelineItemViewModel(group.Key);
+
+                var wikiItems = new List<WikiItemBaseViewModel>();
+                foreach (var entry in group.AsEnumerable())
+                {
+                    wikiItems.AddRange(entry.Gems.Select(g => new GemViewModel(g)));
+                }
+
+                foreach (var item in this._items.Where(i => i.Level == group.Key))
+                {
+                    wikiItems.Add(new UniqueItemViewModel(item, false));
+                }
+
+                timelineItem.DetailedView = new GroupItemViewModel(wikiItems);
+
+                this.Timeline.AddItem(timelineItem);
+            }
+
+            foreach (var uniqueItem in this._items)
+            {
+                if (skillGroups.Any(s => s.Key == uniqueItem.Level))
+                {
+                    continue;
+                }
+
+                var timelineItem = new TimelineItemViewModel(uniqueItem.Level)
+                {
+                    DetailedView = new UniqueItemViewModel(uniqueItem, false),
+                };
+                this.Timeline.AddItem(timelineItem);
             }
         }
 

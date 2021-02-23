@@ -221,6 +221,27 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [group by skill].
+        /// </summary>
+        public bool GroupBySkill
+        {
+            get
+            {
+                return this.SettingsService.GroupBySkill;
+            }
+
+            set
+            {
+                this.SettingsService.GroupBySkill = value;
+                this.SettingsService.Save(false);
+                this.NotifyOfPropertyChange();
+
+                // Just to refresh the items
+                this._eventAggregator.PublishOnUIThread(new SkillMessage());
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether this instance has build.
         /// </summary>
         public bool HasNoBuild
@@ -273,6 +294,7 @@ namespace Lurker.UI.ViewModels
                 this._playerService.Save();
             }
 
+            this.ClearBuild();
             await this.Initialize(build.PathOfBuildingCode, true);
         }
 
@@ -729,6 +751,11 @@ namespace Lurker.UI.ViewModels
         /// <param name="enabled">if set to <c>true</c> [enabled].</param>
         private void SetTimelineSettings(bool enabled)
         {
+            if (!enabled)
+            {
+                this._eventAggregator.PublishOnUIThread(new SkillMessage() { Clear = true });
+            }
+
             this.SettingsService.TimelineEnabled = enabled;
             this.SettingsService.Save(false);
 
@@ -744,6 +771,10 @@ namespace Lurker.UI.ViewModels
 
             // Handled in ShellviewModel
             this._eventAggregator.PublishOnUIThread(new SkillTimelineMessage() { IsVisible = enabled });
+            foreach (var skillViewModel in this.Skills.Where(s => s.Selected))
+            {
+                this._eventAggregator.PublishOnUIThread(new SkillMessage() { Skill = skillViewModel.Skill });
+            }
         }
 
         #endregion

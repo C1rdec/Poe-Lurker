@@ -564,6 +564,22 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [group by skill].
+        /// </summary>
+        public bool GroupBySkill
+        {
+            get
+            {
+                return this._settings.GroupBySkill;
+            }
+
+            set
+            {
+                this._settings.GroupBySkill = value;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [synchronize build].
         /// </summary>
         public bool SyncBuild
