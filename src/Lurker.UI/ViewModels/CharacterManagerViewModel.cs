@@ -110,6 +110,8 @@ namespace Lurker.UI.ViewModels
             {
                 this.Characters.Add(newCharacter);
             }
+
+            this.NewCharacterName = string.Empty;
         }
 
         /// <summary>

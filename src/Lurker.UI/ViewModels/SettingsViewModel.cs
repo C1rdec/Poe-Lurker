@@ -51,7 +51,7 @@ namespace Lurker.UI.ViewModels
         private CancellationTokenSource _currentTokenSource;
         private bool _hasCustomTradeSound;
         private WaveOutEvent _currentTradeAlert;
-        private bool _isCharaterOpen;
+        private bool _isCharacterOpen;
         private CharacterManagerViewModel _characterManager;
 
         #endregion
@@ -103,12 +103,12 @@ namespace Lurker.UI.ViewModels
         {
             get
             {
-                return this._isCharaterOpen;
+                return this._isCharacterOpen;
             }
 
             set
             {
-                this._isCharaterOpen = value;
+                this._isCharacterOpen = value;
                 this.NotifyOfPropertyChange();
             }
         }

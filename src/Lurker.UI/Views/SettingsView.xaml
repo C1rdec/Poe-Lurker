@@ -27,13 +27,12 @@
                         <RowDefinition Height="80"></RowDefinition>
                     </Grid.RowDefinitions>
                     <StackPanel Margin="30,0,0,0" Grid.Row="2" HorizontalAlignment="Left" Orientation="Horizontal" VerticalAlignment="Center">
-                        <Controls:ToggleSwitch 
-                        Header="Build Helper"
-                        IsChecked="{Binding BuildHelper}"/>
-                        <Controls:ToggleSwitch 
-                        Header="Sync"
-                            Margin="20,0,0,0"
-                        IsChecked="{Binding SyncBuild}"/>
+                        <Controls:ToggleSwitch Header="Build Helper"
+                                               IsChecked="{Binding BuildHelper}"/>
+                        <Controls:ToggleSwitch Header="Sync"
+                                               ToolTip="Sync builds from Path of Building"
+                                               Margin="20,0,0,0"
+                                               IsChecked="{Binding SyncBuild}"/>
                     </StackPanel>
 
                     <Label Content="Builds" Style="{DynamicResource LabelHeaderStyle}" />
