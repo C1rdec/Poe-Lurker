@@ -212,6 +212,22 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [map enabled].
+        /// </summary>
+        public bool MapEnabled
+        {
+            get
+            {
+                return this._settings.MapEnabled;
+            }
+
+            set
+            {
+                this._settings.MapEnabled = value;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [debug enabled].
         /// </summary>
         public bool DebugEnabled

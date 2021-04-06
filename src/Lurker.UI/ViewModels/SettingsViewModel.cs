@@ -521,6 +521,23 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [map enabled].
+        /// </summary>
+        public bool MapEnabled
+        {
+            get
+            {
+                return this._settingService.MapEnabled;
+            }
+
+            set
+            {
+                this._settingService.MapEnabled = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [clipboard enabled].
         /// </summary>
         public bool ClipboardEnabled
@@ -944,6 +961,7 @@ namespace Lurker.UI.ViewModels
                         this.BlessingText = GetBlessingText(time);
 
                         this.SearchEnabled = true;
+                        this.MapEnabled = true;
                         this.DashboardEnabled = true;
                     }
 
@@ -1058,6 +1076,7 @@ namespace Lurker.UI.ViewModels
                         this.TrialAvailable = service.TrialAvailable;
                         this.SearchEnabled = false;
                         this.DashboardEnabled = false;
+                        this.MapEnabled = false;
                     }
                     else
                     {

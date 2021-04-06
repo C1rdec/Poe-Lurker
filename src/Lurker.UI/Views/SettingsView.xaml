@@ -461,9 +461,31 @@
                             <Controls:ToggleSwitch Header="Item Lurker"
                                                    IsChecked="{Binding SearchEnabled}"/>
                             <Controls:ToggleSwitch Margin="30,0,0,0"
+                                                   Header="Map Lurker"
+                                                   IsChecked="{Binding MapEnabled}"/>
+                            <Controls:ToggleSwitch Margin="30,0,0,0"
                                                    Header="Dashboard"
                                                    IsChecked="{Binding DashboardEnabled}"/>
-                            <Button x:Name="OpenDashboard" Height="50" Style="{DynamicResource Tag}" FontSize="18">Open </Button>
+
+                            <Button Width="30"
+                            x:Name="OpenDashboard"
+                            Grid.Column="1"
+                            Cursor="Hand"
+                            ToolTip="Open"
+                            BorderThickness="0"
+                            Height="30" 
+                            Visibility="{Binding HasYoutube, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            Style="{DynamicResource MetroCircleButtonStyle}">
+                                <Button.Content>
+                                    <local:IconPack HorizontalAlignment="Right"
+                                            VerticalAlignment="Bottom"
+                                            Foreground="#af8404"
+                                            Grid.Row="2"
+                                            Height="20"
+                                            Width="20"
+                                            Data="{x:Static local:IconPackData.Open}"/>
+                                </Button.Content>
+                            </Button>
                         </StackPanel>
                     </Grid>
                 </Grid>

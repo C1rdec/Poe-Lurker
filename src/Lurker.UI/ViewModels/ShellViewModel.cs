@@ -681,9 +681,13 @@ namespace Lurker.UI
                 this.ActivateItem(this._popup);
             }
 
-            if (item is Map map)
+            if (item is Map map && this._settingsService.MapEnabled)
             {
                 this._popup.Open(new MapViewModel(map, this.ActivePlayer, this._currentCharacterService));
+            }
+            else if (!this._settingsService.SearchEnabled)
+            {
+                return;
             }
             else if (item is Weapon weapon)
             {

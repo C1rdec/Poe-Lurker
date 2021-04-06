@@ -13,7 +13,6 @@ namespace Lurker
     using Lurker.Services;
     using WindowsInput;
     using Winook;
-    using WK.Libraries.SharpClipboardNS;
 
     /// <summary>
     /// Represents the mouse lurker.
@@ -128,11 +127,6 @@ namespace Lurker
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private async void MouseHook_LeftButtonUp(object sender, EventArgs e)
         {
-            if (!this._settingsService.SearchEnabled)
-            {
-                return;
-            }
-
             if (Native.IsKeyPressed(Native.VirtualKeyStates.VK_SHIFT) && Native.IsKeyPressed(Native.VirtualKeyStates.VK_MENU))
             {
                 await Task.Delay(100);
