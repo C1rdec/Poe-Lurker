@@ -413,7 +413,7 @@ namespace Lurker
                 Logger.Error(exception, exception.Message);
 
 #if !DEBUG
-                SentrySdk.AddBreadcrumb(message: lineError, level: Sentry.Protocol.BreadcrumbLevel.Error);
+                SentrySdk.AddBreadcrumb(message: lineError, level: BreadcrumbLevel.Error);
                 SentrySdk.CaptureException(ex);
 #endif
             }
