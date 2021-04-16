@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\packages\Winook.1.0.1\build\net45\Winook.props" Condition="Exists('..\..\packages\Winook.1.0.1\build\net45\Winook.props')" />
+  <Import Project="..\..\packages\Winook.1.2.1\build\net45\Winook.props" Condition="Exists('..\..\packages\Winook.1.2.1\build\net45\Winook.props')" />
   <Import Project="..\..\packages\squirrel.windows.1.9.1\build\squirrel.windows.props" Condition="Exists('..\..\packages\squirrel.windows.1.9.1\build\squirrel.windows.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -254,8 +254,8 @@
     <Reference Include="WindowsInput, Version=6.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\WindowsInput.6.1.1\lib\net461\WindowsInput.dll</HintPath>
     </Reference>
-    <Reference Include="Winook, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Winook.1.0.1\lib\net45\Winook.dll</HintPath>
+    <Reference Include="Winook, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Winook.1.2.1\lib\net45\Winook.dll</HintPath>
     </Reference>
     <Reference Include="XamlAnimatedGif, Version=1.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\XamlAnimatedGif.1.2.3\lib\net45\XamlAnimatedGif.dll</HintPath>
@@ -801,7 +801,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\squirrel.windows.1.9.1\build\squirrel.windows.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\squirrel.windows.1.9.1\build\squirrel.windows.props'))" />
     <Error Condition="!Exists('..\..\packages\squirrel.windows.1.9.1\build\squirrel.windows.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\squirrel.windows.1.9.1\build\squirrel.windows.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Winook.1.0.1\build\net45\Winook.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Winook.1.0.1\build\net45\Winook.props'))" />
+    <Error Condition="!Exists('..\..\packages\Winook.1.2.1\build\net45\Winook.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Winook.1.2.1\build\net45\Winook.props'))" />
   </Target>
   <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release'">
     <GetAssemblyIdentity AssemblyFiles="$(TargetPath)">
