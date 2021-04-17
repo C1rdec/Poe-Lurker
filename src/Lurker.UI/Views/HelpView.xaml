@@ -20,14 +20,14 @@
                         Margin="4,0,0,4"
                         VerticalAlignment="Bottom"
                         Data="{x:Static local:IconPackData.Help}"/>
-        <Polygon cal:Message.Attach="[Event MouseDown] = [Action Help()]" Points="0,60 60,0 60,60"  Cursor="Hand">
-            <Polygon.Style>
-                <Style TargetType="Polygon">
+        <Border CornerRadius="100 0 0 0" cal:Message.Attach="[Event MouseDown] = [Action Help()]" Cursor="Hand">
+            <Border.Style>
+                <Style TargetType="Border">
                     <Setter Property="Opacity" Value="0.002"/>
-                    <Setter Property="Fill" Value="White"></Setter>
+                    <Setter Property="Background" Value="White"></Setter>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding DebugEnabled}" Value="True">
-                            <Setter Property="Fill" Value="Green"/>
+                            <Setter Property="Background" Value="Green"/>
                             <Setter Property="Opacity" Value="1"/>
                         </DataTrigger>
                         <Trigger Property="IsMouseOver" Value="True">
@@ -35,7 +35,7 @@
                         </Trigger>
                     </Style.Triggers>
                 </Style>
-            </Polygon.Style>
-        </Polygon>
+            </Border.Style>
+        </Border>
     </Grid>
 </Window>
