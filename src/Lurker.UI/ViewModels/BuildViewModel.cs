@@ -411,7 +411,7 @@ namespace Lurker.UI.ViewModels
                     }
 
                     this.UniqueItems.Clear();
-                    foreach (var item in this.Build.Items.Select(s => new UniqueItemViewModel(s, this.SettingsService.ToolTipEnabled)))
+                    foreach (var item in this.Build.Items.Select(s => new UniqueItemViewModel(s, this.SettingsService.TimelineEnabled)))
                     {
                         item.PropertyChanged += this.Item_PropertyChanged;
                         this.UniqueItems.Add(item);
