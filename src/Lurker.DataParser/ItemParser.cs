@@ -22,7 +22,7 @@ namespace Lurker.DataParser
         #region Fields
 
         private static readonly string LevelMarker = "Requires Level";
-        private static readonly string BaseUrl = "https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/master/Data/Uniques";
+        private static readonly string BaseUrl = "https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/master/src/Data/Uniques";
         private static readonly string AmuletUrl = $"{BaseUrl}/amulet.lua";
         private static readonly string AxeUrl = $"{BaseUrl}/axe.lua";
         private static readonly string BeltUrl = $"{BaseUrl}/belt.lua";

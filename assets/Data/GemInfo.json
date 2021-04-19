@@ -1841,13 +1841,17 @@
     "Id": "Firestorm",
     "Support": false,
     "Location": {
-      "Quest": "The Siren's Cadence",
-      "Act": "Act 1",
-      "Npc": "Nessa",
+      "Quest": "A Fixture of Fate",
+      "Act": "Act 3",
+      "Npc": "Siosa",
       "Classes": [
         "Witch",
+        "Shadow",
+        "Ranger",
+        "Duelist",
         "Marauder",
-        "Templar"
+        "Templar",
+        "Scion"
       ]
     },
     "Name": "Firestorm",
@@ -4910,7 +4914,7 @@
     },
     "Name": "Blood Magic Support",
     "WikiUrl": "https://pathofexile.gamepedia.com/Blood_Magic_Support",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/f/f4/Blood_Magic_Support_inventory_icon.png/revision/latest?cb=20190607180738&amp;format=original",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/7/71/Arrogance_Support_inventory_icon.png/revision/latest?cb=20210417043522&amp;format=original",
     "Level": 31
   },
   {
@@ -7336,13 +7340,15 @@
     "Id": "SupportTrinity",
     "Support": true,
     "Location": {
-      "Quest": "The Siren's Cadence",
-      "Act": "Act 1",
-      "Npc": "Nessa",
+      "Quest": "Sharp and Cruel",
+      "Act": "Act 2",
+      "Npc": "Yeena",
       "Classes": [
         "Witch",
-        "Shadow",
-        "Templar"
+        "Ranger",
+        "Duelist",
+        "Templar",
+        "Scion"
       ]
     },
     "Name": "Trinity Support",
@@ -8467,13 +8473,14 @@
     "Id": "WaterSphere",
     "Support": false,
     "Location": {
-      "Quest": "The Siren's Cadence",
-      "Act": "Act 1",
-      "Npc": "Nessa",
+      "Quest": "Breaking the Seal",
+      "Act": "Act 4",
+      "Npc": "Petarus and Vanja",
       "Classes": [
         "Witch",
         "Shadow",
-        "Templar"
+        "Templar",
+        "Scion"
       ]
     },
     "Name": "Hydrosphere",

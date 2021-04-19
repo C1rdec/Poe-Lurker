@@ -473,7 +473,7 @@
     "Name": "Yoke of Suffering",
     "WikiUrl": "https://pathofexile.gamepedia.com/Yoke_of_Suffering",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/0c/Yoke_of_Suffering_inventory_icon.png/revision/latest?cb=20171209033139&amp;format=original",
-    "Level": 25
+    "Level": 70
   },
   {
     "ItemClass": "Axe",
@@ -701,6 +701,13 @@
   },
   {
     "ItemClass": "Belt",
+    "Name": "Arn's Anguish",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Arn%27s_Anguish",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/7/7e/Arn%27s_Anguish_inventory_icon.png/revision/latest?cb=20210116070026&amp;format=original",
+    "Level": 68
+  },
+  {
+    "ItemClass": "Belt",
     "Name": "Ascent From Flesh",
     "WikiUrl": "https://pathofexile.gamepedia.com/Ascent_From_Flesh",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/9/96/Ascent_From_Flesh_inventory_icon.png/revision/latest?cb=20160605073728&amp;format=original",
@@ -848,6 +855,13 @@
   },
   {
     "ItemClass": "Belt",
+    "Name": "Graven's Secret",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Graven%27s_Secret",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/5/5e/Graven%27s_Secret_inventory_icon.png/revision/latest?cb=20210116070029&amp;format=original",
+    "Level": 68
+  },
+  {
+    "ItemClass": "Belt",
     "Name": "Headhunter",
     "WikiUrl": "https://pathofexile.gamepedia.com/Headhunter",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/ee/Headhunter_inventory_icon.png/revision/latest?cb=20180309153601&amp;format=original",
@@ -922,6 +936,13 @@
     "WikiUrl": "https://pathofexile.gamepedia.com/Mother%27s_Embrace",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/3/3e/Mother%27s_Embrace_inventory_icon.png/revision/latest?cb=20191214182036&amp;format=original",
     "Level": 40
+  },
+  {
+    "ItemClass": "Belt",
+    "Name": "Olesya's Delight",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Olesya%27s_Delight",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/a/ac/Olesya%27s_Delight_inventory_icon.png/revision/latest?cb=20210116070028&amp;format=original",
+    "Level": 68
   },
   {
     "ItemClass": "Belt",
@@ -1023,6 +1044,13 @@
   },
   {
     "ItemClass": "Belt",
+    "Name": "Survivor's Guilt",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Survivor%27s_Guilt",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/1/16/Survivor%27s_Guilt_inventory_icon.png/revision/latest?cb=20210116070022&amp;format=original",
+    "Level": 52
+  },
+  {
+    "ItemClass": "Belt",
     "Name": "Umbilicus Immortalis",
     "WikiUrl": "https://pathofexile.gamepedia.com/Umbilicus_Immortalis",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/05/Umbilicus_Immortalis_inventory_icon.png/revision/latest?cb=20160305010417&amp;format=original",
@@ -1076,6 +1104,13 @@
     "WikiUrl": "https://pathofexile.gamepedia.com/Death%27s_Oath",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/d/d4/Death%27s_Oath_inventory_icon.png/revision/latest?cb=20130705173105&amp;format=original",
     "Level": 62
+  },
+  {
+    "ItemClass": "BodyArmour",
+    "Name": "Doppelg??nger Guise",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Doppelg%3F%3Fnger_Guise",
+    "ImageUrl": null,
+    "Level": 68
   },
   {
     "ItemClass": "BodyArmour",
@@ -1968,6 +2003,13 @@
   },
   {
     "ItemClass": "Boots",
+    "Name": "Legacy of Fury",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Legacy_of_Fury",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/e5/Legacy_of_Fury_inventory_icon.png/revision/latest?cb=20210116070013&amp;format=original",
+    "Level": 51
+  },
+  {
+    "ItemClass": "Boots",
     "Name": "Lioneye's Paws",
     "WikiUrl": "https://pathofexile.gamepedia.com/Lioneye%27s_Paws",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/c/ca/Lioneye%27s_Paws_inventory_icon.png/revision/latest?cb=20130626162317&amp;format=original",
@@ -2570,6 +2612,13 @@
   },
   {
     "ItemClass": "Dagger",
+    "Name": "Goblinedge",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Goblinedge",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/5/58/Goblinedge_inventory_icon.png/revision/latest?cb=20210116070019&amp;format=original",
+    "Level": 60
+  },
+  {
+    "ItemClass": "Dagger",
     "Name": "Heartbreaker",
     "WikiUrl": "https://pathofexile.gamepedia.com/Heartbreaker",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/3/3a/Heartbreaker_inventory_icon.png/revision/latest?cb=20130626162300&amp;format=original",
@@ -3144,6 +3193,13 @@
   },
   {
     "ItemClass": "Gloves",
+    "Name": "Hand of the Fervent",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Hand_of_the_Fervent",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/b/b8/Hand_of_the_Fervent_inventory_icon.png/revision/latest?cb=20210116070010&amp;format=original",
+    "Level": 43
+  },
+  {
+    "ItemClass": "Gloves",
     "Name": "Hands of the High Templar",
     "WikiUrl": "https://pathofexile.gamepedia.com/Hands_of_the_High_Templar",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/8f/Hands_of_the_High_Templar_inventory_icon.png/revision/latest?cb=20191213190101&amp;format=original",
@@ -3711,6 +3767,13 @@
   },
   {
     "ItemClass": "Helmet",
+    "Name": "Ancient Skull",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Ancient_Skull",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/f/fd/Ancient_Skull_inventory_icon.png/revision/latest?cb=20210116070018&amp;format=original",
+    "Level": 73
+  },
+  {
+    "ItemClass": "Helmet",
     "Name": "The Brine Crown",
     "WikiUrl": "https://pathofexile.gamepedia.com/The_Brine_Crown",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/f/fb/The_Brine_Crown_inventory_icon.png/revision/latest?cb=20161203025854&amp;format=original",
@@ -3974,6 +4037,13 @@
     "WikiUrl": "https://pathofexile.gamepedia.com/The_Vertex",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/d/d6/The_Vertex_inventory_icon.png/revision/latest?cb=20140311005634&amp;format=original",
     "Level": 62
+  },
+  {
+    "ItemClass": "Helmet",
+    "Name": "Viridi's Veil",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Viridi%27s_Veil",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/1/10/Viridi%27s_Veil_inventory_icon.png/revision/latest?cb=20210116070025&amp;format=original",
+    "Level": 68
   },
   {
     "ItemClass": "Helmet",
@@ -5657,6 +5727,13 @@
   },
   {
     "ItemClass": "Ring",
+    "Name": "Blackflame",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Blackflame",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/a/af/Blackflame_inventory_icon.png/revision/latest?cb=20210116070008&amp;format=original",
+    "Level": 49
+  },
+  {
+    "ItemClass": "Ring",
     "Name": "Blackheart",
     "WikiUrl": "https://pathofexile.gamepedia.com/Blackheart",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/b/b8/Blackheart_inventory_icon.png/revision/latest?cb=20130626162200&amp;format=original",
@@ -5997,6 +6074,13 @@
     "WikiUrl": "https://pathofexile.gamepedia.com/Romira%27s_Banquet",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/9/94/Romira%27s_Banquet_inventory_icon.png/revision/latest?cb=20140109050934&amp;format=original",
     "Level": 60
+  },
+  {
+    "ItemClass": "Ring",
+    "Name": "Rotblood Promise",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Rotblood_Promise",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/03/Rotblood_Promise_inventory_icon.png/revision/latest?cb=20210116070021&amp;format=original",
+    "Level": 56
   },
   {
     "ItemClass": "Ring",
@@ -6613,6 +6697,13 @@
     "WikiUrl": "https://pathofexile.gamepedia.com/Perepiteia",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/b/ba/Perepiteia_inventory_icon.png/revision/latest?cb=20190308205906&amp;format=original",
     "Level": 62
+  },
+  {
+    "ItemClass": "Shield",
+    "Name": "Qotra's Regulator",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Qotra%27s_Regulator",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/1/1e/Qotra%27s_Regulator_inventory_icon.png/revision/latest?cb=20210116070015&amp;format=original",
+    "Level": 54
   },
   {
     "ItemClass": "Shield",
