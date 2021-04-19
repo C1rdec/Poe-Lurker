@@ -127,7 +127,7 @@ namespace Lurker
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private async void MouseHook_LeftButtonUp(object sender, EventArgs e)
         {
-            if (Native.IsKeyPressed(Native.VirtualKeyStates.VK_SHIFT) && Native.IsKeyPressed(Native.VirtualKeyStates.VK_MENU))
+            if (Native.IsKeyPressed(Native.VirtualKeyStates.VK_SHIFT))
             {
                 await Task.Delay(100);
                 await this.ParseItem();
@@ -162,6 +162,11 @@ namespace Lurker
             }
 
             if (item == null || !item.Identified)
+            {
+                return;
+            }
+
+            if (item.ItemClass == ItemClass.Unknown)
             {
                 return;
             }
