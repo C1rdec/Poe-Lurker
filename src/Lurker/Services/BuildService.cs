@@ -80,23 +80,29 @@ namespace Lurker.Services
             {
                 foreach (var file in Directory.GetFiles(pathOfBuildingFolder))
                 {
-                    var buildName = Path.GetFileName(file).Replace(".xml", string.Empty);
-                    var existingBuild = this.Builds.FirstOrDefault(b => b.Name == buildName);
-                    if (existingBuild == null)
+                    try
                     {
-                        var xml = File.ReadAllText(file);
-                        var notesElement = XDocument.Parse(xml).Root.Element("Notes");
-                        var notes = string.Empty;
-                        if (notesElement != null)
+                        var buildName = Path.GetFileName(file).Replace(".xml", string.Empty);
+                        var existingBuild = this.Builds.FirstOrDefault(b => b.Name == buildName);
+                        if (existingBuild == null)
                         {
-                            notes = notesElement.Value.Trim();
-                        }
+                            var xml = File.ReadAllText(file);
+                            var notesElement = XDocument.Parse(xml).Root.Element("Notes");
+                            var notes = string.Empty;
+                            if (notesElement != null)
+                            {
+                                notes = notesElement.Value.Trim();
+                            }
 
-                        this.AddBuild(new SimpleBuild() { PathOfBuildingCode = xml, Name = buildName, Notes = notes });
+                            this.AddBuild(new SimpleBuild() { PathOfBuildingCode = xml, Name = buildName, Notes = notes });
+                        }
+                        else
+                        {
+                            existingBuild.PathOfBuildingCode = File.ReadAllText(file);
+                        }
                     }
-                    else
+                    catch
                     {
-                        existingBuild.PathOfBuildingCode = File.ReadAllText(file);
                     }
                 }
 
