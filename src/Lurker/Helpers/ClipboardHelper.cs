@@ -11,7 +11,7 @@ namespace Lurker.Helpers
     using System.Threading.Tasks;
     using Lurker.Patreon.Models;
     using Lurker.Patreon.Parsers;
-    using WK.Libraries.SharpClipboardNS;
+    using WindowsInput;
 
     /// <summary>
     /// Represents the Clipboard helper.
@@ -50,10 +50,12 @@ namespace Lurker.Helpers
         /// Gets the item in clipboard.
         /// </summary>
         /// <returns>The item in the clipboard.</returns>
-        public static PoeItem GetItemInClipboard()
+        public static async Task<PoeItem> GetItemInClipboard()
         {
             try
             {
+                await Simulate.Events().ClickChord(WindowsInput.Events.KeyCode.LControlKey, WindowsInput.Events.KeyCode.C).Invoke();
+                await Task.Delay(100);
                 return ItemParser.Parse(GetClipboardText());
             }
             catch

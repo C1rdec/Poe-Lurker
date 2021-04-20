@@ -11,7 +11,6 @@ namespace Lurker
     using Lurker.Helpers;
     using Lurker.Patreon.Models;
     using Lurker.Services;
-    using WindowsInput;
     using Winook;
 
     /// <summary>
@@ -127,7 +126,7 @@ namespace Lurker
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private async void MouseHook_LeftButtonUp(object sender, EventArgs e)
         {
-            if (Native.IsKeyPressed(Native.VirtualKeyStates.VK_SHIFT))
+            if (Native.IsKeyPressed(Native.VirtualKeyStates.VK_SHIFT) && (this._settingsService.SearchEnabled || this._settingsService.MapEnabled))
             {
                 await Task.Delay(100);
                 await this.ParseItem();
@@ -143,10 +142,7 @@ namespace Lurker
             var retryCount = 2;
             for (int i = 0; i < retryCount; i++)
             {
-                await Simulate.Events().ClickChord(WindowsInput.Events.KeyCode.LControlKey, WindowsInput.Events.KeyCode.C).Invoke();
-                await Task.Delay(100);
-                item = ClipboardHelper.GetItemInClipboard();
-
+                item = await ClipboardHelper.GetItemInClipboard();
                 if (item == null)
                 {
                     return;
