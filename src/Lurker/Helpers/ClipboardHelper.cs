@@ -54,7 +54,7 @@ namespace Lurker.Helpers
         {
             try
             {
-                await Simulate.Events().ClickChord(WindowsInput.Events.KeyCode.LControlKey, WindowsInput.Events.KeyCode.C).Invoke();
+                await Simulate.Events().ClickChord(WindowsInput.Events.KeyCode.Control, WindowsInput.Events.KeyCode.C).Invoke();
                 await Task.Delay(100);
                 return ItemParser.Parse(GetClipboardText());
             }
