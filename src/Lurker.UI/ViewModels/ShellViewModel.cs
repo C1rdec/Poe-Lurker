@@ -49,6 +49,7 @@ namespace Lurker.UI
         private ManaBulbViewModel _manaBulbOverlay;
         private HideoutViewModel _hideoutOverlay;
         private SettingsService _settingsService;
+        private KeyCodeService _keyCodeService;
         private AfkService _afkService;
         private BuildService _buildService;
         private SettingsViewModel _settingsViewModel;
@@ -71,13 +72,15 @@ namespace Lurker.UI
         /// </summary>
         /// <param name="container">The container.</param>
         /// <param name="settingsService">The settings service.</param>
+        /// <param name="keyCodeService">The key code service.</param>
         /// <param name="buildService">The build service.</param>
         /// <param name="settingsViewModel">The settings view model.</param>
         /// <param name="eventAggregator">The event aggregator.</param>
-        public ShellViewModel(SimpleContainer container, SettingsService settingsService, BuildService buildService, SettingsViewModel settingsViewModel, IEventAggregator eventAggregator)
+        public ShellViewModel(SimpleContainer container, SettingsService settingsService, KeyCodeService keyCodeService, BuildService buildService, SettingsViewModel settingsViewModel, IEventAggregator eventAggregator)
         {
             this._eventAggregator = eventAggregator;
             this._settingsService = settingsService;
+            this._keyCodeService = keyCodeService;
             this._buildService = buildService;
             this._container = container;
             this._settingsViewModel = settingsViewModel;
@@ -406,7 +409,7 @@ namespace Lurker.UI
 
                 // Keyboard
                 var keyboarHelper = new PoeKeyboardHelper(processId);
-                this._keyboardLurker = new KeyboardLurker(processId, this._settingsService, keyboarHelper);
+                this._keyboardLurker = new KeyboardLurker(processId, this._settingsService, this._keyCodeService, keyboarHelper);
                 this._keyboardLurker.BuildToggled += this.KeyboardLurker_BuildToggled;
 
                 // Mouse

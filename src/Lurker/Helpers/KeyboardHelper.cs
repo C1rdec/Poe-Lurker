@@ -49,6 +49,29 @@ namespace Lurker.Helpers
         #region Methods
 
         /// <summary>
+        /// Waits for next key asynchronous.
+        /// </summary>
+        /// <returns>The next key press.</returns>
+        public Task<ushort> WaitForNextKeyAsync()
+        {
+            var taskCompletionSource = new TaskCompletionSource<ushort>();
+
+            var hook = new Winook.KeyboardHook(ProcessLurker.CurrentProcessId);
+            EventHandler<Winook.KeyboardMessageEventArgs> handler = default;
+            handler = (object s, Winook.KeyboardMessageEventArgs e) =>
+            {
+                taskCompletionSource.SetResult(e.KeyValue);
+                hook.MessageReceived -= handler;
+                hook.Dispose();
+            };
+
+            hook.MessageReceived += handler;
+            hook.InstallAsync().Wait();
+
+            return taskCompletionSource.Task;
+        }
+
+        /// <summary>
         /// Writes the specified text.
         /// </summary>
         /// <param name="text">The text.</param>

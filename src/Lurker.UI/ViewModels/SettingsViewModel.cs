@@ -25,6 +25,7 @@ namespace Lurker.UI.ViewModels
     using Microsoft.Win32;
     using NAudio.Wave;
     using Sentry;
+    using Winook;
 
     /// <summary>
     /// Represents the settings view model.
@@ -39,6 +40,7 @@ namespace Lurker.UI.ViewModels
         private bool _trialAvailable;
         private KeyboardHelper _keyboardHelper;
         private SettingsService _settingService;
+        private KeyCodeService _keyCodeService;
         private bool _modified;
         private string _blessingtext;
         private bool _needsUpdate;
@@ -53,6 +55,7 @@ namespace Lurker.UI.ViewModels
         private WaveOutEvent _currentTradeAlert;
         private bool _isCharacterOpen;
         private CharacterManagerViewModel _characterManager;
+        private bool _keyboardWaiting;
 
         #endregion
 
@@ -64,12 +67,14 @@ namespace Lurker.UI.ViewModels
         /// <param name="windowManager">The window manager.</param>
         /// <param name="keyboardHelper">The keyboard helper.</param>
         /// <param name="settingsService">The settings service.</param>
+        /// <param name="keyCodeService">The key code service.</param>
         /// <param name="soundService">The sound service.</param>
-        public SettingsViewModel(IWindowManager windowManager, KeyboardHelper keyboardHelper, SettingsService settingsService, SoundService soundService)
+        public SettingsViewModel(IWindowManager windowManager, KeyboardHelper keyboardHelper, SettingsService settingsService, KeyCodeService keyCodeService, SoundService soundService)
             : base(windowManager)
         {
             this._keyboardHelper = keyboardHelper;
             this._settingService = settingsService;
+            this._keyCodeService = keyCodeService;
             this._soundService = soundService;
             this.DisplayName = "Settings";
 
@@ -95,6 +100,11 @@ namespace Lurker.UI.ViewModels
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets the toggle build key value.
+        /// </summary>
+        public string ToggleBuildKeyValue => ConvertKeyCode(this._keyCodeService.ToggleBuild);
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is character open.
@@ -797,6 +807,27 @@ namespace Lurker.UI.ViewModels
         #region Methods
 
         /// <summary>
+        /// Sets the toggle build key code.
+        /// </summary>
+        /// <returns>The task awaiter.</returns>
+        public async Task SetToggleBuildKeyCode()
+        {
+            if (this._keyboardWaiting)
+            {
+                return;
+            }
+
+            this._keyboardWaiting = true;
+            var task = this._keyboardHelper.WaitForNextKeyAsync();
+            await this.ShowProgress("Waiting input for...", "Toggle build helper", task);
+
+            var code = await task;
+            this._keyCodeService.ToggleBuild = code;
+            this.NotifyOfPropertyChange(() => this.ToggleBuildKeyValue);
+            this._keyboardWaiting = false;
+        }
+
+        /// <summary>
         /// Opens the characters.
         /// </summary>
         public void OpenCharacters()
@@ -1006,7 +1037,11 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public async void SaveSettings()
         {
-            await this.ShowProgress("Hold on", "Saving setings...", () => this._settingService.Save());
+            await this.ShowProgress("Hold on", "Saving setings...", () =>
+            {
+                this._settingService.Save();
+                this._keyCodeService.Save();
+            });
             this.Modified = false;
         }
 
@@ -1144,6 +1179,16 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Converts the key code.
+        /// </summary>
+        /// <param name="keyCode">The key code.</param>
+        /// <returns>The key value.</returns>
+        private static string ConvertKeyCode(uint keyCode)
+        {
+            return ((KeyCode)keyCode).ToString();
+        }
+
+        /// <summary>
         /// Checks for update.
         /// </summary>
         private async void CheckForUpdate()
@@ -1251,6 +1296,23 @@ namespace Lurker.UI.ViewModels
             {
                 action?.Invoke();
             });
+
+            await controller.CloseAsync();
+        }
+
+        /// <summary>
+        /// Shows the progress.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        /// <param name="message">The message.</param>
+        /// <param name="task">The task.</param>
+        private async Task ShowProgress(string title, string message, Task task)
+        {
+            var coordinator = DialogCoordinator.Instance;
+            var controller = await coordinator.ShowProgressAsync(this, title, message);
+            controller.SetIndeterminate();
+
+            await task;
 
             await controller.CloseAsync();
         }

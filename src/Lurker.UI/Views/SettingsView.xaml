@@ -26,13 +26,24 @@
                         <RowDefinition></RowDefinition>
                         <RowDefinition Height="80"></RowDefinition>
                     </Grid.RowDefinitions>
+                    
                     <StackPanel Margin="30,0,0,0" Grid.Row="2" HorizontalAlignment="Left" Orientation="Horizontal" VerticalAlignment="Center">
-                        <Controls:ToggleSwitch Header="Build Helper"
-                                               IsChecked="{Binding BuildHelper}"/>
                         <Controls:ToggleSwitch Header="Sync"
                                                ToolTip="Sync builds from Path of Building"
                                                Margin="20,0,0,0"
                                                IsChecked="{Binding SyncBuild}"/>
+                        <Controls:ToggleSwitch Header="Build Helper"
+                                               IsChecked="{Binding BuildHelper}"/>
+                        <Grid Margin="10,0,0,0" Visibility="{Binding BuildHelper, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label FontWeight="Bold" FontSize="12">Key</Label>
+                            <Button x:Name="SetToggleBuildKeyCode" Grid.Row="1" VerticalAlignment="Center" Margin="4,0,0,0" Cursor="Hand" Style="{DynamicResource Tag}" Focusable="False">
+                                <TextBlock x:Name="ToggleBuildKeyValue" Foreground="White" FontSize="12"></TextBlock>
+                            </Button>
+                        </Grid>
                     </StackPanel>
 
                     <Label Content="Builds" Style="{DynamicResource LabelHeaderStyle}" />

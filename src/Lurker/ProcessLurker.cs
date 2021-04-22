@@ -82,6 +82,11 @@ namespace Lurker
         }
 
         /// <summary>
+        /// Gets the current process identifier.
+        /// </summary>
+        public static int CurrentProcessId => Process.GetCurrentProcess().Id;
+
+        /// <summary>
         /// Waits for process.
         /// </summary>
         /// <returns>The process.</returns>
