@@ -56,6 +56,7 @@ namespace Lurker.UI.ViewModels
         private bool _isCharacterOpen;
         private CharacterManagerViewModel _characterManager;
         private bool _keyboardWaiting;
+        private MetroWindow _view;
 
         #endregion
 
@@ -807,6 +808,15 @@ namespace Lurker.UI.ViewModels
         #region Methods
 
         /// <summary>
+        /// Activates the window.
+        /// </summary>
+        public void ActivateWindow()
+        {
+            this._view.WindowState = WindowState.Normal;
+            this._view.Activate();
+        }
+
+        /// <summary>
         /// Sets the toggle build key code.
         /// </summary>
         /// <returns>The task awaiter.</returns>
@@ -1065,8 +1075,8 @@ namespace Lurker.UI.ViewModels
         /// <param name="view">The view.</param>
         protected override void OnViewLoaded(object view)
         {
-            var window = view as MetroWindow;
-            window.Activate();
+            this._view = view as MetroWindow;
+            this.ActivateWindow();
             base.OnViewLoaded(view);
         }
 

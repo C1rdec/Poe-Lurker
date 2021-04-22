@@ -306,6 +306,7 @@ namespace Lurker.UI
         {
             if (this._settingsViewModel.IsActive)
             {
+                this._settingsViewModel.ActivateWindow();
                 return;
             }
 
