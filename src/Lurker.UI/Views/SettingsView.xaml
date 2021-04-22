@@ -39,8 +39,8 @@
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Label FontWeight="Bold" FontSize="12">Key</Label>
-                            <Button x:Name="SetToggleBuildKeyCode" Grid.Row="1" VerticalAlignment="Center" Margin="4,0,0,0" Cursor="Hand" Style="{DynamicResource Tag}" Focusable="False">
+                            <Label FontWeight="Bold" FontSize="12" VerticalAlignment="Bottom">Key</Label>
+                            <Button x:Name="SetToggleBuildKeyCode" Grid.Row="1" VerticalAlignment="Center" Margin="4,0,0,3" Cursor="Hand" Style="{DynamicResource Tag}" Focusable="False">
                                 <TextBlock x:Name="ToggleBuildKeyValue" Foreground="White" FontSize="12"></TextBlock>
                             </Button>
                         </Grid>
