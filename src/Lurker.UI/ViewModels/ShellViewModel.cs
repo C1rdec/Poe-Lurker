@@ -49,7 +49,7 @@ namespace Lurker.UI
         private ManaBulbViewModel _manaBulbOverlay;
         private HideoutViewModel _hideoutOverlay;
         private SettingsService _settingsService;
-        private KeyCodeService _keyCodeService;
+        private HotkeyService _keyCodeService;
         private AfkService _afkService;
         private BuildService _buildService;
         private SettingsViewModel _settingsViewModel;
@@ -76,7 +76,7 @@ namespace Lurker.UI
         /// <param name="buildService">The build service.</param>
         /// <param name="settingsViewModel">The settings view model.</param>
         /// <param name="eventAggregator">The event aggregator.</param>
-        public ShellViewModel(SimpleContainer container, SettingsService settingsService, KeyCodeService keyCodeService, BuildService buildService, SettingsViewModel settingsViewModel, IEventAggregator eventAggregator)
+        public ShellViewModel(SimpleContainer container, SettingsService settingsService, HotkeyService keyCodeService, BuildService buildService, SettingsViewModel settingsViewModel, IEventAggregator eventAggregator)
         {
             this._eventAggregator = eventAggregator;
             this._settingsService = settingsService;
@@ -427,6 +427,7 @@ namespace Lurker.UI
                 this._container.RegisterInstance(typeof(ClipboardLurker), null, this._clipboardLurker);
                 this._container.RegisterInstance(typeof(DockingHelper), null, this._currentDockingHelper);
                 this._container.RegisterInstance(typeof(PoeKeyboardHelper), null, keyboarHelper);
+                this._container.RegisterInstance(typeof(KeyboardLurker), null, this._keyboardLurker);
 
                 this._skillTimelineOverlay = this._container.GetInstance<BuildTimelineViewModel>();
                 this._incomingTradeBarOverlay = this._container.GetInstance<TradebarViewModel>();
@@ -468,6 +469,9 @@ namespace Lurker.UI
                 this.ActivateItem(this._lifeBulbOverlay);
                 this.ActivateItem(this._manaBulbOverlay);
                 this.ActivateItem(this._hideoutOverlay);
+
+                // Needs to be done after
+                this._keyboardLurker.InstallHook();
             });
         }
 
@@ -518,6 +522,7 @@ namespace Lurker.UI
             this._container.UnregisterHandler<PoeKeyboardHelper>();
             this._container.UnregisterHandler<ClipboardLurker>();
             this._container.UnregisterHandler<MouseLurker>();
+            this._container.UnregisterHandler<KeyboardLurker>();
 
             if (this._clipboardLurker != null)
             {

@@ -30,6 +30,7 @@ namespace Lurker.UI.ViewModels
         private static readonly int DefaultOverlayHeight = 60;
         private PoeKeyboardHelper _keyboardHelper;
         private ClientLurker _clientLurker;
+        private KeyboardLurker _keyboardLurker;
         private TradebarContext _context;
         private List<OfferViewModel> _activeOffers = new List<OfferViewModel>();
         private IEventAggregator _eventAggregator;
@@ -47,24 +48,32 @@ namespace Lurker.UI.ViewModels
         /// <param name="eventAggregator">The event aggregator.</param>
         /// <param name="clientLurker">The client lurker.</param>
         /// <param name="processLurker">The process lurker.</param>
+        /// <param name="keyboardLurker">The keyboard lurker.</param>
         /// <param name="dockingHelper">The docking helper.</param>
         /// <param name="keyboardHelper">The keyboard helper.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="windowManager">The window manager.</param>
         /// <param name="soundService">The sound service.</param>
-        public TradebarViewModel(IEventAggregator eventAggregator, ClientLurker clientLurker, ProcessLurker processLurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper, SettingsService settingsService, IWindowManager windowManager, SoundService soundService)
+        public TradebarViewModel(IEventAggregator eventAggregator, ClientLurker clientLurker, ProcessLurker processLurker, KeyboardLurker keyboardLurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper, SettingsService settingsService, IWindowManager windowManager, SoundService soundService)
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
             this._eventAggregator = eventAggregator;
             this._keyboardHelper = keyboardHelper;
             this._soundService = soundService;
             this._clientLurker = clientLurker;
+
+            this._keyboardLurker = keyboardLurker;
             this.TradeOffers = new ObservableCollection<OfferViewModel>();
             this._soldOffers = new List<TradeEvent>();
-
             this._context = new TradebarContext(this.RemoveOffer, this.AddActiveOffer, this.AddToSoldOffer, this.SetActiveOffer, this.ClearAll);
             this.DisplayName = "Poe Lurker";
             this.SettingsService.OnSave += this.SettingsService_OnSave;
+
+            this._keyboardLurker.InvitePressed += this.KeyboardLurker_InvitePressed;
+        }
+
+        private void KeyboardLurker_InvitePressed(object sender, Winook.KeyboardMessageEventArgs e)
+        {
         }
 
         #endregion

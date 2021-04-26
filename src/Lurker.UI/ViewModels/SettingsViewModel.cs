@@ -7,6 +7,7 @@
 namespace Lurker.UI.ViewModels
 {
     using System;
+    using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.IO;
     using System.Reflection;
@@ -40,7 +41,7 @@ namespace Lurker.UI.ViewModels
         private bool _trialAvailable;
         private KeyboardHelper _keyboardHelper;
         private SettingsService _settingService;
-        private KeyCodeService _keyCodeService;
+        private HotkeyService _hotkeyService;
         private bool _modified;
         private string _blessingtext;
         private bool _needsUpdate;
@@ -68,14 +69,14 @@ namespace Lurker.UI.ViewModels
         /// <param name="windowManager">The window manager.</param>
         /// <param name="keyboardHelper">The keyboard helper.</param>
         /// <param name="settingsService">The settings service.</param>
-        /// <param name="keyCodeService">The key code service.</param>
+        /// <param name="hotkeyService">The key code service.</param>
         /// <param name="soundService">The sound service.</param>
-        public SettingsViewModel(IWindowManager windowManager, KeyboardHelper keyboardHelper, SettingsService settingsService, KeyCodeService keyCodeService, SoundService soundService)
+        public SettingsViewModel(IWindowManager windowManager, KeyboardHelper keyboardHelper, SettingsService settingsService, HotkeyService hotkeyService, SoundService soundService)
             : base(windowManager)
         {
             this._keyboardHelper = keyboardHelper;
             this._settingService = settingsService;
-            this._keyCodeService = keyCodeService;
+            this._hotkeyService = hotkeyService;
             this._soundService = soundService;
             this.DisplayName = "Settings";
 
@@ -87,6 +88,7 @@ namespace Lurker.UI.ViewModels
             }
 
             this.BuildManager = new BuildManagerViewModel(this.ShowMessage);
+            this.SetupHotkeys();
         }
 
         #endregion
@@ -103,9 +105,14 @@ namespace Lurker.UI.ViewModels
         #region Properties
 
         /// <summary>
+        /// Gets or sets the hotkeys.
+        /// </summary>
+        public ObservableCollection<HotkeyViewModel> Hotkeys { get; set; }
+
+        /// <summary>
         /// Gets the toggle build key value.
         /// </summary>
-        public string ToggleBuildKeyValue => ConvertKeyCode(this._keyCodeService.ToggleBuild);
+        public string ToggleBuildKeyValue => ConvertKeyCode(this._hotkeyService.ToggleBuild);
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is character open.
@@ -832,9 +839,31 @@ namespace Lurker.UI.ViewModels
             await this.ShowProgress("Waiting input for...", "Toggle build helper", task);
 
             var code = await task;
-            this._keyCodeService.ToggleBuild = code;
+            this._hotkeyService.ToggleBuild = code;
             this.NotifyOfPropertyChange(() => this.ToggleBuildKeyValue);
             this._keyboardWaiting = false;
+        }
+
+        /// <summary>
+        /// Gets the next key code.
+        /// </summary>
+        /// <param name="description">The description.</param>
+        /// <returns>The key.</returns>
+        private async Task<ushort> GetNextKeyCode(string description)
+        {
+            if (this._keyboardWaiting)
+            {
+                return 0;
+            }
+
+            this._keyboardWaiting = true;
+            var task = this._keyboardHelper.WaitForNextKeyAsync();
+            await this.ShowProgress("Waiting input for...", description, task);
+
+            var code = await task;
+            this._keyboardWaiting = false;
+
+            return code;
         }
 
         /// <summary>
@@ -1050,7 +1079,7 @@ namespace Lurker.UI.ViewModels
             await this.ShowProgress("Hold on", "Saving setings...", () =>
             {
                 this._settingService.Save();
-                this._keyCodeService.Save();
+                this._hotkeyService.Save();
             });
             this.Modified = false;
         }
@@ -1196,6 +1225,34 @@ namespace Lurker.UI.ViewModels
         private static string ConvertKeyCode(uint keyCode)
         {
             return ((KeyCode)keyCode).ToString();
+        }
+
+        /// <summary>
+        /// Setups the hotkeys.
+        /// </summary>
+        private void SetupHotkeys()
+        {
+            this.Hotkeys = new ObservableCollection<HotkeyViewModel>();
+            this.Hotkeys.Add(new HotkeyViewModel("Invite", this._hotkeyService.Invite, this.GetNextKeyCode));
+            this.Hotkeys.Add(new HotkeyViewModel("Busy", this._hotkeyService.Busy, this.GetNextKeyCode));
+            this.Hotkeys.Add(new HotkeyViewModel("Dismiss", this._hotkeyService.Dismiss, this.GetNextKeyCode));
+            this.Hotkeys.Add(new HotkeyViewModel("Trade", this._hotkeyService.Trade, this.GetNextKeyCode));
+            this.Hotkeys.Add(new HotkeyViewModel("Still Interested", this._hotkeyService.StillInterested, this.GetNextKeyCode));
+
+            foreach (var hotkey in this.Hotkeys)
+            {
+                hotkey.PropertyChanged += this.Hotkey_PropertyChanged;
+            }
+        }
+
+        /// <summary>
+        /// Handles the PropertyChanged event of the Hotkey control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
+        private void Hotkey_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            this.NotifyOfPropertyChange("Dirty");
         }
 
         /// <summary>

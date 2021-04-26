@@ -13,6 +13,7 @@ namespace Lurker
     using Lurker.Services;
     using WindowsInput;
     using Winook;
+    using static Winook.KeyboardHook;
 
     /// <summary>
     /// Represents the keyboard lurker.
@@ -25,7 +26,7 @@ namespace Lurker
         private KeyboardHook _keyboardHook;
         private ItemParser _itemParser;
         private SettingsService _settingsService;
-        private KeyCodeService _keyCodeService;
+        private HotkeyService _hotkeyService;
         private PoeKeyboardHelper _keyboardHelper;
         private bool _disposed;
         private ushort _toggleBuildCode;
@@ -39,12 +40,12 @@ namespace Lurker
         /// </summary>
         /// <param name="processId">The process identifier.</param>
         /// <param name="settingsService">The settings service.</param>
-        /// <param name="keyCodeService">The key code service.</param>
+        /// <param name="hotkeyService">The key code service.</param>
         /// <param name="keyboardHelper">The keyboard helper.</param>
-        public KeyboardLurker(int processId, SettingsService settingsService, KeyCodeService keyCodeService, PoeKeyboardHelper keyboardHelper)
+        public KeyboardLurker(int processId, SettingsService settingsService, HotkeyService hotkeyService, PoeKeyboardHelper keyboardHelper)
         {
             this._settingsService = settingsService;
-            this._keyCodeService = keyCodeService;
+            this._hotkeyService = hotkeyService;
             this._keyboardHelper = keyboardHelper;
 
             this._itemParser = new ItemParser();
@@ -52,13 +53,6 @@ namespace Lurker
             this._settingsService.OnSave += this.SettingsService_OnSave;
 
             this._keyboardHook = new KeyboardHook(processId);
-            this.InstallHook();
-        }
-
-        private void SettingsService_OnSave(object sender, EventArgs e)
-        {
-            this.UninstallHook();
-            this.InstallHook();
         }
 
         #endregion
@@ -69,6 +63,31 @@ namespace Lurker
         /// Occurs when [build toggled].
         /// </summary>
         public event EventHandler BuildToggled;
+
+        /// <summary>
+        /// Occurs when [invite pressed].
+        /// </summary>
+        public event KeyboardEventHandler InvitePressed;
+
+        /// <summary>
+        /// Occurs when [busy pressed].
+        /// </summary>
+        public event KeyboardEventHandler BusyPressed;
+
+        /// <summary>
+        /// Occurs when [dismiss pressed].
+        /// </summary>
+        public event KeyboardEventHandler DismissPressed;
+
+        /// <summary>
+        /// Occurs when [trade pressed].
+        /// </summary>
+        public event KeyboardEventHandler TradePressed;
+
+        /// <summary>
+        /// Occurs when [still interested pressed].
+        /// </summary>
+        public event KeyboardEventHandler StillInterestedPressed;
 
         #endregion
 
@@ -136,19 +155,37 @@ namespace Lurker
         }
 
         /// <summary>
+        /// Handles the OnSave event of the SettingsService control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void SettingsService_OnSave(object sender, EventArgs e)
+        {
+            this.UninstallHook();
+            this.InstallHook();
+        }
+
+        /// <summary>
         /// Creates the hook.
         /// </summary>
-        private void InstallHook()
+        public void InstallHook()
         {
             if (this._settingsService.BuildHelper)
             {
-                this._toggleBuildCode = this._keyCodeService.ToggleBuild;
+                this._toggleBuildCode = this._hotkeyService.ToggleBuild;
                 this._keyboardHook.AddHandler(this._toggleBuildCode, this.ToggleBuild);
             }
 
             this._keyboardHook.AddHandler('F', Modifiers.Alt, this.SearchItem);
             this._keyboardHook.AddHandler('R', Modifiers.Control, this.RemainingMonsters);
             this._keyboardHook.AddHandler(DeleteKeyCode, this.DeleteItem);
+
+            // Hotkeys
+            this._hotkeyService.Trade.Install(this._keyboardHook, this.TradePressed);
+            this._hotkeyService.Busy.Install(this._keyboardHook, this.BusyPressed);
+            this._hotkeyService.Dismiss.Install(this._keyboardHook, this.DismissPressed);
+            this._hotkeyService.StillInterested.Install(this._keyboardHook, this.StillInterestedPressed);
+            this._hotkeyService.Invite.Install(this._keyboardHook, this.InvitePressed);
 
             this._keyboardHook.InstallAsync();
         }
@@ -162,6 +199,12 @@ namespace Lurker
             this._keyboardHook.RemoveHandler('F', Modifiers.Alt, KeyDirection.Down, this.SearchItem);
             this._keyboardHook.RemoveHandler('R', Modifiers.Control, KeyDirection.Down, this.RemainingMonsters);
             this._keyboardHook.RemoveHandler(DeleteKeyCode, this.DeleteItem);
+
+            this._hotkeyService.Trade.Uninstall(this._keyboardHook);
+            this._hotkeyService.Busy.Uninstall(this._keyboardHook);
+            this._hotkeyService.Dismiss.Uninstall(this._keyboardHook);
+            this._hotkeyService.StillInterested.Uninstall(this._keyboardHook);
+            this._hotkeyService.Invite.Uninstall(this._keyboardHook);
 
             this._keyboardHook.Uninstall();
         }

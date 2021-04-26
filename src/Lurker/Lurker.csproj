@@ -186,7 +186,8 @@
     <Compile Include="Models\Collaboration.cs" />
     <Compile Include="Models\Gem.cs" />
     <Compile Include="Models\GemLocation.cs" />
-    <Compile Include="Models\KeyCodeSettings.cs" />
+    <Compile Include="Models\Hotkey.cs" />
+    <Compile Include="Models\HotkeySettings.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\PlayerBank.cs" />
     <Compile Include="Models\PoeApplicationContext.cs" />
@@ -203,7 +204,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AssetService.cs" />
     <Compile Include="Services\BuildService.cs" />
-    <Compile Include="Services\KeyCodeService.cs" />
+    <Compile Include="Services\HotkeyService.cs" />
     <Compile Include="Services\PlayerService.cs" />
     <Compile Include="Services\CollaborationService.cs" />
     <Compile Include="Services\HttpServiceBase.cs" />

@@ -275,6 +275,22 @@
                     </StackPanel>
                 </Grid>
             </TabItem>
+            <TabItem Header="Hotkey">
+                <Grid Margin="30,0,30,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Content="Hotkey" Style="{DynamicResource LabelHeaderStyle}" />
+                    <ItemsControl x:Name="Hotkeys" Focusable="False" HorizontalAlignment="Center" Grid.Row="1">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </Grid>
+            </TabItem>
             <TabItem Header="Feature">
                 <Grid>
                     <Grid.RowDefinitions>

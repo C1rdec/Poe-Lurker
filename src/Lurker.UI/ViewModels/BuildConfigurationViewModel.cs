@@ -255,10 +255,13 @@ namespace Lurker.UI.ViewModels
                 }
             }
 
-            foreach (var item in this._build.Items.OrderBy(i => i.Level))
+            Caliburn.Micro.Execute.OnUIThread(() =>
             {
-                this.Items.Add(new UniqueItemViewModel(item, false));
-            }
+                foreach (var item in this._build.Items.OrderBy(i => i.Level))
+                {
+                    this.Items.Add(new UniqueItemViewModel(item, false));
+                }
+            });
         }
 
         #endregion
