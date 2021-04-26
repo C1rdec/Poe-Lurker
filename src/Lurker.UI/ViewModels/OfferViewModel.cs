@@ -251,16 +251,19 @@ namespace Lurker.UI.ViewModels
         public void Remove()
         {
             this._skipMainAction = true;
-            if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+            Execute.OnUIThread(() =>
             {
-                this._tradebarContext.ClearAll();
-            }
-            else
-            {
-                this.RemoveFromTradebar();
-            }
+                if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+                {
+                    this._tradebarContext.ClearAll();
+                }
+                else
+                {
+                    this.RemoveFromTradebar();
+                }
 
-            this._dockingHelper.SetForeground();
+                this._dockingHelper.SetForeground();
+            });
         }
 
         /// <summary>
@@ -379,6 +382,36 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Invites the buyer.
+        /// </summary>
+        /// <returns>The task.</returns>
+        public async Task Invite()
+        {
+            this.Status = OfferStatus.Invited;
+            await this._keyboardHelper.Invite(this.PlayerName);
+            this._tradebarContext.AddToActiveOffer(this);
+        }
+
+        /// <summary>
+        /// Trades the Buyer.
+        /// </summary>
+        /// <returns>the task.</returns>
+        public async Task Trade()
+        {
+            this.Status = OfferStatus.Traded;
+            await this._keyboardHelper.Trade(this.PlayerName);
+        }
+
+        /// <summary>
+        /// Stills the interested.
+        /// </summary>
+        /// <returns>The task.</returns>
+        public async Task StillInterested()
+        {
+            await this.Whisper(this._settingsService.StillInterestedMessage);
+        }
+
+        /// <summary>
         /// Called when an attached view's Loaded event fires.
         /// </summary>
         /// <param name="view">The view.</param>
@@ -399,34 +432,6 @@ namespace Lurker.UI.ViewModels
         {
             await this.Whisper(this._settingsService.SoldMessage);
             this.RemoveFromTradebar();
-        }
-
-        /// <summary>
-        /// Stills the interested.
-        /// </summary>
-        private async Task StillInterested()
-        {
-            await this.Whisper(this._settingsService.StillInterestedMessage);
-        }
-
-        /// <summary>
-        /// Invites the buyer.
-        /// </summary>
-        /// <returns>The task.</returns>
-        private async Task Invite()
-        {
-            this.Status = OfferStatus.Invited;
-            await this._keyboardHelper.Invite(this.PlayerName);
-            this._tradebarContext.AddToActiveOffer(this);
-        }
-
-        /// <summary>
-        /// Trades the Buyer.
-        /// </summary>
-        private async Task Trade()
-        {
-            this.Status = OfferStatus.Traded;
-            await this._keyboardHelper.Trade(this.PlayerName);
         }
 
         /// <summary>

@@ -471,7 +471,7 @@ namespace Lurker.UI
                 this.ActivateItem(this._hideoutOverlay);
 
                 // Needs to be done after
-                this._keyboardLurker.InstallHook();
+                var task = this._keyboardLurker.InstallHook();
             });
         }
 

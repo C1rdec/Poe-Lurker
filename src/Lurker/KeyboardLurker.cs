@@ -30,6 +30,7 @@ namespace Lurker
         private PoeKeyboardHelper _keyboardHelper;
         private bool _disposed;
         private ushort _toggleBuildCode;
+        private int _processId;
 
         #endregion
 
@@ -44,6 +45,7 @@ namespace Lurker
         /// <param name="keyboardHelper">The keyboard helper.</param>
         public KeyboardLurker(int processId, SettingsService settingsService, HotkeyService hotkeyService, PoeKeyboardHelper keyboardHelper)
         {
+            this._processId = processId;
             this._settingsService = settingsService;
             this._hotkeyService = hotkeyService;
             this._keyboardHelper = keyboardHelper;
@@ -51,8 +53,7 @@ namespace Lurker
             this._itemParser = new ItemParser();
             this._itemParser.CheckPledgeStatus();
             this._settingsService.OnSave += this.SettingsService_OnSave;
-
-            this._keyboardHook = new KeyboardHook(processId);
+            this._keyboardHook = new KeyboardHook(this._processId);
         }
 
         #endregion
@@ -159,16 +160,17 @@ namespace Lurker
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void SettingsService_OnSave(object sender, EventArgs e)
+        private async void SettingsService_OnSave(object sender, EventArgs e)
         {
             this.UninstallHook();
-            this.InstallHook();
+            await this.InstallHook();
         }
 
         /// <summary>
         /// Creates the hook.
         /// </summary>
-        public void InstallHook()
+        /// <returns>The task awaiter.</returns>
+        public async Task InstallHook()
         {
             if (this._settingsService.BuildHelper)
             {
@@ -187,7 +189,7 @@ namespace Lurker
             this._hotkeyService.StillInterested.Install(this._keyboardHook, this.StillInterestedPressed);
             this._hotkeyService.Invite.Install(this._keyboardHook, this.InvitePressed);
 
-            this._keyboardHook.InstallAsync();
+            await this._keyboardHook.InstallAsync();
         }
 
         /// <summary>

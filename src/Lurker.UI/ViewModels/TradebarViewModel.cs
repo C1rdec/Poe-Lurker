@@ -6,6 +6,7 @@
 
 namespace Lurker.UI.ViewModels
 {
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
@@ -67,13 +68,6 @@ namespace Lurker.UI.ViewModels
             this._soldOffers = new List<TradeEvent>();
             this._context = new TradebarContext(this.RemoveOffer, this.AddActiveOffer, this.AddToSoldOffer, this.SetActiveOffer, this.ClearAll);
             this.DisplayName = "Poe Lurker";
-            this.SettingsService.OnSave += this.SettingsService_OnSave;
-
-            this._keyboardLurker.InvitePressed += this.KeyboardLurker_InvitePressed;
-        }
-
-        private void KeyboardLurker_InvitePressed(object sender, Winook.KeyboardMessageEventArgs e)
-        {
         }
 
         #endregion
@@ -104,6 +98,91 @@ namespace Lurker.UI.ViewModels
             {
                 await this._keyboardHelper.Search(activeOffer.BuildSearchItemName());
             }
+        }
+
+        /// <summary>
+        /// Handles the InvitePressed event of the KeyboardLurker control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void KeyboardLurker_InvitePressed(object sender, System.EventArgs e)
+        {
+            this.ExecuteOnRecentOffer(async (o) =>
+            {
+                await o.Invite();
+            });
+        }
+
+        /// <summary>
+        /// Handles the TradePressed event of the KeyboardLurker control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="Winook.KeyboardMessageEventArgs"/> instance containing the event data.</param>
+        private void KeyboardLurker_TradePressed(object sender, Winook.KeyboardMessageEventArgs e)
+        {
+            this.ExecuteOnRecentOffer(async (o) =>
+            {
+                await o.Trade();
+            });
+        }
+
+        /// <summary>
+        /// Handles the BusyPressed event of the KeyboardLurker control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="Winook.KeyboardMessageEventArgs"/> instance containing the event data.</param>
+        private void KeyboardLurker_BusyPressed(object sender, Winook.KeyboardMessageEventArgs e)
+        {
+            this.ExecuteOnRecentOffer((o) =>
+            {
+                o.Wait();
+            });
+        }
+
+        /// <summary>
+        /// Handles the StillInterestedPressed event of the KeyboardLurker control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="Winook.KeyboardMessageEventArgs"/> instance containing the event data.</param>
+        private void KeyboardLurker_StillInterestedPressed(object sender, Winook.KeyboardMessageEventArgs e)
+        {
+            this.ExecuteOnRecentOffer(async (o) =>
+            {
+                await o.StillInterested();
+            });
+        }
+
+        private void KeyboardLurker_DismissPressed(object sender, Winook.KeyboardMessageEventArgs e)
+        {
+            this.ExecuteOnRecentOffer((o) =>
+            {
+                o.Remove();
+            });
+        }
+
+        /// <summary>
+        /// Executes the on recent offer.
+        /// </summary>
+        /// <param name="action">The action.</param>
+        private void ExecuteOnRecentOffer(Action<OfferViewModel> action)
+        {
+            var offer = this.ActiveOffer;
+            if (offer == null)
+            {
+                offer = this.TradeOffers.FirstOrDefault();
+            }
+
+            if (offer == null)
+            {
+                return;
+            }
+
+            if (!offer.IsActive)
+            {
+                this.SetActiveOffer(offer);
+            }
+
+            action(offer);
         }
 
         /// <summary>
@@ -389,6 +468,14 @@ namespace Lurker.UI.ViewModels
         {
             if (close)
             {
+                this.SettingsService.OnSave -= this.SettingsService_OnSave;
+
+                this._keyboardLurker.InvitePressed -= this.KeyboardLurker_InvitePressed;
+                this._keyboardLurker.TradePressed -= this.KeyboardLurker_TradePressed;
+                this._keyboardLurker.BusyPressed -= this.KeyboardLurker_BusyPressed;
+                this._keyboardLurker.DismissPressed -= this.KeyboardLurker_DismissPressed;
+                this._keyboardLurker.StillInterestedPressed -= this.KeyboardLurker_StillInterestedPressed;
+
                 this._clientLurker.IncomingOffer -= this.Lurker_IncomingOffer;
                 this._clientLurker.TradeAccepted -= this.Lurker_TradeAccepted;
                 this._clientLurker.PlayerJoined -= this.Lurker_PlayerJoined;
@@ -404,6 +491,14 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         protected override void OnActivate()
         {
+            this.SettingsService.OnSave += this.SettingsService_OnSave;
+
+            this._keyboardLurker.InvitePressed += this.KeyboardLurker_InvitePressed;
+            this._keyboardLurker.TradePressed += this.KeyboardLurker_TradePressed;
+            this._keyboardLurker.BusyPressed += this.KeyboardLurker_BusyPressed;
+            this._keyboardLurker.DismissPressed += this.KeyboardLurker_DismissPressed;
+            this._keyboardLurker.StillInterestedPressed += this.KeyboardLurker_StillInterestedPressed;
+
             this._clientLurker.IncomingOffer += this.Lurker_IncomingOffer;
             this._clientLurker.TradeAccepted += this.Lurker_TradeAccepted;
             this._clientLurker.PlayerJoined += this.Lurker_PlayerJoined;
