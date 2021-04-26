@@ -24,7 +24,7 @@
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontFamily="pack://application:,,,/Assets/#Fontin">Alt</TextBlock>
                 </Border>
                 <TextBlock Grid.Column="1" Grid.Row="1" Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="35" FontFamily="pack://application:,,,/Assets/#Fontin">➞</TextBlock>
-                <Button x:Name="SetKeyCode" Grid.Column="2" Style="{DynamicResource Tag}" Focusable="False" FontFamily="pack://application:,,,/Assets/#Fontin" Grid.Row="1" Height="25">
+                <Button x:Name="SetKeyCode" Grid.Column="2" Style="{DynamicResource Tag}" Focusable="False" FontFamily="pack://application:,,,/Assets/#Fontin" Grid.Row="1" Height="30">
                     <TextBlock x:Name="KeyCode" FontSize="12"/>
                 </Button>
             </Grid>
