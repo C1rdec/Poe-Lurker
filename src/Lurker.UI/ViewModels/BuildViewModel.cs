@@ -466,34 +466,37 @@ namespace Lurker.UI.ViewModels
                 this.View.Deactivated += this.View_Deactivated;
             }
 
-            if (this.Build != null)
+            Execute.OnUIThread(() =>
             {
-                this.ClearEventHandlers();
-
-                // Gems
-                this.Skills.Clear();
-                foreach (var skill in this.Build.Skills.Select(s => new SkillViewModel(s, this.SettingsService.TimelineEnabled)))
+                if (this.Build != null)
                 {
-                    skill.PropertyChanged += this.Skill_PropertyChanged;
-                    this.Skills.Add(skill);
+                    this.ClearEventHandlers();
+
+                    // Gems
+                    this.Skills.Clear();
+                    foreach (var skill in this.Build.Skills.Select(s => new SkillViewModel(s, this.SettingsService.TimelineEnabled)))
+                    {
+                        skill.PropertyChanged += this.Skill_PropertyChanged;
+                        this.Skills.Add(skill);
+                    }
+
+                    // Unique items
+                    this.UniqueItems.Clear();
+                    foreach (var item in this.Build.Items.Select(s => new UniqueItemViewModel(s, this.SettingsService.TimelineEnabled)))
+                    {
+                        item.PropertyChanged += this.Item_PropertyChanged;
+                        this.UniqueItems.Add(item);
+                    }
+
+                    this.SelectItems();
                 }
 
-                // Unique items
-                this.UniqueItems.Clear();
-                foreach (var item in this.Build.Items.Select(s => new UniqueItemViewModel(s, this.SettingsService.TimelineEnabled)))
+                this.Builds.Clear();
+                foreach (var build in this._buildService.Builds)
                 {
-                    item.PropertyChanged += this.Item_PropertyChanged;
-                    this.UniqueItems.Add(item);
+                    this.Builds.Add(build);
                 }
-
-                this.SelectItems();
-            }
-
-            this.Builds.Clear();
-            foreach (var build in this._buildService.Builds)
-            {
-                this.Builds.Add(build);
-            }
+            });
 
             base.OnActivate();
         }

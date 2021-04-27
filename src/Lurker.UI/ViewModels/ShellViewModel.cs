@@ -354,6 +354,7 @@ namespace Lurker.UI
                     this._helpOverlay = this._container.GetInstance<HelpViewModel>();
                     this._helpOverlay.Initialize(this.ToggleBuildHelper);
                     this.ActivateItem(this._helpOverlay);
+                    this.ActivateItem(this._buildViewModel);
 
                     if (this._skillTimelineOverlay != null && this._settingsService.TimelineEnabled)
                     {
