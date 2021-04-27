@@ -577,8 +577,13 @@ namespace Lurker.UI.ViewModels
                 return;
             }
 
+            if (this._activePlayer.Name == e.Name)
+            {
+                return;
+            }
+
             this.ClearBuild();
-            if (string.IsNullOrEmpty(e.Build.BuildId) || this._activePlayer.Name == e.Name)
+            if (string.IsNullOrEmpty(e.Build.BuildId))
             {
                 return;
             }
