@@ -52,17 +52,20 @@ namespace Lurker.Helpers
         /// Waits for next key asynchronous.
         /// </summary>
         /// <returns>The next key press.</returns>
-        public Task<ushort> WaitForNextKeyAsync()
+        public Task<Winook.KeyboardMessageEventArgs> WaitForNextKeyAsync()
         {
-            var taskCompletionSource = new TaskCompletionSource<ushort>();
+            var taskCompletionSource = new TaskCompletionSource<Winook.KeyboardMessageEventArgs>();
 
             var hook = new Winook.KeyboardHook(ProcessLurker.CurrentProcessId);
             EventHandler<Winook.KeyboardMessageEventArgs> handler = default;
             handler = (object s, Winook.KeyboardMessageEventArgs e) =>
             {
-                taskCompletionSource.SetResult(e.KeyValue);
-                hook.MessageReceived -= handler;
-                hook.Dispose();
+                if (e.Direction == Winook.KeyDirection.Up)
+                {
+                    taskCompletionSource.SetResult(e);
+                    hook.MessageReceived -= handler;
+                    hook.Dispose();
+                }
             };
 
             hook.MessageReceived += handler;

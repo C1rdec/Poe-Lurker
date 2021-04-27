@@ -21,7 +21,7 @@ namespace Lurker.UI.ViewModels
 
         private Hotkey _hotkey;
         private string _name;
-        private Func<string, Task<ushort>> _getKeyCode;
+        private Func<string, Task<KeyboardMessageEventArgs>> _getKey;
 
         #endregion
 
@@ -32,17 +32,32 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="hotkey">The hotkey.</param>
-        /// <param name="getKeyCode">The get key code.</param>
-        public HotkeyViewModel(string name, Hotkey hotkey, Func<string, Task<ushort>> getKeyCode)
+        /// <param name="getKey">The get key.</param>
+        public HotkeyViewModel(string name, Hotkey hotkey, Func<string, Task<KeyboardMessageEventArgs>> getKey)
         {
             this._hotkey = hotkey;
             this._name = name;
-            this._getKeyCode = getKeyCode;
+            this._getKey = getKey;
         }
 
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets a value indicating whether [not defined].
+        /// </summary>
+        public bool NotDefined => !this._hotkey.IsDefined();
+
+        /// <summary>
+        /// Gets a value indicating whether this instance has modifier.
+        /// </summary>
+        public bool HasModifier => this.Modifier != Modifiers.None;
+
+        /// <summary>
+        /// Gets a value indicating whether this instance has key code.
+        /// </summary>
+        public bool HasKeyCode => this.KeyCode != KeyCode.None;
 
         /// <summary>
         /// Gets the modifier.
@@ -58,6 +73,7 @@ namespace Lurker.UI.ViewModels
             {
                 this._hotkey.Modifier = value;
                 this.NotifyOfPropertyChange();
+                this.NotifyOfPropertyChange(() => this.HasModifier);
             }
         }
 
@@ -75,6 +91,8 @@ namespace Lurker.UI.ViewModels
             {
                 this._hotkey.KeyCode = value;
                 this.NotifyOfPropertyChange();
+                this.NotifyOfPropertyChange(() => this.HasKeyCode);
+                this.NotifyOfPropertyChange(() => this.NotDefined);
             }
         }
 
@@ -92,8 +110,21 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public async void SetKeyCode()
         {
-            var code = await this._getKeyCode(this.NameValue);
-            this.KeyCode = (KeyCode)code;
+            var key = await this._getKey(this.NameValue);
+            this.KeyCode = (KeyCode)key.KeyValue;
+
+            if (key.Control)
+            {
+                this.Modifier = Modifiers.Control;
+            }
+            else if (key.Alt)
+            {
+                this.Modifier = Modifiers.Alt;
+            }
+            else if (key.Shift)
+            {
+                this.Modifier = Modifiers.Shift;
+            }
         }
 
         /// <summary>

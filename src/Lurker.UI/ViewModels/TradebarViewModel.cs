@@ -489,7 +489,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Called when activating.
         /// </summary>
-        protected override void OnActivate()
+        protected override async void OnActivate()
         {
             this.SettingsService.OnSave += this.SettingsService_OnSave;
 
@@ -498,6 +498,8 @@ namespace Lurker.UI.ViewModels
             this._keyboardLurker.BusyPressed += this.KeyboardLurker_BusyPressed;
             this._keyboardLurker.DismissPressed += this.KeyboardLurker_DismissPressed;
             this._keyboardLurker.StillInterestedPressed += this.KeyboardLurker_StillInterestedPressed;
+
+            await this._keyboardLurker.InstallHookAsync();
 
             this._clientLurker.IncomingOffer += this.Lurker_IncomingOffer;
             this._clientLurker.TradeAccepted += this.Lurker_TradeAccepted;

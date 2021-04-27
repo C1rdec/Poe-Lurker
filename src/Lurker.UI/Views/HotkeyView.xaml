@@ -3,32 +3,92 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Converters="clr-namespace:Lurker.UI.Converters"
+             xmlns:Winook="clr-namespace:Winook;assembly=Winook"
              xmlns:cal="http://www.caliburnproject.org"
              xmlns:local="clr-namespace:Lurker.UI.Views"
+             Focusable="False"
              mc:Ignorable="d" 
              d:DesignHeight="130" d:DesignWidth="250">
-    <Border Background="#303030" Margin="10"  CornerRadius="8">
+    <Border Background="#303030" Margin="8"  CornerRadius="8" Focusable="False">
         <Grid>
             <Grid Width="180" Margin="20,0,20,15">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="2*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
+
                 <Label FontFamily="pack://application:,,,/Assets/#Fontin" Foreground="#af8404" x:Name="NameValue" FontSize="20" Grid.ColumnSpan="3"/>
-                <Border BorderThickness="3" BorderBrush="#606060" CornerRadius="10" Background="Gray" Grid.Row="1" Height="40" Width="60" Cursor="Hand">
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontFamily="pack://application:,,,/Assets/#Fontin">Alt</TextBlock>
-                </Border>
-                <TextBlock Grid.Column="1" Grid.Row="1" Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="35" FontFamily="pack://application:,,,/Assets/#Fontin">➞</TextBlock>
-                <Button x:Name="SetKeyCode" Grid.Column="2" Style="{DynamicResource Tag}" Focusable="False" FontFamily="pack://application:,,,/Assets/#Fontin" Grid.Row="1" Height="30">
-                    <TextBlock x:Name="KeyCode" FontSize="12"/>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+
+                    <Border BorderThickness="3" 
+                            Visibility="{Binding HasModifier, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            BorderBrush="#606060"
+                            CornerRadius="10" 
+                            Background="Gray" 
+                            Grid.Row="1" 
+                            Height="40"
+                            Width="60">
+                        <Grid>
+                            <TextBlock VerticalAlignment="Center" 
+                                       HorizontalAlignment="Center" 
+                                       FontWeight="Bold" 
+                                       FontFamily="pack://application:,,,/Assets/#Fontin"
+                                       Visibility="{Binding Modifier,
+                                            Converter={Converters:ModifierConverter}, 
+                                            ConverterParameter={x:Static Winook:Modifiers.Alt}}">Alt</TextBlock>
+                            <TextBlock VerticalAlignment="Center" 
+                                       HorizontalAlignment="Center" 
+                                       FontWeight="Bold" 
+                                       FontFamily="pack://application:,,,/Assets/#Fontin"
+                                       Visibility="{Binding Modifier,
+                                            Converter={Converters:ModifierConverter}, 
+                                            ConverterParameter={x:Static Winook:Modifiers.Control}}">Ctrl</TextBlock>
+                            <TextBlock VerticalAlignment="Center" 
+                                       HorizontalAlignment="Center" 
+                                       FontWeight="Bold" 
+                                       FontFamily="pack://application:,,,/Assets/#Fontin"
+                                       Visibility="{Binding Modifier,
+                                            Converter={Converters:ModifierConverter}, 
+                                            ConverterParameter={x:Static Winook:Modifiers.Shift}}">Shift</TextBlock>
+                        </Grid>
+                    </Border>
+                    <TextBlock Grid.Column="1" 
+                               Grid.Row="1" 
+                               Foreground="Gray"
+                               Visibility="{Binding HasModifier, Converter={StaticResource BooleanToVisibilityConverter}}"
+                               VerticalAlignment="Center" 
+                               HorizontalAlignment="Center" 
+                               Margin="10,0,10,0"
+                               FontSize="35" 
+                               FontFamily="pack://application:,,,/Assets/#Fontin">➞</TextBlock>
+                    <Border Focusable="False"
+                            CornerRadius="4"
+                            Background="{StaticResource AccentColorBrush3}"
+                            Height="30"
+                            Width="60"
+                            Visibility="{Binding HasKeyCode, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   x:Name="KeyCode" 
+                                   FontSize="12"
+                                   FontWeight="Bold"
+                                   FontFamily="pack://application:,,,/Assets/#Fontin" />
+                    </Border>
+                </StackPanel>
+                <Button Width="50"
+                        Cursor="Hand"
+                        x:Name="SetKeyCode"
+                        Grid.Row="1"
+                        Visibility="{Binding NotDefined, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        Height="50"
+                        Style="{DynamicResource MetroCircleButtonStyle}">
+                    <Button.Content>
+                        <TextBlock FontWeight="ExtraBold" FontSize="25" FontFamily="pack://application:,,,/Assets/#Fontin">+</TextBlock>
+                    </Button.Content>
                 </Button>
             </Grid>
-            <Button Grid.Column="2" Focusable="False" Background="Red" Width="25" cal:Message.Attach="[Event Click] = [Action Remove()]" HorizontalAlignment="Right" VerticalAlignment="Top" Height="20" Cursor="Hand">
+            <Button Grid.Column="2" Focusable="False" Visibility="{Binding HasKeyCode, Converter={StaticResource BooleanToVisibilityConverter}}" Background="Red" Width="25" cal:Message.Attach="[Event Click] = [Action Remove()]" HorizontalAlignment="Right" VerticalAlignment="Top" Height="20" Cursor="Hand">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Template">

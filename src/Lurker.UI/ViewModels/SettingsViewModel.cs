@@ -838,8 +838,8 @@ namespace Lurker.UI.ViewModels
             var task = this._keyboardHelper.WaitForNextKeyAsync();
             await this.ShowProgress("Waiting input for...", "Toggle build helper", task);
 
-            var code = await task;
-            this._hotkeyService.ToggleBuild = code;
+            var key = await task;
+            this._hotkeyService.ToggleBuild = key.KeyValue;
             this.NotifyOfPropertyChange(() => this.ToggleBuildKeyValue);
             this._keyboardWaiting = false;
         }
@@ -849,21 +849,21 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="description">The description.</param>
         /// <returns>The key.</returns>
-        private async Task<ushort> GetNextKeyCode(string description)
+        private async Task<KeyboardMessageEventArgs> GetNextKeyCode(string description)
         {
             if (this._keyboardWaiting)
             {
-                return 0;
+                return null;
             }
 
             this._keyboardWaiting = true;
             var task = this._keyboardHelper.WaitForNextKeyAsync();
             await this.ShowProgress("Waiting input for...", description, task);
 
-            var code = await task;
+            var key = await task;
             this._keyboardWaiting = false;
 
-            return code;
+            return key;
         }
 
         /// <summary>

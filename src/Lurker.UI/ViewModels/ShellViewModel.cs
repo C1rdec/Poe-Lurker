@@ -469,9 +469,6 @@ namespace Lurker.UI
                 this.ActivateItem(this._lifeBulbOverlay);
                 this.ActivateItem(this._manaBulbOverlay);
                 this.ActivateItem(this._hideoutOverlay);
-
-                // Needs to be done after
-                var task = this._keyboardLurker.InstallHook();
             });
         }
 

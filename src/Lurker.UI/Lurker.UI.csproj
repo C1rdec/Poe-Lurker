@@ -282,6 +282,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
+    <Compile Include="Converters\ModifierConverter.cs" />
     <Compile Include="Converters\StringConverter.cs" />
     <Compile Include="Converters\PoeClassConverter.cs" />
     <Compile Include="Converters\CurrencyTypeConverter.cs" />

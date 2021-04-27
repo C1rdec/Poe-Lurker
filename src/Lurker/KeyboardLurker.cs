@@ -163,14 +163,14 @@ namespace Lurker
         private async void SettingsService_OnSave(object sender, EventArgs e)
         {
             this.UninstallHook();
-            await this.InstallHook();
+            await this.InstallHookAsync();
         }
 
         /// <summary>
         /// Creates the hook.
         /// </summary>
         /// <returns>The task awaiter.</returns>
-        public async Task InstallHook()
+        public async Task InstallHookAsync()
         {
             if (this._settingsService.BuildHelper)
             {

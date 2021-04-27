@@ -68,7 +68,7 @@ namespace Lurker.Models
             }
             else
             {
-                hook.AddHandler(this.KeyCode, KeyDirection.Down, Modifiers.Alt, this._handler);
+                hook.AddHandler(this.KeyCode, this._handler);
             }
         }
 
@@ -89,7 +89,7 @@ namespace Lurker.Models
             }
             else
             {
-                hook.RemoveHandler(this.KeyCode, Modifiers.Alt, KeyDirection.Down, this._handler);
+                hook.RemoveHandler(this.KeyCode, this._handler);
             }
         }
 

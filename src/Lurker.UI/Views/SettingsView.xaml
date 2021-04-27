@@ -281,7 +281,10 @@
                         <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Label Content="Hotkey" Style="{DynamicResource LabelHeaderStyle}" />
+                    <StackPanel>
+                        <Label Content="Hotkey" Style="{DynamicResource LabelHeaderStyle}" />
+                        <TextBlock HorizontalAlignment="Center" Foreground="LightGray" FontFamily="pack://application:,,,/Assets/#Fontin">For the most recent offer.</TextBlock>
+                    </StackPanel>
                     <ItemsControl x:Name="Hotkeys" Focusable="False" HorizontalAlignment="Center" Grid.Row="1">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
