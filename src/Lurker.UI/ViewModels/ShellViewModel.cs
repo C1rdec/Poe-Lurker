@@ -448,6 +448,11 @@ namespace Lurker.UI
 
                 if (this._settingsService.BuildHelper)
                 {
+                    if (this._settingsService.TimelineEnabled)
+                    {
+                        this.ActivateItem(this._skillTimelineOverlay);
+                    }
+
                     this.ActivateItem(this._helpOverlay);
                 }
 
@@ -459,11 +464,6 @@ namespace Lurker.UI
                 if (this._settingsService.OutgoingTradeEnabled)
                 {
                     this.ActivateItem(this._outgoingTradeBarOverlay);
-                }
-
-                if (this._settingsService.TimelineEnabled)
-                {
-                    this.ActivateItem(this._skillTimelineOverlay);
                 }
 
                 this.ActivateItem(this._lifeBulbOverlay);
