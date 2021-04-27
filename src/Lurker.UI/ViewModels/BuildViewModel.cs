@@ -578,12 +578,12 @@ namespace Lurker.UI.ViewModels
             }
 
             this.ClearBuild();
-            this._activePlayer = e;
-            if (string.IsNullOrEmpty(e.Build.BuildId))
+            if (string.IsNullOrEmpty(e.Build.BuildId) || this._activePlayer.Name == e.Name)
             {
                 return;
             }
 
+            this._activePlayer = e;
             var build = this._buildService.Builds.FirstOrDefault(b => b.Id == e.Build.BuildId);
             if (build != null)
             {
