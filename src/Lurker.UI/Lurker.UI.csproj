@@ -762,6 +762,7 @@
     <Resource Include="Assets\Slayer_avatar.png" />
     <Resource Include="Assets\Trickster_avatar.png" />
     <Content Include="SVG\CustomSound.svg" />
+    <Content Include="SVG\Discord.svg" />
     <Content Include="SVG\DotsMenu.svg" />
     <Content Include="SVG\Group.svg" />
     <Content Include="SVG\Open.svg" />

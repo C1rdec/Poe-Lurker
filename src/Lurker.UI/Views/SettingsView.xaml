@@ -13,6 +13,24 @@
         xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
         Dialog:DialogParticipation.Register="{Binding}"
         mc:Ignorable="d" Height="450" Width="800">
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button Cursor="Hand" cal:Message.Attach="[Event Click] = [Action OpenDiscord]">
+                <StackPanel Orientation="Horizontal">
+                    <local:IconPack Foreground="White"
+                                    Width="25"
+                                    HorizontalAlignment="Center"
+                                            Data="{x:Static local:IconPackData.Discord}"/>
+                    <TextBlock Margin="4" VerticalAlignment="Center" Text="Discord" />
+                </StackPanel>
+            </Button>
+            <Button Cursor="Hand">
+                <Button.Content>
+                    <TextBlock Text="{Binding Version}"/>
+                </Button.Content>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
     <Grid>
         <Grid.Resources>
             <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />

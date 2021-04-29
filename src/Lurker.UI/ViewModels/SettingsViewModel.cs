@@ -105,6 +105,18 @@ namespace Lurker.UI.ViewModels
         #region Properties
 
         /// <summary>
+        /// Gets the version.
+        /// </summary>
+        public string Version
+        {
+            get
+            {
+                var version = Assembly.GetExecutingAssembly().GetName().Version;
+                return $"{version.Major}.{version.Minor}.{version.Build}";
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the hotkeys.
         /// </summary>
         public ObservableCollection<HotkeyViewModel> Hotkeys { get; set; }
@@ -813,6 +825,14 @@ namespace Lurker.UI.ViewModels
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Opens the discord.
+        /// </summary>
+        public void OpenDiscord()
+        {
+            Process.Start("https://discord.com/invite/hQERv7K");
+        }
 
         /// <summary>
         /// Activates the window.

@@ -109,6 +109,11 @@ namespace Lurker.Helpers
                 clipboardText = System.Windows.Clipboard.GetText();
             });
 
+            if (string.IsNullOrEmpty(clipboardText))
+            {
+                return string.Empty;
+            }
+
             return clipboardText;
         }
 
