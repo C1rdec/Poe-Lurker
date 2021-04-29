@@ -312,6 +312,15 @@ namespace Lurker.UI.ViewModels
                 return;
             }
 
+            await this.MainActionCore();
+        }
+
+        /// <summary>
+        /// Mains the action core.
+        /// </summary>
+        /// <returns>The task.</returns>
+        public async Task MainActionCore()
+        {
             switch (this._status)
             {
                 case OfferStatus.Pending:

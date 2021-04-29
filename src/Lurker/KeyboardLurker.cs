@@ -87,6 +87,11 @@ namespace Lurker
         public event KeyboardEventHandler TradePressed;
 
         /// <summary>
+        /// Occurs when [main action pressed].
+        /// </summary>
+        public event KeyboardEventHandler MainActionPressed;
+
+        /// <summary>
         /// Occurs when [still interested pressed].
         /// </summary>
         public event KeyboardEventHandler StillInterestedPressed;
@@ -184,12 +189,13 @@ namespace Lurker
             this._keyboardHook.AddHandler(DeleteKeyCode, this.DeleteItem);
 
             // Hotkeys
+            this._hotkeyService.Main.Install(this._keyboardHook, this.MainActionPressed);
             this._hotkeyService.Trade.Install(this._keyboardHook, this.TradePressed);
             this._hotkeyService.Busy.Install(this._keyboardHook, this.BusyPressed);
             this._hotkeyService.Dismiss.Install(this._keyboardHook, this.DismissPressed);
-            this._hotkeyService.StillInterested.Install(this._keyboardHook, this.StillInterestedPressed);
             this._hotkeyService.Invite.Install(this._keyboardHook, this.InvitePressed);
 
+            // this._hotkeyService.StillInterested.Install(this._keyboardHook, this.StillInterestedPressed);
             try
             {
                 await this._keyboardHook.InstallAsync();
@@ -219,9 +225,9 @@ namespace Lurker
             this._hotkeyService.Trade.Uninstall(this._keyboardHook);
             this._hotkeyService.Busy.Uninstall(this._keyboardHook);
             this._hotkeyService.Dismiss.Uninstall(this._keyboardHook);
-            this._hotkeyService.StillInterested.Uninstall(this._keyboardHook);
             this._hotkeyService.Invite.Uninstall(this._keyboardHook);
 
+            // this._hotkeyService.StillInterested.Uninstall(this._keyboardHook);
             this._keyboardHook.Uninstall();
         }
 

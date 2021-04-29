@@ -101,6 +101,19 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Handles the MainActionPressed event of the KeyboardLurker control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="Winook.KeyboardMessageEventArgs"/> instance containing the event data.</param>
+        private void KeyboardLurker_MainActionPressed(object sender, Winook.KeyboardMessageEventArgs e)
+        {
+            this.ExecuteOnRecentOffer((o) =>
+            {
+                Execute.OnUIThread(async () => await o.MainActionCore());
+            });
+        }
+
+        /// <summary>
         /// Handles the InvitePressed event of the KeyboardLurker control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -493,6 +506,7 @@ namespace Lurker.UI.ViewModels
         {
             this.SettingsService.OnSave += this.SettingsService_OnSave;
 
+            this._keyboardLurker.MainActionPressed += this.KeyboardLurker_MainActionPressed;
             this._keyboardLurker.InvitePressed += this.KeyboardLurker_InvitePressed;
             this._keyboardLurker.TradePressed += this.KeyboardLurker_TradePressed;
             this._keyboardLurker.BusyPressed += this.KeyboardLurker_BusyPressed;

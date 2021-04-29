@@ -28,6 +28,11 @@ namespace Lurker.Models
         public Hotkey Invite { get; set; }
 
         /// <summary>
+        /// Gets or sets the main.
+        /// </summary>
+        public Hotkey Main { get; set; }
+
+        /// <summary>
         /// Gets or sets the trade.
         /// </summary>
         public Hotkey Trade { get; set; }

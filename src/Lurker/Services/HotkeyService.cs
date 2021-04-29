@@ -73,6 +73,22 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets the main.
+        /// </summary>
+        public Hotkey Main
+        {
+            get
+            {
+                return this._settings.Main;
+            }
+
+            set
+            {
+                this._settings.Main = value;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the invite.
         /// </summary>
         public Hotkey Invite

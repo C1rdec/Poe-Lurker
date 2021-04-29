@@ -303,13 +303,20 @@
                         <Label Content="Hotkey" Style="{DynamicResource LabelHeaderStyle}" />
                         <TextBlock HorizontalAlignment="Center" Foreground="LightGray" FontFamily="pack://application:,,,/Assets/#Fontin">For the most recent offer.</TextBlock>
                     </StackPanel>
-                    <ItemsControl x:Name="Hotkeys" Focusable="False" HorizontalAlignment="Center" Grid.Row="1">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                    </ItemsControl>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <ContentControl Focusable="False" x:Name="MainHotkey" Margin="45,0,45,0"/>
+                        <ItemsControl x:Name="Hotkeys" Focusable="False" HorizontalAlignment="Center" Grid.Row="1">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="Feature">
