@@ -31,6 +31,7 @@ namespace Lurker
         private bool _disposed;
         private ushort _toggleBuildCode;
         private int _processId;
+        private bool _hooked;
 
         #endregion
 
@@ -189,7 +190,15 @@ namespace Lurker
             this._hotkeyService.StillInterested.Install(this._keyboardHook, this.StillInterestedPressed);
             this._hotkeyService.Invite.Install(this._keyboardHook, this.InvitePressed);
 
-            await this._keyboardHook.InstallAsync();
+            try
+            {
+                await this._keyboardHook.InstallAsync();
+                this._hooked = true;
+            }
+            catch
+            {
+                this._hooked = false;
+            }
         }
 
         /// <summary>
@@ -197,9 +206,14 @@ namespace Lurker
         /// </summary>
         private void UninstallHook()
         {
+            if (!this._hooked)
+            {
+                return;
+            }
+
             this._keyboardHook.RemoveHandler(this._toggleBuildCode, this.ToggleBuild);
-            this._keyboardHook.RemoveHandler('F', Modifiers.Alt, KeyDirection.Down, this.SearchItem);
-            this._keyboardHook.RemoveHandler('R', Modifiers.Control, KeyDirection.Down, this.RemainingMonsters);
+            this._keyboardHook.RemoveHandler('F', Modifiers.Alt, KeyDirection.Up, this.SearchItem);
+            this._keyboardHook.RemoveHandler('R', Modifiers.Control, KeyDirection.Up, this.RemainingMonsters);
             this._keyboardHook.RemoveHandler(DeleteKeyCode, this.DeleteItem);
 
             this._hotkeyService.Trade.Uninstall(this._keyboardHook);

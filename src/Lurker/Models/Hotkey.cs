@@ -64,7 +64,7 @@ namespace Lurker.Models
             this._handler = handler;
             if (this.Modifier != Modifiers.None)
             {
-                hook.AddHandler(this.KeyCode, this.Modifier, handler);
+                hook.AddHandler(this.KeyCode, KeyDirection.Up, this.Modifier, handler);
             }
             else
             {
@@ -85,7 +85,7 @@ namespace Lurker.Models
 
             if (this.Modifier != Modifiers.None)
             {
-                hook.RemoveHandler(this.KeyCode, this.Modifier, KeyDirection.Down, this._handler);
+                hook.RemoveHandler(this.KeyCode, this.Modifier, KeyDirection.Up, this._handler);
             }
             else
             {
