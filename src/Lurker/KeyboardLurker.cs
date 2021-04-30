@@ -222,6 +222,7 @@ namespace Lurker
             this._keyboardHook.RemoveHandler('R', Modifiers.Control, KeyDirection.Up, this.RemainingMonsters);
             this._keyboardHook.RemoveHandler(DeleteKeyCode, this.DeleteItem);
 
+            this._hotkeyService.Main.Uninstall(this._keyboardHook);
             this._hotkeyService.Trade.Uninstall(this._keyboardHook);
             this._hotkeyService.Busy.Uninstall(this._keyboardHook);
             this._hotkeyService.Dismiss.Uninstall(this._keyboardHook);

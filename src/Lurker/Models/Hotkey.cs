@@ -6,7 +6,6 @@
 
 namespace Lurker.Models
 {
-    using System;
     using ConfOxide;
     using Winook;
     using static Winook.KeyboardHook;
@@ -19,6 +18,8 @@ namespace Lurker.Models
         #region Fields
 
         private KeyboardEventHandler _handler;
+        private KeyCode _registeredKeycode;
+        private Modifiers _registeredModifier;
 
         #endregion
 
@@ -27,12 +28,12 @@ namespace Lurker.Models
         /// <summary>
         /// Gets or sets the modifier.
         /// </summary>
-        public Winook.Modifiers Modifier { get; set; }
+        public Modifiers Modifier { get; set; }
 
         /// <summary>
         /// Gets or sets the key code.
         /// </summary>
-        public Winook.KeyCode KeyCode { get; set; }
+        public KeyCode KeyCode { get; set; }
 
         #endregion
 
@@ -46,7 +47,18 @@ namespace Lurker.Models
         /// </returns>
         public bool IsDefined()
         {
-            return this.KeyCode != Winook.KeyCode.None;
+            return this.KeyCode != KeyCode.None;
+        }
+
+        /// <summary>
+        /// Determines whether this instance is hooked.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if this instance is hooked; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsHooked()
+        {
+            return this._registeredKeycode != KeyCode.None;
         }
 
         /// <summary>
@@ -70,6 +82,9 @@ namespace Lurker.Models
             {
                 hook.AddHandler(this.KeyCode, this._handler);
             }
+
+            this._registeredKeycode = this.KeyCode;
+            this._registeredModifier = this.Modifier;
         }
 
         /// <summary>
@@ -78,19 +93,22 @@ namespace Lurker.Models
         /// <param name="hook">The hook.</param>
         public void Uninstall(KeyboardHook hook)
         {
-            if (!this.IsDefined() || this._handler == null)
+            if (!this.IsHooked() || this._handler == null)
             {
                 return;
             }
 
-            if (this.Modifier != Modifiers.None)
+            if (this._registeredModifier != Modifiers.None)
             {
-                hook.RemoveHandler(this.KeyCode, this.Modifier, KeyDirection.Up, this._handler);
+                hook.RemoveHandler(this._registeredKeycode, this._registeredModifier, KeyDirection.Up, this._handler);
             }
             else
             {
-                hook.RemoveHandler(this.KeyCode, this._handler);
+                hook.RemoveHandler(this._registeredKeycode, this._handler);
             }
+
+            this._registeredKeycode = KeyCode.None;
+            this._registeredModifier = Modifiers.None;
         }
 
         #endregion
