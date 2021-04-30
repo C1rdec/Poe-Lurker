@@ -10,6 +10,7 @@ namespace Lurker.UI.ViewModels
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Threading.Tasks;
     using Caliburn.Micro;
     using Lurker.Helpers;
     using Lurker.Models;
@@ -267,31 +268,46 @@ namespace Lurker.UI.ViewModels
         private async void Lurker_TradeAccepted(object sender, TradeAcceptedEvent e)
         {
             var offer = this.TradeOffers.Where(t => t.Status == OfferStatus.Traded).FirstOrDefault();
+            if (offer == null)
+            {
+                offer = this.ActiveOffer;
+            }
+
             if (offer != null)
             {
-                this.InsertEvent(offer.Event);
-                if (!string.IsNullOrEmpty(this.SettingsService.ThankYouMessage))
-                {
-                    await offer.ThankYou();
-                }
-
-                if (this.SettingsService.AutoKickEnabled)
-                {
-                    await this._keyboardHelper.Kick(offer.PlayerName);
-                }
-
-                var itemClass = offer.Event.ItemClass;
-                if (itemClass != ItemClass.Map && itemClass != ItemClass.Currency && itemClass != ItemClass.DivinationCard)
-                {
-                    var alreadySold = this.CheckIfOfferIsAlreadySold(offer.Event);
-                    if (!alreadySold)
-                    {
-                        this.AddToSoldOffer(offer);
-                    }
-                }
-
-                this.RemoveOffer(offer);
+                await this.ExecuteTradeAccepted(offer);
             }
+        }
+
+        /// <summary>
+        /// Executes the trade.
+        /// </summary>
+        /// <param name="offer">The offer.</param>
+        /// <returns>The task.</returns>
+        private async Task ExecuteTradeAccepted(OfferViewModel offer)
+        {
+            this.InsertEvent(offer.Event);
+            if (!string.IsNullOrEmpty(this.SettingsService.ThankYouMessage))
+            {
+                await offer.ThankYou();
+            }
+
+            if (this.SettingsService.AutoKickEnabled)
+            {
+                await this._keyboardHelper.Kick(offer.PlayerName);
+            }
+
+            var itemClass = offer.Event.ItemClass;
+            if (itemClass != ItemClass.Map && itemClass != ItemClass.Currency && itemClass != ItemClass.DivinationCard)
+            {
+                var alreadySold = this.CheckIfOfferIsAlreadySold(offer.Event);
+                if (!alreadySold)
+                {
+                    this.AddToSoldOffer(offer);
+                }
+            }
+
+            this.RemoveOffer(offer);
         }
 
         /// <summary>
