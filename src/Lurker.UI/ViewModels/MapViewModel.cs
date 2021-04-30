@@ -21,11 +21,6 @@ namespace Lurker.UI.ViewModels
     {
         #region Fields
 
-        private const string ReflectPhysicalId = "stat_3464419871";
-        private const string ReflectElementalId = "stat_2764017512";
-        private const string CannotRegenerateId = "stat_1910157106";
-        private const string CannotLeechId = "stat_526251910";
-        private const string TemporalChainsId = "stat_2326202293";
         private Map _map;
         private bool _modsSelectionVisible;
         private PlayerService _playerService;
@@ -120,6 +115,7 @@ namespace Lurker.UI.ViewModels
                 this.Affixes.Add(new MapAffixViewModel(MapAffixViewModel.ReflectElementalId, true, this.CurrentPlayer));
                 this.Affixes.Add(new MapAffixViewModel(MapAffixViewModel.ReflectPhysicalId, true, this.CurrentPlayer));
                 this.Affixes.Add(new MapAffixViewModel(MapAffixViewModel.TemporalChainsId, true, this.CurrentPlayer));
+                this.Affixes.Add(new MapAffixViewModel(MapAffixViewModel.AvoidAilmentsId, true, this.CurrentPlayer));
                 this.NotifyOfPropertyChange(() => this.Safe);
             }
             else
@@ -158,7 +154,7 @@ namespace Lurker.UI.ViewModels
                     continue;
                 }
 
-                this.Affixes.Add(new MapAffixViewModel(affix, this.CurrentPlayer));
+                this.Affixes.Add(new MapAffixViewModel(affix.Id, false, this.CurrentPlayer));
             }
 
             this.NotifyOfPropertyChange(() => this.Safe);

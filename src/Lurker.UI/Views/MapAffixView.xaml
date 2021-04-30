@@ -11,6 +11,9 @@
         <Grid.Style>
             <Style TargetType="Grid">
                 <Style.Triggers>
+                    <DataTrigger Binding="{Binding Selectable}" Value="True">
+                        <Setter Property="Cursor" Value="Hand"/>
+                    </DataTrigger>
                     <DataTrigger Binding="{Binding Selected}" Value="False">
                         <Setter Property="Opacity" Value="0.30"/>
                     </DataTrigger>
@@ -37,8 +40,11 @@
                 Height="60"
                 Width="60"
                 Visibility="{Binding TemporalChains, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <Image  Source="/Assets/AvoidAilments.png"
+                Height="60"
+                Width="60"
+                Visibility="{Binding AvoidAilments, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         <local:IconPack Foreground="#878787"
-                        Cursor="Hand"
                         Visibility="{Binding HelpVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
                         MouseEnter="Help_MouseEnter"
                         MouseLeave="Help_MouseLeave"

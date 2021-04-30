@@ -43,16 +43,22 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public const string TemporalChainsId = "stat_2326202293";
 
+        /// <summary>
+        /// The avoid ailments identifier.
+        /// </summary>
+        public const string AvoidAilmentsId = "stat_322206271";
+
         private string _id;
         private PlayerViewModel _playerViewModel;
-        private Affix _affix;
         private bool _reflectPhysical;
         private bool _reflectElemental;
         private bool _cannotRegenerate;
         private bool _cannotLeech;
         private bool _temporalChains;
+        private bool _avoidAilments;
         private bool _helpVisible;
         private bool _selected;
+        private string _name;
 
         #endregion
 
@@ -84,22 +90,15 @@ namespace Lurker.UI.ViewModels
                 case TemporalChainsId:
                     this._temporalChains = true;
                     break;
+                case AvoidAilmentsId:
+                    this._avoidAilments = true;
+                    break;
             }
 
             this._id = id;
             this._playerViewModel = playerViewModel;
             this._selected = !this._playerViewModel.IgnoredMadMods.Contains(id);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MapAffixViewModel" /> class.
-        /// </summary>
-        /// <param name="affix">The affix.</param>
-        /// <param name="playerViewModel">The player view model.</param>
-        public MapAffixViewModel(Affix affix, PlayerViewModel playerViewModel)
-            : this(affix.Id, false, playerViewModel)
-        {
-            this._affix = affix;
+            this._name = AffixService.GetAffixText(id);
         }
 
         #endregion
@@ -166,9 +165,14 @@ namespace Lurker.UI.ViewModels
         public bool TemporalChains => this._temporalChains;
 
         /// <summary>
+        /// Gets a value indicating whether [avoid ailments].
+        /// </summary>
+        public bool AvoidAilments => this._avoidAilments;
+
+        /// <summary>
         /// Gets the name.
         /// </summary>
-        public string Name => this._affix == null ? string.Empty : this._affix.Text;
+        public string Name => this._name;
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="MapAffixViewModel"/> is selectable.
@@ -206,10 +210,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public void MouseEnter()
         {
-            if (!this.Selectable)
-            {
-                this.HelpVisible = true;
-            }
+            this.HelpVisible = true;
         }
 
         /// <summary>
