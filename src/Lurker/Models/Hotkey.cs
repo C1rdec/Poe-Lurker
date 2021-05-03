@@ -76,11 +76,11 @@ namespace Lurker.Models
                 return;
             }
 
-            hook.AddHandler(this.KeyCode, KeyDirection.Up, this.Modifier, handler);
+            hook.AddHandler(this.KeyCode, this.Modifier, KeyDirection.Up, handler);
 
             if (hold)
             {
-                hook.AddHandler(this.KeyCode, KeyDirection.Down, this.Modifier, handler);
+                hook.AddHandler(this.KeyCode, this.Modifier, KeyDirection.Down, handler);
             }
 
             this._hook = hook;
