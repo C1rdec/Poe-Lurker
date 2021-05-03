@@ -8,42 +8,51 @@
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="100">
     <Grid x:Name="mainGrid" cal:Message.Attach="[Event MouseEnter] = [Action MouseEnter]; [Event MouseLeave] = [Action MouseLeave]; [Event MouseUp] = [Action OnClick]">
-        <Grid.Style>
-            <Style TargetType="Grid">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding Selectable}" Value="True">
-                        <Setter Property="Cursor" Value="Hand"/>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Selected}" Value="False">
-                        <Setter Property="Opacity" Value="0.30"/>
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-        </Grid.Style>
-        <Image  Source="/Assets/NoLeech.png"
+        <Grid>
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Selectable}" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Selected}" Value="False">
+                            <Setter Property="Opacity" Value="0.30"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <Image  Source="/Assets/NoLeech.png"
                 Height="60"
                 Width="60"
                 Visibility="{Binding CannotLeech, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-        <Image  Source="/Assets/NoRegeneration.png"
+            <Image  Source="/Assets/NoRegeneration.png"
                 Height="60"
                 Width="60"
                 Visibility="{Binding CannotRegenerate, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-        <Image  Source="/Assets/ReflectElemental.png"
+            <Image  Source="/Assets/ReflectElemental.png"
                 Height="60"
                 Width="60"
                 Visibility="{Binding ReflectElemental, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-        <Image  Source="/Assets/ReflectPhysical.png"
+            <Image  Source="/Assets/ReflectPhysical.png"
                 Height="60"
                 Width="60"
                 Visibility="{Binding ReflectPhysical, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-        <Image  Source="/Assets/TemporalChain.png"
+            <Image  Source="/Assets/TemporalChain.png"
                 Height="60"
                 Width="60"
                 Visibility="{Binding TemporalChains, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-        <Image  Source="/Assets/AvoidAilments.png"
+            <Image  Source="/Assets/AvoidAilments.png"
                 Height="60"
                 Width="60"
                 Visibility="{Binding AvoidAilments, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <Popup x:Name="Popup" Focusable="False" Placement="Left" AllowsTransparency="True">
+                <Border Background="Black" CornerRadius="5" BorderThickness="2" BorderBrush="#e7b577">
+                    <StackPanel>
+                        <TextBlock HorizontalAlignment="Center" Margin="8,4,8,4" FontSize="18" FontFamily="pack://application:,,,/Assets/#Fontin" Foreground="White" FontWeight="SemiBold" Text="{Binding Name}"/>
+                    </StackPanel>
+                </Border>
+            </Popup>
+        </Grid>
         <local:IconPack Foreground="#878787"
                         Visibility="{Binding HelpVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
                         MouseEnter="Help_MouseEnter"
@@ -57,12 +66,13 @@
                 <SolidColorBrush Color="White" Opacity="0.003"/>
             </local:IconPack.Background>
         </local:IconPack>
-        <Popup x:Name="Popup" Focusable="False" Placement="Left" AllowsTransparency="True">
-            <Border Background="Black" CornerRadius="5" BorderThickness="2" BorderBrush="#e7b577">
-                <StackPanel>
-                    <TextBlock HorizontalAlignment="Center" Margin="8,4,8,4" FontSize="18" FontFamily="pack://application:,,,/Assets/#Fontin" Foreground="White" FontWeight="SemiBold" Text="{Binding Name}"/>
-                </StackPanel>
-            </Border>
-        </Popup>
+        <Ellipse 
+            Fill="Blue"
+            Visibility="{Binding Ignored, Converter={StaticResource BooleanToVisibilityConverter}}"
+            HorizontalAlignment="Right"
+            Margin="0,0,5,0"
+            VerticalAlignment="Top" 
+            Height="15" 
+            Width="15"/>
     </Grid>
 </UserControl>

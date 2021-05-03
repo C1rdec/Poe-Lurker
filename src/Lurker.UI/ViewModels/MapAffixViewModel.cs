@@ -57,6 +57,7 @@ namespace Lurker.UI.ViewModels
         private bool _temporalChains;
         private bool _avoidAilments;
         private bool _helpVisible;
+        private bool _ignored;
         private bool _selected;
         private string _name;
 
@@ -70,7 +71,8 @@ namespace Lurker.UI.ViewModels
         /// <param name="id">The identifier.</param>
         /// <param name="selectable">if set to <c>true</c> [selectable].</param>
         /// <param name="playerViewModel">The player view model.</param>
-        public MapAffixViewModel(string id, bool selectable, PlayerViewModel playerViewModel)
+        /// <param name="ignored">if set to <c>true</c> [ignored].</param>
+        public MapAffixViewModel(string id, bool selectable, PlayerViewModel playerViewModel, bool ignored = false)
         {
             this.Selectable = selectable;
             switch (id)
@@ -99,6 +101,7 @@ namespace Lurker.UI.ViewModels
             this._playerViewModel = playerViewModel;
             this._selected = !this._playerViewModel.IgnoredMadMods.Contains(id);
             this._name = AffixService.GetAffixText(id);
+            this._ignored = ignored;
         }
 
         #endregion
@@ -138,6 +141,11 @@ namespace Lurker.UI.ViewModels
                 this.NotifyOfPropertyChange();
             }
         }
+
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="MapAffixViewModel"/> is ignored.
+        /// </summary>
+        public bool Ignored => this._ignored;
 
         /// <summary>
         /// Gets a value indicating whether [reflect physical].

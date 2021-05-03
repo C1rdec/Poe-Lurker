@@ -110,12 +110,12 @@ namespace Lurker.UI.ViewModels
 
             if (!this._modsSelectionVisible)
             {
-                this.Affixes.Add(new MapAffixViewModel(MapAffixViewModel.CannotRegenerateId, true, this.CurrentPlayer));
-                this.Affixes.Add(new MapAffixViewModel(MapAffixViewModel.CannotLeechId, true, this.CurrentPlayer));
-                this.Affixes.Add(new MapAffixViewModel(MapAffixViewModel.ReflectElementalId, true, this.CurrentPlayer));
-                this.Affixes.Add(new MapAffixViewModel(MapAffixViewModel.ReflectPhysicalId, true, this.CurrentPlayer));
-                this.Affixes.Add(new MapAffixViewModel(MapAffixViewModel.TemporalChainsId, true, this.CurrentPlayer));
-                this.Affixes.Add(new MapAffixViewModel(MapAffixViewModel.AvoidAilmentsId, true, this.CurrentPlayer));
+                this.AddAffix(MapAffixViewModel.CannotRegenerateId);
+                this.AddAffix(MapAffixViewModel.CannotLeechId);
+                this.AddAffix(MapAffixViewModel.ReflectElementalId);
+                this.AddAffix(MapAffixViewModel.ReflectPhysicalId);
+                this.AddAffix(MapAffixViewModel.TemporalChainsId);
+                this.AddAffix(MapAffixViewModel.AvoidAilmentsId);
                 this.NotifyOfPropertyChange(() => this.Safe);
             }
             else
@@ -125,6 +125,21 @@ namespace Lurker.UI.ViewModels
 
             this._modsSelectionVisible = !this._modsSelectionVisible;
             this.NotifyOfPropertyChange(() => this.ModsSelectionVisible);
+        }
+
+        /// <summary>
+        /// Adds the affix.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        private void AddAffix(string id)
+        {
+            var ignored = false;
+            if (this._map.Affixes.Any(a => a.Id == id))
+            {
+                ignored = this.CurrentPlayer.IgnoredMadMods.Contains(id);
+            }
+
+            this.Affixes.Add(new MapAffixViewModel(id, true, this.CurrentPlayer, ignored));
         }
 
         /// <summary>
