@@ -102,11 +102,12 @@
                                             ConverterParameter={x:Static Models:CurrencyType.Chisel}}"/>
         <TextBlock TextTrimming="CharacterEllipsis"
                    HorizontalAlignment="Right" 
-                   Foreground="White" 
+                   Foreground="{Binding Foreground}"
                    VerticalAlignment="Bottom"
                    Margin="0,0,4,0" FontSize="18" FontWeight="Bold">
             <TextBlock.Style>
                 <Style TargetType="{x:Type TextBlock}">
+                    
                     <Setter Property="Text" Value="{Binding NumberOffCurrency}"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding NumberOffCurrency}" Value="0">

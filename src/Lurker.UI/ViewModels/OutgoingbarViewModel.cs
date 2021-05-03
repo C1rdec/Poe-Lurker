@@ -396,7 +396,7 @@ namespace Lurker.UI.ViewModels
 
             this._eventAggregator.PublishOnUIThread(new LifeBulbMessage()
             {
-                View = new TradeValueViewModel(offer.Event),
+                View = new TradeValueViewModel(offer.Event, this.SettingsService),
                 OnShow = (a) => { this._removeActive = a; },
                 Action = async () => { await this._keyboardHelper.Trade(offer.Event.PlayerName); },
             });
