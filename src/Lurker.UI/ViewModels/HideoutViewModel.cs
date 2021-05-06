@@ -43,7 +43,7 @@ namespace Lurker.UI.ViewModels
         {
             this._keyboardHelper = keyboardHelper;
             this._clientLurker = clientLurker;
-            this._clientLurker.LocationChanged += this.ClientLurker_LocationChanged;
+            this.IsVisible = true;
         }
 
         #endregion
@@ -95,17 +95,6 @@ namespace Lurker.UI.ViewModels
                 this.View.Left = this.ApplyScalingX(windowInformation.Position.Left + margin);
                 this.View.Top = this.ApplyScalingY(windowInformation.Position.Bottom - value - margin);
             });
-        }
-
-        /// <summary>
-        /// Clients the lurker location changed.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The e.</param>
-        private void ClientLurker_LocationChanged(object sender, Patreon.Events.LocationChangedEvent e)
-        {
-            this._clientLurker.LocationChanged -= this.ClientLurker_LocationChanged;
-            this.IsVisible = true;
         }
 
         #endregion

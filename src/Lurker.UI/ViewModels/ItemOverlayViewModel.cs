@@ -18,6 +18,7 @@ namespace Lurker.UI.ViewModels
     {
         #region Fields
 
+        private static readonly int MaxAffixCount = 3;
         private PoeItem _item;
 
         #endregion
@@ -32,11 +33,38 @@ namespace Lurker.UI.ViewModels
         {
             this._item = item;
             this.SocketInformation = GetSocketInformation(item);
+            this.Suffixes = new List<char>();
+            this.Prefixes = new List<char>();
+
+            if (this._item.Information != null)
+            {
+                var openPrefix = MaxAffixCount - this._item.Information.PrefixCount;
+                for (int i = 0; i < openPrefix; i++)
+                {
+                    this.Prefixes.Add('.');
+                }
+
+                var openSuffix = MaxAffixCount - this._item.Information.SuffixCount;
+                for (int i = 0; i < openSuffix; i++)
+                {
+                    this.Suffixes.Add('.');
+                }
+            }
         }
 
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets the suffix count.
+        /// </summary>
+        public List<char> Suffixes { get; }
+
+        /// <summary>
+        /// Gets the prefix count.
+        /// </summary>
+        public List<char> Prefixes { get; }
 
         /// <summary>
         /// Gets the item class.

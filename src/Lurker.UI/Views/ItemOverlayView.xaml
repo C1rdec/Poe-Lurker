@@ -19,17 +19,33 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <StackPanel Margin="10,25,0,0">
-                <Ellipse HorizontalAlignment="Left" Fill="#C0C0C0" Width="10" Height="10" Margin="0,0,0,5"></Ellipse>
-                <Ellipse HorizontalAlignment="Left" Fill="#C0C0C0" Width="10" Height="10" Margin="0,0,0,5"></Ellipse>
-                <Ellipse HorizontalAlignment="Left" Fill="#C0C0C0" Width="10" Height="10" Margin="0,0,0,5"></Ellipse>
-            </StackPanel>
 
-            <StackPanel Margin="0,25,10,0" Grid.Column="2">
-                <Ellipse HorizontalAlignment="Right" Fill="#C0C0C0" Width="10" Height="10" Margin="0,0,0,5"></Ellipse>
-                <Ellipse HorizontalAlignment="Right" Fill="#C0C0C0" Width="10" Height="10" Margin="0,0,0,5"></Ellipse>
-                <Ellipse HorizontalAlignment="Right" Fill="#C0C0C0" Width="10" Height="10" Margin="0,0,0,5"></Ellipse>
-            </StackPanel>
+            <ItemsControl x:Name="Prefixes" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ItemsControl.ItemTemplate>
+                    <ItemContainerTemplate>
+                        <Ellipse Fill="#C0C0C0" Width="10" Height="10" Margin="0,0,0,5"></Ellipse>
+                    </ItemContainerTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+
+            <ItemsControl x:Name="Suffixes" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2">
+                <ItemsControl.ItemTemplate>
+                    <ItemContainerTemplate>
+                        <Ellipse Fill="#C0C0C0" Width="10" Height="10" Margin="0,0,0,5"></Ellipse>
+                    </ItemContainerTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+            
             <TextBlock Text="{Binding TotalLifeCount}" Grid.ColumnSpan="3" FontWeight="Black" Margin="0,-5,0,-15" Foreground="#ff9e99" FontSize="76" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="pack://application:,,,/Assets/#Fontin"/>
 
             <Grid Grid.Row="1" Grid.ColumnSpan="3">
