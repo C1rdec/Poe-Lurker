@@ -40,6 +40,8 @@ namespace Lurker
         {
             this._settingsService = settingsService;
             this._mouseHook = new MouseHook(processId, MouseMessageTypes.All);
+
+            this._mouseHook.RightButtonUp += this.MouseHook_RightButtonUp;
             this._mouseHook.LeftButtonUp += this.MouseHook_LeftButtonUp;
             this._mouseHook.MouseMove += this.MouseHook_MouseMove;
             this._mouseHook.InstallAsync();
@@ -50,9 +52,14 @@ namespace Lurker
         #region Events
 
         /// <summary>
+        /// Occurs when [item identified].
+        /// </summary>
+        public event EventHandler<PoeItem> ItemIdentified;
+
+        /// <summary>
         /// Occurs when a new item is in the clipboard.
         /// </summary>
-        public event EventHandler<PoeItem> Newitem;
+        public event EventHandler<PoeItem> ItemDetails;
 
         /// <summary>
         /// Occurs when [mouse mouve].
@@ -124,19 +131,45 @@ namespace Lurker
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private async void MouseHook_LeftButtonUp(object sender, EventArgs e)
+        private async void MouseHook_LeftButtonUp(object sender, MouseMessageEventArgs e)
         {
-            if (Native.IsKeyPressed(Native.VirtualKeyStates.VK_SHIFT) && (this._settingsService.SearchEnabled || this._settingsService.MapEnabled))
+            if (e.Shift && this._settingsService.MapEnabled)
             {
                 await Task.Delay(100);
-                await this.ParseItem();
+                var item = await this.ParseItem();
+                if (item != null)
+                {
+                    this.ItemIdentified?.Invoke(this, item);
+                }
+
+                ClipboardHelper.ClearClipboard();
+            }
+        }
+
+        /// <summary>
+        /// Handles the RightButtonUp event of the MouseHook control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="MouseMessageEventArgs"/> instance containing the event data.</param>
+        private async void MouseHook_RightButtonUp(object sender, MouseMessageEventArgs e)
+        {
+            if (e.Alt && this._settingsService.SearchEnabled)
+            {
+                await Task.Delay(100);
+                var item = await this.ParseItem();
+                if (item != null)
+                {
+                    this.ItemDetails?.Invoke(this, item);
+                }
+
+                ClipboardHelper.ClearClipboard();
             }
         }
 
         /// <summary>
         /// Parses the item.
         /// </summary>
-        private async Task ParseItem()
+        private async Task<PoeItem> ParseItem()
         {
             PoeItem item = default;
             var retryCount = 2;
@@ -145,7 +178,7 @@ namespace Lurker
                 item = await ClipboardHelper.GetItemInClipboard();
                 if (item == null)
                 {
-                    return;
+                    return null;
                 }
 
                 if (!item.Identified)
@@ -159,16 +192,15 @@ namespace Lurker
 
             if (item == null || !item.Identified)
             {
-                return;
+                return null;
             }
 
             if (item.ItemClass == ItemClass.Unknown)
             {
-                return;
+                return null;
             }
 
-            this.Newitem?.Invoke(this, item);
-            ClipboardHelper.ClearClipboard();
+            return item;
         }
 
         #endregion

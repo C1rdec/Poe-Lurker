@@ -230,6 +230,17 @@ namespace Lurker.UI.ViewModels
         #region Methods
 
         /// <summary>
+        /// Dismisses the cart.
+        /// </summary>
+        public void DismissCart()
+        {
+            this._skipMainAction = true;
+            this._alreadySold = false;
+            this.NotifyOfPropertyChange(() => this.AlreadySold);
+            this.NotifyOfPropertyChange(() => this.NotSold);
+        }
+
+        /// <summary>
         /// Whoes the is.
         /// </summary>
         public async void WhoIs()

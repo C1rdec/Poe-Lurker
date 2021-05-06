@@ -7,111 +7,155 @@
              xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
              d:DesignWidth="150">
-    <Button Width="200">
-        <Button.Template>
-            <ControlTemplate TargetType="{x:Type Button}">
-                <Border Background="Black" CornerRadius="4" BorderThickness="2" BorderBrush="#e7b577">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <TextBlock Text="{Binding TotalLifeCount}" FontWeight="Black" Foreground="#ff9e99" FontSize="56" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        <Grid Grid.Row="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Border CornerRadius="0,0,0,4" Cursor="Hand" Panel.ZIndex="10" Background="Blue">
-                                <Border.Style>
-                                    <Style TargetType="Border">
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="BorderThickness" Value="2,0,0,2"></Setter>
-                                                <Setter Property="Margin" Value="0,-2,-2,0"></Setter>
-                                                <Setter Property="BorderBrush" Value="Black"></Setter>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Border.Style>
-                                <Grid>
-                                    <TextBlock  HorizontalAlignment="Center" Text="{Binding TotalColdResistance}" FontSize="28"/>
-                                    <local:IconPack
-                                            VerticalAlignment="Bottom"
-                                            HorizontalAlignment="Right"
-                                            Foreground="#a6b1e1"
-                                            Margin="0,0,2,0"
-                                            Height="14"
-                                            Width="14"
-                                            Data="{x:Static local:IconPackData.Cold}"/>
-                                </Grid>
-                            </Border>
-                            <Border Background="Red" Cursor="Hand" Grid.Column="1">
-                                <Border.Style>
-                                    <Style TargetType="Border">
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="BorderThickness" Value="0,0,0,2"></Setter>
-                                                <Setter Property="Margin" Value="0,-2,0,0"></Setter>
-                                                <Setter Property="BorderBrush" Value="Black"></Setter>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Border.Style>
-                                <Grid>
-                                    <TextBlock HorizontalAlignment="Center" Text="{Binding TotalFireResistance}" FontSize="28" />
-                                    <local:IconPack 
+    <Border Background="Black" CornerRadius="15" BorderThickness="2" BorderBrush="#e7b577" Width="175">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Margin="10,25,0,0">
+                <Ellipse HorizontalAlignment="Left" Fill="#C0C0C0" Width="10" Height="10" Margin="0,0,0,5"></Ellipse>
+                <Ellipse HorizontalAlignment="Left" Fill="#C0C0C0" Width="10" Height="10" Margin="0,0,0,5"></Ellipse>
+                <Ellipse HorizontalAlignment="Left" Fill="#C0C0C0" Width="10" Height="10" Margin="0,0,0,5"></Ellipse>
+            </StackPanel>
+
+            <StackPanel Margin="0,25,10,0" Grid.Column="2">
+                <Ellipse HorizontalAlignment="Right" Fill="#C0C0C0" Width="10" Height="10" Margin="0,0,0,5"></Ellipse>
+                <Ellipse HorizontalAlignment="Right" Fill="#C0C0C0" Width="10" Height="10" Margin="0,0,0,5"></Ellipse>
+                <Ellipse HorizontalAlignment="Right" Fill="#C0C0C0" Width="10" Height="10" Margin="0,0,0,5"></Ellipse>
+            </StackPanel>
+            <TextBlock Text="{Binding TotalLifeCount}" Grid.ColumnSpan="3" FontWeight="Black" Margin="0,-5,0,-15" Foreground="#ff9e99" FontSize="76" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="pack://application:,,,/Assets/#Fontin"/>
+
+            <Grid Grid.Row="1" Grid.ColumnSpan="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Border CornerRadius="4" VerticalAlignment="Center" HorizontalAlignment="Center" Cursor="Hand">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Background" Value="#484848"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#585858" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <TextBlock Foreground="White" VerticalAlignment="Center" FontSize="15" Margin="5" FontFamily="pack://application:,,,/Assets/#Fontin">Affix</TextBlock>
+                </Border>
+                <Grid Height="50" Width="50" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,0,0">
+                    <Border Background="Purple" CornerRadius="10,0,13,0"></Border>
+                    <TextBlock VerticalAlignment="Center"
+                           FontSize="30"
+                               Text="{Binding TotalElementalResistance}"
+                           HorizontalAlignment="Center" 
+                           Foreground="White" 
+                           FontWeight="Bold" 
+                           FontFamily="pack://application:,,,/Assets/#Fontin"></TextBlock>
+                </Grid>
+            </Grid>
+            
+            
+            <!--<ItemsControl Grid.Row="2" ItemsSource="{Binding ImportantAffixes}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ContentControl HorizontalAlignment="Center" cal:View.Model="{Binding}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>-->
+        </Grid>
+    </Border>
+</UserControl>
+
+
+<!--<Grid Grid.Row="1">
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition></ColumnDefinition>
+        <ColumnDefinition></ColumnDefinition>
+        <ColumnDefinition></ColumnDefinition>
+    </Grid.ColumnDefinitions>
+    <Border CornerRadius="0,0,0,4" Cursor="Hand" Panel.ZIndex="10" Background="Blue">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="BorderThickness" Value="2,0,0,2"></Setter>
+                        <Setter Property="Margin" Value="0,-2,-2,0"></Setter>
+                        <Setter Property="BorderBrush" Value="Black"></Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
+        <Grid>
+            <TextBlock  HorizontalAlignment="Center" Text="{Binding TotalColdResistance}" FontSize="28"/>
+            <local:IconPack
                                         VerticalAlignment="Bottom"
                                         HorizontalAlignment="Right"
-                                        Foreground="#ff9994"
+                                        Foreground="#a6b1e1"
                                         Margin="0,0,2,0"
                                         Height="14"
                                         Width="14"
-                                        Data="{x:Static local:IconPackData.Fire}"/>
-                                </Grid>
-                            </Border>
-                            <Border CornerRadius="0,0,4,0" Cursor="Hand" Background="Yellow" Grid.Column="2">
-                                <Border.Style>
-                                    <Style TargetType="Border">
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="BorderThickness" Value="0,0,2,2"></Setter>
-                                                <Setter Property="Margin" Value="-2,-2,0,0"></Setter>
-                                                <Setter Property="BorderBrush" Value="Black"></Setter>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Border.Style>
-                                <Grid>
-                                    <TextBlock Text="{Binding TotalLightningResistance}" HorizontalAlignment="Center" FontSize="28"  Foreground="Black"/>
-                                    <local:IconPack HorizontalAlignment="Right"
-                                            VerticalAlignment="Bottom"
-                                            Foreground="#af8404"
-                                            Grid.Row="2"
-                                            Margin="0,0,2,0"
-                                            Height="14"
-                                            Width="14"
-                                            Data="{x:Static local:IconPackData.Lightning}"/>
-                                </Grid>
-                            </Border>
-                        </Grid>
-                        <ItemsControl Grid.Row="2" ItemsSource="{Binding ImportantAffixes}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel/>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <ContentControl HorizontalAlignment="Center" cal:View.Model="{Binding}"/>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </Grid>
-                </Border>
-            </ControlTemplate>
-        </Button.Template>
-    </Button>
-</UserControl>
+                                        Data="{x:Static local:IconPackData.Cold}"/>
+        </Grid>
+    </Border>
+    <Border Background="Red" Cursor="Hand" Grid.Column="1">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="BorderThickness" Value="0,0,0,2"></Setter>
+                        <Setter Property="Margin" Value="0,-2,0,0"></Setter>
+                        <Setter Property="BorderBrush" Value="Black"></Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
+        <Grid>
+            <TextBlock HorizontalAlignment="Center" Text="{Binding TotalFireResistance}" FontSize="28" />
+            <local:IconPack 
+                                    VerticalAlignment="Bottom"
+                                    HorizontalAlignment="Right"
+                                    Foreground="#ff9994"
+                                    Margin="0,0,2,0"
+                                    Height="14"
+                                    Width="14"
+                                    Data="{x:Static local:IconPackData.Fire}"/>
+        </Grid>
+    </Border>
+    <Border CornerRadius="0,0,4,0" Cursor="Hand" Background="Yellow" Grid.Column="2">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="BorderThickness" Value="0,0,2,2"></Setter>
+                        <Setter Property="Margin" Value="-2,-2,0,0"></Setter>
+                        <Setter Property="BorderBrush" Value="Black"></Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
+        <Grid>
+            <TextBlock Text="{Binding TotalLightningResistance}" HorizontalAlignment="Center" FontSize="28"  Foreground="Black"/>
+            <local:IconPack HorizontalAlignment="Right"
+                                        VerticalAlignment="Bottom"
+                                        Foreground="#af8404"
+                                        Grid.Row="2"
+                                        Margin="0,0,2,0"
+                                        Height="14"
+                                        Width="14"
+                                        Data="{x:Static local:IconPackData.Lightning}"/>
+        </Grid>
+    </Border>
+</Grid>-->

@@ -21,7 +21,8 @@
                 </Style.Triggers>
             </Style>
         </Border.Style>
-        <Button x:Name="MainAction"
+        <Button x:Name="MainAction" 
+                Cursor="Hand"
             ToolTipService.InitialShowDelay="{Binding ToolTipDelay}"
             MinWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
             MaxWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
@@ -245,6 +246,41 @@
                                                                 <Style.Triggers>
                                                                     <Trigger Property="IsMouseOver" Value="True">
                                                                         <Setter Property="Background" Value="Red" />
+                                                                        <Setter Property="Opacity" Value="0.75"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Border.Style>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="False">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+
+                            <Button Grid.Column="0" Visibility="{Binding AlreadySold, Converter={StaticResource BooleanToVisibilityConverter}}" Background="Blue" cal:Message.Attach="[Event Click] = [Action DismissCart]" >
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border CornerRadius="4,0,20,0">
+                                                        <Border.Style>
+                                                            <Style TargetType="{x:Type Border}">
+                                                                <Setter Property="Background" Value="Gray"/>
+                                                                <Setter Property="Opacity" Value="0.25"/>
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" Value="Blue" />
                                                                         <Setter Property="Opacity" Value="0.75"/>
                                                                     </Trigger>
                                                                 </Style.Triggers>

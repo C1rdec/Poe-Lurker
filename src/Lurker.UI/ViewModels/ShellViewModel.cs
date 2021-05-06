@@ -416,7 +416,8 @@ namespace Lurker.UI
 
                 // Mouse
                 this._mouseLurker = new MouseLurker(processId, this._settingsService);
-                this._mouseLurker.Newitem += this.MouseLurker_Newitem;
+                this._mouseLurker.ItemDetails += this.ShowItemDetails;
+                this._mouseLurker.ItemIdentified += this.ShowMap;
 
                 // Clipboard
                 this._clipboardLurker = new ClipboardLurker();
@@ -561,7 +562,8 @@ namespace Lurker.UI
 
             if (this._mouseLurker != null)
             {
-                this._mouseLurker.Newitem -= this.MouseLurker_Newitem;
+                this._mouseLurker.ItemDetails -= this.ShowItemDetails;
+                this._mouseLurker.ItemIdentified -= this.ShowMap;
                 this._mouseLurker.Dispose();
                 this._mouseLurker = null;
             }
@@ -677,11 +679,11 @@ namespace Lurker.UI
         }
 
         /// <summary>
-        /// Clipboards the lurker newitem.
+        /// Shows the map.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="item">The item.</param>
-        private void MouseLurker_Newitem(object sender, PoeItem item)
+        private void ShowMap(object sender, PoeItem item)
         {
             if (!this._popup.IsActive)
             {
@@ -695,7 +697,21 @@ namespace Lurker.UI
                     this._popup.Open(new MapViewModel(map, this.ActivePlayer, this._currentCharacterService));
                 }
             }
-            else if (!this._settingsService.SearchEnabled)
+        }
+
+        /// <summary>
+        /// Clipboards the lurker newitem.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="item">The item.</param>
+        private void ShowItemDetails(object sender, PoeItem item)
+        {
+            if (!this._popup.IsActive)
+            {
+                this.ActivateItem(this._popup);
+            }
+
+            if (item is Map)
             {
                 return;
             }

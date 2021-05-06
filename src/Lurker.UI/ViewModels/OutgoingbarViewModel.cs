@@ -158,12 +158,15 @@ namespace Lurker.UI.ViewModels
         /// <param name="value">The value.</param>
         private void OnSearchValueChange(string value)
         {
-            this.FilteredOffers.Clear();
-            var offers = string.IsNullOrEmpty(value) ? this.Offers.ToArray() : this.Offers.Where(o => o.PlayerName.ToLower().Contains(value.ToLower())).OrderBy(o => o.PlayerName).ToArray();
-            foreach (var offer in offers)
+            Execute.OnUIThread(() =>
             {
-                this.FilteredOffers.Add(offer);
-            }
+                this.FilteredOffers.Clear();
+                var offers = string.IsNullOrEmpty(value) ? this.Offers.ToArray() : this.Offers.Where(o => o.PlayerName.ToLower().Contains(value.ToLower())).OrderBy(o => o.PlayerName).ToArray();
+                foreach (var offer in offers)
+                {
+                    this.FilteredOffers.Add(offer);
+                }
+            });
         }
 
         /// <summary>
