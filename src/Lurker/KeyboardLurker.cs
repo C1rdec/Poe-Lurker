@@ -23,7 +23,6 @@ namespace Lurker
     {
         #region Fields
 
-        private static readonly ushort DeleteKeyCode = 46;
         private CancellationTokenSource _tokenSource;
         private KeyboardHook _keyboardHook;
         private ItemParser _itemParser;
@@ -57,6 +56,9 @@ namespace Lurker
             this._itemParser = new ItemParser();
             this._itemParser.CheckPledgeStatus();
             this._settingsService.OnSave += this.SettingsService_OnSave;
+            this._keyboardHook = new KeyboardHook(this._processId);
+            _ = this._keyboardHook.InstallAsync();
+            this._hooked = true;
         }
 
         #endregion
@@ -109,20 +111,21 @@ namespace Lurker
         public Task<ushort> WaitForNextKeyAsync()
         {
             var taskCompletionSource = new TaskCompletionSource<ushort>();
-
-            var hook = new KeyboardHook(ProcessLurker.CurrentProcessId);
-            EventHandler<KeyboardMessageEventArgs> handler = default;
-            handler = (object s, KeyboardMessageEventArgs e) =>
+            using (var hook = new KeyboardHook(ProcessLurker.CurrentProcessId))
             {
-                taskCompletionSource.SetResult(e.KeyValue);
-                hook.MessageReceived -= handler;
-                hook.Dispose();
-            };
+                EventHandler<KeyboardMessageEventArgs> handler = default;
+                handler = (object s, KeyboardMessageEventArgs e) =>
+                {
+                    taskCompletionSource.SetResult(e.KeyValue);
+                    hook.MessageReceived -= handler;
+                    hook.Dispose();
+                };
 
-            hook.MessageReceived += handler;
-            hook.InstallAsync().Wait();
+                hook.MessageReceived += handler;
+                _ = hook.InstallAsync();
 
-            return taskCompletionSource.Task;
+                return taskCompletionSource.Task;
+            }
         }
 
         /// <summary>
@@ -150,13 +153,7 @@ namespace Lurker
             {
                 if (disposing)
                 {
-                    try
-                    {
-                        this._keyboardHook.Dispose();
-                    }
-                    catch
-                    {
-                    }
+                    this._keyboardHook.Dispose();
                 }
 
                 this._disposed = true;
@@ -225,19 +222,17 @@ namespace Lurker
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private async void SettingsService_OnSave(object sender, EventArgs e)
+        private void SettingsService_OnSave(object sender, EventArgs e)
         {
-            this.UninstallHook();
-            await this.InstallHookAsync();
+            this.UninstallHandlers();
+            this.InstallHandlers();
         }
 
         /// <summary>
-        /// Creates the hook.
+        /// Installs the hook handlers.
         /// </summary>
-        /// <returns>The task awaiter.</returns>
-        public async Task InstallHookAsync()
+        public void InstallHandlers()
         {
-            this._keyboardHook = new KeyboardHook(this._processId);
             if (this._settingsService.BuildHelper)
             {
                 this._toggleBuildCode = this._hotkeyService.ToggleBuild;
@@ -246,7 +241,7 @@ namespace Lurker
 
             this._keyboardHook.AddHandler('F', Modifiers.Alt, this.SearchItem);
             this._keyboardHook.AddHandler('R', Modifiers.Control, this.RemainingMonsters);
-            this._keyboardHook.AddHandler(DeleteKeyCode, this.DeleteItem);
+            this._keyboardHook.AddHandler(KeyCode.Delete, this.DeleteItem);
 
             // Hotkeys
             this._hotkeyService.Main.Install(this._keyboardHook, this.MainActionToggled, true);
@@ -254,43 +249,25 @@ namespace Lurker
             this._hotkeyService.Busy.Install(this._keyboardHook, this.BusyPressed);
             this._hotkeyService.Dismiss.Install(this._keyboardHook, this.DismissPressed);
             this._hotkeyService.Invite.Install(this._keyboardHook, this.InvitePressed);
-
-            // this._hotkeyService.StillInterested.Install(this._keyboardHook, this.StillInterestedPressed);
-            try
-            {
-                await this._keyboardHook.InstallAsync();
-                this._hooked = true;
-            }
-            catch
-            {
-                this._hooked = false;
-            }
         }
 
         /// <summary>
-        /// Uninstalls the hook.
+        /// Uninstalls the hook handlers.
         /// </summary>
-        private void UninstallHook()
+        private void UninstallHandlers()
         {
             if (!this._hooked)
             {
                 return;
             }
 
-            this._keyboardHook.RemoveHandler(this._toggleBuildCode, this.ToggleBuild);
-            this._keyboardHook.RemoveHandler('F', Modifiers.Alt, KeyDirection.Up, this.SearchItem);
-            this._keyboardHook.RemoveHandler('R', Modifiers.Control, KeyDirection.Up, this.RemainingMonsters);
-            this._keyboardHook.RemoveHandler(DeleteKeyCode, this.DeleteItem);
+            this._keyboardHook.RemoveAllHandlers();
 
             this._hotkeyService.Main.Uninstall();
             this._hotkeyService.Trade.Uninstall();
             this._hotkeyService.Busy.Uninstall();
             this._hotkeyService.Dismiss.Uninstall();
             this._hotkeyService.Invite.Uninstall();
-
-            // this._hotkeyService.StillInterested.Uninstall(this._keyboardHook);
-            this._keyboardHook.Uninstall();
-            this._keyboardHook.Dispose();
         }
 
         /// <summary>
