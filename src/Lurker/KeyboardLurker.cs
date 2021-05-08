@@ -57,7 +57,6 @@ namespace Lurker
             this._itemParser = new ItemParser();
             this._itemParser.CheckPledgeStatus();
             this._settingsService.OnSave += this.SettingsService_OnSave;
-            this._keyboardHook = new KeyboardHook(this._processId);
         }
 
         #endregion
@@ -238,6 +237,7 @@ namespace Lurker
         /// <returns>The task awaiter.</returns>
         public async Task InstallHookAsync()
         {
+            this._keyboardHook = new KeyboardHook(this._processId);
             if (this._settingsService.BuildHelper)
             {
                 this._toggleBuildCode = this._hotkeyService.ToggleBuild;
@@ -290,6 +290,7 @@ namespace Lurker
 
             // this._hotkeyService.StillInterested.Uninstall(this._keyboardHook);
             this._keyboardHook.Uninstall();
+            this._keyboardHook.Dispose();
         }
 
         /// <summary>
