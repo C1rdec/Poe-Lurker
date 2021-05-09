@@ -612,6 +612,22 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [hideout enabled].
+        /// </summary>
+        public bool HideoutEnabled
+        {
+            get
+            {
+                return this._settings.HideoutEnabled;
+            }
+
+            set
+            {
+                this._settings.HideoutEnabled = value;
+            }
+        }
+
+        /// <summary>
         /// Gets the name of the folder.
         /// </summary>
         private string FolderName => "PoeLurker";

@@ -398,6 +398,15 @@ namespace Lurker.UI
             {
                 this.DeactivateItem(this._outgoingTradeBarOverlay, true);
             }
+
+            if (this._settingsService.HideoutEnabled)
+            {
+                this.ActivateItem(this._hideoutOverlay);
+            }
+            else
+            {
+                this.DeactivateItem(this._hideoutOverlay, true);
+            }
         }
 
         /// <summary>
@@ -468,9 +477,13 @@ namespace Lurker.UI
                     this.ActivateItem(this._outgoingTradeBarOverlay);
                 }
 
+                if (this._settingsService.HideoutEnabled)
+                {
+                    this.ActivateItem(this._hideoutOverlay);
+                }
+
                 this.ActivateItem(this._lifeBulbOverlay);
                 this.ActivateItem(this._manaBulbOverlay);
-                this.ActivateItem(this._hideoutOverlay);
             });
         }
 

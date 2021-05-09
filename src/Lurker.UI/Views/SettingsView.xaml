@@ -355,8 +355,12 @@
                         <StackPanel Grid.Row="1"  Orientation="Horizontal" HorizontalAlignment="Left">
                             <Controls:ToggleSwitch Grid.Row="1"
                                                    Margin="30,0,0,0"
-                                                   Header="Delete Item"
+                                                   Header="Delete Item      "
                                                    IsChecked="{Binding DeleteItemEnabled}"/>
+                            <Controls:ToggleSwitch Grid.Row="1"
+                                                   Margin="30,0,0,0"
+                                                   Header="Hideout"
+                                                   IsChecked="{Binding HideoutEnabled}"/>
                             <Controls:ToggleSwitch Header="Remaining Monster" Margin="30,0,0,0" IsChecked="{Binding RemainingMonsterEnabled}"/>
                             <TextBlock Margin="4 4 0 0"
                                                    Foreground="{DynamicResource AccentColorBrush}"

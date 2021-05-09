@@ -201,6 +201,12 @@ namespace Lurker.Models
         [DefaultValue(true)]
         public bool SyncBuild { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [hideout enabled].
+        /// </summary>
+        [DefaultValue(true)]
+        public bool HideoutEnabled { get; set; }
+
         #endregion
     }
 }

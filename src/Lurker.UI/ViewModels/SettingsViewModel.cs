@@ -827,6 +827,23 @@ namespace Lurker.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [hideout enabled].
+        /// </summary>
+        public bool HideoutEnabled
+        {
+            get
+            {
+                return this._settingService.HideoutEnabled;
+            }
+
+            set
+            {
+                this._settingService.HideoutEnabled = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
         #endregion
 
         #region Methods
