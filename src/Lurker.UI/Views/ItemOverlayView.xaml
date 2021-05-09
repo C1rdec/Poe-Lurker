@@ -53,7 +53,7 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition Width="auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Border CornerRadius="4" VerticalAlignment="Center" HorizontalAlignment="Center" Cursor="Hand" Margin="5">
+                <Border Visibility="{Binding HasImportantAffix, Converter={StaticResource BooleanToVisibilityConverter}}" CornerRadius="4" VerticalAlignment="Center" HorizontalAlignment="Center" Cursor="Hand" Margin="5">
                     <Border.Style>
                         <Style TargetType="Border">
                             <Setter Property="Background" Value="#484848"/>
