@@ -601,6 +601,15 @@
     "Level": 1
   },
   {
+    "Id": "Bloodreap",
+    "Support": false,
+    "Location": null,
+    "Name": "Reap",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Reap",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/e2/Reap_inventory_icon.png/revision/latest?cb=20210429193707&amp;format=original",
+    "Level": 28
+  },
+  {
     "Id": "BloodstainedBanner",
     "Support": false,
     "Location": {
@@ -1114,6 +1123,15 @@
     "WikiUrl": "https://pathofexile.gamepedia.com/Plague_Bearer",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/83/Plague_Bearer_inventory_icon.png/revision/latest?cb=20190906205645&amp;format=original",
     "Level": 24
+  },
+  {
+    "Id": "CorruptingFever",
+    "Support": false,
+    "Location": null,
+    "Name": "Corrupting Fever",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Corrupting_Fever",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/b/b1/Corrupting_Fever_inventory_icon.png/revision/latest?cb=20210505020040&amp;format=original",
+    "Level": 16
   },
   {
     "Id": "Cyclone",
@@ -1741,6 +1759,15 @@
     "WikiUrl": "https://pathofexile.gamepedia.com/Explosive_Arrow",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/b/b6/Explosive_Arrow_inventory_icon.png/revision/latest?cb=20130626162242&amp;format=original",
     "Level": 28
+  },
+  {
+    "Id": "Exsanguinate",
+    "Support": false,
+    "Location": null,
+    "Name": "Exsanguinate",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Exsanguinate",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/86/Exsanguinate_inventory_icon.png/revision/latest?cb=20210505020044&amp;format=original",
+    "Level": 12
   },
   {
     "Id": "FireBeam",
@@ -3249,6 +3276,15 @@
     "WikiUrl": "https://pathofexile.gamepedia.com/Orb_of_Storms",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/84/Orb_of_Storms_inventory_icon.png/revision/latest?cb=20160307141939&amp;format=original",
     "Level": 4
+  },
+  {
+    "Id": "PetrifiedBlood",
+    "Support": false,
+    "Location": null,
+    "Name": "Petrified Blood",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Petrified_Blood",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/d/dd/Petrified_Blood_inventory_icon.png/revision/latest?cb=20210505020048&amp;format=original",
+    "Level": 24
   },
   {
     "Id": "PhysCascadeTrap",
@@ -4906,14 +4942,14 @@
       "Act": "Act 3",
       "Npc": "Clarissa",
       "Classes": [
-        "Ranger",
         "Duelist",
         "Marauder",
-        "Templar"
+        "Templar",
+        "Scion"
       ]
     },
-    "Name": "Blood Magic Support",
-    "WikiUrl": "https://pathofexile.gamepedia.com/Blood_Magic_Support",
+    "Name": "Arrogance Support",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Arrogance_Support",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/7/71/Arrogance_Support_inventory_icon.png/revision/latest?cb=20210417043522&amp;format=original",
     "Level": 31
   },
@@ -4937,6 +4973,25 @@
     "WikiUrl": "https://pathofexile.gamepedia.com/Bloodlust_Support",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/3/3f/Bloodlust_Support_inventory_icon.png/revision/latest?cb=20150707194010&amp;format=original",
     "Level": 18
+  },
+  {
+    "Id": "SupportBloodthirst",
+    "Support": true,
+    "Location": {
+      "Quest": "A Fixture of Fate",
+      "Act": "Act 3",
+      "Npc": "Clarissa",
+      "Classes": [
+        "Duelist",
+        "Marauder",
+        "Templar",
+        "Scion"
+      ]
+    },
+    "Name": "Bloodthirst Support",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Bloodthirst_Support",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/f/fc/Bloodthirst_Support_inventory_icon.png/revision/latest?cb=20210427105701&amp;format=original",
+    "Level": 31
   },
   {
     "Id": "SupportBluntWeapon",
@@ -5415,6 +5470,15 @@
     "WikiUrl": "https://pathofexile.gamepedia.com/Awakened_Controlled_Destruction_Support",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/e0/Awakened_Controlled_Destruction_Support_inventory_icon.png/revision/latest?cb=20191213185012&amp;format=original",
     "Level": 72
+  },
+  {
+    "Id": "SupportCruelty",
+    "Support": true,
+    "Location": null,
+    "Name": "Cruelty Support",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Cruelty_Support",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/ed/Cruelty_Support_inventory_icon.png/revision/latest?cb=20210505020052&amp;format=original",
+    "Level": 18
   },
   {
     "Id": "SupportCullingStrike",
@@ -6295,6 +6359,25 @@
     "WikiUrl": "https://pathofexile.gamepedia.com/Life_Leech_Support",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/f/f6/Life_Leech_Support_inventory_icon.png/revision/latest?cb=20130626162314&amp;format=original",
     "Level": 31
+  },
+  {
+    "Id": "SupportLifetap",
+    "Support": true,
+    "Location": {
+      "Quest": "The Caged Brute",
+      "Act": "Act 1",
+      "Npc": "Nessa",
+      "Classes": [
+        "Duelist",
+        "Marauder",
+        "Templar",
+        "Scion"
+      ]
+    },
+    "Name": "Lifetap Support",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Lifetap_Support",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/4/41/Lifetap_Support_inventory_icon.png/revision/latest?cb=20210427094723&amp;format=original",
+    "Level": 8
   },
   {
     "Id": "SupportLightningPenetration",
@@ -8380,13 +8463,17 @@
     "Id": "Vitality",
     "Support": false,
     "Location": {
-      "Quest": "Lost in Love",
-      "Act": "Act 3",
-      "Npc": "Clarissa",
+      "Quest": "The Caged Brute",
+      "Act": "Act 1",
+      "Npc": "Nessa",
       "Classes": [
+        "Witch",
+        "Shadow",
+        "Ranger",
         "Duelist",
         "Marauder",
-        "Templar"
+        "Templar",
+        "Scion"
       ]
     },
     "Name": "Vitality",

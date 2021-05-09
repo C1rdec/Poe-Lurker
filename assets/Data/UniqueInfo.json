@@ -1856,6 +1856,13 @@
   },
   {
     "ItemClass": "Boots",
+    "Name": "Temptation Step",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Temptation_Step",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/9/96/Temptation_Step_inventory_icon.png/revision/latest?cb=20210418060528&amp;format=original",
+    "Level": 55
+  },
+  {
+    "ItemClass": "Boots",
     "Name": "Three-step Assault",
     "WikiUrl": "https://pathofexile.gamepedia.com/Three-step_Assault",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/02/Three-step_Assault_inventory_icon.png/revision/latest?cb=20160604075801&amp;format=original",
@@ -2111,7 +2118,7 @@
     "Name": "Dance of the Offered",
     "WikiUrl": "https://pathofexile.gamepedia.com/Dance_of_the_Offered",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/0c/Dance_of_the_Offered_inventory_icon.png/revision/latest?cb=20180601192023&amp;format=original",
-    "Level": 34
+    "Level": 1
   },
   {
     "ItemClass": "Boots",
@@ -2927,6 +2934,13 @@
   },
   {
     "ItemClass": "Gloves",
+    "Name": "Hateforge",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Hateforge",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/e0/Hateforge_inventory_icon.png/revision/latest?cb=20210420020003&amp;format=original",
+    "Level": 47
+  },
+  {
+    "ItemClass": "Gloves",
     "Name": "Empire's Grasp",
     "WikiUrl": "https://pathofexile.gamepedia.com/Empire%27s_Grasp",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/1/10/Empire%27s_Grasp_inventory_icon.png/revision/latest?cb=20150429192515&amp;format=original",
@@ -3301,7 +3315,7 @@
     "Name": "Architect's Hand",
     "WikiUrl": "https://pathofexile.gamepedia.com/Architect%27s_Hand",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/0a/Architect%27s_Hand_inventory_icon.png/revision/latest?cb=20180602021618&amp;format=original",
-    "Level": 16
+    "Level": 1
   },
   {
     "ItemClass": "Gloves",
@@ -3854,7 +3868,7 @@
     "Name": "Mask of the Spirit Drinker",
     "WikiUrl": "https://pathofexile.gamepedia.com/Mask_of_the_Spirit_Drinker",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/c/cb/Mask_of_the_Spirit_Drinker_inventory_icon.png/revision/latest?cb=20180601192026&amp;format=original",
-    "Level": 31
+    "Level": 1
   },
   {
     "ItemClass": "Helmet",
@@ -3952,6 +3966,13 @@
     "Name": "Fractal Thoughts",
     "WikiUrl": "https://pathofexile.gamepedia.com/Fractal_Thoughts",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/3/36/Fractal_Thoughts_inventory_icon.png/revision/latest?cb=20190607231733&amp;format=original",
+    "Level": 62
+  },
+  {
+    "ItemClass": "Helmet",
+    "Name": "Glimpse of Chaos",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Glimpse_of_Chaos",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/0a/Glimpse_of_Chaos_inventory_icon.png/revision/latest?cb=20210418061532&amp;format=original",
     "Level": 62
   },
   {
@@ -4660,6 +4681,34 @@
     "WikiUrl": "https://pathofexile.gamepedia.com/Watcher%27s_Eye",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/6/63/Watcher%27s_Eye_inventory_icon.png/revision/latest?cb=20171209145757&amp;format=original",
     "Level": 1
+  },
+  {
+    "ItemClass": "Jewel",
+    "Name": "Amanamu's Gaze",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Amanamu%27s_Gaze",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/4/4a/Amanamu%27s_Gaze_inventory_icon.png/revision/latest?cb=20210418220044&amp;format=original",
+    "Level": 1
+  },
+  {
+    "ItemClass": "Jewel",
+    "Name": "Kurgal's Gaze",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Kurgal%27s_Gaze",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/a/aa/Kurgal%27s_Gaze_inventory_icon.png/revision/latest?cb=20210418220042&amp;format=original",
+    "Level": 1
+  },
+  {
+    "ItemClass": "Jewel",
+    "Name": "Tecrod's Gaze",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Tecrod%27s_Gaze",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/d/df/Tecrod%27s_Gaze_inventory_icon.png/revision/latest?cb=20210418220038&amp;format=original",
+    "Level": 40
+  },
+  {
+    "ItemClass": "Jewel",
+    "Name": "Ulaman's Gaze",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Ulaman%27s_Gaze",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/b/b5/Ulaman%27s_Gaze_inventory_icon.png/revision/latest?cb=20210418220041&amp;format=original",
+    "Level": 40
   },
   {
     "ItemClass": "Jewel",
@@ -5405,6 +5454,13 @@
   },
   {
     "ItemClass": "Mace",
+    "Name": "Yaomac's Accord",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Yaomac%27s_Accord",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/f/f3/Yaomac%27s_Accord_inventory_icon.png/revision/latest?cb=20210418211546&amp;format=original",
+    "Level": 64
+  },
+  {
+    "ItemClass": "Mace",
     "Name": "Brain Rattler ",
     "WikiUrl": "https://pathofexile.gamepedia.com/Brain_Rattler_",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/ef/Brain_Rattler_inventory_icon.png/revision/latest?cb=20160904032843&amp;format=original",
@@ -5647,6 +5703,13 @@
     "WikiUrl": "https://pathofexile.gamepedia.com/Skirmish",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/0f/Skirmish_inventory_icon.png/revision/latest?cb=20160604080247&amp;format=original",
     "Level": 19
+  },
+  {
+    "ItemClass": "Quiver",
+    "Name": "Steelworm",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Steelworm",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/0e/Steelworm_inventory_icon.png/revision/latest?cb=20210418060526&amp;format=original",
+    "Level": 52
   },
   {
     "ItemClass": "Quiver",
@@ -6416,7 +6479,7 @@
     "Name": "Apep's Slumber",
     "WikiUrl": "https://pathofexile.gamepedia.com/Apep%27s_Slumber",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/5/59/Apep%27s_Slumber_inventory_icon.png/revision/latest?cb=20180601192036&amp;format=original",
-    "Level": 45
+    "Level": 1
   },
   {
     "ItemClass": "Shield",
@@ -6511,6 +6574,13 @@
   },
   {
     "ItemClass": "Shield",
+    "Name": "The Scales of Justice",
+    "WikiUrl": "https://pathofexile.gamepedia.com/The_Scales_of_Justice",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/6/66/The_Scales_of_Justice_inventory_icon.png/revision/latest?cb=20210418060521&amp;format=original",
+    "Level": 49
+  },
+  {
+    "ItemClass": "Shield",
     "Name": "Sentari's Answer",
     "WikiUrl": "https://pathofexile.gamepedia.com/Sentari%27s_Answer",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/4/4e/Sentari%27s_Answer_inventory_icon.png/revision/latest?cb=20141023091928&amp;format=original",
@@ -6592,6 +6662,13 @@
     "WikiUrl": "https://pathofexile.gamepedia.com/Prism_Guardian",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/9/9a/Prism_Guardian_inventory_icon.png/revision/latest?cb=20130626162348&amp;format=original",
     "Level": 68
+  },
+  {
+    "ItemClass": "Shield",
+    "Name": "Mahuxotl's Machination",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Mahuxotl%27s_Machination",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/4/47/Mahuxotl%27s_Machination_inventory_icon.png/revision/latest?cb=20210418060518&amp;format=original",
+    "Level": 46
   },
   {
     "ItemClass": "Shield",
@@ -6742,6 +6819,13 @@
   },
   {
     "ItemClass": "Staff",
+    "Name": "Atziri's Rule",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Atziri%27s_Rule",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/a/a8/Atziri%27s_Rule_inventory_icon.png/revision/latest?cb=20210418060510&amp;format=original",
+    "Level": 68
+  },
+  {
+    "ItemClass": "Staff",
     "Name": "The Blood Thorn",
     "WikiUrl": "https://pathofexile.gamepedia.com/The_Blood_Thorn",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/a/a8/The_Blood_Thorn_inventory_icon.png/revision/latest?cb=20141213075000&amp;format=original",
@@ -6753,6 +6837,13 @@
     "WikiUrl": "https://pathofexile.gamepedia.com/Replica_Blood_Thorn",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/a/a8/The_Blood_Thorn_inventory_icon.png/revision/latest?cb=20141213075000&amp;format=original",
     "Level": 1
+  },
+  {
+    "ItemClass": "Staff",
+    "Name": "Cane of Kulemak",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Cane_of_Kulemak",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/3/31/Cane_of_Kulemak_inventory_icon.png/revision/latest?cb=20210418060514&amp;format=original",
+    "Level": 68
   },
   {
     "ItemClass": "Staff",
@@ -7179,7 +7270,7 @@
     "Name": "Story of the Vaal",
     "WikiUrl": "https://pathofexile.gamepedia.com/Story_of_the_Vaal",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/2/22/Story_of_the_Vaal_inventory_icon.png/revision/latest?cb=20180601192031&amp;format=original",
-    "Level": 35
+    "Level": 1
   },
   {
     "ItemClass": "Sword",
@@ -7452,6 +7543,13 @@
     "Name": "Reverberation Rod",
     "WikiUrl": "https://pathofexile.gamepedia.com/Reverberation_Rod",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/08/Reverberation_Rod_inventory_icon.png/revision/latest?cb=20160608093612&amp;format=original",
+    "Level": 24
+  },
+  {
+    "ItemClass": "Wand",
+    "Name": "Relic of the Pact",
+    "WikiUrl": "https://pathofexile.gamepedia.com/Relic_of_the_Pact",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/1/1e/Relic_of_the_Pact_inventory_icon.png/revision/latest?cb=20210418060524&amp;format=original",
     "Level": 24
   },
   {
