@@ -529,7 +529,7 @@ namespace Lurker.UI.ViewModels
             this._keyboardLurker.DismissPressed += this.KeyboardLurker_DismissPressed;
             this._keyboardLurker.StillInterestedPressed += this.KeyboardLurker_StillInterestedPressed;
 
-            await this._keyboardLurker.InstallHookAsync();
+            this._keyboardLurker.InstallHandlers();
 
             this._clientLurker.IncomingOffer += this.Lurker_IncomingOffer;
             this._clientLurker.TradeAccepted += this.Lurker_TradeAccepted;
