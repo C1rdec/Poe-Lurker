@@ -20,6 +20,7 @@ namespace Lurker.UI.ViewModels
 
         private static readonly int MaxAffixCount = 3;
         private PoeItem _item;
+        private AffixViewModel _ImportantAffix;
 
         #endregion
 
@@ -49,6 +50,12 @@ namespace Lurker.UI.ViewModels
                 {
                     this.Suffixes.Add('.');
                 }
+            }
+
+            var affix = this._item.ImportantAffixes.FirstOrDefault(i => i != null);
+            if (affix != null)
+            {
+                this._ImportantAffix = new AffixViewModel(affix);
             }
         }
 
@@ -125,6 +132,11 @@ namespace Lurker.UI.ViewModels
         /// Gets the important affixed.
         /// </summary>
         public IEnumerable<AffixViewModel> ImportantAffixes => this._item.ImportantAffixes.Where(i => i != null).Select(i => new AffixViewModel(i));
+
+        /// <summary>
+        /// Gets the important affixes.
+        /// </summary>
+        public AffixViewModel FirstImportantAffix => this._ImportantAffix;
 
         #endregion
 
