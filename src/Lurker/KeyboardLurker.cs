@@ -118,7 +118,6 @@ namespace Lurker
                 {
                     taskCompletionSource.SetResult(e.KeyValue);
                     hook.MessageReceived -= handler;
-                    hook.Dispose();
                 };
 
                 hook.MessageReceived += handler;
