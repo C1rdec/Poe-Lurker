@@ -65,7 +65,13 @@ namespace Lurker.Services
                 Value = buildValue,
             };
 
-            build.Xml = GetXml(buildValue);
+            var xml = GetXml(buildValue);
+            if (string.IsNullOrEmpty(xml))
+            {
+                return build;
+            }
+
+            build.Xml = xml;
             var document = XDocument.Parse(build.Xml);
 
             var buildElement = document.Root.Element("Build");
@@ -162,16 +168,23 @@ namespace Lurker.Services
                 return build;
             }
 
-            using (var output = new MemoryStream())
+            try
             {
-                using (var input = new MemoryStream(Convert.FromBase64String(build.Replace("_", "/").Replace("-", "+"))))
+                using (var output = new MemoryStream())
                 {
-                    using (var decompressor = new GZipStream(input, CompressionMode.Decompress))
+                    using (var input = new MemoryStream(Convert.FromBase64String(build.Replace("_", "/").Replace("-", "+"))))
                     {
-                        decompressor.CopyTo(output);
-                        return Encoding.UTF8.GetString(output.ToArray());
+                        using (var decompressor = new GZipStream(input, CompressionMode.Decompress))
+                        {
+                            decompressor.CopyTo(output);
+                            return Encoding.UTF8.GetString(output.ToArray());
+                        }
                     }
                 }
+            }
+            catch
+            {
+                return string.Empty;
             }
         }
 
