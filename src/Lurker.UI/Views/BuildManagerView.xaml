@@ -32,7 +32,7 @@
                                                 </Style.Triggers>
                                             </Style>
                                         </Border.Style>
-                                        <Grid>
+                                        <Grid MaxWidth="600">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="auto"></ColumnDefinition>
                                                 <ColumnDefinition Width="3*"></ColumnDefinition>

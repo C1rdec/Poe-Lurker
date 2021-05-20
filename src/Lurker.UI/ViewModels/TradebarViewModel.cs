@@ -503,7 +503,6 @@ namespace Lurker.UI.ViewModels
                 this._keyboardLurker.TradePressed -= this.KeyboardLurker_TradePressed;
                 this._keyboardLurker.BusyPressed -= this.KeyboardLurker_BusyPressed;
                 this._keyboardLurker.DismissPressed -= this.KeyboardLurker_DismissPressed;
-                this._keyboardLurker.StillInterestedPressed -= this.KeyboardLurker_StillInterestedPressed;
 
                 this._clientLurker.IncomingOffer -= this.Lurker_IncomingOffer;
                 this._clientLurker.TradeAccepted -= this.Lurker_TradeAccepted;
@@ -518,7 +517,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Called when activating.
         /// </summary>
-        protected override async void OnActivate()
+        protected override void OnActivate()
         {
             this.SettingsService.OnSave += this.SettingsService_OnSave;
 
@@ -527,7 +526,6 @@ namespace Lurker.UI.ViewModels
             this._keyboardLurker.TradePressed += this.KeyboardLurker_TradePressed;
             this._keyboardLurker.BusyPressed += this.KeyboardLurker_BusyPressed;
             this._keyboardLurker.DismissPressed += this.KeyboardLurker_DismissPressed;
-            this._keyboardLurker.StillInterestedPressed += this.KeyboardLurker_StillInterestedPressed;
 
             this._keyboardLurker.InstallHandlers();
 

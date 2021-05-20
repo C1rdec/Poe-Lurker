@@ -75,16 +75,19 @@ namespace Lurker.Services
             var document = XDocument.Parse(build.Xml);
 
             var buildElement = document.Root.Element("Build");
-            var classAttribute = buildElement.Attribute("className");
-            if (classAttribute != null)
+            if (buildElement != null)
             {
-                build.Class = classAttribute.Value;
-            }
+                var classAttribute = buildElement.Attribute("className");
+                if (classAttribute != null)
+                {
+                    build.Class = classAttribute.Value;
+                }
 
-            var ascendancyAttribute = buildElement.Attribute("ascendClassName");
-            if (ascendancyAttribute != null)
-            {
-                build.Ascendancy = ascendancyAttribute.Value;
+                var ascendancyAttribute = buildElement.Attribute("ascendClassName");
+                if (ascendancyAttribute != null)
+                {
+                    build.Ascendancy = ascendancyAttribute.Value;
+                }
             }
 
             var notesElement = document.Root.Element("Notes");
@@ -114,20 +117,23 @@ namespace Lurker.Services
             }
 
             var itemsElement = document.Root.Element("Items");
-            foreach (var element in itemsElement.Elements())
+            if (itemsElement != null)
             {
-                var value = element.Value.GetLineAfter("Rarity: ");
-                if (value != null)
+                foreach (var element in itemsElement.Elements())
                 {
-                    var lines = value.Split('\n');
-                    var rarity = lines.FirstOrDefault();
-                    if (rarity == "UNIQUE" && lines.Length > 2)
+                    var value = element.Value.GetLineAfter("Rarity: ");
+                    if (value != null)
                     {
-                        var name = lines[1];
-                        var uniqueItem = this._knownUniques.FirstOrDefault(u => u.Name == name);
-                        if (uniqueItem != null)
+                        var lines = value.Split('\n');
+                        var rarity = lines.FirstOrDefault();
+                        if (rarity == "UNIQUE" && lines.Length > 2)
                         {
-                            build.AddItem(uniqueItem);
+                            var name = lines[1];
+                            var uniqueItem = this._knownUniques.FirstOrDefault(u => u.Name == name);
+                            if (uniqueItem != null)
+                            {
+                                build.AddItem(uniqueItem);
+                            }
                         }
                     }
                 }

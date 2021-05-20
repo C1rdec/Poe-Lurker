@@ -81,7 +81,13 @@ namespace Lurker.Services
                 {
                     try
                     {
-                        var buildName = Path.GetFileName(file).Replace(".xml", string.Empty);
+                        var fileName = Path.GetFileName(file);
+                        if (fileName.StartsWith("."))
+                        {
+                            continue;
+                        }
+
+                        var buildName = fileName.Replace(".xml", string.Empty);
                         var existingBuild = this.Builds.FirstOrDefault(b => b.Name == buildName);
                         if (existingBuild == null)
                         {

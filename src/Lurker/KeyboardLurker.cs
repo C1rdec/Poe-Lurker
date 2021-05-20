@@ -95,11 +95,6 @@ namespace Lurker
         /// </summary>
         public event KeyboardEventHandler MainActionPressed;
 
-        /// <summary>
-        /// Occurs when [still interested pressed].
-        /// </summary>
-        public event KeyboardEventHandler StillInterestedPressed;
-
         #endregion
 
         #region Methods
