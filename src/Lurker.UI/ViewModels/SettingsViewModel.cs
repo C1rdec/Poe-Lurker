@@ -849,6 +849,24 @@ namespace Lurker.UI.ViewModels
         #region Methods
 
         /// <summary>
+        /// Opens the logs.
+        /// </summary>
+        public void OpenLogs()
+        {
+            var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            var folderName = Path.Combine(localAppData, "PoeLurker", $"app-{this.Version}/logs");
+
+            if (Directory.Exists(folderName))
+            {
+                Process.Start(folderName);
+            }
+            else
+            {
+                this.ShowMessage("Oups!", "No logs folder found.", MessageDialogStyle.Affirmative);
+            }
+        }
+
+        /// <summary>
         /// Opens the discord.
         /// </summary>
         public void OpenDiscord()

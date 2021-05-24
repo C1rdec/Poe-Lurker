@@ -377,6 +377,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Label Content="Advanced" Style="{DynamicResource LabelHeaderStyle}" />
 
@@ -445,6 +446,7 @@
                                                IsChecked="{Binding ShowStartupAnimation}"/>
                         </StackPanel>
                     </StackPanel>
+                    <Button Grid.Row="2" x:Name="OpenLogs" FontSize="22" Margin="25,10,25,10" Style="{DynamicResource Tag}">Logs</Button>
                 </Grid>
             </TabItem>
             <TabItem Header="Lurker Pro">
