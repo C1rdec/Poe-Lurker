@@ -446,7 +446,7 @@
                                                IsChecked="{Binding ShowStartupAnimation}"/>
                         </StackPanel>
                     </StackPanel>
-                    <Button Grid.Row="2" x:Name="OpenLogs" FontSize="22" Margin="25,10,25,10" Style="{DynamicResource Tag}">Logs</Button>
+                    <Button Grid.Row="2" x:Name="OpenLogs" FontSize="22" Margin="25,10,25,10" Style="{DynamicResource Tag}">Open Logs</Button>
                 </Grid>
             </TabItem>
             <TabItem Header="Lurker Pro">
