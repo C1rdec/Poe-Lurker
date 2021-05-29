@@ -270,7 +270,11 @@ namespace Lurker.UI.ViewModels
             var offer = this.TradeOffers.Where(t => t.Status == OfferStatus.Traded).FirstOrDefault();
             if (offer == null)
             {
-                offer = this.ActiveOffer;
+                var activeOffer = this.ActiveOffer;
+                if (activeOffer.BuyerInSameInstance)
+                {
+                    offer = activeOffer;
+                }
             }
 
             if (offer != null)
