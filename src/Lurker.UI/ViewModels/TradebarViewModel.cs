@@ -271,7 +271,7 @@ namespace Lurker.UI.ViewModels
             if (offer == null)
             {
                 var activeOffer = this.ActiveOffer;
-                if (activeOffer.BuyerInSameInstance)
+                if (activeOffer != null && activeOffer.BuyerInSameInstance)
                 {
                     offer = activeOffer;
                 }
