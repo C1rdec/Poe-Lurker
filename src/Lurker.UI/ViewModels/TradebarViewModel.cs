@@ -147,10 +147,12 @@ namespace Lurker.UI.ViewModels
         /// <param name="e">The <see cref="Winook.KeyboardMessageEventArgs"/> instance containing the event data.</param>
         private void KeyboardLurker_BusyPressed(object sender, Winook.KeyboardMessageEventArgs e)
         {
-            this.ExecuteOnRecentOffer((o) =>
-            {
-                o.Wait();
-            });
+            this.ExecuteOnRecentOffer(
+                (o) =>
+                {
+                    o.Wait();
+                },
+                (o) => o.Waiting);
         }
 
         /// <summary>
@@ -178,7 +180,8 @@ namespace Lurker.UI.ViewModels
         /// Executes the on recent offer.
         /// </summary>
         /// <param name="action">The action.</param>
-        private void ExecuteOnRecentOffer(Action<OfferViewModel> action)
+        /// <param name="predicate">The predicate.</param>
+        private void ExecuteOnRecentOffer(Action<OfferViewModel> action, Func<OfferViewModel, bool> predicate = null)
         {
             var offer = this.ActiveOffer;
             if (offer == null)
@@ -191,12 +194,31 @@ namespace Lurker.UI.ViewModels
                 return;
             }
 
+            if (predicate != null)
+            {
+                var index = this.TradeOffers.IndexOf(offer);
+                while (index < this.TradeOffers.Count)
+                {
+                    offer = this.TradeOffers.ElementAt(index);
+                    if (predicate(offer))
+                    {
+                        index++;
+                        continue;
+                    }
+
+                    break;
+                }
+            }
+
             if (!offer.IsActive)
             {
                 this.SetActiveOffer(offer);
             }
 
-            action(offer);
+            if (!predicate(offer))
+            {
+                action(offer);
+            }
         }
 
         /// <summary>
