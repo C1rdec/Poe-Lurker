@@ -113,10 +113,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Gems\PathOfBuildingParser.cs" />
     <Compile Include="ItemParser.cs" />
     <Compile Include="GemParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Gems\RePoeParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
