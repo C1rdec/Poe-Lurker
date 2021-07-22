@@ -3760,6 +3760,13 @@
   },
   {
     "ItemClass": "Helmet",
+    "Name": "The Fledgling",
+    "WikiUrl": "https://pathofexile.fandom.com/wiki/The_Fledgling",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/5/50/The_Fledgling_inventory_icon.png/revision/latest?cb=20201006130032",
+    "Level": 51
+  },
+  {
+    "ItemClass": "Helmet",
     "Name": "The Peregrine",
     "WikiUrl": "https://pathofexile.fandom.com/wiki/The_Peregrine",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/a/a3/The_Peregrine_inventory_icon.png/revision/latest?cb=20130626162429",
@@ -4747,8 +4754,8 @@
   },
   {
     "ItemClass": "Jewel",
-    "Name": "Divide and Conquer",
-    "WikiUrl": "https://pathofexile.fandom.com/wiki/Divide_and_Conquer",
+    "Name": "Seething Fury",
+    "WikiUrl": "https://pathofexile.fandom.com/wiki/Seething_Fury",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/8e/Seething_Fury_inventory_icon.png/revision/latest?cb=20190607215723",
     "Level": 20
   },
@@ -6220,6 +6227,13 @@
     "Name": "Timetwist",
     "WikiUrl": "https://pathofexile.fandom.com/wiki/Timetwist",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/1/15/Timeclasp_inventory_icon.png/revision/latest?cb=20141213090443",
+    "Level": 64
+  },
+  {
+    "ItemClass": "Ring",
+    "Name": "Triumvirate Authority",
+    "WikiUrl": "https://pathofexile.fandom.com/wiki/Triumvirate_Authority",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/2/22/Triumvirate_Authority_inventory_icon.png/revision/latest?cb=20210419075024",
     "Level": 64
   },
   {
