@@ -16,13 +16,13 @@ namespace Lurker.UI.ViewModels
     /// <summary>
     /// Represents the wiki overlay.
     /// </summary>
-    /// <seealso cref="Lurker.UI.ViewModels.PoeOverlayBase" />
+    /// <seealso cref="PoeOverlayBase" />
     public class WikiViewModel : PoeOverlayBase
     {
         #region Fields
 
+        private readonly GithubService _githubService;
         private string _searchValue = string.Empty;
-        private GithubService _githubService;
 
         #endregion
 
@@ -108,6 +108,8 @@ namespace Lurker.UI.ViewModels
                         break;
                     case UniqueItem uniqueItem:
                         this.Items.Add(new UniqueItemViewModel(uniqueItem));
+                        break;
+                    default:
                         break;
                 }
             }

@@ -21,7 +21,7 @@ namespace Lurker.UI
     /// <summary>
     /// Represents AppBootstrapper.
     /// </summary>
-    /// <seealso cref="Caliburn.Micro.BootstrapperBase" />
+    /// <seealso cref="BootstrapperBase" />
     public class AppBootstrapper : BootstrapperBase
     {
         #region Fields
@@ -196,9 +196,9 @@ namespace Lurker.UI
             var exception = e.ExceptionObject as Exception;
             Logger.Error(exception, exception.Message);
 
-        #if !DEBUG
-            SentrySdk.CaptureException(exception);
-        #endif
+            #if !DEBUG
+                SentrySdk.CaptureException(exception);
+            #endif
             this._sentry.Dispose();
         }
 

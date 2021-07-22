@@ -21,7 +21,7 @@ namespace Lurker.UI.ViewModels
     /// <summary>
     /// Represents a build viewmodel.
     /// </summary>
-    /// <seealso cref="Lurker.UI.ViewModels.PoeOverlayBase" />
+    /// <seealso cref="PoeOverlayBase" />
     public class BuildViewModel : PoeOverlayBase
     {
         #region Fields
@@ -37,7 +37,6 @@ namespace Lurker.UI.ViewModels
         private PlayerService _playerService;
         private Player _activePlayer;
         private BuildService _buildService;
-        private ObservableCollection<SimpleBuild> _builds;
         private SimpleBuild _currentBuild;
         private SettingsViewModel _settings;
         private GithubService _githubService;
@@ -91,7 +90,7 @@ namespace Lurker.UI.ViewModels
             this.ActivePlayer = new PlayerViewModel(playerService);
             this._playerService.PlayerChanged += this.PlayerService_PlayerChanged;
             this._buildService = buildService;
-            this._builds = new ObservableCollection<SimpleBuild>();
+            this.Builds = new ObservableCollection<SimpleBuild>();
 
             this.BuildSelector = new BuildSelectorViewModel(buildService);
             this.BuildSelector.BuildSelected += this.BuildSelector_BuildSelected;
@@ -160,18 +159,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets the builds.
         /// </summary>
-        public ObservableCollection<SimpleBuild> Builds
-        {
-            get
-            {
-                return this._builds;
-            }
-
-            private set
-            {
-                this._builds = value;
-            }
-        }
+        public ObservableCollection<SimpleBuild> Builds { get; private set; }
 
         /// <summary>
         /// Gets the active player.
