@@ -10,6 +10,7 @@ namespace Lurker.UI.ViewModels
     using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.Linq;
+    using Caliburn.Micro;
     using Lurker.Models;
     using Lurker.Services;
 
@@ -45,7 +46,8 @@ namespace Lurker.UI.ViewModels
             }
             else
             {
-                PathOfBuildingService.InitializeAsync().ContinueWith((t) =>
+                var service = IoC.Get<GithubService>();
+                PathOfBuildingService.InitializeAsync(service).ContinueWith((t) =>
                 {
                     this.DecodeBuild(build);
                 });

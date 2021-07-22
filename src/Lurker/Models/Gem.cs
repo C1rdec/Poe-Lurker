@@ -99,7 +99,16 @@ namespace Lurker.Models
         private void SetLocation()
         {
             var webPage = new HtmlWeb();
-            var document = webPage.Load(this.WikiUrl);
+            HtmlDocument document = default;
+            try
+            {
+                document = webPage.Load(this.WikiUrl);
+            }
+            catch
+            {
+                return;
+            }
+
             var vendorRewardSpan = document.DocumentNode.Descendants().FirstOrDefault(e => e.Name == "span" && e.GetAttributeValue("id", string.Empty) == "Vendor_reward");
 
             if (vendorRewardSpan == null)

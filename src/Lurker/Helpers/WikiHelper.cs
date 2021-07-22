@@ -17,7 +17,8 @@ namespace Lurker.Helpers
     {
         #region Fields
 
-        private static readonly string WikiBaseUri = "https://pathofexile.gamepedia.com/";
+        private static readonly string FandomBaseUri = "https://pathofexile.fandom.com";
+        private static readonly string WikiBaseUri = $"{FandomBaseUri}/wiki/";
 
         #endregion
 
@@ -43,10 +44,21 @@ namespace Lurker.Helpers
         public static Uri GetItemImageUrl(string name)
         {
             var webPage = new HtmlWeb();
-            var fileUrl = $"https://pathofexile.gamepedia.com/File:{System.Net.WebUtility.UrlEncode(name.Replace(" ", "_"))}_inventory_icon.png";
-            var document = webPage.Load(fileUrl);
+            var escapeName = System.Net.WebUtility.UrlEncode(name.Replace(" ", "_"));
 
-            var mediaElement = document.DocumentNode.Descendants().Where(e => e.Name == "div" && e.GetAttributeValue("class", string.Empty) == "fullMedia").FirstOrDefault();
+            return ParseMedia($"{WikiBaseUri}{escapeName}", webPage);
+        }
+
+        /// <summary>
+        /// Parses the media.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="webPage">The web page.</param>
+        /// <returns>The url.</returns>
+        public static Uri ParseMedia(string url, HtmlWeb webPage)
+        {
+            var document = webPage.Load(url);
+            var mediaElement = document.DocumentNode.Descendants().FirstOrDefault(e => e.Name == "span" && e.GetAttributeValue("class", string.Empty) == "images");
             if (mediaElement != null)
             {
                 var hyperlink = mediaElement.Descendants().Where(e => e.Name == "a").FirstOrDefault();
@@ -56,6 +68,20 @@ namespace Lurker.Helpers
                     if (href != null)
                     {
                         return new Uri(href.Value);
+                    }
+                }
+            }
+            else
+            {
+                var itemTable = document.DocumentNode.Descendants().FirstOrDefault(e => e.Name == "table" && e.GetAttributeValue("class", string.Empty).Contains(" item-table"));
+                if (itemTable != null)
+                {
+                    var firstTd = itemTable.Descendants("td").FirstOrDefault();
+                    var a = firstTd.Descendants("a").FirstOrDefault();
+                    var hrefValue = a.GetAttributeValue("href", string.Empty);
+                    if (!string.IsNullOrEmpty(hrefValue))
+                    {
+                        return ParseMedia($"{FandomBaseUri}{hrefValue}", webPage);
                     }
                 }
             }

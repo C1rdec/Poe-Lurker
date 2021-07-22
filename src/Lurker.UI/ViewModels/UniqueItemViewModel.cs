@@ -30,6 +30,15 @@ namespace Lurker.UI.ViewModels
         #region Constructors
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="UniqueItemViewModel"/> class.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        public UniqueItemViewModel(UniqueItem item)
+            : this(item, false)
+        {
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="UniqueItemViewModel" /> class.
         /// </summary>
         /// <param name="item">The item.</param>

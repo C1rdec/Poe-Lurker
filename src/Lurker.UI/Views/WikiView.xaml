@@ -1,0 +1,87 @@
+﻿<Window x:Class="Lurker.UI.Views.WikiView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lurker.UI.Views"
+        WindowStyle="None"
+        Topmost="True"
+        AllowsTransparency="True"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        ShowInTaskbar="False"
+        Background="Transparent"
+        mc:Ignorable="d"
+        Title="WikiView" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border CornerRadius="30" Grid.RowSpan="2" Margin="60" Background="#7F000000">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Border CornerRadius="0 30 0 100" VerticalAlignment="Top" HorizontalAlignment="Right" Height="100" Width="100"  Cursor="Hand">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Opacity" Value="0.06"/>
+                            <Setter Property="Background" Value="White"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding DebugEnabled}" Value="True">
+                                    <Setter Property="Background" Value="Green"/>
+                                    <Setter Property="Opacity" Value="1"/>
+                                </DataTrigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Opacity" Value="0.3" />
+                                    <Setter Property="Background" Value="Red"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                </Border>
+                <Viewbox>
+                    <TextBox
+                        Text="{Binding SearchValue, UpdateSourceTrigger=PropertyChanged}"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    BorderThickness="0,0,0,1"
+                    Height="60" Width="800"
+                    Margin="250,150,250,50"
+                    FontSize="34"
+                        VerticalContentAlignment="Stretch"
+                    Controls:TextBoxHelper.Watermark="Search">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="8"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                </Viewbox>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Viewbox Grid.Row="1">
+                        <ScrollViewer  HorizontalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Hidden">
+                            <ItemsControl x:Name="Items" HorizontalAlignment="Center">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Viewbox>
+                </Grid>
+                <!--<Viewbox Grid.Row="1">-->
+                
+                <!--</Viewbox>-->
+            </Grid>
+
+        </Border>
+    </Grid>
+</Window>

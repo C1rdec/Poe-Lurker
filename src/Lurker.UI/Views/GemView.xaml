@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              xmlns:cal="http://www.caliburnproject.org"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Focusable="True" x:Name="mainGrid" cal:Message.Attach="[Event MouseDown] = [Action OpenWiki]" MaxHeight="55" MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave" PreviewKeyDown="Grid_PreviewKeyDown" PreviewKeyUp="Grid_PreviewKeyUp">
+    <Grid Focusable="True" x:Name="mainGrid" cal:Message.Attach="[Event MouseDown] = [Action OpenWiki]" MaxHeight="55" MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave">
         <Grid.Style>
             <Style TargetType="Grid">
                 <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -21,7 +21,7 @@
             <Border Background="Black" CornerRadius="5" BorderThickness="2" BorderBrush="#e7b577">
                 <StackPanel>
                     <TextBlock HorizontalAlignment="Center" Margin="8,4,8,4" FontSize="18" FontFamily="pack://application:,,,/Assets/#Fontin" Foreground="White" FontWeight="SemiBold" Text="{Binding Name}"/>
-                    <ContentControl x:Name="GemLocation" Visibility="Collapsed" HorizontalAlignment="Center" Margin="4,0,4,0" cal:View.Model="{Binding Path=GemLocation,Mode=OneWay}"/>
+                    <ContentControl x:Name="GemLocation" HorizontalAlignment="Center" Margin="4,0,4,0" cal:View.Model="{Binding Path=GemLocation,Mode=OneWay}"/>
                 </StackPanel>
             </Border>
         </Popup>

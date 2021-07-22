@@ -24,8 +24,8 @@ namespace Lurker.Services
     {
         #region Fields
 
-        private List<Gem> _knownGems;
-        private List<UniqueItem> _knownUniques;
+        private IEnumerable<Gem> _knownGems;
+        private IEnumerable<UniqueItem> _knownUniques;
 
         #endregion
 
@@ -34,15 +34,14 @@ namespace Lurker.Services
         /// <summary>
         /// Initializes the asynchronous.
         /// </summary>
-        /// /// <returns>
+        /// <param name="service">The service.</param>
+        /// <returns>
         /// The task awaiter.
         /// </returns>
-        public async Task InitializeAsync()
+        public async Task InitializeAsync(GithubService service)
         {
-            var gemInformation = await this.GetText($"https://raw.githubusercontent.com/C1rdec/Poe-Lurker/master/assets/Data/GemInfo.json?{Guid.NewGuid()}");
-            var uniqueInformation = await this.GetText($"https://raw.githubusercontent.com/C1rdec/Poe-Lurker/master/assets/Data/UniqueInfo.json?{Guid.NewGuid()}");
-            this._knownGems = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Gem>>(gemInformation);
-            this._knownUniques = Newtonsoft.Json.JsonConvert.DeserializeObject<List<UniqueItem>>(uniqueInformation);
+            this._knownGems = await service.Gems();
+            this._knownUniques = await service.Uniques();
             this.IsInitialize = true;
         }
 

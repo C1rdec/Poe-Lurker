@@ -40,6 +40,7 @@ namespace Lurker.UI.ViewModels
         private ObservableCollection<SimpleBuild> _builds;
         private SimpleBuild _currentBuild;
         private SettingsViewModel _settings;
+        private GithubService _githubService;
 
         #endregion
 
@@ -55,9 +56,11 @@ namespace Lurker.UI.ViewModels
         /// <param name="buildService">The build service.</param>
         /// <param name="playerService">The player service.</param>
         /// <param name="settingsViewModel">The settings view model.</param>
-        public BuildViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService, BuildService buildService, PlayerService playerService, SettingsViewModel settingsViewModel)
+        /// <param name="githubService">The github service.</param>
+        public BuildViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService, BuildService buildService, PlayerService playerService, SettingsViewModel settingsViewModel, GithubService githubService)
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
+            this._githubService = githubService;
             this._activePlayer = playerService.FirstPlayer;
             if (this._activePlayer != null && !string.IsNullOrEmpty(this._activePlayer.Build.BuildId))
             {
@@ -385,7 +388,7 @@ namespace Lurker.UI.ViewModels
             {
                 using (var service = new PathOfBuildingService())
                 {
-                    await service.InitializeAsync();
+                    await service.InitializeAsync(this._githubService);
                     this.Build = service.Decode(buildValue);
                     this.Ascendancy = this.Build.Ascendancy;
                     this.Skills.Clear();

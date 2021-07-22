@@ -64,12 +64,13 @@ namespace Lurker.UI
             this._container.Singleton<SoundService, SoundService>();
             this._container.Singleton<CollaborationService, CollaborationService>();
             this._container.Singleton<SettingsViewModel, SettingsViewModel>();
+            this._container.Singleton<GithubService, GithubService>();
             this._container.Singleton<DashboardViewModel, DashboardViewModel>();
             this._container.Singleton<TutorialViewModel, TutorialViewModel>();
-
             this._container.PerRequest<AfkService, AfkService>();
             this._container.PerRequest<UpdateManager, UpdateManager>();
             this._container.PerRequest<ShellViewModel, ShellViewModel>();
+            this._container.PerRequest<WikiViewModel, WikiViewModel>();
             this._container.PerRequest<TradebarViewModel, TradebarViewModel>();
             this._container.PerRequest<PopupViewModel, PopupViewModel>();
             this._container.PerRequest<BuildTimelineViewModel, BuildTimelineViewModel>();

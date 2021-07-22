@@ -35,6 +35,7 @@ namespace Lurker.UI.ViewModels
         private bool _isFlyoutOpen;
         private BuildConfigurationViewModel _selectedConfiguration;
         private BuildService _buildService;
+        private GithubService _githubService;
 
         #endregion
 
@@ -44,12 +45,14 @@ namespace Lurker.UI.ViewModels
         /// Initializes a new instance of the <see cref="BuildManagerViewModel" /> class.
         /// </summary>
         /// <param name="showMessage">The show message.</param>
-        public BuildManagerViewModel(Func<string, string, MessageDialogStyle?, Task<MessageDialogResult>> showMessage)
+        /// <param name="service">The service.</param>
+        public BuildManagerViewModel(Func<string, string, MessageDialogStyle?, Task<MessageDialogResult>> showMessage, GithubService service)
         {
             this._buildService = IoC.Get<BuildService>();
             this._showMessage = showMessage;
             this._configurations = new ObservableCollection<BuildConfigurationViewModel>();
             this._context = new BuildManagerContext(this.Remove, this.Open);
+            this._githubService = service;
         }
 
         #endregion
@@ -142,7 +145,7 @@ namespace Lurker.UI.ViewModels
 
             using (var service = new PathOfBuildingService())
             {
-                await service.InitializeAsync();
+                await service.InitializeAsync(this._githubService);
                 try
                 {
                     var build = service.Decode(text);

@@ -71,7 +71,8 @@ namespace Lurker.UI.ViewModels
         /// <param name="settingsService">The settings service.</param>
         /// <param name="hotkeyService">The key code service.</param>
         /// <param name="soundService">The sound service.</param>
-        public SettingsViewModel(IWindowManager windowManager, KeyboardHelper keyboardHelper, SettingsService settingsService, HotkeyService hotkeyService, SoundService soundService)
+        /// <param name="githubService">The github service.</param>
+        public SettingsViewModel(IWindowManager windowManager, KeyboardHelper keyboardHelper, SettingsService settingsService, HotkeyService hotkeyService, SoundService soundService, GithubService githubService)
             : base(windowManager)
         {
             this._keyboardHelper = keyboardHelper;
@@ -87,7 +88,7 @@ namespace Lurker.UI.ViewModels
                 AssetService.Create(LottieFileName, GetResourceContent(LottieFileName));
             }
 
-            this.BuildManager = new BuildManagerViewModel(this.ShowMessage);
+            this.BuildManager = new BuildManagerViewModel(this.ShowMessage, githubService);
             this.SetupHotkeys();
         }
 

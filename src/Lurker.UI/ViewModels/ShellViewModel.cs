@@ -48,6 +48,7 @@ namespace Lurker.UI
         private LifeBulbViewModel _lifeBulbOverlay;
         private ManaBulbViewModel _manaBulbOverlay;
         private HideoutViewModel _hideoutOverlay;
+        private WikiViewModel _wikiViewModel;
         private SettingsService _settingsService;
         private HotkeyService _keyCodeService;
         private AfkService _afkService;
@@ -451,6 +452,8 @@ namespace Lurker.UI
                 this._helpOverlay = this._container.GetInstance<HelpViewModel>();
                 this._helpOverlay.Initialize(this.ToggleBuildHelper);
                 this._buildViewModel = this._container.GetInstance<BuildViewModel>();
+                this._wikiViewModel = this._container.GetInstance<WikiViewModel>();
+                this.ActivateItem(this._wikiViewModel);
 
                 if (this._settingsService.BuildHelper)
                 {
