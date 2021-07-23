@@ -28,6 +28,7 @@
     <LangVersion>8.0</LangVersion>
     <CodeAnalysisRuleSet>..\..\PoeLurker.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>bin\Debug\Lurker.xml</DocumentationFile>
+    <NoWarn>IDE0008,IDE0027,IDE0065,IDE0058,IDE0044,IDE0063,IDE0001,IDE0019</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>

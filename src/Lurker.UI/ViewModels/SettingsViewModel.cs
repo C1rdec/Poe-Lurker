@@ -123,6 +123,11 @@ namespace Lurker.UI.ViewModels
         public HotkeyViewModel MainHotkey { get; set; }
 
         /// <summary>
+        /// Gets or sets the main hot key.
+        /// </summary>
+        public HotkeyViewModel OpenWikiHotkey { get; set; }
+
+        /// <summary>
         /// Gets or sets the hotkeys.
         /// </summary>
         public ObservableCollection<HotkeyViewModel> Hotkeys { get; set; }
@@ -1294,6 +1299,7 @@ namespace Lurker.UI.ViewModels
         private void SetupHotkeys()
         {
             this.MainHotkey = new HotkeyViewModel("Invite & Trade", this._hotkeyService.Main, this.GetNextKeyCode);
+            this.OpenWikiHotkey = new HotkeyViewModel("Open Wiki", this._hotkeyService.OpenWiki, this.GetNextKeyCode);
 
             this.Hotkeys = new ObservableCollection<HotkeyViewModel>();
             this.Hotkeys.Add(new HotkeyViewModel("Invite", this._hotkeyService.Invite, this.GetNextKeyCode));
@@ -1308,6 +1314,7 @@ namespace Lurker.UI.ViewModels
             }
 
             this.MainHotkey.PropertyChanged += this.Hotkey_PropertyChanged;
+            this.OpenWikiHotkey.PropertyChanged += this.Hotkey_PropertyChanged;
         }
 
         /// <summary>

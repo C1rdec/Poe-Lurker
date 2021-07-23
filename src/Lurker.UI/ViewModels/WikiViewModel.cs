@@ -23,6 +23,7 @@ namespace Lurker.UI.ViewModels
 
         private readonly GithubService _githubService;
         private string _searchValue = string.Empty;
+        private MouseLurker _mouseLurker;
 
         #endregion
 
@@ -36,11 +37,13 @@ namespace Lurker.UI.ViewModels
         /// <param name="processLurker">The process lurker.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="githubService">The github service.</param>
-        public WikiViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService, GithubService githubService)
+        /// <param name="mouseLurker">The mouse lurker..</param>
+        public WikiViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService, GithubService githubService, MouseLurker mouseLurker)
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
             this._githubService = githubService;
             this.Items = new ObservableCollection<WikiItemBaseViewModel>();
+            this._mouseLurker = mouseLurker;
         }
 
         #endregion
@@ -60,7 +63,7 @@ namespace Lurker.UI.ViewModels
             set
             {
                 this._searchValue = value;
-                this.Search(value);
+                Execute.OnUIThread(() => this.Search(value));
                 this.NotifyOfPropertyChange();
             }
         }
@@ -73,6 +76,46 @@ namespace Lurker.UI.ViewModels
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Closes this instance.
+        /// </summary>
+        public void Close()
+        {
+            this.SearchValue = string.Empty;
+            this.TryClose();
+        }
+
+        /// <summary>
+        /// Closes this instance.
+        /// </summary>
+        /// <param name="view">The window information.</param>
+        protected override void OnViewReady(object view)
+        {
+            base.OnViewReady(view);
+            var window = view as System.Windows.Window;
+            Execute.OnUIThread(() => window.Focus());
+        }
+
+        /// <summary>
+        /// Closes this instance.
+        /// </summary>
+        protected override void OnActivate()
+        {
+            base.OnActivate();
+            Execute.OnUIThread(() => this.View.Focus());
+            this._mouseLurker.MouseLeftButtonUp += this.MouseLurker_MouseLeftButtonUp;
+        }
+
+        /// <summary>
+        /// On Desactivate.
+        /// </summary>
+        /// <param name="close">if close.</param>
+        protected override void OnDeactivate(bool close)
+        {
+            base.OnDeactivate(close);
+            this._mouseLurker.MouseLeftButtonUp -= this.MouseLurker_MouseLeftButtonUp;
+        }
 
         /// <summary>
         /// Sets the window position.
@@ -92,6 +135,11 @@ namespace Lurker.UI.ViewModels
                 this.View.Left = windowInformation.Position.Left;
                 this.View.Top = windowInformation.Position.Top;
             });
+        }
+
+        private void MouseLurker_MouseLeftButtonUp(object sender, System.EventArgs e)
+        {
+            this.Close();
         }
 
         private void Search(string value)

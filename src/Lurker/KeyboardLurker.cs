@@ -95,6 +95,11 @@ namespace Lurker
         /// </summary>
         public event KeyboardEventHandler MainActionPressed;
 
+        /// <summary>
+        /// Occurs when [wiki action pressed].
+        /// </summary>
+        public event KeyboardEventHandler OpenWikiPressed;
+
         #endregion
 
         #region Methods
@@ -243,6 +248,7 @@ namespace Lurker
             this._hotkeyService.Busy.Install(this._keyboardHook, this.BusyPressed);
             this._hotkeyService.Dismiss.Install(this._keyboardHook, this.DismissPressed);
             this._hotkeyService.Invite.Install(this._keyboardHook, this.InvitePressed);
+            this._hotkeyService.OpenWiki.Install(this._keyboardHook, this.OpenWikiPressed);
         }
 
         /// <summary>
@@ -262,6 +268,7 @@ namespace Lurker
             this._hotkeyService.Busy.Uninstall();
             this._hotkeyService.Dismiss.Uninstall();
             this._hotkeyService.Invite.Uninstall();
+            this._hotkeyService.OpenWiki.Uninstall();
         }
 
         /// <summary>

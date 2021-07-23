@@ -105,6 +105,22 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets the open wiki.
+        /// </summary>
+        public Hotkey OpenWiki
+        {
+            get
+            {
+                return this._settings.OpenWiki;
+            }
+
+            set
+            {
+                this._settings.OpenWiki = value;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the busy.
         /// </summary>
         public Hotkey Busy

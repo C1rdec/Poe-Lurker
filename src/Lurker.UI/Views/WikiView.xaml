@@ -6,24 +6,25 @@
         xmlns:local="clr-namespace:Lurker.UI.Views"
         WindowStyle="None"
         Topmost="True"
+        xmlns:cal="http://www.caliburnproject.org"
         AllowsTransparency="True"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         ShowInTaskbar="False"
         Background="Transparent"
         mc:Ignorable="d"
         Title="WikiView" Height="450" Width="800">
-    <Grid>
+    <Grid FocusManager.FocusedElement="{Binding ElementName=SearchValue}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Border CornerRadius="30" Grid.RowSpan="2" Margin="60" Background="#7F000000">
+        <Border CornerRadius="30" Grid.RowSpan="2" Margin="120" Background="#7F000000">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <Border CornerRadius="0 30 0 100" VerticalAlignment="Top" HorizontalAlignment="Right" Height="100" Width="100"  Cursor="Hand">
+                <Border CornerRadius="0 30 0 100" VerticalAlignment="Top" HorizontalAlignment="Right" Height="100" Width="100"  Cursor="Hand" cal:Message.Attach="[Event PreviewMouseUpEvent] = [Action Close]">
                     <Border.Style>
                         <Style TargetType="Border">
                             <Setter Property="Opacity" Value="0.06"/>
@@ -43,6 +44,7 @@
                 </Border>
                 <Viewbox>
                     <TextBox
+                        x:Name="SearchValue"
                         Text="{Binding SearchValue, UpdateSourceTrigger=PropertyChanged}"
                     HorizontalAlignment="Center" 
                     VerticalAlignment="Center"

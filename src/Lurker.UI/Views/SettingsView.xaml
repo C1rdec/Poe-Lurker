@@ -369,6 +369,9 @@
                                                    Text="(Ctrl + R)" />
                             
                         </StackPanel>
+                        <StackPanel Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center">
+                            <ContentControl Focusable="False" x:Name="OpenWikiHotkey" Margin="45,0,45,0"/>
+                        </StackPanel>
                     </Grid>
                 </Grid>
             </TabItem>

@@ -423,6 +423,7 @@ namespace Lurker.UI
                 var keyboarHelper = new PoeKeyboardHelper(processId);
                 this._keyboardLurker = new KeyboardLurker(processId, this._settingsService, this._keyCodeService, keyboarHelper);
                 this._keyboardLurker.BuildToggled += this.KeyboardLurker_BuildToggled;
+                this._keyboardLurker.OpenWikiPressed += this.KeyboardLurker_OpenWikiPressed;
 
                 // Mouse
                 this._mouseLurker = new MouseLurker(processId, this._settingsService);
@@ -453,7 +454,6 @@ namespace Lurker.UI
                 this._helpOverlay.Initialize(this.ToggleBuildHelper);
                 this._buildViewModel = this._container.GetInstance<BuildViewModel>();
                 this._wikiViewModel = this._container.GetInstance<WikiViewModel>();
-                this.ActivateItem(this._wikiViewModel);
 
                 if (this._settingsService.BuildHelper)
                 {
@@ -488,6 +488,23 @@ namespace Lurker.UI
                 this.ActivateItem(this._lifeBulbOverlay);
                 this.ActivateItem(this._manaBulbOverlay);
             });
+        }
+
+        /// <summary>
+        /// Handles the BuildToggled event of the KeyboardLurker control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void KeyboardLurker_OpenWikiPressed(object sender, Winook.KeyboardMessageEventArgs e)
+        {
+            if (this._wikiViewModel.IsActive)
+            {
+                this.DeactivateItem(this._wikiViewModel, true);
+            }
+            else
+            {
+                this.ActivateItem(this._wikiViewModel);
+            }
         }
 
         /// <summary>
@@ -586,6 +603,7 @@ namespace Lurker.UI
 
             if (this._keyboardLurker != null)
             {
+                this._keyboardLurker.OpenWikiPressed -= this.KeyboardLurker_OpenWikiPressed;
                 this._keyboardLurker.BuildToggled -= this.KeyboardLurker_BuildToggled;
                 this._keyboardLurker.Dispose();
             }

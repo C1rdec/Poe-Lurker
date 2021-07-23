@@ -66,6 +66,11 @@ namespace Lurker
         /// </summary>
         public event EventHandler<MouseMessageEventArgs> MouseMove;
 
+        /// <summary>
+        /// Occurs when [mouse mouve left button up].
+        /// </summary>
+        public event EventHandler MouseLeftButtonUp;
+
         #endregion
 
         #region Properties
@@ -144,6 +149,8 @@ namespace Lurker
 
                 ClipboardHelper.ClearClipboard();
             }
+
+            this.MouseLeftButtonUp?.Invoke(this, e);
         }
 
         /// <summary>

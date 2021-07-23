@@ -6,7 +6,6 @@
 
 namespace Lurker.DataParser.Gems
 {
-    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -19,6 +18,10 @@ namespace Lurker.DataParser.Gems
         private static readonly string GemsUrl = "https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/master/src/Data/Gems.lua";
 
 
+        /// <summary>
+        /// Parses this instance.
+        /// </summary>
+        /// <returns></returns>
         public static IEnumerable<Gem> Parse()
         {
             var client = new HttpClient();
