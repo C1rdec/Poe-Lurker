@@ -215,7 +215,7 @@ namespace Lurker.UI.ViewModels
                 this.SetActiveOffer(offer);
             }
 
-            if (!predicate(offer))
+            if (predicate == null || !predicate(offer))
             {
                 action(offer);
             }
