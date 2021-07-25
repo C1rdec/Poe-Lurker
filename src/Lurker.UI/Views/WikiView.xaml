@@ -11,6 +11,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         ShowInTaskbar="False"
         Background="Transparent"
+        ShowActivated="True"
         mc:Ignorable="d"
         Title="WikiView" Height="450" Width="800">
     <Grid FocusManager.FocusedElement="{Binding ElementName=SearchValue}">
@@ -18,13 +19,14 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
+        <Button x:Name="CloseWindow" IsCancel="true" Width="1"/>
         <Border CornerRadius="30" Grid.RowSpan="2" Margin="120" Background="#7F000000">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <Border CornerRadius="0 30 0 100" VerticalAlignment="Top" HorizontalAlignment="Right" Height="100" Width="100"  Cursor="Hand" cal:Message.Attach="[Event PreviewMouseUpEvent] = [Action Close]">
+                <Border CornerRadius="0 30 0 100" VerticalAlignment="Top" HorizontalAlignment="Right" Height="100" Width="100" Cursor="Hand" cal:Message.Attach="[Event PreviewMouseUpEvent] = [Action Close]">
                     <Border.Style>
                         <Style TargetType="Border">
                             <Setter Property="Opacity" Value="0.06"/>

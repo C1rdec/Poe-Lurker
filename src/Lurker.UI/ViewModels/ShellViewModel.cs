@@ -453,7 +453,6 @@ namespace Lurker.UI
                 this._helpOverlay = this._container.GetInstance<HelpViewModel>();
                 this._helpOverlay.Initialize(this.ToggleBuildHelper);
                 this._buildViewModel = this._container.GetInstance<BuildViewModel>();
-                this._wikiViewModel = this._container.GetInstance<WikiViewModel>();
 
                 if (this._settingsService.BuildHelper)
                 {
@@ -497,12 +496,14 @@ namespace Lurker.UI
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void KeyboardLurker_OpenWikiPressed(object sender, Winook.KeyboardMessageEventArgs e)
         {
-            if (this._wikiViewModel.IsActive)
+            if (this._wikiViewModel != null && this._wikiViewModel.IsActive)
             {
                 this.DeactivateItem(this._wikiViewModel, true);
+                this._wikiViewModel = null;
             }
             else
             {
+                this._wikiViewModel = this._container.GetInstance<WikiViewModel>();
                 this.ActivateItem(this._wikiViewModel);
             }
         }

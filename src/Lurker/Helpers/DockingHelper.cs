@@ -132,7 +132,16 @@ namespace Lurker.Helpers
         /// </summary>
         public void SetForeground()
         {
-            Native.SetForegroundWindow(this._windowHandle);
+            this.SetForeground(this._windowHandle);
+        }
+
+        /// <summary>
+        /// Sets the foreground.
+        /// </summary>
+        /// <param name="handle">The handle.</param>
+        public void SetForeground(IntPtr handle)
+        {
+            Native.SetForegroundWindow(handle);
         }
 
         /// <summary>

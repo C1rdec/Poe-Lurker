@@ -9,6 +9,7 @@ namespace Lurker.UI.ViewModels
     using System;
     using System.Threading.Tasks;
     using System.Windows;
+    using System.Windows.Interop;
     using Caliburn.Micro;
     using Lurker.Helpers;
     using Lurker.Models;
@@ -147,6 +148,18 @@ namespace Lurker.UI.ViewModels
             }
 
             this.View?.Show();
+        }
+
+        /// <summary>
+        /// Shows the view.
+        /// </summary>
+        protected void SetInForeground()
+        {
+            Execute.OnUIThread(() =>
+            {
+                var handle = new WindowInteropHelper(this.View).Handle;
+                this.DockingHelper.SetForeground(handle);
+            });
         }
 
         /// <summary>

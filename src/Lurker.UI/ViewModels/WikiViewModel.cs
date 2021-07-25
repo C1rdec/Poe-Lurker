@@ -80,7 +80,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Closes this instance.
         /// </summary>
-        public void Close()
+        public void CloseWindow()
         {
             this.SearchValue = string.Empty;
             this.TryClose();
@@ -103,7 +103,7 @@ namespace Lurker.UI.ViewModels
         protected override void OnActivate()
         {
             base.OnActivate();
-            Execute.OnUIThread(() => this.View.Focus());
+            this.SetInForeground();
             this._mouseLurker.MouseLeftButtonUp += this.MouseLurker_MouseLeftButtonUp;
         }
 
@@ -139,7 +139,7 @@ namespace Lurker.UI.ViewModels
 
         private void MouseLurker_MouseLeftButtonUp(object sender, System.EventArgs e)
         {
-            this.Close();
+            this.CloseWindow();
         }
 
         private void Search(string value)
