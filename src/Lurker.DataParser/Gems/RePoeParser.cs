@@ -39,6 +39,11 @@ namespace Lurker.DataParser.Gems
                 var isSupport = (bool)children["is_support"].FirstOrDefault();
                 var id = ((JProperty)element).Name;
 
+                if (id.EndsWith("Royale"))
+                {
+                    continue;
+                }
+
                 var baseItem = children["base_item"].FirstOrDefault();
                 if (baseItem is JValue)
                 {
