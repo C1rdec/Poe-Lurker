@@ -26,7 +26,7 @@
                     <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <Border CornerRadius="0 30 0 100" VerticalAlignment="Top" HorizontalAlignment="Right" Height="100" Width="100" Cursor="Hand" cal:Message.Attach="[Event PreviewMouseUpEvent] = [Action Close]">
+                <Border CornerRadius="0 30 0 100" VerticalAlignment="Top" HorizontalAlignment="Right" Height="100" Width="100" Cursor="Hand" cal:Message.Attach="[Event PreviewMouseUpEvent] = [Action CloseWindow]">
                     <Border.Style>
                         <Style TargetType="Border">
                             <Setter Property="Opacity" Value="0.06"/>

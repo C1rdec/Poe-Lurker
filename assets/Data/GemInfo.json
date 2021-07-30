@@ -639,7 +639,20 @@
   {
     "Id": "Bloodreap",
     "Support": false,
-    "Location": null,
+    "Location": {
+      "Quest": "A Fixture of Fate",
+      "Act": "Act 3",
+      "Npc": "Siosa",
+      "Classes": [
+        "Witch",
+        "Shadow",
+        "Ranger",
+        "Duelist",
+        "Marauder",
+        "Templar",
+        "Scion"
+      ]
+    },
     "Name": "Reap",
     "WikiUrl": "https://pathofexile.fandom.com/wiki/Reap",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/e2/Reap_inventory_icon.png/revision/latest?cb=20210429193707",

@@ -241,6 +241,7 @@
             <Controls:Flyout Grid.RowSpan="2" IsOpen="{Binding IsOptionOpen}" FlowDirection="LeftToRight" Position="Right" Width="200" Header="Options">
                 <Grid Margin="10">
                     <StackPanel>
+                        <Controls:ToggleSwitch IsChecked="{Binding AutoCloseEnabled}" HorizontalAlignment="Right" OnLabel="Auto Close" OffLabel="Auto Close"></Controls:ToggleSwitch>
                         <Controls:ToggleSwitch IsChecked="{Binding SkillTimelineEnabled}" HorizontalAlignment="Right" OnLabel="Timeline" OffLabel="Timeline"></Controls:ToggleSwitch>
                         <Controls:ToggleSwitch Visibility="{Binding SkillTimelineEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" IsChecked="{Binding GroupBySkill}" HorizontalAlignment="Right" OnLabel="Group by skill" OffLabel="Group by skill"></Controls:ToggleSwitch>
                     </StackPanel>

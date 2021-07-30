@@ -191,6 +191,12 @@ namespace Lurker.Models
         public bool TimelineEnabled { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [build automatic close].
+        /// </summary>
+        [DefaultValue(true)]
+        public bool BuildAutoClose { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [group by skill].
         /// </summary>
         public bool GroupBySkill { get; set; }

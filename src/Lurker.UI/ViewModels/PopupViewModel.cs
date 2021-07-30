@@ -6,6 +6,7 @@
 
 namespace Lurker.UI.ViewModels
 {
+    using System;
     using Caliburn.Micro;
     using Lurker;
     using Lurker.Helpers;
@@ -154,6 +155,11 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         private void ClearContent()
         {
+            if (this.PopupContent != null && this.PopupContent is IDisposable disposable)
+            {
+                disposable.Dispose();
+            }
+
             this.PopupContent = null;
             this.NotifyOfPropertyChange(() => this.PopupContent);
             this._mouseLurker.MouseMove -= this.MouseLurker_MouseMove;

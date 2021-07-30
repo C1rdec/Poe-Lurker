@@ -6,6 +6,7 @@
 
 namespace Lurker.UI.ViewModels
 {
+    using System;
     using System.Collections.ObjectModel;
     using System.Linq;
     using Caliburn.Micro;
@@ -17,7 +18,7 @@ namespace Lurker.UI.ViewModels
     /// Represents a map item.
     /// </summary>
     /// <seealso cref="Caliburn.Micro.PropertyChangedBase" />
-    public class MapViewModel : Caliburn.Micro.PropertyChangedBase
+    public class MapViewModel : Caliburn.Micro.PropertyChangedBase, IDisposable
     {
         #region Fields
 
@@ -128,6 +129,26 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            this.Dispose(true);
+        }
+
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this._playerService.PlayerChanged -= this.PlayerService_PlayerChanged;
+            }
+        }
+
+        /// <summary>
         /// Adds the affix.
         /// </summary>
         /// <param name="id">The identifier.</param>
@@ -150,8 +171,11 @@ namespace Lurker.UI.ViewModels
         private void PlayerService_PlayerChanged(object sender, Player e)
         {
             this._modsSelectionVisible = false;
-            Execute.OnUIThread(() => this.Affixes.Clear());
-            this.ShowMapMods();
+            Execute.OnUIThread(() =>
+            {
+                this.Affixes.Clear();
+                this.ShowMapMods();
+            });
             this.NotifyOfPropertyChange(() => this.ModsSelectionVisible);
         }
 

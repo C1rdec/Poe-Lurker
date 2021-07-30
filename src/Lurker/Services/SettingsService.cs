@@ -580,6 +580,22 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [build automatic close].
+        /// </summary>
+        public bool BuildAutoClose
+        {
+            get
+            {
+                return this._settings.BuildAutoClose;
+            }
+
+            set
+            {
+                this._settings.BuildAutoClose = value;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [group by skill].
         /// </summary>
         public bool GroupBySkill

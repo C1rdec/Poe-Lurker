@@ -40,6 +40,7 @@ namespace Lurker.UI.ViewModels
         private SimpleBuild _currentBuild;
         private SettingsViewModel _settings;
         private GithubService _githubService;
+        private MouseLurker _mouseLurker;
 
         #endregion
 
@@ -56,11 +57,15 @@ namespace Lurker.UI.ViewModels
         /// <param name="playerService">The player service.</param>
         /// <param name="settingsViewModel">The settings view model.</param>
         /// <param name="githubService">The github service.</param>
-        public BuildViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService, BuildService buildService, PlayerService playerService, SettingsViewModel settingsViewModel, GithubService githubService)
+        /// <param name="mouseLurker">The mouse lurker.</param>
+        public BuildViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService, BuildService buildService, PlayerService playerService, SettingsViewModel settingsViewModel, GithubService githubService, MouseLurker mouseLurker)
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
             this._githubService = githubService;
             this._activePlayer = playerService.FirstPlayer;
+            this.Skills = new ObservableCollection<SkillViewModel>();
+            this._mouseLurker = mouseLurker;
+
             if (this._activePlayer != null && !string.IsNullOrEmpty(this._activePlayer.Build.BuildId))
             {
                 var build = buildService.Builds.FirstOrDefault(b => b.Id == this._activePlayer.Build.BuildId);
@@ -82,18 +87,15 @@ namespace Lurker.UI.ViewModels
             this.IsVisible = true;
             this._settings = settingsViewModel;
             this._eventAggregator = IoC.Get<IEventAggregator>();
-            this.Skills = new ObservableCollection<SkillViewModel>();
             this._skillTimelineEnabled = this.SettingsService.TimelineEnabled;
             this._playerService = playerService;
             this.UniqueItems = new ObservableCollection<UniqueItemViewModel>();
 
             this.ActivePlayer = new PlayerViewModel(playerService);
-            this._playerService.PlayerChanged += this.PlayerService_PlayerChanged;
             this._buildService = buildService;
             this.Builds = new ObservableCollection<SimpleBuild>();
 
             this.BuildSelector = new BuildSelectorViewModel(buildService);
-            this.BuildSelector.BuildSelected += this.BuildSelector_BuildSelected;
         }
 
         #endregion
@@ -117,8 +119,11 @@ namespace Lurker.UI.ViewModels
 
             set
             {
-                this._isOpen = value;
-                this.NotifyOfPropertyChange();
+                if (this._isOpen != value)
+                {
+                    this._isOpen = value;
+                    this.NotifyOfPropertyChange();
+                }
             }
         }
 
@@ -208,6 +213,24 @@ namespace Lurker.UI.ViewModels
                 this._skillTimelineEnabled = value;
                 this.NotifyOfPropertyChange();
                 this.SetTimelineSettings(this._skillTimelineEnabled);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [automatic close enabled].
+        /// </summary>
+        public bool AutoCloseEnabled
+        {
+            get
+            {
+                return this.SettingsService.BuildAutoClose;
+            }
+
+            set
+            {
+                this.SettingsService.BuildAutoClose = value;
+                this.SettingsService.Save();
+                this.NotifyOfPropertyChange();
             }
         }
 
@@ -431,9 +454,12 @@ namespace Lurker.UI.ViewModels
             this.Build = null;
             Execute.OnUIThread(() =>
             {
+                this.ClearEventHandlers();
                 this.Skills.Clear();
                 this.UniqueItems.Clear();
             });
+
+            // Handled in the Timeline
             this._eventAggregator.PublishOnUIThread(new SkillMessage() { Clear = true });
         }
 
@@ -452,6 +478,9 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         protected override void OnActivate()
         {
+            this._mouseLurker.MouseLeftButtonUp += this.MouseLurker_MouseLeftButtonUp;
+            this.BuildSelector.BuildSelected += this.BuildSelector_BuildSelected;
+            this._playerService.PlayerChanged += this.PlayerService_PlayerChanged;
             if (this.View != null)
             {
                 this.View.Deactivated += this.View_Deactivated;
@@ -493,6 +522,34 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Handles the MouseLeftButtonUp event of the MouseLurker control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void MouseLurker_MouseLeftButtonUp(object sender, EventArgs e)
+        {
+            if (this.SettingsService.BuildAutoClose)
+            {
+                this.IsOpen = false;
+            }
+        }
+
+        /// <summary>
+        /// Called when deactivating.
+        /// </summary>
+        /// <param name="close">Inidicates whether this instance will be closed.</param>
+        protected override void OnDeactivate(bool close)
+        {
+            this._mouseLurker.MouseLeftButtonUp -= this.MouseLurker_MouseLeftButtonUp;
+            this._playerService.PlayerChanged -= this.PlayerService_PlayerChanged;
+            this.BuildSelector.BuildSelected -= this.BuildSelector_BuildSelected;
+
+            this.ClearEventHandlers();
+            this.View.Deactivated -= this.View_Deactivated;
+            base.OnDeactivate(close);
+        }
+
+        /// <summary>
         /// Sets the window position.
         /// </summary>
         /// <param name="windowInformation">The window information.</param>
@@ -507,17 +564,6 @@ namespace Lurker.UI.ViewModels
                 this.View.Left = this.ApplyScalingX(windowInformation.Position.Right - 350 - margin);
                 this.View.Top = this.ApplyScalingY(windowInformation.Position.Bottom - value - 500 - margin);
             });
-        }
-
-        /// <summary>
-        /// Called when deactivating.
-        /// </summary>
-        /// <param name="close">Inidicates whether this instance will be closed.</param>
-        protected override void OnDeactivate(bool close)
-        {
-            this.ClearEventHandlers();
-            this.View.Deactivated -= this.View_Deactivated;
-            base.OnDeactivate(close);
         }
 
         /// <summary>
