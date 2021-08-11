@@ -111,7 +111,13 @@ namespace Lurker.UI.ViewModels
         public async void SetKeyCode()
         {
             var key = await this._getKey(this.NameValue);
-            this.KeyCode = (KeyCode)key.KeyValue;
+            var code = (KeyCode)key.KeyValue;
+            if (code == KeyCode.Escape)
+            {
+                return;
+            }
+
+            this.KeyCode = code;
 
             if (key.Control)
             {
