@@ -321,7 +321,7 @@ namespace Lurker.UI
         /// <param name="close">if set to <c>true</c> [close].</param>
         public override void DeactivateItem(Screen item, bool close)
         {
-            if (item.IsActive)
+            if (item != null && item.IsActive)
             {
                 Execute.OnUIThread(() => { base.DeactivateItem(item, close); });
             }

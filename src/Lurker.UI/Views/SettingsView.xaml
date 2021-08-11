@@ -24,7 +24,7 @@
                     <TextBlock Margin="4" VerticalAlignment="Center" Text="Discord" />
                 </StackPanel>
             </Button>
-            <Button Cursor="Hand">
+            <Button Cursor="Hand" cal:Message.Attach="[Event Click] = [Action OpenLogs]" >
                 <Button.Content>
                     <TextBlock Text="{Binding Version}"/>
                 </Button.Content>
@@ -449,7 +449,6 @@
                                                IsChecked="{Binding ShowStartupAnimation}"/>
                         </StackPanel>
                     </StackPanel>
-                    <Button Grid.Row="2" x:Name="OpenLogs" FontSize="22" Margin="25,10,25,10" Style="{DynamicResource Tag}">Open Logs</Button>
                 </Grid>
             </TabItem>
             <TabItem Header="Lurker Pro">
@@ -580,13 +579,22 @@
         <Button x:Name="SaveSettings"
                 Style="{DynamicResource Tag}"
                 FontSize="20"
-                VerticalAlignment="Bottom" 
+                VerticalAlignment="Top" 
                 HorizontalAlignment="Right" 
                 Visibility="{Binding Modified, Converter={StaticResource BooleanToVisibilityConverter}}"
                 Height="40" 
-                Width="200"
-                Margin="0,0,8,8"
-                >Save</Button>
+                Width="60"
+                Margin="8">
+            <Button.Content>
+                <local:IconPack HorizontalAlignment="Right"
+                                            VerticalAlignment="Bottom"
+                                            Foreground="White"
+                                            Grid.Row="2"
+                                            Height="20"
+                                            Width="20"
+                                            Data="{x:Static local:IconPackData.Save}"/>
+            </Button.Content>
+        </Button>
         <lottieSharp:LottieAnimationView
             x:Name="LottieAnimationView"
             FileName="{Binding AnimationFilePath}"

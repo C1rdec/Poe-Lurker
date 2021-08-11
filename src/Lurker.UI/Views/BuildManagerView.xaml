@@ -217,10 +217,10 @@
         </ScrollViewer>
         <Button Width="50"
                 x:Name="Add"
-                HorizontalAlignment="Right"
+                HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Height="50"
-                Margin="0,-50,10,0"
+                Margin="120,-50,0,0"
                     Style="{DynamicResource MetroCircleButtonStyle}">
             <Button.Content>
                 <TextBlock FontWeight="ExtraBold" FontSize="25" FontFamily="pack://application:,,,/Assets/#Fontin">+</TextBlock>
