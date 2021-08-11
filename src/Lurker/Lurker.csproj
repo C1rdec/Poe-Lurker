@@ -183,9 +183,11 @@
     <Compile Include="Models\GemLocation.cs" />
     <Compile Include="Models\Hotkey.cs" />
     <Compile Include="Models\HotkeySettings.cs" />
+    <Compile Include="Models\Ninja\NinjaLine.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\PlayerBank.cs" />
     <Compile Include="Models\PoeApplicationContext.cs" />
+    <Compile Include="Models\Ninja\NinjaResult.cs" />
     <Compile Include="Models\PoeWindowInformation.cs" />
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Models\SimpleBuild.cs" />
@@ -201,6 +203,7 @@
     <Compile Include="Services\BuildService.cs" />
     <Compile Include="Services\GithubService.cs" />
     <Compile Include="Services\HotkeyService.cs" />
+    <Compile Include="Services\PathOfNinjaService.cs" />
     <Compile Include="Services\PlayerService.cs" />
     <Compile Include="Services\CollaborationService.cs" />
     <Compile Include="Services\HttpServiceBase.cs" />

@@ -19,6 +19,12 @@ namespace Lurker.Console
 
         static void Main(string[] args)
         {
+
+            using (var ninjaService = new PathOfNinjaService())
+            {
+                var t = ninjaService.GetExaltRationAsync("Expedition").Result;
+            }
+
             var processLurker = new PathOfExileProcessLurker();
             var processId = processLurker.WaitForProcess().Result;
 

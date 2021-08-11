@@ -318,6 +318,7 @@
     <Compile Include="ViewModels\HotkeyViewModel.cs" />
     <Compile Include="ViewModels\MapAffixViewModel.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />
+    <Compile Include="ViewModels\OfferDetailsViewModel.cs" />
     <Compile Include="ViewModels\PlayerViewModel.cs" />
     <Compile Include="ViewModels\ChartViewModelBase.cs" />
     <Compile Include="ViewModels\CollaborationViewModel.cs" />
@@ -417,6 +418,9 @@
     </Compile>
     <Compile Include="Views\MapView.xaml.cs">
       <DependentUpon>MapView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OfferDetailsView.xaml.cs">
+      <DependentUpon>OfferDetailsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OutgoingbarView.xaml.cs">
       <DependentUpon>OutgoingbarView.xaml</DependentUpon>
@@ -571,6 +575,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MapView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OfferDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

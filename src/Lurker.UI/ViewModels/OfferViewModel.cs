@@ -38,8 +38,10 @@ namespace Lurker.UI.ViewModels
         private bool _skipMainAction;
         private bool _buyerInSameInstance;
         private bool _alreadySold;
+        private bool _showDetail;
         private CancellationTokenSource _tokenSource;
         private DockingHelper _dockingHelper;
+        private OfferDetailsViewModel _details;
 
         #endregion
 
@@ -155,6 +157,23 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="OfferViewModel"/> is ShowDetail.
+        /// </summary>
+        public bool ShowDetail
+        {
+            get
+            {
+                return this._showDetail;
+            }
+
+            set
+            {
+                this._showDetail = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether this <see cref="OfferViewModel"/> is waiting.
         /// </summary>
         public bool Waiting
@@ -206,6 +225,23 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Gets the Details.
+        /// </summary>
+        public OfferDetailsViewModel Details
+        {
+            get
+            {
+                return this._details;
+            }
+
+            private set
+            {
+                this._details = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
         /// Gets a value indicating whether [tool tip enabled].
         /// </summary>
         public bool ToolTipEnabled => this._settingsService.ToolTipEnabled;
@@ -243,9 +279,25 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Whoes the is.
         /// </summary>
-        public async void WhoIs()
+        public async void RightClick()
         {
-            await this._keyboardHelper.WhoIs(this.PlayerName);
+            if (Keyboard.IsKeyDown(Key.LeftCtrl))
+            {
+                await this._keyboardHelper.WhoIs(this.PlayerName);
+                return;
+            }
+
+            if (this._tradeEvent.Price.CurrencyType == CurrencyType.Exalted)
+            {
+                var detail = new OfferDetailsViewModel(this._tradeEvent);
+                await detail.Initialize();
+                this.Details = detail;
+                this.ShowDetail = !this.ShowDetail;
+            }
+            else
+            {
+                await this._keyboardHelper.WhoIs(this.PlayerName);
+            }
         }
 
         /// <summary>
@@ -399,6 +451,14 @@ namespace Lurker.UI.ViewModels
             {
                 this._tokenSource.Cancel();
             }
+        }
+
+        /// <summary>
+        /// Called when [mouse leave].
+        /// </summary>
+        public void OnMouseLeave()
+        {
+            this.ShowDetail = false;
         }
 
         /// <summary>

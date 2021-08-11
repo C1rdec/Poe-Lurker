@@ -9,6 +9,7 @@ namespace Lurker.Services
     using System;
     using System.Net.Http;
     using System.Threading.Tasks;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Http Service base.
@@ -81,6 +82,20 @@ namespace Lurker.Services
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             var response = await this.Client.SendAsync(request);
             return await response.Content.ReadAsByteArrayAsync();
+        }
+
+        /// <summary>
+        /// Gets the content.
+        /// </summary>
+        /// <typeparam name="T">The type of the reponse.</typeparam>
+        /// <param name="url">The URL.</param>
+        /// <returns>The byte­[].</returns>
+        protected async Task<T> GetAsync<T>(string url)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
+            var response = await this.Client.SendAsync(request);
+            var value = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<T>(value);
         }
 
         #endregion

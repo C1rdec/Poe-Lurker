@@ -10,7 +10,7 @@
              xmlns:local="clr-namespace:Lurker.UI"
              mc:Ignorable="d" 
              d:DesignHeight="65" d:DesignWidth="65">
-    <Border BorderThickness="2" CornerRadius="4" cal:Message.Attach="[Event PreviewMouseDownEvent] = [Action OnMouseDown]; [Event PreviewMouseUpEvent] = [Action OnMouseUp]">
+    <Border BorderThickness="2" CornerRadius="4" cal:Message.Attach="[Event PreviewMouseDownEvent] = [Action OnMouseDown]; [Event PreviewMouseUpEvent] = [Action OnMouseUp] ; [Event MouseLeave] = [Action OnMouseLeave]">
         <Border.Style>
             <Style TargetType="Border">
                 <Style.Triggers>
@@ -28,7 +28,7 @@
             MaxWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border CornerRadius="4" cal:Message.Attach="[Event MouseRightButtonUpEvent] = [Action WhoIs]">
+                    <Border CornerRadius="4" cal:Message.Attach="[Event MouseRightButtonUpEvent] = [Action RightClick]">
                         <Border.Style>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="Background" Value="#BDC2BF"/>
@@ -49,6 +49,14 @@
                                 <RowDefinition MaxHeight="{Binding ButtonHeight}"></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
+                            <Popup IsOpen="{Binding ShowDetail}"
+                                   Placement="Top" 
+                                   AllowsTransparency="True" 
+                                   Height="{Binding ActualHeight, ElementName=MainAction}"
+                                   Width="{Binding ActualHeight, ElementName=MainAction}"
+                                   PopupAnimation="Slide">
+                                <UserControl x:Name="Details" cal:View.Model="{Binding Path=Details,Mode=OneWay}"></UserControl>
+                            </Popup>
                             <Grid Visibility="{Binding NotSold, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.ColumnSpan="3" Grid.RowSpan="2">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto"/>
