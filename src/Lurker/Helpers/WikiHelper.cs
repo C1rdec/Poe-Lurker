@@ -57,7 +57,6 @@ namespace Lurker.Helpers
         /// <returns>The url.</returns>
         public static Uri ParseMedia(string url, HtmlWeb webPage)
         {
-
             var document = webPage.Load(url);
             var mediaElement = document.DocumentNode.Descendants().FirstOrDefault(e => e.Name == "span" && e.GetAttributeValue("class", string.Empty) == "images");
             if (mediaElement != null)
