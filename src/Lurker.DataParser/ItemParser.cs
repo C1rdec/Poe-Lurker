@@ -115,13 +115,17 @@ namespace Lurker.DataParser
                                     {
                                         Name = nameLine,
                                         ItemClass = uniqueItem.ItemClass,
-                                        WikiUrl = WikiHelper.CreateItemUri(nameLine),
+                                        WikiUrl = PoeDBHelper.CreateItemUri(nameLine),
                                         Level = GetLevel(levelLine),
                                     };
 
                                     try
                                     {
                                         item.ImageUrl = WikiHelper.GetItemImageUrl(nameLine);
+                                        if (item.ImageUrl == null)
+                                        { 
+                                            item.ImageUrl = PoeDBHelper.GetItemImageUrl(nameLine);
+                                        }
                                     }
                                     catch(InvalidOperationException)
                                     {

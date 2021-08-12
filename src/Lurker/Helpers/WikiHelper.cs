@@ -57,6 +57,7 @@ namespace Lurker.Helpers
         /// <returns>The url.</returns>
         public static Uri ParseMedia(string url, HtmlWeb webPage)
         {
+
             var document = webPage.Load(url);
             var mediaElement = document.DocumentNode.Descendants().FirstOrDefault(e => e.Name == "span" && e.GetAttributeValue("class", string.Empty) == "images");
             if (mediaElement != null)
@@ -67,7 +68,14 @@ namespace Lurker.Helpers
                     var href = hyperlink.Attributes.Where(a => a.Name == "href").FirstOrDefault();
                     if (href != null)
                     {
-                        return new Uri(href.Value);
+                        try
+                        {
+                            return new Uri(href.Value);
+                        }
+                        catch
+                        {
+                            return null;
+                        }
                     }
                 }
             }
@@ -86,7 +94,7 @@ namespace Lurker.Helpers
                 }
             }
 
-            throw new InvalidOperationException();
+            return null;
         }
 
         #endregion

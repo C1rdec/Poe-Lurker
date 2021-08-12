@@ -73,7 +73,7 @@ namespace Lurker.Models
         /// </summary>
         public void ParseWiki()
         {
-            this.WikiUrl = WikiHelper.CreateItemUri(this.Name);
+            this.WikiUrl = PoeDBHelper.CreateItemUri(this.Name);
 
             this.SetImageUrl();
             this.SetLocation();
@@ -87,6 +87,10 @@ namespace Lurker.Models
             try
             {
                 this.ImageUrl = WikiHelper.GetItemImageUrl(this.Name);
+                if (this.ImageUrl == null)
+                {
+                    this.ImageUrl = PoeDBHelper.GetItemImageUrl(this.Name);
+                }
             }
             catch (InvalidOperationException)
             {
@@ -102,13 +106,18 @@ namespace Lurker.Models
             HtmlDocument document = default;
             try
             {
-                document = webPage.Load(this.WikiUrl);
+                document = webPage.Load(WikiHelper.CreateItemUri(this.Name));
             }
             catch
             {
                 return;
             }
 
+            this.SetWikiLocation(document);
+        }
+
+        private void SetWikiLocation(HtmlDocument document)
+        {
             var vendorRewardSpan = document.DocumentNode.Descendants().FirstOrDefault(e => e.Name == "span" && e.GetAttributeValue("id", string.Empty) == "Vendor_reward");
 
             if (vendorRewardSpan == null)

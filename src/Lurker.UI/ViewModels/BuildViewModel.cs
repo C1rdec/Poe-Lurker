@@ -61,9 +61,17 @@ namespace Lurker.UI.ViewModels
         public BuildViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService, BuildService buildService, PlayerService playerService, SettingsViewModel settingsViewModel, GithubService githubService, MouseLurker mouseLurker)
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
+            this._settings = settingsViewModel;
+            this._playerService = playerService;
+            this._buildService = buildService;
             this._githubService = githubService;
             this._activePlayer = playerService.FirstPlayer;
+            this._skillTimelineEnabled = this.SettingsService.TimelineEnabled;
+            this._eventAggregator = IoC.Get<IEventAggregator>();
+
             this.Skills = new ObservableCollection<SkillViewModel>();
+            this.UniqueItems = new ObservableCollection<UniqueItemViewModel>();
+
             this._mouseLurker = mouseLurker;
 
             if (this._activePlayer != null && !string.IsNullOrEmpty(this._activePlayer.Build.BuildId))
@@ -85,14 +93,8 @@ namespace Lurker.UI.ViewModels
             }
 
             this.IsVisible = true;
-            this._settings = settingsViewModel;
-            this._eventAggregator = IoC.Get<IEventAggregator>();
-            this._skillTimelineEnabled = this.SettingsService.TimelineEnabled;
-            this._playerService = playerService;
-            this.UniqueItems = new ObservableCollection<UniqueItemViewModel>();
 
             this.ActivePlayer = new PlayerViewModel(playerService);
-            this._buildService = buildService;
             this.Builds = new ObservableCollection<SimpleBuild>();
 
             this.BuildSelector = new BuildSelectorViewModel(buildService);
