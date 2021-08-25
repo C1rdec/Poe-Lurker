@@ -49,7 +49,7 @@ namespace Lurker
             {
                 this._tokenSource = new CancellationTokenSource();
 
-                if (this._pathOfExileProcess.ProcessName.EndsWith("_KG.exe"))
+                if (this._pathOfExileProcess.ProcessName.EndsWith("_KG"))
                 {
                     this.Lurk(KoreanClientLogFileName);
                 }
@@ -259,7 +259,6 @@ namespace Lurker
             this._lastLine = this.GetLastLine();
             this.LurkLastLine();
         }
-
 
         /// <summary>
         /// Lurks this instance.

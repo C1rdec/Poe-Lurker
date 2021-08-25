@@ -19,25 +19,14 @@ namespace Lurker.Console
 
         static void Main(string[] args)
         {
-
-            using (var ninjaService = new PathOfNinjaService())
-            {
-                var t = ninjaService.GetExaltRationAsync("Expedition").Result;
-            }
-
             var processLurker = new PathOfExileProcessLurker();
             var processId = processLurker.WaitForProcess().Result;
 
-            var hook = new KeyboardHook(processId);
-            hook.AddHandler('F', Hook_MessageReceived);
-            //hook.MessageReceived += Hook_MessageReceived;
+            var process = ProcessLurker.GetProcessById(processId);
+            Console.WriteLine(process.ProcessName);
+            Console.WriteLine(process.ProcessName.EndsWith("_KG"));
 
-            hook.InstallAsync().Wait();
-
-            while (true)
-            {
-                Thread.Sleep(200);
-            }
+            Console.ReadLine();
         }
 
         private static void Hook_MessageReceived(object sender, KeyboardMessageEventArgs e)
