@@ -27,6 +27,7 @@ namespace Lurker
 
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
         private static readonly string ClientLogFileName = "Client.txt";
+        private static readonly string KoreanClientLogFileName = "KakaoClient.txt";
         private static readonly string ClientLogFolderName = "logs";
 
         private string _lastLine;
@@ -48,9 +49,13 @@ namespace Lurker
             {
                 this._tokenSource = new CancellationTokenSource();
 
-                if (!this._pathOfExileProcess.ProcessName.EndsWith("_KG.exe"))
+                if (this._pathOfExileProcess.ProcessName.EndsWith("_KG.exe"))
                 {
-                    this.Lurk();
+                    this.Lurk(KoreanClientLogFileName);
+                }
+                else
+                {
+                    this.Lurk(ClientLogFileName);
                 }
             }
         }
@@ -237,7 +242,7 @@ namespace Lurker
         /// <summary>
         /// Lurks this instance.
         /// </summary>
-        public void Lurk()
+        private void Lurk(string clientFileName)
         {
             string path = string.Empty;
             try
@@ -250,10 +255,11 @@ namespace Lurker
                 return;
             }
 
-            this.FilePath = Path.Combine(Path.GetDirectoryName(path), ClientLogFolderName, ClientLogFileName);
+            this.FilePath = Path.Combine(Path.GetDirectoryName(path), ClientLogFolderName, clientFileName);
             this._lastLine = this.GetLastLine();
             this.LurkLastLine();
         }
+
 
         /// <summary>
         /// Lurks this instance.
