@@ -7,9 +7,11 @@
 namespace Lurker.UI.ViewModels
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
     using System.Security.Authentication;
     using System.Threading;
@@ -36,6 +38,7 @@ namespace Lurker.UI.ViewModels
     {
         #region Fields
 
+        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
         private static readonly string LottieFileName = "LurckerIconSettings.json";
         private Task _activateTask;
         private bool _trialAvailable;
@@ -58,6 +61,7 @@ namespace Lurker.UI.ViewModels
         private CharacterManagerViewModel _characterManager;
         private bool _keyboardWaiting;
         private MetroWindow _view;
+        private IEnumerable<string> _excludePropertyNames;
 
         #endregion
 
@@ -80,7 +84,7 @@ namespace Lurker.UI.ViewModels
             this._hotkeyService = hotkeyService;
             this._soundService = soundService;
             this.DisplayName = "Settings";
-
+            this._excludePropertyNames = this.GetExcludedPropertyNames();
             this.PropertyChanged += this.SettingsViewModel_PropertyChanged;
 
             if (!AssetService.Exists(LottieFileName))
@@ -1294,6 +1298,24 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Get the excluded property name for PropertyChanged event.
+        /// </summary>
+        /// <returns>The list of property names.</returns>
+        private IEnumerable<string> GetExcludedPropertyNames()
+        {
+            return new List<string>()
+            {
+                nameof(this.IsCharacterOpen),
+                nameof(this.Modified),
+                nameof(this.CharacterManager),
+                nameof(this.SelectTabIndex),
+                nameof(this.IsActive),
+                nameof(this.NeedsUpdate),
+                nameof(this.UpToDate),
+            };
+        }
+
+        /// <summary>
         /// Setups the hotkeys.
         /// </summary>
         private void SetupHotkeys()
@@ -1343,13 +1365,14 @@ namespace Lurker.UI.ViewModels
         /// <param name="e">The <see cref="System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
         private void SettingsViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName != nameof(this.SelectTabIndex) && e.PropertyName != nameof(this.IsCharacterOpen) && e.PropertyName != nameof(this.CharacterManager) && e.PropertyName != nameof(this.Modified) && e.PropertyName != nameof(this.IsActive))
+            if (!this._excludePropertyNames.Contains(e.PropertyName))
             {
                 if (!this._activated || !this._activateTask.IsCompleted)
                 {
                     return;
                 }
 
+                Logger.Trace($"Modifed: {e.PropertyName}");
                 this.Modified = true;
             }
 
