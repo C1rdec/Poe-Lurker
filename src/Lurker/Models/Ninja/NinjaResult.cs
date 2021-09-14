@@ -11,14 +11,15 @@ namespace Lurker.Models.Ninja
     /// <summary>
     /// Represents a build.
     /// </summary>
-    public class NinjaResult
+    /// <typeparam name="T">Generics.</typeparam>
+    public class NinjaResult<T>
     {
         #region Properties
 
         /// <summary>
         /// Gets or sets the Lines.
         /// </summary>
-        public IEnumerable<NinjaLine> Lines { get; set; }
+        public IEnumerable<T> Lines { get; set; }
 
         #endregion
     }

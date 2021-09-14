@@ -92,9 +92,7 @@ namespace Lurker.Services
         /// <returns>The byte­[].</returns>
         protected async Task<T> GetAsync<T>(string url)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, url);
-            var response = await this.Client.SendAsync(request);
-            var value = await response.Content.ReadAsStringAsync();
+            var value = await this.GetText(url);
             return JsonConvert.DeserializeObject<T>(value);
         }
 

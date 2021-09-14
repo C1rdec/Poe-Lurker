@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="NinjaLine.cs" company="Wohs Inc.">
+// <copyright file="CurrencyLine.cs" company="Wohs Inc.">
 //     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -7,9 +7,9 @@
 namespace Lurker.Models.Ninja
 {
     /// <summary>
-    /// Represents a build.
+    /// Represents a currency line.
     /// </summary>
-    public class NinjaLine
+    public class CurrencyLine
     {
         #region Properties
 

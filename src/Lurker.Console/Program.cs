@@ -8,8 +8,6 @@ namespace Lurker.Console
 {
     using System;
     using System.Collections.Generic;
-    using System.Threading;
-    using Lurker.Helpers;
     using Lurker.Services;
     using Winook;
 
@@ -19,14 +17,10 @@ namespace Lurker.Console
 
         static void Main(string[] args)
         {
-            var processLurker = new PathOfExileProcessLurker();
-            var processId = processLurker.WaitForProcess().Result;
-
-            var process = ProcessLurker.GetProcessById(processId);
-            Console.WriteLine(process.ProcessName);
-            Console.WriteLine(process.ProcessName.EndsWith("_KG"));
-
-            Console.ReadLine();
+            using (var client = new PathOfNinjaService())
+            {
+                client.RefreshCache("Expedition").Wait();
+            }
         }
 
         private static void Hook_MessageReceived(object sender, KeyboardMessageEventArgs e)

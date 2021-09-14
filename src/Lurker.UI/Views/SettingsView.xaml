@@ -601,7 +601,7 @@
             Visibility="{Binding NotPledging, Converter={StaticResource BooleanToVisibilityConverter}}"
             DefaultCacheStrategy="None"
             SnapsToDevicePixels="True"
-            Margin="135,15,0,0"
+            Margin="134,95,0,0"
             Height="30"
             AutoPlay="True"
             RepeatCount="1"
