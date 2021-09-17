@@ -324,38 +324,6 @@ namespace Lurker.Services
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [item highlight enabled].
-        /// </summary>
-        public bool ItemHighlightEnabled
-        {
-            get
-            {
-                return this._settings.ItemHighlightEnabled;
-            }
-
-            set
-            {
-                this._settings.ItemHighlightEnabled = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [remaining monster enabled].
-        /// </summary>
-        public bool RemainingMonsterEnabled
-        {
-            get
-            {
-                return this._settings.RemainingMonsterEnabled;
-            }
-
-            set
-            {
-                this._settings.RemainingMonsterEnabled = value;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether [dashboard enabled].
         /// </summary>
         public bool DashboardEnabled

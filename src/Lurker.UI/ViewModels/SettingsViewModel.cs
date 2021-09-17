@@ -132,6 +132,16 @@ namespace Lurker.UI.ViewModels
         public HotkeyViewModel OpenWikiHotkey { get; set; }
 
         /// <summary>
+        /// Gets or sets the main hot key.
+        /// </summary>
+        public HotkeyViewModel MonsterRemainingHotkey { get; set; }
+
+        /// <summary>
+        /// Gets or sets the search hot key.
+        /// </summary>
+        public HotkeyViewModel SearchItemHotkey { get; set; }
+
+        /// <summary>
         /// Gets or sets the hotkeys.
         /// </summary>
         public ObservableCollection<HotkeyViewModel> Hotkeys { get; set; }
@@ -430,23 +440,6 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [remaining monster enabled].
-        /// </summary>
-        public bool RemainingMonsterEnabled
-        {
-            get
-            {
-                return this._settingService.RemainingMonsterEnabled;
-            }
-
-            set
-            {
-                this._settingService.RemainingMonsterEnabled = value;
-                this.NotifyOfPropertyChange();
-            }
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether [dashboard enabled].
         /// </summary>
         public bool DashboardEnabled
@@ -612,23 +605,6 @@ namespace Lurker.UI.ViewModels
             set
             {
                 this._settingService.AutoKickEnabled = value;
-                this.NotifyOfPropertyChange();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [item highlight enabled].
-        /// </summary>
-        public bool ItemHighlightEnabled
-        {
-            get
-            {
-                return this._settingService.ItemHighlightEnabled;
-            }
-
-            set
-            {
-                this._settingService.ItemHighlightEnabled = value;
                 this.NotifyOfPropertyChange();
             }
         }
@@ -1323,11 +1299,16 @@ namespace Lurker.UI.ViewModels
             this.MainHotkey = new HotkeyViewModel("Invite & Trade", this._hotkeyService.Main, this.GetNextKeyCode);
             this.OpenWikiHotkey = new HotkeyViewModel("Open Wiki", this._hotkeyService.OpenWiki, this.GetNextKeyCode);
 
-            this.Hotkeys = new ObservableCollection<HotkeyViewModel>();
-            this.Hotkeys.Add(new HotkeyViewModel("Invite", this._hotkeyService.Invite, this.GetNextKeyCode));
-            this.Hotkeys.Add(new HotkeyViewModel("Trade", this._hotkeyService.Trade, this.GetNextKeyCode));
-            this.Hotkeys.Add(new HotkeyViewModel("Busy", this._hotkeyService.Busy, this.GetNextKeyCode));
-            this.Hotkeys.Add(new HotkeyViewModel("Dismiss", this._hotkeyService.Dismiss, this.GetNextKeyCode));
+            this.MonsterRemainingHotkey = new HotkeyViewModel("Monster Remaining", this._hotkeyService.RemainingMonster, this.GetNextKeyCode);
+            this.SearchItemHotkey = new HotkeyViewModel("Item Highlight", this._hotkeyService.SearchItem, this.GetNextKeyCode);
+
+            this.Hotkeys = new ObservableCollection<HotkeyViewModel>
+            {
+                new HotkeyViewModel("Invite", this._hotkeyService.Invite, this.GetNextKeyCode),
+                new HotkeyViewModel("Trade", this._hotkeyService.Trade, this.GetNextKeyCode),
+                new HotkeyViewModel("Busy", this._hotkeyService.Busy, this.GetNextKeyCode),
+                new HotkeyViewModel("Dismiss", this._hotkeyService.Dismiss, this.GetNextKeyCode),
+            };
 
             // this.Hotkeys.Add(new HotkeyViewModel("Still Interested", this._hotkeyService.StillInterested, this.GetNextKeyCode));
             foreach (var hotkey in this.Hotkeys)
@@ -1337,6 +1318,8 @@ namespace Lurker.UI.ViewModels
 
             this.MainHotkey.PropertyChanged += this.Hotkey_PropertyChanged;
             this.OpenWikiHotkey.PropertyChanged += this.Hotkey_PropertyChanged;
+            this.MonsterRemainingHotkey.PropertyChanged += this.Hotkey_PropertyChanged;
+            this.SearchItemHotkey.PropertyChanged += this.Hotkey_PropertyChanged;
         }
 
         /// <summary>

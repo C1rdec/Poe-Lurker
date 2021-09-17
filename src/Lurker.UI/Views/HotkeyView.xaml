@@ -10,15 +10,16 @@
              Focusable="False"
              mc:Ignorable="d" 
              d:DesignHeight="130" d:DesignWidth="250">
-    <Border Background="#303030" Margin="8"  CornerRadius="8" Focusable="False">
+    <Border Background="#303030" Margin="8"  CornerRadius="8" Focusable="False" Height="100">
         <Grid>
+            <Label HorizontalAlignment="Center" FontFamily="pack://application:,,,/Assets/#Fontin" Foreground="#af8404" x:Name="NameValue" FontSize="20"/>
+
             <Grid Width="180" Margin="20,0,20,15">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition ></RowDefinition>
                     <RowDefinition Height="2*"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <Label HorizontalAlignment="Center" FontFamily="pack://application:,,,/Assets/#Fontin" Foreground="#af8404" x:Name="NameValue" FontSize="20" Grid.ColumnSpan="3"/>
                 <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
 
                     <Border BorderThickness="3" 
@@ -123,6 +124,5 @@
                 </Button.Style>
             </Button>
         </Grid>
-        
     </Border>
 </UserControl>

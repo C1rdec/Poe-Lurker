@@ -121,6 +121,38 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets the search item.
+        /// </summary>
+        public Hotkey SearchItem
+        {
+            get
+            {
+                return this._settings.SearchItem;
+            }
+
+            set
+            {
+                this._settings.SearchItem = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the search item.
+        /// </summary>
+        public Hotkey RemainingMonster
+        {
+            get
+            {
+                return this._settings.RemainingMonster;
+            }
+
+            set
+            {
+                this._settings.RemainingMonster = value;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the busy.
         /// </summary>
         public Hotkey Busy

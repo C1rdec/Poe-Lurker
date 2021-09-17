@@ -238,8 +238,6 @@ namespace Lurker
                 this._keyboardHook.AddHandler(this._toggleBuildCode, this.ToggleBuild);
             }
 
-            this._keyboardHook.AddHandler('F', Modifiers.Alt, this.SearchItem);
-            this._keyboardHook.AddHandler('R', Modifiers.Control, this.RemainingMonsters);
             this._keyboardHook.AddHandler(KeyCode.Delete, this.DeleteItem);
 
             // Hotkeys
@@ -249,6 +247,8 @@ namespace Lurker
             this._hotkeyService.Dismiss.Install(this._keyboardHook, this.DismissPressed);
             this._hotkeyService.Invite.Install(this._keyboardHook, this.InvitePressed);
             this._hotkeyService.OpenWiki.Install(this._keyboardHook, this.OpenWikiPressed);
+            this._hotkeyService.RemainingMonster.Install(this._keyboardHook, this.RemainingMonsters);
+            this._hotkeyService.SearchItem.Install(this._keyboardHook, this.SearchItem);
         }
 
         /// <summary>
@@ -269,6 +269,7 @@ namespace Lurker
             this._hotkeyService.Dismiss.Uninstall();
             this._hotkeyService.Invite.Uninstall();
             this._hotkeyService.OpenWiki.Uninstall();
+            this._hotkeyService.RemainingMonster.Uninstall();
         }
 
         /// <summary>
@@ -278,16 +279,13 @@ namespace Lurker
         /// <param name="e">The <see cref="KeyboardMessageEventArgs"/> instance containing the event data.</param>
         private async void SearchItem(object sender, KeyboardMessageEventArgs e)
         {
-            if (this._settingsService.ItemHighlightEnabled && Native.IsKeyPressed(Native.VirtualKeyStates.VK_MENU))
+            var baseType = await this.GetItemSearchValueInClipboard();
+            if (string.IsNullOrEmpty(baseType))
             {
-                var baseType = await this.GetItemSearchValueInClipboard();
-                if (string.IsNullOrEmpty(baseType))
-                {
-                    return;
-                }
-
-                await this._keyboardHelper.Search(baseType);
+                return;
             }
+
+            await this._keyboardHelper.Search(baseType);
         }
 
         /// <summary>
@@ -311,10 +309,7 @@ namespace Lurker
         /// <param name="e">The <see cref="KeyboardMessageEventArgs"/> instance containing the event data.</param>
         private async void RemainingMonsters(object sender, KeyboardMessageEventArgs e)
         {
-            if (this._settingsService.RemainingMonsterEnabled)
-            {
-                await this._keyboardHelper.RemainingMonster();
-            }
+            await this._keyboardHelper.RemainingMonster();
         }
 
         /// <summary>

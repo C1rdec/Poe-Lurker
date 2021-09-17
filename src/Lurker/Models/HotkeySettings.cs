@@ -57,6 +57,16 @@ namespace Lurker.Models
         /// </summary>
         public Hotkey OpenWiki { get; set; }
 
+        /// <summary>
+        /// Gets or sets the open wiki.
+        /// </summary>
+        public Hotkey SearchItem { get; set; }
+
+        /// <summary>
+        /// Gets or sets the open wiki.
+        /// </summary>
+        public Hotkey RemainingMonster { get; set; }
+
         #endregion
     }
 }

@@ -328,8 +328,7 @@
                     <Label Content="Feature" Style="{DynamicResource LabelHeaderStyle}" />
                     <Grid Grid.Row="1" Margin="30,0,30,0">
                         <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
                         <StackPanel Margin="0,30,0,0"  HorizontalAlignment="Left" Orientation="Horizontal">
@@ -342,17 +341,6 @@
                                                Margin="30,0,0,0"
                                                Header="Outgoing Trade"
                                                IsChecked="{Binding OutgoingTradeEnabled}"/>
-                            <Controls:ToggleSwitch
-                                               Margin="30,0,0,0"
-                                               Header="Item Highlight"
-                                               IsChecked="{Binding ItemHighlightEnabled}"/>
-                            <TextBlock Margin="4 4 0 0"
-                                                   Foreground="{DynamicResource AccentColorBrush}"
-                                                   FontSize="12"
-                                                   VerticalAlignment="Top"
-                                                   Text="(Alt + F)" />
-                        </StackPanel>
-                        <StackPanel Grid.Row="1"  Orientation="Horizontal" HorizontalAlignment="Left">
                             <Controls:ToggleSwitch Grid.Row="1"
                                                    Margin="30,0,0,0"
                                                    Header="Delete Item      "
@@ -361,17 +349,33 @@
                                                    Margin="30,0,0,0"
                                                    Header="Hideout"
                                                    IsChecked="{Binding HideoutEnabled}"/>
-                            <Controls:ToggleSwitch Header="Remaining Monster" Margin="30,0,0,0" IsChecked="{Binding RemainingMonsterEnabled}"/>
-                            <TextBlock Margin="4 4 0 0"
-                                                   Foreground="{DynamicResource AccentColorBrush}"
-                                                   FontSize="12"
-                                                   VerticalAlignment="Top"
-                                                   Text="(Ctrl + R)" />
-                            
                         </StackPanel>
-                        <StackPanel Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center">
-                            <ContentControl Focusable="False" x:Name="OpenWikiHotkey" Margin="45,0,45,0"/>
-                        </StackPanel>
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <ContentControl Grid.ColumnSpan="2" 
+                                            Focusable="False"
+                                            x:Name="OpenWikiHotkey" 
+                                            VerticalAlignment="Center" 
+                                            HorizontalAlignment="Center"/>
+                            <ContentControl Grid.Row="1"
+                                            Focusable="False" 
+                                            x:Name="MonsterRemainingHotkey" 
+                                            VerticalAlignment="Center" 
+                                            HorizontalAlignment="Center"/>
+                            <ContentControl Grid.Row="1" 
+                                            Grid.Column="1" 
+                                            Focusable="False" 
+                                            x:Name="SearchItemHotkey" 
+                                            VerticalAlignment="Center" 
+                                            HorizontalAlignment="Center"/>
+                        </Grid>
                     </Grid>
                 </Grid>
             </TabItem>
