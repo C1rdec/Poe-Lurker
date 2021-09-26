@@ -29,6 +29,7 @@ namespace Lurker.UI.ViewModels
             {
                 Title = title,
                 Values = new ChartValues<double>(values),
+                PointGeometry = null,
             });
         }
 

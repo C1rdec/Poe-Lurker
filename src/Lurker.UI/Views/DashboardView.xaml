@@ -9,7 +9,6 @@
         xmlns:cal="http://www.caliburnproject.org"
         Height="600" Width="800">
     <Grid>
-
         <ContentControl x:Name="ActiveChart" Grid.ColumnSpan="2"  Grid.RowSpan="2"/>
         <Grid Visibility="{Binding NoActiveChart, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid.RowDefinitions>
@@ -26,7 +25,16 @@
                 <TextBlock FontSize="20" Foreground="White">Item Class</TextBlock>
                 <TextBlock FontSize="12" Margin="4,4,0,0" Foreground="White" VerticalAlignment="Center">(Top 5)</TextBlock>
             </StackPanel>
-            <ContentControl x:Name="ItemClassChart" Grid.Row="1" Grid.ColumnSpan="2"/>
+            <Grid Grid.Row="1" Grid.ColumnSpan="2" Margin="0,15,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock x:Name="TotalNetworth" FontFamily="pack://application:,,,/Assets/#Fontin" Foreground="#af8404"/>
+                </Viewbox>
+                <ContentControl x:Name="ItemClassChart" Grid.Column="1"/>
+            </Grid>
 
             <TextBlock FontSize="20" Foreground="White" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">Total</TextBlock>
 

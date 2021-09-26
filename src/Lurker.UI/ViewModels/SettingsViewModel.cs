@@ -1299,7 +1299,7 @@ namespace Lurker.UI.ViewModels
             this.MainHotkey = new HotkeyViewModel("Invite & Trade", this._hotkeyService.Main, this.GetNextKeyCode);
             this.OpenWikiHotkey = new HotkeyViewModel("Open Wiki", this._hotkeyService.OpenWiki, this.GetNextKeyCode);
 
-            this.MonsterRemainingHotkey = new HotkeyViewModel("Monster Remaining", this._hotkeyService.RemainingMonster, this.GetNextKeyCode);
+            this.MonsterRemainingHotkey = new HotkeyViewModel("Remaining Monster", this._hotkeyService.RemainingMonster, this.GetNextKeyCode);
             this.SearchItemHotkey = new HotkeyViewModel("Item Highlight", this._hotkeyService.SearchItem, this.GetNextKeyCode);
 
             this.Hotkeys = new ObservableCollection<HotkeyViewModel>

@@ -29,11 +29,12 @@ namespace Lurker.UI.ViewModels
         private LineChartViewModel _networthChart;
         private ChartViewModelBase _activeChart;
         private PieChartViewModel _itemClassChart;
-        private IEnumerable<SimpleTradeModel> _networkTrades;
+        private IEnumerable<SimpleTradeModel> _networthTrades;
         private IEnumerable<SimpleTradeModel> _leagueTrades;
         private IEnumerable<SimpleTradeModel> _allTradres;
         private IEnumerable<League> _leagues;
         private League _selectedLeague;
+        private double _totalNetworth;
 
         #endregion
 
@@ -48,7 +49,7 @@ namespace Lurker.UI.ViewModels
         {
             this.DisplayName = "Dashboard";
 
-            this._networkTrades = Enumerable.Empty<SimpleTradeModel>();
+            this._networthTrades = Enumerable.Empty<SimpleTradeModel>();
             this._leagueTrades = Enumerable.Empty<SimpleTradeModel>();
             this._allTradres = Enumerable.Empty<SimpleTradeModel>();
             this._leagues = Enumerable.Empty<League>();
@@ -126,6 +127,24 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Gets the total networth.
+        /// </summary>
+        /// <value>The selected league.</value>
+        public double TotalNetworth
+        {
+            get
+            {
+                return this._totalNetworth;
+            }
+
+            private set
+            {
+                this._totalNetworth = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
         /// Gets the total chart.
         /// </summary>
         public PieChartViewModel TotalChart
@@ -193,7 +212,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public void Day()
         {
-            this._networkTrades = this._leagueTrades.Where(t => DateTime.Compare(t.Date, DateTime.Now.AddDays(-1)) > 0);
+            this._networthTrades = this._leagueTrades.Where(t => DateTime.Compare(t.Date, DateTime.Now.AddDays(-1)) > 0);
             this.NetworthChart = this.CreateNetworthChart();
         }
 
@@ -202,7 +221,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public void Week()
         {
-            this._networkTrades = this._leagueTrades.Where(t => DateTime.Compare(t.Date, DateTime.Now.AddDays(-7)) > 0);
+            this._networthTrades = this._leagueTrades.Where(t => DateTime.Compare(t.Date, DateTime.Now.AddDays(-7)) > 0);
             this.NetworthChart = this.CreateNetworthChart();
         }
 
@@ -211,7 +230,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public void All()
         {
-            this._networkTrades = this._leagueTrades;
+            this._networthTrades = this._leagueTrades;
             this.NetworthChart = this.CreateNetworthChart();
         }
 
@@ -248,7 +267,7 @@ namespace Lurker.UI.ViewModels
             using (var service = new DatabaseService())
             {
                 await service.CheckPledgeStatus();
-                this._allTradres = service.Get().OrderBy(t => t.Date).ToArray();
+                this._allTradres = service.Get().Where(t => !t.IsOutgoing).OrderBy(t => t.Date).ToArray();
 
                 var leagues = this._allTradres.GroupBy(t => t.LeagueName).Select(grp => grp.Key);
                 this.Leagues = this.FilterLeagueNames(leagues);
@@ -304,7 +323,8 @@ namespace Lurker.UI.ViewModels
                 this._leagueTrades = this._allTradres.Where(t => !string.IsNullOrEmpty(t.LeagueName) && league.PossibleNames.Contains(t.LeagueName));
             }
 
-            this._networkTrades = this._leagueTrades;
+            this._networthTrades = this._leagueTrades;
+            this.TotalNetworth = this._leagueTrades.Select(t => t.Price.CalculateValue()).Sum();
         }
 
         /// <summary>
@@ -385,19 +405,32 @@ namespace Lurker.UI.ViewModels
         {
             var lineChart = new LineChartViewModel();
             var points = new List<double>();
-            double previousValue = 0;
 
-            foreach (var trade in this._networkTrades)
+            if (this._networthTrades.Count() < 2)
             {
-                var value = trade.Price.CalculateValue();
-                if (trade.IsOutgoing)
+                return lineChart;
+            }
+
+            double previousValue = 0;
+            var firstTrade = this._networthTrades.First();
+            var lastTrade = this._networthTrades.Last();
+
+            var days = (lastTrade.Date - firstTrade.Date).TotalDays;
+            var tradeGroups = this._networthTrades.GroupBy(t => t.Date.Date);
+
+            var firstDate = firstTrade.Date.Date;
+            for (int i = 0; i < days + 1; i++)
+            {
+                var group = tradeGroups.FirstOrDefault(g => g.Key.Date == firstDate);
+                if (group == null)
                 {
-                    previousValue -= value;
+                    points.Add(previousValue);
+                    firstDate = firstDate.AddDays(1);
+                    continue;
                 }
-                else
-                {
-                    previousValue += value;
-                }
+
+                var value = group.Select(g => g.Price.CalculateValue()).Sum();
+                previousValue += value;
 
                 if (previousValue < 0)
                 {
@@ -407,6 +440,8 @@ namespace Lurker.UI.ViewModels
                 {
                     points.Add(previousValue);
                 }
+
+                firstDate = firstDate.AddDays(1);
             }
 
             lineChart.Add("Networth", points);

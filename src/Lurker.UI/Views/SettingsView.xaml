@@ -328,8 +328,8 @@
                     <Label Content="Feature" Style="{DynamicResource LabelHeaderStyle}" />
                     <Grid Grid.Row="1" Margin="30,0,30,0">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
                         <StackPanel Margin="0,30,0,0"  HorizontalAlignment="Left" Orientation="Horizontal">
 
