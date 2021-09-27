@@ -541,6 +541,7 @@
                             Cursor="Hand"
                             ToolTip="Open"
                             BorderThickness="0"
+                            Margin="0,20,0,0"
                             Height="30" 
                             Visibility="{Binding HasYoutube, Converter={StaticResource BooleanToVisibilityConverter}}"
                             Style="{DynamicResource MetroCircleButtonStyle}">
