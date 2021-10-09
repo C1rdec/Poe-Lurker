@@ -57,7 +57,6 @@ namespace Lurker.UI
         private SettingsViewModel _settingsViewModel;
         private BuildViewModel _buildViewModel;
         private HelpViewModel _helpOverlay;
-        private PushBulletService _pushBulletService;
         private IEventAggregator _eventAggregator;
         private bool _startWithWindows;
         private bool _needUpdate;

@@ -54,13 +54,14 @@ namespace Lurker.UI.ViewModels
         private int _alertVolume;
         private int _joinHideoutVolume;
         private PatreonService _currentPatreonService;
-        private PushBulletService _pushBulletService;
         private SoundService _soundService;
         private CancellationTokenSource _currentTokenSource;
         private bool _hasCustomTradeSound;
         private WaveOutEvent _currentTradeAlert;
         private bool _isCharacterOpen;
+        private bool _isPushBulletOpen;
         private CharacterManagerViewModel _characterManager;
+        private PushBulletViewModel _pushBulletViewModel;
         private bool _keyboardWaiting;
         private MetroWindow _view;
         private IEnumerable<string> _excludePropertyNames;
@@ -78,7 +79,15 @@ namespace Lurker.UI.ViewModels
         /// <param name="hotkeyService">The key code service.</param>
         /// <param name="soundService">The sound service.</param>
         /// <param name="githubService">The github service.</param>
-        public SettingsViewModel(IWindowManager windowManager, KeyboardHelper keyboardHelper, SettingsService settingsService, HotkeyService hotkeyService, SoundService soundService, GithubService githubService)
+        /// <param name="pushBulletService">The PushBullet service.</param>
+        public SettingsViewModel(
+            IWindowManager windowManager,
+            KeyboardHelper keyboardHelper,
+            SettingsService settingsService,
+            HotkeyService hotkeyService,
+            SoundService soundService,
+            GithubService githubService,
+            PushBulletService pushBulletService)
             : base(windowManager)
         {
             this._keyboardHelper = keyboardHelper;
@@ -95,6 +104,7 @@ namespace Lurker.UI.ViewModels
             }
 
             this.BuildManager = new BuildManagerViewModel(this.ShowMessage, githubService);
+            this.PushBullet = new PushBulletViewModel(pushBulletService);
             this.SetupHotkeys();
         }
 
@@ -120,6 +130,23 @@ namespace Lurker.UI.ViewModels
             {
                 var version = Assembly.GetExecutingAssembly().GetName().Version;
                 return $"{version.Major}.{version.Minor}.{version.Build}";
+            }
+        }
+
+        /// <summary>
+        /// Gets the PushBullet.
+        /// </summary>
+        public PushBulletViewModel PushBullet
+        {
+            get
+            {
+                return this._pushBulletViewModel;
+            }
+
+            private set
+            {
+                this._pushBulletViewModel = value;
+                this.NotifyOfPropertyChange();
             }
         }
 
@@ -166,6 +193,23 @@ namespace Lurker.UI.ViewModels
             set
             {
                 this._isCharacterOpen = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is character open.
+        /// </summary>
+        public bool IsPushBulletOpen
+        {
+            get
+            {
+                return this._isPushBulletOpen;
+            }
+
+            set
+            {
+                this._isPushBulletOpen = value;
                 this.NotifyOfPropertyChange();
             }
         }
@@ -1147,6 +1191,14 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Open push bullet flyout.
+        /// </summary>
+        public void OpenPushBullet()
+        {
+            this.IsPushBulletOpen = true;
+        }
+
+        /// <summary>
         /// Called when an attached view's Loaded event fires.
         /// </summary>
         /// <param name="view">The view.</param>
@@ -1283,6 +1335,7 @@ namespace Lurker.UI.ViewModels
             return new List<string>()
             {
                 nameof(this.IsCharacterOpen),
+                nameof(this.IsPushBulletOpen),
                 nameof(this.Modified),
                 nameof(this.CharacterManager),
                 nameof(this.SelectTabIndex),

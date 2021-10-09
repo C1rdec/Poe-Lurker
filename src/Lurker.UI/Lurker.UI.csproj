@@ -314,6 +314,7 @@
     <Compile Include="ViewModels\BuildManagerViewModel.cs" />
     <Compile Include="ViewModels\BuildSelectorViewModel.cs" />
     <Compile Include="ViewModels\BuildViewModel.cs" />
+    <Compile Include="ViewModels\DeviceViewModel.cs" />
     <Compile Include="ViewModels\GroupItemViewModel.cs" />
     <Compile Include="ViewModels\HotkeyViewModel.cs" />
     <Compile Include="ViewModels\MapAffixViewModel.cs" />
@@ -340,6 +341,7 @@
     <Compile Include="ViewModels\PoeOverlayBase.cs" />
     <Compile Include="ViewModels\PopupViewModel.cs" />
     <Compile Include="ViewModels\PositionViewModel.cs" />
+    <Compile Include="ViewModels\PushBulletViewModel.cs" />
     <Compile Include="ViewModels\RemainingMonsterViewModel.cs" />
     <Compile Include="ViewModels\ScreenBase.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
@@ -382,6 +384,9 @@
     </Compile>
     <Compile Include="Views\DashboardView.xaml.cs">
       <DependentUpon>DashboardView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeviceView.xaml.cs">
+      <DependentUpon>DeviceView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GemLocationView.xaml.cs">
       <DependentUpon>GemLocationView.xaml</DependentUpon>
@@ -439,6 +444,9 @@
     </Compile>
     <Compile Include="Views\PositionView.xaml.cs">
       <DependentUpon>PositionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PushBulletView.xaml.cs">
+      <DependentUpon>PushBulletView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RemainingMonsterView.xaml.cs">
       <DependentUpon>RemainingMonsterView.xaml</DependentUpon>
@@ -530,6 +538,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\DeviceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\GemLocationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -603,6 +615,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PositionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PushBulletView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -773,11 +789,14 @@
     <Resource Include="Assets\Slayer_avatar.png" />
     <Resource Include="Assets\Trickster_avatar.png" />
     <Resource Include="Assets\AvoidAilments.png" />
+    <Content Include="SVG\Android.svg" />
+    <Content Include="SVG\Apple.svg" />
     <Content Include="SVG\CustomSound.svg" />
     <Content Include="SVG\Discord.svg" />
     <Content Include="SVG\DotsMenu.svg" />
     <Content Include="SVG\Group.svg" />
     <Content Include="SVG\Open.svg" />
+    <Content Include="SVG\Pushbullet.svg" />
     <Content Include="SVG\ThreeDot.svg" />
     <Resource Include="Assets\Gemcutter.png" />
     <Resource Include="Assets\Chisel.png" />
