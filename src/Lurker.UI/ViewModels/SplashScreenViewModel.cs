@@ -9,6 +9,7 @@ namespace Lurker.UI.ViewModels
     using System.IO;
     using System.Reflection;
     using Caliburn.Micro;
+    using Lurker.Patreon.Services;
     using Lurker.Services;
 
     /// <summary>
@@ -43,7 +44,7 @@ namespace Lurker.UI.ViewModels
 
             Execute.OnUIThread(async () =>
             {
-                using (var service = new Patreon.PatreonService())
+                using (var service = new PatreonService())
                 {
                     var result = await service.IsPledging();
                     if (result)

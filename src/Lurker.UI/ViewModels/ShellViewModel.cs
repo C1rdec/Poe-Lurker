@@ -19,6 +19,7 @@ namespace Lurker.UI
     using Lurker.Models;
     using Lurker.Patreon;
     using Lurker.Patreon.Models;
+    using Lurker.Patreon.Services;
     using Lurker.Services;
     using Lurker.UI.Helpers;
     using Lurker.UI.Models;

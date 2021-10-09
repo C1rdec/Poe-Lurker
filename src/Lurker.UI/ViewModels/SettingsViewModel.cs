@@ -21,6 +21,7 @@ namespace Lurker.UI.ViewModels
     using System.Windows.Media;
     using Caliburn.Micro;
     using Lurker.Helpers;
+    using Lurker.Patreon.Services;
     using Lurker.Services;
     using Lurker.UI.Helpers;
     using MahApps.Metro.Controls;
@@ -52,7 +53,7 @@ namespace Lurker.UI.ViewModels
         private bool _activated;
         private int _alertVolume;
         private int _joinHideoutVolume;
-        private Patreon.PatreonService _currentPatreonService;
+        private PatreonService _currentPatreonService;
         private SoundService _soundService;
         private CancellationTokenSource _currentTokenSource;
         private bool _hasCustomTradeSound;
@@ -1062,7 +1063,7 @@ namespace Lurker.UI.ViewModels
 
             try
             {
-                using (this._currentPatreonService = new Patreon.PatreonService())
+                using (this._currentPatreonService = new PatreonService())
                 {
                     if (!this._currentPatreonService.IsConnected)
                     {
@@ -1096,7 +1097,7 @@ namespace Lurker.UI.ViewModels
         {
             await this.ShowProgress("Hold on", "Preparing the trial...", async () =>
             {
-                using (var service = new Patreon.PatreonService())
+                using (var service = new PatreonService())
                 {
                     service.StartTrial();
                     var pledging = await service.IsPledging();
@@ -1187,7 +1188,7 @@ namespace Lurker.UI.ViewModels
             this.BuildManager.PopulateBuilds(this.SyncBuild);
             this._activateTask = Task.Run(async () =>
             {
-                using (var service = new Patreon.PatreonService())
+                using (var service = new PatreonService())
                 {
                     this.Pledging = await service.IsPledging();
 
@@ -1233,7 +1234,6 @@ namespace Lurker.UI.ViewModels
                 return "A blessing I can’t deny";
             }
 
-            var text = string.Empty;
             if (time.Days > 0)
             {
                 return $"{time.Days} days, {time.Hours} hours, {time.Minutes} minutes";
