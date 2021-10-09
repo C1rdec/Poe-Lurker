@@ -17,6 +17,7 @@ namespace Lurker.UI.ViewModels
     using Lurker.Patreon.Events;
     using Lurker.Patreon.Models;
     using Lurker.Patreon.Parsers;
+    using Lurker.Patreon.Services;
     using Lurker.Services;
     using Lurker.UI.Models;
 
@@ -39,6 +40,7 @@ namespace Lurker.UI.ViewModels
         private System.Action _removeActive;
         private List<TradeEvent> _soldOffers;
         private SoundService _soundService;
+        private PushBulletService _pushBulletService;
 
         #endregion
 
@@ -56,13 +58,25 @@ namespace Lurker.UI.ViewModels
         /// <param name="settingsService">The settings service.</param>
         /// <param name="windowManager">The window manager.</param>
         /// <param name="soundService">The sound service.</param>
-        public TradebarViewModel(IEventAggregator eventAggregator, ClientLurker clientLurker, ProcessLurker processLurker, KeyboardLurker keyboardLurker, DockingHelper dockingHelper, PoeKeyboardHelper keyboardHelper, SettingsService settingsService, IWindowManager windowManager, SoundService soundService)
+        /// <param name="pushBulletService">The PushBullet service.</param>
+        public TradebarViewModel(
+            IEventAggregator eventAggregator,
+            ClientLurker clientLurker,
+            ProcessLurker processLurker,
+            KeyboardLurker keyboardLurker,
+            DockingHelper dockingHelper,
+            PoeKeyboardHelper keyboardHelper,
+            SettingsService settingsService,
+            IWindowManager windowManager,
+            SoundService soundService,
+            PushBulletService pushBulletService)
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
             this._eventAggregator = eventAggregator;
             this._keyboardHelper = keyboardHelper;
             this._soundService = soundService;
             this._clientLurker = clientLurker;
+            this._pushBulletService = pushBulletService;
 
             this._keyboardLurker = keyboardLurker;
             this.TradeOffers = new ObservableCollection<OfferViewModel>();
@@ -226,7 +240,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The trade event.</param>
-        private void Lurker_IncomingOffer(object sender, TradeEvent e)
+        private async void Lurker_IncomingOffer(object sender, TradeEvent e)
         {
             if (this.TradeOffers.Any(o => o.Event.Equals(e)))
             {
@@ -236,6 +250,11 @@ namespace Lurker.UI.ViewModels
             if (this.SettingsService.AlertEnabled)
             {
                 this.PlayAlert();
+            }
+
+            if (PoeApplicationContext.IsAfk)
+            {
+                await this._pushBulletService.SendTradeMessageAsync(e);
             }
 
             Execute.OnUIThread(() =>
@@ -543,8 +562,10 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Called when activating.
         /// </summary>
-        protected override void OnActivate()
+        protected async override void OnActivate()
         {
+            await this._pushBulletService.CheckPledgeStatus();
+
             this.SettingsService.OnSave += this.SettingsService_OnSave;
 
             this._keyboardLurker.MainActionPressed += this.KeyboardLurker_MainActionPressed;

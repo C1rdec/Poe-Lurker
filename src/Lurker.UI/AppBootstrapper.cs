@@ -12,6 +12,7 @@ namespace Lurker.UI
     using Caliburn.Micro;
     using Lurker.Extensions;
     using Lurker.Helpers;
+    using Lurker.Patreon.Services;
     using Lurker.Services;
     using Lurker.UI.Helpers;
     using Lurker.UI.Services;
@@ -67,6 +68,7 @@ namespace Lurker.UI
             this._container.Singleton<GithubService, GithubService>();
             this._container.Singleton<DashboardViewModel, DashboardViewModel>();
             this._container.Singleton<TutorialViewModel, TutorialViewModel>();
+            this._container.PerRequest<PushBulletService, PushBulletService>();
             this._container.PerRequest<AfkService, AfkService>();
             this._container.PerRequest<UpdateManager, UpdateManager>();
             this._container.PerRequest<ShellViewModel, ShellViewModel>();

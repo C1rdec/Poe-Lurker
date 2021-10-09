@@ -54,6 +54,7 @@ namespace Lurker.UI.ViewModels
         private int _alertVolume;
         private int _joinHideoutVolume;
         private PatreonService _currentPatreonService;
+        private PushBulletService _pushBulletService;
         private SoundService _soundService;
         private CancellationTokenSource _currentTokenSource;
         private bool _hasCustomTradeSound;

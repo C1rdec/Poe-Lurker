@@ -57,6 +57,7 @@ namespace Lurker.UI
         private SettingsViewModel _settingsViewModel;
         private BuildViewModel _buildViewModel;
         private HelpViewModel _helpOverlay;
+        private PushBulletService _pushBulletService;
         private IEventAggregator _eventAggregator;
         private bool _startWithWindows;
         private bool _needUpdate;
@@ -78,7 +79,13 @@ namespace Lurker.UI
         /// <param name="buildService">The build service.</param>
         /// <param name="settingsViewModel">The settings view model.</param>
         /// <param name="eventAggregator">The event aggregator.</param>
-        public ShellViewModel(SimpleContainer container, SettingsService settingsService, HotkeyService keyCodeService, BuildService buildService, SettingsViewModel settingsViewModel, IEventAggregator eventAggregator)
+        public ShellViewModel(
+            SimpleContainer container,
+            SettingsService settingsService,
+            HotkeyService keyCodeService,
+            BuildService buildService,
+            SettingsViewModel settingsViewModel,
+            IEventAggregator eventAggregator)
         {
             this._eventAggregator = eventAggregator;
             this._settingsService = settingsService;
