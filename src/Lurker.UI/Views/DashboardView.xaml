@@ -36,17 +36,17 @@
                 <ContentControl x:Name="ItemClassChart" Grid.Column="1"/>
             </Grid>
 
-            <TextBlock FontSize="20" Foreground="White" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">Total</TextBlock>
+            <!--<TextBlock FontSize="20" Foreground="White" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">Total</TextBlock>-->
 
-            <ContentControl x:Name="TotalChart" Grid.Row="3" Grid.Column="1" />
+            <!--<ContentControl x:Name="TotalChart" Grid.Row="3" Grid.Column="1" />-->
 
-            <TextBlock FontSize="20" Foreground="White" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">Net Worth</TextBlock>
-            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <TextBlock FontSize="20" Foreground="White" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">Net Worth</TextBlock>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <Button x:Name="Day">Day</Button>
                 <Button x:Name="Week" Margin="2,0,0,0">Week</Button>
                 <Button x:Name="All" Margin="2,0,0,0">All</Button>
             </StackPanel>
-            <ContentControl x:Name="NetworthChart" Grid.Row="3"/>
+            <ContentControl x:Name="NetworthChart" Grid.Row="3" Grid.ColumnSpan="2"/>
         </Grid>
         <Button x:Name="Back" Visibility="{Binding HasActiveChart, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">Back</Button>
         <ComboBox FontSize="28" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" SelectedItem="{Binding SelectedLeague}" ItemsSource="{Binding Leagues}" DisplayMemberPath="DisplayName"/>
