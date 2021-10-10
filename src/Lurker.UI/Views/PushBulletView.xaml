@@ -4,12 +4,25 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Lurker.UI.Views"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d" 
+             xmlns:cal="http://www.caliburnproject.org"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding NotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid HorizontalAlignment="Center" Grid.RowSpan="2" VerticalAlignment="Center" Visibility="{Binding NotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Button x:Name="Login">Login with PushBullet</Button>
         </Grid>
+        <Controls:ToggleSwitch 
+            Visibility="{Binding Connected, Converter={StaticResource BooleanToVisibilityConverter}}"
+            Grid.Row="3"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Center"
+            IsChecked="{Binding Enable}"/>
         <Button x:Name="GetDevices" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Visibility="{Binding Connected, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Button.Content>
                 <Grid>
@@ -21,6 +34,39 @@
                     </Popup>
                 </Grid>
             </Button.Content>
+        </Button>
+        <StackPanel Grid.Row="1" VerticalAlignment="Center" Visibility="{Binding Connected, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <TextBlock HorizontalAlignment="Center" FontFamily="pack://application:,,,/Assets/#Fontin" FontSize="18" Text="Thresold">
+                <TextBlock.ToolTip>
+                    <TextBlock>
+                          In Chaos
+                    </TextBlock>
+                </TextBlock.ToolTip>
+            </TextBlock>
+            <Slider
+            Grid.Row="1"
+            Margin="10,0,10,0"
+            Controls:SliderHelper.ChangeValueBy="SmallChange"
+            Controls:SliderHelper.EnableMouseWheel="MouseHover"
+            AutoToolTipPlacement="TopLeft"
+            LargeChange="10"
+            Maximum="100"
+            Orientation="Horizontal"
+            SmallChange="1"
+            Value="{Binding Thresold}" />
+        </StackPanel>
+        
+        <Button x:Name="Logout"
+                Grid.Row="3"
+                VerticalAlignment="Bottom" 
+                Background="Transparent"
+                BorderThickness="0"
+                HorizontalAlignment="Right" 
+                Margin="4" 
+                Visibility="{Binding Connected, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <TextBlock>
+                <Hyperlink Foreground="Gray">Logout</Hyperlink>
+            </TextBlock>
         </Button>
     </Grid>
 </UserControl>

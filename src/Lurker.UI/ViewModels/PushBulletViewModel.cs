@@ -119,6 +119,38 @@ namespace Lurker.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [enable].
+        /// </summary>
+        public bool Enable
+        {
+            get
+            {
+                return this._service.Enable;
+            }
+
+            set
+            {
+                this._service.Enable = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating the thresold.
+        /// </summary>
+        public int Thresold
+        {
+            get
+            {
+                return this._service.Thresold;
+            }
+
+            set
+            {
+                this._service.Thresold = value;
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -143,6 +175,21 @@ namespace Lurker.UI.ViewModels
                 this.NotifyOfPropertyChange(() => this.Connected);
                 this.NotifyOfPropertyChange(() => this.NotConnected);
             }
+        }
+
+        /// <summary>
+        /// Logout from Pushbullet.
+        /// </summary>
+        public void Logout()
+        {
+            this._service.Logout();
+            this.Devices.Clear();
+            this.PopupSelectedDevice = null;
+            this.SelectedDevice = null;
+            this.NotifyOfPropertyChange(() => this.Connected);
+            this.NotifyOfPropertyChange(() => this.NotConnected);
+            this.NotifyOfPropertyChange(() => this.Thresold);
+            this.NotifyOfPropertyChange(() => this.Enable);
         }
 
         /// <summary>

@@ -541,17 +541,17 @@
                             Cursor="Hand"
                             ToolTip="Open"
                             BorderThickness="0"
-                            Margin="0,20,0,0"
+                            Margin="-12,-46,0,0"
                             Height="30" 
                             Visibility="{Binding HasYoutube, Converter={StaticResource BooleanToVisibilityConverter}}"
                             Style="{DynamicResource MetroCircleButtonStyle}">
                                 <Button.Content>
                                     <local:IconPack HorizontalAlignment="Right"
                                             VerticalAlignment="Bottom"
-                                            Foreground="#af8404"
+                                            Foreground="{DynamicResource AccentColorBrush}"
                                             Grid.Row="2"
-                                            Height="20"
-                                            Width="20"
+                                            Height="15"
+                                            Width="15"
                                             Data="{x:Static local:IconPackData.Open}"/>
                                 </Button.Content>
                             </Button>
