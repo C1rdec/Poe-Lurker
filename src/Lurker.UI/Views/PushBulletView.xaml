@@ -63,6 +63,7 @@
                 BorderThickness="0"
                 HorizontalAlignment="Right" 
                 Margin="4" 
+                Cursor="Hand"
                 Visibility="{Binding Connected, Converter={StaticResource BooleanToVisibilityConverter}}">
             <TextBlock>
                 <Hyperlink Foreground="Gray">Logout</Hyperlink>

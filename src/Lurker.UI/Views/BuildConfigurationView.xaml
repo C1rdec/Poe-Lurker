@@ -70,7 +70,7 @@
                 </Grid>
             </StackPanel>
         </Grid>
-        <ScrollViewer Grid.Row="2" Margin="0,0,0,30" HorizontalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Hidden">
+        <ScrollViewer Grid.Row="2" Margin="0,-25,0,30" HorizontalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Hidden">
             <ItemsControl x:Name="Items" HorizontalAlignment="Center">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
