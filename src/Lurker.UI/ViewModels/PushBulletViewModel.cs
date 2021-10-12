@@ -138,7 +138,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets or sets a value indicating the thresold.
         /// </summary>
-        public int Thresold
+        public int Threshold
         {
             get
             {
@@ -148,6 +148,7 @@ namespace Lurker.UI.ViewModels
             set
             {
                 this._service.Thresold = value;
+                this.NotifyOfPropertyChange();
             }
         }
 
@@ -188,7 +189,7 @@ namespace Lurker.UI.ViewModels
             this.SelectedDevice = null;
             this.NotifyOfPropertyChange(() => this.Connected);
             this.NotifyOfPropertyChange(() => this.NotConnected);
-            this.NotifyOfPropertyChange(() => this.Thresold);
+            this.NotifyOfPropertyChange(() => this.Threshold);
             this.NotifyOfPropertyChange(() => this.Enable);
         }
 

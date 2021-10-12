@@ -36,24 +36,32 @@
             </Button.Content>
         </Button>
         <StackPanel Grid.Row="1" VerticalAlignment="Center" Visibility="{Binding Connected, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBlock HorizontalAlignment="Center" FontFamily="pack://application:,,,/Assets/#Fontin" FontSize="18" Text="Thresold">
-                <TextBlock.ToolTip>
-                    <TextBlock>
-                          In Chaos
-                    </TextBlock>
-                </TextBlock.ToolTip>
-            </TextBlock>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock HorizontalAlignment="Center" FontFamily="pack://application:,,,/Assets/#Fontin" FontSize="18" Text="Threshold" Grid.ColumnSpan="2">
+                    <TextBlock.ToolTip>
+                        <TextBlock>
+                          Any offer higher than the 'Threshold' will be push.<LineBreak/>(Chaos value)
+                        </TextBlock>
+                    </TextBlock.ToolTip>
+                </TextBlock>
+                <TextBlock Text="{Binding Threshold}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="pack://application:,,,/Assets/#Fontin"/>
+            </Grid>
+            
             <Slider
             Grid.Row="1"
             Margin="10,0,10,0"
             Controls:SliderHelper.ChangeValueBy="SmallChange"
             Controls:SliderHelper.EnableMouseWheel="MouseHover"
-            AutoToolTipPlacement="TopLeft"
+            AutoToolTipPlacement="BottomRight"
             LargeChange="10"
             Maximum="100"
             Orientation="Horizontal"
             SmallChange="1"
-            Value="{Binding Thresold}" />
+            Value="{Binding Threshold}" />
         </StackPanel>
         
         <Button x:Name="Logout"
