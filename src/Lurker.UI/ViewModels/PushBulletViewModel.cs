@@ -142,12 +142,12 @@ namespace Lurker.UI.ViewModels
         {
             get
             {
-                return this._service.Thresold;
+                return this._service.Threshold;
             }
 
             set
             {
-                this._service.Thresold = value;
+                this._service.Threshold = value;
                 this.NotifyOfPropertyChange();
             }
         }
