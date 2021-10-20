@@ -143,6 +143,12 @@ namespace Lurker.UI.ViewModels
                 return;
             }
 
+            if (!PathOfBuildingService.IsValid(text))
+            {
+                await this.ShowError();
+                return;
+            }
+
             using (var service = new PathOfBuildingService())
             {
                 await service.InitializeAsync(this._githubService);

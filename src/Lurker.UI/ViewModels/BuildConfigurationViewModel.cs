@@ -203,7 +203,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public void OpenTree()
         {
-            if (this._build != null)
+            if (this._build != null && !string.IsNullOrEmpty(this._build.SkillTreeUrl))
             {
                 Process.Start(this._build.SkillTreeUrl);
             }

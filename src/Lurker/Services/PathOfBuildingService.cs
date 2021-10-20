@@ -32,6 +32,30 @@ namespace Lurker.Services
         #region Methods
 
         /// <summary>
+        /// Validate the build.
+        /// </summary>
+        /// <param name="value">the value.</param>
+        /// <returns>If the build is valid.</returns>
+        public static bool IsValid(string value)
+        {
+            var xml = GetXml(value);
+            if (string.IsNullOrEmpty(xml))
+            {
+                return false;
+            }
+
+            var document = XDocument.Parse(xml);
+
+            var buildElement = document.Root.Element("Build");
+            if (buildElement == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Initializes the asynchronous.
         /// </summary>
         /// <param name="service">The service.</param>
