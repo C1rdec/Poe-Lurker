@@ -6,6 +6,7 @@
 
 namespace Lurker.Models
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -21,6 +22,7 @@ namespace Lurker.Models
         /// </summary>
         public Build()
         {
+            this.Id = Guid.NewGuid();
             this.Skills = new List<Skill>();
             this.Items = new List<UniqueItem>();
         }
@@ -28,6 +30,11 @@ namespace Lurker.Models
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Gets the skills.
@@ -70,6 +77,11 @@ namespace Lurker.Models
         /// Gets or sets the notes.
         /// </summary>
         public string Notes { get; set; }
+
+        /// <summary>
+        /// Gets or sets the damage.
+        /// </summary>
+        public DamageValue Damage { get; set; }
 
         #endregion
 

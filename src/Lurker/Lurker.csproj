@@ -180,6 +180,7 @@
     <Compile Include="Models\BuildManager.cs" />
     <Compile Include="Models\Class.cs" />
     <Compile Include="Models\Collaboration.cs" />
+    <Compile Include="Models\DamageValue.cs" />
     <Compile Include="Models\Gem.cs" />
     <Compile Include="Models\GemLocation.cs" />
     <Compile Include="Models\Hotkey.cs" />

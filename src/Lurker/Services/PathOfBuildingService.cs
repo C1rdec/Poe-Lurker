@@ -96,10 +96,30 @@ namespace Lurker.Services
 
             build.Xml = xml;
             var document = XDocument.Parse(build.Xml);
-
             var buildElement = document.Root.Element("Build");
             if (buildElement != null)
             {
+                double totalDps = 0;
+                double totalDotDps = 0;
+
+                var totalDpsElement = buildElement.Elements("PlayerStat").FirstOrDefault(e => e.Attribute("stat").Value == "TotalDPS");
+                if (totalDpsElement != null)
+                {
+                    totalDps = (double)totalDpsElement.Attribute("value");
+                }
+
+                var totalDotDpsElement = buildElement.Elements("PlayerStat").FirstOrDefault(e => e.Attribute("stat").Value == "TotalDotDPS");
+                if (totalDotDpsElement != null)
+                {
+                    totalDotDps = (double)totalDotDpsElement.Attribute("value");
+                }
+
+                build.Damage = new DamageValue()
+                {
+                    IsDot = totalDotDps > totalDps,
+                    Value = totalDotDps > totalDps ? totalDotDps : totalDps,
+                };
+
                 var classAttribute = buildElement.Attribute("className");
                 if (classAttribute != null)
                 {

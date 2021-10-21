@@ -22,8 +22,7 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2">
-                <TextBlock FontSize="20" Foreground="White">Sales</TextBlock>
-                <TextBlock FontSize="12" Margin="4,4,0,0" Foreground="White" VerticalAlignment="Center">(Chaos)</TextBlock>
+                <TextBlock FontSize="20" Foreground="White">Net Worth</TextBlock>
             </StackPanel>
             <Grid Grid.Row="1" Grid.ColumnSpan="2" Margin="0,15,0,0">
                 <Grid.ColumnDefinitions>
@@ -40,12 +39,11 @@
 
             <!--<ContentControl x:Name="TotalChart" Grid.Row="3" Grid.Column="1" />-->
 
-            <TextBlock FontSize="20" Foreground="White" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">Net Worth</TextBlock>
-            <StackPanel Grid.Row="2" Orientation="Horizontal" Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <!--<StackPanel Grid.Row="2" Orientation="Horizontal" Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <Button x:Name="Day">Day</Button>
                 <Button x:Name="Week" Margin="2,0,0,0">Week</Button>
                 <Button x:Name="All" Margin="2,0,0,0">All</Button>
-            </StackPanel>
+            </StackPanel>-->
             <ContentControl x:Name="NetworthChart" Grid.Row="3" Grid.ColumnSpan="2"/>
         </Grid>
         <Button x:Name="Back" Visibility="{Binding HasActiveChart, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">Back</Button>

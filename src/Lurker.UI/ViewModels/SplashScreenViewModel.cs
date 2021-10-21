@@ -52,10 +52,11 @@ namespace Lurker.UI.ViewModels
                         return;
                     }
 
+                    this.ShowPatreon = true;
                     this.TrialAvailable = service.TrialAvailable;
                     if (!this.TrialAvailable)
                     {
-                        this.ShowPatreon = true;
+                        // this.ShowPatreon = true;
                     }
                 }
             });

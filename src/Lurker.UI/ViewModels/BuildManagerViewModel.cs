@@ -137,13 +137,7 @@ namespace Lurker.UI.ViewModels
                 }
             }
 
-            if (string.IsNullOrEmpty(text))
-            {
-                await this.ShowError();
-                return;
-            }
-
-            if (!PathOfBuildingService.IsValid(text))
+            if (string.IsNullOrEmpty(text) || !PathOfBuildingService.IsValid(text))
             {
                 await this.ShowError();
                 return;

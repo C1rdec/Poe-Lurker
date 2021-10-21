@@ -29,12 +29,12 @@
                Source="https://user-images.githubusercontent.com/5436436/88303508-1a537980-ccd5-11ea-9e27-9139f994101a.png"
                Visibility="{Binding ShowPatreon, Converter={StaticResource BooleanToVisibilityConverter}}"
                Grid.Row="1"/>
-        <Button x:Name="OpenLurkerPro" 
+        <!--<Button x:Name="OpenLurkerPro" 
                 Visibility="{Binding TrialAvailable, Converter={StaticResource BooleanToVisibilityConverter}}"
                 Grid.Row="1" 
                 Style="{DynamicResource Patreon}" 
                 Height="30" 
-                FontSize="15">Start Trial</Button>
+                FontSize="15">Start Trial</Button>-->
     </Grid>
     
 </UserControl>
