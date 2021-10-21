@@ -2194,14 +2194,14 @@
     "ItemClass": "Boots",
     "Name": "Olroth's Charge",
     "WikiUrl": "https://poedb.tw/us/Olroths_Charge",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9BZGFwdGF0aW9uQm9vdHNVbmlxdWUiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/a0b7d6e35c/AdaptationBootsUnique.png?w=2&amp;h=2&amp;",
+    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9BZGFwdGF0aW9uQm9vdHNVbmlxdWUiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/a0b7d6e35c/AdaptationBootsUnique.png",
     "Level": 48
   },
   {
     "ItemClass": "Boots",
     "Name": "Vorana's March",
     "WikiUrl": "https://poedb.tw/us/Voranas_March",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9TcGlyaXRCb290c1VuaXF1ZSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/90177dcbec/SpiritBootsUnique.png?w=2&amp;h=2&amp;",
+    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9Cb290cy9TcGlyaXRCb290c1VuaXF1ZSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/90177dcbec/SpiritBootsUnique.png",
     "Level": 69
   },
   {
@@ -2929,28 +2929,28 @@
     "ItemClass": "Flask",
     "Name": "Elixir of the Unbroken Circle",
     "WikiUrl": "https://poedb.tw/us/Elixir_of_the_Unbroken_Circle",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzksMTQseyJmIjoiMkRJdGVtcy9GbGFza3MvV2FyZEZsYXNrMDMiLCJ3IjoxLCJoIjoyLCJzY2FsZSI6MSwibGV2ZWwiOjF9XQ/d78b003b9a/WardFlask03.png?w=1&amp;h=2&amp;",
+    "ImageUrl": "https://web.poecdn.com/gen/image/WzksMTQseyJmIjoiMkRJdGVtcy9GbGFza3MvV2FyZEZsYXNrMDMiLCJ3IjoxLCJoIjoyLCJzY2FsZSI6MSwibGV2ZWwiOjF9XQ/d78b003b9a/WardFlask03.png",
     "Level": 40
   },
   {
     "ItemClass": "Flask",
     "Name": "Olroth's Resolve",
     "WikiUrl": "https://poedb.tw/us/Olroths_Resolve",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzksMTQseyJmIjoiMkRJdGVtcy9GbGFza3MvV2FyZEZsYXNrMDIiLCJ3IjoxLCJoIjoyLCJzY2FsZSI6MSwibGV2ZWwiOjF9XQ/b6f390075a/WardFlask02.png?w=1&amp;h=2&amp;",
+    "ImageUrl": "https://web.poecdn.com/gen/image/WzksMTQseyJmIjoiMkRJdGVtcy9GbGFza3MvV2FyZEZsYXNrMDIiLCJ3IjoxLCJoIjoyLCJzY2FsZSI6MSwibGV2ZWwiOjF9XQ/b6f390075a/WardFlask02.png",
     "Level": 40
   },
   {
     "ItemClass": "Flask",
     "Name": "Starlight Chalice",
     "WikiUrl": "https://poedb.tw/us/Starlight_Chalice",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzksMTQseyJmIjoiMkRJdGVtcy9GbGFza3MvQWRhcHRhdGlvbkZsYXNrMDIiLCJ3IjoxLCJoIjoyLCJzY2FsZSI6MSwibGV2ZWwiOjF9XQ/e2a95fa6e6/AdaptationFlask02.png?w=1&amp;h=2&amp;",
+    "ImageUrl": "https://web.poecdn.com/gen/image/WzksMTQseyJmIjoiMkRJdGVtcy9GbGFza3MvQWRhcHRhdGlvbkZsYXNrMDIiLCJ3IjoxLCJoIjoyLCJzY2FsZSI6MSwibGV2ZWwiOjF9XQ/e2a95fa6e6/AdaptationFlask02.png",
     "Level": 40
   },
   {
     "ItemClass": "Flask",
     "Name": "Vorana's Preparation",
     "WikiUrl": "https://poedb.tw/us/Voranas_Preparation",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzksMTQseyJmIjoiMkRJdGVtcy9GbGFza3MvQWRhcHRhdGlvbkZsYXNrMDMiLCJ3IjoxLCJoIjoyLCJzY2FsZSI6MSwibGV2ZWwiOjF9XQ/f67d3bf6f2/AdaptationFlask03.png?w=1&amp;h=2&amp;",
+    "ImageUrl": "https://web.poecdn.com/gen/image/WzksMTQseyJmIjoiMkRJdGVtcy9GbGFza3MvQWRhcHRhdGlvbkZsYXNrMDMiLCJ3IjoxLCJoIjoyLCJzY2FsZSI6MSwibGV2ZWwiOjF9XQ/f67d3bf6f2/AdaptationFlask03.png",
     "Level": 40
   },
   {
@@ -3454,14 +3454,14 @@
     "ItemClass": "Gloves",
     "Name": "Medved's Challenge",
     "WikiUrl": "https://poedb.tw/us/Medveds_Challenge",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvQWRhcHRhdGlvbkdsb3Zlc1VuaXF1ZSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/865b871153/AdaptationGlovesUnique.png?w=2&amp;h=2&amp;",
+    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvQWRhcHRhdGlvbkdsb3Zlc1VuaXF1ZSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/865b871153/AdaptationGlovesUnique.png",
     "Level": 69
   },
   {
     "ItemClass": "Gloves",
     "Name": "Nightgrip",
     "WikiUrl": "https://poedb.tw/us/Nightgrip",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvU3Bpcml0R2xvdmVzVW5pcXVlIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/c40058de12/SpiritGlovesUnique.png?w=2&amp;h=2&amp;",
+    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9HbG92ZXMvU3Bpcml0R2xvdmVzVW5pcXVlIiwidyI6MiwiaCI6Miwic2NhbGUiOjF9XQ/c40058de12/SpiritGlovesUnique.png",
     "Level": 48
   },
   {
@@ -4154,14 +4154,14 @@
     "ItemClass": "Helmet",
     "Name": "Faithguard",
     "WikiUrl": "https://poedb.tw/us/Faithguard",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1NwaXJpdEhlbG1ldFVuaXF1ZSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/0921dc17df/SpiritHelmetUnique.png?w=2&amp;h=2&amp;",
+    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1NwaXJpdEhlbG1ldFVuaXF1ZSIsInciOjIsImgiOjIsInNjYWxlIjoxfV0/0921dc17df/SpiritHelmetUnique.png",
     "Level": 25
   },
   {
     "ItemClass": "Helmet",
     "Name": "Cadigan's Crown",
     "WikiUrl": "https://poedb.tw/us/Cadigans_Crown",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0FkYXB0YXRpb25IZWxtZXRVbmlxdWUiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/693ad15174/AdaptationHelmetUnique.png?w=2&amp;h=2&amp;",
+    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL0FkYXB0YXRpb25IZWxtZXRVbmlxdWUiLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/693ad15174/AdaptationHelmetUnique.png",
     "Level": 68
   },
   {
