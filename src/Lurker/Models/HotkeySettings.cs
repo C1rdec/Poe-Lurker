@@ -58,6 +58,11 @@ namespace Lurker.Models
         public Hotkey OpenWiki { get; set; }
 
         /// <summary>
+        /// Gets or sets the join guild hideout.
+        /// </summary>
+        public Hotkey JoinGuildHideout { get; set; }
+
+        /// <summary>
         /// Gets or sets the open wiki.
         /// </summary>
         public Hotkey SearchItem { get; set; }

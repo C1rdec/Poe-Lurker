@@ -359,9 +359,14 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <ContentControl Grid.ColumnSpan="2" 
+                            <ContentControl
                                             Focusable="False"
                                             x:Name="OpenWikiHotkey" 
+                                            VerticalAlignment="Center" 
+                                            HorizontalAlignment="Center"/>
+                            <ContentControl Grid.Column="1"
+                                            Focusable="False"
+                                            x:Name="JoinGuildHotkey" 
                                             VerticalAlignment="Center" 
                                             HorizontalAlignment="Center"/>
                             <ContentControl Grid.Row="1"
