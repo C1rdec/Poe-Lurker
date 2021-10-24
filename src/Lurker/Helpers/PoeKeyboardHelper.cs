@@ -109,6 +109,15 @@ namespace Lurker.Helpers
         }
 
         /// <summary>
+        /// Sends joni gild Hiedout.
+        /// </summary>
+        /// <returns>The task.</returns>
+        public async Task JoinGuildHideout()
+        {
+            await this.SendCommand($@"/guild");
+        }
+
+        /// <summary>
         /// Joins the hideout.
         /// </summary>
         /// <returns>The task.</returns>

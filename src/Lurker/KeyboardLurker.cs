@@ -100,6 +100,11 @@ namespace Lurker
         /// </summary>
         public event KeyboardEventHandler OpenWikiPressed;
 
+        /// <summary>
+        /// Occurs when [JoinGuildPressed].
+        /// </summary>
+        public event KeyboardEventHandler JoinGuildPressed;
+
         #endregion
 
         #region Methods
@@ -247,6 +252,7 @@ namespace Lurker
             this._hotkeyService.Dismiss.Install(this._keyboardHook, this.DismissPressed);
             this._hotkeyService.Invite.Install(this._keyboardHook, this.InvitePressed);
             this._hotkeyService.OpenWiki.Install(this._keyboardHook, this.OpenWikiPressed);
+            this._hotkeyService.JoinGuildHideout.Install(this._keyboardHook, this.JoinGuildHideout);
             this._hotkeyService.RemainingMonster.Install(this._keyboardHook, this.RemainingMonsters);
             this._hotkeyService.SearchItem.Install(this._keyboardHook, this.SearchItem);
         }
@@ -270,6 +276,7 @@ namespace Lurker
             this._hotkeyService.Invite.Uninstall();
             this._hotkeyService.OpenWiki.Uninstall();
             this._hotkeyService.RemainingMonster.Uninstall();
+            this._hotkeyService.JoinGuildHideout.Uninstall();
         }
 
         /// <summary>
@@ -286,6 +293,16 @@ namespace Lurker
             }
 
             await this._keyboardHelper.Search(baseType);
+        }
+
+        /// <summary>
+        /// Join the Guild Hideout.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event.</param>
+        private async void JoinGuildHideout(object sender, KeyboardMessageEventArgs e)
+        {
+            await this._keyboardHelper.JoinGuildHideout();
         }
 
         /// <summary>

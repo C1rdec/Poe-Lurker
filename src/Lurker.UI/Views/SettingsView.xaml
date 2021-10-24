@@ -366,7 +366,7 @@
                                             HorizontalAlignment="Center"/>
                             <ContentControl Grid.Column="1"
                                             Focusable="False"
-                                            x:Name="JoinGuildHotkey" 
+                                            x:Name="GuildHideoutHotkey" 
                                             VerticalAlignment="Center" 
                                             HorizontalAlignment="Center"/>
                             <ContentControl Grid.Row="1"
