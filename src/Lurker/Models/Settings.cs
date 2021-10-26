@@ -213,6 +213,11 @@ namespace Lurker.Models
         [DefaultValue(true)]
         public bool HideoutEnabled { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [guild hideout enabled].
+        /// </summary>
+        public bool GuildHideoutEnabled { get; set; }
+
         #endregion
     }
 }

@@ -329,10 +329,10 @@
                     <Grid Grid.Row="1" Margin="30,0,30,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
-                            <RowDefinition/>
+                            <RowDefinition />
                         </Grid.RowDefinitions>
-                        <StackPanel Margin="0,30,0,0"  HorizontalAlignment="Left" Orientation="Horizontal">
-
+                        <Viewbox Margin="0,15,0,0">
+                        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
                             <Controls:ToggleSwitch
                                                Margin="30,0,0,0"
                                                Header="Incoming Trade"
@@ -343,13 +343,18 @@
                                                IsChecked="{Binding OutgoingTradeEnabled}"/>
                             <Controls:ToggleSwitch Grid.Row="1"
                                                    Margin="30,0,0,0"
-                                                   Header="Delete Item      "
+                                                   Header="Delete Item"
                                                    IsChecked="{Binding DeleteItemEnabled}"/>
                             <Controls:ToggleSwitch Grid.Row="1"
                                                    Margin="30,0,0,0"
                                                    Header="Hideout"
                                                    IsChecked="{Binding HideoutEnabled}"/>
-                        </StackPanel>
+                            <Controls:ToggleSwitch Grid.Row="1"
+                                                Margin="30,0,0,0"
+                                                Header="Guild Hideout"
+                                                IsChecked="{Binding GuildHideoutEnabled}"/>
+                            </StackPanel>
+                        </Viewbox>
                         <Grid Grid.Row="1">
                             <Grid.RowDefinitions>
                                 <RowDefinition/>

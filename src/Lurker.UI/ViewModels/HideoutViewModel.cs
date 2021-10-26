@@ -22,8 +22,8 @@ namespace Lurker.UI.ViewModels
 
         private static readonly int DefaultSize = 60;
         private PoeKeyboardHelper _keyboardHelper;
-        private ClientLurker _clientLurker;
         private bool _isVisible;
+        private bool _guildVisible;
 
         #endregion
 
@@ -42,8 +42,8 @@ namespace Lurker.UI.ViewModels
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
             this._keyboardHelper = keyboardHelper;
-            this._clientLurker = clientLurker;
             this.IsVisible = true;
+            this.GuildVisible = this.SettingsService.GuildHideoutEnabled;
         }
 
         #endregion
@@ -67,9 +67,34 @@ namespace Lurker.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether this instance is visible.
+        /// </summary>
+        public bool GuildVisible
+        {
+            get
+            {
+                return this._guildVisible;
+            }
+
+            private set
+            {
+                this._guildVisible = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Joins the Guild hideout.
+        /// </summary>
+        public async void JoinGuildHideout()
+        {
+            await this._keyboardHelper.JoinGuildHideout();
+        }
 
         /// <summary>
         /// Joins the hideout.
@@ -95,6 +120,30 @@ namespace Lurker.UI.ViewModels
                 this.View.Left = this.ApplyScalingX(windowInformation.Position.Left + margin);
                 this.View.Top = this.ApplyScalingY(windowInformation.Position.Bottom - value - margin);
             });
+        }
+
+        /// <summary>
+        /// On activate.
+        /// </summary>
+        protected override void OnActivate()
+        {
+            base.OnActivate();
+            this.SettingsService.OnSave += this.SettingsService_OnSave;
+        }
+
+        /// <summary>
+        /// On Deactivate.
+        /// </summary>
+        /// <param name="close">If closing.</param>
+        protected override void OnDeactivate(bool close)
+        {
+            base.OnDeactivate(close);
+            this.SettingsService.OnSave -= this.SettingsService_OnSave;
+        }
+
+        private void SettingsService_OnSave(object sender, System.EventArgs e)
+        {
+            this.GuildVisible = this.SettingsService.GuildHideoutEnabled;
         }
 
         #endregion

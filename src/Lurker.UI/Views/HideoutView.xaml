@@ -14,13 +14,47 @@
         mc:Ignorable="d"
         Title="HideoutView">
     <Grid Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
         <local:IconPack Foreground="#c2d9ff"
+                        Grid.Row="0"
+                        Height="20"
+                        HorizontalAlignment="Left"
+                        Margin="4,0,0,4"
+                        VerticalAlignment="Bottom"
+                        Visibility="{Binding GuildVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        Data="{x:Static local:IconPackData.Shield}"/>
+        <local:IconPack Foreground="#c2d9ff"
+                        Grid.Row="1"
                         Height="25"
                         HorizontalAlignment="Left"
                         Margin="4,0,0,4"
                         VerticalAlignment="Bottom"
                         Data="{x:Static local:IconPackData.Hideout}"/>
-        <Border CornerRadius="0 100 0 0" cal:Message.Attach="[Event MouseDown] = [Action JoinHideout()]" Cursor="Hand">
+        <Border CornerRadius="0 100 0 0" cal:Message.Attach="[Event MouseDown] = [Action JoinHideout()]" Cursor="Hand" Grid.RowSpan="2" Grid.ColumnSpan="2">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Opacity" Value="0.002"/>
+                    <Setter Property="Background" Value="White"></Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding DebugEnabled}" Value="True">
+                            <Setter Property="Background" Value="Green"/>
+                            <Setter Property="Opacity" Value="1"/>
+                        </DataTrigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Opacity" Value="0.05" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+        </Border>
+        <Border CornerRadius="0 30 0 0" Cursor="Hand" cal:Message.Attach="[Event MouseDown] = [Action JoinGuildHideout()]" Visibility="{Binding GuildVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Border.Style>
                 <Style TargetType="Border">
                     <Setter Property="Opacity" Value="0.002"/>

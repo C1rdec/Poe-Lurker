@@ -881,6 +881,23 @@ namespace Lurker.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [hideout enabled].
+        /// </summary>
+        public bool GuildHideoutEnabled
+        {
+            get
+            {
+                return this._settingService.GuildHideoutEnabled;
+            }
+
+            set
+            {
+                this._settingService.GuildHideoutEnabled = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
         #endregion
 
         #region Methods

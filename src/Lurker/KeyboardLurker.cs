@@ -100,11 +100,6 @@ namespace Lurker
         /// </summary>
         public event KeyboardEventHandler OpenWikiPressed;
 
-        /// <summary>
-        /// Occurs when [JoinGuildPressed].
-        /// </summary>
-        public event KeyboardEventHandler JoinGuildPressed;
-
         #endregion
 
         #region Methods

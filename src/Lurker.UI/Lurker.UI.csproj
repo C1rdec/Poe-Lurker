@@ -797,6 +797,7 @@
     <Content Include="SVG\Group.svg" />
     <Content Include="SVG\Open.svg" />
     <Content Include="SVG\Pushbullet.svg" />
+    <Content Include="SVG\Shield.svg" />
     <Content Include="SVG\ThreeDot.svg" />
     <Resource Include="Assets\Gemcutter.png" />
     <Resource Include="Assets\Chisel.png" />
