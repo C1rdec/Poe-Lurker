@@ -7,7 +7,7 @@
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d" 
              xmlns:cal="http://www.caliburnproject.org"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="400">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -23,18 +23,26 @@
             VerticalAlignment="Bottom"
             HorizontalAlignment="Center"
             IsChecked="{Binding Enable}"/>
-        <Button x:Name="GetDevices" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Visibility="{Binding Connected, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <Button.Content>
-                <Grid>
-                    <ContentControl x:Name="SelectedDevice" />
-                    <Popup IsOpen="{Binding ShowDevices}" Placement="Bottom" AllowsTransparency="True" PopupAnimation="Slide" Margin="-100,-100,0,0">
-                        <Border>
-                            <ListBox Cursor="Hand" ItemsSource="{Binding Devices}" SelectedItem="{Binding PopupSelectedDevice}" DisplayMemberPath="Name" FontSize="18"/>
-                        </Border>
-                    </Popup>
-                </Grid>
-            </Button.Content>
-        </Button>
+        <Grid  HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button x:Name="GetDevices" Cursor="Hand" Visibility="{Binding Connected, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Button.Content>
+                    <Grid>
+                        <ContentControl x:Name="SelectedDevice" />
+                        <Popup IsOpen="{Binding ShowDevices}" Placement="Bottom" AllowsTransparency="True" PopupAnimation="Slide" Margin="-100,-100,0,0">
+                            <Border>
+                                <ListBox Cursor="Hand" ItemsSource="{Binding Devices}" SelectedItem="{Binding PopupSelectedDevice}" DisplayMemberPath="Name" FontSize="18"/>
+                            </Border>
+                        </Popup>
+                    </Grid>
+                </Button.Content>
+            </Button>
+            <Button x:Name="Test" Grid.Row="1" HorizontalAlignment="Center" Margin="0,10,0,0" Background="Transparent" BorderThickness="0.4" FontSize="10" Cursor="Hand" >Send Test</Button>
+        </Grid>
+        
         <StackPanel Grid.Row="1" VerticalAlignment="Center" Visibility="{Binding Connected, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid>
                 <Grid.ColumnDefinitions>

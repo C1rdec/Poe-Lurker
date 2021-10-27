@@ -179,6 +179,14 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Send a Test.
+        /// </summary>
+        public async void Test()
+        {
+            await this._service.SendTestAsync();
+        }
+
+        /// <summary>
         /// Logout from Pushbullet.
         /// </summary>
         public void Logout()
