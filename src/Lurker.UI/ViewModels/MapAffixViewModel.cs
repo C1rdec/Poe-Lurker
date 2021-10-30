@@ -36,7 +36,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// The cannot leech identifier.
         /// </summary>
-        public const string CannotLeechId = "stat_526251910";
+        public const string CannotLeechId = "stat_1140978125";
 
         /// <summary>
         /// The temporal chains identifier.
