@@ -11,6 +11,7 @@ namespace Lurker.UI.ViewModels
     using Lurker.Helpers;
     using Lurker.Models;
     using Lurker.Services;
+    using Lurker.UI.Models;
 
     /// <summary>
     /// Represents the Hideout overlay.

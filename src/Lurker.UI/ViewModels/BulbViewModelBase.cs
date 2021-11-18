@@ -173,6 +173,12 @@ namespace Lurker.UI.ViewModels
                 this._stickyActionView = this._actionView;
             }
 
+            var disposableView = this.ActionView as IDisposable;
+            if (disposableView != null)
+            {
+                disposableView.Dispose();
+            }
+
             this.Action = message.Action;
             this.ActionView = message.View;
 

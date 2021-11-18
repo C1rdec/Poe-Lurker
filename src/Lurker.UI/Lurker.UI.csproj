@@ -95,8 +95,8 @@
     <Reference Include="LottieSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\LottieSharp.1.0.0\lib\net461\LottieSharp.dll</HintPath>
     </Reference>
-    <Reference Include="Lurker.Patreon, Version=1.3.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Lurker.Patreon.1.3.10\lib\net48\Lurker.Patreon.dll</HintPath>
+    <Reference Include="Lurker.Patreon, Version=1.3.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Lurker.Patreon.1.3.12\lib\net48\Lurker.Patreon.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MahApps.Metro.1.6.5\lib\net47\MahApps.Metro.dll</HintPath>
@@ -183,7 +183,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Evaluation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=fc6d2b461e7db6ac, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Lurker.Patreon.1.3.10\lib\net48\System.Evaluation.dll</HintPath>
+      <HintPath>..\..\packages\Lurker.Patreon.1.3.12\lib\net48\System.Evaluation.dll</HintPath>
     </Reference>
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -294,6 +294,7 @@
     <Compile Include="Models\SkillTimelineMessage.cs" />
     <Compile Include="Models\TimelineInformation.cs" />
     <Compile Include="Models\TimelineMessage.cs" />
+    <Compile Include="Models\TradeCompletedEvent.cs" />
     <Compile Include="Models\UpdateState.cs" />
     <Compile Include="Models\DoubleClickCommand.cs" />
     <Compile Include="Models\BulbMessage.cs" />
@@ -317,6 +318,7 @@
     <Compile Include="ViewModels\DeviceViewModel.cs" />
     <Compile Include="ViewModels\GroupItemViewModel.cs" />
     <Compile Include="ViewModels\HotkeyViewModel.cs" />
+    <Compile Include="ViewModels\LeagueViewModel.cs" />
     <Compile Include="ViewModels\MapAffixViewModel.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />
     <Compile Include="ViewModels\OfferDetailsViewModel.cs" />
@@ -408,6 +410,9 @@
     </Compile>
     <Compile Include="Views\ItemOverlayView.xaml.cs">
       <DependentUpon>ItemOverlayView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LeagueView.xaml.cs">
+      <DependentUpon>LeagueView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LineChartView.xaml.cs">
       <DependentUpon>LineChartView.xaml</DependentUpon>
@@ -567,6 +572,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ItemOverlayView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LeagueView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

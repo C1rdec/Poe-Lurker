@@ -378,14 +378,14 @@ namespace Lurker.UI.ViewModels
         {
             get
             {
-                return !new Patreon.TokenService().Connected;
+                return !new TokenService().Connected;
             }
         }
 
         /// <summary>
         /// Gets the patreon identifier.
         /// </summary>
-        public string PatreonId => new Patreon.TokenService().PatreonId;
+        public string PatreonId => new TokenService().PatreonId;
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="SettingsViewModel"/> is pledging.

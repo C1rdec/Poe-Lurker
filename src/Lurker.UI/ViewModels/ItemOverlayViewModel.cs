@@ -64,6 +64,11 @@ namespace Lurker.UI.ViewModels
         #region Properties
 
         /// <summary>
+        /// Gets a value indicating whether the item is good.
+        /// </summary>
+        public bool IsGood => this._item.IsGood();
+
+        /// <summary>
         /// Gets the suffix count.
         /// </summary>
         public List<char> Suffixes { get; }

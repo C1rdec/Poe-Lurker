@@ -12,7 +12,6 @@ namespace Lurker.UI.ViewModels
     using Lurker.Models;
     using Lurker.Services;
     using Lurker.UI.Models;
-    using Lurker.UI.Views;
 
     /// <summary>
     /// Represents the Manabulbviewmodel.
@@ -181,6 +180,7 @@ namespace Lurker.UI.ViewModels
                     var message = new ManaBulbMessage()
                     {
                         Action = this.DefaultAction,
+                        View = new LeagueViewModel(this._eventAggregator),
                     };
                     this.SetAction(message);
                 }

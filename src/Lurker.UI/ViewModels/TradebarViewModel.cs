@@ -352,6 +352,8 @@ namespace Lurker.UI.ViewModels
                 }
             }
 
+            // Listener: LeagueViewModel
+            this._eventAggregator.PublishOnUIThread(new TradeCompletedEvent());
             this.RemoveOffer(offer);
         }
 
@@ -407,11 +409,11 @@ namespace Lurker.UI.ViewModels
         /// <param name="tradeEvent">The trade event.</param>
         private void InsertEvent(TradeEvent tradeEvent)
         {
-            Caliburn.Micro.Execute.OnUIThread(() =>
+            Execute.OnUIThread(() =>
             {
                 try
                 {
-                    using (var service = new Lurker.Patreon.DatabaseService())
+                    using (var service = new DatabaseService())
                     {
                         service.Insert(tradeEvent);
                     }

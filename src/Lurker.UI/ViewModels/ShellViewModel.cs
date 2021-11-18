@@ -33,6 +33,7 @@ namespace Lurker.UI
     {
         #region Fields
 
+        private SoundService _soundService;
         private PlayerViewModel _activePlayer;
         private SimpleContainer _container;
         private ProcessLurker _processLurker;
@@ -77,6 +78,7 @@ namespace Lurker.UI
         /// <param name="keyCodeService">The key code service.</param>
         /// <param name="buildService">The build service.</param>
         /// <param name="settingsViewModel">The settings view model.</param>
+        /// <param name="soundService">The sound service.</param>
         /// <param name="eventAggregator">The event aggregator.</param>
         public ShellViewModel(
             SimpleContainer container,
@@ -84,8 +86,10 @@ namespace Lurker.UI
             HotkeyService keyCodeService,
             BuildService buildService,
             SettingsViewModel settingsViewModel,
+            SoundService soundService,
             IEventAggregator eventAggregator)
         {
+            this._soundService = soundService;
             this._eventAggregator = eventAggregator;
             this._settingsService = settingsService;
             this._keyCodeService = keyCodeService;
@@ -435,7 +439,7 @@ namespace Lurker.UI
                 // Mouse
                 this._mouseLurker = new MouseLurker(processId, this._settingsService);
                 this._mouseLurker.ItemDetails += this.ShowItemDetails;
-                this._mouseLurker.ItemIdentified += this.ShowMap;
+                this._mouseLurker.ItemIdentified += this.ItemIdentified;
 
                 // Clipboard
                 this._clipboardLurker = new ClipboardLurker();
@@ -604,7 +608,7 @@ namespace Lurker.UI
             if (this._mouseLurker != null)
             {
                 this._mouseLurker.ItemDetails -= this.ShowItemDetails;
-                this._mouseLurker.ItemIdentified -= this.ShowMap;
+                this._mouseLurker.ItemIdentified -= this.ItemIdentified;
                 this._mouseLurker.Dispose();
                 this._mouseLurker = null;
             }
@@ -720,24 +724,33 @@ namespace Lurker.UI
             }
         }
 
+        private void ItemIdentified(object sender, PoeItem item)
+        {
+            if (item is Map map)
+            {
+                this.ShowMap(map);
+            }
+
+            if (item.IsGood())
+            {
+                this._soundService.PlayJoinHideout(0.5f);
+            }
+        }
+
         /// <summary>
         /// Shows the map.
         /// </summary>
-        /// <param name="sender">The sender.</param>
         /// <param name="item">The item.</param>
-        private void ShowMap(object sender, PoeItem item)
+        private void ShowMap(Map item)
         {
             if (!this._popup.IsActive)
             {
                 this.ActivateItem(this._popup);
             }
 
-            if (item is Map map)
+            if (this._settingsService.MapEnabled)
             {
-                if (this._settingsService.MapEnabled)
-                {
-                    this._popup.Open(new MapViewModel(map, this.ActivePlayer, this._currentCharacterService));
-                }
+                this._popup.Open(new MapViewModel(item, this.ActivePlayer, this._currentCharacterService));
             }
         }
 
@@ -753,7 +766,7 @@ namespace Lurker.UI
                 this.ActivateItem(this._popup);
             }
 
-            if (item is Map)
+            if (item is Map || item.Rarity == Rarity.Currency || item.Rarity == Rarity.Unique)
             {
                 return;
             }
@@ -761,7 +774,7 @@ namespace Lurker.UI
             {
                 this._popup.Open(new WeaponViewModel(weapon));
             }
-            else if (item.Rarity != Rarity.Currency)
+            else
             {
                 this._popup.Open(new ItemOverlayViewModel(item));
             }

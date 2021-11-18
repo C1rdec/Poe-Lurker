@@ -14,6 +14,7 @@ namespace Lurker.UI.ViewModels
     using Lurker.Helpers;
     using Lurker.Models;
     using Lurker.Patreon.Events;
+    using Lurker.Patreon.Services;
     using Lurker.Services;
     using Lurker.UI.Extensions;
     using Lurker.UI.Models;
@@ -278,7 +279,7 @@ namespace Lurker.UI.ViewModels
         /// <param name="tradeEvent">The trade event.</param>
         private void InsertEvent(TradeEvent tradeEvent)
         {
-            using (var service = new Patreon.DatabaseService())
+            using (var service = new DatabaseService())
             {
                 service.Insert(tradeEvent);
             }

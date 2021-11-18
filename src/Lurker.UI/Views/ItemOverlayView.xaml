@@ -7,7 +7,19 @@
              xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
              d:DesignWidth="150">
-    <Border Background="Black" CornerRadius="15" BorderThickness="2" BorderBrush="#e7b577" Width="175">
+    <Border Background="Black" CornerRadius="15" Width="175">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Setter Property="BorderBrush" Value="#e7b577"/>
+                <Setter Property="BorderThickness" Value="2"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsGood}" Value="true">
+                        <Setter Property="BorderThickness" Value="3"/>
+                        <Setter Property="BorderBrush" Value="Red"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>

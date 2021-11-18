@@ -10,11 +10,11 @@ namespace Lurker.UI.ViewModels
     using System.Collections.Generic;
     using System.Linq;
     using Caliburn.Micro;
-    using Lurker.Patreon;
     using Lurker.Patreon.Events;
-    using Lurker.Patreon.Models;
+    using Lurker.Patreon.Services;
     using Lurker.UI.Extensions;
     using Lurker.UI.Models;
+    using Patreon = Lurker.Patreon.Models;
 
     /// <summary>
     /// Represents the DashboardViewModel.
@@ -366,7 +366,7 @@ namespace Lurker.UI.ViewModels
         /// <param name="e">The e.</param>
         private void ItemClassChart_OnSerieClick(object sender, LiveCharts.ChartPoint e)
         {
-            if (Enum.TryParse<ItemClass>(e.SeriesView.Title, true, out var value))
+            if (Enum.TryParse<Patreon.ItemClass>(e.SeriesView.Title, true, out var value))
             {
                 var trades = this._leagueTrades.Where(t => t.ItemClass == value);
                 var chart = new ColumnChartViewModel(trades.Select(t => t.ItemName).ToArray());
@@ -476,7 +476,7 @@ namespace Lurker.UI.ViewModels
         /// <param name="e">The e.</param>
         private void OnSerieClick(object sender, LiveCharts.ChartPoint e)
         {
-            if (Enum.TryParse<CurrencyType>(e.SeriesView.Title, true, out var value))
+            if (Enum.TryParse<Patreon.CurrencyType>(e.SeriesView.Title, true, out var value))
             {
                 var trades = this._leagueTrades.Where(t => t.Price.CurrencyType == value);
                 var chart = new ColumnChartViewModel(trades.Select(t => t.ItemName).ToArray());
