@@ -726,14 +726,13 @@ namespace Lurker.UI
 
         private void ItemIdentified(object sender, PoeItem item)
         {
-            if (item is Map map)
+            if (this._settingsService.MapEnabled && item is Map map)
             {
                 this.ShowMap(map);
             }
-
-            if (item.IsGood())
+            else if (this._settingsService.ItemAlertEnabled && item.IsGood())
             {
-                this._soundService.PlayJoinHideout(0.5f);
+                this._soundService.PlayItemAlert(this._settingsService.ItemAlertVolume);
             }
         }
 

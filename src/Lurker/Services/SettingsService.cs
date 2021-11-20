@@ -260,6 +260,22 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [alert enabled].
+        /// </summary>
+        public bool ItemAlertEnabled
+        {
+            get
+            {
+                return this._settings.ItemAlertEnabled;
+            }
+
+            set
+            {
+                this._settings.ItemAlertEnabled = value;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [join hideout enabled].
         /// </summary>
         public bool JoinHideoutEnabled
@@ -352,6 +368,22 @@ namespace Lurker.Services
             set
             {
                 this._settings.AlertVolume = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the alert volume.
+        /// </summary>
+        public float ItemAlertVolume
+        {
+            get
+            {
+                return this._settings.ItemAlertVolume;
+            }
+
+            set
+            {
+                this._settings.ItemAlertVolume = value;
             }
         }
 

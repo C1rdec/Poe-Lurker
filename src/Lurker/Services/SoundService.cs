@@ -21,6 +21,12 @@ namespace Lurker.Services
         /// The trade alert file name.
         /// </summary>
         public static readonly string TradeAlertFileName = "TradeAlert.mp3";
+
+        /// <summary>
+        /// The Item alert file name.
+        /// </summary>
+        public static readonly string ItemAlertFileName = "ItemAlert.mp3";
+
         private WaveOutEvent _currentSound;
 
         #endregion
@@ -36,6 +42,17 @@ namespace Lurker.Services
         public bool HasCustomTradeAlert()
         {
             return AssetService.Exists(TradeAlertFileName);
+        }
+
+        /// <summary>
+        /// Determines whether [has custom trade alert].
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if [has custom trade alert]; otherwise, <c>false</c>.
+        /// </returns>
+        public bool HasCustomItemAlert()
+        {
+            return AssetService.Exists(ItemAlertFileName);
         }
 
         /// <summary>
@@ -61,6 +78,22 @@ namespace Lurker.Services
             }
 
             var stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("Lurker.Assets.TradeAlert.mp3");
+            return this.Play(stream, volume);
+        }
+
+        /// <summary>
+        /// Plays the good item.
+        /// </summary>
+        /// <param name="volume">The volume.</param>
+        /// <returns>The good item alert.</returns>
+        public WaveOutEvent PlayItemAlert(float volume)
+        {
+            if (AssetService.Exists(ItemAlertFileName))
+            {
+                return this.Play(File.OpenRead(AssetService.GetFilePath(ItemAlertFileName)), volume);
+            }
+
+            var stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("Lurker.Assets.ItemAlert.mp3");
             return this.Play(stream, volume);
         }
 

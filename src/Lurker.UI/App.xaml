@@ -108,11 +108,6 @@
                                 <Border.Style>
                                     <Style TargetType="{x:Type Border}">
                                         <Setter Property="Background" Value="#f96854"/>
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="#fa7c6b" />
-                                            </Trigger>
-                                        </Style.Triggers>
                                     </Style>
                                 </Border.Style>
                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6"></ContentPresenter>

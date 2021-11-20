@@ -79,6 +79,11 @@ namespace Lurker.Models
         public bool AlertEnabled { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [alert enabled].
+        /// </summary>
+        public bool ItemAlertEnabled { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [join hideout enabled].
         /// </summary>
         public bool JoinHideoutEnabled { get; set; }
@@ -88,6 +93,12 @@ namespace Lurker.Models
         /// </summary>
         [DefaultValue(1)]
         public float AlertVolume { get; set; }
+
+        /// <summary>
+        /// Gets or sets the alert volume.
+        /// </summary>
+        [DefaultValue(0.5f)]
+        public float ItemAlertVolume { get; set; }
 
         /// <summary>
         /// Gets or sets the join hideout volume.

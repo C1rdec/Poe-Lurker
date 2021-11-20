@@ -196,6 +196,56 @@
                     </Grid.RowDefinitions>
                     <Label Content="Notification" Style="{DynamicResource LabelHeaderStyle}" />
                     <StackPanel Grid.Row="1">
+                        <Grid Grid.Row="2" VerticalAlignment="Top" Margin="0,15,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Controls:ToggleSwitch
+                                               VerticalAlignment="Top"
+                                               HorizontalAlignment="Left"
+                                               Header="Offer ToolTip"
+                                               IsChecked="{Binding ToolTipEnabled}"/>
+                            <Label Grid.Column="1" Visibility="{Binding ToolTipEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Margin="0,-40,0,0" >Delay (ms)</Label>
+                            <Slider
+                                Grid.Column="1"
+                                Visibility="{Binding ToolTipEnabled, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                Margin="4,25,0,0"
+                                Controls:SliderHelper.ChangeValueBy="SmallChange"
+                                Controls:SliderHelper.EnableMouseWheel="MouseHover"
+                                AutoToolTipPlacement="TopLeft"
+                                LargeChange="10"
+                                Maximum="1000"
+                                Minimum="0"
+                                Orientation="Horizontal"
+                                SmallChange="1"
+                                Value="{Binding ToolTipDelay}" />
+                        </Grid>
+                        <Grid Grid.Row="1" VerticalAlignment="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Controls:ToggleSwitch Grid.Row="1"
+                                           VerticalAlignment="Top"
+                                           HorizontalAlignment="Left"
+                                           Header="Join Hideout"
+                                           IsChecked="{Binding JoinHideoutEnabled}"/>
+                            <Label Grid.Column="1" Visibility="{Binding JoinHideoutEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Margin="0,-40,0,0" >Volume</Label>
+                            <Slider
+                                Grid.Column="1"
+                                Visibility="{Binding JoinHideoutEnabled, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                Margin="4,25,0,0"
+                                Controls:SliderHelper.ChangeValueBy="SmallChange"
+                                Controls:SliderHelper.EnableMouseWheel="MouseHover"
+                                AutoToolTipPlacement="TopLeft"
+                                LargeChange="10"
+                                Maximum="100"
+                                Minimum="0"
+                                Orientation="Horizontal"
+                                SmallChange="1"
+                                Value="{Binding JoinHideoutVolume}" />
+                        </Grid>
                         <Grid Grid.Row="1" VerticalAlignment="Top">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"/>
@@ -210,7 +260,7 @@
                                 <Label  Visibility="{Binding AlertEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Margin="0,-40,0,0" >Volume</Label>
                                 <ToggleButton Grid.Column="1" 
                                               IsChecked="{Binding HasCustomTradeSound}"
-                                              x:Name="SelectCustomSound"
+                                              x:Name="SelectTradeSound"
                                               HorizontalAlignment="Left" 
                                               ToolTip="Custom Sound" 
                                               Cursor="Hand" 
@@ -240,20 +290,50 @@
                                 SmallChange="1"
                                 Value="{Binding AlertVolume}" />
                         </Grid>
-                        <Grid Grid.Row="1" VerticalAlignment="Top">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Controls:ToggleSwitch Grid.Row="1"
+                    </StackPanel>
+                    <Image Height="30"
+                           Grid.Row="1"
+                           Cursor="Hand"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Right"
+                           Margin="0,0,10,65"
+                           Visibility="{Binding NotPledging, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           cal:Message.Attach="[Event MouseUp] = [Action OpenLurkerPro]"
+                           Source="https://user-images.githubusercontent.com/5436436/88303508-1a537980-ccd5-11ea-9e27-9139f994101a.png"
+                           />
+                    <Grid Grid.Row="1" VerticalAlignment="Bottom" IsEnabled="{Binding Pledging}"  Margin="0,0,0,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Controls:ToggleSwitch Grid.Row="1"
                                            VerticalAlignment="Top"
                                            HorizontalAlignment="Left"
-                                           Header="Join Hideout"
-                                           IsChecked="{Binding JoinHideoutEnabled}"/>
-                            <Label Grid.Column="1" Visibility="{Binding JoinHideoutEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Margin="0,-40,0,0" >Volume</Label>
-                            <Slider
+                                           Header="Item Alert"
+                                           IsChecked="{Binding ItemAlertEnabled}"/>
+                        <StackPanel Grid.Column="1" Visibility="{Binding AlertEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" Orientation="Horizontal">
+                            <Label  Visibility="{Binding AlertEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Margin="0,-40,0,0">Volume</Label>
+                            <ToggleButton Grid.Column="1" 
+                                              IsChecked="{Binding HasCustomItemSound}"
+                                              x:Name="SelectItemSound"
+                                              HorizontalAlignment="Left" 
+                                              ToolTip="Custom Sound" 
+                                              Cursor="Hand" 
+                                              VerticalAlignment="Top"
+                                              Height="35" Width="35" 
+                                              Style="{DynamicResource MetroCircleToggleButtonStyle}"
+                                              Margin="5,-6,0,0">
+                                <local:IconPack Foreground="White"
+                                                    Opacity="0.8"
+                                                    Margin="1,1,0,0"
+                                                    Width="20"
+                                                    Height="20"
+                                            Data="{x:Static local:IconPackData.CustomSound}"/>
+                            </ToggleButton>
+                        </StackPanel>
+                        <Slider
                                 Grid.Column="1"
-                                Visibility="{Binding JoinHideoutEnabled, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                Visibility="{Binding ItemAlertEnabled, Converter={StaticResource BooleanToVisibilityConverter}}"
                                 Margin="4,25,0,0"
                                 Controls:SliderHelper.ChangeValueBy="SmallChange"
                                 Controls:SliderHelper.EnableMouseWheel="MouseHover"
@@ -263,34 +343,8 @@
                                 Minimum="0"
                                 Orientation="Horizontal"
                                 SmallChange="1"
-                                Value="{Binding JoinHideoutVolume}" />
-                        </Grid>
-                        <Grid Grid.Row="2" VerticalAlignment="Top" Margin="0,15,0,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Controls:ToggleSwitch
-                                               VerticalAlignment="Top"
-                                               HorizontalAlignment="Left"
-                                               Header="Offer ToolTip"
-                                               IsChecked="{Binding ToolTipEnabled}"/>
-                            <Label Grid.Column="1" Visibility="{Binding ToolTipEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Margin="0,-40,0,0" >Delay (ms)</Label>
-                            <Slider
-                                Grid.Column="1"
-                                Visibility="{Binding ToolTipEnabled, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                Margin="4,25,0,0"
-                                Controls:SliderHelper.ChangeValueBy="SmallChange"
-                                Controls:SliderHelper.EnableMouseWheel="MouseHover"
-                                AutoToolTipPlacement="TopLeft"
-                                LargeChange="10"
-                                Maximum="1000"
-                                Minimum="0"
-                                Orientation="Horizontal"
-                                SmallChange="1"
-                                Value="{Binding ToolTipDelay}" />
-                        </Grid>
-                    </StackPanel>
+                                Value="{Binding ItemAlertVolume}" />
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="Hotkey">
@@ -505,17 +559,27 @@
                                 Style="{DynamicResource Patreon}"
                                 FontSize="20"
                                 Margin="0,0,0,10"
-                                Visibility="{Binding NotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">Login with Patreon</Button>
+                                Visibility="{Binding NotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Button.Content>
+                                <Image Height="50"
+                                       Margin="-6"
+                                   Cursor="Hand"
+                                   VerticalAlignment="Bottom"
+                                   HorizontalAlignment="Right"
+                                   Visibility="{Binding NotPledging, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                   cal:Message.Attach="[Event MouseUp] = [Action OpenLurkerPro]"
+                                   Source="https://user-images.githubusercontent.com/5436436/88303508-1a537980-ccd5-11ea-9e27-9139f994101a.png"
+                           />
+                            </Button.Content></Button>
                         <Button x:Name="Pledge" 
                                 Style="{DynamicResource Patreon}" 
                                 Margin="0,0,0,10"
                                 FontSize="20"
                                 Visibility="{Binding ConnectedWithoutPledging, Converter={StaticResource BooleanToVisibilityConverter}}">Become a patron</Button>
                         <Button x:Name="StartTrial" 
+                                HorizontalAlignment="Center"
                                 FontSize="16" 
-                                Style="{DynamicResource Tag}"
-                                
-                                
+                                Style="{DynamicResource Tag}"                                
                                 Visibility="{Binding TrialAvailable, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <Button.Content>
                                 <Grid>

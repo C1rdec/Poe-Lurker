@@ -51,13 +51,16 @@ namespace Lurker.UI.ViewModels
         private bool _needsUpdate;
         private bool _pledging;
         private bool _activated;
+        private int _selectedTabIndex;
         private int _alertVolume;
+        private int _itemAlertVolume;
         private int _joinHideoutVolume;
         private PatreonService _currentPatreonService;
         private SoundService _soundService;
         private CancellationTokenSource _currentTokenSource;
         private bool _hasCustomTradeSound;
-        private WaveOutEvent _currentTradeAlert;
+        private bool _hasCustomItemSound;
+        private WaveOutEvent _currentSound;
         private bool _isCharacterOpen;
         private bool _isPushBulletOpen;
         private CharacterManagerViewModel _characterManager;
@@ -237,6 +240,23 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether HasCustom sound for Item.
+        /// </summary>
+        public bool HasCustomItemSound
+        {
+            get
+            {
+                return this._hasCustomItemSound;
+            }
+
+            set
+            {
+                this._hasCustomItemSound = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the build manager.
         /// </summary>
         /// <value>The build manager.</value>
@@ -262,7 +282,19 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets or sets the index of the select teb.
         /// </summary>
-        public int SelectTabIndex { get; set; }
+        public int SelectTabIndex
+        {
+            get
+            {
+                return this._selectedTabIndex;
+            }
+
+            set
+            {
+                this._selectedTabIndex = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="SettingsViewModel"/> is saved.
@@ -576,6 +608,23 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [alert enabled].
+        /// </summary>
+        public bool ItemAlertEnabled
+        {
+            get
+            {
+                return this._settingService.ItemAlertEnabled;
+            }
+
+            set
+            {
+                this._settingService.ItemAlertEnabled = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [join hideout enabled].
         /// </summary>
         public bool JoinHideoutEnabled
@@ -690,6 +739,23 @@ namespace Lurker.UI.ViewModels
             set
             {
                 this._alertVolume = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the alert volume.
+        /// </summary>
+        public int ItemAlertVolume
+        {
+            get
+            {
+                return this._itemAlertVolume;
+            }
+
+            set
+            {
+                this._itemAlertVolume = value;
                 this.NotifyOfPropertyChange();
             }
         }
@@ -903,6 +969,14 @@ namespace Lurker.UI.ViewModels
         #region Methods
 
         /// <summary>
+        /// Set the tab index to lurker pro.
+        /// </summary>
+        public void OpenLurkerPro()
+        {
+            this.SelectTabIndex = 6;
+        }
+
+        /// <summary>
         /// Opens the logs.
         /// </summary>
         public void OpenLogs()
@@ -992,16 +1066,16 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Selects the custom sound.
         /// </summary>
-        public void SelectCustomSound()
+        public void SelectTradeSound()
         {
             if (!this.HasCustomTradeSound)
             {
                 try
                 {
-                    if (this._currentTradeAlert != null)
+                    if (this._currentSound != null)
                     {
-                        this._currentTradeAlert.Stop();
-                        this._currentTradeAlert = null;
+                        this._currentSound.Stop();
+                        this._currentSound = null;
                     }
 
                     AssetService.Delete(SoundService.TradeAlertFileName);
@@ -1034,6 +1108,54 @@ namespace Lurker.UI.ViewModels
             else
             {
                 this.HasCustomTradeSound = false;
+            }
+        }
+
+        /// <summary>
+        /// Select the good item sound.
+        /// </summary>
+        public void SelectItemSound()
+        {
+            if (!this.HasCustomItemSound)
+            {
+                try
+                {
+                    if (this._currentSound != null)
+                    {
+                        this._currentSound.Stop();
+                        this._currentSound = null;
+                    }
+
+                    AssetService.Delete(SoundService.ItemAlertFileName);
+                }
+                catch
+                {
+                    // Sound was playing.
+                    this.HasCustomItemSound = true;
+                }
+
+                return;
+            }
+
+            var openFileDialog = new OpenFileDialog
+            {
+                Filter = "MP3 files (*.mp3)|*.mp3",
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                var fileName = openFileDialog.FileName;
+                if (!File.Exists(fileName))
+                {
+                    return;
+                }
+
+                var content = File.ReadAllBytes(fileName);
+                AssetService.Create(SoundService.ItemAlertFileName, content);
+            }
+            else
+            {
+                this.HasCustomItemSound = false;
             }
         }
 
@@ -1260,6 +1382,7 @@ namespace Lurker.UI.ViewModels
         protected override void OnActivate()
         {
             this.HasCustomTradeSound = this._soundService.HasCustomTradeAlert();
+            this.HasCustomItemSound = this._soundService.HasCustomItemAlert();
             this.BuildManager.PopulateBuilds(this.SyncBuild);
             this._activateTask = Task.Run(async () =>
             {
@@ -1290,6 +1413,7 @@ namespace Lurker.UI.ViewModels
             });
 
             this.AlertVolume = (int)(this._settingService.AlertVolume * 100);
+            this.ItemAlertVolume = (int)(this._settingService.ItemAlertVolume * 100);
             this.JoinHideoutVolume = (int)(this._settingService.JoinHideoutVolume * 100);
             this.CheckForUpdate();
             base.OnActivate();
@@ -1457,7 +1581,29 @@ namespace Lurker.UI.ViewModels
                 this._currentTokenSource = new CancellationTokenSource();
                 this.PlaySoundTest(this._currentTokenSource.Token, () =>
                 {
-                    this._currentTradeAlert = this._soundService.PlayTradeAlert(this._settingService.AlertVolume);
+                    this._currentSound = this._soundService.PlayTradeAlert(this._settingService.AlertVolume);
+                });
+            }
+            else if (e.PropertyName == nameof(this.ItemAlertVolume))
+            {
+                this._settingService.ItemAlertVolume = (float)this.ItemAlertVolume / 100;
+
+                if (!this._activated || !this._activateTask.IsCompleted)
+                {
+                    return;
+                }
+
+                if (this._currentTokenSource != null)
+                {
+                    this._currentTokenSource.Cancel();
+                    this._currentTokenSource.Dispose();
+                    this._currentTokenSource = null;
+                }
+
+                this._currentTokenSource = new CancellationTokenSource();
+                this.PlaySoundTest(this._currentTokenSource.Token, () =>
+                {
+                    this._currentSound = this._soundService.PlayItemAlert(this._settingService.ItemAlertVolume);
                 });
             }
             else if (e.PropertyName == nameof(this.JoinHideoutVolume))

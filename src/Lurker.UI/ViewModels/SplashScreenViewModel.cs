@@ -91,7 +91,7 @@ namespace Lurker.UI.ViewModels
         public void OpenLurkerPro()
         {
             // Set to luker pro tab
-            this._settings.SelectTabIndex = 6;
+            this._settings.OpenLurkerPro();
             this._eventAggrator.PublishOnUIThread(this._settings);
         }
 
