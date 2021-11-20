@@ -15,36 +15,23 @@
         mc:Ignorable="d"
         Title="WikiView" Height="450" Width="800">
     <Grid FocusManager.FocusedElement="{Binding ElementName=SearchValue}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
-        <Button x:Name="CloseWindow" IsCancel="true" Width="1"/>
-        <Border CornerRadius="30" Grid.RowSpan="2" Margin="120" Background="#7F000000">
+        <Button BorderThickness="0" x:Name="CloseWindow" IsCancel="true" Width="1"/>
+        <Border CornerRadius="30" Grid.RowSpan="2" Background="#7F000000">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Border CornerRadius="0 30 0 100" VerticalAlignment="Top" HorizontalAlignment="Right" Height="100" Width="100" Cursor="Hand" cal:Message.Attach="[Event PreviewMouseUpEvent] = [Action CloseWindow]">
-                    <Border.Style>
-                        <Style TargetType="Border">
-                            <Setter Property="Opacity" Value="0.06"/>
-                            <Setter Property="Background" Value="White"></Setter>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding DebugEnabled}" Value="True">
-                                    <Setter Property="Background" Value="Green"/>
-                                    <Setter Property="Opacity" Value="1"/>
-                                </DataTrigger>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Opacity" Value="0.3" />
-                                    <Setter Property="Background" Value="Red"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Border.Style>
-                </Border>
-                <Viewbox>
+                <ScrollViewer HorizontalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Hidden">
+                    <ItemsControl x:Name="Items" HorizontalAlignment="Center">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </ScrollViewer>
+                <Viewbox Grid.Row="1">
                     <TextBox
                         x:Name="SearchValue"
                         Text="{Binding SearchValue, UpdateSourceTrigger=PropertyChanged}"
@@ -52,7 +39,7 @@
                     VerticalAlignment="Center"
                     BorderThickness="0,0,0,1"
                     Height="60" Width="800"
-                    Margin="250,150,250,50"
+                    Margin="10"
                     FontSize="34"
                         VerticalContentAlignment="Stretch"
                     Controls:TextBoxHelper.Watermark="Search">
@@ -63,24 +50,7 @@
                         </TextBox.Resources>
                     </TextBox>
                 </Viewbox>
-                <Grid Grid.Row="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Hidden">
-                        <ItemsControl x:Name="Items" HorizontalAlignment="Center">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal"/>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                        </ItemsControl>
-                    </ScrollViewer>
-                </Grid>
             </Grid>
-
         </Border>
     </Grid>
 </Window>

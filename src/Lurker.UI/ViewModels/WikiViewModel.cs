@@ -128,12 +128,15 @@ namespace Lurker.UI.ViewModels
                 return;
             }
 
+            var height = windowInformation.Height / 4;
+            var margin = PoeApplicationContext.WindowStyle == WindowStyle.Windowed ? 10 : 0;
+            var overlayWidth = windowInformation.Width - (windowInformation.FlaskBarWidth * 2);
             Execute.OnUIThread(() =>
             {
-                this.View.Height = this.ApplyScalingY(windowInformation.Height);
-                this.View.Width = this.ApplyScalingX(windowInformation.Width);
-                this.View.Left = windowInformation.Position.Left;
-                this.View.Top = windowInformation.Position.Top;
+                this.View.Height = this.ApplyScalingY(height);
+                this.View.Width = this.ApplyScalingX(overlayWidth);
+                this.View.Left = this.ApplyScalingX(windowInformation.Position.Left + windowInformation.FlaskBarWidth + Margin - margin);
+                this.View.Top = this.ApplyScalingY(windowInformation.Position.Bottom - height - windowInformation.ExpBarHeight + Margin);
             });
         }
 
