@@ -58,6 +58,10 @@ namespace Lurker.Helpers
             {
                 message = Regex.Replace(message, Price, trade.Price.ToString(), RegexOptions.IgnoreCase);
             }
+            else
+            {
+                message = message.Replace($" listed for {Price}", string.Empty);
+            }
 
             return message;
         }
