@@ -27,7 +27,8 @@
 Misc:
 ---
 - ***[Lurker Pro]*** `Click` on Mana Globe: show dashboard, only works in hideout.
-- ***[Lurker Pro]*** `Shift-Click` on item: display "Item Lurker".
+- ***[Lurker Pro]*** `Alt-RightClick` on item: display "Item Lurker".
+- ***[Lurker Pro]*** `Shift-Click` on item: "Item Lurker" `Item Alert` .
 - ***[Lurker Pro]*** `Shift-Click` on Map: display "Map Lurker".
 - `Click on Health Globe`: go to your hideout, if there are no active trades.
 - `Ctrl-R`: show remaining monsters over Mana Globe.
