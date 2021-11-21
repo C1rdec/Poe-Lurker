@@ -156,6 +156,20 @@
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Jeweller}}"/>
                                 <Image Grid.RowSpan="3"
+                           Source="/Assets/Scouring.png"
+                           Height="{Binding ActualHeight, ElementName=MainAction}"
+                           Width="{Binding ActualWidth, ElementName=MainAction}"
+                           Visibility="{Binding CurrencyType,
+                                            Converter={Converters:CurrencyTypeConverter}, 
+                                            ConverterParameter={x:Static Models:CurrencyType.Scouring}}"/>
+                                <Image Grid.RowSpan="3"
+                           Source="/Assets/Chance.png"
+                           Height="{Binding ActualHeight, ElementName=MainAction}"
+                           Width="{Binding ActualWidth, ElementName=MainAction}"
+                           Visibility="{Binding CurrencyType,
+                                            Converter={Converters:CurrencyTypeConverter}, 
+                                            ConverterParameter={x:Static Models:CurrencyType.Chance}}"/>
+                                <Image Grid.RowSpan="3"
                            Source="/Assets/Gemcutter.png"
                            Height="{Binding ActualHeight, ElementName=MainAction}"
                            Width="{Binding ActualWidth, ElementName=MainAction}"

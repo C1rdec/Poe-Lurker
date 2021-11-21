@@ -798,6 +798,8 @@
     <Resource Include="Assets\Slayer_avatar.png" />
     <Resource Include="Assets\Trickster_avatar.png" />
     <Resource Include="Assets\AvoidAilments.png" />
+    <Resource Include="Assets\Chance.png" />
+    <Resource Include="Assets\Scouring.png" />
     <Content Include="SVG\Android.svg" />
     <Content Include="SVG\Apple.svg" />
     <Content Include="SVG\CustomSound.svg" />
