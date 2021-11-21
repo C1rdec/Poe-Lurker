@@ -138,7 +138,7 @@ namespace Lurker
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private async void MouseHook_LeftButtonUp(object sender, MouseMessageEventArgs e)
         {
-            if (!e.Shift && !this._settingsService.MapEnabled && !this._settingsService.SearchEnabled)
+            if (!e.Shift || (!this._settingsService.MapEnabled && !this._settingsService.SearchEnabled))
             {
                 return;
             }
