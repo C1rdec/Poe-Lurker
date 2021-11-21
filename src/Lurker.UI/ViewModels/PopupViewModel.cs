@@ -137,15 +137,15 @@ namespace Lurker.UI.ViewModels
                 var rightSide = currentWidth + this._mouseLurker.X;
                 if (rightSide > this._windowInformation.Position.Right)
                 {
-                    this.View.Left = this._mouseLurker.X - (rightSide - this._windowInformation.Position.Right) - PopupMargin;
+                    this.View.Left = this.ApplyScalingX(this._mouseLurker.X - (rightSide - this._windowInformation.Position.Right) - PopupMargin);
                 }
                 else
                 {
-                    this.View.Left = this._mouseLurker.X;
+                    this.View.Left = this.ApplyScalingX(this._mouseLurker.X);
                 }
 
                 this.View.SizeToContent = System.Windows.SizeToContent.Manual;
-                this.View.Top = this._mouseLurker.Y;
+                this.View.Top = this.ApplyScalingY(this._mouseLurker.Y);
                 this.View.SizeToContent = System.Windows.SizeToContent.WidthAndHeight;
             });
         }
@@ -207,11 +207,11 @@ namespace Lurker.UI.ViewModels
             var rightSide = e.NewSize.Width + this._x + 15;
             if (rightSide > this._windowInformation.Position.Right)
             {
-                this.View.Left = this._x - (rightSide - this._windowInformation.Position.Right) - PopupMargin;
+                this.View.Left = this.ApplyScalingX(this._x - (rightSide - this._windowInformation.Position.Right) - PopupMargin);
             }
             else
             {
-                this.View.Left = this._x + 15;
+                this.View.Left = this.ApplyScalingX(this._x + 15);
             }
         }
 
