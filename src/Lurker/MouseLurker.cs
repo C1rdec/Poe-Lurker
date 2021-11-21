@@ -138,21 +138,23 @@ namespace Lurker
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private async void MouseHook_LeftButtonUp(object sender, MouseMessageEventArgs e)
         {
-            if (e.Shift)
+            if (!e.Shift && !this._settingsService.MapEnabled && !this._settingsService.SearchEnabled)
             {
-                await Task.Delay(100);
-                var item = await this.ParseItem();
+                return;
+            }
 
-                if (item != null)
-                {
-                    this.ItemIdentified?.Invoke(this, item);
-                }
+            await Task.Delay(100);
+            var item = await this.ParseItem();
 
-                ClipboardHelper.ClearClipboard();
+            if (item != null)
+            {
+                this.ItemIdentified?.Invoke(this, item);
+            }
 
-                if (this._settingsService.MapEnabled)
-                {
-                }
+            ClipboardHelper.ClearClipboard();
+
+            if (this._settingsService.MapEnabled)
+            {
             }
 
             this.MouseLeftButtonUp?.Invoke(this, e);
