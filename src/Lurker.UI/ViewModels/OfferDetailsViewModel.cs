@@ -9,6 +9,7 @@ namespace Lurker.UI.ViewModels
     using System;
     using System.Threading.Tasks;
     using Lurker.Patreon.Events;
+    using Lurker.Patreon.Services;
     using Lurker.Services;
 
     /// <summary>
@@ -82,7 +83,7 @@ namespace Lurker.UI.ViewModels
         /// </returns>
         public async Task Initialize()
         {
-            using (var service = new PathOfNinjaService())
+            using (var service = new PoeNinjaService())
             {
                 var ratio = await service.GetExaltRationAsync(this._event.LeagueName);
                 this.ExaltRatio = Math.Round(ratio);

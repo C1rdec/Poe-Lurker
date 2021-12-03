@@ -34,6 +34,7 @@ namespace Lurker
         private ushort _toggleBuildCode;
         private int _processId;
         private bool _hooked;
+        private bool _disabled;
 
         #endregion
 
@@ -162,10 +163,14 @@ namespace Lurker
         /// <summary>
         /// Mains the action toggled.
         /// </summary>
-        /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="KeyboardMessageEventArgs"/> instance containing the event data.</param>
-        private async void MainActionToggled(object sender, KeyboardMessageEventArgs e)
+        private async void MainActionToggled(KeyboardMessageEventArgs e)
         {
+            if (this._disabled)
+            {
+                return;
+            }
+
             if (e.Direction == KeyDirection.Down)
             {
                 if (this._currentHoldTask != null)
@@ -184,7 +189,7 @@ namespace Lurker
                         return;
                     }
 
-                    this.InvitePressed?.Invoke(sender, e);
+                    this.InvitePressed?.Invoke(this, e);
                 }
                 finally
                 {
@@ -210,7 +215,7 @@ namespace Lurker
                 }
 
                 this._tokenSource.Cancel();
-                this.MainActionPressed?.Invoke(sender, e);
+                this.MainActionPressed?.Invoke(this, e);
 
                 return;
             }
@@ -238,18 +243,40 @@ namespace Lurker
                 this._keyboardHook.AddHandler(this._toggleBuildCode, this.ToggleBuild);
             }
 
+            this._keyboardHook.MessageReceived += this.KeyboardHook_MessageReceived;
             this._keyboardHook.AddHandler(KeyCode.Delete, this.DeleteItem);
 
             // Hotkeys
             this._hotkeyService.Main.Install(this._keyboardHook, this.MainActionToggled, true);
-            this._hotkeyService.Trade.Install(this._keyboardHook, this.TradePressed);
-            this._hotkeyService.Busy.Install(this._keyboardHook, this.BusyPressed);
-            this._hotkeyService.Dismiss.Install(this._keyboardHook, this.DismissPressed);
-            this._hotkeyService.Invite.Install(this._keyboardHook, this.InvitePressed);
-            this._hotkeyService.OpenWiki.Install(this._keyboardHook, this.OpenWikiPressed);
-            this._hotkeyService.JoinGuildHideout.Install(this._keyboardHook, this.JoinGuildHideout);
-            this._hotkeyService.RemainingMonster.Install(this._keyboardHook, this.RemainingMonsters);
+            this._hotkeyService.Trade.Install(this._keyboardHook, (e) => this.HandleKeyboardMessage(e, this.TradePressed));
+            this._hotkeyService.Busy.Install(this._keyboardHook, (e) => this.HandleKeyboardMessage(e, this.BusyPressed));
+            this._hotkeyService.Dismiss.Install(this._keyboardHook, (e) => this.HandleKeyboardMessage(e, this.DismissPressed));
+            this._hotkeyService.Invite.Install(this._keyboardHook, (e) => this.HandleKeyboardMessage(e, this.InvitePressed));
+            this._hotkeyService.OpenWiki.Install(this._keyboardHook, (e) => this.HandleKeyboardMessage(e, this.OpenWikiPressed));
+            this._hotkeyService.JoinGuildHideout.Install(this._keyboardHook, (e) => this.HandleKeyboardMessage(e, this.JoinGuildHideout));
+            this._hotkeyService.RemainingMonster.Install(this._keyboardHook, (e) => this.HandleKeyboardMessage(e, this.RemainingMonsters));
             this._hotkeyService.SearchItem.Install(this._keyboardHook, this.SearchItem);
+        }
+
+        private void HandleKeyboardMessage(KeyboardMessageEventArgs message, KeyboardEventHandler handler)
+        {
+            if (this._disabled)
+            {
+                return;
+            }
+
+            handler?.Invoke(this, message);
+        }
+
+        private async void KeyboardHook_MessageReceived(object sender, KeyboardMessageEventArgs e)
+        {
+            var keyCode = (KeyCode)e.KeyValue;
+            if (keyCode == KeyCode.Enter)
+            {
+                this._disabled = true;
+                await Task.Delay(2500);
+                this._disabled = false;
+            }
         }
 
         /// <summary>
@@ -277,9 +304,8 @@ namespace Lurker
         /// <summary>
         /// Searches the item.
         /// </summary>
-        /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="KeyboardMessageEventArgs"/> instance containing the event data.</param>
-        private async void SearchItem(object sender, KeyboardMessageEventArgs e)
+        private async void SearchItem(KeyboardMessageEventArgs e)
         {
             var baseType = await this.GetItemSearchValueInClipboard();
             if (string.IsNullOrEmpty(baseType))

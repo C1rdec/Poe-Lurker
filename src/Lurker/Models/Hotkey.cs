@@ -6,6 +6,7 @@
 
 namespace Lurker.Models
 {
+    using System;
     using ConfOxide;
     using Winook;
     using static Winook.KeyboardHook;
@@ -17,7 +18,7 @@ namespace Lurker.Models
     {
         #region Fields
 
-        private KeyboardEventHandler _handler;
+        private Action<KeyboardMessageEventArgs> _callback;
         private KeyCode _registeredKeycode;
         private Modifiers _registeredModifier;
         private bool _isHoldHotkey;
@@ -69,22 +70,22 @@ namespace Lurker.Models
         /// <param name="hook">The hook.</param>
         /// <param name="handler">The handler.</param>
         /// <param name="hold">if set to <c>true</c> [hold].</param>
-        public void Install(KeyboardHook hook, KeyboardEventHandler handler, bool hold = false)
+        public void Install(KeyboardHook hook, Action<KeyboardMessageEventArgs> handler, bool hold = false)
         {
             if (!this.IsDefined() || handler == null)
             {
                 return;
             }
 
-            hook.AddHandler(this.KeyCode, this.Modifier, KeyDirection.Up, handler);
+            hook.AddHandler(this.KeyCode, this.Modifier, KeyDirection.Up, this.KeyboardHandler);
 
             if (hold)
             {
-                hook.AddHandler(this.KeyCode, this.Modifier, KeyDirection.Down, handler);
+                hook.AddHandler(this.KeyCode, this.Modifier, KeyDirection.Down, this.KeyboardHandler);
             }
 
             this._hook = hook;
-            this._handler = handler;
+            this._callback = handler;
             this._registeredKeycode = this.KeyCode;
             this._registeredModifier = this.Modifier;
             this._isHoldHotkey = true;
@@ -95,23 +96,28 @@ namespace Lurker.Models
         /// </summary>
         public void Uninstall()
         {
-            if (!this.IsHooked() || this._handler == null || this._hook == null)
+            if (!this.IsHooked() || this._callback == null || this._hook == null)
             {
                 return;
             }
 
-            this._hook.RemoveHandler(this._registeredKeycode, this._registeredModifier, KeyDirection.Up, this._handler);
+            this._hook.RemoveHandler(this._registeredKeycode, this._registeredModifier, KeyDirection.Up, this.KeyboardHandler);
 
             if (this._isHoldHotkey)
             {
-                this._hook.RemoveHandler(this._registeredKeycode, this._registeredModifier, KeyDirection.Down, this._handler);
+                this._hook.RemoveHandler(this._registeredKeycode, this._registeredModifier, KeyDirection.Down, this.KeyboardHandler);
             }
 
             this._hook = null;
-            this._handler = null;
+            this._callback = null;
             this._isHoldHotkey = false;
             this._registeredKeycode = KeyCode.None;
             this._registeredModifier = Modifiers.None;
+        }
+
+        private void KeyboardHandler(object sender, Winook.KeyboardMessageEventArgs e)
+        {
+            this._callback?.Invoke(e);
         }
 
         #endregion
