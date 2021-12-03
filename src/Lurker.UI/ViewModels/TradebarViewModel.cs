@@ -409,13 +409,13 @@ namespace Lurker.UI.ViewModels
         /// <param name="tradeEvent">The trade event.</param>
         private void InsertEvent(TradeEvent tradeEvent)
         {
-            Execute.OnUIThread(() =>
+            Execute.OnUIThread(async () =>
             {
                 try
                 {
                     using (var service = new DatabaseService())
                     {
-                        service.Insert(tradeEvent);
+                        await service.InsertAsync(tradeEvent);
                     }
                 }
                 catch

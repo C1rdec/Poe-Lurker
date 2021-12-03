@@ -9,6 +9,7 @@ namespace Lurker.UI.ViewModels
     using System;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Timers;
     using Caliburn.Micro;
     using Lurker.Helpers;
@@ -16,7 +17,6 @@ namespace Lurker.UI.ViewModels
     using Lurker.Patreon.Events;
     using Lurker.Patreon.Services;
     using Lurker.Services;
-    using Lurker.UI.Extensions;
     using Lurker.UI.Models;
 
     /// <summary>
@@ -267,7 +267,7 @@ namespace Lurker.UI.ViewModels
                 await this._keyboardHelper.Kick(activePlayer.Name);
             }
 
-            this.InsertEvent(this._activeOffer.Event);
+            await this.InsertEvent(this._activeOffer.Event);
             this.RemoveOffer(this._activeOffer);
             this._activeOffer = null;
             this._removeActive = null;
@@ -277,11 +277,11 @@ namespace Lurker.UI.ViewModels
         /// Inserts the event.
         /// </summary>
         /// <param name="tradeEvent">The trade event.</param>
-        private void InsertEvent(TradeEvent tradeEvent)
+        private Task InsertEvent(TradeEvent tradeEvent)
         {
             using (var service = new DatabaseService())
             {
-                service.Insert(tradeEvent);
+                return service.InsertAsync(tradeEvent);
             }
         }
 
