@@ -271,7 +271,7 @@ namespace Lurker
         private async void KeyboardHook_MessageReceived(object sender, KeyboardMessageEventArgs e)
         {
             var keyCode = (KeyCode)e.KeyValue;
-            if (keyCode == KeyCode.Enter)
+            if (!this._disabled && keyCode == KeyCode.Enter)
             {
                 this._disabled = true;
                 await Task.Delay(2500);
