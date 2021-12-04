@@ -577,6 +577,7 @@ namespace Lurker.UI
             if (this._currentLurker != null)
             {
                 this._currentLurker.AdminRequested -= this.CurrentLurker_AdminRequested;
+                this._currentLurker.LeagueChanged -= this.CurrentLurker_LeagueChanged;
                 this._currentLurker.Dispose();
                 this._currentLurker = null;
             }
@@ -640,6 +641,7 @@ namespace Lurker.UI
 
             this._currentLurker = new ClientLurker(process);
             this._currentLurker.AdminRequested += this.CurrentLurker_AdminRequested;
+            this._currentLurker.LeagueChanged += this.CurrentLurker_LeagueChanged;
 
             this._currentCharacterService = new PlayerService(this._currentLurker);
             this.ActivePlayer = new PlayerViewModel(this._currentCharacterService);
@@ -655,6 +657,20 @@ namespace Lurker.UI
             await this.CheckPledgeStatus();
 
             await affixServiceTask;
+        }
+
+        /// <summary>
+        /// Set the league name.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="leagueName">The league name.</param>
+        private void CurrentLurker_LeagueChanged(object sender, string leagueName)
+        {
+            if (this._settingsService.RecentLeagueName != leagueName)
+            {
+                this._settingsService.RecentLeagueName = leagueName;
+                this._settingsService.Save();
+            }
         }
 
         /// <summary>

@@ -46,7 +46,7 @@
                     Controls:TextBoxHelper.Watermark="Search">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
-                                <Setter Property="CornerRadius" Value="8"/>
+                                <Setter Property="CornerRadius" Value="8,8,0,0"/>
                             </Style>
                         </TextBox.Resources>
                     </TextBox>

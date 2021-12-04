@@ -16,7 +16,6 @@ namespace Lurker
     using System.Threading.Tasks;
     using Lurker.Extensions;
     using Lurker.Patreon.Events;
-    using Lurker.Services;
     using Sentry;
 
     /// <summary>
@@ -35,7 +34,6 @@ namespace Lurker
         private CancellationTokenSource _tokenSource;
         private Process _pathOfExileProcess;
         private string _currentLeague;
-        private SettingsService _settingsService;
 
         #endregion
 
@@ -61,9 +59,6 @@ namespace Lurker
                     this.Lurk(ClientLogFileName);
                 }
             }
-
-            this._settingsService = new SettingsService();
-            this._currentLeague = this._settingsService.RecentLeagueName;
         }
 
         #endregion
@@ -461,9 +456,6 @@ namespace Lurker
             {
                 this._currentLeague = tradeEvent.LeagueName;
                 this.LeagueChanged?.Invoke(this, this._currentLeague);
-
-                this._settingsService.RecentLeagueName = tradeEvent.LeagueName;
-                this._settingsService.Save();
             }
         }
 

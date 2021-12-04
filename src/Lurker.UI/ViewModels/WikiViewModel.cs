@@ -118,8 +118,11 @@ namespace Lurker.UI.ViewModels
             if (!string.IsNullOrEmpty(this.SettingsService.RecentLeagueName))
             {
                 var ratio = await this._ninjaService.GetExaltRationAsync(this.SettingsService.RecentLeagueName);
-                this.ExaltedRatio = new ExaltedRatioViewModel(ratio);
-                this.NotifyOfPropertyChange(() => this.ExaltedRatio);
+                if (ratio != 0)
+                {
+                    this.ExaltedRatio = new ExaltedRatioViewModel(ratio);
+                    this.NotifyOfPropertyChange(() => this.ExaltedRatio);
+                }
             }
         }
 
