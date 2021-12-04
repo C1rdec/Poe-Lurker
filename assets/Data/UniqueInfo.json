@@ -407,6 +407,13 @@
   },
   {
     "ItemClass": "Amulet",
+    "Name": "Uul-Netol's Vow",
+    "WikiUrl": "https://poedb.tw/us/Uul-Netols_Vow",
+    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9HaWZ0b2ZVdWxOZXRvbCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/6cabe4da33/GiftofUulNetol.png",
+    "Level": 72
+  },
+  {
+    "ItemClass": "Amulet",
     "Name": "Victario's Acuity",
     "WikiUrl": "https://poedb.tw/us/Victarios_Acuity",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/1/15/Victario%27s_Acuity_inventory_icon.png/revision/latest?cb=20130626162438",
@@ -6707,10 +6714,24 @@
   },
   {
     "ItemClass": "Shield",
+    "Name": "The Oppressor",
+    "WikiUrl": "https://poedb.tw/us/The_Oppressor",
+    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL1RoZVN1cHByZXNzb3IiLCJ3IjoyLCJoIjozLCJzY2FsZSI6MX1d/c8dcd744a2/TheSuppressor.png",
+    "Level": 70
+  },
+  {
+    "ItemClass": "Shield",
     "Name": "Shattershard",
     "WikiUrl": "https://poedb.tw/us/Shattershard",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/8a/Shattershard_inventory_icon.png/revision/latest?cb=20200920154026",
     "Level": 49
+  },
+  {
+    "ItemClass": "Shield",
+    "Name": "The Squire",
+    "WikiUrl": "https://poedb.tw/us/The_Squire",
+    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9TaGllbGRzL0Nhc3Bpcm9zUmVzb25hbmNlIiwidyI6MiwiaCI6Mywic2NhbGUiOjF9XQ/94531d2461/CaspirosResonance.png",
+    "Level": 70
   },
   {
     "ItemClass": "Shield",

@@ -22,6 +22,7 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition Height="auto"></RowDefinition>
                 </Grid.RowDefinitions>
+                <ContentControl x:Name="ExaltedRatio" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,20,0"/>
                 <ScrollViewer HorizontalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Hidden">
                     <ItemsControl x:Name="Items" HorizontalAlignment="Center">
                         <ItemsControl.ItemsPanel>

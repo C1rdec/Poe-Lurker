@@ -59,6 +59,7 @@ namespace Lurker.UI
             this._container.Singleton<IWindowManager, WindowManager>();
             this._container.Singleton<IEventAggregator, EventAggregator>();
             this._container.Singleton<KeyboardHelper, KeyboardHelper>();
+            this._container.Singleton<PoeNinjaService, PoeNinjaService>();
             this._container.Singleton<SettingsService, SettingsService>();
             this._container.Singleton<HotkeyService, HotkeyService>();
             this._container.Singleton<BuildService, BuildService>();

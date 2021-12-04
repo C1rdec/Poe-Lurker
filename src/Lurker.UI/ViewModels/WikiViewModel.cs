@@ -11,6 +11,7 @@ namespace Lurker.UI.ViewModels
     using Lurker;
     using Lurker.Helpers;
     using Lurker.Models;
+    using Lurker.Patreon.Services;
     using Lurker.Services;
 
     /// <summary>
@@ -24,6 +25,7 @@ namespace Lurker.UI.ViewModels
         private readonly GithubService _githubService;
         private string _searchValue = string.Empty;
         private MouseLurker _mouseLurker;
+        private PoeNinjaService _ninjaService;
 
         #endregion
 
@@ -37,12 +39,14 @@ namespace Lurker.UI.ViewModels
         /// <param name="processLurker">The process lurker.</param>
         /// <param name="settingsService">The settings service.</param>
         /// <param name="githubService">The github service.</param>
-        /// <param name="mouseLurker">The mouse lurker..</param>
-        public WikiViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService, GithubService githubService, MouseLurker mouseLurker)
+        /// <param name="mouseLurker">The mouse lurker.</param>
+        /// <param name="ninjaService">The ninja service.</param>
+        public WikiViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService, GithubService githubService, MouseLurker mouseLurker, PoeNinjaService ninjaService)
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
             this._githubService = githubService;
             this._mouseLurker = mouseLurker;
+            this._ninjaService = ninjaService;
             this.Items = new ObservableCollection<WikiItemBaseViewModel>();
         }
 
@@ -73,6 +77,11 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public ObservableCollection<WikiItemBaseViewModel> Items { get; private set; }
 
+        /// <summary>
+        /// Gets or sets the ExaltedRatio.
+        /// </summary>
+        public ExaltedRatioViewModel ExaltedRatio { get; set; }
+
         #endregion
 
         #region Methods
@@ -100,11 +109,18 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Closes this instance.
         /// </summary>
-        protected override void OnActivate()
+        protected async override void OnActivate()
         {
             base.OnActivate();
             this.SetInForeground();
             this._mouseLurker.MouseLeftButtonUp += this.MouseLurker_MouseLeftButtonUp;
+
+            if (!string.IsNullOrEmpty(this.SettingsService.RecentLeagueName))
+            {
+                var ratio = await this._ninjaService.GetExaltRationAsync(this.SettingsService.RecentLeagueName);
+                this.ExaltedRatio = new ExaltedRatioViewModel(ratio);
+                this.NotifyOfPropertyChange(() => this.ExaltedRatio);
+            }
         }
 
         /// <summary>

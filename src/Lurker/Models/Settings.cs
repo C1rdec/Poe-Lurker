@@ -229,6 +229,11 @@ namespace Lurker.Models
         /// </summary>
         public bool GuildHideoutEnabled { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [guild hideout enabled].
+        /// </summary>
+        public string RecentLeagueName { get; set; }
+
         #endregion
     }
 }

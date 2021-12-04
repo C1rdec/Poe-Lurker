@@ -660,6 +660,22 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating the recent league name.
+        /// </summary>
+        public string RecentLeagueName
+        {
+            get
+            {
+                return this._settings.RecentLeagueName;
+            }
+
+            set
+            {
+                this._settings.RecentLeagueName = value;
+            }
+        }
+
+        /// <summary>
         /// Gets the name of the folder.
         /// </summary>
         private string FolderName => "PoeLurker";

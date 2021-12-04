@@ -1353,6 +1353,15 @@
     "Level": 24
   },
   {
+    "Id": "DestructiveLink",
+    "Support": false,
+    "Location": null,
+    "Name": "Destructive Link",
+    "WikiUrl": "https://poedb.tw/us/Destructive_Link",
+    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Dcml0aWNhbExpbmtHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/78c8139685/CriticalLinkGem.png",
+    "Level": 34
+  },
+  {
     "Id": "Determination",
     "Support": false,
     "Location": {
@@ -1712,6 +1721,15 @@
     "Level": 10
   },
   {
+    "Id": "EnergyBlade",
+    "Support": false,
+    "Location": null,
+    "Name": "Energy Blade",
+    "WikiUrl": "https://poedb.tw/us/Energy_Blade",
+    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdG9ybUJsYWRlR2VtIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/387697170b/StormBladeGem.png",
+    "Level": 24
+  },
+  {
     "Id": "Enfeeble",
     "Support": false,
     "Location": {
@@ -1748,6 +1766,15 @@
     "WikiUrl": "https://poedb.tw/us/Ensnaring_Arrow",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/6/6b/Ensnaring_Arrow_inventory_icon.png/revision/latest?cb=20191213185552",
     "Level": 16
+  },
+  {
+    "Id": "Envy",
+    "Support": false,
+    "Location": null,
+    "Name": "Envy",
+    "WikiUrl": "https://poedb.tw/us/Envy",
+    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/Envy.png?w=1&amp;h=1&amp;scale=1",
+    "Level": 60
   },
   {
     "Id": "EssenceDrain",
@@ -2008,6 +2035,15 @@
     "WikiUrl": "https://poedb.tw/us/Flame_Dash",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/5/55/Flame_Dash_inventory_icon.png/revision/latest?cb=20150707194102",
     "Level": 10
+  },
+  {
+    "Id": "FlameLink",
+    "Support": false,
+    "Location": null,
+    "Name": "Flame Link",
+    "WikiUrl": "https://poedb.tw/us/Flame_Link",
+    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9GbGFtZUxpbmtHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/fee913312b/FlameLinkGem.png",
+    "Level": 34
   },
   {
     "Id": "FlameTotem",
@@ -2882,6 +2918,15 @@
     "Level": 10
   },
   {
+    "Id": "IntuitiveLink",
+    "Support": false,
+    "Location": null,
+    "Name": "Intuitive Link",
+    "WikiUrl": "https://poedb.tw/us/Intuitive_Link",
+    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9UcmlnZ2VyTGlua0dlbSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/726a29e3ef/TriggerLinkGem.png",
+    "Level": 34
+  },
+  {
     "Id": "KineticBolt",
     "Support": false,
     "Location": {
@@ -3478,6 +3523,15 @@
     "Level": 1
   },
   {
+    "Id": "PoisonousConcoction",
+    "Support": false,
+    "Location": null,
+    "Name": "Poisonous Concoction",
+    "WikiUrl": "https://poedb.tw/us/Poisonous_Concoction",
+    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Qb2lzb25vdXNDb25jb2N0aW9uIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/b1cde568a6/PoisonousConcoction.png",
+    "Level": 12
+  },
+  {
     "Id": "PowerSiphon",
     "Support": false,
     "Location": {
@@ -3494,6 +3548,15 @@
     "WikiUrl": "https://poedb.tw/us/Power_Siphon",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/5/52/Power_Siphon_inventory_icon.png/revision/latest?cb=20130626162347",
     "Level": 12
+  },
+  {
+    "Id": "ProtectiveLink",
+    "Support": false,
+    "Location": null,
+    "Name": "Protective Link",
+    "WikiUrl": "https://poedb.tw/us/Protective_Link",
+    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9CbG9ja0xpbmtHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/a459f4b2b0/BlockLinkGem.png",
+    "Level": 34
   },
   {
     "Id": "Puncture",
@@ -4266,6 +4329,15 @@
     "WikiUrl": "https://poedb.tw/us/Snipers_Mark",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/3/30/Sniper%27s_Mark_inventory_icon.png/revision/latest?cb=20130626162348",
     "Level": 24
+  },
+  {
+    "Id": "SoulLink",
+    "Support": false,
+    "Location": null,
+    "Name": "Soul Link",
+    "WikiUrl": "https://poedb.tw/us/Soul_Link",
+    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Tb3VsTGlua0dlbSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/77a2f86ddb/SoulLinkGem.png",
+    "Level": 34
   },
   {
     "Id": "Soulrend",
@@ -7794,6 +7866,15 @@
     "Level": 24
   },
   {
+    "Id": "TemporalRift",
+    "Support": false,
+    "Location": null,
+    "Name": "Temporal Rift",
+    "WikiUrl": "https://poedb.tw/us/Temporal_Rift",
+    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9DaHJvbm9tYW5jZXIiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/9977b27b7c/Chronomancer.png",
+    "Level": 34
+  },
+  {
     "Id": "ThrownShield",
     "Support": false,
     "Location": {
@@ -7834,6 +7915,15 @@
     "WikiUrl": "https://poedb.tw/us/Spectral_Throw",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/b/b6/Spectral_Throw_inventory_icon.png/revision/latest?cb=20131024002509",
     "Level": 1
+  },
+  {
+    "Id": "Tornado",
+    "Support": false,
+    "Location": null,
+    "Name": "Tornado",
+    "WikiUrl": "https://poedb.tw/us/Tornado",
+    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Ub3JuYWRvR2VtIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/6ff8d3b903/TornadoGem.png",
+    "Level": 34
   },
   {
     "Id": "TornadoShot",
@@ -8574,6 +8664,15 @@
     "WikiUrl": "https://poedb.tw/us/Vaal_Spectral_Throw",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/5/59/Vaal_Spectral_Throw_inventory_icon.png/revision/latest?cb=20140306003840",
     "Level": 1
+  },
+  {
+    "Id": "VampiricLink",
+    "Support": false,
+    "Location": null,
+    "Name": "Vampiric Link",
+    "WikiUrl": "https://poedb.tw/us/Vampiric_Link",
+    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9MZWVjaExpbmtHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/cb9c98d9f4/LeechLinkGem.png",
+    "Level": 34
   },
   {
     "Id": "Vengeance",
