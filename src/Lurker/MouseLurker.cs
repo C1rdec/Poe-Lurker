@@ -138,6 +138,8 @@ namespace Lurker
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private async void MouseHook_LeftButtonUp(object sender, MouseMessageEventArgs e)
         {
+            this.MouseLeftButtonUp?.Invoke(this, e);
+
             if (e.Control || !e.Shift || (!this._settingsService.MapEnabled && !this._settingsService.SearchEnabled))
             {
                 return;
@@ -152,12 +154,6 @@ namespace Lurker
             }
 
             ClipboardHelper.ClearClipboard();
-
-            if (this._settingsService.MapEnabled)
-            {
-            }
-
-            this.MouseLeftButtonUp?.Invoke(this, e);
         }
 
         /// <summary>

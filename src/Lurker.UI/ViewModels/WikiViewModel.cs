@@ -42,8 +42,8 @@ namespace Lurker.UI.ViewModels
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
             this._githubService = githubService;
-            this.Items = new ObservableCollection<WikiItemBaseViewModel>();
             this._mouseLurker = mouseLurker;
+            this.Items = new ObservableCollection<WikiItemBaseViewModel>();
         }
 
         #endregion
