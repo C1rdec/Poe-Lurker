@@ -8,7 +8,6 @@ namespace Lurker.Console
 {
     using System;
     using System.Collections.Generic;
-    using Lurker.Services;
     using Winook;
 
     class Program
@@ -17,10 +16,6 @@ namespace Lurker.Console
 
         static void Main(string[] args)
         {
-            using (var client = new PathOfNinjaService())
-            {
-                client.RefreshCache("Expedition").Wait();
-            }
         }
 
         private static void Hook_MessageReceived(object sender, KeyboardMessageEventArgs e)
