@@ -1078,6 +1078,13 @@
     "Level": 8
   },
   {
+    "ItemClass": "Belt",
+    "Name": "Mageblood",
+    "WikiUrl": "https://poedb.tw/us/Mageblood",
+    "ImageUrl": "https://www.poewiki.net/w/images/c/c0/Mageblood_inventory_icon.png",
+    "Level": 44
+  },
+  {
     "ItemClass": "BodyArmour",
     "Name": "Blunderbore",
     "WikiUrl": "https://poedb.tw/us/Blunderbore",
