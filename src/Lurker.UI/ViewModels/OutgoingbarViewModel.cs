@@ -277,11 +277,11 @@ namespace Lurker.UI.ViewModels
         /// Inserts the event.
         /// </summary>
         /// <param name="tradeEvent">The trade event.</param>
-        private Task InsertEvent(TradeEvent tradeEvent)
+        private async Task InsertEvent(TradeEvent tradeEvent)
         {
             using (var service = new DatabaseService())
             {
-                return service.InsertAsync(tradeEvent);
+                await service.InsertAsync(tradeEvent);
             }
         }
 
