@@ -98,9 +98,9 @@ namespace Lurker.UI.ViewModels
             {
                 var league = service.GetLatestLeague();
                 this.Value = league.Trades.Where(t => !t.IsOutgoing).Select(t => t.Price.CalculateValue()).Sum();
-                this.NotifyOfPropertyChange(() => this.Value);
             }
 
+            this.NotifyOfPropertyChange(() => this.Value);
             this.Animate = true;
             await Task.Delay(4000);
             this.Animate = false;

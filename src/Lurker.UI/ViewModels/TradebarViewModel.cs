@@ -353,7 +353,7 @@ namespace Lurker.UI.ViewModels
             }
 
             // Listener: LeagueViewModel
-            this._eventAggregator.PublishOnUIThread(new TradeCompletedEvent());
+            // this._eventAggregator.PublishOnUIThread(new TradeCompletedEvent());
             this.RemoveOffer(offer);
         }
 
