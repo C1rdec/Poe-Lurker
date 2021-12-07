@@ -12,7 +12,6 @@ namespace Lurker.UI.ViewModels
     using Caliburn.Micro;
     using Lurker.Patreon.Events;
     using Lurker.Patreon.Services;
-    using Lurker.UI.Extensions;
     using Lurker.UI.Models;
     using Patreon = Lurker.Patreon.Models;
 
@@ -34,7 +33,7 @@ namespace Lurker.UI.ViewModels
         private IEnumerable<SimpleTradeModel> _allTradres;
         private IEnumerable<League> _leagues;
         private League _selectedLeague;
-        private double _totalNetworth;
+        private uint _totalNetworth;
 
         #endregion
 
@@ -130,7 +129,7 @@ namespace Lurker.UI.ViewModels
         /// Gets the total networth.
         /// </summary>
         /// <value>The selected league.</value>
-        public double TotalNetworth
+        public uint TotalNetworth
         {
             get
             {
@@ -324,7 +323,7 @@ namespace Lurker.UI.ViewModels
             }
 
             this._networthTrades = this._leagueTrades;
-            this.TotalNetworth = this._leagueTrades.Select(t => t.Price.CalculateValue()).Sum();
+            this.TotalNetworth = (uint)this._leagueTrades.Select(t => t.GetChaosValue()).Sum();
         }
 
         /// <summary>
@@ -388,7 +387,7 @@ namespace Lurker.UI.ViewModels
                 LabelPosition = LiveCharts.PieLabelPosition.InsideSlice,
             };
 
-            var groups = this._leagueTrades.GroupBy(i => i.Price.CurrencyType).Select(g => new { Type = g.First().Price.CurrencyType, Sum = g.Sum(i => i.Price.CalculateValue()) });
+            var groups = this._leagueTrades.GroupBy(i => i.Price.CurrencyType).Select(g => new { Type = g.First().Price.CurrencyType, Sum = g.Sum(i => i.GetChaosValue()) });
             foreach (var group in groups)
             {
                 pieChart.Add(group.Type.ToString(), group.Sum);
@@ -429,7 +428,7 @@ namespace Lurker.UI.ViewModels
                     continue;
                 }
 
-                var value = group.Select(g => g.Price.CalculateValue()).Sum();
+                var value = group.Select(g => g.GetChaosValue()).Sum();
                 previousValue += value;
 
                 if (previousValue < 0)
@@ -460,7 +459,7 @@ namespace Lurker.UI.ViewModels
                 FontSize = 18,
             };
 
-            var groups = this._leagueTrades.GroupBy(i => i.ItemClass).Select(g => new { Type = g.First().ItemClass, Sum = g.Sum(i => i.Price.CalculateValue()) });
+            var groups = this._leagueTrades.GroupBy(i => i.ItemClass).Select(g => new { Type = g.First().ItemClass, Sum = g.Sum(i => i.GetChaosValue()) });
             foreach (var group in groups.OrderByDescending(g => g.Sum).Take(5))
             {
                 pieChart.Add(group.Type.ToString(), group.Sum);
