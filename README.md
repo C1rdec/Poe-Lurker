@@ -1,4 +1,6 @@
-# Poe Lurker <img src="LurkerIcon.png" width="100" height="100" /> <a href="https://cutt.ly/UT5eHx7" target="_blank"><img height="100" src="https://getbadgecdn.azureedge.net/images/English_L.png"></a> 
+# Poe Lurker <img src="LurkerIcon.png" width="100" height="100" /> 
+
+<!-- <a href="https://cutt.ly/UT5eHx7" target="_blank"><img height="100" src="https://getbadgecdn.azureedge.net/images/English_L.png"></a> --> 
  
 Poe Lurker is a simple yet very powerful trade manager meant to ease the trading experience for Path of Exile. 
 
@@ -15,7 +17,7 @@ If you like and use Poe Lurker please consider signing up for a small monthly [P
 
 ## Usage
 - Install ≥ [.NET Framework 4.8](https://dotnet.microsoft.com/download/dotnet-framework)
-- Install `Poe Lurker` <a href="https://cutt.ly/UT5eHx7" target="_blank"><img height="35" align="center" src="https://getbadgecdn.azureedge.net/images/English_L.png"></a> or download and run [`PoeLurkerSetup.exe`](https://github.com/C1rdec/Poe-Lurker/releases/latest/download/PoeLurkerSetup.exe)
+- Install `Poe Lurker`  <!--<a href="https://cutt.ly/UT5eHx7" target="_blank"><img height="35" align="center" src="https://getbadgecdn.azureedge.net/images/English_L.png"></a> or --> download and run [`PoeLurkerSetup.exe`](https://github.com/C1rdec/Poe-Lurker/releases/latest/download/PoeLurkerSetup.exe)
 
 
 # [Cheat Sheet](assets/CheatSheet.md) | [User Guide](https://docs.google.com/presentation/d/1XhaSSNAFGxzouc5amzAW8c_6ifToNjnsQq5UmNgLXoo/present)
