@@ -23,12 +23,12 @@
             VerticalAlignment="Bottom"
             HorizontalAlignment="Center"
             IsChecked="{Binding Enable}"/>
-        <Grid  HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding Connected, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Button x:Name="GetDevices" Cursor="Hand" Visibility="{Binding Connected, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Button x:Name="GetDevices" Cursor="Hand">
                 <Button.Content>
                     <Grid>
                         <ContentControl x:Name="SelectedDevice" />
@@ -40,7 +40,15 @@
                     </Grid>
                 </Button.Content>
             </Button>
-            <Button x:Name="Test" Grid.Row="1" HorizontalAlignment="Center" Margin="0,10,0,0" Background="Transparent" BorderThickness="0.4" FontSize="10" Cursor="Hand" >Send Test</Button>
+            <Button 
+                x:Name="Test" 
+                Grid.Row="1" 
+                HorizontalAlignment="Center" 
+                Margin="0,10,0,0" 
+                Background="Transparent" 
+                BorderThickness="0.4" 
+                FontSize="10" 
+                Cursor="Hand" >Send Test</Button>
         </Grid>
         
         <StackPanel Grid.Row="1" VerticalAlignment="Center" Visibility="{Binding Connected, Converter={StaticResource BooleanToVisibilityConverter}}">
