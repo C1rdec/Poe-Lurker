@@ -61,7 +61,7 @@ namespace Lurker.Services
         /// <param name="volume">The volume.</param>
         public void PlayJoinHideout(float volume)
         {
-            var stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("Lurker.Assets.JoinHideout.mp3");
+            var stream = GetStream("Lurker.Assets.JoinHideout.mp3");
             this.Play(stream, volume);
         }
 
@@ -77,7 +77,7 @@ namespace Lurker.Services
                 return this.Play(File.OpenRead(AssetService.GetFilePath(TradeAlertFileName)), volume);
             }
 
-            var stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("Lurker.Assets.TradeAlert.mp3");
+            var stream = GetStream("Lurker.Assets.TradeAlert.mp3");
             return this.Play(stream, volume);
         }
 
@@ -93,8 +93,13 @@ namespace Lurker.Services
                 return this.Play(File.OpenRead(AssetService.GetFilePath(ItemAlertFileName)), volume);
             }
 
-            var stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("Lurker.Assets.ItemAlert.mp3");
+            var stream = GetStream("Lurker.Assets.ItemAlert.mp3");
             return this.Play(stream, volume);
+        }
+
+        private static Stream GetStream(string resourceName)
+        {
+            return System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName);
         }
 
         /// <summary>
