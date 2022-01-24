@@ -15,12 +15,21 @@
         mc:Ignorable="d" Height="450" Width="800">
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
+            <Button Cursor="Hand" cal:Message.Attach="[Event Click] = [Action OpenPatreon]">
+                <StackPanel Orientation="Horizontal">
+                    <local:IconPack Foreground="White"
+                                    Width="18"
+                                    HorizontalAlignment="Center"
+                                    Data="{x:Static local:IconPackData.Patreon}"/>
+                    <TextBlock Margin="4" VerticalAlignment="Center" Text="Patreon" />
+                </StackPanel>
+            </Button>
             <Button Cursor="Hand" cal:Message.Attach="[Event Click] = [Action OpenDiscord]">
                 <StackPanel Orientation="Horizontal">
                     <local:IconPack Foreground="White"
                                     Width="25"
                                     HorizontalAlignment="Center"
-                                            Data="{x:Static local:IconPackData.Discord}"/>
+                                    Data="{x:Static local:IconPackData.Discord}"/>
                     <TextBlock Margin="4" VerticalAlignment="Center" Text="Discord" />
                 </StackPanel>
             </Button>

@@ -62,6 +62,7 @@ namespace Lurker.UI
             this._container.Singleton<PoeNinjaService, PoeNinjaService>();
             this._container.Singleton<SettingsService, SettingsService>();
             this._container.Singleton<HotkeyService, HotkeyService>();
+            this._container.Singleton<StashTabService, StashTabService>();
             this._container.Singleton<BuildService, BuildService>();
             this._container.Singleton<SoundService, SoundService>();
             this._container.Singleton<CollaborationService, CollaborationService>();
@@ -74,6 +75,7 @@ namespace Lurker.UI
             this._container.PerRequest<UpdateManager, UpdateManager>();
             this._container.PerRequest<ShellViewModel, ShellViewModel>();
             this._container.PerRequest<WikiViewModel, WikiViewModel>();
+            this._container.PerRequest<StashTabGridViewModel, StashTabGridViewModel>();
             this._container.PerRequest<TradebarViewModel, TradebarViewModel>();
             this._container.PerRequest<PopupViewModel, PopupViewModel>();
             this._container.PerRequest<BuildTimelineViewModel, BuildTimelineViewModel>();

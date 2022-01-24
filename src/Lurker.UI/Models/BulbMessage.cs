@@ -26,6 +26,11 @@ namespace Lurker.UI.Models
         public Action Action { get; set; }
 
         /// <summary>
+        /// Gets or sets the action.
+        /// </summary>
+        public Action SubAction { get; set; }
+
+        /// <summary>
         /// Gets or sets the view.
         /// </summary>
         public System.ComponentModel.INotifyPropertyChanged View { get; set; }

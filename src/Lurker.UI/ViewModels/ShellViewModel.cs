@@ -44,6 +44,7 @@ namespace Lurker.UI
         private DockingHelper _currentDockingHelper;
         private ClipboardLurker _clipboardLurker;
         private TradebarViewModel _incomingTradeBarOverlay;
+        private StashTabGridViewModel _stashTabGrid;
         private BuildTimelineViewModel _skillTimelineOverlay;
         private OutgoingbarViewModel _outgoingTradeBarOverlay;
         private PopupViewModel _popup;
@@ -453,6 +454,7 @@ namespace Lurker.UI
                 this._container.RegisterInstance(typeof(PoeKeyboardHelper), null, keyboarHelper);
                 this._container.RegisterInstance(typeof(KeyboardLurker), null, this._keyboardLurker);
 
+                this._stashTabGrid = this._container.GetInstance<StashTabGridViewModel>();
                 this._skillTimelineOverlay = this._container.GetInstance<BuildTimelineViewModel>();
                 this._incomingTradeBarOverlay = this._container.GetInstance<TradebarViewModel>();
                 this._outgoingTradeBarOverlay = this._container.GetInstance<OutgoingbarViewModel>();
@@ -497,6 +499,7 @@ namespace Lurker.UI
 
                 this.ActivateItem(this._lifeBulbOverlay);
                 this.ActivateItem(this._manaBulbOverlay);
+                this.ActivateItem(this._stashTabGrid);
             });
         }
 
@@ -619,6 +622,11 @@ namespace Lurker.UI
                 this._keyboardLurker.OpenWikiPressed -= this.KeyboardLurker_OpenWikiPressed;
                 this._keyboardLurker.BuildToggled -= this.KeyboardLurker_BuildToggled;
                 this._keyboardLurker.Dispose();
+            }
+
+            if (this._stashTabGrid != null)
+            {
+                this._stashTabGrid.Dispose();
             }
         }
 

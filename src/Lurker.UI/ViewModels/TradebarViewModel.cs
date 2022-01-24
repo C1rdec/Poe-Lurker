@@ -20,6 +20,7 @@ namespace Lurker.UI.ViewModels
     using Lurker.Patreon.Services;
     using Lurker.Services;
     using Lurker.UI.Models;
+    using Lurker.UI.Services;
 
     /// <summary>
     /// Represent the trade bar.
@@ -41,6 +42,7 @@ namespace Lurker.UI.ViewModels
         private List<TradeEvent> _soldOffers;
         private SoundService _soundService;
         private PushBulletService _pushBulletService;
+        private StashTabService _stashTabService;
 
         #endregion
 
@@ -59,6 +61,7 @@ namespace Lurker.UI.ViewModels
         /// <param name="windowManager">The window manager.</param>
         /// <param name="soundService">The sound service.</param>
         /// <param name="pushBulletService">The PushBullet service.</param>
+        /// <param name="stashTabService">The stash tab service.</param>
         public TradebarViewModel(
             IEventAggregator eventAggregator,
             ClientLurker clientLurker,
@@ -69,7 +72,8 @@ namespace Lurker.UI.ViewModels
             SettingsService settingsService,
             IWindowManager windowManager,
             SoundService soundService,
-            PushBulletService pushBulletService)
+            PushBulletService pushBulletService,
+            StashTabService stashTabService)
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
             this._eventAggregator = eventAggregator;
@@ -77,6 +81,7 @@ namespace Lurker.UI.ViewModels
             this._soundService = soundService;
             this._clientLurker = clientLurker;
             this._pushBulletService = pushBulletService;
+            this._stashTabService = stashTabService;
 
             this._keyboardLurker = keyboardLurker;
             this.TradeOffers = new ObservableCollection<OfferViewModel>();
@@ -112,6 +117,18 @@ namespace Lurker.UI.ViewModels
             if (activeOffer != null)
             {
                 await this._keyboardHelper.Search(activeOffer.BuildSearchItemName());
+            }
+        }
+
+        /// <summary>
+        /// Locate the item.
+        /// </summary>
+        public void LocateItem()
+        {
+            var activeOffer = this.ActiveOffer;
+            if (activeOffer != null)
+            {
+                this._stashTabService.PlaceMarker(activeOffer.Event.Location);
             }
         }
 
@@ -437,6 +454,7 @@ namespace Lurker.UI.ViewModels
                     if (offer.Active)
                     {
                         this._removeActive?.Invoke();
+                        this._stashTabService.Close();
                     }
 
                     this.TradeOffers.Remove(offer);
@@ -450,6 +468,7 @@ namespace Lurker.UI.ViewModels
                     else
                     {
                         this._removeActive?.Invoke();
+                        this._stashTabService.Close();
                     }
 
                     offer.Dispose();
@@ -482,11 +501,13 @@ namespace Lurker.UI.ViewModels
         /// <param name="tradeEvent">The trade event.</param>
         private void SendToLifeBulb(TradeEvent tradeEvent)
         {
+            var viewModel = new PositionViewModel(tradeEvent, this.SettingsService, this._stashTabService);
             this._eventAggregator.PublishOnUIThread(new LifeBulbMessage()
             {
-                View = new PositionViewModel(tradeEvent, this.SettingsService),
+                View = viewModel,
                 OnShow = (a) => { this._removeActive = a; },
                 Action = this.SearchItem,
+                SubAction = this.LocateItem,
             });
         }
 

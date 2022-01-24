@@ -10,7 +10,6 @@ namespace Lurker
     using System.Windows.Input;
     using Lurker.Helpers;
     using Lurker.Patreon.Events;
-    using Lurker.Services;
     using WK.Libraries.SharpClipboardNS;
 
     /// <summary>

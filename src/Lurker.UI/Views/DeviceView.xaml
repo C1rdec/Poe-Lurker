@@ -11,7 +11,7 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TextBlock x:Name="Name" FontSize="14" VerticalAlignment="Center"/>
+        <TextBlock x:Name="DeviceName" FontSize="14" VerticalAlignment="Center"/>
         <local:IconPack Foreground="#3DDC84" 
                         Height="20" 
                         Width="20" 
