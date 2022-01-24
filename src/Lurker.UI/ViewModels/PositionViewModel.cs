@@ -52,7 +52,18 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets the name of the item.
         /// </summary>
-        public string Location => $"Left: {this._tradeEvent.Location.Left}, Top: {this._tradeEvent.Location.Top}";
+        public string Location
+        {
+            get
+            {
+                if (this._tradeEvent.Location.Left <= 0 || this._tradeEvent.Location.Top <= 0)
+                {
+                    return string.Empty;
+                }
+
+                return $"Left: {this._tradeEvent.Location.Left}, Top: {this._tradeEvent.Location.Top}";
+            }
+        }
 
         /// <summary>
         /// Gets the foreground.
