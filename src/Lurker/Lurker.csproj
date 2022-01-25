@@ -219,6 +219,10 @@
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Models\SimpleBuild.cs" />
     <Compile Include="Models\Skill.cs" />
+    <Compile Include="Models\StashTab.cs" />
+    <Compile Include="Models\StashTabLocation.cs" />
+    <Compile Include="Models\StashTabBank.cs" />
+    <Compile Include="Models\StashTabType.cs" />
     <Compile Include="Models\UniqueItem.cs" />
     <Compile Include="MouseLurker.cs" />
     <Compile Include="Models\WindowStyle.cs" />
@@ -238,6 +242,7 @@
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\SoundService.cs" />
     <Compile Include="Models\WikiItem.cs" />
+    <Compile Include="Services\StashTabService.cs" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json">

@@ -102,6 +102,11 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         protected System.Action Action { get; set; }
 
+        /// <summary>
+        /// Gets or sets the sub action.
+        /// </summary>
+        protected System.Action SubAction { get; set; }
+
         #endregion
 
         #region Methods
@@ -126,6 +131,7 @@ namespace Lurker.UI.ViewModels
         protected void Hide()
         {
             this.ActionView = null;
+            this.SubAction = null;
             this.Action = this._stickyAction;
             this.ActionView = this._stickyActionView;
             this._stickyAction = null;
@@ -180,6 +186,7 @@ namespace Lurker.UI.ViewModels
             }
 
             this.Action = message.Action;
+            this.SubAction = message.SubAction;
             this.ActionView = message.View;
 
             this.NotifyOfPropertyChange(nameof(this.HasAction));

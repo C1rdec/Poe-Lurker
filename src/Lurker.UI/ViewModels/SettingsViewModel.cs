@@ -1003,6 +1003,14 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Opens the patreon.
+        /// </summary>
+        public void OpenPatreon()
+        {
+            Process.Start("https://www.patreon.com/poelurker");
+        }
+
+        /// <summary>
         /// Activates the window.
         /// </summary>
         public void ActivateWindow()

@@ -48,7 +48,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets a value indicating the device name.
         /// </summary>
-        public string Name => this._device.Name;
+        public string DeviceName => this._device.Name;
 
         /// <summary>
         /// Gets a value indicating the device id.

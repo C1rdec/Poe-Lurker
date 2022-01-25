@@ -9,6 +9,7 @@ namespace Lurker.UI.ViewModels
     using System.Windows.Media;
     using Lurker.Patreon.Events;
     using Lurker.Services;
+    using Lurker.UI.Services;
 
     /// <summary>
     /// The position view model.
@@ -20,6 +21,7 @@ namespace Lurker.UI.ViewModels
 
         private TradeEvent _tradeEvent;
         private SettingsService _settingService;
+        private StashTabService _stashTabService;
 
         #endregion
 
@@ -30,10 +32,12 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="tradeEvent">The trade event.</param>
         /// <param name="settingService">The setting service.</param>
-        public PositionViewModel(TradeEvent tradeEvent, SettingsService settingService)
+        /// <param name="stashTabService">The stash tab service.</param>
+        public PositionViewModel(TradeEvent tradeEvent, SettingsService settingService, StashTabService stashTabService)
         {
             this._tradeEvent = tradeEvent;
             this._settingService = settingService;
+            this._stashTabService = stashTabService;
         }
 
         #endregion
@@ -48,12 +52,35 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets the name of the item.
         /// </summary>
-        public string Location => $"Left: {this._tradeEvent.Location.Left}, Top: {this._tradeEvent.Location.Top}";
+        public string Location
+        {
+            get
+            {
+                if (this._tradeEvent.Location.Left <= 0 || this._tradeEvent.Location.Top <= 0)
+                {
+                    return string.Empty;
+                }
+
+                return $"Left: {this._tradeEvent.Location.Left}, Top: {this._tradeEvent.Location.Top}";
+            }
+        }
 
         /// <summary>
         /// Gets the foreground.
         /// </summary>
         public SolidColorBrush Foreground => new SolidColorBrush((Color)ColorConverter.ConvertFromString(this._settingService.LifeForeground));
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Locate the item.
+        /// </summary>
+        public void Locate()
+        {
+            this._stashTabService.PlaceMarker(this._tradeEvent.Location);
+        }
 
         #endregion
     }

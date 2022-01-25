@@ -3,9 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        Background="Transparent"
         WindowStyle="None"
+        Background="Transparent"
         Topmost="True"
+        xmlns:local="clr-namespace:Lurker.UI"
         xmlns:cal="http://www.caliburnproject.org"
         AllowsTransparency="True"
         ShowInTaskbar="False"
@@ -42,5 +43,17 @@
                 </Style>
             </Ellipse.Style>
         </Ellipse>
+        <Border HorizontalAlignment="Right" 
+                Visibility="{Binding HasAction, Converter={StaticResource BooleanToVisibilityConverter}}"
+                cal:Message.Attach="[Event MouseDown] = [Action OnSubAction()]"
+                VerticalAlignment="Bottom"
+                Background="#212022" 
+                Width="40" Height="40" 
+                Cursor="Hand" 
+                CornerRadius="8">
+            <local:IconPack Foreground="Gray"
+                        Margin="10"
+                        Data="{x:Static local:IconPackData.Target}"/>
+        </Border>
     </Grid>
 </Window>

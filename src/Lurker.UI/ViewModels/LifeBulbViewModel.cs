@@ -45,7 +45,24 @@ namespace Lurker.UI.ViewModels
 
         #endregion
 
+        #region Properties
+
+        /// <summary>
+        /// Gets a value indicating whether HasSubAction.
+        /// </summary>
+        public bool HasSubAction => this.SubAction != null;
+
+        #endregion
+
         #region Methods
+
+        /// <summary>
+        /// Handles the SubAction.
+        /// </summary>
+        public void OnSubAction()
+        {
+            this.SubAction?.Invoke();
+        }
 
         /// <summary>
         /// Handles the message.

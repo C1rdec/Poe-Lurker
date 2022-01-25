@@ -377,6 +377,7 @@
     <Compile Include="ViewModels\BuildTimelineViewModel.cs" />
     <Compile Include="ViewModels\SkillViewModel.cs" />
     <Compile Include="ViewModels\SplashscreenViewModel.cs" />
+    <Compile Include="ViewModels\StashTabGridViewModel.cs" />
     <Compile Include="ViewModels\TimelineItemViewModel.cs" />
     <Compile Include="ViewModels\TimelineViewModel.cs" />
     <Compile Include="ViewModels\TradebarViewModel.cs" />
@@ -506,6 +507,9 @@
     </Compile>
     <Compile Include="Views\SplashscreenView.xaml.cs">
       <DependentUpon>SplashscreenView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StashTabGridView.xaml.cs">
+      <DependentUpon>StashTabGridView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TimelineItemView.xaml.cs">
       <DependentUpon>TimelineItemView.xaml</DependentUpon>
@@ -689,6 +693,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\StashTabGridView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\TimelineItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -836,11 +844,13 @@
     <Resource Include="Assets\Scouring.png" />
     <Content Include="SVG\Android.svg" />
     <Content Include="SVG\Apple.svg" />
+    <Content Include="SVG\Corner.svg" />
     <Content Include="SVG\CustomSound.svg" />
     <Content Include="SVG\Discord.svg" />
     <Content Include="SVG\DotsMenu.svg" />
     <Content Include="SVG\Group.svg" />
     <Content Include="SVG\Open.svg" />
+    <Content Include="SVG\Patreon.svg" />
     <Content Include="SVG\Pushbullet.svg" />
     <Content Include="SVG\Shield.svg" />
     <Content Include="SVG\ThreeDot.svg" />
