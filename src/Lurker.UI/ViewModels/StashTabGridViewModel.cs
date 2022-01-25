@@ -141,6 +141,14 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Toggle the tab type.
+        /// </summary>
+        public void ToggleTabType()
+        {
+            this.IsRegularTab = !this.IsRegularTab;
+        }
+
+        /// <summary>
         /// Releases unmanaged and - optionally - managed resources.
         /// </summary>
         /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
@@ -165,16 +173,18 @@ namespace Lurker.UI.ViewModels
                 return;
             }
 
+            var margin = PoeApplicationContext.WindowStyle == WindowStyle.Windowed ? 0 : 25;
             Execute.OnUIThread(() =>
             {
                 var size = DefaultSize * windowInformation.Height / DefaultTabHeight;
                 var leftMargin = DefaultLeftMargin * windowInformation.Height / DefaultTabHeight;
                 var topMargin = DefaultTopMargin * windowInformation.Height / DefaultTabHeight;
 
-                this.View.Height = this.ApplyScalingY(size);
-                this.View.Width = this.ApplyScalingX(size);
+                // 50 is the footer
+                this.View.Height = this.ApplyScalingY(size + 50 + margin);
+                this.View.Width = this.ApplyScalingX(size + margin);
                 this.View.Left = this.ApplyScalingX(windowInformation.Position.Left + Margin + leftMargin);
-                this.View.Top = this.ApplyScalingY(windowInformation.Position.Top + topMargin);
+                this.View.Top = this.ApplyScalingY(windowInformation.Position.Top + topMargin - margin);
             });
         }
 

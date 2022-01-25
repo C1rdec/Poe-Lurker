@@ -109,6 +109,11 @@ namespace Lurker.UI
         public static string Pushbullet => "M77 189.6c-16.733 0-16.733 0-16.733-16.733V81c0-16.733 0-16.733 16.733-16.733h3.334c16.733 0 16.733 0 16.733 16.733v91.867c0 16.733 0 16.733-16.733 16.733H77zM121.041 189.6c-5.699 0-8.508-2.809-8.508-8.508V72.774c0-5.698 2.809-8.507 8.508-8.507h37.537c32.178 0 52.628 32.273 52.628 63.025 0 30.752-20.628 62.308-52.628 62.308h-37.537z";
 
         /// <summary>
+        /// Gets the icon pack data for the icon Quad.
+        /// </summary>
+        public static string Quad => "M 19,19L 36,19L 36,36L 19,36L 19,19 Z M 19,40L 36,40L 36,57L 19,57L 19,40 Z M 40,57L 40,40L 57,40L 57,57L 40,57 Z M 40,36L 40,19L 57,19L 57,36L 40,36 Z ";
+
+        /// <summary>
         /// Gets the icon pack data for the icon Save.
         /// </summary>
         public static string Save => "M4 3h14l2.707 2.707a1 1 0 0 1 .293.707V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm3 1v5h9V4H7zm-1 8v7h12v-7H6zm7-7h2v3h-2V5z";
