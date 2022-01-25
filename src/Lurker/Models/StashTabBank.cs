@@ -15,9 +15,20 @@ namespace Lurker.Models
     /// </summary>
     public sealed class StashTabBank : SettingsBase<StashTabBank>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StashTabBank"/> class.
+        /// </summary>
+        public StashTabBank()
+        {
+            this.Tabs = new List<StashTab>();
+        }
+
         #region Properties
 
-        private List<StashTab> Tabs { get; set; }
+        /// <summary>
+        /// Gets or sets the tabs.
+        /// </summary>
+        public List<StashTab> Tabs { get; set; }
 
         #endregion
 
