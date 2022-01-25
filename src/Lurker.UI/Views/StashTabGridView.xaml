@@ -18,7 +18,6 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Grid x:Name="RegularTab"
-              ShowGridLines="True"
               Visibility="{Binding IsRegularTab, Converter={StaticResource BooleanToVisibilityConverter}}"
               Opacity="0.85">
             <Grid.Style>

@@ -318,8 +318,6 @@
     <Compile Include="Models\Position.cs" />
     <Compile Include="Models\SkillMessage.cs" />
     <Compile Include="Models\SkillTimelineMessage.cs" />
-    <Compile Include="Models\StashTabLocation.cs" />
-    <Compile Include="Models\StashTabType.cs" />
     <Compile Include="Models\TimelineInformation.cs" />
     <Compile Include="Models\TimelineMessage.cs" />
     <Compile Include="Models\TradeCompletedEvent.cs" />
@@ -331,7 +329,6 @@
     <Compile Include="Models\OutgoingbarContext.cs" />
     <Compile Include="Models\TradebarContext.cs" />
     <Compile Include="Services\AfkService.cs" />
-    <Compile Include="Services\StashTabService.cs" />
     <Compile Include="Services\TimelineController.cs" />
     <Compile Include="Svg.cs">
       <AutoGen>True</AutoGen>

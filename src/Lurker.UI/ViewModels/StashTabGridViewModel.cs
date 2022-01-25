@@ -32,6 +32,7 @@ namespace Lurker.UI.ViewModels
         private int _left;
         private bool _isRegularTab;
         private bool _isVisible;
+        private string _currentTabName;
 
         #endregion
 
@@ -146,6 +147,15 @@ namespace Lurker.UI.ViewModels
         public void ToggleTabType()
         {
             this.IsRegularTab = !this.IsRegularTab;
+
+            if (this.IsQuadTab)
+            {
+                this._service.AddQuadTab(this._currentTabName);
+            }
+            else
+            {
+                this._service.RemoveQuadTab(this._currentTabName);
+            }
         }
 
         /// <summary>
@@ -188,11 +198,12 @@ namespace Lurker.UI.ViewModels
             });
         }
 
-        private void Service_NewMarkerRequested(object sender, Models.StashTabLocation e)
+        private void Service_NewMarkerRequested(object sender, StashTabLocation e)
         {
+            this._currentTabName = e.Name;
             this.Left = e.Left - 1;
             this.Top = e.Top - 1;
-            this.IsRegularTab = e.StashTabType == Models.StashTabType.Regular;
+            this.IsRegularTab = e.StashTabType == StashTabType.Regular;
             this.IsVisible = true;
         }
 

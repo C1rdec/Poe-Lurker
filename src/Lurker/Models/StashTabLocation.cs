@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.UI.Models
+namespace Lurker.Models
 {
     /// <summary>
     /// Represents the stash tab location.
@@ -12,6 +12,11 @@ namespace Lurker.UI.Models
     public class StashTabLocation
     {
         #region Properties
+
+        /// <summary>
+        /// Gets or sets Name.
+        /// </summary>
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets Top.
