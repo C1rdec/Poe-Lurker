@@ -185,7 +185,7 @@ namespace Lurker.UI.ViewModels
         /// <returns>Task.</returns>
         private Task ShowError()
         {
-            return this._showMessage("Oups!", "You need to have a POB code in the clipboard.", MessageDialogStyle.Affirmative);
+            return this._showMessage("Oops!", "You need to have a POB code in the clipboard.", MessageDialogStyle.Affirmative);
         }
 
         /// <summary>

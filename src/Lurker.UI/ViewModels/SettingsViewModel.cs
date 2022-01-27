@@ -988,10 +988,6 @@ namespace Lurker.UI.ViewModels
             {
                 Process.Start(folderName);
             }
-            else
-            {
-                this.ShowMessage("Oups!", "No logs folder found.", MessageDialogStyle.Affirmative);
-            }
         }
 
         /// <summary>

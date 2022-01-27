@@ -115,15 +115,6 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
-        /// Shows the error.
-        /// </summary>
-        /// <returns>Task.</returns>
-        private Task ShowError()
-        {
-            return this._showMessage("Oups!", "You need to have a POB code in the clipboard.", MessageDialogStyle.Affirmative);
-        }
-
-        /// <summary>
         /// Removes the specified configuration.
         /// </summary>
         /// <param name="player">The player.</param>
