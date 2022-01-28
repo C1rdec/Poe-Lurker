@@ -95,8 +95,8 @@
     <Reference Include="LottieSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\LottieSharp.1.0.0\lib\net461\LottieSharp.dll</HintPath>
     </Reference>
-    <Reference Include="Lurker.Patreon, Version=1.4.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Lurker.Patreon.1.4.3\lib\net48\Lurker.Patreon.dll</HintPath>
+    <Reference Include="Lurker.Patreon, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Lurker.Patreon.1.5.0\lib\net48\Lurker.Patreon.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MahApps.Metro.1.6.5\lib\net47\MahApps.Metro.dll</HintPath>
@@ -204,7 +204,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Evaluation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=fc6d2b461e7db6ac, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Lurker.Patreon.1.4.3\lib\net48\System.Evaluation.dll</HintPath>
+      <HintPath>..\..\packages\Lurker.Patreon.1.5.0\lib\net48\System.Evaluation.dll</HintPath>
     </Reference>
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -370,7 +370,9 @@
     <Compile Include="ViewModels\PoeOverlayBase.cs" />
     <Compile Include="ViewModels\PopupViewModel.cs" />
     <Compile Include="ViewModels\PositionViewModel.cs" />
+    <Compile Include="ViewModels\PushHoverViewModel.cs" />
     <Compile Include="ViewModels\PushBulletViewModel.cs" />
+    <Compile Include="ViewModels\PushProviderViewModel.cs" />
     <Compile Include="ViewModels\RemainingMonsterViewModel.cs" />
     <Compile Include="ViewModels\ScreenBase.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
@@ -483,6 +485,9 @@
     </Compile>
     <Compile Include="Views\PushBulletView.xaml.cs">
       <DependentUpon>PushBulletView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PushHoverView.xaml.cs">
+      <DependentUpon>PushHoverView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RemainingMonsterView.xaml.cs">
       <DependentUpon>RemainingMonsterView.xaml</DependentUpon>
@@ -669,6 +674,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\PushHoverView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\RemainingMonsterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -844,6 +853,7 @@
     <Resource Include="Assets\Scouring.png" />
     <Content Include="SVG\Android.svg" />
     <Content Include="SVG\Apple.svg" />
+    <Content Include="SVG\Cellphone.svg" />
     <Content Include="SVG\Corner.svg" />
     <Content Include="SVG\CustomSound.svg" />
     <Content Include="SVG\Discord.svg" />

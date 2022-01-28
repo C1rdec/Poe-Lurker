@@ -646,18 +646,21 @@
                                             VerticalAlignment="Center"
                                             Foreground="White"
                                             Grid.Row="2"
-                                            Height="18"
-                                            Width="18"
-                                            Data="{x:Static local:IconPackData.Pushbullet}"/>
-                                        <TextBlock Margin="4,0,0,0" VerticalAlignment="Center" FontSize="18">Pushbullet</TextBlock>
+                                            Height="30"
+                                            Width="25"
+                                            Data="{x:Static local:IconPackData.Cellphone}"/>
+                                        <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" FontSize="18">Notifications</TextBlock>
                                     </StackPanel>
                                     
                                 </Button.Content>
                             </Button>
                         </StackPanel>
                     </Grid>
-                    <Controls:Flyout IsOpen="{Binding IsPushBulletOpen}" BorderThickness="1,0,0,0" BorderBrush="Gray" Header="Pushbullet" FlowDirection="LeftToRight" Position="Right" Grid.RowSpan="3" Width="225">
-                        <ContentControl x:Name="PushBullet"/>
+                    <Controls:Flyout IsOpen="{Binding IsPushBulletOpen}" BorderThickness="1,0,0,0" BorderBrush="Gray" FlowDirection="LeftToRight" Position="Right" Grid.RowSpan="3" Width="225">
+                        <Controls:Flyout.Header>
+                            <ComboBox x:Name="PushProviders" DisplayMemberPath="ProviderName" HorizontalAlignment="Left" FontSize="20" BorderThickness="0"/>
+                        </Controls:Flyout.Header>
+                        <ContentControl x:Name="PushProviderViewModel"/>
                     </Controls:Flyout>
                 </Grid>
             </TabItem>

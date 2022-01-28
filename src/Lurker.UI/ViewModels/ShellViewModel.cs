@@ -628,6 +628,11 @@ namespace Lurker.UI
             {
                 this._stashTabGrid.Dispose();
             }
+
+            if (this._incomingTradeBarOverlay != null)
+            {
+                this._incomingTradeBarOverlay.Dispose();
+            }
         }
 
         /// <summary>

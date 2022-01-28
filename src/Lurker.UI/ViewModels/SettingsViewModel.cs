@@ -64,7 +64,7 @@ namespace Lurker.UI.ViewModels
         private bool _isCharacterOpen;
         private bool _isPushBulletOpen;
         private CharacterManagerViewModel _characterManager;
-        private PushBulletViewModel _pushBulletViewModel;
+        private PushProviderViewModel _selectedPushprovider;
         private bool _keyboardWaiting;
         private MetroWindow _view;
         private IEnumerable<string> _excludePropertyNames;
@@ -83,6 +83,7 @@ namespace Lurker.UI.ViewModels
         /// <param name="soundService">The sound service.</param>
         /// <param name="githubService">The github service.</param>
         /// <param name="pushBulletService">The PushBullet service.</param>
+        /// <param name="pushHoverService">The pushHover service.</param>
         public SettingsViewModel(
             IWindowManager windowManager,
             KeyboardHelper keyboardHelper,
@@ -90,7 +91,8 @@ namespace Lurker.UI.ViewModels
             HotkeyService hotkeyService,
             SoundService soundService,
             GithubService githubService,
-            PushBulletService pushBulletService)
+            PushBulletService pushBulletService,
+            PushHoverService pushHoverService)
             : base(windowManager)
         {
             this._keyboardHelper = keyboardHelper;
@@ -107,7 +109,14 @@ namespace Lurker.UI.ViewModels
             }
 
             this.BuildManager = new BuildManagerViewModel(this.ShowMessage, githubService);
-            this.PushBullet = new PushBulletViewModel(pushBulletService);
+
+            this.PushProviders = new ObservableCollection<PushProviderViewModel>();
+            var pushBulletViewModel = new PushProviderViewModel("PushBullet", pushBulletService);
+            var pushHoverViewModel = new PushProviderViewModel("PushHover", pushHoverService);
+            this.PushProviders.Add(pushBulletViewModel);
+            this.PushProviders.Add(pushHoverViewModel);
+            this.SelectedPushProvider = pushHoverService.Enable ? pushHoverViewModel : pushBulletViewModel;
+
             this.SetupHotkeys();
         }
 
@@ -137,21 +146,27 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
-        /// Gets the PushBullet.
+        /// Gets or Sets the PushBullet.
         /// </summary>
-        public PushBulletViewModel PushBullet
+        public PushProviderViewModel SelectedPushProvider
         {
             get
             {
-                return this._pushBulletViewModel;
+                return this._selectedPushprovider;
             }
 
-            private set
+            set
             {
-                this._pushBulletViewModel = value;
+                this._selectedPushprovider = value;
                 this.NotifyOfPropertyChange();
+                this.NotifyOfPropertyChange(() => this.PushProviderViewModel);
             }
         }
+
+        /// <summary>
+        /// Gets the push provider.
+        /// </summary>
+        public PropertyChangedBase PushProviderViewModel => this.SelectedPushProvider.GetViewModel();
 
         /// <summary>
         /// Gets or sets the main hot key.
@@ -182,6 +197,11 @@ namespace Lurker.UI.ViewModels
         /// Gets or sets the hotkeys.
         /// </summary>
         public ObservableCollection<HotkeyViewModel> Hotkeys { get; set; }
+
+        /// <summary>
+        /// Gets or sets the PushProviders.
+        /// </summary>
+        public ObservableCollection<PushProviderViewModel> PushProviders { get; set; }
 
         /// <summary>
         /// Gets the toggle build key value.
@@ -1484,6 +1504,8 @@ namespace Lurker.UI.ViewModels
         {
             return new List<string>()
             {
+                nameof(this.PushProviderViewModel),
+                nameof(this.SelectedPushProvider),
                 nameof(this.IsCharacterOpen),
                 nameof(this.IsPushBulletOpen),
                 nameof(this.Modified),

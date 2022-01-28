@@ -26,7 +26,7 @@ namespace Lurker.UI.ViewModels
     /// Represent the trade bar.
     /// </summary>
     /// <seealso cref="Lurker.UI.ViewModels.PoeOverlayBase" />
-    public class TradebarViewModel : PoeOverlayBase
+    public class TradebarViewModel : PoeOverlayBase, IDisposable
     {
         #region Fields
 
@@ -42,6 +42,7 @@ namespace Lurker.UI.ViewModels
         private List<TradeEvent> _soldOffers;
         private SoundService _soundService;
         private PushBulletService _pushBulletService;
+        private PushHoverService _pushHoverService;
         private StashTabService _stashTabService;
 
         #endregion
@@ -61,6 +62,7 @@ namespace Lurker.UI.ViewModels
         /// <param name="windowManager">The window manager.</param>
         /// <param name="soundService">The sound service.</param>
         /// <param name="pushBulletService">The PushBullet service.</param>
+        /// <param name="pushHoverService">The PushHover service.</param>
         /// <param name="stashTabService">The stash tab service.</param>
         public TradebarViewModel(
             IEventAggregator eventAggregator,
@@ -73,6 +75,7 @@ namespace Lurker.UI.ViewModels
             IWindowManager windowManager,
             SoundService soundService,
             PushBulletService pushBulletService,
+            PushHoverService pushHoverService,
             StashTabService stashTabService)
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
@@ -81,6 +84,7 @@ namespace Lurker.UI.ViewModels
             this._soundService = soundService;
             this._clientLurker = clientLurker;
             this._pushBulletService = pushBulletService;
+            this._pushHoverService = pushHoverService;
             this._stashTabService = stashTabService;
 
             this._keyboardLurker = keyboardLurker;
@@ -129,6 +133,27 @@ namespace Lurker.UI.ViewModels
             if (activeOffer != null)
             {
                 this._stashTabService.PlaceMarker(activeOffer.Event.Location);
+            }
+        }
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            this.Dispose(true);
+        }
+
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this._pushBulletService?.Dispose();
+                this._pushHoverService?.Dispose();
             }
         }
 
@@ -272,6 +297,7 @@ namespace Lurker.UI.ViewModels
             if (PoeApplicationContext.IsAfk)
             {
                 await this._pushBulletService.SendTradeMessageAsync(e);
+                await this._pushHoverService.SendTradeMessageAsync(e);
             }
 
             Execute.OnUIThread(() =>
@@ -588,6 +614,7 @@ namespace Lurker.UI.ViewModels
         protected async override void OnActivate()
         {
             await this._pushBulletService.CheckPledgeStatus();
+            await this._pushHoverService.CheckPledgeStatus();
 
             this.SettingsService.OnSave += this.SettingsService_OnSave;
 
