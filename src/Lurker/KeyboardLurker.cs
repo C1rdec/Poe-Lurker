@@ -254,6 +254,7 @@ namespace Lurker
             this._hotkeyService.Invite.Install(this._keyboardHook, (e) => this.HandleKeyboardMessage(e, this.InvitePressed));
             this._hotkeyService.OpenWiki.Install(this._keyboardHook, (e) => this.HandleKeyboardMessage(e, this.OpenWikiPressed));
             this._hotkeyService.JoinGuildHideout.Install(this._keyboardHook, (e) => this.HandleKeyboardMessage(e, this.JoinGuildHideout));
+            this._hotkeyService.JoinHideout.Install(this._keyboardHook, (e) => this.HandleKeyboardMessage(e, this.JoinHideout));
             this._hotkeyService.RemainingMonster.Install(this._keyboardHook, (e) => this.HandleKeyboardMessage(e, this.RemainingMonsters));
             this._hotkeyService.SearchItem.Install(this._keyboardHook, this.SearchItem);
         }
@@ -299,6 +300,7 @@ namespace Lurker
             this._hotkeyService.OpenWiki.Uninstall();
             this._hotkeyService.RemainingMonster.Uninstall();
             this._hotkeyService.JoinGuildHideout.Uninstall();
+            this._hotkeyService.JoinHideout.Uninstall();
         }
 
         /// <summary>
@@ -324,6 +326,16 @@ namespace Lurker
         private async void JoinGuildHideout(object sender, KeyboardMessageEventArgs e)
         {
             await this._keyboardHelper.JoinGuildHideout();
+        }
+
+        /// <summary>
+        /// Join the Hideout.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event.</param>
+        private async void JoinHideout(object sender, KeyboardMessageEventArgs e)
+        {
+            await this._keyboardHelper.JoinHideout();
         }
 
         /// <summary>

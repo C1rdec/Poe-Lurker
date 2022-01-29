@@ -378,6 +378,11 @@
                                     <WrapPanel/>
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentControl Margin="4,8,4,0" Width="232" cal:View.Model="{Binding}"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
                         </ItemsControl>
                     </Grid>
                 </Grid>
@@ -418,7 +423,7 @@
                                                 IsChecked="{Binding GuildHideoutEnabled}"/>
                             </StackPanel>
                         </Viewbox>
-                        <Grid Grid.Row="1">
+                        <Grid Grid.Row="1" VerticalAlignment="Top" Margin="0,10,0,0">
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
                                 <RowDefinition/>
@@ -426,28 +431,32 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
+                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <ContentControl
+                            <ContentControl x:Name="OpenWikiHotkey"
+                                            Margin="0,0,2,2"
                                             Focusable="False"
-                                            x:Name="OpenWikiHotkey" 
-                                            VerticalAlignment="Center" 
-                                            HorizontalAlignment="Center"/>
-                            <ContentControl Grid.Column="1"
-                                            Focusable="False"
-                                            x:Name="GuildHideoutHotkey" 
-                                            VerticalAlignment="Center" 
-                                            HorizontalAlignment="Center"/>
+                                            />
+                            <ContentControl Grid.Row="0" 
+                                            Grid.Column="1" 
+                                            Margin="2,0,2,2"
+                                            Focusable="False" 
+                                            x:Name="SearchItemHotkey"/>
                             <ContentControl Grid.Row="1"
                                             Focusable="False" 
-                                            x:Name="MonsterRemainingHotkey" 
-                                            VerticalAlignment="Center" 
-                                            HorizontalAlignment="Center"/>
-                            <ContentControl Grid.Row="1" 
-                                            Grid.Column="1" 
-                                            Focusable="False" 
-                                            x:Name="SearchItemHotkey" 
-                                            VerticalAlignment="Center" 
-                                            HorizontalAlignment="Center"/>
+                                            Margin="0,2,2,0"
+                                            x:Name="MonsterRemainingHotkey"/>
+
+                            <ContentControl Grid.Column="2"
+                                            Focusable="False"
+                                            Margin="2,0,0,2"
+                                            x:Name="HideoutHotkey"/>
+
+                            <ContentControl Grid.Column="2"
+                                            Grid.Row="1"
+                                            Focusable="False"
+                                            Margin="2,2,0,0"
+                                            x:Name="GuildHideoutHotkey"/>
                         </Grid>
                     </Grid>
                 </Grid>

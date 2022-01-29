@@ -10,11 +10,11 @@
              Focusable="False"
              mc:Ignorable="d" 
              d:DesignHeight="130" d:DesignWidth="250">
-    <Border Background="#303030" Margin="8"  CornerRadius="8" Focusable="False" Height="100">
+    <Border Background="#303030" CornerRadius="8" Focusable="False" Height="100">
         <Grid>
             <Label HorizontalAlignment="Center" FontFamily="pack://application:,,,/Assets/#Fontin" Foreground="#af8404" x:Name="NameValue" FontSize="20"/>
 
-            <Grid Width="180" Margin="20,0,20,15">
+            <Grid Width="180" HorizontalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition ></RowDefinition>
                     <RowDefinition Height="2*"></RowDefinition>
@@ -99,7 +99,7 @@
                                         <Border.Style>
                                             <Style TargetType="{x:Type Border}">
                                                 <Setter Property="Background" Value="LightGray"/>
-                                                <Setter Property="Opacity" Value="0.25"/>
+                                                <Setter Property="Opacity" Value="0.05"/>
                                                 <Style.Triggers>
                                                     <Trigger Property="IsMouseOver" Value="True">
                                                         <Setter Property="Background" Value="Red" />

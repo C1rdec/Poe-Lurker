@@ -121,7 +121,7 @@ namespace Lurker.Services
         }
 
         /// <summary>
-        /// Gets or sets the join guild hiedout.
+        /// Gets or sets the join guild hideout.
         /// </summary>
         public Hotkey JoinGuildHideout
         {
@@ -133,6 +133,22 @@ namespace Lurker.Services
             set
             {
                 this._settings.JoinGuildHideout = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the join hideout.
+        /// </summary>
+        public Hotkey JoinHideout
+        {
+            get
+            {
+                return this._settings.JoinHideout;
+            }
+
+            set
+            {
+                this._settings.JoinHideout = value;
             }
         }
 
