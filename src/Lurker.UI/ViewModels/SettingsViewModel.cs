@@ -111,8 +111,8 @@ namespace Lurker.UI.ViewModels
             this.BuildManager = new BuildManagerViewModel(this.ShowMessage, githubService);
 
             this.PushProviders = new ObservableCollection<PushProviderViewModel>();
-            var pushBulletViewModel = new PushProviderViewModel("PushBullet", pushBulletService);
-            var pushHoverViewModel = new PushProviderViewModel("PushHover", pushHoverService);
+            var pushBulletViewModel = new PushProviderViewModel("Pushbullet", pushBulletService);
+            var pushHoverViewModel = new PushProviderViewModel("Pushover", pushHoverService);
             this.PushProviders.Add(pushBulletViewModel);
             this.PushProviders.Add(pushHoverViewModel);
             this.SelectedPushProvider = pushHoverService.Enable ? pushHoverViewModel : pushBulletViewModel;

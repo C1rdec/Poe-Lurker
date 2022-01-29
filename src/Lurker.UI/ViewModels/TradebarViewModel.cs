@@ -127,11 +127,12 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Locate the item.
         /// </summary>
-        public void LocateItem()
+        public async void LocateItem()
         {
             var activeOffer = this.ActiveOffer;
             if (activeOffer != null)
             {
+                await this._keyboardHelper.Search(activeOffer.BuildSearchItemName());
                 this._stashTabService.PlaceMarker(activeOffer.Event.Location);
             }
         }

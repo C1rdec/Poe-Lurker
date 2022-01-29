@@ -11,10 +11,10 @@ namespace Lurker.UI.ViewModels
     using Lurker.Helpers;
     using Lurker.Models;
     using Lurker.Services;
-    using Lurker.UI.Services;
 
     /// <summary>
-    /// Represents the statash tab grid.
+    /// Represents the stash tab grid.
+    /// #MagicNumbersLand.
     /// </summary>
     internal class StashTabGridViewModel : PoeOverlayBase, IDisposable
     {
@@ -190,11 +190,17 @@ namespace Lurker.UI.ViewModels
                 var leftMargin = DefaultLeftMargin * windowInformation.Height / DefaultTabHeight;
                 var topMargin = DefaultTopMargin * windowInformation.Height / DefaultTabHeight;
 
+                if (PoeApplicationContext.WindowStyle == WindowStyle.Windowed)
+                {
+                    leftMargin += Margin;
+                    topMargin += Margin;
+                }
+
                 // 50 is the footer
                 this.View.Height = this.ApplyScalingY(size + 50 + margin);
                 this.View.Width = this.ApplyScalingX(size + margin);
-                this.View.Left = this.ApplyScalingX(windowInformation.Position.Left + Margin + leftMargin);
-                this.View.Top = this.ApplyScalingY(windowInformation.Position.Top + topMargin - margin);
+                this.View.Left = this.ApplyScalingX(windowInformation.Position.Left + leftMargin);
+                this.View.Top = this.ApplyScalingY(windowInformation.Position.Top + topMargin - margin - Margin);
             });
         }
 

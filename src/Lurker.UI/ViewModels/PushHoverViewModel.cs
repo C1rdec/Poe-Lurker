@@ -6,6 +6,7 @@
 
 namespace Lurker.UI.ViewModels
 {
+    using System.Diagnostics;
     using Lurker.Patreon.Services;
 
     /// <summary>
@@ -113,6 +114,22 @@ namespace Lurker.UI.ViewModels
         public async void Test()
         {
             await this._service.SendTestAsync();
+        }
+
+        /// <summary>
+        /// New Account.
+        /// </summary>
+        public void NewAccount()
+        {
+            Process.Start("https://pushover.net/signup");
+        }
+
+        /// <summary>
+        /// Open the info.md.
+        /// </summary>
+        public void Info()
+        {
+            Process.Start("https://github.com/C1rdec/Poe-Lurker/blob/master/assets/Pushover.md");
         }
 
         #endregion

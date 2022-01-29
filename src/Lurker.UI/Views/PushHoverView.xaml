@@ -4,16 +4,45 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-             xmlns:local="clr-namespace:Lurker.UI.Views"
+             xmlns:local="clr-namespace:Lurker.UI"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Margin="8,0,8,0">
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
+        <Button Width="20"
+                    x:Name="Info"
+                    Cursor="Hand"
+                    ToolTip="Help!"
+                    BorderThickness="0"
+                    Margin="5,-98,0,0"
+                    
+                    Height="20" 
+                    HorizontalAlignment="Right"
+                    Style="{DynamicResource MetroCircleButtonStyle}">
+            <Button.Content>
+                <local:IconPack HorizontalAlignment="Right"
+                                    VerticalAlignment="Bottom"
+                                    Foreground="{DynamicResource GrayBrush6}"
+                                    Grid.Row="2"
+                                    Height="15"
+                                    Width="15"
+                                    Data="{x:Static local:IconPackData.Info}"/>
+            </Button.Content>
+        </Button>
         <StackPanel>
+            <Button Cursor="Hand" 
+                    x:Name="NewAccount" 
+                    BorderBrush="{DynamicResource GrayBrush9}" 
+                    Foreground="{DynamicResource GrayBrush9}" 
+                    Margin="0,10,0,0" Content="Create Account"/>
+        </StackPanel>
+       
+        <StackPanel Grid.Row="1" Margin="0,30,0,0">
             <TextBox x:Name="UserId" 
                      Controls:TextBoxHelper.UseFloatingWatermark="True"
                      Controls:TextBoxHelper.Watermark="User ID" />
@@ -32,8 +61,10 @@
                 FontSize="10" 
                 Cursor="Hand" >Send Test</Button>
         </StackPanel>
-
-        <StackPanel Grid.Row="1" VerticalAlignment="Center" Visibility="{Binding Connected, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <StackPanel Grid.Row="2" 
+                    Margin="0,0,0,50"
+                    VerticalAlignment="Center" 
+                    Visibility="{Binding Connected, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
@@ -51,7 +82,7 @@
 
             <Slider
             Grid.Row="1"
-            Margin="10,0,10,0"
+            Margin="5,0,5,0"
             Controls:SliderHelper.ChangeValueBy="SmallChange"
             Controls:SliderHelper.EnableMouseWheel="MouseHover"
             AutoToolTipPlacement="BottomRight"
@@ -61,7 +92,6 @@
             SmallChange="1"
             Value="{Binding Threshold}" />
         </StackPanel>
-
         <Controls:ToggleSwitch 
             Grid.Row="3"
             VerticalAlignment="Bottom"
