@@ -12,7 +12,7 @@
 ### With all the above you should have:
  - your `UserKey` 
  - Your `ApiToken` (Application)
- - Your `Device` listed in Pushover profile
+ - Your `Device` listed in Pushover profile page
 
 <br/>
 
