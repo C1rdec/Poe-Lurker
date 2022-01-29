@@ -4,8 +4,9 @@
 1. Create a [Pushover account](https://pushover.net/signup).
 2. Verify your email. 
     - *Check your junk folder*
-4. Create an `Application` in your newly created account.
-5. Install `Pushover` on your `device` and login with your account.
+4. Create an `Application` in your newly created account. 
+    - [PoeLurker Icon](https://github.com/C1rdec/Poe-Lurker/blob/master/LurkerIcon.png)
+6. Install `Pushover` on your `device` and login with your account.
 
 
 ### With all the above you should have:
