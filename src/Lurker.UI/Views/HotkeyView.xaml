@@ -60,8 +60,8 @@
                                Visibility="{Binding HasModifier, Converter={StaticResource BooleanToVisibilityConverter}}"
                                VerticalAlignment="Center" 
                                HorizontalAlignment="Center" 
-                               Margin="10,0,10,0"
-                               FontSize="35" 
+                               Margin="6,0,6,0"
+                               FontSize="25" 
                                FontFamily="pack://application:,,,/Assets/#Fontin">➞</TextBlock>
                     <Border Focusable="False"
                             CornerRadius="4"
