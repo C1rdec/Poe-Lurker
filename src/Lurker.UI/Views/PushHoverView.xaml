@@ -14,14 +14,13 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <Button Width="20"
+        <Button Width="30"
+                Height="30"
                     x:Name="Info"
                     Cursor="Hand"
                     ToolTip="Help!"
                     BorderThickness="0"
                     Margin="5,-98,0,0"
-                    
-                    Height="20" 
                     HorizontalAlignment="Right"
                     Style="{DynamicResource MetroCircleButtonStyle}">
             <Button.Content>
@@ -29,8 +28,8 @@
                                     VerticalAlignment="Bottom"
                                     Foreground="{DynamicResource GrayBrush6}"
                                     Grid.Row="2"
-                                    Height="15"
-                                    Width="15"
+                                    Height="18"
+                                    Width="18"
                                     Data="{x:Static local:IconPackData.Info}"/>
             </Button.Content>
         </Button>
