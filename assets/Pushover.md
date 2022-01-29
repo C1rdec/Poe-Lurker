@@ -18,5 +18,4 @@
 
 <br/>
 
-![image](https://user-images.githubusercontent.com/5436436/151669534-90e04aaa-60ea-4e35-aa13-a1888f8b8fc3.png)
 
