@@ -6,13 +6,17 @@
 
 namespace Lurker.UI.ViewModels
 {
+    using System;
     using System.Collections.ObjectModel;
+    using System.Threading.Tasks;
+    using System.Windows.Input;
     using Caliburn.Micro;
     using Lurker;
     using Lurker.Helpers;
     using Lurker.Models;
     using Lurker.Patreon.Services;
     using Lurker.Services;
+    using Winook;
 
     /// <summary>
     /// Represents the wiki overlay.
@@ -25,7 +29,9 @@ namespace Lurker.UI.ViewModels
         private readonly GithubService _githubService;
         private string _searchValue = string.Empty;
         private MouseLurker _mouseLurker;
+        private KeyboardLurker _keyboardLurker;
         private PoeNinjaService _ninjaService;
+        private bool _visible;
 
         #endregion
 
@@ -40,12 +46,22 @@ namespace Lurker.UI.ViewModels
         /// <param name="settingsService">The settings service.</param>
         /// <param name="githubService">The github service.</param>
         /// <param name="mouseLurker">The mouse lurker.</param>
+        /// <param name="keyboardLurker">The keyboard lurker.</param>
         /// <param name="ninjaService">The ninja service.</param>
-        public WikiViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessLurker processLurker, SettingsService settingsService, GithubService githubService, MouseLurker mouseLurker, PoeNinjaService ninjaService)
+        public WikiViewModel(
+            IWindowManager windowManager,
+            DockingHelper dockingHelper,
+            ProcessLurker processLurker,
+            SettingsService settingsService,
+            GithubService githubService,
+            MouseLurker mouseLurker,
+            KeyboardLurker keyboardLurker,
+            PoeNinjaService ninjaService)
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
             this._githubService = githubService;
             this._mouseLurker = mouseLurker;
+            this._keyboardLurker = keyboardLurker;
             this._ninjaService = ninjaService;
             this.Items = new ObservableCollection<WikiItemBaseViewModel>();
         }
@@ -73,6 +89,23 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether is Visible.
+        /// </summary>
+        public bool Visible
+        {
+            get
+            {
+                return this._visible;
+            }
+
+            set
+            {
+                this._visible = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
         /// Gets the items.
         /// </summary>
         public ObservableCollection<WikiItemBaseViewModel> Items { get; private set; }
@@ -92,7 +125,38 @@ namespace Lurker.UI.ViewModels
         public void CloseWindow()
         {
             this.SearchValue = string.Empty;
-            this.TryClose();
+            this.Visible = false;
+            this.DockingHelper.SetForeground();
+        }
+
+        /// <summary>
+        /// Show the instance.
+        /// </summary>
+        /// <returns>The task.</returns>
+        public async Task Show()
+        {
+            this.Visible = true;
+            this.SetInForeground();
+            await this.SetExaltedRatio();
+        }
+
+        /// <summary>
+        /// On keydown.
+        /// </summary>
+        /// <param name="e">The event.</param>
+        public void OnKeyDown(KeyEventArgs e)
+        {
+            if (this._keyboardLurker.OpenWikiHotkey == null)
+            {
+                return;
+            }
+
+            var keyValue = e.Key.ToString();
+            var keyCode = (KeyCode)Enum.Parse(typeof(KeyCode), keyValue);
+            if (keyCode == this._keyboardLurker.OpenWikiHotkey.KeyCode)
+            {
+                this.CloseWindow();
+            }
         }
 
         /// <summary>
@@ -115,15 +179,7 @@ namespace Lurker.UI.ViewModels
             this.SetInForeground();
             this._mouseLurker.MouseLeftButtonUp += this.MouseLurker_MouseLeftButtonUp;
 
-            if (!string.IsNullOrEmpty(this.SettingsService.RecentLeagueName))
-            {
-                var ratio = await this._ninjaService.GetExaltRationAsync(this.SettingsService.RecentLeagueName);
-                if (ratio != 0)
-                {
-                    this.ExaltedRatio = new ExaltedRatioViewModel(ratio);
-                    this.NotifyOfPropertyChange(() => this.ExaltedRatio);
-                }
-            }
+            await this.SetExaltedRatio();
         }
 
         /// <summary>
@@ -182,6 +238,21 @@ namespace Lurker.UI.ViewModels
                     default:
                         break;
                 }
+            }
+        }
+
+        private async Task SetExaltedRatio()
+        {
+            if (string.IsNullOrEmpty(this.SettingsService.RecentLeagueName))
+            {
+                return;
+            }
+
+            var line = await this._ninjaService.GetExaltRationAsync(this.SettingsService.RecentLeagueName);
+            if (line.ChaosEquivalent != 0)
+            {
+                this.ExaltedRatio = new ExaltedRatioViewModel(line.ChaosEquivalent);
+                this.NotifyOfPropertyChange(() => this.ExaltedRatio);
             }
         }
 

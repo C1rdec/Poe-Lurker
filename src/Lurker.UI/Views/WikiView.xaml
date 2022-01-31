@@ -10,12 +10,14 @@
         AllowsTransparency="True"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         ShowInTaskbar="False"
+        cal:Message.Attach="[Event KeyUp] = [Action OnKeyDown($eventArgs)]"
         Background="Transparent"
         ShowActivated="True"
         mc:Ignorable="d"
         Title="WikiView" Height="450" Width="800">
-    <Grid FocusManager.FocusedElement="{Binding ElementName=SearchValue}">
-        <Button BorderThickness="0" x:Name="CloseWindow" IsCancel="true" Width="1"/>
+    <Grid FocusManager.FocusedElement="{Binding ElementName=SearchValue}" 
+          Visibility="{Binding Visible, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Button BorderThickness="0" x:Name="CloseWindow" IsCancel="true" Width="1" Height="1"/>
         <Border CornerRadius="30" Grid.RowSpan="2" Background="#7F000000">
             <Grid>
                 <Grid.RowDefinitions>
@@ -36,14 +38,14 @@
                     <TextBox
                         x:Name="SearchValue"
                         Text="{Binding SearchValue, UpdateSourceTrigger=PropertyChanged}"
-                    HorizontalAlignment="Center" 
-                    VerticalAlignment="Center"
-                    BorderThickness="0,0,0,1"
-                    Height="60" Width="800"
-                    Margin="10"
-                    FontSize="34"
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Center"
+                        BorderThickness="0,0,0,1"
+                        Height="60" Width="800"
+                        Margin="10"
+                        FontSize="34"
                         VerticalContentAlignment="Stretch"
-                    Controls:TextBoxHelper.Watermark="Search">
+                        Controls:TextBoxHelper.Watermark="Search">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="8,8,0,0"/>

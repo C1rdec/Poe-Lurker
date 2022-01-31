@@ -10,6 +10,7 @@ namespace Lurker
     using System.Threading;
     using System.Threading.Tasks;
     using Lurker.Helpers;
+    using Lurker.Models;
     using Lurker.Patreon.Parsers;
     using Lurker.Services;
     using WindowsInput;
@@ -100,6 +101,15 @@ namespace Lurker
         /// Occurs when [wiki action pressed].
         /// </summary>
         public event KeyboardEventHandler OpenWikiPressed;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the hotkey.
+        /// </summary>
+        public Hotkey OpenWikiHotkey => this._hotkeyService.OpenWiki;
 
         #endregion
 

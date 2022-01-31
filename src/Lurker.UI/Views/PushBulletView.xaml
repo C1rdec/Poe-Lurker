@@ -34,7 +34,7 @@
                         <ContentControl x:Name="SelectedDevice" />
                         <Popup IsOpen="{Binding ShowDevices}" Placement="Bottom" AllowsTransparency="True" PopupAnimation="Slide" Margin="-100,-100,0,0">
                             <Border>
-                                <ListBox Cursor="Hand" ItemsSource="{Binding Devices}" SelectedItem="{Binding PopupSelectedDevice}" DisplayMemberPath="Name" FontSize="18"/>
+                                <ListBox Cursor="Hand" ItemsSource="{Binding Devices}" SelectedItem="{Binding PopupSelectedDevice}" DisplayMemberPath="DeviceName" FontSize="18"/>
                             </Border>
                         </Popup>
                     </Grid>

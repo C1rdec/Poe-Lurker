@@ -85,8 +85,8 @@ namespace Lurker.UI.ViewModels
         {
             using (var service = new PoeNinjaService())
             {
-                var ratio = await service.GetExaltRationAsync(this._event.LeagueName);
-                this.ExaltRatio = Math.Round(ratio);
+                var line = await service.GetExaltRationAsync(this._event.LeagueName);
+                this.ExaltRatio = Math.Round(line.ChaosEquivalent);
             }
 
             var value = this._event.Price.NumberOfCurrencies % 1;
