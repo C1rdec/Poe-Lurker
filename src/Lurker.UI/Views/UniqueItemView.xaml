@@ -7,31 +7,58 @@
              xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Focusable="True" x:Name="mainGrid" cal:Message.Attach="[Event MouseDown] = [Action OpenWiki]" MaxHeight="140 " MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
-            <ColumnDefinition Width="100"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
-        <Popup x:Name="Popup" Focusable="False" Placement="Left" AllowsTransparency="True">
-            <Border Background="Black" CornerRadius="5" BorderThickness="2" BorderBrush="#e7b577">
-                <StackPanel>
-                    <TextBlock HorizontalAlignment="Center" Margin="8,4,8,4" FontSize="18" FontFamily="pack://application:,,,/Assets/#Fontin" Foreground="White" FontWeight="SemiBold" Text="{Binding Name}"/>
-                </StackPanel>
+        <Grid Focusable="True" 
+              x:Name="mainGrid" 
+              Cursor="Hand"
+              cal:Message.Attach="[Event MouseDown] = [Action OpenWiki]" 
+              MaxHeight="140 " 
+              MouseEnter="Grid_MouseEnter" 
+              MouseLeave="Grid_MouseLeave">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Popup x:Name="Popup" Focusable="False" Placement="Left" AllowsTransparency="True">
+                <Border Background="Black" CornerRadius="5" BorderThickness="2" BorderBrush="#e7b577">
+                    <StackPanel>
+                        <TextBlock HorizontalAlignment="Center" Margin="8,4,8,4" FontSize="18" FontFamily="pack://application:,,,/Assets/#Fontin" Foreground="White" FontWeight="SemiBold" Text="{Binding Name}"/>
+                    </StackPanel>
+                </Border>
+            </Popup>
+            <RadioButton cal:Message.Attach="[Event Click] = [Action OnClick]; [Event Checked] = [Action OnChecked]"
+                         Grid.RowSpan="2"
+                         Margin="5,5,0,0"
+                         VerticalAlignment="Center"
+                         Visibility="{Binding Selectable, Converter={StaticResource BooleanToVisibilityConverter}}" 
+                         IsChecked="{Binding Selected}" 
+                         Cursor="Hand"/>
+            <Border Grid.Column="1" Grid.Row="1" Background="Black" CornerRadius="20"/>
+        
+            <Image Grid.Column="1" Source="{Binding ImageUrl}" Grid.RowSpan="2" MaxWidth="100"/>
+            <Border Grid.RowSpan="2" Grid.Column="1" CornerRadius="8">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <SolidColorBrush Color="White" Opacity="0.005"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="White" Opacity="0.04"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
             </Border>
-        </Popup>
-        <RadioButton cal:Message.Attach="[Event Click] = [Action OnClick]; [Event Checked] = [Action OnChecked]"
-                     Grid.RowSpan="2"
-                     Margin="5,5,0,0"
-                     VerticalAlignment="Center"
-                     Visibility="{Binding Selectable, Converter={StaticResource BooleanToVisibilityConverter}}" 
-                     IsChecked="{Binding Selected}" 
-                     Cursor="Hand"/>
-        <Border Grid.Column="1" Grid.Row="1" Background="Black" CornerRadius="20"/>
-        <Image Grid.Column="1" Source="{Binding ImageUrl}" Grid.RowSpan="2" MaxWidth="100"/>
         <TextBlock Grid.Column="1" Grid.Row="1" x:Name="Level" HorizontalAlignment="Right" Margin="0,0,6,2" FontSize="20" VerticalAlignment="Bottom" Foreground="White" FontWeight="Bold"/>
-    </Grid>
+        </Grid>
 </UserControl>

@@ -9,25 +9,33 @@
     <Grid>
         <ContentControl x:Name="Chart"/>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
-            <TextBlock x:Name="Ratio" FontSize="50" Foreground="White" FontFamily="pack://application:,,,/Assets/#Fontin" VerticalAlignment="Center"/>
+            
+            <Grid>
+                <TextBlock x:Name="Ratio"
+                           FontSize="50" 
+                           Foreground="White" 
+                           FontFamily="pack://application:,,,/Assets/#Fontin"
+                           VerticalAlignment="Center"/>
+                <TextBlock x:Name="TotalChange"
+                           FontSize="20"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Right"
+                           FontFamily="pack://application:,,,/Assets/#Fontin"
+                           Margin="0,0,-15,-10">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" Value="Green"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Negative}" Value="true">
+                                    <Setter Property="Foreground" Value="Red"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
             <Image Source="/Assets/Exalted.png" Height="70"/>
         </StackPanel>
-        <TextBlock VerticalAlignment="Bottom" 
-                   x:Name="TotalChange"
-                   HorizontalAlignment="Right" 
-                   FontSize="50"
-                   FontFamily="pack://application:,,,/Assets/#Fontin"
-                   Margin="0,0,10,10">
-            <TextBlock.Style>
-                <Style TargetType="TextBlock">
-                    <Setter Property="Foreground" Value="Green"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Negative}" Value="true">
-                            <Setter Property="Foreground" Value="Red"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Style>
-        </TextBlock>
+        
     </Grid>
 </UserControl>
