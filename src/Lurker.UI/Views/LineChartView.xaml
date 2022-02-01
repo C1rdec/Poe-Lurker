@@ -3,17 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Lurker.UI.Views"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <lvc:CartesianChart Series="{Binding SeriesCollection}">
             <lvc:CartesianChart.AxisY>
-                <lvc:Axis MinValue="0"/>
+                <lvc:Axis MinValue="{Binding MinYAxis}" ShowLabels="{Binding ShowLabels}"/>
             </lvc:CartesianChart.AxisY>
             <lvc:CartesianChart.AxisX>
-                <lvc:Axis MinValue="0" ShowLabels="False"/>
+                <lvc:Axis MinValue="0" ShowLabels="{Binding ShowLabels}"/>
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
     </Grid>

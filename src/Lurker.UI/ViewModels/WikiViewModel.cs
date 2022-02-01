@@ -152,10 +152,12 @@ namespace Lurker.UI.ViewModels
             }
 
             var keyValue = e.Key.ToString();
-            var keyCode = (KeyCode)Enum.Parse(typeof(KeyCode), keyValue);
-            if (keyCode == this._keyboardLurker.OpenWikiHotkey.KeyCode)
+            if (Enum.TryParse<KeyCode>(keyValue, out var keyCode))
             {
-                this.CloseWindow();
+                if (keyCode == this._keyboardLurker.OpenWikiHotkey.KeyCode)
+                {
+                    this.CloseWindow();
+                }
             }
         }
 
@@ -173,13 +175,11 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Closes this instance.
         /// </summary>
-        protected async override void OnActivate()
+        protected override void OnActivate()
         {
             base.OnActivate();
             this.SetInForeground();
             this._mouseLurker.MouseLeftButtonUp += this.MouseLurker_MouseLeftButtonUp;
-
-            await this.SetExaltedRatio();
         }
 
         /// <summary>
@@ -249,9 +249,9 @@ namespace Lurker.UI.ViewModels
             }
 
             var line = await this._ninjaService.GetExaltRationAsync(this.SettingsService.RecentLeagueName);
-            if (line.ChaosEquivalent != 0)
+            if (line != null && line.ChaosEquivalent != 0)
             {
-                this.ExaltedRatio = new ExaltedRatioViewModel(line.ChaosEquivalent);
+                this.ExaltedRatio = new ExaltedRatioViewModel(line);
                 this.NotifyOfPropertyChange(() => this.ExaltedRatio);
             }
         }
