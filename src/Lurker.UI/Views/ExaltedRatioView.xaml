@@ -8,8 +8,17 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <ContentControl x:Name="Chart"/>
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
-            
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,10">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="VerticalAlignment" Value="Bottom"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Negative}" Value="true">
+                            <Setter Property="VerticalAlignment" Value="Top"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
             <Grid>
                 <TextBlock x:Name="Ratio"
                            FontSize="50" 
@@ -36,6 +45,5 @@
             </Grid>
             <Image Source="/Assets/Exalted.png" Height="70"/>
         </StackPanel>
-        
     </Grid>
 </UserControl>
