@@ -30,7 +30,7 @@
                             BorderThickness="0"
                             Height="30" 
                             Visibility="{Binding HasYoutube, Converter={StaticResource BooleanToVisibilityConverter}}"
-                            Style="{DynamicResource MetroCircleButtonStyle}">
+                            Style="{DynamicResource MahApps.Styles.Button.Circle}">
                         <Button.Content>
                             <local:IconPack HorizontalAlignment="Right"
                                             VerticalAlignment="Bottom"
@@ -56,7 +56,7 @@
                             BorderThickness="0"
                             Height="30"
                             Visibility="{Binding HasForum, Converter={StaticResource BooleanToVisibilityConverter}}"
-                            Style="{DynamicResource MetroCircleButtonStyle}">
+                            Style="{DynamicResource MahApps.Styles.Button.Circle}">
                         <Button.Content>
                             <local:IconPack HorizontalAlignment="Right"
                                             VerticalAlignment="Bottom"
@@ -86,7 +86,7 @@
                 VerticalAlignment="Bottom"
                 Cursor="Hand"
                 ToolTip="Passive Tree"
-                Height="50" Style="{DynamicResource MetroCircleButtonStyle}">
+                Height="50" Style="{DynamicResource MahApps.Styles.Button.Circle}">
             <Button.Content>
                 <local:IconPack HorizontalAlignment="Right"
                                             VerticalAlignment="Bottom"

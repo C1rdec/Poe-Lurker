@@ -221,7 +221,7 @@
                 VerticalAlignment="Top"
                 Height="50"
                 Margin="120,-50,0,0"
-                    Style="{DynamicResource MetroCircleButtonStyle}">
+                    Style="{DynamicResource MahApps.Styles.Button.Circle}">
             <Button.Content>
                 <TextBlock FontWeight="ExtraBold" FontSize="25" FontFamily="pack://application:,,,/Assets/#Fontin">+</TextBlock>
             </Button.Content>

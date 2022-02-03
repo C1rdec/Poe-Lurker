@@ -41,11 +41,10 @@
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
     <Grid>
-        <Grid.Resources>
-            <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
-        </Grid.Resources>
-
-        <Controls:MetroAnimatedTabControl Controls:TabControlHelper.IsUnderlined="True" SelectedIndex="{Binding SelectTabIndex}" Controls:TabControlHelper.Underlined="TabPanel" TabStripPlacement="Left">
+        <!--<Grid.Resources>
+            <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls..xaml" />
+        </Grid.Resources>-->
+        <Controls:MetroAnimatedTabControl SelectedIndex="{Binding SelectTabIndex}" Controls:TabControlHelper.Underlined="TabPanel" TabStripPlacement="Left">
             <TabItem Header="Builds" Width="175">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -57,11 +56,11 @@
                     <StackPanel Margin="30,0,0,0" Grid.Row="2" HorizontalAlignment="Left" Orientation="Horizontal" VerticalAlignment="Center">
                         <Controls:ToggleSwitch Header="Sync"
                                                ToolTip="Sync builds from Path of Building"
-                                               IsChecked="{Binding SyncBuild}"/>
+                                               IsOn="{Binding SyncBuild}"/>
 
                         <Controls:ToggleSwitch Header="Build Helper"
                                                Margin="20,0,0,0"
-                                               IsChecked="{Binding BuildHelper}"/>
+                                               IsOn="{Binding BuildHelper}"/>
                         <Grid Margin="10,0,0,0" Visibility="{Binding BuildHelper, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <Grid.RowDefinitions>
                                 <RowDefinition></RowDefinition>
@@ -82,7 +81,7 @@
                             ToolTip="Characters"
                             Height="50"
                             Margin="150,0,0,0"
-                    Style="{DynamicResource MetroCircleButtonStyle}">
+                            Style="{DynamicResource MahApps.Styles.Button.Circle}">
                         <Button.Content>
                             <local:IconPack Foreground="White"
                                             Width="25"
@@ -153,7 +152,7 @@
                                                    VerticalAlignment="Center"
                                                    Text="{Binding}" />
                                         <TextBlock Margin="4 0 0 0"
-                                                   Foreground="{DynamicResource AccentColorBrush}"
+                                                   Foreground="{DynamicResource MahApps.Brushes.Accent}"
                                                    FontSize="12"
                                                    VerticalAlignment="Center"
                                                    Text="(Ctrl + Shift)" />
@@ -172,7 +171,7 @@
                                                    VerticalAlignment="Center"
                                                    Text="{Binding}" />
                                         <TextBlock Margin="4 0 0 0"
-                                                   Foreground="{DynamicResource AccentColorBrush}"
+                                                   Foreground="{DynamicResource MahApps.Brushes.Accent}"
                                                    FontSize="12"
                                                    VerticalAlignment="Center"
                                                    Text="(Ctrl)" />
@@ -211,10 +210,11 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Controls:ToggleSwitch
-                                               VerticalAlignment="Top"
-                                               HorizontalAlignment="Left"
-                                               Header="Offer ToolTip"
-                                               IsChecked="{Binding ToolTipEnabled}"/>
+                                VerticalAlignment="Top"
+                                Margin="0,0,-30,0"
+                                HorizontalAlignment="Left"
+                                Header="Offer ToolTip"
+                                IsOn="{Binding ToolTipEnabled}"/>
                             <Label Grid.Column="1" Visibility="{Binding ToolTipEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Margin="0,-40,0,0" >Delay (ms)</Label>
                             <Slider
                                 Grid.Column="1"
@@ -235,11 +235,13 @@
                                 <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Controls:ToggleSwitch Grid.Row="1"
-                                           VerticalAlignment="Top"
-                                           HorizontalAlignment="Left"
-                                           Header="Join Hideout"
-                                           IsChecked="{Binding JoinHideoutEnabled}"/>
+                            <Controls:ToggleSwitch 
+                                Grid.Row="1"
+                                Margin="0,0,-30,0"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Left"
+                                Header="Join Hideout"
+                                IsOn="{Binding JoinHideoutEnabled}"/>
                             <Label Grid.Column="1" Visibility="{Binding JoinHideoutEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Margin="0,-40,0,0" >Volume</Label>
                             <Slider
                                 Grid.Column="1"
@@ -261,10 +263,11 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Controls:ToggleSwitch Grid.Row="1"
-                                           VerticalAlignment="Top"
-                                           HorizontalAlignment="Left"
-                                           Header="Offer Alert"
-                                           IsChecked="{Binding AlertEnabled}"/>
+                                                   VerticalAlignment="Top"
+                                                   HorizontalAlignment="Left"
+                                                   Margin="0,0,-30,0"
+                                                   Header="Offer Alert"
+                                                   IsOn="{Binding AlertEnabled}"/>
                             <StackPanel Grid.Column="1" Visibility="{Binding AlertEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" Orientation="Horizontal">
                                 <Label  Visibility="{Binding AlertEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Margin="0,-40,0,0" >Volume</Label>
                                 <ToggleButton Grid.Column="1" 
@@ -275,7 +278,7 @@
                                               Cursor="Hand" 
                                               VerticalAlignment="Top"
                                               Height="35" Width="35" 
-                                              Style="{DynamicResource MetroCircleToggleButtonStyle}"
+                                              Style="{DynamicResource MahApps.Styles.Button.Circle}"
                                               Margin="5,-6,0,0">
                                     <local:IconPack Foreground="White"
                                                     Opacity="0.8"
@@ -316,10 +319,11 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Controls:ToggleSwitch Grid.Row="1"
-                                           VerticalAlignment="Top"
-                                           HorizontalAlignment="Left"
-                                           Header="Item Alert"
-                                           IsChecked="{Binding ItemAlertEnabled}"/>
+                                               VerticalAlignment="Top"
+                                               HorizontalAlignment="Left"
+                                               Margin="0,0,-30,0"
+                                               Header="Item Alert"
+                                               IsOn="{Binding ItemAlertEnabled}"/>
                         <StackPanel Grid.Column="1" Visibility="{Binding AlertEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" Orientation="Horizontal">
                             <Label  Visibility="{Binding AlertEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Margin="0,-40,0,0">Volume</Label>
                             <ToggleButton Grid.Column="1" 
@@ -330,7 +334,7 @@
                                               Cursor="Hand" 
                                               VerticalAlignment="Top"
                                               Height="35" Width="35" 
-                                              Style="{DynamicResource MetroCircleToggleButtonStyle}"
+                                              Style="{DynamicResource MahApps.Styles.Button.Circle}"
                                               Margin="5,-6,0,0">
                                 <local:IconPack Foreground="White"
                                                     Opacity="0.8"
@@ -404,23 +408,23 @@
                             <Controls:ToggleSwitch
                                                Margin="30,0,0,0"
                                                Header="Incoming Trade"
-                                               IsChecked="{Binding IncomingTradeEnabled}"/>
+                                               IsOn="{Binding IncomingTradeEnabled}"/>
                             <Controls:ToggleSwitch
-                                               Margin="30,0,0,0"
+                                               Margin="-30,0,0,0"
                                                Header="Outgoing Trade"
-                                               IsChecked="{Binding OutgoingTradeEnabled}"/>
+                                               IsOn="{Binding OutgoingTradeEnabled}"/>
                             <Controls:ToggleSwitch Grid.Row="1"
-                                                   Margin="30,0,0,0"
+                                                   Margin="-30,0,0,0"
                                                    Header="Delete Item"
-                                                   IsChecked="{Binding DeleteItemEnabled}"/>
+                                                   IsOn="{Binding DeleteItemEnabled}"/>
                             <Controls:ToggleSwitch Grid.Row="1"
-                                                   Margin="30,0,0,0"
+                                                   Margin="-30,0,0,0"
                                                    Header="Hideout"
-                                                   IsChecked="{Binding HideoutEnabled}"/>
+                                                   IsOn="{Binding HideoutEnabled}"/>
                             <Controls:ToggleSwitch Grid.Row="1"
-                                                Margin="30,0,0,0"
+                                                Margin="-30,0,0,0"
                                                 Header="Guild Hideout"
-                                                IsChecked="{Binding GuildHideoutEnabled}"/>
+                                                IsOn="{Binding GuildHideoutEnabled}"/>
                             </StackPanel>
                         </Viewbox>
                         <Grid Grid.Row="1" VerticalAlignment="Top" Margin="0,10,0,0">
@@ -499,40 +503,40 @@
                         <StackPanel Orientation="Horizontal" Margin="0,30,0,0" HorizontalAlignment="Left">
                             <Controls:ToggleSwitch 
                                                Header="Auto Whisper"
-                                               IsChecked="{Binding ClipboardEnabled}"/>
+                                               IsOn="{Binding ClipboardEnabled}"/>
                             <Controls:ToggleSwitch 
                                                    Margin="30,0,0,0"
                                                Header="Auto Kick"
-                                               IsChecked="{Binding AutoKickEnabled}"/>
+                                               IsOn="{Binding AutoKickEnabled}"/>
                             <Controls:ToggleSwitch 
                                                    Margin="30,0,0,0"
                                                Header="Release Note"
-                                               IsChecked="{Binding ShowReleaseNote}"/>
+                                               IsOn="{Binding ShowReleaseNote}"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,30,0,0" HorizontalAlignment="Left">
                             <Controls:ToggleSwitch Grid.Row="1"
                                                    VerticalAlignment="Top"
                                                    HorizontalAlignment="Center"
                                                    Header="Detect Sold"
-                                                   IsChecked="{Binding SoldDetection}"/>
+                                                   IsOn="{Binding SoldDetection}"/>
                             <Controls:ToggleSwitch Grid.Row="1"
                                                    VerticalAlignment="Top"
                                                    Margin="30,0,0,0"
                                                    HorizontalAlignment="Center"
                                                    Header="Always Visible"
-                                                   IsChecked="{Binding AlwaysVisible}"/>
+                                                   IsOn="{Binding AlwaysVisible}"/>
                             <Controls:ToggleSwitch Grid.Row="1"
                                                    VerticalAlignment="Top"
                                                    Margin="30,0,0,0"
                                                    HorizontalAlignment="Center"
                                                    Header="Debug Mode"
-                                                   IsChecked="{Binding DebugEnabled}"/>
+                                                   IsOn="{Binding DebugEnabled}"/>
                             <Controls:ToggleSwitch Grid.Row="2"
                                                Grid.Column="2"
                                                Header="Startup Animation"
                                                Margin="30,0,0,0"
                                                HorizontalAlignment="Left"
-                                               IsChecked="{Binding ShowStartupAnimation}"/>
+                                               IsOn="{Binding ShowStartupAnimation}"/>
                         </StackPanel>
                     </StackPanel>
                 </Grid>
@@ -549,24 +553,23 @@
                         <TextBlock TextWrapping="Wrap" TextAlignment="Center">Being a Lurker Pro is a good way to show your appreciation for the work I've done, and help support the future development of the program. Furthermore you will unlock juicy features that is currently being developed.</TextBlock>
 
                         <Grid Margin="0,-10,0,0">
-                            <local:IconPack Foreground="{DynamicResource AccentColorBrush}"
+                            <local:IconPack Foreground="{DynamicResource MahApps.Brushes.Accent}"
                                             Width="150"
                                             Margin="0,20,0,10"
                                             Visibility="{Binding Pledging, Converter={StaticResource BooleanToVisibilityConverter}}"
                                             Data="{x:Static local:IconPackData.Beer}"/>
-                            <local:IconPack Foreground="{DynamicResource AccentColorBrush1}"
+                            <local:IconPack Foreground="{DynamicResource MahApps.Brushes.Accent1}"
                                             Width="150"
                                             Margin="0,20,0,10"
                                             Visibility="{Binding NotConnected, Converter={StaticResource BooleanToVisibilityConverter}}"
                                             Data="{x:Static local:IconPackData.Beer}"/>
-                            <local:IconPack Foreground="{DynamicResource AccentColorBrush1}"
+                            <local:IconPack Foreground="{DynamicResource MahApps.Brushes.Accent1}"
                                             Width="150"
                                             Margin="0,20,0,10"
                                             Visibility="{Binding NotPledging, Converter={StaticResource BooleanToVisibilityConverter}}"
                                             Data="{x:Static local:IconPackData.Beer}"/>
                         </Grid>
                         <Button Style="{DynamicResource Tag}" 
-                                Controls:ButtonHelper.PreserveTextCase="True" 
                                 x:Name="GetPatreonId" HorizontalAlignment="Center" 
                                 Visibility="{Binding Pledging, Converter={StaticResource BooleanToVisibilityConverter}}" 
                                 Margin="0,0,0,10"
@@ -581,14 +584,14 @@
                             <Button.Content>
                                 <Image Height="50"
                                        Margin="-6"
-                                   Cursor="Hand"
-                                   VerticalAlignment="Bottom"
-                                   HorizontalAlignment="Right"
-                                   Visibility="{Binding NotPledging, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                   cal:Message.Attach="[Event MouseUp] = [Action OpenLurkerPro]"
-                                   Source="https://user-images.githubusercontent.com/5436436/88303508-1a537980-ccd5-11ea-9e27-9139f994101a.png"
-                           />
-                            </Button.Content></Button>
+                                       Cursor="Hand"
+                                       VerticalAlignment="Bottom"
+                                       HorizontalAlignment="Right"
+                                       Visibility="{Binding NotPledging, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                       cal:Message.Attach="[Event MouseUp] = [Action OpenLurkerPro]"
+                                       Source="https://user-images.githubusercontent.com/5436436/88303508-1a537980-ccd5-11ea-9e27-9139f994101a.png"/>
+                            </Button.Content>
+                        </Button>
                         <Button x:Name="Pledge" 
                                 Style="{DynamicResource Patreon}" 
                                 Margin="0,0,0,10"
@@ -619,36 +622,39 @@
                     <Grid Grid.Row="2" Height="70" IsEnabled="{Binding Pledging}">
                         <StackPanel Margin="30,0,0,0" Orientation="Horizontal">
                             <Controls:ToggleSwitch Header="Item Lurker"
-                                                   IsChecked="{Binding SearchEnabled}"/>
-                            <Controls:ToggleSwitch Margin="30,0,0,0"
+                                                   Margin="0,0,-25,0"
+                                                   IsOn="{Binding SearchEnabled}"/>
+                            <Controls:ToggleSwitch Margin="0,0,-25,0"
                                                    Header="Map Lurker"
-                                                   IsChecked="{Binding MapEnabled}"/>
-                            <Controls:ToggleSwitch Margin="30,0,0,0"
-                                                   Header="Dashboard"
-                                                   IsChecked="{Binding DashboardEnabled}"/>
-
-                            <Button Width="30"
-                            x:Name="OpenDashboard"
-                            Grid.Column="1"
-                            Cursor="Hand"
-                            ToolTip="Open"
-                            BorderThickness="0"
-                            Margin="-12,-46,0,0"
-                            Height="30" 
-                            Visibility="{Binding HasYoutube, Converter={StaticResource BooleanToVisibilityConverter}}"
-                            Style="{DynamicResource MetroCircleButtonStyle}">
-                                <Button.Content>
-                                    <local:IconPack HorizontalAlignment="Right"
+                                                   IsOn="{Binding MapEnabled}"/>
+                            <Grid Margin="0,0,-25,0">
+                                <Button Width="30"
+                                    x:Name="OpenDashboard"
+                                    Grid.Column="1"
+                                    Cursor="Hand"
+                                    ToolTip="Open"
+                                    BorderThickness="0"
+                                    Margin="25,-46,0,0"
+                                    Height="30" 
+                                    Visibility="{Binding HasYoutube, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                    Style="{DynamicResource MahApps.Styles.Button.Circle}">
+                                    <Button.Content>
+                                        <local:IconPack HorizontalAlignment="Right"
                                             VerticalAlignment="Bottom"
-                                            Foreground="{DynamicResource AccentColorBrush}"
+                                            Foreground="{DynamicResource MahApps.Brushes.Accent}"
                                             Grid.Row="2"
                                             Height="15"
                                             Width="15"
                                             Data="{x:Static local:IconPackData.Open}"/>
-                                </Button.Content>
-                            </Button>
+                                    </Button.Content>
+                                </Button>
+                                <Controls:ToggleSwitch Margin="0,0,0,0"
+                                                   Header="Dashboard"
+                                                   IsOn="{Binding DashboardEnabled}"/>
+                            </Grid>
+                            
 
-                            <Button x:Name="OpenPushBullet" VerticalAlignment="Center" Cursor="Hand" Margin="30,0,0,0" Background="#42a66e" BorderThickness="0">
+                            <Button x:Name="OpenPushBullet" VerticalAlignment="Center" Cursor="Hand" Margin="0,0,0,0" Background="#42a66e" BorderThickness="0">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal" Margin="8,4,8,4">
                                         <local:IconPack HorizontalAlignment="Right"

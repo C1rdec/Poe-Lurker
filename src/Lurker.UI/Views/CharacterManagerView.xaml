@@ -14,7 +14,7 @@
             <Button Width="50"
                     x:Name="Add"
                     Height="50"
-                    Style="{DynamicResource MetroCircleButtonStyle}">
+                    Style="{DynamicResource MahApps.Styles.Button.Circle}">
                 <Button.Content>
                     <TextBlock FontWeight="ExtraBold" FontSize="25" FontFamily="pack://application:,,,/Assets/#Fontin">+</TextBlock>
                 </Button.Content>

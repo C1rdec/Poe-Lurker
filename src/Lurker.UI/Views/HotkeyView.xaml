@@ -65,7 +65,7 @@
                                FontFamily="pack://application:,,,/Assets/#Fontin">➞</TextBlock>
                     <Border Focusable="False"
                             CornerRadius="4"
-                            Background="{StaticResource AccentColorBrush3}"
+                            Background="{StaticResource MahApps.Brushes.Accent3}"
                             Height="30"
                             Width="60"
                             Visibility="{Binding HasKeyCode, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -83,7 +83,7 @@
                         Grid.Row="1"
                         Visibility="{Binding NotDefined, Converter={StaticResource BooleanToVisibilityConverter}}"
                         Height="50"
-                        Style="{DynamicResource MetroCircleButtonStyle}">
+                        Style="{DynamicResource MahApps.Styles.Button.Circle}">
                     <Button.Content>
                         <TextBlock FontWeight="ExtraBold" FontSize="25" FontFamily="pack://application:,,,/Assets/#Fontin">+</TextBlock>
                     </Button.Content>

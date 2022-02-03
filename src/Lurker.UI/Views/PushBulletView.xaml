@@ -22,7 +22,7 @@
             Grid.Row="3"
             VerticalAlignment="Bottom"
             HorizontalAlignment="Center"
-            IsChecked="{Binding Enable}"/>
+            IsOn="{Binding Enable}"/>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding Connected, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>

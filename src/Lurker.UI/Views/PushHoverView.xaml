@@ -22,7 +22,7 @@
                     BorderThickness="0"
                     Margin="5,-98,0,0"
                     HorizontalAlignment="Right"
-                    Style="{DynamicResource MetroCircleButtonStyle}">
+                    Style="{DynamicResource MahApps.Styles.Button.Circle}">
             <Button.Content>
                 <local:IconPack HorizontalAlignment="Right"
                                     VerticalAlignment="Bottom"
@@ -95,6 +95,6 @@
             Grid.Row="3"
             VerticalAlignment="Bottom"
             HorizontalAlignment="Center"
-            IsChecked="{Binding Enable}"/>
+            IsOn="{Binding Enable}"/>
     </Grid>
 </UserControl>

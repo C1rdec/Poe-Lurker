@@ -50,10 +50,8 @@
                         <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
                         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
-                        <!-- Accent and AppTheme setting -->
-                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Crimson.xaml" />
-                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
+                        <!-- Theme setting -->
+                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Dark.Crimson.xaml" />
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
@@ -69,7 +67,7 @@
             <Style x:Key="Tag"
                    BasedOn="{StaticResource {x:Type Button}}"
                    TargetType="{x:Type Button}">
-                <Setter Property="Background" Value="{StaticResource AccentColorBrush3}"/>
+                <Setter Property="Background" Value="{StaticResource MahApps.Brushes.Accent3}"/>
                 <Setter Property="Cursor" Value="Hand"/>
                 <Setter Property="Template">
                     <Setter.Value>
@@ -77,10 +75,10 @@
                             <Border CornerRadius="4">
                                 <Border.Style>
                                     <Style TargetType="{x:Type Border}">
-                                        <Setter Property="Background" Value="{StaticResource AccentColorBrush3}"/>
+                                        <Setter Property="Background" Value="{StaticResource MahApps.Brushes.Accent3}"/>
                                         <Style.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="{StaticResource AccentColorBrush2}" />
+                                                <Setter Property="Background" Value="{StaticResource MahApps.Brushes.Accent2}" />
                                             </Trigger>
                                             <Trigger Property="IsEnabled" Value="False">
                                                 <Setter Property="Background" Value="Gray"/>
@@ -99,7 +97,7 @@
             <Style x:Key="Patreon"
                    BasedOn="{StaticResource {x:Type Button}}"
                    TargetType="{x:Type Button}">
-                <Setter Property="Background" Value="{StaticResource AccentColorBrush3}"/>
+                <Setter Property="Background" Value="{StaticResource MahApps.Brushes.Accent3}"/>
                 <Setter Property="Cursor" Value="Hand"/>
                 <Setter Property="Template">
                     <Setter.Value>

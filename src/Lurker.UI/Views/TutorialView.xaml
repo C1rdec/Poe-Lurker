@@ -12,9 +12,9 @@
         <Grid.Resources>
             <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
         </Grid.Resources>
-        <Controls:MetroAnimatedTabControl Controls:TabControlHelper.IsUnderlined="True" Controls:TabControlHelper.Underlined="TabPanel" TabStripPlacement="Left">
+        <Controls:MetroAnimatedTabControl Controls:TabControlHelper.Underlined="TabPanel" TabStripPlacement="Left">
             <TabItem Header="Trade" Width="175">
-                <Controls:MetroAnimatedTabControl Margin="10,0,0,0" Controls:TabControlHelper.IsUnderlined="True" Controls:TabControlHelper.Underlined="SelectedTabItem" TabStripPlacement="Top">
+                <Controls:MetroAnimatedTabControl Margin="10,0,0,0" Controls:TabControlHelper.Underlined="SelectedTabItem" TabStripPlacement="Top">
                     <TabItem Header="Incoming">
                         <Image gif:AnimationBehavior.SourceUri="https://github.com/C1rdec/Poe-Lurker/blob/master/assets/Incoming.gif?raw=true" />
                     </TabItem>
@@ -25,7 +25,7 @@
                 </Controls:MetroAnimatedTabControl>
             </TabItem>
             <TabItem Header="Item Lurker">
-                <Controls:MetroAnimatedTabControl Margin="10,0,0,0" Controls:TabControlHelper.IsUnderlined="True" Controls:TabControlHelper.Underlined="SelectedTabItem" TabStripPlacement="Top">
+                <Controls:MetroAnimatedTabControl Margin="10,0,0,0" Controls:TabControlHelper.Underlined="SelectedTabItem" TabStripPlacement="Top">
                     <TabItem Header="General">
                         <TextBlock FontSize="80">General</TextBlock>
                     </TabItem>
@@ -42,14 +42,14 @@
                 
             </TabItem>
             <TabItem Header="Dashboard">
-                <Controls:MetroAnimatedTabControl Margin="10,0,0,0" Controls:TabControlHelper.IsUnderlined="True" Controls:TabControlHelper.Underlined="SelectedTabItem" TabStripPlacement="Top">
+                <Controls:MetroAnimatedTabControl Margin="10,0,0,0" Controls:TabControlHelper.Underlined="SelectedTabItem" TabStripPlacement="Top">
                     <TabItem Header="General">
                         <TextBlock FontSize="80">General</TextBlock>
                     </TabItem>
                 </Controls:MetroAnimatedTabControl>
             </TabItem>
             <TabItem Header="Build Helper">
-                <Controls:MetroAnimatedTabControl Margin="10,0,0,0" Controls:TabControlHelper.IsUnderlined="True" Controls:TabControlHelper.Underlined="SelectedTabItem" TabStripPlacement="Top">
+                <Controls:MetroAnimatedTabControl Margin="10,0,0,0" Controls:TabControlHelper.Underlined="SelectedTabItem" TabStripPlacement="Top">
                     <TabItem Header="General">
                         <TextBlock FontSize="80">General</TextBlock>
                     </TabItem>
@@ -60,7 +60,7 @@
 
             </TabItem>
             <TabItem Header="Extra">
-                <Controls:MetroAnimatedTabControl Margin="10,0,0,0" Controls:TabControlHelper.IsUnderlined="True" Controls:TabControlHelper.Underlined="SelectedTabItem" TabStripPlacement="Top">
+                <Controls:MetroAnimatedTabControl Margin="10,0,0,0" Controls:TabControlHelper.Underlined="SelectedTabItem" TabStripPlacement="Top">
                     <TabItem Header="General">
                         <TextBlock FontSize="80">General</TextBlock>
                     </TabItem>
