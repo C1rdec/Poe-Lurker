@@ -345,6 +345,7 @@
     <Compile Include="ViewModels\ExaltedRatioViewModel.cs" />
     <Compile Include="ViewModels\GroupItemViewModel.cs" />
     <Compile Include="ViewModels\HotkeyViewModel.cs" />
+    <Compile Include="ViewModels\ItemChartViewModel.cs" />
     <Compile Include="ViewModels\LeagueViewModel.cs" />
     <Compile Include="ViewModels\MapAffixViewModel.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />
@@ -440,6 +441,9 @@
     </Compile>
     <Compile Include="Views\HotkeyView.xaml.cs">
       <DependentUpon>HotkeyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ItemChartView.xaml.cs">
+      <DependentUpon>ItemChartView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ItemOverlayView.xaml.cs">
       <DependentUpon>ItemOverlayView.xaml</DependentUpon>
@@ -611,6 +615,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\HotkeyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ItemChartView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

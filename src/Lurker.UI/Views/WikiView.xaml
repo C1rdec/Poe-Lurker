@@ -24,7 +24,7 @@
                     <RowDefinition/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <ContentControl x:Name="ExaltedRatio" Margin="-4,0,0,0"/>
+                <ContentControl x:Name="CurrentView" Margin="-4,0,0,0"/>
                 <ScrollViewer HorizontalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Hidden">
                     <ItemsControl x:Name="Items" HorizontalAlignment="Center">
                         <ItemsControl.ItemsPanel>

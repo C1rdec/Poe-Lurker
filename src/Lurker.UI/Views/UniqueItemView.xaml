@@ -39,7 +39,7 @@
             <Border Grid.Column="1" Grid.Row="1" Background="Black" CornerRadius="20"/>
         
             <Image Grid.Column="1" Source="{Binding ImageUrl}" Grid.RowSpan="2" MaxWidth="100"/>
-            <Border Grid.RowSpan="2" Grid.Column="1" CornerRadius="8">
+        <Border Grid.RowSpan="2" Grid.Column="1" CornerRadius="8" cal:Message.Attach="[Event MouseDown] = [Action OnClick]">
                 <Border.Style>
                     <Style TargetType="Border">
                         <Setter Property="Background">

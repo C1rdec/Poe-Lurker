@@ -7,7 +7,9 @@
 namespace Lurker.UI.ViewModels
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Linq;
     using System.Threading.Tasks;
     using System.Windows.Input;
     using Caliburn.Micro;
@@ -32,6 +34,8 @@ namespace Lurker.UI.ViewModels
         private KeyboardLurker _keyboardLurker;
         private PoeNinjaService _ninjaService;
         private bool _visible;
+        private ExaltedRatioViewModel _exaltedRatioViewModel;
+        private IEnumerable<UniqueItem> _uniques;
 
         #endregion
 
@@ -113,7 +117,7 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets or sets the ExaltedRatio.
         /// </summary>
-        public ExaltedRatioViewModel ExaltedRatio { get; set; }
+        public PropertyChangedBase CurrentView { get; set; }
 
         #endregion
 
@@ -135,9 +139,24 @@ namespace Lurker.UI.ViewModels
         /// <returns>The task.</returns>
         public async Task Show()
         {
+            var clipboardItem = await ClipboardHelper.GetItemInClipboard();
+            ClipboardHelper.ClearClipboard();
+            if (clipboardItem != null && clipboardItem.Rarity == Patreon.Models.Rarity.Unique)
+            {
+                var item = this._uniques.FirstOrDefault(u => u.Name == clipboardItem.BaseType);
+                if (item != null)
+                {
+                    this.SearchValue = item.Name;
+                    this.OnItemClick(item);
+                }
+            }
+            else
+            {
+                await this.SetExaltedRatio();
+            }
+
             this.Visible = true;
             this.SetInForeground();
-            await this.SetExaltedRatio();
         }
 
         /// <summary>
@@ -175,8 +194,9 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Closes this instance.
         /// </summary>
-        protected override void OnActivate()
+        protected async override void OnActivate()
         {
+            this._uniques = await this._githubService.Uniques();
             base.OnActivate();
             this.SetInForeground();
             this._mouseLurker.MouseLeftButtonUp += this.MouseLurker_MouseLeftButtonUp;
@@ -222,7 +242,14 @@ namespace Lurker.UI.ViewModels
 
         private void Search(string value)
         {
+            this.CurrentView = this._exaltedRatioViewModel;
+            this.NotifyOfPropertyChange(() => this.CurrentView);
             this.Items.Clear();
+            if (string.IsNullOrEmpty(value))
+            {
+                return;
+            }
+
             var items = this._githubService.Search(value);
 
             foreach (var item in items)
@@ -233,12 +260,24 @@ namespace Lurker.UI.ViewModels
                         this.Items.Add(new GemViewModel(gem));
                         break;
                     case UniqueItem uniqueItem:
-                        this.Items.Add(new UniqueItemViewModel(uniqueItem));
+                        this.Items.Add(new UniqueItemViewModel(uniqueItem, this.OnItemClick));
                         break;
                     default:
                         break;
                 }
             }
+        }
+
+        private async void OnItemClick(UniqueItem item)
+        {
+            var i = await this._ninjaService.GetItemAsync(item.Name, this.SettingsService.RecentLeagueName);
+            if (i == null)
+            {
+                return;
+            }
+
+            this.CurrentView = new ItemChartViewModel(i, item);
+            this.NotifyOfPropertyChange(() => this.CurrentView);
         }
 
         private async Task SetExaltedRatio()
@@ -251,8 +290,9 @@ namespace Lurker.UI.ViewModels
             var line = await this._ninjaService.GetExaltRationAsync(this.SettingsService.RecentLeagueName);
             if (line != null && line.ChaosEquivalent != 0)
             {
-                this.ExaltedRatio = new ExaltedRatioViewModel(line);
-                this.NotifyOfPropertyChange(() => this.ExaltedRatio);
+                this._exaltedRatioViewModel = new ExaltedRatioViewModel(line);
+                this.CurrentView = this._exaltedRatioViewModel;
+                this.NotifyOfPropertyChange(() => this.CurrentView);
             }
         }
 

@@ -24,6 +24,7 @@ namespace Lurker.UI.ViewModels
         private bool _selected;
         private bool _justChecked;
         private IEventAggregator _eventAggregator;
+        private Action<UniqueItem> _onClick;
 
         #endregion
 
@@ -33,9 +34,11 @@ namespace Lurker.UI.ViewModels
         /// Initializes a new instance of the <see cref="UniqueItemViewModel"/> class.
         /// </summary>
         /// <param name="item">The item.</param>
-        public UniqueItemViewModel(UniqueItem item)
+        /// <param name="onClick">The onclick call back.</param>
+        public UniqueItemViewModel(UniqueItem item, Action<UniqueItem> onClick)
             : this(item, false)
         {
+            this._onClick = onClick;
         }
 
         /// <summary>
@@ -111,6 +114,12 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public void OnClick()
         {
+            if (!this._selectable)
+            {
+                this._onClick?.Invoke(this.Item);
+                return;
+            }
+
             if (this._justChecked)
             {
                 this._justChecked = false;
