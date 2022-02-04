@@ -275,10 +275,10 @@
                                               x:Name="SelectTradeSound"
                                               HorizontalAlignment="Left" 
                                               ToolTip="Custom Sound" 
-                                              Cursor="Hand" 
+                                              Cursor="Hand"
                                               VerticalAlignment="Top"
                                               Height="28" Width="28" 
-                                              Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                                              Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                                               Margin="5,-6,0,0">
                                     <local:IconPack Foreground="White"
                                                     Opacity="0.8"
@@ -334,7 +334,7 @@
                                               Cursor="Hand" 
                                               VerticalAlignment="Top"
                                               Height="28" Width="28" 
-                                              Style="{DynamicResource MahApps.Styles.Button.Circle}"
+                                              Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                                               Margin="5,-6,0,0">
                                 <local:IconPack Foreground="White"
                                                     Opacity="0.8"
