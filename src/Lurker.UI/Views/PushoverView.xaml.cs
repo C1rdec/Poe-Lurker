@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="PushHoverView.xaml.cs" company="Wohs Inc.">
+// <copyright file="PushoverView.xaml.cs" company="Wohs Inc.">
 //     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -11,12 +11,12 @@ namespace Lurker.UI.Views
     /// <summary>
     /// Interaction logic for PushHoverView.xaml.
     /// </summary>
-    public partial class PushHoverView : UserControl
+    public partial class PushoverView : UserControl
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PushHoverView"/> class.
+        /// Initializes a new instance of the <see cref="PushoverView"/> class.
         /// </summary>
-        public PushHoverView()
+        public PushoverView()
         {
             this.InitializeComponent();
         }

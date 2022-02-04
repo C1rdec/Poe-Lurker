@@ -74,12 +74,12 @@
                     </StackPanel>
 
                     <Label Content="Builds" Style="{DynamicResource LabelHeaderStyle}" />
-                    <Button Width="50"
+                    <Button Width="45"
                             x:Name="OpenCharacters"
                             BorderThickness="0"
                             Cursor="Hand"
                             ToolTip="Characters"
-                            Height="50"
+                            Height="45"
                             Margin="150,0,0,0"
                             Style="{DynamicResource MahApps.Styles.Button.Circle}">
                         <Button.Content>
@@ -277,7 +277,7 @@
                                               ToolTip="Custom Sound" 
                                               Cursor="Hand" 
                                               VerticalAlignment="Top"
-                                              Height="35" Width="35" 
+                                              Height="28" Width="28" 
                                               Style="{DynamicResource MahApps.Styles.Button.Circle}"
                                               Margin="5,-6,0,0">
                                     <local:IconPack Foreground="White"
@@ -333,7 +333,7 @@
                                               ToolTip="Custom Sound" 
                                               Cursor="Hand" 
                                               VerticalAlignment="Top"
-                                              Height="35" Width="35" 
+                                              Height="28" Width="28" 
                                               Style="{DynamicResource MahApps.Styles.Button.Circle}"
                                               Margin="5,-6,0,0">
                                 <local:IconPack Foreground="White"
@@ -501,17 +501,15 @@
                                 Value="{Binding TradebarScaling}" />
                         </Grid>
                         <StackPanel Orientation="Horizontal" Margin="0,30,0,0" HorizontalAlignment="Left">
+                            <Controls:ToggleSwitch Header="Auto Whisper"
+                                                   IsOn="{Binding ClipboardEnabled}"/>
                             <Controls:ToggleSwitch 
-                                               Header="Auto Whisper"
-                                               IsOn="{Binding ClipboardEnabled}"/>
-                            <Controls:ToggleSwitch 
-                                                   Margin="30,0,0,0"
                                                Header="Auto Kick"
+                                                   Margin="-30,0,0,0"
                                                IsOn="{Binding AutoKickEnabled}"/>
-                            <Controls:ToggleSwitch 
-                                                   Margin="30,0,0,0"
-                                               Header="Release Note"
-                                               IsOn="{Binding ShowReleaseNote}"/>
+                            <Controls:ToggleSwitch Header="Release Note"
+                                                   Margin="-30,0,0,0"
+                                                   IsOn="{Binding ShowReleaseNote}"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,30,0,0" HorizontalAlignment="Left">
                             <Controls:ToggleSwitch Grid.Row="1"
@@ -521,22 +519,22 @@
                                                    IsOn="{Binding SoldDetection}"/>
                             <Controls:ToggleSwitch Grid.Row="1"
                                                    VerticalAlignment="Top"
-                                                   Margin="30,0,0,0"
+                                                   Margin="-30,0,0,0"
                                                    HorizontalAlignment="Center"
                                                    Header="Always Visible"
                                                    IsOn="{Binding AlwaysVisible}"/>
                             <Controls:ToggleSwitch Grid.Row="1"
                                                    VerticalAlignment="Top"
-                                                   Margin="30,0,0,0"
                                                    HorizontalAlignment="Center"
+                                                   Margin="-30,0,0,0"
                                                    Header="Debug Mode"
                                                    IsOn="{Binding DebugEnabled}"/>
                             <Controls:ToggleSwitch Grid.Row="2"
-                                               Grid.Column="2"
-                                               Header="Startup Animation"
-                                               Margin="30,0,0,0"
-                                               HorizontalAlignment="Left"
-                                               IsOn="{Binding ShowStartupAnimation}"/>
+                                                   Grid.Column="2"
+                                                   Header="Startup Animation"
+                                                   Margin="-30,0,0,0"
+                                                   HorizontalAlignment="Left"
+                                                   IsOn="{Binding ShowStartupAnimation}"/>
                         </StackPanel>
                     </StackPanel>
                 </Grid>

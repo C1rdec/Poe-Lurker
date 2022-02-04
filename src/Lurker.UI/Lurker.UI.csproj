@@ -373,7 +373,7 @@
     <Compile Include="ViewModels\PoeOverlayBase.cs" />
     <Compile Include="ViewModels\PopupViewModel.cs" />
     <Compile Include="ViewModels\PositionViewModel.cs" />
-    <Compile Include="ViewModels\PushHoverViewModel.cs" />
+    <Compile Include="ViewModels\PushoverViewModel.cs" />
     <Compile Include="ViewModels\PushBulletViewModel.cs" />
     <Compile Include="ViewModels\PushProviderViewModel.cs" />
     <Compile Include="ViewModels\RemainingMonsterViewModel.cs" />
@@ -492,8 +492,8 @@
     <Compile Include="Views\PushBulletView.xaml.cs">
       <DependentUpon>PushBulletView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PushHoverView.xaml.cs">
-      <DependentUpon>PushHoverView.xaml</DependentUpon>
+    <Compile Include="Views\PushoverView.xaml.cs">
+      <DependentUpon>PushoverView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RemainingMonsterView.xaml.cs">
       <DependentUpon>RemainingMonsterView.xaml</DependentUpon>
@@ -684,7 +684,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\PushHoverView.xaml">
+    <Page Include="Views\PushoverView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -21,7 +21,7 @@
             Visibility="{Binding Connected, Converter={StaticResource BooleanToVisibilityConverter}}"
             Grid.Row="3"
             VerticalAlignment="Bottom"
-            HorizontalAlignment="Center"
+            HorizontalAlignment="Right"
             IsOn="{Binding Enable}"/>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding Connected, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid.RowDefinitions>

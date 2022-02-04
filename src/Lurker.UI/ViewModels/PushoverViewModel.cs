@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="PushHoverViewModel.cs" company="Wohs Inc.">
+// <copyright file="PushoverViewModel.cs" company="Wohs Inc.">
 //     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -13,7 +13,7 @@ namespace Lurker.UI.ViewModels
     /// The push bullet view model.
     /// </summary>
     /// <seealso cref="Caliburn.Micro.PropertyChangedBase" />
-    public class PushHoverViewModel : Caliburn.Micro.PropertyChangedBase
+    public class PushoverViewModel : Caliburn.Micro.PropertyChangedBase
     {
         #region Fields
 
@@ -24,10 +24,10 @@ namespace Lurker.UI.ViewModels
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PushHoverViewModel" /> class.
+        /// Initializes a new instance of the <see cref="PushoverViewModel" /> class.
         /// </summary>
         /// <param name="service">The service.</param>
-        public PushHoverViewModel(PushHoverService service)
+        public PushoverViewModel(PushHoverService service)
         {
             this._service = service;
         }

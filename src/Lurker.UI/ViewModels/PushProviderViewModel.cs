@@ -42,7 +42,7 @@ namespace Lurker.UI.ViewModels
         public PushProviderViewModel(string name, PushHoverService service)
             : this(name)
         {
-            this._buildViewModel = () => new PushHoverViewModel(service);
+            this._buildViewModel = () => new PushoverViewModel(service);
         }
 
         /// <summary>

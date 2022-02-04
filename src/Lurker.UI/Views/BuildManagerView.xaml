@@ -215,11 +215,11 @@
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
         </ScrollViewer>
-        <Button Width="50"
+        <Button Width="45"
                 x:Name="Add"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Height="50"
+                Height="45"
                 Margin="120,-50,0,0"
                     Style="{DynamicResource MahApps.Styles.Button.Circle}">
             <Button.Content>
