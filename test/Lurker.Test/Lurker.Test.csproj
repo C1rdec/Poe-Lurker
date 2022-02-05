@@ -50,8 +50,8 @@
     <Reference Include="LiteDB, Version=5.0.4.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
       <HintPath>..\..\packages\LiteDB.5.0.4\lib\net45\LiteDB.dll</HintPath>
     </Reference>
-    <Reference Include="Lurker.Patreon, Version=1.5.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Lurker.Patreon.1.5.3\lib\net48\Lurker.Patreon.dll</HintPath>
+    <Reference Include="Lurker.Patreon, Version=1.5.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Lurker.Patreon.1.5.4\lib\net48\Lurker.Patreon.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin, Version=2.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Owin.2.0.2\lib\net45\Microsoft.Owin.dll</HintPath>
@@ -81,7 +81,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Evaluation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=fc6d2b461e7db6ac, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Lurker.Patreon.1.5.3\lib\net48\System.Evaluation.dll</HintPath>
+      <HintPath>..\..\packages\Lurker.Patreon.1.5.4\lib\net48\System.Evaluation.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
