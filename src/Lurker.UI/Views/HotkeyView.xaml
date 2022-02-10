@@ -89,7 +89,15 @@
                     </Button.Content>
                 </Button>
             </Grid>
-            <Button Grid.Column="2" Focusable="False" Visibility="{Binding HasKeyCode, Converter={StaticResource BooleanToVisibilityConverter}}" Background="Red" Width="25" cal:Message.Attach="[Event Click] = [Action Remove()]" HorizontalAlignment="Right" VerticalAlignment="Top" Height="20" Cursor="Hand">
+            <Button Grid.Column="2" 
+                    Focusable="False" 
+                    Visibility="{Binding HasKeyCode, Converter={StaticResource BooleanToVisibilityConverter}}" 
+                    Background="Red" 
+                    Width="30" Height="30"
+                    cal:Message.Attach="[Event Click] = [Action Remove()]" 
+                    HorizontalAlignment="Right" 
+                    VerticalAlignment="Top" 
+                    Cursor="Hand">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Template">

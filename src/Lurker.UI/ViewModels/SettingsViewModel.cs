@@ -134,6 +134,11 @@ namespace Lurker.UI.ViewModels
         #region Properties
 
         /// <summary>
+        /// Gets a value indicating whether HasHotkeys.
+        /// </summary>
+        public bool HasHotkeys => this.Hotkeys.Any(h => h.HasKeyCode) || this.MainHotkey.HasKeyCode;
+
+        /// <summary>
         /// Gets the version.
         /// </summary>
         public string Version
@@ -994,6 +999,25 @@ namespace Lurker.UI.ViewModels
         #region Methods
 
         /// <summary>
+        /// Reset all hotkeys.
+        /// </summary>
+        public async void ResetHotkeys()
+        {
+            var result = await this.ShowMessage("Wait!", "You are about to reset all hotkeys.", MessageDialogStyle.AffirmativeAndNegative);
+            if (result == MessageDialogResult.Negative)
+            {
+                return;
+            }
+
+            this.MainHotkey.Remove();
+
+            foreach (var hotkey in this.Hotkeys)
+            {
+                hotkey.Remove();
+            }
+        }
+
+        /// <summary>
         /// Set the tab index to lurker pro.
         /// </summary>
         public void OpenLurkerPro()
@@ -1544,7 +1568,6 @@ namespace Lurker.UI.ViewModels
                 new HotkeyViewModel("Dismiss", this._hotkeyService.Dismiss, this.GetNextKeyCode),
             };
 
-            // this.Hotkeys.Add(new HotkeyViewModel("Still Interested", this._hotkeyService.StillInterested, this.GetNextKeyCode));
             foreach (var hotkey in this.Hotkeys)
             {
                 hotkey.PropertyChanged += this.Hotkey_PropertyChanged;
@@ -1565,6 +1588,7 @@ namespace Lurker.UI.ViewModels
         /// <param name="e">The <see cref="System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
         private void Hotkey_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
+            this.NotifyOfPropertyChange(() => this.HasHotkeys);
             this.NotifyOfPropertyChange("Dirty");
         }
 
