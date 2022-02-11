@@ -32,13 +32,20 @@ namespace Lurker.Services
         /// <returns>List of Gems.</returns>
         public async Task<IEnumerable<Gem>> Gems()
         {
-            if (this._gems == null)
+            try
             {
-                var gemInformation = await this.GetText($"https://raw.githubusercontent.com/C1rdec/Poe-Lurker/master/assets/Data/GemInfo.json?{Guid.NewGuid()}");
-                this._gems = Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<Gem>>(gemInformation);
-            }
+                if (this._gems == null)
+                {
+                    var gemInformation = await this.GetText($"https://raw.githubusercontent.com/C1rdec/Poe-Lurker/master/assets/Data/GemInfo.json?{Guid.NewGuid()}");
+                    this._gems = Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<Gem>>(gemInformation);
+                }
 
-            return this._gems;
+                return this._gems;
+            }
+            catch
+            {
+                return Enumerable.Empty<Gem>();
+            }
         }
 
         /// <summary>
@@ -47,13 +54,20 @@ namespace Lurker.Services
         /// <returns>List of uniques.</returns>
         public async Task<IEnumerable<UniqueItem>> Uniques()
         {
-            if (this._items == null)
+            try
             {
-                var uniqueInformation = await this.GetText($"https://raw.githubusercontent.com/C1rdec/Poe-Lurker/master/assets/Data/UniqueInfo.json?{Guid.NewGuid()}");
-                this._items = Newtonsoft.Json.JsonConvert.DeserializeObject<List<UniqueItem>>(uniqueInformation);
-            }
+                if (this._items == null)
+                {
+                    var uniqueInformation = await this.GetText($"https://raw.githubusercontent.com/C1rdec/Poe-Lurker/master/assets/Data/UniqueInfo.json?{Guid.NewGuid()}");
+                    this._items = Newtonsoft.Json.JsonConvert.DeserializeObject<List<UniqueItem>>(uniqueInformation);
+                }
 
-            return this._items;
+                return this._items;
+            }
+            catch
+            {
+                return Enumerable.Empty<UniqueItem>();
+            }
         }
 
         /// <summary>
