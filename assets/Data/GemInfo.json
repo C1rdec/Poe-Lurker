@@ -764,6 +764,15 @@
     "Level": 1
   },
   {
+    "Id": "CallOfTheWild",
+    "Support": false,
+    "Location": null,
+    "Name": "[DNT] Call of the Wild",
+    "WikiUrl": "https://poedb.tw/us/%5BDNT%5D_Call_of_the_Wild",
+    "ImageUrl": null,
+    "Level": 28
+  },
+  {
     "Id": "CataclysmSigil",
     "Support": false,
     "Location": {
@@ -5080,6 +5089,15 @@
     "Level": 72
   },
   {
+    "Id": "SupportAuraDuration",
+    "Support": true,
+    "Location": null,
+    "Name": "Divine Blessing Support",
+    "WikiUrl": "https://poedb.tw/us/Divine_Blessing_Support",
+    "ImageUrl": null,
+    "Level": 31
+  },
+  {
     "Id": "SupportBarrage",
     "Support": true,
     "Location": {
@@ -6719,6 +6737,15 @@
     "Level": 31
   },
   {
+    "Id": "SupportMarkOnHit",
+    "Support": true,
+    "Location": null,
+    "Name": "Mark On Hit Support",
+    "WikiUrl": "https://poedb.tw/us/Mark_On_Hit_Support",
+    "ImageUrl": null,
+    "Level": 38
+  },
+  {
     "Id": "SupportMeleeDamageOnFullLife",
     "Support": true,
     "Location": {
@@ -6933,6 +6960,15 @@
     "WikiUrl": "https://poedb.tw/us/Minion_Speed_Support",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/ee/Minion_Speed_Support_inventory_icon.png/revision/latest?cb=20130626162324",
     "Level": 18
+  },
+  {
+    "Id": "SupportMortalConviction",
+    "Support": true,
+    "Location": null,
+    "Name": "Eternal Blessing Support",
+    "WikiUrl": "https://poedb.tw/us/Eternal_Blessing_Support",
+    "ImageUrl": null,
+    "Level": 38
   },
   {
     "Id": "SupportMultiTotem",

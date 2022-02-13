@@ -67,7 +67,10 @@ namespace Lurker.Helpers
                 if (imgElement != null)
                 {
                     var value = imgElement.GetAttributeValue("src", string.Empty);
-                    return new Uri(value);
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        return new Uri(value);
+                    }
                 }
             }
 
