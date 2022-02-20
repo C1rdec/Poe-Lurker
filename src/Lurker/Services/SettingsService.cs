@@ -676,6 +676,22 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether we ignore already sold items.
+        /// </summary>
+        public bool IgnoreAlreadySold
+        {
+            get
+            {
+                return this._settings.IgnoreAlreadySold;
+            }
+
+            set
+            {
+                this._settings.IgnoreAlreadySold = value;
+            }
+        }
+
+        /// <summary>
         /// Gets the name of the folder.
         /// </summary>
         private string FolderName => "PoeLurker";

@@ -234,6 +234,11 @@ namespace Lurker.Models
         /// </summary>
         public string RecentLeagueName { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether we ignore already sold item.
+        /// </summary>
+        public bool IgnoreAlreadySold { get; set; }
+
         #endregion
     }
 }

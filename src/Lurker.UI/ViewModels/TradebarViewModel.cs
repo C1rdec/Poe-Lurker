@@ -290,6 +290,12 @@ namespace Lurker.UI.ViewModels
                 return;
             }
 
+            var alreadySold = this.CheckIfOfferIsAlreadySold(e);
+            if (alreadySold && this.SettingsService.IgnoreAlreadySold)
+            {
+                return;
+            }
+
             if (this.SettingsService.AlertEnabled)
             {
                 this.PlayAlert();
@@ -303,7 +309,7 @@ namespace Lurker.UI.ViewModels
 
             Execute.OnUIThread(() =>
             {
-                this.TradeOffers.Add(new OfferViewModel(e, this._keyboardHelper, this._context, this.SettingsService, this.CheckIfOfferIsAlreadySold(e), this.DockingHelper));
+                this.TradeOffers.Add(new OfferViewModel(e, this._keyboardHelper, this._context, this.SettingsService, alreadySold, this.DockingHelper));
             });
         }
 

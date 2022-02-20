@@ -529,6 +529,9 @@
                             <Controls:ToggleSwitch Header="Release Note"
                                                    Margin="-30,0,0,0"
                                                    IsOn="{Binding ShowReleaseNote}"/>
+                            <Controls:ToggleSwitch Header="Ignore Already Sold"
+                                                   Margin="-30,0,0,0"
+                                                   IsOn="{Binding IgnoreAlreadySold}"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,30,0,0" HorizontalAlignment="Left">
                             <Controls:ToggleSwitch Grid.Row="1"

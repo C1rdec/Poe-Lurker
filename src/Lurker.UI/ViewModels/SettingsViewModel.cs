@@ -994,6 +994,23 @@ namespace Lurker.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [IgnoreAlreadySold].
+        /// </summary>
+        public bool IgnoreAlreadySold
+        {
+            get
+            {
+                return this._settingService.IgnoreAlreadySold;
+            }
+
+            set
+            {
+                this._settingService.IgnoreAlreadySold = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
         #endregion
 
         #region Methods
