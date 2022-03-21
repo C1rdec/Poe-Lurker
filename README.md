@@ -13,7 +13,7 @@ If you like and use Poe Lurker please consider signing up for a small monthly [P
 # Shoutouts
 | [SignPath.io](https://signpath.io/) for the free code signing | [Winook](https://github.com/macote/Winook) for the thread level hook | [MahApps](https://github.com/MahApps/MahApps.Metro) for the modern UI |
 | ------------- | ------------- | ------------- |
-| <a href="https://signpath.io/" target="_blank"><img src="./assets/signpath_logo.png"></a>  | <a href="https://github.com/macote/Winook" target="_blank"><img height="50" src="./assets/WinookLogo.png"></a> | <a href="https://github.com/MahApps/MahApps.Metro" target="_blank"><img height="45" src="./assets/MahAppsIcon.png"></a> |
+| <a href="https://signpath.io/" target="_blank"><img src="./assets/signpath_logo.png"></a>  | <a href="https://github.com/macote/Winook" target="_blank"><img height="50" src="https://raw.githubusercontent.com/macote/Winook/master/doc/Winook.svg"></a> | <a href="https://github.com/MahApps/MahApps.Metro" target="_blank"><img height="45" src="./assets/MahAppsIcon.png"></a> |
 
 ## Usage
 - Install ≥ [.NET Framework 4.8](https://dotnet.microsoft.com/download/dotnet-framework)
