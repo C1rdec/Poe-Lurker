@@ -85,20 +85,30 @@ namespace Lurker.Services
         /// <param name="location">The location.</param>
         public void PlaceMarker(Location location)
         {
+            StashTabLocation tabLocation;
             var tab = this._tabBank.Get(location.StashTabName);
             if (tab == null)
             {
-                return;
+                tabLocation = new StashTabLocation()
+                {
+                    Name = location.StashTabName,
+                    StashTabType = StashTabType.Regular,
+                    InFolder = false,
+                    Left = location.Left,
+                    Top = location.Top,
+                };
             }
-
-            var tabLocation = new StashTabLocation()
+            else
             {
-                Name = location.StashTabName,
-                StashTabType = tab.TabType,
-                InFolder = tab.InFolder,
-                Left = location.Left,
-                Top = location.Top,
-            };
+                tabLocation = new StashTabLocation()
+                {
+                    Name = location.StashTabName,
+                    StashTabType = tab.TabType,
+                    InFolder = tab.InFolder,
+                    Left = location.Left,
+                    Top = location.Top,
+                };
+            }
 
             this.NewMarkerRequested?.Invoke(this, tabLocation);
         }
