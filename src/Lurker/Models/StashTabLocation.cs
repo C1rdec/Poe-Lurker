@@ -33,6 +33,11 @@ namespace Lurker.Models
         /// </summary>
         public StashTabType StashTabType { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the tab is in a folder.
+        /// </summary>
+        public bool InFolder { get; set; }
+
         #endregion
     }
 }

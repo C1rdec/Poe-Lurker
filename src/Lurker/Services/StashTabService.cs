@@ -82,31 +82,25 @@ namespace Lurker.Services
         /// <summary>
         /// Place the marker.
         /// </summary>
-        /// <param name="top">The top position.</param>
-        /// <param name="left">The left postion.</param>
-        /// <param name="name">The name.</param>
-        /// <param name="stashTqabType">The type.</param>
-        public void PlaceMarker(int top, int left, string name, StashTabType stashTqabType)
-        {
-            var location = new StashTabLocation()
-            {
-                Name = name,
-                StashTabType = stashTqabType,
-                Left = left,
-                Top = top,
-            };
-
-            this.NewMarkerRequested?.Invoke(this, location);
-        }
-
-        /// <summary>
-        /// Place the marker.
-        /// </summary>
         /// <param name="location">The location.</param>
         public void PlaceMarker(Location location)
         {
-            var tabType = this._tabBank.Exist(location.StashTabName) ? StashTabType.Quad : StashTabType.Regular;
-            this.PlaceMarker(location.Top, location.Left, location.StashTabName, tabType);
+            var tab = this._tabBank.Get(location.StashTabName);
+            if (tab == null)
+            {
+                return;
+            }
+
+            var tabLocation = new StashTabLocation()
+            {
+                Name = location.StashTabName,
+                StashTabType = tab.TabType,
+                InFolder = tab.InFolder,
+                Left = location.Left,
+                Top = location.Top,
+            };
+
+            this.NewMarkerRequested?.Invoke(this, tabLocation);
         }
 
         /// <summary>
@@ -123,7 +117,7 @@ namespace Lurker.Services
         /// <param name="name">The name.</param>
         public void AddQuadTab(string name)
         {
-            this._tabBank.Add(name);
+            this._tabBank.AddOrUpdate(new StashTab() { Name = name, TabType = StashTabType.Quad });
             this.Save();
         }
 
@@ -133,10 +127,18 @@ namespace Lurker.Services
         /// <param name="name">The name.</param>
         public void RemoveQuadTab(string name)
         {
-            if (this._tabBank.Remove(name))
-            {
-                this.Save();
-            }
+            this._tabBank.AddOrUpdate(new StashTab() { Name = name, TabType = StashTabType.Regular });
+            this.Save();
+        }
+
+        /// <summary>
+        /// Update the tab.
+        /// </summary>
+        /// <param name="tab">The tab.</param>
+        public void AddOrUpdateTab(StashTab tab)
+        {
+            this._tabBank.AddOrUpdate(tab);
+            this.Save();
         }
 
         /// <summary>

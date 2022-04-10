@@ -64,7 +64,7 @@
                             Grid.Row="{Binding Top}"
                             Data="{x:Static local:IconPackData.Corner}"/>
         </Grid>
-        <Grid x:Name="QuadTab"
+        <Grid x:Name="QuadTab"              
               Visibility="{Binding IsQuadTab, Converter={StaticResource BooleanToVisibilityConverter}}"
               Opacity="0.85">
             <Grid.Style>
@@ -135,31 +135,74 @@
                             Data="{x:Static local:IconPackData.Corner}"/>
         </Grid>
         <Grid Grid.Row="1">
-            <Border CornerRadius="4" 
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Border CornerRadius="4" 
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Right" 
+                    cal:Message.Attach="[Event MouseDown] = [Action ToggleInFolder]"
+                    Cursor="Hand">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="White" Opacity="0.05"></SolidColorBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="White" Opacity="0.15"></SolidColorBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <Grid>
+                        <local:IconPack Foreground="Gray"
+                                Margin="8"
+                                Height="20"
+                                IsHitTestVisible="False"
+                                Visibility="{Binding IsNotInFolder, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                Grid.Column="{Binding Left}" 
+                                Grid.Row="{Binding Top}"
+                                Data="{x:Static local:IconPackData.Folder}"/>
+                        <local:IconPack Foreground="#e7b577"
+                                Margin="8"
+                                Height="20"
+                                IsHitTestVisible="False"
+                                Visibility="{Binding IsInFolder, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                Grid.Column="{Binding Left}" 
+                                Grid.Row="{Binding Top}"
+                                Data="{x:Static local:IconPackData.Folder}"/>
+                    </Grid>
+                </Border>
+                <Border CornerRadius="4" 
                     VerticalAlignment="Bottom"
                     HorizontalAlignment="Right" 
                     cal:Message.Attach="[Event MouseDown] = [Action ToggleTabType]"
                     Cursor="Hand">
-                <Border.Style>
-                    <Style TargetType="Border">
-                        <Setter Property="Background">
-                            <Setter.Value>
-                                <SolidColorBrush Color="White" Opacity="0.05"></SolidColorBrush>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background">
-                                    <Setter.Value>
-                                        <SolidColorBrush Color="White" Opacity="0.15"></SolidColorBrush>
-                                    </Setter.Value>
-                                </Setter>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Border.Style>
-                <Grid>
-                    <local:IconPack Foreground="Gray"
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="White" Opacity="0.05"></SolidColorBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="White" Opacity="0.15"></SolidColorBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <Grid>
+                        <local:IconPack Foreground="Gray"
                                 Margin="8"
                                 Height="20"
                                 IsHitTestVisible="False"
@@ -167,7 +210,7 @@
                                 Grid.Column="{Binding Left}" 
                                 Grid.Row="{Binding Top}"
                                 Data="{x:Static local:IconPackData.Quad}"/>
-                    <local:IconPack Foreground="#e7b577"
+                        <local:IconPack Foreground="#e7b577"
                                 Margin="8"
                                 Height="20"
                                 IsHitTestVisible="False"
@@ -175,8 +218,10 @@
                                 Grid.Column="{Binding Left}" 
                                 Grid.Row="{Binding Top}"
                                 Data="{x:Static local:IconPackData.Quad}"/>
-                </Grid>
-            </Border>
+                    </Grid>
+                </Border>
+            </StackPanel>
+            
         </Grid>
     </Grid>
 </Window>

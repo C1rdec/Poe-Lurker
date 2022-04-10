@@ -868,10 +868,12 @@
     <Content Include="SVG\CustomSound.svg" />
     <Content Include="SVG\Discord.svg" />
     <Content Include="SVG\DotsMenu.svg" />
+    <Content Include="SVG\Folder.svg" />
     <Content Include="SVG\Group.svg" />
     <Content Include="SVG\Open.svg" />
     <Content Include="SVG\Patreon.svg" />
     <Content Include="SVG\Pushbullet.svg" />
+    <Content Include="SVG\Quad.svg" />
     <Content Include="SVG\Shield.svg" />
     <Content Include="SVG\ThreeDot.svg" />
     <Resource Include="Assets\Gemcutter.png" />

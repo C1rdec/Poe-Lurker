@@ -35,6 +35,13 @@ namespace Lurker.Models
         #region Methods
 
         /// <summary>
+        /// Ge the tab.
+        /// </summary>
+        /// <param name="name">The anme of the tab.</param>
+        /// <returns>The stash tab.</returns>
+        public StashTab Get(string name) => this.Tabs.FirstOrDefault(t => t.Name == name);
+
+        /// <summary>
         /// Check if tab exist.
         /// </summary>
         /// <param name="name">The tab name.</param>
@@ -44,15 +51,18 @@ namespace Lurker.Models
         /// <summary>
         /// Add to list.
         /// </summary>
-        /// <param name="name">The tabName.</param>
-        public void Add(string name)
+        /// <param name="tab">The tab.</param>
+        public void AddOrUpdate(StashTab tab)
         {
-            if (this.Exist(name))
+            var existingTab = this.Tabs.FirstOrDefault(t => t.Name == tab.Name);
+            if (existingTab != null)
             {
+                existingTab.TabType = tab.TabType;
+                existingTab.InFolder = tab.InFolder;
                 return;
             }
 
-            this.Tabs.Add(new StashTab() { Name = name, TabType = StashTabType.Quad });
+            this.Tabs.Add(tab);
         }
 
         /// <summary>

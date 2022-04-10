@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Lurker.UI.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid ShowGridLines="True">
+    <Grid>
         <Ellipse Height="80" Width="80">
             <Ellipse.Style>
                 <Style TargetType="Ellipse">

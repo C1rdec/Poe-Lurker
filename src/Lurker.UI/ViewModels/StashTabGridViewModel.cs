@@ -31,8 +31,10 @@ namespace Lurker.UI.ViewModels
         private int _top;
         private int _left;
         private bool _isRegularTab;
+        private bool _isInFolder;
         private bool _isVisible;
         private string _currentTabName;
+        private PoeWindowInformation _currentWindowInformation;
 
         #endregion
 
@@ -129,6 +131,29 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public bool IsQuadTab => !this.IsRegularTab;
 
+        /// <summary>
+        /// Gets a value indicating whether the tab is in a folder.
+        /// </summary>
+        public bool IsInFolder
+        {
+            get
+            {
+                return this._isInFolder;
+            }
+
+            private set
+            {
+                this._isInFolder = value;
+                this.NotifyOfPropertyChange();
+                this.NotifyOfPropertyChange(() => this.IsNotInFolder);
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether IsNotInFolder.
+        /// </summary>
+        public bool IsNotInFolder => !this.IsInFolder;
+
         #endregion
 
         #region Methods
@@ -159,6 +184,22 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Toggle the tab type.
+        /// </summary>
+        public void ToggleInFolder()
+        {
+            this.IsInFolder = !this.IsInFolder;
+            this._service.AddOrUpdateTab(new StashTab()
+            {
+                Name = this._currentTabName,
+                InFolder = this.IsInFolder,
+                TabType = this.IsRegularTab ? StashTabType.Regular : StashTabType.Quad,
+            });
+
+            this.SetWindowPosition();
+        }
+
+        /// <summary>
         /// Releases unmanaged and - optionally - managed resources.
         /// </summary>
         /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
@@ -177,6 +218,8 @@ namespace Lurker.UI.ViewModels
         /// <param name="windowInformation">The window information.</param>
         protected override void SetWindowPosition(PoeWindowInformation windowInformation)
         {
+            this._currentWindowInformation = windowInformation;
+
             // When Poe Lurker is updated we save the settings before the view are loaded
             if (this.View == null)
             {
@@ -196,13 +239,21 @@ namespace Lurker.UI.ViewModels
                     topMargin += Margin;
                 }
 
+                var top = windowInformation.Position.Top + topMargin - margin - Margin;
+                if (this.IsInFolder)
+                {
+                    top += 42 * windowInformation.Height / DefaultTabHeight;
+                }
+
                 // 50 is the footer
                 this.View.Height = this.ApplyScalingY(size + 50 + margin);
                 this.View.Width = this.ApplyScalingX(size + margin);
                 this.View.Left = this.ApplyScalingX(windowInformation.Position.Left + leftMargin);
-                this.View.Top = this.ApplyScalingY(windowInformation.Position.Top + topMargin - margin - Margin);
+                this.View.Top = this.ApplyScalingY(top);
             });
         }
+
+        private void SetWindowPosition() => this.SetWindowPosition(this._currentWindowInformation);
 
         private void Service_NewMarkerRequested(object sender, StashTabLocation e)
         {
