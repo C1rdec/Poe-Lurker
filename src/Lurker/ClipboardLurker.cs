@@ -84,15 +84,14 @@ namespace Lurker
             }
 
             var currentText = e.Content as string;
-            if (string.IsNullOrEmpty(currentText)
-                || this._lastClipboardText == currentText
-                || Keyboard.IsKeyDown(Key.LeftShift))
+            if (string.IsNullOrEmpty(currentText) ||
+                this._lastClipboardText == currentText ||
+                Keyboard.IsKeyDown(Key.LeftShift))
             {
                 return;
             }
 
             var isTradeMessage = false;
-            this._lastClipboardText = currentText;
             if (TradeEvent.IsTradeMessage(currentText))
             {
                 isTradeMessage = true;
@@ -104,6 +103,7 @@ namespace Lurker
 
             if (isTradeMessage)
             {
+                this._lastClipboardText = currentText;
                 this.NewOffer?.Invoke(this, currentText);
             }
         }
