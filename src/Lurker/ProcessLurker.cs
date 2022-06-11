@@ -142,7 +142,7 @@ namespace Lurker
         /// </summary>
         /// <returns>The process.</returns>
         /// <exception cref="InvalidOperationException">Path of Exile is not running.</exception>
-        private Process GetProcess()
+        public Process GetProcess()
         {
             if (this._activeProcess != null)
             {

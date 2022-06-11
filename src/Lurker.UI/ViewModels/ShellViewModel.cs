@@ -18,6 +18,7 @@ namespace Lurker.UI
     using Lurker.Helpers;
     using Lurker.Models;
     using Lurker.Patreon;
+    using Lurker.Patreon.Events;
     using Lurker.Patreon.Models;
     using Lurker.Patreon.Services;
     using Lurker.Services;
@@ -636,22 +637,41 @@ namespace Lurker.UI
         /// </summary>
         private async Task WaitForPoe(bool fromClosing)
         {
-            var affixServiceTask = AffixService.InitializeAsync();
-
             // Process Lurker
             this._processLurker = new PathOfExileProcessLurker();
+            var existingProcess = this._processLurker.GetProcess();
             this._processLurker.ProcessClosed += this.PoeClosed;
-            var process = await this._processLurker.WaitForProcess();
+            var windowHandle = await this._processLurker.WaitForProcess();
 
             if (this._settingsService.SyncBuild)
             {
                 this._buildService.Sync();
             }
 
-            this._currentLurker = new ClientLurker(process);
+            this._currentLurker = new ClientLurker(windowHandle);
             this._currentLurker.AdminRequested += this.CurrentLurker_AdminRequested;
             this._currentLurker.LeagueChanged += this.CurrentLurker_LeagueChanged;
 
+            if (existingProcess != null)
+            {
+                this.Start(windowHandle);
+            }
+            else
+            {
+                EventHandler<LocationChangedEvent> handler = default;
+                handler = (object s, LocationChangedEvent e) =>
+                {
+                    this.Start(windowHandle);
+                    this._currentLurker.LocationChanged -= handler;
+                };
+
+                this._currentLurker.LocationChanged += handler;
+            }
+        }
+
+        private async void Start(int process)
+        {
+            var affixServiceTask = AffixService.InitializeAsync();
             this._currentCharacterService = new PlayerService(this._currentLurker);
             this.ActivePlayer = new PlayerViewModel(this._currentCharacterService);
             this.NotifyOfPropertyChange("ActivePlayer");
