@@ -391,6 +391,7 @@
     <Compile Include="ViewModels\UniqueItemViewModel.cs" />
     <Compile Include="ViewModels\UpdateViewModel.cs" />
     <Compile Include="ViewModels\WeaponViewModel.cs" />
+    <Compile Include="ViewModels\WelcomeViewModel.cs" />
     <Compile Include="ViewModels\WikiItemBaseViewModel.cs" />
     <Compile Include="ViewModels\WikiViewModel.cs" />
     <Compile Include="Views\AffixView.xaml.cs">
@@ -548,6 +549,9 @@
     </Compile>
     <Compile Include="Views\WeaponView.xaml.cs">
       <DependentUpon>WeaponView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WelcomeView.xaml.cs">
+      <DependentUpon>WelcomeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WikiView.xaml.cs">
       <DependentUpon>WikiView.xaml</DependentUpon>
@@ -749,6 +753,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\WeaponView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WelcomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
