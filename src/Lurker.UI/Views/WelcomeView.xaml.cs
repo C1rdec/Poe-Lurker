@@ -6,12 +6,14 @@
 
 namespace Lurker.UI.Views
 {
-    using System.Windows;
+    using System.Windows.Interop;
+    using MahApps.Metro.Controls;
+    using static Lurker.UI.Views.SettingsView;
 
     /// <summary>
     /// Interaction logic for WelcomeView.xaml.
     /// </summary>
-    public partial class WelcomeView : Window
+    public partial class WelcomeView : MetroWindow
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WelcomeView"/> class.
@@ -19,6 +21,11 @@ namespace Lurker.UI.Views
         public WelcomeView()
         {
             this.InitializeComponent();
+
+            var hWnd = new WindowInteropHelper(GetWindow(this)).EnsureHandle();
+            var attribute = DWMWINDOWATTRIBUTE.DWMWA_WINDOW_CORNER_PREFERENCE;
+            var preference = DWM_WINDOW_CORNER_PREFERENCE.DWMWCP_ROUND;
+            DwmSetWindowAttribute(hWnd, attribute, ref preference, sizeof(uint));
         }
     }
 }

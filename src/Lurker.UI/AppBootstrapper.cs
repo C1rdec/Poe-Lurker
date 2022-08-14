@@ -70,6 +70,7 @@ namespace Lurker.UI
             this._container.Singleton<GithubService, GithubService>();
             this._container.Singleton<DashboardViewModel, DashboardViewModel>();
             this._container.Singleton<TutorialViewModel, TutorialViewModel>();
+            this._container.Singleton<WelcomeViewModel, WelcomeViewModel>();
             this._container.Singleton<PushBulletService, PushBulletService>();
             this._container.Singleton<PushHoverService, PushHoverService>();
             this._container.PerRequest<AfkService, AfkService>();
@@ -131,6 +132,7 @@ namespace Lurker.UI
         protected override void OnStartup(object sender, System.Windows.StartupEventArgs e)
         {
             var settings = this._container.GetInstance<SettingsService>();
+            var windowManager = this._container.GetInstance<IWindowManager>();
             this._sentry = SentrySdk.Init(Dsn);
             SentrySdk.ConfigureScope((c) =>
             {
@@ -147,6 +149,7 @@ namespace Lurker.UI
                 return;
             }
 
+            windowManager.ShowWindow(this._container.GetInstance<WelcomeViewModel>());
             this.DisplayRootViewFor<ShellViewModel>();
         }
 

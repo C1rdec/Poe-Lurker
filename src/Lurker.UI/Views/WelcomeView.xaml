@@ -1,12 +1,29 @@
-﻿<Window x:Class="Lurker.UI.Views.WelcomeView"
+﻿<Controls:MetroWindow x:Class="Lurker.UI.Views.WelcomeView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Lurker.UI.Views"
         mc:Ignorable="d"
-        Title="WelcomeView" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
-</Window>
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        Title="Poe Lurker" Height="450" Width="800">
+    <Controls:FlipView MouseHoverBorderEnabled="False" 
+                       IsBannerEnabled="False"
+                       IndexPlacement="BottomOverItem"
+                       ShowIndex="True">
+        <Controls:FlipViewItem>
+
+            <StackPanel HorizontalAlignment="Center">
+                
+            <TextBlock VerticalAlignment="Center" 
+                       HorizontalAlignment="Center"
+                       FontSize="36"
+                       FontFamily="pack://application:,,,/Assets/#Fontin"
+                       Foreground="White">Greetings Exile!</TextBlock>
+                <TextBlock FontFamily="pack://application:,,,/Assets/#Fontin">Poe Lurker is currently running in the system tray.</TextBlock>
+            </StackPanel>
+        </Controls:FlipViewItem>
+        <Controls:FlipViewItem>
+            <TextBlock Foreground="White">Allo2</TextBlock>
+        </Controls:FlipViewItem>
+    </Controls:FlipView>
+</Controls:MetroWindow>
