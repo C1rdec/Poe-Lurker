@@ -148,6 +148,22 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the welcome scrren needs to be shown.
+        /// </summary>
+        public bool ShowWelcome
+        {
+            get
+            {
+                return this._settings.ShowWelcome;
+            }
+
+            set
+            {
+                this._settings.ShowWelcome = value;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the sill interested message.
         /// </summary>
         public string StillInterestedMessage

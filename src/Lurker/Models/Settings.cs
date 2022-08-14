@@ -17,6 +17,12 @@ namespace Lurker.Models
         #region Properties
 
         /// <summary>
+        /// Gets or sets a value indicating whether the welcome screen should be shown.
+        /// </summary>
+        [DefaultValue(true)]
+        public bool ShowWelcome { get; set; }
+
+        /// <summary>
         /// Gets or sets the user identifier.
         /// </summary>
         public string UserId { get; set; }

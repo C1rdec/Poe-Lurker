@@ -149,7 +149,14 @@ namespace Lurker.UI
                 return;
             }
 
-            windowManager.ShowWindow(this._container.GetInstance<WelcomeViewModel>());
+            if (settings.ShowWelcome)
+            {
+                settings.ShowWelcome = false;
+                settings.Save();
+
+                windowManager.ShowWindow(this._container.GetInstance<WelcomeViewModel>());
+            }
+
             this.DisplayRootViewFor<ShellViewModel>();
         }
 
