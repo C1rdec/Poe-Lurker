@@ -71,7 +71,15 @@ namespace Lurker.UI.Views
             DWMWCP_ROUNDSMALL = 3,
         }
 
-        // Import dwmapi.dll and define DwmSetWindowAttribute in C# corresponding to the native function.
+        /// <summary>
+        /// The DWM_WINDOW_CORNER_PREFERENCE enum for DwmSetWindowAttribute's third parameter, which tells the function
+        /// what value of the enum to set.
+        /// </summary>
+        /// <param name="hwnd">The identifier.</param>
+        /// <param name="attribute">The attribute.</param>
+        /// <param name="pvAttribute">The pvAttribute.</param>
+        /// <param name="cbAttribute">The cbAttribute.</param>
+        /// <returns>The long value.</returns>
         [DllImport("dwmapi.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern long DwmSetWindowAttribute(IntPtr hwnd, DWMWINDOWATTRIBUTE attribute, ref DWM_WINDOW_CORNER_PREFERENCE pvAttribute, uint cbAttribute);
     }

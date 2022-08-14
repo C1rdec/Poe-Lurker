@@ -41,9 +41,6 @@
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
     <Grid>
-        <!--<Grid.Resources>
-            <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls..xaml" />
-        </Grid.Resources>-->
         <Controls:MetroAnimatedTabControl SelectedIndex="{Binding SelectTabIndex}" Controls:TabControlHelper.Underlined="TabPanel" TabStripPlacement="Left">
             <TabItem Header="Builds" Width="175">
                 <Grid>
