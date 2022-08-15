@@ -6,8 +6,7 @@
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:local="clr-namespace:Lurker.UI"  
         mc:Ignorable="d"
-        Icon="pack://application:,,,/Assets/TrayIcon.ico"
-                      
+        Icon="pack://application:,,,/TrayIcon.ico"
         ResizeMode="CanMinimize"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         Title="Poe Lurker" Height="450" Width="800">
