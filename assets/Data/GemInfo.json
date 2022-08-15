@@ -5,7 +5,7 @@
     "Location": null,
     "Name": "Absolution",
     "WikiUrl": "https://poedb.tw/us/Absolution",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9BYnNvbHV0aW9uQmxhc3RHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/11111dec89/AbsolutionBlastGem.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/AbsolutionBlastGem.png",
     "Level": 12
   },
   {
@@ -53,7 +53,7 @@
     "Location": null,
     "Name": "Ambush",
     "WikiUrl": "https://poedb.tw/us/Ambush",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9BbWJ1c2hTa2lsbEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/92a4cb4028/AmbushSkillGem.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/AmbushSkillGem.png",
     "Level": 34
   },
   {
@@ -84,7 +84,7 @@
     "Location": null,
     "Name": "Ancestral Blademaster",
     "WikiUrl": "https://poedb.tw/us/Ancestral_Blademaster",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/SlashTotemGem.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/SlashTotemGem.png",
     "Level": 12
   },
   {
@@ -292,9 +292,9 @@
       "Act": "Act 3",
       "Npc": "Clarissa",
       "Classes": [
-        "Witch",
         "Shadow",
-        "Ranger"
+        "Ranger",
+        "Duelist"
       ]
     },
     "Name": "Assassin's Mark",
@@ -308,7 +308,7 @@
     "Location": null,
     "Name": "Backstab",
     "WikiUrl": "https://poedb.tw/us/Backstab",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/Backstab.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/Backstab.png",
     "Level": 1
   },
   {
@@ -358,7 +358,7 @@
     "Location": null,
     "Name": "Battlemage's Cry",
     "WikiUrl": "https://poedb.tw/us/Battlemages_Cry",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9EaXZpbmVDcnlHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/6948014a56/DivineCryGem.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/DivineCryGem.png",
     "Level": 24
   },
   {
@@ -434,7 +434,7 @@
     "Location": null,
     "Name": "Blade Trap",
     "WikiUrl": "https://poedb.tw/us/Blade_Trap",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9CbGFkZVRyYXBTa2lsbEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/b4ce2d5dc5/BladeTrapSkillGem.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/BladeTrapSkillGem.png",
     "Level": 12
   },
   {
@@ -722,7 +722,7 @@
     "Location": null,
     "Name": "Boneshatter",
     "WikiUrl": "https://poedb.tw/us/Boneshatter",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Cb25lc2hhdHRlclNraWxsR2VtIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/9c37514f07/BoneshatterSkillGem.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/BoneshatterSkillGem.png",
     "Level": 28
   },
   {
@@ -1228,7 +1228,7 @@
     "Location": null,
     "Name": "Damage Infusion",
     "WikiUrl": "https://poedb.tw/us/Damage_Infusion",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/IntelligenceGem.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/IntelligenceGem.png",
     "Level": 2
   },
   {
@@ -1317,7 +1317,7 @@
     "Location": null,
     "Name": "Defiance Banner",
     "WikiUrl": "https://poedb.tw/us/Defiance_Banner",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Bcm1vdXJhbmRFdmFzaW9uQmFubmVyIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/b1f3dcfaa6/ArmourandEvasionBanner.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/ArmourandEvasionBanner.png",
     "Level": 16
   },
   {
@@ -1367,7 +1367,7 @@
     "Location": null,
     "Name": "Destructive Link",
     "WikiUrl": "https://poedb.tw/us/Destructive_Link",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Dcml0aWNhbExpbmtHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/78c8139685/CriticalLinkGem.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/CriticalLinkGem.png",
     "Level": 34
   },
   {
@@ -1474,7 +1474,7 @@
     "Location": null,
     "Name": "Discorectangle Slam",
     "WikiUrl": "https://poedb.tw/us/Discorectangle_Slam",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/Sweep.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/Sweep.png",
     "Level": 28
   },
   {
@@ -1735,7 +1735,7 @@
     "Location": null,
     "Name": "Energy Blade",
     "WikiUrl": "https://poedb.tw/us/Energy_Blade",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdG9ybUJsYWRlR2VtIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/387697170b/StormBladeGem.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/StormBladeGem.png",
     "Level": 24
   },
   {
@@ -1782,7 +1782,7 @@
     "Location": null,
     "Name": "Envy",
     "WikiUrl": "https://poedb.tw/us/Envy",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/Envy.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/Envy.png",
     "Level": 60
   },
   {
@@ -1869,7 +1869,7 @@
     "Location": null,
     "Name": "Explosive Concoction",
     "WikiUrl": "https://poedb.tw/us/Explosive_Concoction",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9FeHBsb3NpdmVGbGFza1NraWxsR2VtIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/9114018038/ExplosiveFlaskSkillGem.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/ExplosiveFlaskSkillGem.png",
     "Level": 28
   },
   {
@@ -1887,7 +1887,7 @@
     "Location": null,
     "Name": "Eye of Winter",
     "WikiUrl": "https://poedb.tw/us/Eye_of_Winter",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Gcm96ZW5TcGhlcmVTa2lsbEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/b51924877e/FrozenSphereSkillGem.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/FrozenSphereSkillGem.png",
     "Level": 28
   },
   {
@@ -1962,7 +1962,7 @@
     "Location": null,
     "Name": "Fire Weapon",
     "WikiUrl": "https://poedb.tw/us/Fire_Weapon",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/FireWeapon.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/FireWeapon.png",
     "Level": 5
   },
   {
@@ -2051,7 +2051,7 @@
     "Location": null,
     "Name": "Flame Link",
     "WikiUrl": "https://poedb.tw/us/Flame_Link",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9GbGFtZUxpbmtHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/fee913312b/FlameLinkGem.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/FlameLinkGem.png",
     "Level": 34
   },
   {
@@ -2199,7 +2199,7 @@
     "Location": null,
     "Name": "Forbidden Rite",
     "WikiUrl": "https://poedb.tw/us/Forbidden_Rite",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Tb3VsZmVhc3RHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b4fd5ae750/SoulfeastGem.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/SoulfeastGem.png",
     "Level": 16
   },
   {
@@ -2588,7 +2588,7 @@
     "Location": null,
     "Name": "Herald of Blood",
     "WikiUrl": "https://poedb.tw/us/Herald_of_Blood",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/HeraldofAsh.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/HeraldofAsh.png",
     "Level": 16
   },
   {
@@ -2801,7 +2801,7 @@
     "Location": null,
     "Name": "Icefire",
     "WikiUrl": "https://poedb.tw/us/Icefire",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/Ignite.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/Ignite.png",
     "Level": 1
   },
   {
@@ -2904,7 +2904,7 @@
     "Location": null,
     "Name": "Infernal Sweep",
     "WikiUrl": "https://poedb.tw/us/Infernal_Sweep",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/Sweep.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/Sweep.png",
     "Level": 28
   },
   {
@@ -2932,7 +2932,7 @@
     "Location": null,
     "Name": "Intuitive Link",
     "WikiUrl": "https://poedb.tw/us/Intuitive_Link",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9UcmlnZ2VyTGlua0dlbSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/726a29e3ef/TriggerLinkGem.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/TriggerLinkGem.png",
     "Level": 34
   },
   {
@@ -3020,7 +3020,7 @@
     "Location": null,
     "Name": "Lightning Channel",
     "WikiUrl": "https://poedb.tw/us/Lightning_Channel",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/Arc.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/Arc.png",
     "Level": 1
   },
   {
@@ -3029,7 +3029,7 @@
     "Location": null,
     "Name": "Lightning Circle",
     "WikiUrl": "https://poedb.tw/us/Lightning_Circle",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/ShockNova.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/ShockNova.png",
     "Level": 1
   },
   {
@@ -3247,7 +3247,7 @@
     "Location": null,
     "Name": "Manabond",
     "WikiUrl": "https://poedb.tw/us/Manabond",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9NYW5hVm9pZEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/ce344fd0e1/ManaVoidGem.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/ManaVoidGem.png",
     "Level": 12
   },
   {
@@ -3357,7 +3357,7 @@
     "Location": null,
     "Name": "NewPunishment",
     "WikiUrl": "https://poedb.tw/us/NewPunishment",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/Punishment.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/Punishment.png",
     "Level": 24
   },
   {
@@ -3384,7 +3384,7 @@
     "Location": null,
     "Name": "New Shock Nova",
     "WikiUrl": "https://poedb.tw/us/New_Shock_Nova",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/ShockNova.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/ShockNova.png",
     "Level": 28
   },
   {
@@ -3412,7 +3412,7 @@
     "Location": null,
     "Name": "Flammable Shot",
     "WikiUrl": "https://poedb.tw/us/Flammable_Shot",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/BurningArrow.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/BurningArrow.png",
     "Level": 12
   },
   {
@@ -3537,7 +3537,7 @@
     "Location": null,
     "Name": "Poisonous Concoction",
     "WikiUrl": "https://poedb.tw/us/Poisonous_Concoction",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Qb2lzb25vdXNDb25jb2N0aW9uIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/b1cde568a6/PoisonousConcoction.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/PoisonousConcoction.png",
     "Level": 12
   },
   {
@@ -3564,7 +3564,7 @@
     "Location": null,
     "Name": "Protective Link",
     "WikiUrl": "https://poedb.tw/us/Protective_Link",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9CbG9ja0xpbmtHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/a459f4b2b0/BlockLinkGem.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/BlockLinkGem.png",
     "Level": 34
   },
   {
@@ -3716,7 +3716,7 @@
     "Location": null,
     "Name": "Rage Vortex",
     "WikiUrl": "https://poedb.tw/us/Rage_Vortex",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9SYWdlVm9ydGV4IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/31794f9875/RageVortex.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/RageVortex.png",
     "Level": 28
   },
   {
@@ -3877,7 +3877,7 @@
     "Location": null,
     "Name": "Rending Steel",
     "WikiUrl": "https://poedb.tw/us/Rending_Steel",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/LancingSteel.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/LancingSteel.png",
     "Level": 12
   },
   {
@@ -3914,7 +3914,7 @@
     "Location": null,
     "Name": "Righteous Lightning",
     "WikiUrl": "https://poedb.tw/us/Righteous_Lightning",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/RighteousFire.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/RighteousFire.png",
     "Level": 16
   },
   {
@@ -3942,7 +3942,7 @@
     "Location": null,
     "Name": "Riptide",
     "WikiUrl": "https://poedb.tw/us/Riptide",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/Spark.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/Spark.png",
     "Level": 28
   },
   {
@@ -4038,7 +4038,7 @@
     "Location": null,
     "Name": "Shadow Blades",
     "WikiUrl": "https://poedb.tw/us/Shadow_Blades",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/EtherealKnives.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/EtherealKnives.png",
     "Level": 1
   },
   {
@@ -4066,7 +4066,7 @@
     "Location": null,
     "Name": "Shield Crush",
     "WikiUrl": "https://poedb.tw/us/Shield_Crush",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TaGllbGRDcnVzaCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/920a5e462f/ShieldCrush.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/ShieldCrush.png",
     "Level": 1
   },
   {
@@ -4318,7 +4318,7 @@
     "Location": null,
     "Name": "Snipe",
     "WikiUrl": "https://poedb.tw/us/Snipe",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/DexterityGem.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/DexterityGem.png",
     "Level": 5
   },
   {
@@ -4345,7 +4345,7 @@
     "Location": null,
     "Name": "Soul Link",
     "WikiUrl": "https://poedb.tw/us/Soul_Link",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Tb3VsTGlua0dlbSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/77a2f86ddb/SoulLinkGem.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/SoulLinkGem.png",
     "Level": 34
   },
   {
@@ -4395,7 +4395,7 @@
     "Location": null,
     "Name": "Spectral Helix",
     "WikiUrl": "https://poedb.tw/us/Spectral_Helix",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TcGVjdHJhbFNwaXJhbEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/a4324285be/SpectralSpiralGem.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/SpectralSpiralGem.png",
     "Level": 12
   },
   {
@@ -4518,7 +4518,7 @@
     "Location": null,
     "Name": "Static Tether",
     "WikiUrl": "https://poedb.tw/us/Static_Tether",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/LighteningTouch.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/LighteningTouch.png",
     "Level": 1
   },
   {
@@ -4565,7 +4565,7 @@
     "Location": null,
     "Name": "Storm Rain",
     "WikiUrl": "https://poedb.tw/us/Storm_Rain",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9QcmlzbWF0aWNSYWluIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/576ba4b47b/PrismaticRain.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/PrismaticRain.png",
     "Level": 28
   },
   {
@@ -4722,7 +4722,7 @@
     "Location": null,
     "Name": "Summon Reaper",
     "WikiUrl": "https://poedb.tw/us/Summon_Reaper",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdW1tb25SZWFwZXJTa2lsbEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/24f147e638/SummonReaperSkillGem.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/SummonReaperSkillGem.png",
     "Level": 28
   },
   {
@@ -4788,7 +4788,7 @@
     "Location": null,
     "Name": "Summon Skeletons Channelled",
     "WikiUrl": "https://poedb.tw/us/Summon_Skeletons_Channelled",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/SummonSkeletons.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/SummonSkeletons.png",
     "Level": 10
   },
   {
@@ -4960,6 +4960,15 @@
     "Level": 1
   },
   {
+    "Id": "SupportAdditionalLevelPlus",
+    "Support": true,
+    "Location": null,
+    "Name": "Awakened Empower Support",
+    "WikiUrl": "https://poedb.tw/us/Awakened_Empower_Support",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/Support/SupportPlus/EmpowerPlus.png",
+    "Level": 72
+  },
+  {
     "Id": "SupportAdditionalQuality",
     "Support": true,
     "Location": null,
@@ -4967,6 +4976,15 @@
     "WikiUrl": "https://poedb.tw/us/Enhance_Support",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/7/78/Enhance_Support_inventory_icon.png/revision/latest?cb=20131113134315",
     "Level": 1
+  },
+  {
+    "Id": "SupportAdditionalQualityPlus",
+    "Support": true,
+    "Location": null,
+    "Name": "Awakened Enhance Support",
+    "WikiUrl": "https://poedb.tw/us/Awakened_Enhance_Support",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/Support/SupportPlus/enhanceplus.png",
+    "Level": 72
   },
   {
     "Id": "SupportAdditionalTrapMine",
@@ -4996,6 +5014,15 @@
     "WikiUrl": "https://poedb.tw/us/Enlighten_Support",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/3/3d/Enlighten_Support_inventory_icon.png/revision/latest?cb=20190607180823",
     "Level": 1
+  },
+  {
+    "Id": "SupportAdditionalXPPlus",
+    "Support": true,
+    "Location": null,
+    "Name": "Awakened Enlighten Support",
+    "WikiUrl": "https://poedb.tw/us/Awakened_Enlighten_Support",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/Support/SupportPlus/Enlightenplus.png",
+    "Level": 72
   },
   {
     "Id": "SupportAilments",
@@ -5094,7 +5121,7 @@
     "Location": null,
     "Name": "Divine Blessing Support",
     "WikiUrl": "https://poedb.tw/us/Divine_Blessing_Support",
-    "ImageUrl": null,
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/Support/BlessingSupport.png",
     "Level": 31
   },
   {
@@ -5125,7 +5152,7 @@
     "Location": null,
     "Name": "Behead Support",
     "WikiUrl": "https://poedb.tw/us/Behead_Support",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0V4ZWN1dGlvbmVyU3VwcG9ydEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/5a4440c4e7/ExecutionerSupportGem.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/Support/ExecutionerSupportGem.png",
     "Level": 38
   },
   {
@@ -5914,7 +5941,7 @@
     "Location": null,
     "Name": "Earthbreaker Support",
     "WikiUrl": "https://poedb.tw/us/Earthbreaker_Support",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0FuY2VzdG9yU2xhbVRvdGVtIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/1b262b37c1/AncestorSlamTotem.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/Support/AncestorSlamTotem.png",
     "Level": 8
   },
   {
@@ -6102,7 +6129,7 @@
     "Location": null,
     "Name": "Focused Ballista Support",
     "WikiUrl": "https://poedb.tw/us/Focused_Ballista_Support",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0ZvY3Vzc2VkQmFsbGlzdGFTdXBwb3J0IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/7fe5aa6d93/FocussedBallistaSupport.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/Support/FocussedBallistaSupport.png",
     "Level": 31
   },
   {
@@ -6742,7 +6769,7 @@
     "Location": null,
     "Name": "Mark On Hit Support",
     "WikiUrl": "https://poedb.tw/us/Mark_On_Hit_Support",
-    "ImageUrl": null,
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/Support/MarkOnHitting.png",
     "Level": 38
   },
   {
@@ -6967,7 +6994,7 @@
     "Location": null,
     "Name": "Eternal Blessing Support",
     "WikiUrl": "https://poedb.tw/us/Eternal_Blessing_Support",
-    "ImageUrl": null,
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/Support/MortalConviction.png",
     "Level": 38
   },
   {
@@ -7422,7 +7449,7 @@
     "Location": null,
     "Name": "Return Projectiles Support",
     "WikiUrl": "https://poedb.tw/us/Return_Projectiles_Support",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/ReturnProjectiles.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/Support/ReturnProjectiles.png",
     "Level": 24
   },
   {
@@ -7563,7 +7590,7 @@
     "Location": null,
     "Name": "Split Projectiles Support",
     "WikiUrl": "https://poedb.tw/us/Split_Projectiles_Support",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/SplitProjectiles.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/Support/SplitProjectiles.png",
     "Level": 24
   },
   {
@@ -7735,7 +7762,7 @@
     "Location": null,
     "Name": "Lesser Reduced Mana Cost Support",
     "WikiUrl": "https://poedb.tw/us/Lesser_Reduced_Mana_Cost_Support",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/Support/ReducedManaCost.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/Support/ReducedManaCost.png",
     "Level": 1
   },
   {
@@ -7907,7 +7934,7 @@
     "Location": null,
     "Name": "Temporal Rift",
     "WikiUrl": "https://poedb.tw/us/Temporal_Rift",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9DaHJvbm9tYW5jZXIiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/9977b27b7c/Chronomancer.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/Chronomancer.png",
     "Level": 34
   },
   {
@@ -7958,7 +7985,7 @@
     "Location": null,
     "Name": "Tornado",
     "WikiUrl": "https://poedb.tw/us/Tornado",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Ub3JuYWRvR2VtIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/6ff8d3b903/TornadoGem.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/TornadoGem.png",
     "Level": 34
   },
   {
@@ -8008,7 +8035,7 @@
     "Location": null,
     "Name": "Touch of God",
     "WikiUrl": "https://poedb.tw/us/Touch_of_God",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/Groundslam.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/Groundslam.png",
     "Level": 28
   },
   {
@@ -8253,7 +8280,7 @@
     "Location": null,
     "Name": "Vaal FireTrap",
     "WikiUrl": "https://poedb.tw/us/Vaal_FireTrap",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/FireTrap.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/FireTrap.png",
     "Level": 1
   },
   {
@@ -8313,7 +8340,7 @@
     },
     "Name": "Vaal Flesh Offering",
     "WikiUrl": "https://poedb.tw/us/Vaal_Flesh_Offering",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/FleshOffering.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/FleshOffering.png",
     "Level": 12
   },
   {
@@ -8405,7 +8432,7 @@
     },
     "Name": "Vaal Heavy Strike",
     "WikiUrl": "https://poedb.tw/us/Vaal_Heavy_Strike",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/VaalGems/VaalHeavyStrike.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/VaalGems/VaalHeavyStrike.png",
     "Level": 1
   },
   {
@@ -8603,7 +8630,7 @@
     "Location": null,
     "Name": "Vaal Soul Harvesting",
     "WikiUrl": "https://poedb.tw/us/Vaal_Soul_Harvesting",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/Portal.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/Portal.png",
     "Level": 38
   },
   {
@@ -8677,7 +8704,7 @@
     },
     "Name": "Vaal Sweep",
     "WikiUrl": "https://poedb.tw/us/Vaal_Sweep",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/Sweep.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/Sweep.png",
     "Level": 12
   },
   {
@@ -8707,7 +8734,7 @@
     "Location": null,
     "Name": "Vampiric Link",
     "WikiUrl": "https://poedb.tw/us/Vampiric_Link",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9MZWVjaExpbmtHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/cb9c98d9f4/LeechLinkGem.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/LeechLinkGem.png",
     "Level": 34
   },
   {
@@ -8824,7 +8851,7 @@
     "Location": null,
     "Name": "Voltaxic Burst",
     "WikiUrl": "https://poedb.tw/us/Voltaxic_Burst",
-    "ImageUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Wb2lkYnVyc3RTa2lsbEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/ba291fb033/VoidburstSkillGem.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/VoidburstSkillGem.png",
     "Level": 12
   },
   {
@@ -8833,7 +8860,7 @@
     "Location": null,
     "Name": "Vortex Mine",
     "WikiUrl": "https://poedb.tw/us/Vortex_Mine",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/SmokeBomb.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/SmokeBomb.png",
     "Level": 1
   },
   {
@@ -8861,7 +8888,7 @@
     "Location": null,
     "Name": "Wand Teleport",
     "WikiUrl": "https://poedb.tw/us/Wand_Teleport",
-    "ImageUrl": "https://web.poecdn.com/image/Art/2DItems/Gems/VaalGems/VaalIceNova.png?w=1&amp;h=1&amp;scale=1",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Gems/VaalGems/VaalIceNova.png",
     "Level": 10
   },
   {
