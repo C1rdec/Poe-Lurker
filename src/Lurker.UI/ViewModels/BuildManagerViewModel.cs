@@ -151,7 +151,7 @@ namespace Lurker.UI.ViewModels
                     var build = service.Decode(text);
                     var simpleBuild = this._buildService.AddBuild(build);
                     this._buildService.Save();
-                    this.Configurations.Add(new BuildConfigurationViewModel(simpleBuild));
+                    this.Configurations.Insert(0, new BuildConfigurationViewModel(simpleBuild));
                 }
                 catch
                 {

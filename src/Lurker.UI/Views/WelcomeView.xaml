@@ -30,7 +30,7 @@
             </Button>
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
-    <Controls:FlipView MouseHoverBorderEnabled="False" 
+    <Controls:FlipView MouseHoverBorderEnabled="False"
                        IsBannerEnabled="False"
                        IndexPlacement="BottomOverItem"
                        ShowIndex="True">

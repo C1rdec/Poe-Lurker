@@ -142,7 +142,7 @@ namespace Lurker.Services
             var skillsElement = document.Root.Element("Skills");
             if (skillsElement != null)
             {
-                foreach (var element in skillsElement.Elements())
+                foreach (var element in skillsElement.Descendants("Skill"))
                 {
                     var skill = Skill.FromXml(element, this._knownGems);
                     if (skill.Gems.Any())
