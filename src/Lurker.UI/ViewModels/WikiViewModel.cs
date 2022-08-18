@@ -129,6 +129,8 @@ namespace Lurker.UI.ViewModels
         public void CloseWindow()
         {
             this.SearchValue = string.Empty;
+            this.CurrentView = null;
+            this.NotifyOfPropertyChange(() => this.CurrentView);
             this.Visible = false;
             this.DockingHelper.SetForeground();
         }
@@ -139,9 +141,6 @@ namespace Lurker.UI.ViewModels
         /// <returns>The task.</returns>
         public async Task Show()
         {
-            this.CurrentView = null;
-            this.NotifyOfPropertyChange(() => this.CurrentView);
-
             var clipboardTask = ClipboardHelper.GetItemInClipboard();
             this.Visible = true;
             this.SetInForeground();
