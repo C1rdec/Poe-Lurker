@@ -139,7 +139,13 @@ namespace Lurker.UI.ViewModels
         /// <returns>The task.</returns>
         public async Task Show()
         {
-            var clipboardItem = await ClipboardHelper.GetItemInClipboard();
+            this.CurrentView = null;
+            this.NotifyOfPropertyChange(() => this.CurrentView);
+
+            var clipboardTask = ClipboardHelper.GetItemInClipboard();
+            this.Visible = true;
+            this.SetInForeground();
+            var clipboardItem = await clipboardTask;
             ClipboardHelper.ClearClipboard();
             if (clipboardItem != null && clipboardItem.Rarity == Patreon.Models.Rarity.Unique)
             {
@@ -154,9 +160,6 @@ namespace Lurker.UI.ViewModels
             {
                 await this.SetExaltedRatio();
             }
-
-            this.Visible = true;
-            this.SetInForeground();
         }
 
         /// <summary>
