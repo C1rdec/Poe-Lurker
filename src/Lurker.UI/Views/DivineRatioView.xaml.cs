@@ -11,12 +11,12 @@ namespace Lurker.UI.Views
     /// <summary>
     /// Interaction logic for ExaltedRatioView.xaml.
     /// </summary>
-    public partial class ExaltedRatioView : UserControl
+    public partial class DivineRatioView : UserControl
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ExaltedRatioView"/> class.
+        /// Initializes a new instance of the <see cref="DivineRatioView"/> class.
         /// </summary>
-        public ExaltedRatioView()
+        public DivineRatioView()
         {
             this.InitializeComponent();
         }

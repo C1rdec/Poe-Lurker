@@ -341,7 +341,7 @@
     <Compile Include="ViewModels\BuildSelectorViewModel.cs" />
     <Compile Include="ViewModels\BuildViewModel.cs" />
     <Compile Include="ViewModels\DeviceViewModel.cs" />
-    <Compile Include="ViewModels\ExaltedRatioViewModel.cs" />
+    <Compile Include="ViewModels\DivineRatioViewModel.cs" />
     <Compile Include="ViewModels\GroupItemViewModel.cs" />
     <Compile Include="ViewModels\HotkeyViewModel.cs" />
     <Compile Include="ViewModels\ItemChartViewModel.cs" />
@@ -421,8 +421,8 @@
     <Compile Include="Views\DeviceView.xaml.cs">
       <DependentUpon>DeviceView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ExaltedRatioView.xaml.cs">
-      <DependentUpon>ExaltedRatioView.xaml</DependentUpon>
+    <Compile Include="Views\DivineRatioView.xaml.cs">
+      <DependentUpon>DivineRatioView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GemLocationView.xaml.cs">
       <DependentUpon>GemLocationView.xaml</DependentUpon>
@@ -593,7 +593,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ExaltedRatioView.xaml">
+    <Page Include="Views\DivineRatioView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
