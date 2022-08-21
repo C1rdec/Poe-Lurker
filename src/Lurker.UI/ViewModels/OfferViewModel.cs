@@ -287,7 +287,7 @@ namespace Lurker.UI.ViewModels
                 return;
             }
 
-            if (this._tradeEvent.Price.CurrencyType == CurrencyType.Exalted)
+            if (this._tradeEvent.Price.CurrencyType == CurrencyType.Divine)
             {
                 var detail = new OfferDetailsViewModel(this._tradeEvent);
                 await detail.Initialize();

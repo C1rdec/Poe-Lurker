@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ExaltedRatioView.xaml.cs" company="Wohs Inc.">
+// <copyright file="DivineRatioView.xaml.cs" company="Wohs Inc.">
 //     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------

@@ -289,7 +289,7 @@ namespace Lurker.UI.ViewModels
                 return;
             }
 
-            var line = await this._ninjaService.GetExaltRationAsync(this.SettingsService.RecentLeagueName);
+            var line = await this._ninjaService.GetDivineRationAsync(this.SettingsService.RecentLeagueName);
             if (line != null && line.ChaosEquivalent != 0)
             {
                 this._divineRatioViewModel = new DivineRatioViewModel(line);

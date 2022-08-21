@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ExaltedRatioViewModel.cs" company="Wohs Inc.">
+// <copyright file="DivineRatioViewModel.cs" company="Wohs Inc.">
 //     Copyright © Wohs Inc.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -12,7 +12,7 @@ namespace Lurker.UI.ViewModels
     using Lurker.Patreon.Models.Ninja;
 
     /// <summary>
-    /// Represents the Exalted Ratio.
+    /// Represents the Divine Ratio.
     /// </summary>
     public class DivineRatioViewModel : PropertyChangedBase
     {

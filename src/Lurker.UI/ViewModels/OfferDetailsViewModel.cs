@@ -20,7 +20,7 @@ namespace Lurker.UI.ViewModels
         #region Fields
 
         private TradeEvent _event;
-        private double _exaltRatio;
+        private double _divineRatio;
 
         #endregion
 
@@ -57,16 +57,16 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets the ExaltRatio.
         /// </summary>
-        public double ExaltRatio
+        public double DivineRatio
         {
             get
             {
-                return this._exaltRatio;
+                return this._divineRatio;
             }
 
             private set
             {
-                this._exaltRatio = value;
+                this._divineRatio = value;
                 this.NotifyOfPropertyChange();
             }
         }
@@ -85,13 +85,13 @@ namespace Lurker.UI.ViewModels
         {
             using (var service = new PoeNinjaService())
             {
-                var line = await service.GetExaltRationAsync(this._event.LeagueName);
-                this.ExaltRatio = Math.Round(line.ChaosEquivalent);
+                var line = await service.GetDivineRationAsync(this._event.LeagueName);
+                this.DivineRatio = Math.Round(line.ChaosEquivalent);
             }
 
             var value = this._event.Price.NumberOfCurrencies % 1;
             this.Decimal = Math.Round(value, 2);
-            this.DecimalChaosValue = Convert.ToInt32(this.Decimal * this.ExaltRatio);
+            this.DecimalChaosValue = Convert.ToInt32(this.Decimal * this.DivineRatio);
         }
 
         #endregion
