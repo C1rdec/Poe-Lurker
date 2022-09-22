@@ -105,13 +105,13 @@ namespace Lurker.Services
                 var totalDpsElement = buildElement.Elements("PlayerStat").FirstOrDefault(e => e.Attribute("stat").Value == "TotalDPS");
                 if (totalDpsElement != null)
                 {
-                    totalDps = (double)totalDpsElement.Attribute("value");
+                    totalDps = GetDoubleValue(totalDpsElement.Attribute("value"));
                 }
 
                 var totalDotDpsElement = buildElement.Elements("PlayerStat").FirstOrDefault(e => e.Attribute("stat").Value == "TotalDotDPS");
                 if (totalDotDpsElement != null)
                 {
-                    totalDotDps = (double)totalDotDpsElement.Attribute("value");
+                    totalDotDps = GetDoubleValue(totalDotDpsElement.Attribute("value"));
                 }
 
                 build.Damage = new DamageValue()
@@ -203,6 +203,20 @@ namespace Lurker.Services
                     }
                 }
             }
+        }
+
+        private static double GetDoubleValue(XAttribute attribute)
+        {
+            if (attribute != null)
+            {
+                var attributeValue = attribute.Value;
+                if (double.TryParse(attributeValue, out var result))
+                {
+                    return result;
+                }
+            }
+
+            return 0;
         }
 
         /// <summary>
