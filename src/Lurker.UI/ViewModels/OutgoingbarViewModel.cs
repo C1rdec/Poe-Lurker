@@ -28,6 +28,7 @@ namespace Lurker.UI.ViewModels
     {
         #region Fields
 
+        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
         private PlayerService _playerService;
         private ClipboardLurker _clipboardLurker;
         private ClientLurker _clientLurker;
@@ -279,9 +280,21 @@ namespace Lurker.UI.ViewModels
         /// <param name="tradeEvent">The trade event.</param>
         private async Task InsertEvent(TradeEvent tradeEvent)
         {
-            using (var service = new DatabaseService())
+            if (tradeEvent == null)
             {
-                await service.InsertAsync(tradeEvent);
+                return;
+            }
+
+            try
+            {
+                using (var service = new DatabaseService())
+                {
+                    await service.InsertAsync(tradeEvent);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, ex.Message);
             }
         }
 
