@@ -240,6 +240,11 @@ namespace Lurker.Services
         /// <param name="e">The event.</param>
         private void Lurker_PlayerLevelUp(object sender, PlayerLevelUpEvent e)
         {
+            if (PoeApplicationContext.Location.Contains("The Rogue Harbour"))
+            {
+                return;
+            }
+
             try
             {
                 var knownPlayer = this._playerBank.GetKnownPlayer(e.PlayerName);
