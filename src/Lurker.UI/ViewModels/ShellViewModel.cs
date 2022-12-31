@@ -369,10 +369,13 @@ namespace Lurker.UI
                     this._helpOverlay.Initialize(this.ToggleBuildHelper);
                     this.ActivateItem(this._helpOverlay);
                     this.ActivateItem(this._buildViewModel);
+                    this._helpOverlay.Reposition();
+                    this._buildViewModel.Reposition();
 
                     if (this._skillTimelineOverlay != null && this._settingsService.TimelineEnabled)
                     {
                         this.ActivateItem(this._skillTimelineOverlay);
+                        this._skillTimelineOverlay.Reposition();
                     }
                 }
             }
@@ -398,6 +401,7 @@ namespace Lurker.UI
             if (this._settingsService.IncomingTradeEnabled)
             {
                 this.ActivateItem(this._incomingTradeBarOverlay);
+                this._incomingTradeBarOverlay.Reposition();
             }
             else
             {
@@ -407,6 +411,7 @@ namespace Lurker.UI
             if (this._settingsService.OutgoingTradeEnabled)
             {
                 this.ActivateItem(this._outgoingTradeBarOverlay);
+                this._outgoingTradeBarOverlay.Reposition();
             }
             else
             {
@@ -416,6 +421,7 @@ namespace Lurker.UI
             if (this._settingsService.HideoutEnabled)
             {
                 this.ActivateItem(this._hideoutOverlay);
+                this._hideoutOverlay.Reposition();
             }
             else
             {

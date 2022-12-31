@@ -245,6 +245,11 @@ namespace Lurker.Models
         /// </summary>
         public bool IgnoreAlreadySold { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating the amount of the offset from the left side of the screen for all UI components.
+        /// </summary>
+        public int Offset { get; set; }
+
         #endregion
     }
 }

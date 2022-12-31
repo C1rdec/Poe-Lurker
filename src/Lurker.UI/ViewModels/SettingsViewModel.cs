@@ -1011,6 +1011,19 @@ namespace Lurker.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the alert volume.
+        /// </summary>
+        public int Offset
+        {
+            get { return this._settingService.Offset; }
+
+            set
+            {
+                this._settingService.Offset = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
         #endregion
 
         #region Methods

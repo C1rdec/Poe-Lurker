@@ -708,6 +708,22 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating the amount of the offset from the left side of the screen for all UI components.
+        /// </summary>
+        public int Offset
+        {
+            get
+            {
+                return this._settings.Offset;
+            }
+
+            set
+            {
+                this._settings.Offset = value;
+            }
+        }
+
+        /// <summary>
         /// Gets the name of the folder.
         /// </summary>
         private string FolderName => "PoeLurker";

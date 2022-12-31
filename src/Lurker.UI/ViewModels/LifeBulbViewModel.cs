@@ -84,7 +84,7 @@ namespace Lurker.UI.ViewModels
             {
                 this.View.Height = this.ApplyScalingY(value);
                 this.View.Width = this.ApplyScalingX(value);
-                this.View.Left = this.ApplyScalingX(windowInformation.Position.Left + 10);
+                this.View.Left = this.ApplyScalingX(windowInformation.Position.Left + 10) + this.SettingsService.Offset;
                 this.View.Top = this.ApplyScalingY(windowInformation.Position.Bottom - value - 10);
                 var lifeView = this.View as LifeBulbView;
                 lifeView.ResizeLifeBulb();

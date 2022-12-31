@@ -503,8 +503,13 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock FontSize="18">Life Foreground</TextBlock>
                             <xctk:ColorPicker SelectedColor="{Binding LifebarColor}" Foreground="Black" HorizontalAlignment="Left" Grid.Column="1" Margin="10,0,0,0" Width="100" AvailableColorsSortingMode="HueSaturationBrightness" ></xctk:ColorPicker>
-                            <TextBlock FontSize="18" Grid.Row="1" Margin="0,30,0,0">UI Scaling</TextBlock>
-                            <Slider Grid.Row="1"
+                            <TextBlock FontSize="18" Grid.Row="1" Margin="0,30,0,0">UI Offset</TextBlock>
+                            <Controls:NumericUpDown Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="4,30,0,0"
+                                Value="{Binding Offset}"/>
+                            <TextBlock FontSize="18" Grid.Row="2" Margin="0,30,0,0">UI Scaling</TextBlock>
+                            <Slider Grid.Row="2"
                                 Grid.Column="1"
                                 Margin="4,30,0,0"
                                 Controls:SliderHelper.ChangeValueBy="SmallChange"

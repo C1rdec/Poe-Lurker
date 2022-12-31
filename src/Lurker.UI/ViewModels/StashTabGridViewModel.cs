@@ -248,7 +248,7 @@ namespace Lurker.UI.ViewModels
                 // 50 is the footer
                 this.View.Height = this.ApplyScalingY(size + 50 + margin);
                 this.View.Width = this.ApplyScalingX(size + margin);
-                this.View.Left = this.ApplyScalingX(windowInformation.Position.Left + leftMargin);
+                this.View.Left = this.ApplyScalingX(windowInformation.Position.Left + leftMargin) + this.SettingsService.Offset;
                 this.View.Top = this.ApplyScalingY(top);
             });
         }

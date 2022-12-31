@@ -251,6 +251,17 @@ namespace Lurker.UI.ViewModels
         protected abstract void SetWindowPosition(PoeWindowInformation windowInformation);
 
         /// <summary>
+        /// Tries to reposition the UI with the current window info.
+        /// </summary>
+        public void Reposition()
+        {
+            if (this.DockingHelper != null)
+            {
+                this.SetWindowPosition(this.DockingHelper.WindowInformation);
+            }
+        }
+
+        /// <summary>
         /// Called when activating.
         /// </summary>
         protected override void OnActivate()
