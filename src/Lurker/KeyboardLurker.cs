@@ -78,6 +78,11 @@ namespace Lurker
         public event KeyboardEventHandler InvitePressed;
 
         /// <summary>
+        /// Occurs when [whisper pressed].
+        /// </summary>
+        public event KeyboardEventHandler WhisperPressed;
+
+        /// <summary>
         /// Occurs when [busy pressed].
         /// </summary>
         public event KeyboardEventHandler BusyPressed;
@@ -258,6 +263,7 @@ namespace Lurker
 
             // Hotkeys
             this._hotkeyService.Main.Install(this._keyboardHook, this.MainActionToggled, true);
+            this._hotkeyService.Whisper.Install(this._keyboardHook, (e) => this.HandleKeyboardMessage(e, this.WhisperPressed));
             this._hotkeyService.Trade.Install(this._keyboardHook, (e) => this.HandleKeyboardMessage(e, this.TradePressed));
             this._hotkeyService.Busy.Install(this._keyboardHook, (e) => this.HandleKeyboardMessage(e, this.BusyPressed));
             this._hotkeyService.Dismiss.Install(this._keyboardHook, (e) => this.HandleKeyboardMessage(e, this.DismissPressed));

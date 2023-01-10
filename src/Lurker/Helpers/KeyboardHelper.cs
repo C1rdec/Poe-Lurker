@@ -110,10 +110,11 @@ namespace Lurker.Helpers
         /// Sends the command.
         /// </summary>
         /// <param name="command">The command.</param>
+        /// <param name="skipLastReturn">Skip the last return.</param>
         /// <returns>
         /// The task awaiter.
         /// </returns>
-        protected async Task SendCommand(string command)
+        protected async Task SendCommand(string command, bool skipLastReturn = false)
         {
             // This is to fix the first SetForegroundWindow
             await Simulate.Events().Click(KeyCode.LMenu).Invoke();
@@ -129,7 +130,11 @@ namespace Lurker.Helpers
             eventBuilder.Click(KeyCode.Return);
             eventBuilder.ClickChord(KeyCode.LControl, KeyCode.A);
             eventBuilder.Click(command);
-            eventBuilder.Click(KeyCode.Return);
+
+            if (!skipLastReturn)
+            {
+                eventBuilder.Click(KeyCode.Return);
+            }
 
             await eventBuilder.Invoke();
         }

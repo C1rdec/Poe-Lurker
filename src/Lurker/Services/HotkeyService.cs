@@ -201,6 +201,22 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets the whisper.
+        /// </summary>
+        public Hotkey Whisper
+        {
+            get
+            {
+                return this._settings.Whisper;
+            }
+
+            set
+            {
+                this._settings.Whisper = value;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the dismiss.
         /// </summary>
         public Hotkey Dismiss

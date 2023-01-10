@@ -1453,9 +1453,10 @@ namespace Lurker.UI.ViewModels
         {
             this.HasCustomTradeSound = this._soundService.HasCustomTradeAlert();
             this.HasCustomItemSound = this._soundService.HasCustomItemAlert();
-            this.BuildManager.PopulateBuilds(this.SyncBuild);
             this._activateTask = Task.Run(async () =>
             {
+                this.BuildManager.PopulateBuilds(this.SyncBuild);
+
                 using (var service = new PatreonService())
                 {
                     this.Pledging = await service.IsPledging();
@@ -1579,8 +1580,7 @@ namespace Lurker.UI.ViewModels
 
             this.Hotkeys = new ObservableCollection<HotkeyViewModel>
             {
-                new HotkeyViewModel("Invite", this._hotkeyService.Invite, this.GetNextKeyCode),
-                new HotkeyViewModel("Trade", this._hotkeyService.Trade, this.GetNextKeyCode),
+                new HotkeyViewModel("Whisper", this._hotkeyService.Whisper, this.GetNextKeyCode),
                 new HotkeyViewModel("Busy", this._hotkeyService.Busy, this.GetNextKeyCode),
                 new HotkeyViewModel("Dismiss", this._hotkeyService.Dismiss, this.GetNextKeyCode),
             };

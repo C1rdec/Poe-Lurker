@@ -68,6 +68,16 @@ namespace Lurker.Helpers
         }
 
         /// <summary>
+        /// Whisper to buyer.
+        /// </summary>
+        /// <param name="playerName">Name of the player.</param>
+        /// <returns>The task.</returns>
+        public async Task Whisper(string playerName)
+        {
+            await this.SendCommand($@"@{playerName} ", true);
+        }
+
+        /// <summary>
         /// Kicks the specified player name.
         /// </summary>
         /// <param name="playerName">Name of the player.</param>

@@ -257,7 +257,7 @@ namespace Lurker.UI.ViewModels
                 }
             }
 
-            Caliburn.Micro.Execute.OnUIThread(() =>
+            Execute.OnUIThread(() =>
             {
                 foreach (var item in this._build.Items.OrderBy(i => i.Level))
                 {

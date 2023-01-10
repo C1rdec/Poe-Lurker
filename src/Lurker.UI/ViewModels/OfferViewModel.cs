@@ -473,6 +473,16 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Whisper the buyer.
+        /// </summary>
+        /// <returns>The task.</returns>
+        public async Task Whisper()
+        {
+            await this._keyboardHelper.Whisper(this.PlayerName);
+            this._tradebarContext.AddToActiveOffer(this);
+        }
+
+        /// <summary>
         /// Trades the Buyer.
         /// </summary>
         /// <returns>the task.</returns>

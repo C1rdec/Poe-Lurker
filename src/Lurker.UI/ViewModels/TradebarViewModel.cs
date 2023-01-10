@@ -185,6 +185,19 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Handles the WhisperPressed event of the KeyboardLurker control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void KeyboardLurker_WhisperPressed(object sender, System.EventArgs e)
+        {
+            this.ExecuteOnRecentOffer(async (o) =>
+            {
+                await o.Whisper();
+            });
+        }
+
+        /// <summary>
         /// Handles the TradePressed event of the KeyboardLurker control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -601,6 +614,7 @@ namespace Lurker.UI.ViewModels
                 this.SettingsService.OnSave -= this.SettingsService_OnSave;
 
                 this._keyboardLurker.InvitePressed -= this.KeyboardLurker_InvitePressed;
+                this._keyboardLurker.WhisperPressed -= this.KeyboardLurker_WhisperPressed;
                 this._keyboardLurker.TradePressed -= this.KeyboardLurker_TradePressed;
                 this._keyboardLurker.BusyPressed -= this.KeyboardLurker_BusyPressed;
                 this._keyboardLurker.DismissPressed -= this.KeyboardLurker_DismissPressed;
@@ -626,6 +640,7 @@ namespace Lurker.UI.ViewModels
             this.SettingsService.OnSave += this.SettingsService_OnSave;
 
             this._keyboardLurker.MainActionPressed += this.KeyboardLurker_MainActionPressed;
+            this._keyboardLurker.WhisperPressed += this.KeyboardLurker_WhisperPressed;
             this._keyboardLurker.InvitePressed += this.KeyboardLurker_InvitePressed;
             this._keyboardLurker.TradePressed += this.KeyboardLurker_TradePressed;
             this._keyboardLurker.BusyPressed += this.KeyboardLurker_BusyPressed;

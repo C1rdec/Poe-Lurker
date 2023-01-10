@@ -8,13 +8,11 @@ namespace Lurker.UI.ViewModels
 {
     using System;
     using System.Collections.ObjectModel;
-    using System.IO;
     using System.Linq;
     using System.Net.Http;
     using System.Threading.Tasks;
     using Caliburn.Micro;
     using Lurker.Helpers;
-    using Lurker.Models;
     using Lurker.Services;
     using Lurker.UI.Models;
     using MahApps.Metro.Controls.Dialogs;
@@ -172,10 +170,11 @@ namespace Lurker.UI.ViewModels
                 this._buildService.Sync();
             }
 
-            this._configurations.Clear();
+            Execute.OnUIThread(() => this._configurations.Clear());
             foreach (var build in this._buildService.Builds.OrderBy(b => b.Name))
             {
-                this._configurations.Add(new BuildConfigurationViewModel(build));
+                var viewModel = new BuildConfigurationViewModel(build);
+                Execute.OnUIThread(() => this._configurations.Add(viewModel));
             }
         }
 

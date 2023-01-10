@@ -43,6 +43,11 @@ namespace Lurker.Models
         public Hotkey Busy { get; set; }
 
         /// <summary>
+        /// Gets or sets the whisper.
+        /// </summary>
+        public Hotkey Whisper { get; set; }
+
+        /// <summary>
         /// Gets or sets the dismiss.
         /// </summary>
         public Hotkey Dismiss { get; set; }
