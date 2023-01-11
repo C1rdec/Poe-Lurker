@@ -245,13 +245,12 @@ namespace Lurker.UI.ViewModels
 
             var overlayHeight = 35 * windowInformation.FlaskBarHeight / DefaultFlaskBarHeight * this.SettingsService.TradebarScaling;
             var overlayWidth = windowInformation.Width - (windowInformation.FlaskBarWidth * 2);
-            var margin = PoeApplicationContext.WindowStyle == WindowStyle.Windowed ? 10 : 0;
 
             Execute.OnUIThread(() =>
             {
                 this.View.Height = this.ApplyScalingY(overlayHeight);
                 this.View.Width = this.ApplyScalingX(overlayWidth);
-                this.View.Left = this.ApplyScalingX(windowInformation.Position.Left + windowInformation.FlaskBarWidth + Margin - margin);
+                this.View.Left = this.ApplyScalingX(windowInformation.Position.Left + windowInformation.FlaskBarWidth + Margin);
                 this.View.Top = this.ApplyScalingY(windowInformation.Position.Bottom - overlayHeight - windowInformation.ExpBarHeight + Margin);
             });
         }

@@ -8,7 +8,6 @@ namespace Lurker.Helpers
 {
     using System;
     using System.Diagnostics;
-    using System.Runtime.InteropServices;
     using System.Threading;
     using System.Threading.Tasks;
     using Lurker.Extensions;
@@ -24,6 +23,8 @@ namespace Lurker.Helpers
     {
         #region Fields
 
+        private const uint WideScreenHeightReference = 1440;
+        private const uint WideScreenWidthReference = 3455;
         private const uint GainMouseCapture = 8;
         private const uint LostMouseCapture = 9;
         private const uint MoveEnd = 11;
@@ -280,8 +281,7 @@ namespace Lurker.Helpers
         /// <returns>The poe window information.</returns>
         private PoeWindowInformation GetWindowInformation()
         {
-            Rect poePosition = default;
-            Native.GetWindowRect(this._windowHandle, ref poePosition);
+            var poePosition = this.HandleWideScreen();
             double poeWidth = poePosition.Right - poePosition.Left;
             double poeHeight = poePosition.Bottom - poePosition.Top;
 
@@ -298,6 +298,39 @@ namespace Lurker.Helpers
                 FlaskBarWidth = flaskBarWidth,
                 Position = poePosition,
             };
+        }
+
+        private Rect HandleWideScreen()
+        {
+            Rect poePosition = default;
+            Native.GetWindowRect(this._windowHandle, ref poePosition);
+            if (PoeApplicationContext.WindowStyle == WindowStyle.Windowed)
+            {
+                poePosition.Left += 8;
+                poePosition.Right -= 8;
+                poePosition.Top += 29;
+                poePosition.Bottom -= 10;
+            }
+
+            double windowWidth = poePosition.Right - poePosition.Left;
+            double windowHeight = poePosition.Bottom - poePosition.Top;
+
+            var blackBarBreakPoint = windowHeight * WideScreenWidthReference / WideScreenHeightReference;
+
+            var totalBlackBars = windowWidth - blackBarBreakPoint;
+            if (totalBlackBars > 0)
+            {
+                var blackBarWidth = Convert.ToInt32(totalBlackBars / 2);
+                return new Rect
+                {
+                    Right = poePosition.Right - blackBarWidth,
+                    Left = poePosition.Left + blackBarWidth,
+                    Bottom = poePosition.Bottom,
+                    Top = poePosition.Top,
+                };
+            }
+
+            return poePosition;
         }
 
         #endregion

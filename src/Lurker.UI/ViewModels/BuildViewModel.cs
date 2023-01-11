@@ -558,13 +558,12 @@ namespace Lurker.UI.ViewModels
         protected override void SetWindowPosition(PoeWindowInformation windowInformation)
         {
             var value = 220 * windowInformation.Height / 1080;
-            var margin = PoeApplicationContext.WindowStyle == WindowStyle.Windowed ? 10 : 0;
             Execute.OnUIThread(() =>
             {
                 this.View.Height = this.ApplyScalingY(500);
                 this.View.Width = this.ApplyScalingX(350);
-                this.View.Left = this.ApplyScalingX(windowInformation.Position.Right - 350 - margin);
-                this.View.Top = this.ApplyScalingY(windowInformation.Position.Bottom - value - 500 - margin);
+                this.View.Left = this.ApplyScalingX(windowInformation.Position.Right - 350);
+                this.View.Top = this.ApplyScalingY(windowInformation.Position.Bottom - value - 500);
             });
         }
 

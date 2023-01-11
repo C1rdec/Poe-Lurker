@@ -226,28 +226,21 @@ namespace Lurker.UI.ViewModels
                 return;
             }
 
-            var margin = PoeApplicationContext.WindowStyle == WindowStyle.Windowed ? 0 : 25;
             Execute.OnUIThread(() =>
             {
                 var size = DefaultSize * windowInformation.Height / DefaultTabHeight;
                 var leftMargin = DefaultLeftMargin * windowInformation.Height / DefaultTabHeight;
                 var topMargin = DefaultTopMargin * windowInformation.Height / DefaultTabHeight;
 
-                if (PoeApplicationContext.WindowStyle == WindowStyle.Windowed)
-                {
-                    leftMargin += Margin;
-                    topMargin += Margin;
-                }
-
-                var top = windowInformation.Position.Top + topMargin - margin - Margin;
+                var top = windowInformation.Position.Top + topMargin - Margin;
                 if (this.IsInFolder)
                 {
                     top += 42 * windowInformation.Height / DefaultTabHeight;
                 }
 
                 // 50 is the footer
-                this.View.Height = this.ApplyScalingY(size + 50 + margin);
-                this.View.Width = this.ApplyScalingX(size + margin);
+                this.View.Height = this.ApplyScalingY(size + 50);
+                this.View.Width = this.ApplyScalingX(size);
                 this.View.Left = this.ApplyScalingX(windowInformation.Position.Left + leftMargin);
                 this.View.Top = this.ApplyScalingY(top);
             });
