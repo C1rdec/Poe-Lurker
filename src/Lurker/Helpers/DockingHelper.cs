@@ -304,6 +304,8 @@ namespace Lurker.Helpers
         {
             Rect poePosition = default;
             Native.GetWindowRect(this._windowHandle, ref poePosition);
+
+            // Windows weird margins
             if (PoeApplicationContext.WindowStyle == WindowStyle.Windowed)
             {
                 poePosition.Left += 8;
