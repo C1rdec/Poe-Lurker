@@ -114,9 +114,29 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The scaled value.</returns>
+        protected double ApplyAbsoluteScalingX(double value)
+        {
+            return Scale(value, this._scaleX, true);
+        }
+
+        /// <summary>
+        /// Applies the scaling x.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>The scaled value.</returns>
         protected double ApplyScalingX(double value)
         {
             return Scale(value, this._scaleX);
+        }
+
+        /// <summary>
+        /// Applies the scalling y.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>The scaled value.</returns>
+        protected double ApplyAbsoluteScalingY(double value)
+        {
+            return Scale(value, this._scaleY, true);
         }
 
         /// <summary>
@@ -179,17 +199,25 @@ namespace Lurker.UI.ViewModels
         /// Scale the value.
         /// </summary>
         /// <param name="value">The value to scale.</param>
-        /// <param name="scale">The scale factor</param>
+        /// <param name="scale">The scale factor.</param>
         /// <returns>The scaled value.</returns>
         private static double Scale(double value, double scale)
         {
-            var scaledValue = value / scale;
-            if (scaledValue < 0)
-            {
-                return 0;
-            }
+            return Scale(value, scale, false);
+        }
 
-            return scaledValue;
+        /// <summary>
+        /// Scale the value.
+        /// </summary>
+        /// <param name="value">The value to scale.</param>
+        /// <param name="scale">The scale factor.</param>
+        /// <param name="absolute">If the value need to be positive.</param>
+        /// <returns>The scaled value.</returns>
+        private static double Scale(double value, double scale, bool absolute)
+        {
+            var current = absolute ? Math.Abs(value) : value;
+
+            return current / scale;
         }
 
         /// <summary>

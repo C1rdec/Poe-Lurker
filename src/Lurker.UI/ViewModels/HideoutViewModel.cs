@@ -115,8 +115,8 @@ namespace Lurker.UI.ViewModels
 
             Execute.OnUIThread(() =>
             {
-                this.View.Height = this.ApplyScalingY(value);
-                this.View.Width = this.ApplyScalingX(value);
+                this.View.Height = this.ApplyAbsoluteScalingY(value);
+                this.View.Width = this.ApplyAbsoluteScalingX(value);
                 this.View.Left = this.ApplyScalingX(windowInformation.Position.Left);
                 this.View.Top = this.ApplyScalingY(windowInformation.Position.Bottom - value);
             });

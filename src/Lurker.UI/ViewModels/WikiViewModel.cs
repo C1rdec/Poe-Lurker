@@ -229,8 +229,8 @@ namespace Lurker.UI.ViewModels
             var overlayWidth = windowInformation.Width - (windowInformation.FlaskBarWidth * 2);
             Execute.OnUIThread(() =>
             {
-                this.View.Height = this.ApplyScalingY(height);
-                this.View.Width = this.ApplyScalingX(overlayWidth);
+                this.View.Height = this.ApplyAbsoluteScalingY(height);
+                this.View.Width = this.ApplyAbsoluteScalingX(overlayWidth);
                 this.View.Left = this.ApplyScalingX(windowInformation.Position.Left + windowInformation.FlaskBarWidth + Margin);
                 this.View.Top = this.ApplyScalingY(windowInformation.Position.Bottom - height - windowInformation.ExpBarHeight + Margin);
             });
