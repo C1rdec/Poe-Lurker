@@ -44,7 +44,6 @@ namespace Lurker.UI.ViewModels
             this._eventAggregator.Subscribe(this);
 
             this.ClientLurker.LocationChanged += this.Lurker_LocationChanged;
-            this.ClientLurker.RemainingMonsters += this.Lurker_RemainingMonsters;
             this.SettingsService.OnSave += this.SettingsService_OnSave;
         }
 
@@ -123,7 +122,6 @@ namespace Lurker.UI.ViewModels
             if (close)
             {
                 this.ClientLurker.LocationChanged -= this.Lurker_LocationChanged;
-                this.ClientLurker.RemainingMonsters -= this.Lurker_RemainingMonsters;
                 this.SettingsService.OnSave -= this.SettingsService_OnSave;
                 this._eventAggregator.Unsubscribe(this);
             }
