@@ -116,7 +116,7 @@ namespace Lurker.UI.ViewModels
         /// <returns>The scaled value.</returns>
         protected double ApplyScalingX(double value)
         {
-            return value / this._scaleX;
+            return Scale(value, this._scaleX);
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace Lurker.UI.ViewModels
         /// <returns>The scaled value.</returns>
         protected double ApplyScalingY(double value)
         {
-            return value / this._scaleY;
+            return Scale(value, this._scaleY);
         }
 
         /// <summary>
@@ -173,6 +173,23 @@ namespace Lurker.UI.ViewModels
             await Task.Delay(time);
             this._manualHide = false;
             this.ShowView();
+        }
+
+        /// <summary>
+        /// Scale the value.
+        /// </summary>
+        /// <param name="value">The value to scale.</param>
+        /// <param name="scale">The scale factor</param>
+        /// <returns>The scaled value.</returns>
+        private static double Scale(double value, double scale)
+        {
+            var scaledValue = value / scale;
+            if (scaledValue < 0)
+            {
+                return 0;
+            }
+
+            return scaledValue;
         }
 
         /// <summary>
