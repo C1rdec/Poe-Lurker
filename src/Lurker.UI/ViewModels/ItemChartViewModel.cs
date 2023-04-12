@@ -36,7 +36,7 @@ namespace Lurker.UI.ViewModels
             this._line = line;
             this._item = item;
 
-            this.Price = this.PriceInExalted ? line.ExaltedValue : line.ChaosValue;
+            this.Price = this.PriceInDivine ? line.DivineValue : line.ChaosValue;
             this.Chart = new LineChartViewModel(false, 0);
 
             var buyPoints = this._line.PriceLine.Data.Where(d => d.HasValue);
@@ -81,12 +81,12 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets a value indicating whether the total change is negative.
         /// </summary>
-        public bool PriceInExalted => this._line.ExaltedValue >= 1;
+        public bool PriceInDivine => this._line.DivineValue >= 1;
 
         /// <summary>
         /// Gets a value indicating whether the total change is negative.
         /// </summary>
-        public bool PriceInChaos => this._line.ExaltedValue < 1;
+        public bool PriceInChaos => this._line.DivineValue < 1;
 
         #endregion
     }

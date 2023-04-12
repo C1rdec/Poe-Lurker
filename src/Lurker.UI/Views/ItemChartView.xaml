@@ -43,7 +43,7 @@
                     </TextBlock.Style>
                 </TextBlock>
             </Grid>
-            <Image Source="/Assets/Exalted.png" Visibility="{Binding PriceInExalted, Converter={StaticResource BooleanToVisibilityConverter}}"  Height="70"/>
+            <Image Source="/Assets/Divine.png" Visibility="{Binding PriceInDivine, Converter={StaticResource BooleanToVisibilityConverter}}"  Height="70"/>
             <Image Source="/Assets/Chaos.png" Visibility="{Binding PriceInChaos, Converter={StaticResource BooleanToVisibilityConverter}}"  Height="70"/>
         </StackPanel>
     </Grid>

@@ -1570,7 +1570,7 @@ namespace Lurker.UI.ViewModels
         private void SetupHotkeys()
         {
             this.MainHotkey = new HotkeyViewModel("Invite & Trade", this._hotkeyService.Main, this.GetNextKeyCode);
-            this.OpenWikiHotkey = new HotkeyViewModel("Open Wiki", this._hotkeyService.OpenWiki, this.GetNextKeyCode);
+            this.OpenWikiHotkey = new HotkeyViewModel("Poe Ninja", this._hotkeyService.OpenWiki, this.GetNextKeyCode);
 
             this.GuildHideoutHotkey = new HotkeyViewModel("Guild Hideout", this._hotkeyService.JoinGuildHideout, this.GetNextKeyCode);
             this.HideoutHotkey = new HotkeyViewModel("Hideout", this._hotkeyService.JoinHideout, this.GetNextKeyCode);
