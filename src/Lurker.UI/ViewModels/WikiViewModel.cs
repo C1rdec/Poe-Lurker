@@ -267,6 +267,16 @@ namespace Lurker.UI.ViewModels
                         break;
                 }
             }
+
+            if (items.Count() == 1)
+            {
+                var firstItem = this.Items.FirstOrDefault();
+                var unique = firstItem as UniqueItemViewModel;
+                if (unique != null)
+                {
+                    this.OnItemClick(unique.Item);
+                }
+            }
         }
 
         private async void OnItemClick(UniqueItem item)
