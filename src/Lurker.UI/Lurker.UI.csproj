@@ -77,8 +77,8 @@
     <Reference Include="DeltaCompressionDotNet.PatchApi, Version=1.1.0.0, Culture=neutral, PublicKeyToken=3e8888ee913ed789, processorArchitecture=MSIL">
       <HintPath>..\..\packages\DeltaCompressionDotNet.1.1.0\lib\net20\DeltaCompressionDotNet.PatchApi.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetZip, Version=1.11.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\DotNetZip.1.11.0\lib\net20\DotNetZip.dll</HintPath>
+    <Reference Include="DotNetZip, Version=1.13.7.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DotNetZip.1.13.7\lib\net40\DotNetZip.dll</HintPath>
     </Reference>
     <Reference Include="Hardcodet.Wpf.TaskbarNotification, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Hardcodet.NotifyIcon.Wpf.1.0.8\lib\net451\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
@@ -91,9 +91,6 @@
     </Reference>
     <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
       <HintPath>..\..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
-    </Reference>
-    <Reference Include="LottieSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\LottieSharp.1.0.0\lib\net461\LottieSharp.dll</HintPath>
     </Reference>
     <Reference Include="Lurker.Patreon, Version=1.6.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Lurker.Patreon.1.6.3\lib\net48\Lurker.Patreon.dll</HintPath>
@@ -866,6 +863,10 @@
     <Resource Include="Assets\AvoidAilments.png" />
     <Resource Include="Assets\Chance.png" />
     <Resource Include="Assets\Scouring.png" />
+    <Resource Include="Assets\LurkerIcon.png" />
+    <Resource Include="Assets\Update.png" />
+    <Resource Include="Assets\Success.png" />
+    <Resource Include="Assets\Working.png" />
     <Content Include="SVG\Android.svg" />
     <Content Include="SVG\Apple.svg" />
     <Content Include="SVG\Cellphone.svg" />

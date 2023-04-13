@@ -17,6 +17,12 @@ namespace Lurker.UI.ViewModels
     /// <seealso cref="Caliburn.Micro.PropertyChangedBase" />
     public class UpdateViewModel : Caliburn.Micro.PropertyChangedBase
     {
+        #region Fields
+
+        private UpdateState _state;
+
+        #endregion
+
         #region Constructors
 
         /// <summary>
@@ -25,6 +31,8 @@ namespace Lurker.UI.ViewModels
         /// <param name="state">The state.</param>
         public UpdateViewModel(UpdateState state)
         {
+            this._state = state;
+
             if (!File.Exists(this.NeedUpdateFilePath))
             {
                 File.WriteAllText(this.NeedUpdateFilePath, this.GetResourceContent(this.NeedUpdateFileName));
@@ -43,13 +51,13 @@ namespace Lurker.UI.ViewModels
             switch (state)
             {
                 case UpdateState.NeedUpdate:
-                    this.AnimationFilePath = this.NeedUpdateFilePath;
+                    this.FilePath = "/Assets/Update.png";
                     break;
                 case UpdateState.Success:
-                    this.AnimationFilePath = this.UpdateSuccessFilePath;
+                    this.FilePath = "/Assets/Success.png";
                     break;
                 case UpdateState.Working:
-                    this.AnimationFilePath = this.UpdateWorkingFilePath;
+                    this.FilePath = "/Assets/Working.png";
                     break;
                 default:
                     throw new System.NotSupportedException();
@@ -63,7 +71,17 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets the settings file path.
         /// </summary>
-        public string AnimationFilePath { get; private set; }
+        public string FilePath { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether gets working state.
+        /// </summary>
+        public bool IsWorking => this._state == UpdateState.Working;
+
+        /// <summary>
+        /// Gets a value indicating whether gets working state.
+        /// </summary>
+        public bool IsNotWorking => !this.IsWorking;
 
         /// <summary>
         /// Gets the need update file path.

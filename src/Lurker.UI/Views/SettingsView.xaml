@@ -7,7 +7,6 @@
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:local="clr-namespace:Lurker.UI"
         WindowStartupLocation="CenterScreen"
-        xmlns:lottieSharp="clr-namespace:LottieSharp;assembly=LottieSharp"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         ResizeMode="CanMinimize"
         xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
@@ -737,17 +736,5 @@
                                             Data="{x:Static local:IconPackData.Save}"/>
             </Button.Content>
         </Button>
-        <lottieSharp:LottieAnimationView
-            x:Name="LottieAnimationView"
-            FileName="{Binding AnimationFilePath}"
-            Visibility="{Binding NotPledging, Converter={StaticResource BooleanToVisibilityConverter}}"
-            DefaultCacheStrategy="None"
-            SnapsToDevicePixels="True"
-            Margin="134,95,0,0"
-            Height="30"
-            AutoPlay="True"
-            RepeatCount="1"
-            VerticalAlignment="Center" 
-            HorizontalAlignment="Left"/>
     </Grid>
 </Controls:MetroWindow>

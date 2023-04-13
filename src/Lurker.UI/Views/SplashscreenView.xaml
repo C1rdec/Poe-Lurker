@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:lottieSharp="clr-namespace:LottieSharp;assembly=LottieSharp"
              xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -12,17 +11,7 @@
             <RowDefinition></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <lottieSharp:LottieAnimationView 
-            x:Name="LottieAnimationView"
-            FileName="{Binding AnimationFilePath}"
-            DefaultCacheStrategy="Strong"
-            AutoPlay="True"
-            Loop="True"
-            RepeatCount="2"
-            Opacity="0.75"
-            Height="80"
-            VerticalAlignment="Center" 
-            HorizontalAlignment="Center"/>
+        <Image Source="/Assets/LurkerIcon.png" Height="80"/>
         <Image Height="30"
                Cursor="Hand"
                cal:Message.Attach="[Event MouseDown] = [Action OpenLurkerPro]"
