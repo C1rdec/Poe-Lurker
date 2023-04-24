@@ -1010,15 +1010,6 @@
     "Level": 16
   },
   {
-    "Id": "ComboStrike",
-    "Support": false,
-    "Location": null,
-    "Name": "...",
-    "WikiUrl": "https://poedb.tw/us/...",
-    "ImageUrl": null,
-    "Level": 1
-  },
-  {
     "Id": "Conductivity",
     "Support": false,
     "Location": {

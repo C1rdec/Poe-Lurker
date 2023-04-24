@@ -794,6 +794,11 @@ namespace Lurker.UI
 
             if (this._settingsService.MapEnabled)
             {
+                if (item.Rarity == Rarity.Normal)
+                {
+                    return;
+                }
+
                 this._popup.Open(new MapViewModel(item, this.ActivePlayer, this._currentCharacterService));
             }
         }

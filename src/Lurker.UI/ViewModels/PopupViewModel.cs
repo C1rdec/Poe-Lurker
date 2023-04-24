@@ -145,7 +145,9 @@ namespace Lurker.UI.ViewModels
                 }
 
                 this.View.SizeToContent = System.Windows.SizeToContent.Manual;
-                this.View.Top = this.ApplyScalingY(this._mouseLurker.Y);
+
+                // +10 is to make sure the mouse is not over the overlay
+                this.View.Top = this.ApplyScalingY(this._mouseLurker.Y + 10);
                 this.View.SizeToContent = System.Windows.SizeToContent.WidthAndHeight;
             });
         }

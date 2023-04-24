@@ -41,8 +41,8 @@
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Center"
                         BorderThickness="0,0,0,1"
-                        Height="60" Width="800"
-                        FontSize="34"
+                        Height="35" Width="800"
+                        FontSize="20"
                         VerticalContentAlignment="Stretch"
                         Controls:TextBoxHelper.Watermark="Search">
                         <TextBox.Resources>

@@ -19,6 +19,7 @@ namespace Lurker.UI.ViewModels
         #region Fields
 
         private CurrencyLine _line;
+        private double _ratio;
 
         #endregion
 
@@ -31,7 +32,7 @@ namespace Lurker.UI.ViewModels
         public DivineRatioViewModel(CurrencyLine line)
         {
             this._line = line;
-            this.Ratio = line.ChaosEquivalent;
+            this._ratio = line.ChaosEquivalent;
             this.Chart = new LineChartViewModel(false, 0);
 
             var buyPoints = line.BuyLine.Data.Where(d => d.HasValue);
@@ -51,7 +52,18 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Gets the ratio.
         /// </summary>
-        public double Ratio { get; private set; }
+        public double Ratio
+            => this.Fraction != null ? Math.Round(this._ratio * this.Fraction.Value, 2) : this._ratio;
+
+        /// <summary>
+        /// Gets the fraction.
+        /// </summary>
+        public double? Fraction { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the Fraction is visible.
+        /// </summary>
+        public bool HasFraction => this.Fraction != null;
 
         /// <summary>
         /// Gets the chart.
@@ -67,6 +79,28 @@ namespace Lurker.UI.ViewModels
         /// Gets a value indicating whether the total change is negative.
         /// </summary>
         public bool Negative => this._line.BuyLine.TotalChange < 0;
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Set the fraction.
+        /// </summary>
+        /// <param name="fraction">The fraction.</param>
+        public void SetFraction(double? fraction)
+        {
+            if (fraction == 0)
+            {
+                fraction = null;
+            }
+
+            this.Fraction = fraction;
+
+            this.NotifyOfPropertyChange(() => this.Fraction);
+            this.NotifyOfPropertyChange(() => this.HasFraction);
+            this.NotifyOfPropertyChange(() => this.Ratio);
+        }
 
         #endregion
     }

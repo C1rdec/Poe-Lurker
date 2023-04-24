@@ -248,6 +248,15 @@ namespace Lurker.UI.ViewModels
             this.Items.Clear();
             if (string.IsNullOrEmpty(value))
             {
+                this._divineRatioViewModel?.SetFraction(null);
+
+                return;
+            }
+
+            if (double.TryParse(value, out var fraction))
+            {
+                this._divineRatioViewModel?.SetFraction(fraction);
+
                 return;
             }
 
@@ -266,6 +275,12 @@ namespace Lurker.UI.ViewModels
                     default:
                         break;
                 }
+            }
+
+            if (this.Items.Any())
+            {
+                this.CurrentView = null;
+                this.NotifyOfPropertyChange(() => this.CurrentView);
             }
 
             if (items.Count() == 1)
