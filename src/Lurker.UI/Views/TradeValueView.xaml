@@ -100,6 +100,13 @@
                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Chisel}}"/>
+        <Image Grid.RowSpan="3"
+                           Source="/Assets/Sextant.png"
+                           Height="{Binding ActualHeight, ElementName=MainAction}"
+                           Width="{Binding ActualWidth, ElementName=MainAction}"
+                           Visibility="{Binding CurrencyType,
+                                            Converter={Converters:CurrencyTypeConverter}, 
+                                            ConverterParameter={x:Static Models:CurrencyType.Sextant}}"/>
         <TextBlock TextTrimming="CharacterEllipsis"
                    HorizontalAlignment="Right" 
                    Foreground="{Binding Foreground}"

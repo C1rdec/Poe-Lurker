@@ -79,110 +79,117 @@
                                     </Border.Style>
                                 </Border>
                                 <Image Grid.RowSpan="3"
-                           Source="/Assets/Chaos.png"
-                           Height="{Binding ActualHeight, ElementName=MainAction}"
-                           Width="{Binding ActualWidth, ElementName=MainAction}"
-                           Visibility="{Binding CurrencyType,
+                                            Source="/Assets/Chaos.png"
+                                            Height="{Binding ActualHeight, ElementName=MainAction}"
+                                            Width="{Binding ActualWidth, ElementName=MainAction}"
+                                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Chaos}}"/>
                                 <Image Grid.RowSpan="3"
-                           Source="/Assets/Exalted.png"
-                           Height="{Binding ActualHeight, ElementName=MainAction}"
-                           Width="{Binding ActualWidth, ElementName=MainAction}"
-                           Visibility="{Binding CurrencyType,
+                                            Source="/Assets/Exalted.png"
+                                            Height="{Binding ActualHeight, ElementName=MainAction}"
+                                            Width="{Binding ActualWidth, ElementName=MainAction}"
+                                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Exalted}}"/>
                                 <Image Grid.RowSpan="3"
-                           Source="/Assets/Mirror.png"
-                           Height="{Binding ActualHeight, ElementName=MainAction}"
-                           Width="{Binding ActualWidth, ElementName=MainAction}"
-                           Visibility="{Binding CurrencyType,
+                                            Source="/Assets/Mirror.png"
+                                            Height="{Binding ActualHeight, ElementName=MainAction}"
+                                            Width="{Binding ActualWidth, ElementName=MainAction}"
+                                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Mirror}}"/>
                                 <Image Grid.RowSpan="3"
-                           Source="/Assets/Fusing.png"
-                           Height="{Binding ActualHeight, ElementName=MainAction}"
-                           Width="{Binding ActualWidth, ElementName=MainAction}"
-                           Visibility="{Binding CurrencyType,
+                                            Source="/Assets/Fusing.png"
+                                            Height="{Binding ActualHeight, ElementName=MainAction}"
+                                            Width="{Binding ActualWidth, ElementName=MainAction}"
+                                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Fusing}}"/>
                                 <Image Grid.RowSpan="3"
-                           Source="/Assets/Chromatic.png"
-                           Height="{Binding ActualHeight, ElementName=MainAction}"
-                           Width="{Binding ActualWidth, ElementName=MainAction}"
-                           Visibility="{Binding CurrencyType,
+                                            Source="/Assets/Chromatic.png"
+                                            Height="{Binding ActualHeight, ElementName=MainAction}"
+                                            Width="{Binding ActualWidth, ElementName=MainAction}"
+                                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Chromatic}}"/>
                                 <Image Grid.RowSpan="3"
-                           Source="/Assets/Vaal.png"
-                           Height="{Binding ActualHeight, ElementName=MainAction}"
-                           Width="{Binding ActualWidth, ElementName=MainAction}"
-                           Visibility="{Binding CurrencyType,
+                                            Source="/Assets/Vaal.png"
+                                            Height="{Binding ActualHeight, ElementName=MainAction}"
+                                            Width="{Binding ActualWidth, ElementName=MainAction}"
+                                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Vaal}}"/>
                                 <Image Grid.RowSpan="3"
-                           Source="/Assets/Alchemy.png"
-                           Height="{Binding ActualHeight, ElementName=MainAction}"
-                           Width="{Binding ActualWidth, ElementName=MainAction}"
-                           Visibility="{Binding CurrencyType,
+                                            Source="/Assets/Alchemy.png"
+                                            Height="{Binding ActualHeight, ElementName=MainAction}"
+                                            Width="{Binding ActualWidth, ElementName=MainAction}"
+                                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Alchemy}}"/>
                                 <Image Grid.RowSpan="3"
-                           Source="/Assets/Regal.png"
-                           Height="{Binding ActualHeight, ElementName=MainAction}"
-                           Width="{Binding ActualWidth, ElementName=MainAction}"
-                           Visibility="{Binding CurrencyType,
+                                            Source="/Assets/Regal.png"
+                                            Height="{Binding ActualHeight, ElementName=MainAction}"
+                                            Width="{Binding ActualWidth, ElementName=MainAction}"
+                                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Regal}}"/>
                                 <Image Grid.RowSpan="3"
-                           Source="/Assets/Divine.png"
-                           Height="{Binding ActualHeight, ElementName=MainAction}"
-                           Width="{Binding ActualWidth, ElementName=MainAction}"
-                           Visibility="{Binding CurrencyType,
+                                            Source="/Assets/Divine.png"
+                                            Height="{Binding ActualHeight, ElementName=MainAction}"
+                                            Width="{Binding ActualWidth, ElementName=MainAction}"
+                                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Divine}}"/>
                                 <Image Grid.RowSpan="3"
-                           Source="/Assets/Alteration.png"
-                           Height="{Binding ActualHeight, ElementName=MainAction}"
-                           Width="{Binding ActualWidth, ElementName=MainAction}"
-                           Visibility="{Binding CurrencyType,
+                                            Source="/Assets/Alteration.png"
+                                            Height="{Binding ActualHeight, ElementName=MainAction}"
+                                            Width="{Binding ActualWidth, ElementName=MainAction}"
+                                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Alteration}}"/>
                                 <Image Grid.RowSpan="3"
-                           Source="/Assets/Jeweller.png"
-                           Height="{Binding ActualHeight, ElementName=MainAction}"
-                           Width="{Binding ActualWidth, ElementName=MainAction}"
-                           Visibility="{Binding CurrencyType,
+                                            Source="/Assets/Jeweller.png"
+                                            Height="{Binding ActualHeight, ElementName=MainAction}"
+                                            Width="{Binding ActualWidth, ElementName=MainAction}"
+                                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Jeweller}}"/>
                                 <Image Grid.RowSpan="3"
-                           Source="/Assets/Scouring.png"
-                           Height="{Binding ActualHeight, ElementName=MainAction}"
-                           Width="{Binding ActualWidth, ElementName=MainAction}"
-                           Visibility="{Binding CurrencyType,
+                                            Source="/Assets/Scouring.png"
+                                            Height="{Binding ActualHeight, ElementName=MainAction}"
+                                            Width="{Binding ActualWidth, ElementName=MainAction}"
+                                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Scouring}}"/>
                                 <Image Grid.RowSpan="3"
-                           Source="/Assets/Chance.png"
-                           Height="{Binding ActualHeight, ElementName=MainAction}"
-                           Width="{Binding ActualWidth, ElementName=MainAction}"
-                           Visibility="{Binding CurrencyType,
+                                            Source="/Assets/Chance.png"
+                                            Height="{Binding ActualHeight, ElementName=MainAction}"
+                                            Width="{Binding ActualWidth, ElementName=MainAction}"
+                                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Chance}}"/>
                                 <Image Grid.RowSpan="3"
-                           Source="/Assets/Gemcutter.png"
-                           Height="{Binding ActualHeight, ElementName=MainAction}"
-                           Width="{Binding ActualWidth, ElementName=MainAction}"
-                           Visibility="{Binding CurrencyType,
+                                            Source="/Assets/Gemcutter.png"
+                                            Height="{Binding ActualHeight, ElementName=MainAction}"
+                                            Width="{Binding ActualWidth, ElementName=MainAction}"
+                                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Gemcutter}}"/>
                                 <Image Grid.RowSpan="3"
-                           Source="/Assets/Chisel.png"
-                           Height="{Binding ActualHeight, ElementName=MainAction}"
-                           Width="{Binding ActualWidth, ElementName=MainAction}"
-                           Visibility="{Binding CurrencyType,
+                                            Source="/Assets/Chisel.png"
+                                            Height="{Binding ActualHeight, ElementName=MainAction}"
+                                            Width="{Binding ActualWidth, ElementName=MainAction}"
+                                            Visibility="{Binding CurrencyType,
                                             Converter={Converters:CurrencyTypeConverter}, 
                                             ConverterParameter={x:Static Models:CurrencyType.Chisel}}"/>
+                                <Image Grid.RowSpan="3"
+                                            Source="/Assets/Sextant.png"
+                                            Height="{Binding ActualHeight, ElementName=MainAction}"
+                                            Width="{Binding ActualWidth, ElementName=MainAction}"
+                                            Visibility="{Binding CurrencyType,
+                                            Converter={Converters:CurrencyTypeConverter}, 
+                                            ConverterParameter={x:Static Models:CurrencyType.Sextant}}"/>
                                 <local:IconPack HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
                                             Foreground="White"
