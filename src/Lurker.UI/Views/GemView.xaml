@@ -20,7 +20,7 @@
         <Popup x:Name="Popup" Focusable="False" Placement="Left" AllowsTransparency="True">
             <Border Background="Black" CornerRadius="5" BorderThickness="2" BorderBrush="#e7b577">
                 <StackPanel>
-                    <TextBlock HorizontalAlignment="Center" Margin="8,4,8,4" FontSize="18" FontFamily="pack://application:,,,/Assets/#Fontin" Foreground="White" FontWeight="SemiBold" Text="{Binding Name}"/>
+                    <TextBlock HorizontalAlignment="Center" Margin="8,4,8,4" FontSize="28" FontFamily="pack://application:,,,/Assets/#Fontin" Foreground="White" FontWeight="SemiBold" Text="{Binding Name}"/>
                     <ContentControl x:Name="GemLocation" HorizontalAlignment="Center" Margin="4,0,4,0" cal:View.Model="{Binding Path=GemLocation,Mode=OneWay}"/>
                 </StackPanel>
             </Border>

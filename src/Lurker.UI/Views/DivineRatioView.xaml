@@ -7,14 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <TextBlock Text="{Binding Fraction}" Foreground="White" VerticalAlignment="Center"
-                       FontFamily="pack://application:,,,/Assets/#Fontin"
-                       Visibility="{Binding HasFraction, Converter={StaticResource BooleanToVisibilityConverter}}"
-                       FontSize="70"/>
-            <Image Source="/Assets/Divine.png" Height="100"/>
-        </StackPanel>
-
         <ContentControl x:Name="Chart"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,10">
             <StackPanel.Style>
@@ -52,6 +44,13 @@
                 </TextBlock>
             </Grid>
             <Image Source="/Assets/Chaos.png" Height="70"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Text="{Binding Fraction}" Foreground="White" VerticalAlignment="Center"
+                       FontFamily="pack://application:,,,/Assets/#Fontin"
+                       Visibility="{Binding HasFraction, Converter={StaticResource BooleanToVisibilityConverter}}"
+                       FontSize="70"/>
+            <Image Source="/Assets/Divine.png" Height="100"/>
         </StackPanel>
     </Grid>
 </UserControl>
