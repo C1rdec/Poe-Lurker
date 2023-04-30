@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:Lurker.UI.Views"
              xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" >
-    <Border BorderThickness="1" CornerRadius="2" Margin="0,0,0,2" Focusable="False">
+    <Border BorderThickness="1" CornerRadius="2" Margin="0,0,0,2" Focusable="False" Cursor="Hand" Height="40">
         <Border.Style>
             <Style TargetType="Border">
                 <Style.Triggers>
@@ -33,14 +33,24 @@
                     </Border.Style>
                     <Grid>
                         <Controls:MetroProgressBar x:Name="Delay" Foreground="#4b351b" Value="{Binding DelayToClose}" Height="{Binding ActualHeight, ElementName=MainAction}" />
-                        <TextBlock FontFamily="pack://application:,,,/Assets/#Fontin"
-                                   Foreground="#cb9e68"
-                                   FontSize="12"
-                                   TextTrimming="CharacterEllipsis"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center" 
-                                   Text="{Binding PlayerName}"/>
-                        <Button HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" cal:Message.Attach="[Event Click] = [Action ReSend]" x:Name="IsWaiting">
+                            <Grid VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock FontFamily="pack://application:,,,/Assets/#Fontin"
+                                           Grid.ColumnSpan="2"
+                                           Foreground="#cb9e68"
+                                           FontSize="18"
+                                           TextTrimming="CharacterEllipsis"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center" 
+                                           Text="{Binding PlayerName}"/>
+                                <Border Grid.Column="1" Width="80" Height="40" Margin="0,0,10,0">
+                                    <ContentControl cal:View.Model="{Binding Path=TradeValue,Mode=OneWay}" ></ContentControl>
+                                </Border>
+                            </Grid>
+                            <Button HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" cal:Message.Attach="[Event Click] = [Action ReSend]" x:Name="IsWaiting">
                             <Button.Style>
                                 <Style TargetType="Button">
                                     <Setter Property="Template">

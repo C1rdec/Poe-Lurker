@@ -131,6 +131,11 @@ namespace Lurker.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets the trade value.
+        /// </summary>
+        public TradeValueViewModel TradeValue => new TradeValueViewModel(this._event, this._settingsService);
+
         #endregion
 
         #region Methods
