@@ -203,7 +203,7 @@ namespace Lurker.UI.ViewModels
             {
                 foreach (var offer in this.Offers.Where(o => !o.Waiting && !o.Active))
                 {
-                    offer.DelayToClose = offer.DelayToClose - 0.15;
+                    offer.Tick();
 
                     if (offer.DelayToClose <= 0)
                     {
@@ -245,7 +245,7 @@ namespace Lurker.UI.ViewModels
                     }
                 }
 
-                this.Offers.Insert(index, new OutgoingOfferViewModel(e, this._keyboardHelper, this.CreateContext(), this.DockingHelper));
+                this.Offers.Insert(index, new OutgoingOfferViewModel(e, this._keyboardHelper, this.CreateContext(), this.DockingHelper, this.SettingsService));
             });
         }
 

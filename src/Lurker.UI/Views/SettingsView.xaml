@@ -416,33 +416,48 @@
                     <Grid Grid.Row="1" Margin="30,0,30,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <Viewbox Margin="0,15,0,0">
-                        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal">
                             <Controls:ToggleSwitch
-                                               Margin="30,0,0,0"
-                                               Header="Incoming Trade"
-                                               IsOn="{Binding IncomingTradeEnabled}"/>
+                                                   Margin="30,0,0,0"
+                                                   Header="Incoming Trade"
+                                                   IsOn="{Binding IncomingTradeEnabled}"/>
                             <Controls:ToggleSwitch
-                                               Margin="-30,0,0,0"
-                                               Header="Outgoing Trade"
-                                               IsOn="{Binding OutgoingTradeEnabled}"/>
-                            <Controls:ToggleSwitch Grid.Row="1"
                                                    Margin="-30,0,0,0"
-                                                   Header="Delete Item"
-                                                   IsOn="{Binding DeleteItemEnabled}"/>
+                                                   Header="Outgoing Trade"
+                                                   IsOn="{Binding OutgoingTradeEnabled}"/>
+                            <Grid Visibility="{Binding OutgoingTradeEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <TextBlock Text="Delay to Close" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="14"/>
+                                <Slider Margin="0,15,0,0"
+                                        Controls:SliderHelper.ChangeValueBy="SmallChange"
+                                        Controls:SliderHelper.EnableMouseWheel="MouseHover"
+                                        AutoToolTipPlacement="BottomRight"
+                                        LargeChange="0.2"
+                                        Width="200"
+                                        Maximum="300"
+                                        Minimum="50"
+                                        Orientation="Horizontal"
+                                        SmallChange="0.1"
+                                        Value="{Binding DelayToClose}" />
+                            </Grid>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,10,0,0">
                             <Controls:ToggleSwitch Grid.Row="1"
-                                                   Margin="-30,0,0,0"
-                                                   Header="Hideout"
-                                                   IsOn="{Binding HideoutEnabled}"/>
+                                                       Margin="30,0,0,0"
+                                                       Header="Delete Item"
+                                                       IsOn="{Binding DeleteItemEnabled}"/>
                             <Controls:ToggleSwitch Grid.Row="1"
-                                                Margin="-30,0,0,0"
-                                                Header="Guild Hideout"
-                                                IsOn="{Binding GuildHideoutEnabled}"/>
-                            </StackPanel>
-                        </Viewbox>
-                        <Grid Grid.Row="1" VerticalAlignment="Top" Margin="0,10,0,0">
+                                                       Margin="-30,0,0,0"
+                                                       Header="Hideout"
+                                                       IsOn="{Binding HideoutEnabled}"/>
+                            <Controls:ToggleSwitch Grid.Row="1"
+                                                    Margin="-30,0,0,0"
+                                                    Header="Guild Hideout"
+                                                    IsOn="{Binding GuildHideoutEnabled}"/>
+                        </StackPanel>
+                        <Grid Grid.Row="2" VerticalAlignment="Top" Margin="0,10,0,0">
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
                                 <RowDefinition/>

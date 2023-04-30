@@ -417,6 +417,23 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets the delay to close outgoing trades.
+        /// </summary>
+        public double DelayToClose
+        {
+            get
+            {
+                return this._settingService.OutgoingDelayToClose;
+            }
+
+            set
+            {
+                this._settingService.OutgoingDelayToClose = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [show startup animation].
         /// </summary>
         public bool ShowStartupAnimation

@@ -10,7 +10,7 @@ namespace Lurker.UI.ViewModels
     using Caliburn.Micro;
     using Lurker.Helpers;
     using Lurker.Patreon.Events;
-    using Lurker.UI.Extensions;
+    using Lurker.Services;
     using Lurker.UI.Models;
 
     /// <summary>
@@ -29,6 +29,8 @@ namespace Lurker.UI.ViewModels
         private double _delayToClose;
         private OutgoingbarContext _barContext;
         private DockingHelper _dockingHelper;
+        private SettingsService _settingsService;
+        private double _times;
 
         #endregion
 
@@ -41,13 +43,16 @@ namespace Lurker.UI.ViewModels
         /// <param name="keyboardHelper">The keyboard helper.</param>
         /// <param name="context">The context.</param>
         /// <param name="dockingHelper">The docking helper.</param>
-        public OutgoingOfferViewModel(OutgoingTradeEvent tradeEvent, PoeKeyboardHelper keyboardHelper, OutgoingbarContext context, DockingHelper dockingHelper)
+        /// <param name="settingsService">The settings service.</param>
+        public OutgoingOfferViewModel(OutgoingTradeEvent tradeEvent, PoeKeyboardHelper keyboardHelper, OutgoingbarContext context, DockingHelper dockingHelper, SettingsService settingsService)
         {
             this._event = tradeEvent;
             this._keyboardHelper = keyboardHelper;
             this._barContext = context;
-            this.DelayToClose = 100;
             this._dockingHelper = dockingHelper;
+            this._settingsService = settingsService;
+            this._times = settingsService.OutgoingDelayToClose;
+            this.DelayToClose = 100;
             this.PriceValue = tradeEvent.Price.CalculateValue();
         }
 
@@ -131,6 +136,15 @@ namespace Lurker.UI.ViewModels
         #region Methods
 
         /// <summary>
+        /// Tick the delay to close.
+        /// </summary>
+        public void Tick()
+        {
+            this._times -= 0.15;
+            this.DelayToClose = this._times * 100 / this._settingsService.OutgoingDelayToClose;
+        }
+
+        /// <summary>
         /// Whoes the is.
         /// </summary>
         public async void WhoIs()
@@ -168,6 +182,7 @@ namespace Lurker.UI.ViewModels
             await this._keyboardHelper.Whisper(this._event.PlayerName, this._event.WhisperMessage);
             this.Waiting = true;
             this.DelayToClose = 100;
+            this._times = this._settingsService.OutgoingDelayToClose;
         }
 
         /// <summary>
@@ -208,6 +223,7 @@ namespace Lurker.UI.ViewModels
         public void SetActive()
         {
             this.DelayToClose = 100;
+            this._times = this._settingsService.OutgoingDelayToClose;
             this.Active = true;
         }
 

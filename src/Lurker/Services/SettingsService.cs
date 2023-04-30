@@ -708,6 +708,22 @@ namespace Lurker.Services
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether we ignore already sold items.
+        /// </summary>
+        public double OutgoingDelayToClose
+        {
+            get
+            {
+                return this._settings.OutgoingDelayToClose;
+            }
+
+            set
+            {
+                this._settings.OutgoingDelayToClose = value;
+            }
+        }
+
+        /// <summary>
         /// Gets the name of the folder.
         /// </summary>
         private string FolderName => "PoeLurker";

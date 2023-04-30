@@ -245,6 +245,12 @@ namespace Lurker.Models
         /// </summary>
         public bool IgnoreAlreadySold { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating the delay to close outgoing trades.
+        /// </summary>
+        [DefaultValue(100)]
+        public double OutgoingDelayToClose { get; set; }
+
         #endregion
     }
 }
