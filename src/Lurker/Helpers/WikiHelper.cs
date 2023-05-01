@@ -17,7 +17,7 @@ namespace Lurker.Helpers
     {
         #region Fields
 
-        private static readonly string FandomBaseUri = "https://pathofexile.fandom.com";
+        private static readonly string FandomBaseUri = "https://www.poewiki.net";
         private static readonly string WikiBaseUri = $"{FandomBaseUri}/wiki/";
 
         #endregion
@@ -34,6 +34,51 @@ namespace Lurker.Helpers
             // replace space encodes with '_' to match the link layout of the poe wiki and then url encode it
             var itemLink = System.Net.WebUtility.UrlEncode(name.Replace(" ", "_"));
             return new Uri(WikiBaseUri + itemLink);
+        }
+
+        /// <summary>
+        /// Creates the gem URI.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>The wiki url.</returns>
+        public static Uri GetItemImageUrl2(string name)
+        {
+            var webPage = new HtmlWeb();
+            var escapeName = System.Net.WebUtility.UrlEncode(name.Replace(" ", "_"));
+            var document = webPage.Load($"{WikiBaseUri}{escapeName}");
+
+            var span = document.DocumentNode.Descendants().FirstOrDefault(e => e.Name == "span" && e.GetAttributeValue("class", string.Empty) == "images");
+            if (span == null)
+            {
+                return new Uri("https://static.wikia.nocookie.net/pathofexile_gamepedia/images/7/72/Armour_item_icon.png/revision/latest/scale-to-width-down/80?cb=20141212074830");
+            }
+
+            var aElement = span.Descendants().FirstOrDefault(e => e.Name == "a" && e.GetAttributeValue("class", string.Empty) == "image");
+
+            if (aElement == null)
+            {
+                return new Uri("https://static.wikia.nocookie.net/pathofexile_gamepedia/images/7/72/Armour_item_icon.png/revision/latest/scale-to-width-down/80?cb=20141212074830");
+            }
+
+            var image = aElement.Descendants().FirstOrDefault(e => e.Name == "img");
+
+            var src = image.GetAttributeValue("src", string.Empty);
+            if (string.IsNullOrEmpty(src))
+            {
+                return new Uri("https://static.wikia.nocookie.net/pathofexile_gamepedia/images/7/72/Armour_item_icon.png/revision/latest/scale-to-width-down/80?cb=20141212074830");
+            }
+
+            if (src.StartsWith("data:"))
+            {
+                src = image.GetAttributeValue("data-src", string.Empty);
+            }
+
+            if (src.StartsWith("http"))
+            {
+                return new Uri(src);
+            }
+
+            return new Uri($"{FandomBaseUri}{src}");
         }
 
         /// <summary>

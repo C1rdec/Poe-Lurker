@@ -120,7 +120,7 @@ namespace Lurker.DataParser
 
                                     try
                                     {
-                                        item.ImageUrl = WikiHelper.GetItemImageUrl(nameLine);
+                                        item.ImageUrl = WikiHelper.GetItemImageUrl2(nameLine);
                                         if (item.ImageUrl == null)
                                         { 
                                             item.ImageUrl = PoeDBHelper.GetItemImageUrl(nameLine);
