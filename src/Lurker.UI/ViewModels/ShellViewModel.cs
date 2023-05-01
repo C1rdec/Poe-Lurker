@@ -682,6 +682,12 @@ namespace Lurker.UI
             }
 
             this.ShowOverlays(process);
+
+            // Initialize Github
+            var githubService = IoC.Get<GithubService>();
+            await githubService.Gems();
+            await githubService.Uniques();
+
             await this.CheckForUpdate();
             await this.CheckPledgeStatus();
 
