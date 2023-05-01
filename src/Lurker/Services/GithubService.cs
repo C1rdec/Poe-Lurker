@@ -18,6 +18,7 @@ namespace Lurker.Services
     /// <seealso cref="Lurker.Services.HttpServiceBase" />
     public class GithubService : HttpServiceBase
     {
+        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
         private IEnumerable<Gem> _gems;
         private IEnumerable<UniqueItem> _items;
 
@@ -42,8 +43,10 @@ namespace Lurker.Services
 
                 return this._gems;
             }
-            catch
+            catch (Exception exception)
             {
+                Logger.Error(exception, exception.Message);
+
                 return Enumerable.Empty<Gem>();
             }
         }
@@ -64,8 +67,10 @@ namespace Lurker.Services
 
                 return this._items;
             }
-            catch
+            catch (Exception exception)
             {
+                Logger.Error(exception, exception.Message);
+
                 return Enumerable.Empty<UniqueItem>();
             }
         }
