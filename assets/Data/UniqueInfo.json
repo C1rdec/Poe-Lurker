@@ -8,6 +8,13 @@
   },
   {
     "ItemClass": "Amulet",
+    "Name": "Bloodsoaked Medallion",
+    "WikiUrl": "https://poedb.tw/us/Bloodsoaked_Medallion",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Amulets/BloodSoaked_Medallion.webp",
+    "Level": 49
+  },
+  {
+    "ItemClass": "Amulet",
     "Name": "Araku Tiki",
     "WikiUrl": "https://poedb.tw/us/Araku_Tiki",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/5/5a/Araku_Tiki_inventory_icon.png/revision/latest?cb=20130626162152",
@@ -31,7 +38,7 @@
     "ItemClass": "Amulet",
     "Name": "Ashes of the Stars",
     "WikiUrl": "https://poedb.tw/us/Ashes_of_the_Stars",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Amulets/MasterOfGems.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Amulets/MasterOfGems.webp",
     "Level": 60
   },
   {
@@ -71,10 +78,17 @@
   },
   {
     "ItemClass": "Amulet",
+    "Name": "Eternal Damnation",
+    "WikiUrl": "https://poedb.tw/us/Eternal_Damnation",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Amulets/AnwensAmulet.webp",
+    "Level": 52
+  },
+  {
+    "ItemClass": "Amulet",
     "Name": "Badge of the Brotherhood",
     "WikiUrl": "https://poedb.tw/us/Badge_of_the_Brotherhood",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/5/5c/Badge_of_the_Brotherhood_inventory_icon.png/revision/latest?cb=20190906203605",
-    "Level": 20
+    "Level": 60
   },
   {
     "ItemClass": "Amulet",
@@ -102,13 +116,6 @@
     "Name": "Bloodgrip",
     "WikiUrl": "https://poedb.tw/us/Bloodgrip",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/4/45/Bloodgrip_inventory_icon.png/revision/latest?cb=20150828083548",
-    "Level": 55
-  },
-  {
-    "ItemClass": "Amulet",
-    "Name": "Bloodgrip",
-    "WikiUrl": "https://poedb.tw/us/Bloodgrip",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/4/45/Bloodgrip_inventory_icon.png/revision/latest?cb=20150828083548",
     "Level": 74
   },
   {
@@ -122,7 +129,7 @@
     "ItemClass": "Amulet",
     "Name": "Crystallised Omniscience",
     "WikiUrl": "https://poedb.tw/us/Crystallised_Omniscience",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Amulets/AscendanceAmulet.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Amulets/AscendanceAmulet.webp",
     "Level": 61
   },
   {
@@ -138,6 +145,13 @@
     "WikiUrl": "https://poedb.tw/us/The_Ephemeral_Bond",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/2/25/The_Ephemeral_Bond_inventory_icon.png/revision/latest?cb=20200920180023",
     "Level": 68
+  },
+  {
+    "ItemClass": "Amulet",
+    "Name": "Doedre's Tongue",
+    "WikiUrl": "https://poedb.tw/us/Doedres_Tongue",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Amulets/DoedresTongue.webp",
+    "Level": 24
   },
   {
     "ItemClass": "Amulet",
@@ -340,7 +354,7 @@
     "Name": "Retaliation Charm",
     "WikiUrl": "https://poedb.tw/us/Retaliation_Charm",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/e2/Retaliation_Charm_inventory_icon.png/revision/latest?cb=20200620100025",
-    "Level": 30
+    "Level": 16
   },
   {
     "ItemClass": "Amulet",
@@ -402,7 +416,7 @@
     "ItemClass": "Amulet",
     "Name": "Stranglegasp",
     "WikiUrl": "https://poedb.tw/us/Stranglegasp",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Amulets/GiftOfGloph.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Amulets/GiftOfGloph.webp",
     "Level": 52
   },
   {
@@ -411,6 +425,13 @@
     "WikiUrl": "https://poedb.tw/us/Tavukai",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/a/af/Tavukai_inventory_icon.png/revision/latest?cb=20190607215729",
     "Level": 54
+  },
+  {
+    "ItemClass": "Amulet",
+    "Name": "Tainted Pact",
+    "WikiUrl": "https://poedb.tw/us/Tainted_Pact",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Amulets/TaintedPact.webp",
+    "Level": 42
   },
   {
     "ItemClass": "Amulet",
@@ -430,7 +451,7 @@
     "ItemClass": "Amulet",
     "Name": "Uul-Netol's Vow",
     "WikiUrl": "https://poedb.tw/us/Uul-Netols_Vow",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Amulets/GiftofUulNetol.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Amulets/GiftofUulNetol.webp",
     "Level": 72
   },
   {
@@ -509,6 +530,13 @@
     "WikiUrl": "https://poedb.tw/us/Yoke_of_Suffering",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/0c/Yoke_of_Suffering_inventory_icon.png/revision/latest?cb=20171209033139",
     "Level": 70
+  },
+  {
+    "ItemClass": "Amulet",
+    "Name": "The Eternal Struggle",
+    "WikiUrl": "https://poedb.tw/us/The_Eternal_Struggle",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Amulets/VoidcoreAmulet.webp",
+    "Level": 61
   },
   {
     "ItemClass": "Axe",
@@ -697,7 +725,7 @@
     "Name": "Uul-Netol's Kiss",
     "WikiUrl": "https://poedb.tw/us/Uul-Netols_Kiss",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/6/6f/Uul-Netol%27s_Kiss_inventory_icon.png/revision/latest?cb=20161203030106",
-    "Level": 49
+    "Level": 64
   },
   {
     "ItemClass": "Axe",
@@ -715,13 +743,6 @@
   },
   {
     "ItemClass": "Axe",
-    "Name": "Wings of Entropy",
-    "WikiUrl": "https://poedb.tw/us/Wings_of_Entropy",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/e2/Wings_of_Entropy_inventory_icon.png/revision/latest?cb=20201223003253",
-    "Level": 62
-  },
-  {
-    "ItemClass": "Axe",
     "Name": "Replica Wings of Entropy",
     "WikiUrl": "https://poedb.tw/us/Replica_Wings_of_Entropy",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/e2/Wings_of_Entropy_inventory_icon.png/revision/latest?cb=20201223003253",
@@ -732,7 +753,7 @@
     "Name": "Wings of Entropy",
     "WikiUrl": "https://poedb.tw/us/Wings_of_Entropy",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/e2/Wings_of_Entropy_inventory_icon.png/revision/latest?cb=20201223003253",
-    "Level": 60
+    "Level": 62
   },
   {
     "ItemClass": "Belt",
@@ -757,10 +778,10 @@
   },
   {
     "ItemClass": "Belt",
-    "Name": "Auxium",
-    "WikiUrl": "https://poedb.tw/us/Auxium",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/5/5e/Auxium_inventory_icon.png/revision/latest?cb=20130705172844",
-    "Level": 70
+    "Name": "The Burden of Truth",
+    "WikiUrl": "https://poedb.tw/us/The_Burden_of_Truth",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Belts/SirusBelt.webp",
+    "Level": 79
   },
   {
     "ItemClass": "Belt",
@@ -851,7 +872,7 @@
     "Name": "Dyadian Dawn",
     "WikiUrl": "https://poedb.tw/us/Dyadian_Dawn",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/e1/Dyadian_Dawn_inventory_icon.png/revision/latest?cb=20150429192400",
-    "Level": 52
+    "Level": 20
   },
   {
     "ItemClass": "Belt",
@@ -955,7 +976,7 @@
     "ItemClass": "Belt",
     "Name": "Mageblood",
     "WikiUrl": "https://poedb.tw/us/Mageblood",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Belts/InjectorBelt.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Belts/InjectorBelt.webp",
     "Level": 44
   },
   {
@@ -992,6 +1013,20 @@
     "WikiUrl": "https://poedb.tw/us/Perandus_Blazon",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/e4/Perandus_Blazon_inventory_icon.png/revision/latest?cb=20130626162344",
     "Level": 16
+  },
+  {
+    "ItemClass": "Belt",
+    "Name": "Ceinture of Benevolence",
+    "WikiUrl": "https://poedb.tw/us/Ceinture_of_Benevolence",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Belts/LinkmastersCoil.webp",
+    "Level": 40
+  },
+  {
+    "ItemClass": "Belt",
+    "Name": "Chain of Endurance",
+    "WikiUrl": "https://poedb.tw/us/Chain_of_Endurance",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Belts/UnhealthyBurden.webp",
+    "Level": 14
   },
   {
     "ItemClass": "Belt",
@@ -1033,7 +1068,7 @@
     "Name": "Ryslatha's Coil",
     "WikiUrl": "https://poedb.tw/us/Ryslathas_Coil",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/4/4b/Ryslatha%27s_Coil_inventory_icon.png/revision/latest?cb=20170304014000",
-    "Level": 20
+    "Level": 32
   },
   {
     "ItemClass": "Belt",
@@ -1075,7 +1110,7 @@
     "Name": "String of Servitude",
     "WikiUrl": "https://poedb.tw/us/String_of_Servitude",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/f/fe/String_of_Servitude_inventory_icon.png/revision/latest?cb=20180601192032",
-    "Level": 1
+    "Level": 28
   },
   {
     "ItemClass": "Belt",
@@ -1117,7 +1152,7 @@
     "Name": "Bramblejack",
     "WikiUrl": "https://poedb.tw/us/Bramblejack",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/2/28/Bramblejack_inventory_icon.png/revision/latest?cb=20130626162204",
-    "Level": 1
+    "Level": 12
   },
   {
     "ItemClass": "BodyArmour",
@@ -1138,7 +1173,7 @@
     "Name": "Craiceann's Carapace",
     "WikiUrl": "https://poedb.tw/us/Craiceanns_Carapace",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/7/7d/Craiceann%27s_Carapace_inventory_icon.png/revision/latest?cb=20180302182635",
-    "Level": 56
+    "Level": 64
   },
   {
     "ItemClass": "BodyArmour",
@@ -1150,8 +1185,8 @@
   {
     "ItemClass": "BodyArmour",
     "Name": "Doppelg??nger Guise",
-    "WikiUrl": "https://poedb.tw/us/Doppelg%3F%3Fnger_Guise",
-    "ImageUrl": null,
+    "WikiUrl": "https://poedb.tw/us/Doppelg%C3%A4nger_Guise",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/BodyArmours/CollectorsGarbDiff.webp",
     "Level": 68
   },
   {
@@ -1173,7 +1208,7 @@
     "Name": "Replica Kaom's Heart",
     "WikiUrl": "https://poedb.tw/us/Replica_Kaoms_Heart",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/c/c5/Kaom%27s_Heart_inventory_icon.png/revision/latest?cb=20130626162310",
-    "Level": 68
+    "Level": 56
   },
   {
     "ItemClass": "BodyArmour",
@@ -1187,14 +1222,14 @@
     "Name": "Iron Heart",
     "WikiUrl": "https://poedb.tw/us/Iron_Heart",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/0d/Iron_Heart_inventory_icon.png/revision/latest?cb=20171208234941",
-    "Level": 59
+    "Level": 1
   },
   {
     "ItemClass": "BodyArmour",
     "Name": "The Iron Fortress",
     "WikiUrl": "https://poedb.tw/us/The_Iron_Fortress",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/0d/Iron_Heart_inventory_icon.png/revision/latest?cb=20171208234941",
-    "Level": 59
+    "Level": 68
   },
   {
     "ItemClass": "BodyArmour",
@@ -1222,7 +1257,7 @@
     "Name": "Briskwrap",
     "WikiUrl": "https://poedb.tw/us/Briskwrap",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/3/3b/Briskwrap_inventory_icon.png/revision/latest?cb=20160909023529",
-    "Level": 9
+    "Level": 32
   },
   {
     "ItemClass": "BodyArmour",
@@ -1257,7 +1292,7 @@
     "Name": "Fox's Fortune",
     "WikiUrl": "https://poedb.tw/us/Foxs_Fortune",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/c/c4/Foxshade_inventory_icon.png/revision/latest?cb=20130626162248",
-    "Level": 1
+    "Level": 54
   },
   {
     "ItemClass": "BodyArmour",
@@ -1292,7 +1327,7 @@
     "Name": "The Snowblind Grace",
     "WikiUrl": "https://poedb.tw/us/The_Snowblind_Grace",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/1/1f/The_Snowblind_Grace_inventory_icon.png/revision/latest?cb=20161203014022",
-    "Level": 49
+    "Level": 65
   },
   {
     "ItemClass": "BodyArmour",
@@ -1369,7 +1404,7 @@
     "Name": "Fenumus' Shroud",
     "WikiUrl": "https://poedb.tw/us/Fenumus_Shroud",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/a/a9/Fenumus%27_Shroud_inventory_icon.png/revision/latest?cb=20180302182623",
-    "Level": 65
+    "Level": 67
   },
   {
     "ItemClass": "BodyArmour",
@@ -1394,13 +1429,6 @@
   },
   {
     "ItemClass": "BodyArmour",
-    "Name": "Infernal Mantle",
-    "WikiUrl": "https://poedb.tw/us/Infernal_Mantle",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/f/f5/Infernal_Mantle_inventory_icon.png/revision/latest?cb=20130626162305",
-    "Level": 65
-  },
-  {
-    "ItemClass": "BodyArmour",
     "Name": "Shavronne's Wrappings",
     "WikiUrl": "https://poedb.tw/us/Shavronnes_Wrappings",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/6/62/Shavronne%27s_Wrappings_inventory_icon.png/revision/latest?cb=20160909023026",
@@ -1411,7 +1439,7 @@
     "Name": "Skin of the Loyal",
     "WikiUrl": "https://poedb.tw/us/Skin_of_the_Loyal",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/9/92/Skin_of_the_Loyal_inventory_icon.png/revision/latest?cb=20161203025718",
-    "Level": 1
+    "Level": 3
   },
   {
     "ItemClass": "BodyArmour",
@@ -1425,14 +1453,14 @@
     "Name": "Tabula Rasa",
     "WikiUrl": "https://poedb.tw/us/Tabula_Rasa",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/8c/Tabula_Rasa_inventory_icon.png/revision/latest?cb=20180601201323",
-    "Level": 1
+    "Level": 3
   },
   {
     "ItemClass": "BodyArmour",
     "Name": "Thousand Ribbons",
     "WikiUrl": "https://poedb.tw/us/Thousand_Ribbons",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/7/76/Thousand_Ribbons_inventory_icon.png/revision/latest?cb=20130626162431",
-    "Level": 1
+    "Level": 3
   },
   {
     "ItemClass": "BodyArmour",
@@ -1447,6 +1475,13 @@
     "WikiUrl": "https://poedb.tw/us/Zahndethus_Cassock",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/0c/Zahndethus%27_Cassock_inventory_icon.png/revision/latest?cb=20130626162447",
     "Level": 37
+  },
+  {
+    "ItemClass": "BodyArmour",
+    "Name": "Ghostwrithe",
+    "WikiUrl": "https://poedb.tw/us/Ghostwrithe",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/BodyArmours/Ghostweave.webp",
+    "Level": 11
   },
   {
     "ItemClass": "BodyArmour",
@@ -1531,6 +1566,13 @@
     "WikiUrl": "https://poedb.tw/us/Doryanis_Prototype",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/1/18/Doryani%27s_Prototype_inventory_icon.png/revision/latest?cb=20200620100014",
     "Level": 67
+  },
+  {
+    "ItemClass": "BodyArmour",
+    "Name": "The Fourth Vow",
+    "WikiUrl": "https://poedb.tw/us/The_Fourth_Vow",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/BodyArmours/ClericsSanctuary.webp",
+    "Level": 55
   },
   {
     "ItemClass": "BodyArmour",
@@ -1711,7 +1753,7 @@
     "ItemClass": "BodyArmour",
     "Name": "Stasis Prison",
     "WikiUrl": "https://poedb.tw/us/Stasis_Prison",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/BodyArmours/ChronomancerArmour.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/BodyArmours/ChronomancerArmour.webp",
     "Level": 71
   },
   {
@@ -1768,7 +1810,7 @@
     "Name": "The Infinite Pursuit",
     "WikiUrl": "https://poedb.tw/us/The_Infinite_Pursuit",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/9/98/The_Infinite_Pursuit_inventory_icon.png/revision/latest?cb=20161202203614",
-    "Level": 54
+    "Level": 68
   },
   {
     "ItemClass": "Boots",
@@ -1828,6 +1870,13 @@
   },
   {
     "ItemClass": "Boots",
+    "Name": "Dawnstrider",
+    "WikiUrl": "https://poedb.tw/us/Dawnstrider",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Boots/InfectiousConstruct.webp",
+    "Level": 62
+  },
+  {
+    "ItemClass": "Boots",
     "Name": "Abberath's Hooves",
     "WikiUrl": "https://poedb.tw/us/Abberaths_Hooves",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/a/a2/Abberath%27s_Hooves_inventory_icon.png/revision/latest?cb=20161202233141",
@@ -1856,10 +1905,17 @@
   },
   {
     "ItemClass": "Boots",
+    "Name": "Orbala's Stand",
+    "WikiUrl": "https://poedb.tw/us/Orbalas_Stand",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Boots/RuggedStepBoots.webp",
+    "Level": 39
+  },
+  {
+    "ItemClass": "Boots",
     "Name": "Doryani's Delusion",
     "WikiUrl": "https://poedb.tw/us/Doryanis_Delusion",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/e9/Doryani%27s_Delusion_%28Energy_Shield%29_inventory_icon.png/revision/latest?cb=20180906050722",
-    "Level": 69
+    "Level": 68
   },
   {
     "ItemClass": "Boots",
@@ -1901,7 +1957,7 @@
     "Name": "Temptation Step",
     "WikiUrl": "https://poedb.tw/us/Temptation_Step",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/9/96/Temptation_Step_inventory_icon.png/revision/latest?cb=20210418060528",
-    "Level": 55
+    "Level": 45
   },
   {
     "ItemClass": "Boots",
@@ -1943,7 +1999,7 @@
     "Name": "Doryani's Delusion",
     "WikiUrl": "https://poedb.tw/us/Doryanis_Delusion",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/e9/Doryani%27s_Delusion_%28Energy_Shield%29_inventory_icon.png/revision/latest?cb=20180906050722",
-    "Level": 67
+    "Level": 68
   },
   {
     "ItemClass": "Boots",
@@ -1999,7 +2055,7 @@
     "Name": "Wanderlust",
     "WikiUrl": "https://poedb.tw/us/Wanderlust",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/c/c1/Wanderlust_inventory_icon.png/revision/latest?cb=20130626162441",
-    "Level": 1
+    "Level": 3
   },
   {
     "ItemClass": "Boots",
@@ -2020,7 +2076,7 @@
     "Name": "Beacon of Madness",
     "WikiUrl": "https://poedb.tw/us/Beacon_of_Madness",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/88/Beacon_of_Madness_inventory_icon.png/revision/latest?cb=20200313185018",
-    "Level": 1
+    "Level": 62
   },
   {
     "ItemClass": "Boots",
@@ -2028,13 +2084,6 @@
     "WikiUrl": "https://poedb.tw/us/Darkray_Vectors",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/6/6c/Darkray_Vectors_inventory_icon.png/revision/latest?cb=20130626162224",
     "Level": 65
-  },
-  {
-    "ItemClass": "Boots",
-    "Name": "Dusktoe",
-    "WikiUrl": "https://poedb.tw/us/Dusktoe",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/7/75/Dusktoe_inventory_icon.png/revision/latest?cb=20140109054237",
-    "Level": 18
   },
   {
     "ItemClass": "Boots",
@@ -2059,6 +2108,13 @@
   },
   {
     "ItemClass": "Boots",
+    "Name": "Annihilation's Approach",
+    "WikiUrl": "https://poedb.tw/us/Annihilations_Approach",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Boots/UberSearingExarchBoot.webp?sacle=1",
+    "Level": 65
+  },
+  {
+    "ItemClass": "Boots",
     "Name": "Lioneye's Paws",
     "WikiUrl": "https://poedb.tw/us/Lioneyes_Paws",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/c/ca/Lioneye%27s_Paws_inventory_icon.png/revision/latest?cb=20130626162317",
@@ -2069,7 +2125,7 @@
     "Name": "Replica Lioneye's Paws",
     "WikiUrl": "https://poedb.tw/us/Replica_Lioneyes_Paws",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/c/ca/Lioneye%27s_Paws_inventory_icon.png/revision/latest?cb=20130626162317",
-    "Level": 30
+    "Level": 20
   },
   {
     "ItemClass": "Boots",
@@ -2160,7 +2216,7 @@
     "Name": "Dance of the Offered",
     "WikiUrl": "https://poedb.tw/us/Dance_of_the_Offered",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/0c/Dance_of_the_Offered_inventory_icon.png/revision/latest?cb=20180601192023",
-    "Level": 1
+    "Level": 55
   },
   {
     "ItemClass": "Boots",
@@ -2180,8 +2236,8 @@
     "ItemClass": "Boots",
     "Name": "Inextricable Fate",
     "WikiUrl": "https://poedb.tw/us/Inextricable_Fate",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Boots/VinegraspBootsUnique.png",
-    "Level": 70
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Boots/VinegraspBootsUnique.webp",
+    "Level": 68
   },
   {
     "ItemClass": "Boots",
@@ -2236,15 +2292,8 @@
     "ItemClass": "Boots",
     "Name": "Olroth's Charge",
     "WikiUrl": "https://poedb.tw/us/Olroths_Charge",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Boots/AdaptationBootsUnique.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Boots/AdaptationBootsUnique.webp",
     "Level": 48
-  },
-  {
-    "ItemClass": "Boots",
-    "Name": "Vorana's March",
-    "WikiUrl": "https://poedb.tw/us/Voranas_March",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Boots/SpiritBootsUnique.png",
-    "Level": 69
   },
   {
     "ItemClass": "Bow",
@@ -2306,7 +2355,7 @@
     "ItemClass": "Bow",
     "Name": "The Gluttonous Tide",
     "WikiUrl": "https://poedb.tw/us/The_Gluttonous_Tide",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Bows/FrenziedTentacles.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Bows/FrenziedTentacles.webp",
     "Level": 58
   },
   {
@@ -2398,7 +2447,7 @@
     "Name": "Silverbranch",
     "WikiUrl": "https://poedb.tw/us/Silverbranch",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/9/96/Silverbranch_inventory_icon.png/revision/latest?cb=20130626162412",
-    "Level": 2
+    "Level": 14
   },
   {
     "ItemClass": "Bow",
@@ -2406,6 +2455,13 @@
     "WikiUrl": "https://poedb.tw/us/Silverbough",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/9/96/Silverbranch_inventory_icon.png/revision/latest?cb=20130626162412",
     "Level": 36
+  },
+  {
+    "ItemClass": "Bow",
+    "Name": "Widowhail",
+    "WikiUrl": "https://poedb.tw/us/Widowhail",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Bows/WidowhailBow.webp",
+    "Level": 14
   },
   {
     "ItemClass": "Bow",
@@ -2454,7 +2510,7 @@
     "Name": "Xoph's Inception",
     "WikiUrl": "https://poedb.tw/us/Xophs_Inception",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/b/b6/Xoph%27s_Inception_inventory_icon.png/revision/latest?cb=20161205073005",
-    "Level": 23
+    "Level": 58
   },
   {
     "ItemClass": "Bow",
@@ -2521,17 +2577,10 @@
   },
   {
     "ItemClass": "Claw",
-    "Name": "Essentia Sanguis",
-    "WikiUrl": "https://poedb.tw/us/Essentia_Sanguis",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/3/3c/Essentia_Sanguis_inventory_icon.png/revision/latest?cb=20130626162239",
-    "Level": 66
-  },
-  {
-    "ItemClass": "Claw",
     "Name": "Hand of Thought and Motion",
     "WikiUrl": "https://poedb.tw/us/Hand_of_Thought_and_Motion",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/4/4c/Hand_of_Thought_and_Motion_inventory_icon.png/revision/latest?cb=20161202222452",
-    "Level": 22
+    "Level": 68
   },
   {
     "ItemClass": "Claw",
@@ -2552,14 +2601,14 @@
     "Name": "Last Resort",
     "WikiUrl": "https://poedb.tw/us/Last_Resort",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/9/93/Last_Resort_inventory_icon.png/revision/latest?cb=20130626162312",
-    "Level": 1
+    "Level": 3
   },
   {
     "ItemClass": "Claw",
     "Name": "Replica Last Resort",
     "WikiUrl": "https://poedb.tw/us/Replica_Last_Resort",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/9/93/Last_Resort_inventory_icon.png/revision/latest?cb=20130626162312",
-    "Level": 1
+    "Level": 3
   },
   {
     "ItemClass": "Claw",
@@ -2829,10 +2878,17 @@
   },
   {
     "ItemClass": "Flask",
+    "Name": "Progenesis",
+    "WikiUrl": "https://poedb.tw/us/Progenesis",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Flasks/UberMavenFlask.webp",
+    "Level": 60
+  },
+  {
+    "ItemClass": "Flask",
     "Name": "Bottled Faith",
     "WikiUrl": "https://poedb.tw/us/Bottled_Faith",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/d/d5/Bottled_Faith_inventory_icon.png/revision/latest?cb=20190308230043",
-    "Level": 35
+    "Level": 27
   },
   {
     "ItemClass": "Flask",
@@ -2853,7 +2909,7 @@
     "Name": "Cinderswallow Urn",
     "WikiUrl": "https://poedb.tw/us/Cinderswallow_Urn",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/b/b1/Cinderswallow_Urn_inventory_icon.png/revision/latest?cb=20181209005643",
-    "Level": 22
+    "Level": 27
   },
   {
     "ItemClass": "Flask",
@@ -2874,7 +2930,7 @@
     "Name": "Kiara's Determination",
     "WikiUrl": "https://poedb.tw/us/Kiaras_Determination",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/6/6e/Kiara%27s_Determination_inventory_icon.png/revision/latest?cb=20170508105247",
-    "Level": 22
+    "Level": 27
   },
   {
     "ItemClass": "Flask",
@@ -2909,7 +2965,7 @@
     "Name": "Sin's Rebirth",
     "WikiUrl": "https://poedb.tw/us/Sins_Rebirth",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/5/5c/Sin%27s_Rebirth_inventory_icon.png/revision/latest?cb=20161202232218",
-    "Level": 14
+    "Level": 27
   },
   {
     "ItemClass": "Flask",
@@ -2923,7 +2979,7 @@
     "Name": "Replica Sorrow of the Divine",
     "WikiUrl": "https://poedb.tw/us/Replica_Sorrow_of_the_Divine",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/c/cb/The_Sorrow_of_the_Divine_inventory_icon.png/revision/latest?cb=20160306015340",
-    "Level": 35
+    "Level": 27
   },
   {
     "ItemClass": "Flask",
@@ -2951,7 +3007,7 @@
     "Name": "The Overflowing Chalice",
     "WikiUrl": "https://poedb.tw/us/The_Overflowing_Chalice",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/86/The_Overflowing_Chalice_inventory_icon.png/revision/latest?cb=20170508105527",
-    "Level": 35
+    "Level": 27
   },
   {
     "ItemClass": "Flask",
@@ -2969,6 +3025,13 @@
   },
   {
     "ItemClass": "Flask",
+    "Name": "Oriath's End",
+    "WikiUrl": "https://poedb.tw/us/Oriaths_End",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Flasks/UberSirusFlask.webp",
+    "Level": 56
+  },
+  {
+    "ItemClass": "Flask",
     "Name": "Witchfire Brew",
     "WikiUrl": "https://poedb.tw/us/Witchfire_Brew",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/b/b8/Witchfire_Brew_inventory_icon.png/revision/latest?cb=20160904135115",
@@ -2978,28 +3041,28 @@
     "ItemClass": "Flask",
     "Name": "Elixir of the Unbroken Circle",
     "WikiUrl": "https://poedb.tw/us/Elixir_of_the_Unbroken_Circle",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Flasks/WardFlask03.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Flasks/WardFlask03.webp",
     "Level": 40
   },
   {
     "ItemClass": "Flask",
     "Name": "Olroth's Resolve",
     "WikiUrl": "https://poedb.tw/us/Olroths_Resolve",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Flasks/WardFlask02.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Flasks/WardFlask02.webp",
     "Level": 40
   },
   {
     "ItemClass": "Flask",
     "Name": "Starlight Chalice",
     "WikiUrl": "https://poedb.tw/us/Starlight_Chalice",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Flasks/AdaptationFlask02.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Flasks/AdaptationFlask02.webp",
     "Level": 40
   },
   {
     "ItemClass": "Flask",
     "Name": "Vorana's Preparation",
     "WikiUrl": "https://poedb.tw/us/Voranas_Preparation",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Flasks/AdaptationFlask03.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Flasks/AdaptationFlask03.webp",
     "Level": 40
   },
   {
@@ -3020,14 +3083,21 @@
     "ItemClass": "Gloves",
     "Name": "Ceaseless Feast",
     "WikiUrl": "https://poedb.tw/us/Ceaseless_Feast",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Gloves/TouchOfRust.png",
-    "Level": 70
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Gloves/TouchOfRust.webp",
+    "Level": 62
   },
   {
     "ItemClass": "Gloves",
     "Name": "Craiceann's Pincers",
     "WikiUrl": "https://poedb.tw/us/Craiceanns_Pincers",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/4/4e/Craiceann%27s_Pincers_inventory_icon.png/revision/latest?cb=20180302182631",
+    "Level": 69
+  },
+  {
+    "ItemClass": "Gloves",
+    "Name": "Kaom's Spirit",
+    "WikiUrl": "https://poedb.tw/us/Kaoms_Spirit",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Gloves/KaomsSpirit.webp",
     "Level": 69
   },
   {
@@ -3042,7 +3112,7 @@
     "Name": "Hateforge",
     "WikiUrl": "https://poedb.tw/us/Hateforge",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/e0/Hateforge_inventory_icon.png/revision/latest?cb=20210420020003",
-    "Level": 47
+    "Level": 72
   },
   {
     "ItemClass": "Gloves",
@@ -3063,7 +3133,7 @@
     "Name": "Lochtonial Caress",
     "WikiUrl": "https://poedb.tw/us/Lochtonial_Caress",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/4/47/Lochtonial_Caress_inventory_icon.png/revision/latest?cb=20130626162317",
-    "Level": 1
+    "Level": 6
   },
   {
     "ItemClass": "Gloves",
@@ -3147,14 +3217,14 @@
     "Name": "Allelopathy",
     "WikiUrl": "https://poedb.tw/us/Allelopathy",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/c/c4/Allelopathy_inventory_icon.png/revision/latest?cb=20170806052302",
-    "Level": 69
+    "Level": 41
   },
   {
     "ItemClass": "Gloves",
     "Name": "Replica Allelopathy",
     "WikiUrl": "https://poedb.tw/us/Replica_Allelopathy",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/c/c4/Allelopathy_inventory_icon.png/revision/latest?cb=20170806052302",
-    "Level": 69
+    "Level": 41
   },
   {
     "ItemClass": "Gloves",
@@ -3167,7 +3237,7 @@
     "ItemClass": "Gloves",
     "Name": "Black Zenith",
     "WikiUrl": "https://poedb.tw/us/Black_Zenith",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Gloves/EbbAndFlow.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Gloves/EbbAndFlow.webp",
     "Level": 70
   },
   {
@@ -3265,7 +3335,7 @@
     "ItemClass": "Gloves",
     "Name": "Gravebind",
     "WikiUrl": "https://poedb.tw/us/Gravebind",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Gloves/DeathGrip.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Gloves/DeathGrip.webp",
     "Level": 59
   },
   {
@@ -3319,6 +3389,13 @@
   },
   {
     "ItemClass": "Gloves",
+    "Name": "Tanu Ahi",
+    "WikiUrl": "https://poedb.tw/us/Tanu_Ahi",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Gloves/GorefistGloves.webp",
+    "Level": 49
+  },
+  {
+    "ItemClass": "Gloves",
     "Name": "Command of the Pit",
     "WikiUrl": "https://poedb.tw/us/Command_of_the_Pit",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/3/3a/Command_of_the_Pit_inventory_icon.png/revision/latest?cb=20180831210515",
@@ -3364,7 +3441,7 @@
     "Name": "Saqawal's Winds",
     "WikiUrl": "https://poedb.tw/us/Saqawals_Winds",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/e3/Saqawal%27s_Winds_inventory_icon.png/revision/latest?cb=20180302182615",
-    "Level": 51
+    "Level": 64
   },
   {
     "ItemClass": "Gloves",
@@ -3417,6 +3494,13 @@
   },
   {
     "ItemClass": "Gloves",
+    "Name": "Stormseeker",
+    "WikiUrl": "https://poedb.tw/us/Stormseeker",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Gloves/StormseekerGloves.webp",
+    "Level": 45
+  },
+  {
+    "ItemClass": "Gloves",
     "Name": "Algor Mortis",
     "WikiUrl": "https://poedb.tw/us/Algor_Mortis",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/2/29/Algor_Mortis_inventory_icon.png/revision/latest?cb=20200313185003",
@@ -3434,7 +3518,7 @@
     "Name": "Architect's Hand",
     "WikiUrl": "https://poedb.tw/us/Architects_Hand",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/0a/Architect%27s_Hand_inventory_icon.png/revision/latest?cb=20180602021618",
-    "Level": 1
+    "Level": 45
   },
   {
     "ItemClass": "Gloves",
@@ -3469,6 +3553,13 @@
     "Name": "Fenumus' Weave",
     "WikiUrl": "https://poedb.tw/us/Fenumus_Weave",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/9/90/Fenumus%27_Weave_inventory_icon.png/revision/latest?cb=20180304152047",
+    "Level": 50
+  },
+  {
+    "ItemClass": "Gloves",
+    "Name": "Soul Ascension",
+    "WikiUrl": "https://poedb.tw/us/Soul_Ascension",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Gloves/SoulAscension.webp",
     "Level": 50
   },
   {
@@ -3522,16 +3613,23 @@
   },
   {
     "ItemClass": "Gloves",
+    "Name": "Entropic Devastation",
+    "WikiUrl": "https://poedb.tw/us/Entropic_Devastation",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Gloves/UberShaperGloves.webp",
+    "Level": 58
+  },
+  {
+    "ItemClass": "Gloves",
     "Name": "Medved's Challenge",
     "WikiUrl": "https://poedb.tw/us/Medveds_Challenge",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Gloves/AdaptationGlovesUnique.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Gloves/AdaptationGlovesUnique.webp",
     "Level": 69
   },
   {
     "ItemClass": "Gloves",
     "Name": "Nightgrip",
     "WikiUrl": "https://poedb.tw/us/Nightgrip",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Gloves/SpiritGlovesUnique.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Gloves/SpiritGlovesUnique.webp",
     "Level": 48
   },
   {
@@ -3560,27 +3658,34 @@
     "Name": "Ezomyte Peak",
     "WikiUrl": "https://poedb.tw/us/Ezomyte_Peak",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/85/Ezomyte_Peak_inventory_icon.png/revision/latest?cb=20130626162242",
-    "Level": 1
+    "Level": 9
   },
   {
     "ItemClass": "Helmet",
     "Name": "Ezomyte Hold",
     "WikiUrl": "https://poedb.tw/us/Ezomyte_Hold",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/85/Ezomyte_Peak_inventory_icon.png/revision/latest?cb=20130626162242",
-    "Level": 1
+    "Level": 9
   },
   {
     "ItemClass": "Helmet",
     "Name": "The Formless Flame",
     "WikiUrl": "https://poedb.tw/us/The_Formless_Flame",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/6/62/The_Formless_Flame_inventory_icon.png/revision/latest?cb=20161202200628",
-    "Level": 48
+    "Level": 65
   },
   {
     "ItemClass": "Helmet",
     "Name": "The Formless Inferno",
     "WikiUrl": "https://poedb.tw/us/The_Formless_Inferno",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/c/cb/The_Formless_Inferno_inventory_icon.png/revision/latest?cb=20161202200641",
+    "Level": 65
+  },
+  {
+    "ItemClass": "Helmet",
+    "Name": "Echoes of Creation",
+    "WikiUrl": "https://poedb.tw/us/Echoes_of_Creation",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Helmets/TheTwistingScream.webp",
     "Level": 65
   },
   {
@@ -3594,8 +3699,22 @@
     "ItemClass": "Helmet",
     "Name": "Usurper's Penance",
     "WikiUrl": "https://poedb.tw/us/Usurpers_Penance",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Helmets/UnbridledRage.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Helmets/UnbridledRage.webp",
     "Level": 69
+  },
+  {
+    "ItemClass": "Helmet",
+    "Name": "Thrillsteel",
+    "WikiUrl": "https://poedb.tw/us/Thrillsteel",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Helmets/HelmofWar.webp",
+    "Level": 18
+  },
+  {
+    "ItemClass": "Helmet",
+    "Name": "Blood Price",
+    "WikiUrl": "https://poedb.tw/us/Blood_Price",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Helmets/BloodPriceHelmUnique.webp",
+    "Level": 40
   },
   {
     "ItemClass": "Helmet",
@@ -3630,7 +3749,7 @@
     "Name": "Goldrim",
     "WikiUrl": "https://poedb.tw/us/Goldrim",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/5/58/Goldrim_inventory_icon.png/revision/latest?cb=20130626162231",
-    "Level": 1
+    "Level": 3
   },
   {
     "ItemClass": "Helmet",
@@ -3652,6 +3771,13 @@
     "WikiUrl": "https://poedb.tw/us/Obscurantis",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/9/9f/Obscurantis_inventory_icon.png/revision/latest?cb=20160904032713",
     "Level": 70
+  },
+  {
+    "ItemClass": "Helmet",
+    "Name": "Elevore",
+    "WikiUrl": "https://poedb.tw/us/Elevore",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Helmets/Wildcall.webp",
+    "Level": 30
   },
   {
     "ItemClass": "Helmet",
@@ -3728,7 +3854,7 @@
     "Name": "Crown of Thorns",
     "WikiUrl": "https://poedb.tw/us/Crown_of_Thorns",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/9/9a/Crown_of_Thorns_inventory_icon.png/revision/latest?cb=20130626162221",
-    "Level": 1
+    "Level": 3
   },
   {
     "ItemClass": "Helmet",
@@ -3743,6 +3869,13 @@
     "WikiUrl": "https://poedb.tw/us/The_Devouring_Diadem",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/0f/The_Devouring_Diadem_inventory_icon.png/revision/latest?cb=20181207193841",
     "Level": 54
+  },
+  {
+    "ItemClass": "Helmet",
+    "Name": "Wilma's Requital",
+    "WikiUrl": "https://poedb.tw/us/Wilmas_Requital",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Helmets/WilmasRequital.webp",
+    "Level": 59
   },
   {
     "ItemClass": "Helmet",
@@ -3764,6 +3897,13 @@
     "WikiUrl": "https://poedb.tw/us/Fenumus_Toxins",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/c/c1/Fenumus%27_Toxins_inventory_icon.png/revision/latest?cb=20180304152045",
     "Level": 65
+  },
+  {
+    "ItemClass": "Helmet",
+    "Name": "Sandstorm Visage",
+    "WikiUrl": "https://poedb.tw/us/Sandstorm_Visage",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Helmets/AnwensTiara.webp",
+    "Level": 54
   },
   {
     "ItemClass": "Helmet",
@@ -3832,8 +3972,8 @@
     "ItemClass": "Helmet",
     "Name": "Sudden Dawn",
     "WikiUrl": "https://poedb.tw/us/Sudden_Dawn",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Helmets/SoullessElegance.png",
-    "Level": 48
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Helmets/SoullessElegance.webp",
+    "Level": 3
   },
   {
     "ItemClass": "Helmet",
@@ -3928,6 +4068,13 @@
   },
   {
     "ItemClass": "Helmet",
+    "Name": "El'Abin's Visage",
+    "WikiUrl": "https://poedb.tw/us/ElAbins_Visage",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Helmets/CrucibleHelm.webp",
+    "Level": 43
+  },
+  {
+    "ItemClass": "Helmet",
     "Name": "Ahn's Contempt",
     "WikiUrl": "https://poedb.tw/us/Ahns_Contempt",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/9/91/Ahn%27s_Contempt_inventory_icon.png/revision/latest?cb=20171209100357",
@@ -3938,7 +4085,7 @@
     "Name": "Ancient Skull",
     "WikiUrl": "https://poedb.tw/us/Ancient_Skull",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/f/fd/Ancient_Skull_inventory_icon.png/revision/latest?cb=20210116070018",
-    "Level": 73
+    "Level": 62
   },
   {
     "ItemClass": "Helmet",
@@ -4022,7 +4169,7 @@
     "Name": "Mask of the Spirit Drinker",
     "WikiUrl": "https://poedb.tw/us/Mask_of_the_Spirit_Drinker",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/c/cb/Mask_of_the_Spirit_Drinker_inventory_icon.png/revision/latest?cb=20180601192026",
-    "Level": 1
+    "Level": 58
   },
   {
     "ItemClass": "Helmet",
@@ -4043,7 +4190,7 @@
     "Name": "Maw of Mischief",
     "WikiUrl": "https://poedb.tw/us/Maw_of_Mischief",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/5/56/Maw_of_Mischief_inventory_icon.png/revision/latest?cb=20200925130042",
-    "Level": 73
+    "Level": 62
   },
   {
     "ItemClass": "Helmet",
@@ -4190,7 +4337,7 @@
     "Name": "The Tempest's Binding",
     "WikiUrl": "https://poedb.tw/us/The_Tempests_Binding",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/84/The_Tempest%27s_Binding_inventory_icon.png/revision/latest?cb=20170807155958",
-    "Level": 45
+    "Level": 60
   },
   {
     "ItemClass": "Helmet",
@@ -4231,14 +4378,14 @@
     "ItemClass": "Helmet",
     "Name": "Faithguard",
     "WikiUrl": "https://poedb.tw/us/Faithguard",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Helmets/SpiritHelmetUnique.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Helmets/SpiritHelmetUnique.webp",
     "Level": 25
   },
   {
     "ItemClass": "Helmet",
     "Name": "Cadigan's Crown",
     "WikiUrl": "https://poedb.tw/us/Cadigans_Crown",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Helmets/AdaptationHelmetUnique.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Helmets/AdaptationHelmetUnique.webp",
     "Level": 68
   },
   {
@@ -4260,13 +4407,13 @@
     "Name": "Apex Mode",
     "WikiUrl": "https://poedb.tw/us/Apex_Mode",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/9/9e/Apex_Mode_inventory_icon.png/revision/latest?cb=20200921040031",
-    "Level": 20
+    "Level": 1
   },
   {
     "ItemClass": "Jewel",
     "Name": "Apparitions",
     "WikiUrl": "https://poedb.tw/us/Apparitions",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Jewels/unique10.png",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/7/7e/Arctic_Crystal_Apparition_Effect_inventory_icon.png/revision/latest?cb=20191009151945",
     "Level": 1
   },
   {
@@ -4292,9 +4439,9 @@
   },
   {
     "ItemClass": "Jewel",
-    "Name": "Brute Force Solution",
-    "WikiUrl": "https://poedb.tw/us/Brute_Force_Solution",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/6/6a/Brute_Force_Solution_inventory_icon.png/revision/latest?cb=20150702082454",
+    "Name": "Bloodnotch",
+    "WikiUrl": "https://poedb.tw/us/Bloodnotch",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Jewels/IgnorePain.webp",
     "Level": 1
   },
   {
@@ -4302,13 +4449,6 @@
     "Name": "Calamitous Visions",
     "WikiUrl": "https://poedb.tw/us/Calamitous_Visions",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/d/d4/Calamitous_Visions_inventory_icon.png/revision/latest?cb=20200314063504",
-    "Level": 1
-  },
-  {
-    "ItemClass": "Jewel",
-    "Name": "Careful Planning",
-    "WikiUrl": "https://poedb.tw/us/Careful_Planning",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/5/5c/Careful_Planning_inventory_icon.png/revision/latest?cb=20150702082525",
     "Level": 1
   },
   {
@@ -4350,21 +4490,14 @@
     "ItemClass": "Jewel",
     "Name": "Dissolution of the Flesh",
     "WikiUrl": "https://poedb.tw/us/Dissolution_of_the_Flesh",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Jewels/ReservedBloodJewel.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Jewels/ReservedBloodJewel.webp",
     "Level": 1
   },
   {
     "ItemClass": "Jewel",
     "Name": "Divine Inferno",
     "WikiUrl": "https://poedb.tw/us/Divine_Inferno",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Jewels/InfernalCryThresholdJewel.png",
-    "Level": 1
-  },
-  {
-    "ItemClass": "Jewel",
-    "Name": "Efficient Training",
-    "WikiUrl": "https://poedb.tw/us/Efficient_Training",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/3/38/Efficient_Training_inventory_icon.png/revision/latest?cb=20150702082829",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Jewels/InfernalCryThresholdJewel.webp",
     "Level": 1
   },
   {
@@ -4383,37 +4516,9 @@
   },
   {
     "ItemClass": "Jewel",
-    "Name": "Energised Armour",
-    "WikiUrl": "https://poedb.tw/us/Energised_Armour",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/0e/Energised_Armour_inventory_icon.png/revision/latest?cb=20150702082837",
-    "Level": 1
-  },
-  {
-    "ItemClass": "Jewel",
-    "Name": "Energy From Within",
-    "WikiUrl": "https://poedb.tw/us/Energy_From_Within",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/6/6a/Energy_From_Within_inventory_icon.png/revision/latest?cb=20150702082903",
-    "Level": 1
-  },
-  {
-    "ItemClass": "Jewel",
-    "Name": "Fertile Mind",
-    "WikiUrl": "https://poedb.tw/us/Fertile_Mind",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/7/73/Fertile_Mind_inventory_icon.png/revision/latest?cb=20150702082951",
-    "Level": 1
-  },
-  {
-    "ItemClass": "Jewel",
     "Name": "Fireborn",
     "WikiUrl": "https://poedb.tw/us/Fireborn",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/2/29/Fireborn_inventory_icon.png/revision/latest?cb=20150702083043",
-    "Level": 1
-  },
-  {
-    "ItemClass": "Jewel",
-    "Name": "Fluid Motion",
-    "WikiUrl": "https://poedb.tw/us/Fluid_Motion",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/b/bd/Fluid_Motion_inventory_icon.png/revision/latest?cb=20150702083115",
     "Level": 1
   },
   {
@@ -4422,13 +4527,6 @@
     "WikiUrl": "https://poedb.tw/us/Fortified_Legion",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/4/4f/Fortified_Legion_inventory_icon.png/revision/latest?cb=20150430124236",
     "Level": 1
-  },
-  {
-    "ItemClass": "Jewel",
-    "Name": "Fortress Covenant",
-    "WikiUrl": "https://poedb.tw/us/Fortress_Covenant",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/4/4f/Fortified_Legion_inventory_icon.png/revision/latest?cb=20150430124236",
-    "Level": 20
   },
   {
     "ItemClass": "Jewel",
@@ -4456,13 +4554,6 @@
     "Name": "The Front Line",
     "WikiUrl": "https://poedb.tw/us/The_Front_Line",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/6/63/The_Front_Line_inventory_icon.png/revision/latest?cb=20200314060517",
-    "Level": 1
-  },
-  {
-    "ItemClass": "Jewel",
-    "Name": "The Golden Rule",
-    "WikiUrl": "https://poedb.tw/us/The_Golden_Rule",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/03/The_Golden_Rule_inventory_icon.png/revision/latest?cb=20171208225353",
     "Level": 1
   },
   {
@@ -4509,20 +4600,6 @@
   },
   {
     "ItemClass": "Jewel",
-    "Name": "Healthy Mind",
-    "WikiUrl": "https://poedb.tw/us/Healthy_Mind",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/87/Healthy_Mind_inventory_icon.png/revision/latest?cb=20150702083239",
-    "Level": 1
-  },
-  {
-    "ItemClass": "Jewel",
-    "Name": "Hidden Potential",
-    "WikiUrl": "https://poedb.tw/us/Hidden_Potential",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/1/1d/Hidden_Potential_inventory_icon.png/revision/latest?cb=20150702083307",
-    "Level": 1
-  },
-  {
-    "ItemClass": "Jewel",
     "Name": "Hotheaded",
     "WikiUrl": "https://poedb.tw/us/Hotheaded",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/ed/Hotheaded_inventory_icon.png/revision/latest?cb=20150702083329",
@@ -4533,13 +4610,6 @@
     "Name": "Replica Hotheaded",
     "WikiUrl": "https://poedb.tw/us/Replica_Hotheaded",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/ed/Hotheaded_inventory_icon.png/revision/latest?cb=20150702083329",
-    "Level": 1
-  },
-  {
-    "ItemClass": "Jewel",
-    "Name": "Inertia",
-    "WikiUrl": "https://poedb.tw/us/Inertia",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/7/7d/Inertia_inventory_icon.png/revision/latest?cb=20150702083410",
     "Level": 1
   },
   {
@@ -4616,7 +4686,7 @@
     "ItemClass": "Jewel",
     "Name": "Melding of the Flesh",
     "WikiUrl": "https://poedb.tw/us/Melding_of_the_Flesh",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Jewels/EntangledElementsJewel.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Jewels/EntangledElementsJewel.webp",
     "Level": 1
   },
   {
@@ -4631,6 +4701,41 @@
     "Name": "Might of the Meek",
     "WikiUrl": "https://poedb.tw/us/Might_of_the_Meek",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/3/3f/Might_of_the_Meek_inventory_icon.png/revision/latest?cb=20180302182619",
+    "Level": 1
+  },
+  {
+    "ItemClass": "Jewel",
+    "Name": "Immutable Force",
+    "WikiUrl": "https://poedb.tw/us/Immutable_Force",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Jewels/RedJewel2.png",
+    "Level": 1
+  },
+  {
+    "ItemClass": "Jewel",
+    "Name": "Firesong",
+    "WikiUrl": "https://poedb.tw/us/Firesong",
+    "ImageUrl": "https://poedb.tw/image/sanctum/Firesong.webp",
+    "Level": 1
+  },
+  {
+    "ItemClass": "Jewel",
+    "Name": "Stormshroud",
+    "WikiUrl": "https://poedb.tw/us/Stormshroud",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Jewels/GreenJewel2.webp",
+    "Level": 1
+  },
+  {
+    "ItemClass": "Jewel",
+    "Name": "Witchbane",
+    "WikiUrl": "https://poedb.tw/us/Witchbane",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Jewels/unique13.webp",
+    "Level": 1
+  },
+  {
+    "ItemClass": "Jewel",
+    "Name": "Rational Doctrine",
+    "WikiUrl": "https://poedb.tw/us/Rational_Doctrine",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Jewels/UberCortexJewel.webp",
     "Level": 1
   },
   {
@@ -4705,27 +4810,6 @@
   },
   {
     "ItemClass": "Jewel",
-    "Name": "Quickening Covenant",
-    "WikiUrl": "https://poedb.tw/us/Quickening_Covenant",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/1/18/Apparitions_inventory_icon.png/revision/latest?cb=20150702082249",
-    "Level": 20
-  },
-  {
-    "ItemClass": "Jewel",
-    "Name": "Rain of Splinters",
-    "WikiUrl": "https://poedb.tw/us/Rain_of_Splinters",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/d/d5/Rain_of_Splinters_inventory_icon.png/revision/latest?cb=20150702083809",
-    "Level": 1
-  },
-  {
-    "ItemClass": "Jewel",
-    "Name": "Reckless Defence",
-    "WikiUrl": "https://poedb.tw/us/Reckless_Defence",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/2/2e/Reckless_Defence_inventory_icon.png/revision/latest?cb=20160302160420",
-    "Level": 1
-  },
-  {
-    "ItemClass": "Jewel",
     "Name": "Replica Reckless Defence",
     "WikiUrl": "https://poedb.tw/us/Replica_Reckless_Defence",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/2/2e/Reckless_Defence_inventory_icon.png/revision/latest?cb=20160302160420",
@@ -4750,13 +4834,6 @@
     "Name": "The Siege",
     "WikiUrl": "https://poedb.tw/us/The_Siege",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/08/The_Siege_inventory_icon.png/revision/latest?cb=20200314075517",
-    "Level": 1
-  },
-  {
-    "ItemClass": "Jewel",
-    "Name": "Soul's Wick",
-    "WikiUrl": "https://poedb.tw/us/Souls_Wick",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/2/23/Soul%27s_Wick_inventory_icon.png/revision/latest?cb=20171209031111",
     "Level": 1
   },
   {
@@ -4824,13 +4901,6 @@
   },
   {
     "ItemClass": "Jewel",
-    "Name": "To Dust",
-    "WikiUrl": "https://poedb.tw/us/To_Dust",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/87/To_Dust_inventory_icon.png/revision/latest?cb=20150429234954",
-    "Level": 1
-  },
-  {
-    "ItemClass": "Jewel",
     "Name": "Unnatural Instinct",
     "WikiUrl": "https://poedb.tw/us/Unnatural_Instinct",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/e0/Unnatural_Instinct_inventory_icon.png/revision/latest?cb=20180831210526",
@@ -4866,24 +4936,17 @@
   },
   {
     "ItemClass": "Jewel",
-    "Name": "Watcher's Eye",
-    "WikiUrl": "https://poedb.tw/us/Watchers_Eye",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/6/63/Watcher%27s_Eye_inventory_icon.png/revision/latest?cb=20171209145757",
-    "Level": 1
-  },
-  {
-    "ItemClass": "Jewel",
     "Name": "Amanamu's Gaze",
     "WikiUrl": "https://poedb.tw/us/Amanamus_Gaze",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/4/4a/Amanamu%27s_Gaze_inventory_icon.png/revision/latest?cb=20210418220044",
-    "Level": 1
+    "Level": 40
   },
   {
     "ItemClass": "Jewel",
     "Name": "Kurgal's Gaze",
     "WikiUrl": "https://poedb.tw/us/Kurgals_Gaze",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/a/aa/Kurgal%27s_Gaze_inventory_icon.png/revision/latest?cb=20210418220042",
-    "Level": 1
+    "Level": 40
   },
   {
     "ItemClass": "Jewel",
@@ -4933,13 +4996,6 @@
     "WikiUrl": "https://poedb.tw/us/Dead_Reckoning",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/2/20/Dead_Reckoning_inventory_icon.png/revision/latest?cb=20151211232504",
     "Level": 1
-  },
-  {
-    "ItemClass": "Jewel",
-    "Name": "Seething Fury",
-    "WikiUrl": "https://poedb.tw/us/Seething_Fury",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/8e/Seething_Fury_inventory_icon.png/revision/latest?cb=20190607215723",
-    "Level": 20
   },
   {
     "ItemClass": "Jewel",
@@ -5121,7 +5177,7 @@
     "Name": "Wildfire",
     "WikiUrl": "https://poedb.tw/us/Wildfire",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/4/41/Wildfire_inventory_icon.png/revision/latest?cb=20170304000023",
-    "Level": 1
+    "Level": 4
   },
   {
     "ItemClass": "Jewel",
@@ -5139,6 +5195,13 @@
   },
   {
     "ItemClass": "Jewel",
+    "Name": "Ancestral Vision",
+    "WikiUrl": "https://poedb.tw/us/Ancestral_Vision",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Jewels/PristineConditioning.webp",
+    "Level": 1
+  },
+  {
+    "ItemClass": "Jewel",
     "Name": "Ancient Waystones",
     "WikiUrl": "https://poedb.tw/us/Ancient_Waystones",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/f/fc/Ancient_Waystones_inventory_icon.png/revision/latest?cb=20150702082221",
@@ -5149,6 +5212,13 @@
     "Name": "Atziri's Reign",
     "WikiUrl": "https://poedb.tw/us/Atziris_Reign",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/2/2b/Atziri%27s_Reign_inventory_icon.png/revision/latest?cb=20150702082344",
+    "Level": 1
+  },
+  {
+    "ItemClass": "Jewel",
+    "Name": "Brute Force Solution",
+    "WikiUrl": "https://poedb.tw/us/Brute_Force_Solution",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/6/6a/Brute_Force_Solution_inventory_icon.png/revision/latest?cb=20150702082454",
     "Level": 1
   },
   {
@@ -5174,6 +5244,13 @@
   },
   {
     "ItemClass": "Jewel",
+    "Name": "Careful Planning",
+    "WikiUrl": "https://poedb.tw/us/Careful_Planning",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/5/5c/Careful_Planning_inventory_icon.png/revision/latest?cb=20150702082525",
+    "Level": 1
+  },
+  {
+    "ItemClass": "Jewel",
     "Name": "Chill of Corruption",
     "WikiUrl": "https://poedb.tw/us/Chill_of_Corruption",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/b/b0/Chill_of_Corruption_inventory_icon.png/revision/latest?cb=20150702082538",
@@ -5195,9 +5272,51 @@
   },
   {
     "ItemClass": "Jewel",
+    "Name": "Efficient Training",
+    "WikiUrl": "https://poedb.tw/us/Efficient_Training",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/3/38/Efficient_Training_inventory_icon.png/revision/latest?cb=20150702082829",
+    "Level": 1
+  },
+  {
+    "ItemClass": "Jewel",
+    "Name": "Energised Armour",
+    "WikiUrl": "https://poedb.tw/us/Energised_Armour",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/0e/Energised_Armour_inventory_icon.png/revision/latest?cb=20150702082837",
+    "Level": 1
+  },
+  {
+    "ItemClass": "Jewel",
+    "Name": "Energy From Within",
+    "WikiUrl": "https://poedb.tw/us/Energy_From_Within",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/6/6a/Energy_From_Within_inventory_icon.png/revision/latest?cb=20150702082903",
+    "Level": 1
+  },
+  {
+    "ItemClass": "Jewel",
+    "Name": "Fertile Mind",
+    "WikiUrl": "https://poedb.tw/us/Fertile_Mind",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/7/73/Fertile_Mind_inventory_icon.png/revision/latest?cb=20150702082951",
+    "Level": 1
+  },
+  {
+    "ItemClass": "Jewel",
     "Name": "Fevered Mind",
     "WikiUrl": "https://poedb.tw/us/Fevered_Mind",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/d/d4/Fevered_Mind_inventory_icon.png/revision/latest?cb=20150702083034",
+    "Level": 1
+  },
+  {
+    "ItemClass": "Jewel",
+    "Name": "Fluid Motion",
+    "WikiUrl": "https://poedb.tw/us/Fluid_Motion",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/b/bd/Fluid_Motion_inventory_icon.png/revision/latest?cb=20150702083115",
+    "Level": 1
+  },
+  {
+    "ItemClass": "Jewel",
+    "Name": "Fortress Covenant",
+    "WikiUrl": "https://poedb.tw/us/Fortress_Covenant",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/4/4f/Fortified_Legion_inventory_icon.png/revision/latest?cb=20150430124236",
     "Level": 1
   },
   {
@@ -5209,9 +5328,30 @@
   },
   {
     "ItemClass": "Jewel",
+    "Name": "Healthy Mind",
+    "WikiUrl": "https://poedb.tw/us/Healthy_Mind",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/87/Healthy_Mind_inventory_icon.png/revision/latest?cb=20150702083239",
+    "Level": 1
+  },
+  {
+    "ItemClass": "Jewel",
+    "Name": "Hidden Potential",
+    "WikiUrl": "https://poedb.tw/us/Hidden_Potential",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/1/1d/Hidden_Potential_inventory_icon.png/revision/latest?cb=20150702083307",
+    "Level": 1
+  },
+  {
+    "ItemClass": "Jewel",
     "Name": "Hungry Abyss",
     "WikiUrl": "https://poedb.tw/us/Hungry_Abyss",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/6/6f/Hungry_Abyss_inventory_icon.png/revision/latest?cb=20150702083346",
+    "Level": 1
+  },
+  {
+    "ItemClass": "Jewel",
+    "Name": "Inertia",
+    "WikiUrl": "https://poedb.tw/us/Inertia",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/7/7d/Inertia_inventory_icon.png/revision/latest?cb=20150702083410",
     "Level": 1
   },
   {
@@ -5237,6 +5377,27 @@
   },
   {
     "ItemClass": "Jewel",
+    "Name": "Quickening Covenant",
+    "WikiUrl": "https://poedb.tw/us/Quickening_Covenant",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/1/18/Apparitions_inventory_icon.png/revision/latest?cb=20150702082249",
+    "Level": 1
+  },
+  {
+    "ItemClass": "Jewel",
+    "Name": "Rain of Splinters",
+    "WikiUrl": "https://poedb.tw/us/Rain_of_Splinters",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/d/d5/Rain_of_Splinters_inventory_icon.png/revision/latest?cb=20150702083809",
+    "Level": 1
+  },
+  {
+    "ItemClass": "Jewel",
+    "Name": "Reckless Defence",
+    "WikiUrl": "https://poedb.tw/us/Reckless_Defence",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/2/2e/Reckless_Defence_inventory_icon.png/revision/latest?cb=20160302160420",
+    "Level": 1
+  },
+  {
+    "ItemClass": "Jewel",
     "Name": "Sacrificial Harvest",
     "WikiUrl": "https://poedb.tw/us/Sacrificial_Harvest",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/e4/Sacrificial_Harvest_inventory_icon.png/revision/latest?cb=20150702083819",
@@ -5244,9 +5405,37 @@
   },
   {
     "ItemClass": "Jewel",
+    "Name": "Seething Fury",
+    "WikiUrl": "https://poedb.tw/us/Seething_Fury",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/8e/Seething_Fury_inventory_icon.png/revision/latest?cb=20190607215723",
+    "Level": 1
+  },
+  {
+    "ItemClass": "Jewel",
     "Name": "Self-Flagellation",
     "WikiUrl": "https://poedb.tw/us/Self-Flagellation",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/d/d4/Self-Flagellation_inventory_icon.png/revision/latest?cb=20150702083829",
+    "Level": 1
+  },
+  {
+    "ItemClass": "Jewel",
+    "Name": "Soul's Wick",
+    "WikiUrl": "https://poedb.tw/us/Souls_Wick",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/2/23/Soul%27s_Wick_inventory_icon.png/revision/latest?cb=20171209031111",
+    "Level": 1
+  },
+  {
+    "ItemClass": "Jewel",
+    "Name": "The Golden Rule",
+    "WikiUrl": "https://poedb.tw/us/The_Golden_Rule",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/03/The_Golden_Rule_inventory_icon.png/revision/latest?cb=20171208225353",
+    "Level": 1
+  },
+  {
+    "ItemClass": "Jewel",
+    "Name": "To Dust",
+    "WikiUrl": "https://poedb.tw/us/To_Dust",
+    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/87/To_Dust_inventory_icon.png/revision/latest?cb=20150429234954",
     "Level": 1
   },
   {
@@ -5366,35 +5555,35 @@
     "Name": "Brutal Restraint",
     "WikiUrl": "https://poedb.tw/us/Brutal_Restraint",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/6/6d/Brutal_Restraint_inventory_icon.png/revision/latest?cb=20190608160045",
-    "Level": 20
+    "Level": 1
   },
   {
     "ItemClass": "Jewel",
     "Name": "Elegant Hubris",
     "WikiUrl": "https://poedb.tw/us/Elegant_Hubris",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/7/75/Elegant_Hubris_inventory_icon.png/revision/latest?cb=20190608160049",
-    "Level": 20
+    "Level": 1
   },
   {
     "ItemClass": "Jewel",
     "Name": "Glorious Vanity",
     "WikiUrl": "https://poedb.tw/us/Glorious_Vanity",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/9/91/Glorious_Vanity_inventory_icon.png/revision/latest?cb=20190607215717",
-    "Level": 20
+    "Level": 1
   },
   {
     "ItemClass": "Jewel",
     "Name": "Lethal Pride",
     "WikiUrl": "https://poedb.tw/us/Lethal_Pride",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/b/b8/Lethal_Pride_inventory_icon.png/revision/latest?cb=20190608160052",
-    "Level": 20
+    "Level": 1
   },
   {
     "ItemClass": "Jewel",
     "Name": "Militant Faith",
     "WikiUrl": "https://poedb.tw/us/Militant_Faith",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/d/da/Militant_Faith_inventory_icon.png/revision/latest?cb=20190608160055",
-    "Level": 20
+    "Level": 1
   },
   {
     "ItemClass": "Mace",
@@ -5471,7 +5660,7 @@
     "Name": "Mj??lner",
     "WikiUrl": "https://poedb.tw/us/Mj%3F%3Flner",
     "ImageUrl": null,
-    "Level": 60
+    "Level": 1
   },
   {
     "ItemClass": "Mace",
@@ -5772,14 +5961,7 @@
     "Name": "Asphyxia's Wrath",
     "WikiUrl": "https://poedb.tw/us/Asphyxias_Wrath",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/9/98/Asphyxia%27s_Wrath_inventory_icon.png/revision/latest?cb=20140501155949",
-    "Level": 36
-  },
-  {
-    "ItemClass": "Quiver",
-    "Name": "Asphyxia's Wrath",
-    "WikiUrl": "https://poedb.tw/us/Asphyxias_Wrath",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/9/98/Asphyxia%27s_Wrath_inventory_icon.png/revision/latest?cb=20140501155949",
-    "Level": 20
+    "Level": 10
   },
   {
     "ItemClass": "Quiver",
@@ -5790,13 +5972,6 @@
   },
   {
     "ItemClass": "Quiver",
-    "Name": "Blackgleam",
-    "WikiUrl": "https://poedb.tw/us/Blackgleam",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/5/58/Blackgleam_inventory_icon.png/revision/latest?cb=20130626162200",
-    "Level": 45
-  },
-  {
-    "ItemClass": "Quiver",
     "Name": "The Signal Fire",
     "WikiUrl": "https://poedb.tw/us/The_Signal_Fire",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/5/58/Blackgleam_inventory_icon.png/revision/latest?cb=20130626162200",
@@ -5804,24 +5979,17 @@
   },
   {
     "ItemClass": "Quiver",
-    "Name": "The Signal Fire",
-    "WikiUrl": "https://poedb.tw/us/The_Signal_Fire",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/5/58/Blackgleam_inventory_icon.png/revision/latest?cb=20130626162200",
-    "Level": 45
-  },
-  {
-    "ItemClass": "Quiver",
     "Name": "Craghead",
     "WikiUrl": "https://poedb.tw/us/Craghead",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/89/Craghead_inventory_icon.png/revision/latest?cb=20140821110548",
-    "Level": 5
+    "Level": 4
   },
   {
     "ItemClass": "Quiver",
     "Name": "Cragfall",
     "WikiUrl": "https://poedb.tw/us/Cragfall",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/89/Craghead_inventory_icon.png/revision/latest?cb=20140821110548",
-    "Level": 5
+    "Level": 4
   },
   {
     "ItemClass": "Quiver",
@@ -5849,7 +6017,7 @@
     "Name": "Hyrri's Bite",
     "WikiUrl": "https://poedb.tw/us/Hyrris_Bite",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/d/d2/Hyrri%27s_Bite_inventory_icon.png/revision/latest?cb=20140408120041",
-    "Level": 14
+    "Level": 10
   },
   {
     "ItemClass": "Quiver",
@@ -5881,24 +6049,10 @@
   },
   {
     "ItemClass": "Quiver",
-    "Name": "Maloney's Nightfall",
-    "WikiUrl": "https://poedb.tw/us/Maloneys_Nightfall",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/88/Maloney%27s_Nightfall_inventory_icon.png/revision/latest?cb=20141213075353",
-    "Level": 55
-  },
-  {
-    "ItemClass": "Quiver",
     "Name": "Rearguard",
     "WikiUrl": "https://poedb.tw/us/Rearguard",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/c/c0/Rearguard_inventory_icon.png/revision/latest?cb=20140311085416",
-    "Level": 49
-  },
-  {
-    "ItemClass": "Quiver",
-    "Name": "Rearguard",
-    "WikiUrl": "https://poedb.tw/us/Rearguard",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/c/c0/Rearguard_inventory_icon.png/revision/latest?cb=20140311085416",
-    "Level": 31
+    "Level": 28
   },
   {
     "ItemClass": "Quiver",
@@ -5923,24 +6077,10 @@
   },
   {
     "ItemClass": "Quiver",
-    "Name": "Scorpion's Call",
-    "WikiUrl": "https://poedb.tw/us/Scorpions_Call",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/2/23/Scorpion%27s_Call_inventory_icon.png/revision/latest?cb=20200620100027",
-    "Level": 61
-  },
-  {
-    "ItemClass": "Quiver",
     "Name": "Skirmish",
     "WikiUrl": "https://poedb.tw/us/Skirmish",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/0f/Skirmish_inventory_icon.png/revision/latest?cb=20160604080247",
     "Level": 36
-  },
-  {
-    "ItemClass": "Quiver",
-    "Name": "Steelworm",
-    "WikiUrl": "https://poedb.tw/us/Steelworm",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/0e/Steelworm_inventory_icon.png/revision/latest?cb=20210418060526",
-    "Level": 52
   },
   {
     "ItemClass": "Quiver",
@@ -5968,14 +6108,14 @@
     "Name": "Voidfletcher",
     "WikiUrl": "https://poedb.tw/us/Voidfletcher",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/7/7d/Voidfletcher_inventory_icon.png/revision/latest?cb=20180302182614",
-    "Level": 68
+    "Level": 66
   },
   {
     "ItemClass": "Quiver",
-    "Name": "Voidfletcher",
-    "WikiUrl": "https://poedb.tw/us/Voidfletcher",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/7/7d/Voidfletcher_inventory_icon.png/revision/latest?cb=20180302182614",
-    "Level": 68
+    "Name": "The Poised Prism",
+    "WikiUrl": "https://poedb.tw/us/The_Poised_Prism",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Quivers/PrismaticGleam.webp",
+    "Level": 66
   },
   {
     "ItemClass": "Ring",
@@ -6059,21 +6199,21 @@
     "Name": "Bloodboil",
     "WikiUrl": "https://poedb.tw/us/Bloodboil",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/4/45/Bloodboil_inventory_icon.png/revision/latest?cb=20141213074828",
-    "Level": 24
+    "Level": 1
   },
   {
     "ItemClass": "Ring",
     "Name": "Winterweave",
     "WikiUrl": "https://poedb.tw/us/Winterweave",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/4/45/Bloodboil_inventory_icon.png/revision/latest?cb=20141213074828",
-    "Level": 24
+    "Level": 53
   },
   {
     "ItemClass": "Ring",
     "Name": "Brinerot Mark",
     "WikiUrl": "https://poedb.tw/us/Brinerot_Mark",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/f/f0/Brinerot_Mark_inventory_icon.png/revision/latest?cb=20150713071454",
-    "Level": 45
+    "Level": 44
   },
   {
     "ItemClass": "Ring",
@@ -6126,6 +6266,13 @@
   },
   {
     "ItemClass": "Ring",
+    "Name": "Original Sin",
+    "WikiUrl": "https://poedb.tw/us/Original_Sin",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Rings/SanctumSpecialUniqueRing.webp",
+    "Level": 52
+  },
+  {
+    "ItemClass": "Ring",
     "Name": "Doedre's Damning",
     "WikiUrl": "https://poedb.tw/us/Doedres_Damning",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/1/1e/Doedre%27s_Damning_inventory_icon.png/revision/latest?cb=20130626162231",
@@ -6140,17 +6287,24 @@
   },
   {
     "ItemClass": "Ring",
+    "Name": "Soulbound",
+    "WikiUrl": "https://poedb.tw/us/Soulbound",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Rings/BondedLife.webp",
+    "Level": 44
+  },
+  {
+    "ItemClass": "Ring",
     "Name": "Dream Fragments",
     "WikiUrl": "https://poedb.tw/us/Dream_Fragments",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/2/24/Dream_Fragments_inventory_icon.png/revision/latest?cb=20130626162232",
-    "Level": 24
+    "Level": 11
   },
   {
     "ItemClass": "Ring",
     "Name": "Emberwake",
     "WikiUrl": "https://poedb.tw/us/Emberwake",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/eb/Emberwake_inventory_icon.png/revision/latest?cb=20150806222155",
-    "Level": 16
+    "Level": 11
   },
   {
     "ItemClass": "Ring",
@@ -6189,6 +6343,13 @@
   },
   {
     "ItemClass": "Ring",
+    "Name": "Anathema",
+    "WikiUrl": "https://poedb.tw/us/Anathema",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Rings/UniqueCurseRing.webp",
+    "Level": 49
+  },
+  {
+    "ItemClass": "Ring",
     "Name": "The Highwayman",
     "WikiUrl": "https://poedb.tw/us/The_Highwayman",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/a/ab/The_Highwayman_inventory_icon.png/revision/latest?cb=20200920180032",
@@ -6199,7 +6360,7 @@
     "Name": "The Hungry Loop",
     "WikiUrl": "https://poedb.tw/us/The_Hungry_Loop",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/4/4d/The_Hungry_Loop_inventory_icon.png/revision/latest?cb=20171209033127",
-    "Level": 45
+    "Level": 70
   },
   {
     "ItemClass": "Ring",
@@ -6228,6 +6389,13 @@
     "WikiUrl": "https://poedb.tw/us/Kikazaru",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/3/3f/Kikazaru_inventory_icon.png/revision/latest?cb=20141213094307",
     "Level": 20
+  },
+  {
+    "ItemClass": "Ring",
+    "Name": "Nimis",
+    "WikiUrl": "https://poedb.tw/us/Nimis",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Rings/UberEaterofWorlds.webp",
+    "Level": 48
   },
   {
     "ItemClass": "Ring",
@@ -6290,14 +6458,14 @@
     "Name": "Mokou's Embrace",
     "WikiUrl": "https://poedb.tw/us/Mokous_Embrace",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/f/f4/Mokou%27s_Embrace_inventory_icon.png/revision/latest?cb=20140821111034",
-    "Level": 16
+    "Level": 11
   },
   {
     "ItemClass": "Ring",
     "Name": "Mutewind Seal",
     "WikiUrl": "https://poedb.tw/us/Mutewind_Seal",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/7/79/Mutewind_Seal_inventory_icon.png/revision/latest?cb=20150713074316",
-    "Level": 45
+    "Level": 44
   },
   {
     "ItemClass": "Ring",
@@ -6324,7 +6492,7 @@
     "ItemClass": "Ring",
     "Name": "Polaric Devastation",
     "WikiUrl": "https://poedb.tw/us/Polaric_Devastation",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Rings/AshAndFrost.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Rings/AshAndFrost.webp",
     "Level": 80
   },
   {
@@ -6339,7 +6507,7 @@
     "Name": "Profane Proxy",
     "WikiUrl": "https://poedb.tw/us/Profane_Proxy",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/a/a3/Profane_Proxy_inventory_icon.png/revision/latest?cb=20200314062507",
-    "Level": 1
+    "Level": 52
   },
   {
     "ItemClass": "Ring",
@@ -6374,14 +6542,14 @@
     "Name": "Redblade Band",
     "WikiUrl": "https://poedb.tw/us/Redblade_Band",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/00/Redblade_Band_inventory_icon.png/revision/latest?cb=20150713074437",
-    "Level": 45
+    "Level": 44
   },
   {
     "ItemClass": "Ring",
     "Name": "Rigwald's Crest",
     "WikiUrl": "https://poedb.tw/us/Rigwalds_Crest",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/e5/Rigwald%27s_Crest_inventory_icon.png/revision/latest?cb=20151211232714",
-    "Level": 49
+    "Level": 20
   },
   {
     "ItemClass": "Ring",
@@ -6444,7 +6612,7 @@
     "Name": "Tasalio's Sign",
     "WikiUrl": "https://poedb.tw/us/Tasalios_Sign",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/4/41/Tasalio%27s_Sign_inventory_icon.png/revision/latest?cb=20141214004541",
-    "Level": 20
+    "Level": 29
   },
   {
     "ItemClass": "Ring",
@@ -6563,7 +6731,21 @@
     "Name": "Warrior's Legacy",
     "WikiUrl": "https://poedb.tw/us/Warriors_Legacy",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/b/b9/Warrior%27s_Legacy_inventory_icon.png/revision/latest?cb=20191214182526",
+    "Level": 40
+  },
+  {
+    "ItemClass": "Ring",
+    "Name": "Call of the Void",
+    "WikiUrl": "https://poedb.tw/us/Call_of_the_Void",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Rings/FrostGlazedEyeRing.webp",
     "Level": 16
+  },
+  {
+    "ItemClass": "Ring",
+    "Name": "Kalandra's Touch",
+    "WikiUrl": "https://poedb.tw/us/Kalandras_Touch",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Rings/MirrorRing.webp",
+    "Level": 1
   },
   {
     "ItemClass": "Shield",
@@ -6597,7 +6779,7 @@
     "ItemClass": "Shield",
     "Name": "Dawnbreaker",
     "WikiUrl": "https://poedb.tw/us/Dawnbreaker",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Shields/SuperheatedShield.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Shields/SuperheatedShield.webp",
     "Level": 67
   },
   {
@@ -6745,7 +6927,7 @@
     "Name": "Apep's Slumber",
     "WikiUrl": "https://poedb.tw/us/Apeps_Slumber",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/5/59/Apep%27s_Slumber_inventory_icon.png/revision/latest?cb=20180601192036",
-    "Level": 1
+    "Level": 62
   },
   {
     "ItemClass": "Shield",
@@ -6773,7 +6955,7 @@
     "Name": "Esh's Mirror",
     "WikiUrl": "https://poedb.tw/us/Eshs_Mirror",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/1/1f/Esh%27s_Mirror_inventory_icon.png/revision/latest?cb=20161203025451",
-    "Level": 53
+    "Level": 62
   },
   {
     "ItemClass": "Shield",
@@ -6815,7 +6997,7 @@
     "Name": "Manastorm",
     "WikiUrl": "https://poedb.tw/us/Manastorm",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/f/ff/Manastorm_inventory_icon.png/revision/latest?cb=20191213190105",
-    "Level": 59
+    "Level": 56
   },
   {
     "ItemClass": "Shield",
@@ -6877,7 +7059,7 @@
     "ItemClass": "Shield",
     "Name": "The Oppressor",
     "WikiUrl": "https://poedb.tw/us/The_Oppressor",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Shields/TheSuppressor.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Shields/TheSuppressor.webp",
     "Level": 70
   },
   {
@@ -6891,7 +7073,7 @@
     "ItemClass": "Shield",
     "Name": "The Squire",
     "WikiUrl": "https://poedb.tw/us/The_Squire",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Shields/CaspirosResonance.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Armours/Shields/CaspirosResonance.webp",
     "Level": 70
   },
   {
@@ -7101,7 +7283,7 @@
     "ItemClass": "Staff",
     "Name": "The Annihilating Light",
     "WikiUrl": "https://poedb.tw/us/The_Annihilating_Light",
-    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Staves/IntrepidusDolorem.png",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Staves/IntrepidusDolorem.webp",
     "Level": 68
   },
   {
@@ -7113,17 +7295,24 @@
   },
   {
     "ItemClass": "Staff",
+    "Name": "The Winds of Fate",
+    "WikiUrl": "https://poedb.tw/us/The_Winds_of_Fate",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Staves/AnwensStaff.webp",
+    "Level": 55
+  },
+  {
+    "ItemClass": "Staff",
     "Name": "The Blood Thorn",
     "WikiUrl": "https://poedb.tw/us/The_Blood_Thorn",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/a/a8/The_Blood_Thorn_inventory_icon.png/revision/latest?cb=20141213075000",
-    "Level": 1
+    "Level": 12
   },
   {
     "ItemClass": "Staff",
     "Name": "Replica Blood Thorn",
     "WikiUrl": "https://poedb.tw/us/Replica_Blood_Thorn",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/a/a8/The_Blood_Thorn_inventory_icon.png/revision/latest?cb=20141213075000",
-    "Level": 1
+    "Level": 4
   },
   {
     "ItemClass": "Staff",
@@ -7158,13 +7347,6 @@
     "Name": "Dying Breath",
     "WikiUrl": "https://poedb.tw/us/Dying_Breath",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/2/28/Dying_Breath_inventory_icon.png/revision/latest?cb=20140130112328",
-    "Level": 23
-  },
-  {
-    "ItemClass": "Staff",
-    "Name": "Dying Breath",
-    "WikiUrl": "https://poedb.tw/us/Dying_Breath",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/2/28/Dying_Breath_inventory_icon.png/revision/latest?cb=20140130112328",
     "Level": 13
   },
   {
@@ -7193,14 +7375,14 @@
     "Name": "Fencoil",
     "WikiUrl": "https://poedb.tw/us/Fencoil",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/7/7e/Fencoil_inventory_icon.png/revision/latest?cb=20131223091655",
-    "Level": 1
+    "Level": 4
   },
   {
     "ItemClass": "Staff",
     "Name": "Replica Fencoil",
     "WikiUrl": "https://poedb.tw/us/Replica_Fencoil",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/7/7e/Fencoil_inventory_icon.png/revision/latest?cb=20131223091655",
-    "Level": 1
+    "Level": 4
   },
   {
     "ItemClass": "Staff",
@@ -7270,14 +7452,7 @@
     "Name": "The Searing Touch",
     "WikiUrl": "https://poedb.tw/us/The_Searing_Touch",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/a/ab/The_Searing_Touch_inventory_icon.png/revision/latest?cb=20130626162429",
-    "Level": 62
-  },
-  {
-    "ItemClass": "Staff",
-    "Name": "The Searing Touch",
-    "WikiUrl": "https://poedb.tw/us/The_Searing_Touch",
-    "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/a/ab/The_Searing_Touch_inventory_icon.png/revision/latest?cb=20130626162429",
-    "Level": 18
+    "Level": 60
   },
   {
     "ItemClass": "Staff",
@@ -7291,7 +7466,7 @@
     "Name": "Soulwrest",
     "WikiUrl": "https://poedb.tw/us/Soulwrest",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/6/6c/Soulwrest_inventory_icon.png/revision/latest?cb=20180823044220",
-    "Level": 62
+    "Level": 60
   },
   {
     "ItemClass": "Staff",
@@ -7319,7 +7494,7 @@
     "Name": "Tremor Rod",
     "WikiUrl": "https://poedb.tw/us/Tremor_Rod",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/d/dc/Tremor_Rod_inventory_icon.png/revision/latest?cb=20150429192910",
-    "Level": 45
+    "Level": 41
   },
   {
     "ItemClass": "Staff",
@@ -7334,6 +7509,13 @@
     "WikiUrl": "https://poedb.tw/us/Witchhunters_Judgment",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/f/f4/Witchhunter%27s_Judgment_inventory_icon.png/revision/latest?cb=20200622105047",
     "Level": 68
+  },
+  {
+    "ItemClass": "Staff",
+    "Name": "The Geomantic Gyre",
+    "WikiUrl": "https://poedb.tw/us/The_Geomantic_Gyre",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Staves/CrucibleStaff.webp",
+    "Level": 52
   },
   {
     "ItemClass": "Staff",
@@ -7389,7 +7571,7 @@
     "Name": "The Goddess Unleashed",
     "WikiUrl": "https://poedb.tw/us/The_Goddess_Unleashed",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/1/13/The_Goddess_Unleashed_inventory_icon.png/revision/latest?cb=20151211233029",
-    "Level": 51
+    "Level": 52
   },
   {
     "ItemClass": "Sword",
@@ -7463,7 +7645,7 @@
   },
   {
     "ItemClass": "Sword",
-    "Name": "Razor of the Seventh Sun ",
+    "Name": "Razor of the Seventh Sun",
     "WikiUrl": "https://poedb.tw/us/Razor_of_the_Seventh_Sun",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/7/78/Razor_of_the_Seventh_Sun_inventory_icon.png/revision/latest?cb=20160903121740",
     "Level": 68
@@ -7480,7 +7662,7 @@
     "Name": "Redbeak",
     "WikiUrl": "https://poedb.tw/us/Redbeak",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/5/58/Redbeak_inventory_icon.png/revision/latest?cb=20130626162357",
-    "Level": 2
+    "Level": 8
   },
   {
     "ItemClass": "Sword",
@@ -7526,10 +7708,17 @@
   },
   {
     "ItemClass": "Sword",
+    "Name": "The Redblade",
+    "WikiUrl": "https://poedb.tw/us/The_Redblade",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSwords/CrucibleSword.webp",
+    "Level": 60
+  },
+  {
+    "ItemClass": "Sword",
     "Name": "Severed in Sleep",
     "WikiUrl": "https://poedb.tw/us/Severed_in_Sleep",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/2/22/Severed_in_Sleep_inventory_icon.png/revision/latest?cb=20161203025608",
-    "Level": 38
+    "Level": 69
   },
   {
     "ItemClass": "Sword",
@@ -7543,7 +7732,7 @@
     "Name": "Story of the Vaal",
     "WikiUrl": "https://poedb.tw/us/Story_of_the_Vaal",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/2/22/Story_of_the_Vaal_inventory_icon.png/revision/latest?cb=20180601192031",
-    "Level": 1
+    "Level": 56
   },
   {
     "ItemClass": "Sword",
@@ -7589,7 +7778,7 @@
   },
   {
     "ItemClass": "Sword",
-    "Name": "Cospri's Malice ",
+    "Name": "Cospri's Malice",
     "WikiUrl": "https://poedb.tw/us/Cospris_Malice",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/9/95/Cospri%27s_Malice_inventory_icon.png/revision/latest?cb=20160903120304",
     "Level": 68
@@ -7659,7 +7848,7 @@
   },
   {
     "ItemClass": "Sword",
-    "Name": "Kondo's Pride ",
+    "Name": "Kondo's Pride",
     "WikiUrl": "https://poedb.tw/us/Kondos_Pride",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/3/3f/Kondo%27s_Pride_inventory_icon.png/revision/latest?cb=20160903120234",
     "Level": 61
@@ -7676,6 +7865,13 @@
     "Name": "Replica Oro's Sacrifice",
     "WikiUrl": "https://poedb.tw/us/Replica_Oros_Sacrifice",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/ef/Oro%27s_Sacrifice_inventory_icon.png/revision/latest?cb=20131211150243",
+    "Level": 67
+  },
+  {
+    "ItemClass": "Sword",
+    "Name": "Echoforge",
+    "WikiUrl": "https://poedb.tw/us/Echoforge",
+    "ImageUrl": "https://cdn.poedb.tw/image/Art/2DItems/Weapons/TwoHandWeapons/TwoHandSwords/CosmicForge.png",
     "Level": 67
   },
   {
@@ -7708,7 +7904,7 @@
   },
   {
     "ItemClass": "Sword",
-    "Name": "Starforge ",
+    "Name": "Starforge",
     "WikiUrl": "https://poedb.tw/us/Starforge",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/0/03/Starforge_inventory_icon.png/revision/latest?cb=20171231075820",
     "Level": 67
@@ -7746,14 +7942,14 @@
     "Name": "Ashcaller",
     "WikiUrl": "https://poedb.tw/us/Ashcaller",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/b/bd/Ashcaller_inventory_icon.png/revision/latest?cb=20160516052309",
-    "Level": 18
+    "Level": 12
   },
   {
     "ItemClass": "Wand",
     "Name": "Eclipse Solaris",
     "WikiUrl": "https://poedb.tw/us/Eclipse_Solaris",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/d/d3/Eclipse_Solaris_inventory_icon.png/revision/latest?cb=20151212000952",
-    "Level": 45
+    "Level": 40
   },
   {
     "ItemClass": "Wand",
@@ -7767,7 +7963,7 @@
     "Name": "Lifesprig",
     "WikiUrl": "https://poedb.tw/us/Lifesprig",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/d/d3/Lifesprig_inventory_icon.png/revision/latest?cb=20131129143131",
-    "Level": 2
+    "Level": 14
   },
   {
     "ItemClass": "Wand",
@@ -7795,14 +7991,14 @@
     "Name": "Obliteration",
     "WikiUrl": "https://poedb.tw/us/Obliteration",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/2/29/Obliteration_inventory_icon.png/revision/latest?cb=20160305005949",
-    "Level": 56
+    "Level": 59
   },
   {
     "ItemClass": "Wand",
     "Name": "Piscator's Vigil",
     "WikiUrl": "https://poedb.tw/us/Piscators_Vigil",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/d/df/Piscator%27s_Vigil_inventory_icon.png/revision/latest?cb=20140604151440",
-    "Level": 65
+    "Level": 59
   },
   {
     "ItemClass": "Wand",
@@ -7823,7 +8019,7 @@
     "Name": "Relic of the Pact",
     "WikiUrl": "https://poedb.tw/us/Relic_of_the_Pact",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/1/1e/Relic_of_the_Pact_inventory_icon.png/revision/latest?cb=20210418060524",
-    "Level": 24
+    "Level": 30
   },
   {
     "ItemClass": "Wand",
@@ -7851,28 +8047,28 @@
     "Name": "Storm Prison",
     "WikiUrl": "https://poedb.tw/us/Storm_Prison",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/e/e7/Storm_Prison_inventory_icon.png/revision/latest?cb=20151211233004",
-    "Level": 12
+    "Level": 24
   },
   {
     "ItemClass": "Wand",
     "Name": "Tulborn",
     "WikiUrl": "https://poedb.tw/us/Tulborn",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/8/81/Tulborn_inventory_icon.png/revision/latest?cb=20161202200829",
-    "Level": 24
+    "Level": 62
   },
   {
     "ItemClass": "Wand",
     "Name": "Tulfall",
     "WikiUrl": "https://poedb.tw/us/Tulfall",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/d/db/Tulfall_inventory_icon.png/revision/latest?cb=20161202200843",
-    "Level": 65
+    "Level": 62
   },
   {
     "ItemClass": "Wand",
     "Name": "Replica Tulfall",
     "WikiUrl": "https://poedb.tw/us/Replica_Tulfall",
     "ImageUrl": "https://static.wikia.nocookie.net/pathofexile_gamepedia/images/d/db/Tulfall_inventory_icon.png/revision/latest?cb=20161202200843",
-    "Level": 65
+    "Level": 62
   },
   {
     "ItemClass": "Wand",

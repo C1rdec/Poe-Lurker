@@ -14,14 +14,13 @@ namespace Lurker.DataParser
     using Lurker.Helpers;
     using Lurker.Models;
     using Lurker.Patreon.Models;
-    using Newtonsoft.Json.Linq;
     using NLua;
 
     public class ItemParser
     {
         #region Fields
 
-        private static readonly string LevelMarker = "Requires Level";
+        private static readonly string[] LevelMarkers = new string[] { "Requires Level" , "LevelReq" };
         private static readonly string BaseUrl = "https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/master/src/Data/Uniques";
         private static readonly string AmuletUrl = $"{BaseUrl}/amulet.lua";
         private static readonly string AxeUrl = $"{BaseUrl}/axe.lua";
@@ -105,8 +104,8 @@ namespace Lurker.DataParser
 
                             if (value is string stringValue)
                             {
-                                var lines = stringValue.Split(System.Environment.NewLine.ToCharArray());
-                                var levelLine = lines.FirstOrDefault(l => l.StartsWith(LevelMarker));
+                                var lines = stringValue.Split(Environment.NewLine.ToCharArray()).Where(l => !string.IsNullOrEmpty(l.Trim()));
+                                var levelLine = lines.FirstOrDefault(l => LevelMarkers.Any(m => l.StartsWith(m)));
                                 
                                 var nameLine = lines.FirstOrDefault();
                                 if (!string.IsNullOrEmpty(nameLine))
@@ -116,7 +115,7 @@ namespace Lurker.DataParser
                                         Name = nameLine,
                                         ItemClass = uniqueItem.ItemClass,
                                         WikiUrl = PoeDBHelper.CreateItemUri(nameLine),
-                                        Level = GetLevel(levelLine),
+                                        Level = PoeDBHelper.GetItemLevelRequirement(nameLine),
                                     };
 
                                     try
@@ -149,7 +148,8 @@ namespace Lurker.DataParser
                 return 1;
             }
 
-            var levelValue = levelLine.Substring(LevelMarker.Length).Trim(' ', ':');
+            var marker = LevelMarkers.FirstOrDefault(m => levelLine.StartsWith(m));
+            var levelValue = levelLine.Substring(marker.Length).Trim(' ', ':');
             levelValue = levelValue.Split(',').FirstOrDefault();
             return Convert.ToInt32(levelValue);
         }

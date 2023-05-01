@@ -52,6 +52,28 @@ namespace Lurker.Helpers
         }
 
         /// <summary>
+        /// Gets the item level.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>The item level.</returns>
+        public static int GetItemLevelRequirement(string name)
+        {
+            var url = CreateItemUri(name);
+            var webPage = new HtmlWeb();
+            var document = webPage.Load(url);
+
+            var requirementsDiv = document.DocumentNode.Descendants().FirstOrDefault(e => e.Name == "div" && e.GetAttributeValue("class", string.Empty) == "requirements");
+            if (requirementsDiv == null)
+            {
+                return 1;
+            }
+
+            var firstSpan = requirementsDiv.Descendants().FirstOrDefault(e => e.Name == "span");
+
+            return int.Parse(firstSpan.InnerText);
+        }
+
+        /// <summary>
         /// Parses the media.
         /// </summary>
         /// <param name="url">The URL.</param>
