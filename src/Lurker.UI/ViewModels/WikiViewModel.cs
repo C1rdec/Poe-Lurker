@@ -157,7 +157,7 @@ namespace Lurker.UI.ViewModels
             }
             else
             {
-                await this.SetExaltedRatio();
+                await this.SetDivineRatio();
             }
         }
 
@@ -306,7 +306,7 @@ namespace Lurker.UI.ViewModels
             this.NotifyOfPropertyChange(() => this.CurrentView);
         }
 
-        private async Task SetExaltedRatio()
+        private async Task SetDivineRatio()
         {
             if (string.IsNullOrEmpty(this.SettingsService.RecentLeagueName))
             {
