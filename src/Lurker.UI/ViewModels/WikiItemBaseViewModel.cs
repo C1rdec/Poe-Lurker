@@ -8,8 +8,11 @@ namespace Lurker.UI.ViewModels
 {
     using System;
     using System.Diagnostics;
+    using System.Web;
     using System.Windows.Input;
+    using Caliburn.Micro;
     using Lurker.Models;
+    using Lurker.Services;
 
     /// <summary>
     /// Represents a wiki item.
@@ -74,7 +77,19 @@ namespace Lurker.UI.ViewModels
         {
             if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
             {
-                Process.Start(this.WikiUrl.ToString());
+                var league = IoC.Get<SettingsService>().RecentLeagueName;
+                if (this._item is Gem || string.IsNullOrEmpty(league))
+                {
+                    Process.Start(this.WikiUrl.ToString());
+
+                    return;
+                }
+
+                var baseQuery = $"{{ \"query\": {{ \"status\": {{ \"option\": \"online\" }}, \"name\": \"{this.Name}\" }}, \"sort\": {{ \"price\": \"asc\" }} }}";
+
+                var encoded = HttpUtility.UrlEncode(baseQuery);
+                var search = $"https://www.pathofexile.com/trade/search/{league}?q={encoded}";
+                Process.Start(search);
             }
         }
 
