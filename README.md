@@ -11,7 +11,7 @@ If you like and use Poe Lurker please consider signing up for a small monthly [P
 ![GitHub All Releases](https://img.shields.io/github/downloads/C1rdec/Poe-Lurker/total?color=Blue&label=Official%20Lurker&style=for-the-badge) [![Discord](https://img.shields.io/discord/663088791539679244?style=for-the-badge)](https://discord.gg/hQERv7K) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg?style=for-the-badge)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=WEYTVSDNTB8GY&currency_code=CAD&source=url)
 
 # Shoutouts
-| [SignPath.io](https://signpath.io/) for the free code signing | [Winook](https://github.com/macote/Winook) for the thread level hook | [MahApps](https://github.com/MahApps/MahApps.Metro) for the modern UI |
+| [SignPath.io](https://signpath.io?utm_source=foundation&utm_medium=github&utm_campaign=poe-lurker) for the free code signing | [Winook](https://github.com/macote/Winook) for the thread level hook | [MahApps](https://github.com/MahApps/MahApps.Metro) for the modern UI |
 | ------------- | ------------- | ------------- |
 | <a href="https://signpath.io?utm_source=foundation&utm_medium=github&utm_campaign=poe-lurker" target="_blank"><img src="./assets/signpath_logo.png"></a>  | <a href="https://github.com/macote/Winook" target="_blank"><img height="50" src="https://raw.githubusercontent.com/macote/Winook/master/doc/Winook.svg"></a> | <a href="https://github.com/MahApps/MahApps.Metro" target="_blank"><img height="45" src="./assets/MahAppsIcon.png"></a> |
 
