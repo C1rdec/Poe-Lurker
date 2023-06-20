@@ -15,7 +15,7 @@ namespace Lurker
     using System.Threading;
     using System.Threading.Tasks;
     using Lurker.Extensions;
-    using Lurker.Patreon.Events;
+    using PoeLurker.Patreon.Events;
     using Sentry;
 
     /// <summary>

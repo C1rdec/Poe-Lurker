@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:Models="clr-namespace:Lurker.Patreon.Models;assembly=Lurker.Patreon"
+             xmlns:Models="clr-namespace:PoeLurker.Patreon.Models;assembly=PoeLurker.Patreon"
              xmlns:Converters="clr-namespace:Lurker.UI.Converters"
              xmlns:local="clr-namespace:Lurker.UI.Views"
              mc:Ignorable="d" 

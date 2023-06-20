@@ -8,7 +8,7 @@ namespace Lurker.UI.ViewModels
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Lurker.Patreon.Models;
+    using PoeLurker.Patreon.Models;
 
     /// <summary>
     /// Represents the ItemOverlay.

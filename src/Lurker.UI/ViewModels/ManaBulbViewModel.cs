@@ -158,7 +158,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
-        private void Lurker_RemainingMonsters(object sender, Patreon.Events.MonstersRemainEvent e)
+        private void Lurker_RemainingMonsters(object sender, PoeLurker.Patreon.Events.MonstersRemainEvent e)
         {
             this.SetAction(new ManaBulbMessage() { View = new RemainingMonsterViewModel(e), DisplayTime = TimeSpan.FromSeconds(3) });
         }
@@ -168,7 +168,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
-        private void Lurker_LocationChanged(object sender, Patreon.Events.LocationChangedEvent e)
+        private void Lurker_LocationChanged(object sender, PoeLurker.Patreon.Events.LocationChangedEvent e)
         {
             if (e.Location.EndsWith("Hideout"))
             {

@@ -14,13 +14,12 @@ namespace Lurker.UI.ViewModels
     using Caliburn.Micro;
     using Lurker.Helpers;
     using Lurker.Models;
-    using Lurker.Patreon.Events;
-    using Lurker.Patreon.Models;
-    using Lurker.Patreon.Parsers;
-    using Lurker.Patreon.Services;
     using Lurker.Services;
     using Lurker.UI.Models;
-    using Lurker.UI.Services;
+    using PoeLurker.Patreon.Events;
+    using PoeLurker.Patreon.Models;
+    using PoeLurker.Patreon.Parsers;
+    using PoeLurker.Patreon.Services;
 
     /// <summary>
     /// Represent the trade bar.

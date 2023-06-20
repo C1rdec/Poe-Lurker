@@ -10,7 +10,7 @@ namespace Lurker.Services
     using System.IO;
     using ConfOxide;
     using Lurker.Models;
-    using Lurker.Patreon.Models;
+    using PoeLurker.Patreon.Models;
 
     /// <summary>
     /// Represents the stash tab service.

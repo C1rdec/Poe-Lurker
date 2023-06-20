@@ -7,7 +7,7 @@
 namespace Lurker.UI.ViewModels
 {
     using System.Diagnostics;
-    using Lurker.Patreon.Services;
+    using PoeLurker.Patreon.Services;
 
     /// <summary>
     /// The push bullet view model.

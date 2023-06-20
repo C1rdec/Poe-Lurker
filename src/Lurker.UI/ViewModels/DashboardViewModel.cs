@@ -10,10 +10,10 @@ namespace Lurker.UI.ViewModels
     using System.Collections.Generic;
     using System.Linq;
     using Caliburn.Micro;
-    using Lurker.Patreon.Events;
-    using Lurker.Patreon.Services;
     using Lurker.UI.Models;
-    using Patreon = Lurker.Patreon.Models;
+    using PoeLurker.Patreon.Events;
+    using PoeLurker.Patreon.Services;
+    using Patreon = PoeLurker.Patreon.Models;
 
     /// <summary>
     /// Represents the DashboardViewModel.

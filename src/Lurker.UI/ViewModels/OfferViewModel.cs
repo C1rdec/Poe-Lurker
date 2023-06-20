@@ -12,11 +12,11 @@ namespace Lurker.UI.ViewModels
     using System.Windows.Input;
     using Caliburn.Micro;
     using Lurker.Helpers;
-    using Lurker.Patreon.Events;
-    using Lurker.Patreon.Models;
     using Lurker.Services;
     using Lurker.UI.Models;
     using Lurker.UI.Views;
+    using PoeLurker.Patreon.Events;
+    using PoeLurker.Patreon.Models;
 
     /// <summary>
     /// Represents an Offer.

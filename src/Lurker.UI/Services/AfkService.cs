@@ -10,7 +10,7 @@ namespace Lurker.UI.Services
     using System.Collections.Generic;
     using System.Linq;
     using Caliburn.Micro;
-    using Lurker.Patreon.Events;
+    using PoeLurker.Patreon.Events;
 
     /// <summary>
     /// Represents the afk service.

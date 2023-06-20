@@ -8,7 +8,7 @@ namespace Lurker.Helpers
 {
     using System.Text.RegularExpressions;
     using Lurker.Models;
-    using Lurker.Patreon.Events;
+    using PoeLurker.Patreon.Events;
 
     /// <summary>
     /// Represents token helper.
@@ -54,7 +54,7 @@ namespace Lurker.Helpers
             message = Regex.Replace(message, ItemName, trade.ItemName, RegexOptions.IgnoreCase);
             message = Regex.Replace(message, BuyerName, trade.PlayerName, RegexOptions.IgnoreCase);
             message = Regex.Replace(message, Location, PoeApplicationContext.Location, RegexOptions.IgnoreCase);
-            if (trade.Price.CurrencyType != Patreon.Models.CurrencyType.Unknown)
+            if (trade.Price.CurrencyType != PoeLurker.Patreon.Models.CurrencyType.Unknown)
             {
                 message = Regex.Replace(message, Price, trade.Price.ToString(), RegexOptions.IgnoreCase);
             }

@@ -6,9 +6,9 @@
 
 namespace Lurker.Models
 {
-    using Lurker.Patreon.Models;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
+    using PoeLurker.Patreon.Models;
 
     /// <summary>
     /// Represents a unique item.

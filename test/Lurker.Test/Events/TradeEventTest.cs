@@ -6,10 +6,10 @@
 
 namespace Lurker.Test.Events
 {
-    using Lurker.Patreon.Events;
-    using Lurker.Patreon.Models;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
+    using PoeLurker.Patreon.Events;
+    using PoeLurker.Patreon.Models;
 
     [TestClass]
     public class TradeEventTest

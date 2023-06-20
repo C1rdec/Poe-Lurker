@@ -14,8 +14,8 @@ namespace Lurker.UI.ViewModels
     using Caliburn.Micro;
     using Lurker.Helpers;
     using Lurker.Models;
-    using Lurker.Patreon.Events;
-    using Lurker.Patreon.Services;
+    using PoeLurker.Patreon.Events;
+    using PoeLurker.Patreon.Services;
     using Lurker.Services;
     using Lurker.UI.Models;
 
@@ -223,7 +223,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
-        private void Lurker_OutgoingOffer(object sender, Patreon.Events.OutgoingTradeEvent e)
+        private void Lurker_OutgoingOffer(object sender, PoeLurker.Patreon.Events.OutgoingTradeEvent e)
         {
             if (this.Offers.Any(o => o.Event.Equals(e)))
             {
@@ -254,7 +254,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
-        private async void Lurker_TradeAccepted(object sender, Patreon.Events.TradeAcceptedEvent e)
+        private async void Lurker_TradeAccepted(object sender, PoeLurker.Patreon.Events.TradeAcceptedEvent e)
         {
             if (this._activeOffer == null)
             {

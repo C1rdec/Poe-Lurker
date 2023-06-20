@@ -12,11 +12,11 @@ namespace Lurker.UI
     using Caliburn.Micro;
     using Lurker.Extensions;
     using Lurker.Helpers;
-    using Lurker.Patreon.Services;
     using Lurker.Services;
     using Lurker.UI.Helpers;
     using Lurker.UI.Services;
     using Lurker.UI.ViewModels;
+    using PoeLurker.Patreon.Services;
     using Sentry;
 
     /// <summary>

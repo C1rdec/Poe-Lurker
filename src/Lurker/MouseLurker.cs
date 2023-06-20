@@ -9,8 +9,8 @@ namespace Lurker
     using System;
     using System.Threading.Tasks;
     using Lurker.Helpers;
-    using Lurker.Patreon.Models;
     using Lurker.Services;
+    using PoeLurker.Patreon.Models;
     using Winook;
 
     /// <summary>

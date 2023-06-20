@@ -6,7 +6,7 @@
 
 namespace Lurker.UI.ViewModels
 {
-    using Lurker.Patreon.Models.PushBullet;
+    using PoeLurker.Patreon.Models.PushBullet;
 
     /// <summary>
     /// Represents the device view model.

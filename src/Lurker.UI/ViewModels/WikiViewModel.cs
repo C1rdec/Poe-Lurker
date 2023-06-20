@@ -16,8 +16,9 @@ namespace Lurker.UI.ViewModels
     using Lurker;
     using Lurker.Helpers;
     using Lurker.Models;
-    using Lurker.Patreon.Services;
     using Lurker.Services;
+    using PoeLurker.Patreon.Models;
+    using PoeLurker.Patreon.Services;
     using Winook;
 
     /// <summary>
@@ -146,7 +147,7 @@ namespace Lurker.UI.ViewModels
             this.SetInForeground();
             var clipboardItem = await clipboardTask;
             ClipboardHelper.ClearClipboard();
-            if (clipboardItem != null && clipboardItem.Rarity == Patreon.Models.Rarity.Unique)
+            if (clipboardItem != null && clipboardItem.Rarity == Rarity.Unique)
             {
                 var item = this._uniques.FirstOrDefault(u => u.Name == clipboardItem.BaseType);
                 if (item != null)

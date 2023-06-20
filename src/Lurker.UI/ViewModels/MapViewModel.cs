@@ -11,8 +11,8 @@ namespace Lurker.UI.ViewModels
     using System.Linq;
     using Caliburn.Micro;
     using Lurker.Models;
-    using Lurker.Patreon.Models;
     using Lurker.Services;
+    using PoeLurker.Patreon.Models;
 
     /// <summary>
     /// Represents a map item.

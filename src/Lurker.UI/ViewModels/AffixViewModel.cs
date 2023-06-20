@@ -6,7 +6,7 @@
 
 namespace Lurker.UI.ViewModels
 {
-    using Lurker.Patreon.Models;
+    using PoeLurker.Patreon.Models;
 
     /// <summary>
     /// Represents the AffixViewModel.

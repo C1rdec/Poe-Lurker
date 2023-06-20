@@ -10,6 +10,7 @@ namespace Lurker.UI.ViewModels
     using Caliburn.Micro;
     using Lurker.Models;
     using Lurker.UI.Models;
+    using PoeLurker.Patreon.Models;
 
     /// <summary>
     /// Represents a unique item.
@@ -160,29 +161,29 @@ namespace Lurker.UI.ViewModels
         {
             switch (this._item.ItemClass)
             {
-                case Patreon.Models.ItemClass.Amulet:
-                case Patreon.Models.ItemClass.Ring:
-                case Patreon.Models.ItemClass.Belt:
-                case Patreon.Models.ItemClass.Quiver:
+                case ItemClass.Amulet:
+                case ItemClass.Ring:
+                case ItemClass.Belt:
+                case ItemClass.Quiver:
                     return new Uri("https://static.wikia.nocookie.net/pathofexile_gamepedia/images/4/45/Accessory_item_icon.png/revision/latest/scale-to-width-down/80?cb=20141212074925");
-                case Patreon.Models.ItemClass.BodyArmour:
-                case Patreon.Models.ItemClass.Boots:
-                case Patreon.Models.ItemClass.Gloves:
-                case Patreon.Models.ItemClass.Helmet:
-                case Patreon.Models.ItemClass.Shield:
+                case ItemClass.BodyArmour:
+                case ItemClass.Boots:
+                case ItemClass.Gloves:
+                case ItemClass.Helmet:
+                case ItemClass.Shield:
                     return new Uri("https://static.wikia.nocookie.net/pathofexile_gamepedia/images/7/72/Armour_item_icon.png/revision/latest/scale-to-width-down/80?cb=20141212074830");
-                case Patreon.Models.ItemClass.Axe:
-                case Patreon.Models.ItemClass.Bow:
-                case Patreon.Models.ItemClass.Dagger:
-                case Patreon.Models.ItemClass.Mace:
-                case Patreon.Models.ItemClass.Sceptre:
-                case Patreon.Models.ItemClass.Staff:
-                case Patreon.Models.ItemClass.Sword:
-                case Patreon.Models.ItemClass.Wand:
+                case ItemClass.Axe:
+                case ItemClass.Bow:
+                case ItemClass.Dagger:
+                case ItemClass.Mace:
+                case ItemClass.Sceptre:
+                case ItemClass.Staff:
+                case ItemClass.Sword:
+                case ItemClass.Wand:
                     return new Uri("https://static.wikia.nocookie.net/pathofexile_gamepedia/images/9/90/Weapon_item_icon.png/revision/latest/scale-to-width-down/80?cb=20141212074907");
-                case Patreon.Models.ItemClass.Flask:
+                case ItemClass.Flask:
                     return new Uri("https://static.wikia.nocookie.net/pathofexile_gamepedia/images/a/a5/Flask_item_icon.png/revision/latest/scale-to-width-down/80?cb=20141212074845");
-                case Patreon.Models.ItemClass.Jewel:
+                case ItemClass.Jewel:
                     return new Uri("https://static.wikia.nocookie.net/pathofexile_gamepedia/images/2/26/Jewel_item_icon.png/revision/latest/scale-to-width-down/80?cb=20150427211503");
             }
 

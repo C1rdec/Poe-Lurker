@@ -7,8 +7,8 @@
 namespace Lurker.UI.ViewModels
 {
     using System.Linq;
-    using Lurker.Patreon;
-    using Lurker.Patreon.Models;
+    using PoeLurker.Patreon;
+    using PoeLurker.Patreon.Models;
 
     /// <summary>
     /// `Represents a dangerous map affix.

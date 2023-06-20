@@ -21,13 +21,13 @@ namespace Lurker.UI.ViewModels
     using System.Windows.Media;
     using Caliburn.Micro;
     using Lurker.Helpers;
-    using Lurker.Patreon.Services;
     using Lurker.Services;
     using Lurker.UI.Helpers;
     using MahApps.Metro.Controls;
     using MahApps.Metro.Controls.Dialogs;
     using Microsoft.Win32;
     using NAudio.Wave;
+    using PoeLurker.Patreon.Services;
     using Sentry;
     using Winook;
 

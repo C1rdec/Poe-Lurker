@@ -8,7 +8,7 @@ namespace Lurker.UI.ViewModels
 {
     using System;
     using Caliburn.Micro;
-    using Lurker.Patreon.Services;
+    using PoeLurker.Patreon.Services;
 
     /// <summary>
     /// Represents the provider.

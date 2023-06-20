@@ -10,9 +10,8 @@ namespace Lurker.UI.ViewModels
     using System.Linq;
     using System.Threading.Tasks;
     using Caliburn.Micro;
-    using Lurker.Patreon.Extensions;
-    using Lurker.Patreon.Services;
     using Lurker.UI.Models;
+    using PoeLurker.Patreon.Services;
 
     /// <summary>
     /// Represents a league.

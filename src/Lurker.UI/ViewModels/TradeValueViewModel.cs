@@ -7,9 +7,9 @@
 namespace Lurker.UI.ViewModels
 {
     using System.Windows.Media;
-    using Lurker.Patreon.Events;
-    using Lurker.Patreon.Models;
     using Lurker.Services;
+    using PoeLurker.Patreon.Events;
+    using PoeLurker.Patreon.Models;
 
     /// <summary>
     /// Represetns the trade value.

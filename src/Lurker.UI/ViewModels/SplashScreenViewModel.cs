@@ -9,8 +9,8 @@ namespace Lurker.UI.ViewModels
     using System.IO;
     using System.Reflection;
     using Caliburn.Micro;
-    using Lurker.Patreon.Services;
     using Lurker.Services;
+    using PoeLurker.Patreon.Services;
 
     /// <summary>
     /// Represents a SplashScreen.

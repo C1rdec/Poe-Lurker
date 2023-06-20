@@ -8,9 +8,8 @@ namespace Lurker.UI.ViewModels
 {
     using System;
     using System.Threading.Tasks;
-    using Lurker.Patreon.Events;
-    using Lurker.Patreon.Services;
-    using Lurker.Services;
+    using PoeLurker.Patreon.Events;
+    using PoeLurker.Patreon.Services;
 
     /// <summary>
     /// Represents the offer details.

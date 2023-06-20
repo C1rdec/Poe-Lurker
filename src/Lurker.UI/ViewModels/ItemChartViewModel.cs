@@ -10,7 +10,7 @@ namespace Lurker.UI.ViewModels
     using System.Linq;
     using Caliburn.Micro;
     using Lurker.Models;
-    using Lurker.Patreon.Models.Ninja;
+    using PoeLurker.Patreon.Models.Ninja;
 
     /// <summary>
     /// Represents ItemChartViewModel.

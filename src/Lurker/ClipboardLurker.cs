@@ -9,7 +9,7 @@ namespace Lurker
     using System;
     using System.Windows.Input;
     using Lurker.Helpers;
-    using Lurker.Patreon.Events;
+    using PoeLurker.Patreon.Events;
     using WK.Libraries.SharpClipboardNS;
 
     /// <summary>

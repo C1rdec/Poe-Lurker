@@ -9,7 +9,7 @@ namespace Lurker.UI.Converters
     using System;
     using System.Windows.Data;
     using System.Windows.Markup;
-    using Lurker.Patreon.Models;
+    using PoeLurker.Patreon.Models;
 
     /// <summary>
     /// CurrencyType converter.

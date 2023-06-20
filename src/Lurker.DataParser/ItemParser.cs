@@ -13,7 +13,7 @@ namespace Lurker.DataParser
     using System.Net.Http;
     using Lurker.Helpers;
     using Lurker.Models;
-    using Lurker.Patreon.Models;
+    using PoeLurker.Patreon.Models;
     using NLua;
 
     public class ItemParser

@@ -12,9 +12,9 @@ namespace Lurker.UI.ViewModels
     using System.Threading.Tasks;
     using Caliburn.Micro;
     using Lurker.Helpers;
-    using Lurker.Patreon.Events;
     using Lurker.Services;
     using Lurker.UI.Models;
+    using PoeLurker.Patreon.Events;
 
     /// <summary>
     /// BulbViewModel.

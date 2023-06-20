@@ -17,15 +17,15 @@ namespace Lurker.UI
     using Caliburn.Micro;
     using Lurker.Helpers;
     using Lurker.Models;
-    using Lurker.Patreon;
-    using Lurker.Patreon.Events;
-    using Lurker.Patreon.Models;
-    using Lurker.Patreon.Services;
     using Lurker.Services;
     using Lurker.UI.Helpers;
     using Lurker.UI.Models;
     using Lurker.UI.Services;
     using Lurker.UI.ViewModels;
+    using PoeLurker.Patreon;
+    using PoeLurker.Patreon.Events;
+    using PoeLurker.Patreon.Models;
+    using PoeLurker.Patreon.Services;
 
     /// <summary>
     /// Represents the SHellViewModel.

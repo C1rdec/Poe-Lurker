@@ -12,7 +12,7 @@ namespace Lurker.Services
     using System.Linq;
     using ConfOxide;
     using Lurker.Models;
-    using Lurker.Patreon.Events;
+    using PoeLurker.Patreon.Events;
 
     /// <summary>
     /// Represent the player Service.

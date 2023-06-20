@@ -11,8 +11,8 @@ namespace Lurker
     using System.Threading.Tasks;
     using Lurker.Helpers;
     using Lurker.Models;
-    using Lurker.Patreon.Parsers;
     using Lurker.Services;
+    using PoeLurker.Patreon.Parsers;
     using WindowsInput;
     using Winook;
     using static Winook.KeyboardHook;

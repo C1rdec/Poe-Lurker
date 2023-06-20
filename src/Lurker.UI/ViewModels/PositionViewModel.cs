@@ -7,9 +7,8 @@
 namespace Lurker.UI.ViewModels
 {
     using System.Windows.Media;
-    using Lurker.Patreon.Events;
     using Lurker.Services;
-    using Lurker.UI.Services;
+    using PoeLurker.Patreon.Events;
 
     /// <summary>
     /// The position view model.

@@ -9,8 +9,8 @@ namespace Lurker.Helpers
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using Lurker.Patreon.Models;
-    using Lurker.Patreon.Parsers;
+    using PoeLurker.Patreon.Models;
+    using PoeLurker.Patreon.Parsers;
     using WindowsInput;
 
     /// <summary>

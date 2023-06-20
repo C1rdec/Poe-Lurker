@@ -1,7 +1,7 @@
 ﻿<Application x:Class="Lurker.UI.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:Models="clr-namespace:Lurker.Patreon.Models;assembly=Lurker.Patreon"
+             xmlns:Models="clr-namespace:PoeLurker.Patreon.Models;assembly=PoeLurker.Patreon"
              xmlns:Converters="clr-namespace:Lurker.UI.Converters"
              xmlns:local="clr-namespace:Lurker.UI">
     <Application.Resources>

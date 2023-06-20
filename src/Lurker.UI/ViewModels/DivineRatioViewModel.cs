@@ -9,7 +9,7 @@ namespace Lurker.UI.ViewModels
     using System;
     using System.Linq;
     using Caliburn.Micro;
-    using Lurker.Patreon.Models.Ninja;
+    using PoeLurker.Patreon.Models.Ninja;
 
     /// <summary>
     /// Represents the Divine Ratio.
