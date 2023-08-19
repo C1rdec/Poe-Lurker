@@ -14,10 +14,10 @@ namespace Lurker.UI.ViewModels
     using Caliburn.Micro;
     using Lurker.Helpers;
     using Lurker.Models;
-    using PoeLurker.Patreon.Events;
-    using PoeLurker.Patreon.Services;
     using Lurker.Services;
     using Lurker.UI.Models;
+    using PoeLurker.Patreon.Events;
+    using PoeLurker.Patreon.Services;
 
     /// <summary>
     /// Represents the outgoing bar view model.

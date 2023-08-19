@@ -158,8 +158,8 @@
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
-    <Reference Include="PoeLurker.Patreon, Version=1.7.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\PoeLurker.Patreon.1.0.0\lib\net48\PoeLurker.Patreon.dll</HintPath>
+    <Reference Include="PoeLurker.Patreon, Version=1.7.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PoeLurker.Patreon.1.0.2\lib\net48\PoeLurker.Patreon.dll</HintPath>
     </Reference>
     <Reference Include="Sentry, Version=3.3.4.0, Culture=neutral, PublicKeyToken=fba2ec45388e2af0, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Sentry.3.3.4\lib\net461\Sentry.dll</HintPath>
@@ -205,7 +205,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Evaluation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=fc6d2b461e7db6ac, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\PoeLurker.Patreon.1.0.0\lib\net48\System.Evaluation.dll</HintPath>
+      <HintPath>..\..\packages\PoeLurker.Patreon.1.0.2\lib\net48\System.Evaluation.dll</HintPath>
     </Reference>
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
