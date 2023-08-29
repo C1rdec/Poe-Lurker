@@ -93,11 +93,6 @@ namespace Lurker
         public event KeyboardEventHandler DismissPressed;
 
         /// <summary>
-        /// Occurs when [trade pressed].
-        /// </summary>
-        public event KeyboardEventHandler TradePressed;
-
-        /// <summary>
         /// Occurs when [main action pressed].
         /// </summary>
         public event KeyboardEventHandler MainActionPressed;

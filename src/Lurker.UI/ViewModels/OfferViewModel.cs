@@ -447,10 +447,7 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public void OnMouseUp()
         {
-            if (this._tokenSource != null)
-            {
-                this._tokenSource.Cancel();
-            }
+            this._tokenSource?.Cancel();
         }
 
         /// <summary>

@@ -614,7 +614,6 @@ namespace Lurker.UI.ViewModels
 
                 this._keyboardLurker.InvitePressed -= this.KeyboardLurker_InvitePressed;
                 this._keyboardLurker.WhisperPressed -= this.KeyboardLurker_WhisperPressed;
-                this._keyboardLurker.TradePressed -= this.KeyboardLurker_TradePressed;
                 this._keyboardLurker.BusyPressed -= this.KeyboardLurker_BusyPressed;
                 this._keyboardLurker.DismissPressed -= this.KeyboardLurker_DismissPressed;
 
@@ -641,7 +640,6 @@ namespace Lurker.UI.ViewModels
             this._keyboardLurker.MainActionPressed += this.KeyboardLurker_MainActionPressed;
             this._keyboardLurker.WhisperPressed += this.KeyboardLurker_WhisperPressed;
             this._keyboardLurker.InvitePressed += this.KeyboardLurker_InvitePressed;
-            this._keyboardLurker.TradePressed += this.KeyboardLurker_TradePressed;
             this._keyboardLurker.BusyPressed += this.KeyboardLurker_BusyPressed;
             this._keyboardLurker.DismissPressed += this.KeyboardLurker_DismissPressed;
 
