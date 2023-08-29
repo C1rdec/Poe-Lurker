@@ -89,22 +89,6 @@ namespace Lurker.Services
         }
 
         /// <summary>
-        /// Gets or sets the invite.
-        /// </summary>
-        public Hotkey Invite
-        {
-            get
-            {
-                return this._settings.Invite;
-            }
-
-            set
-            {
-                this._settings.Invite = value;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the open wiki.
         /// </summary>
         public Hotkey OpenWiki
@@ -245,22 +229,6 @@ namespace Lurker.Services
             set
             {
                 this._settings.StillInterested = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the trade.
-        /// </summary>
-        public Hotkey Trade
-        {
-            get
-            {
-                return this._settings.Trade;
-            }
-
-            set
-            {
-                this._settings.Trade = value;
             }
         }
 

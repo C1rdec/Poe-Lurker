@@ -264,10 +264,8 @@ namespace Lurker
             // Hotkeys
             this._hotkeyService.Main.Install(this._keyboardHook, this.MainActionToggled, true);
             this._hotkeyService.Whisper.Install(this._keyboardHook, (e) => this.HandleKeyboardMessage(e, this.WhisperPressed));
-            this._hotkeyService.Trade.Install(this._keyboardHook, (e) => this.HandleKeyboardMessage(e, this.TradePressed));
             this._hotkeyService.Busy.Install(this._keyboardHook, (e) => this.HandleKeyboardMessage(e, this.BusyPressed));
             this._hotkeyService.Dismiss.Install(this._keyboardHook, (e) => this.HandleKeyboardMessage(e, this.DismissPressed));
-            this._hotkeyService.Invite.Install(this._keyboardHook, (e) => this.HandleKeyboardMessage(e, this.InvitePressed));
             this._hotkeyService.OpenWiki.Install(this._keyboardHook, (e) => this.HandleKeyboardMessage(e, this.OpenWikiPressed));
             this._hotkeyService.JoinGuildHideout.Install(this._keyboardHook, (e) => this.HandleKeyboardMessage(e, this.JoinGuildHideout));
             this._hotkeyService.JoinHideout.Install(this._keyboardHook, (e) => this.HandleKeyboardMessage(e, this.JoinHideout));
@@ -309,10 +307,8 @@ namespace Lurker
             this._keyboardHook.RemoveAllHandlers();
 
             this._hotkeyService.Main.Uninstall();
-            this._hotkeyService.Trade.Uninstall();
             this._hotkeyService.Busy.Uninstall();
             this._hotkeyService.Dismiss.Uninstall();
-            this._hotkeyService.Invite.Uninstall();
             this._hotkeyService.OpenWiki.Uninstall();
             this._hotkeyService.RemainingMonster.Uninstall();
             this._hotkeyService.JoinGuildHideout.Uninstall();
