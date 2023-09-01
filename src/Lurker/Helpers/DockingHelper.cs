@@ -242,6 +242,11 @@ namespace Lurker.Helpers
 
                     if (PoeApplicationContext.InForeground != inForeground)
                     {
+                        if (inForeground)
+                        {
+                            this.InvokeWindowMove();
+                        }
+
                         PoeApplicationContext.InForeground = inForeground;
                         if (this._settingsService.HideInBackground)
                         {
@@ -271,6 +276,8 @@ namespace Lurker.Helpers
         /// </summary>
         private void InvokeWindowMove()
         {
+            var information = this.GetWindowInformation();
+            if (information != null) { }
             this.WindowInformation = this.GetWindowInformation();
             this.OnWindowMove?.Invoke(this, this.WindowInformation);
         }
