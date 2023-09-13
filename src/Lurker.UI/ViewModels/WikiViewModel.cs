@@ -33,10 +33,12 @@ namespace Lurker.UI.ViewModels
         private string _searchValue = string.Empty;
         private MouseLurker _mouseLurker;
         private KeyboardLurker _keyboardLurker;
+        private ClientLurker _clientLurker;
         private PoeNinjaService _ninjaService;
         private bool _visible;
         private DivineRatioViewModel _divineRatioViewModel;
         private IEnumerable<UniqueItem> _uniques;
+        private string _currentLeague;
 
         #endregion
 
@@ -53,6 +55,7 @@ namespace Lurker.UI.ViewModels
         /// <param name="mouseLurker">The mouse lurker.</param>
         /// <param name="keyboardLurker">The keyboard lurker.</param>
         /// <param name="ninjaService">The ninja service.</param>
+        /// <param name="clientLurker">The client lurker.</param>
         public WikiViewModel(
             IWindowManager windowManager,
             DockingHelper dockingHelper,
@@ -61,19 +64,29 @@ namespace Lurker.UI.ViewModels
             GithubService githubService,
             MouseLurker mouseLurker,
             KeyboardLurker keyboardLurker,
-            PoeNinjaService ninjaService)
+            PoeNinjaService ninjaService,
+            ClientLurker clientLurker)
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
             this._githubService = githubService;
             this._mouseLurker = mouseLurker;
             this._keyboardLurker = keyboardLurker;
             this._ninjaService = ninjaService;
+            this._clientLurker = clientLurker;
+            this._currentLeague = this.SettingsService.RecentLeagueName;
             this.Items = new ObservableCollection<WikiItemBaseViewModel>();
+
+            this._clientLurker.LeagueChanged += this.ClientLurker_LeagueChanged;
         }
 
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets the current league.
+        /// </summary>
+        public string CurrentLeague => this._currentLeague;
 
         /// <summary>
         /// Gets or sets the search value.
@@ -235,6 +248,12 @@ namespace Lurker.UI.ViewModels
                 this.View.Left = this.ApplyScalingX(windowInformation.Position.Left + windowInformation.FlaskBarWidth + Margin);
                 this.View.Top = this.ApplyScalingY(windowInformation.Position.Bottom - height - windowInformation.ExpBarHeight + Margin);
             });
+        }
+
+        private void ClientLurker_LeagueChanged(object sender, string leagueName)
+        {
+            this._currentLeague = leagueName;
+            this.NotifyOfPropertyChange(() => this.CurrentLeague);
         }
 
         private void MouseLurker_MouseLeftButtonUp(object sender, System.EventArgs e)

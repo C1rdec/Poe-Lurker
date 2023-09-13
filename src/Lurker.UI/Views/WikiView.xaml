@@ -1,58 +1,74 @@
 ﻿<Window x:Class="Lurker.UI.Views.WikiView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Lurker.UI.Views"
-        WindowStyle="None"
-        Topmost="True"
-        xmlns:cal="http://www.caliburnproject.org"
-        AllowsTransparency="True"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        ShowInTaskbar="False"
+        xmlns:cal="http://www.caliburnproject.org"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:Lurker.UI.Views"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Title="WikiView"
+        Width="800"
+        Height="450"
         cal:Message.Attach="[Event KeyUp] = [Action OnKeyDown($eventArgs)]"
+        AllowsTransparency="True"
         Background="Transparent"
         ShowActivated="True"
-        mc:Ignorable="d"
-        Title="WikiView" Height="450" Width="800">
-    <Grid FocusManager.FocusedElement="{Binding ElementName=SearchValue}" 
-          Visibility="{Binding Visible, Converter={StaticResource BooleanToVisibilityConverter}}">
-        <Button BorderThickness="0" x:Name="CloseWindow" IsCancel="true" Width="1" Height="1"/>
-        <Border CornerRadius="30" Grid.RowSpan="2" Background="#7F000000">
+        ShowInTaskbar="False"
+        Topmost="True"
+        WindowStyle="None"
+        mc:Ignorable="d">
+    <Grid FocusManager.FocusedElement="{Binding ElementName=SearchValue}" Visibility="{Binding Visible, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Button x:Name="CloseWindow"
+                Width="1"
+                Height="1"
+                BorderThickness="0"
+                IsCancel="true" />
+        <Border Grid.RowSpan="2"
+                Background="#7F000000"
+                CornerRadius="30">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition Height="auto"/>
+                    <RowDefinition />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-                <ContentControl x:Name="CurrentView" Margin="-4,0,0,0"/>
-                <ScrollViewer HorizontalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Hidden">
+                <ContentControl x:Name="CurrentView" Margin="-4,0,0,0" />
+                <ScrollViewer HorizontalScrollBarVisibility="Hidden"
+                              PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"
+                              VerticalScrollBarVisibility="Hidden">
                     <ItemsControl x:Name="Items" HorizontalAlignment="Center">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal"/>
+                                <StackPanel Orientation="Horizontal" />
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                     </ItemsControl>
                 </ScrollViewer>
                 <Viewbox Grid.Row="1">
-                    <TextBox
-                        x:Name="SearchValue"
-                        Text="{Binding SearchValue, UpdateSourceTrigger=PropertyChanged}"
-                        HorizontalAlignment="Center" 
-                        VerticalAlignment="Center"
-                        BorderThickness="0,0,0,1"
-                        Height="35" Width="800"
-                        FontSize="20"
-                        VerticalContentAlignment="Stretch"
-                        Controls:TextBoxHelper.Watermark="Search">
+                    <TextBox x:Name="SearchValue"
+                             Width="800"
+                             Height="35"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             VerticalContentAlignment="Stretch"
+                             Controls:TextBoxHelper.Watermark="Search"
+                             BorderThickness="0,0,0,1"
+                             FontSize="20"
+                             Text="{Binding SearchValue, UpdateSourceTrigger=PropertyChanged}">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
-                                <Setter Property="CornerRadius" Value="8,8,0,0"/>
+                                <Setter Property="CornerRadius" Value="8,8,0,0" />
                             </Style>
                         </TextBox.Resources>
                     </TextBox>
                 </Viewbox>
             </Grid>
         </Border>
+        <TextBlock x:Name="CurrentLeague"
+                   Margin="20,10,0,0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   FontFamily="pack://application:,,,/Assets/#Fontin"
+                   FontSize="28"
+                   Foreground="#af8404" />
     </Grid>
 </Window>
