@@ -41,6 +41,7 @@ namespace Lurker.UI.ViewModels
         private SettingsViewModel _settings;
         private GithubService _githubService;
         private MouseLurker _mouseLurker;
+        private bool _isSkillTreeOpen;
 
         #endregion
 
@@ -71,6 +72,7 @@ namespace Lurker.UI.ViewModels
 
             this.Skills = new ObservableCollection<SkillViewModel>();
             this.UniqueItems = new ObservableCollection<UniqueItemViewModel>();
+            this.SkillTreeInformation = new ObservableCollection<SkillTreeInformation>();
 
             this._mouseLurker = mouseLurker;
 
@@ -105,9 +107,36 @@ namespace Lurker.UI.ViewModels
         #region Properties
 
         /// <summary>
+        /// Gets or sets skill trees.
+        /// </summary>
+        public ObservableCollection<SkillTreeInformation> SkillTreeInformation { get; set; }
+
+        /// <summary>
+        /// Gets or sets skill trees.
+        /// </summary>
+        public SkillTreeInformation SelectedSkillTreeInformation { get; set; }
+
+        /// <summary>
         /// Gets or sets the build selector.
         /// </summary>
         public BuildSelectorViewModel BuildSelector { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the popup is open.
+        /// </summary>
+        public bool IsSkillTreeOpen
+        {
+            get
+            {
+                return this._isSkillTreeOpen;
+            }
+
+            set
+            {
+                this._isSkillTreeOpen = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is open.
@@ -362,14 +391,11 @@ namespace Lurker.UI.ViewModels
         }
 
         /// <summary>
-        /// Trees this instance.
+        /// Opens the tree.
         /// </summary>
-        public void Tree()
+        public void OpenTree()
         {
-            if (this.Build != null)
-            {
-                Process.Start(this.Build.SkillTrees.FirstOrDefault().Url);
-            }
+            this.IsSkillTreeOpen = true;
         }
 
         /// <summary>
@@ -403,6 +429,14 @@ namespace Lurker.UI.ViewModels
                 {
                     await service.InitializeAsync(this._githubService);
                     this.Build = service.Decode(buildValue);
+
+                    this.SkillTreeInformation.Clear();
+
+                    foreach (var tree in this.Build.SkillTrees.Reverse<SkillTreeInformation>())
+                    {
+                        this.SkillTreeInformation.Add(tree);
+                    }
+
                     this.Ascendancy = this.Build.Ascendancy;
                     this.Skills.Clear();
                     foreach (var skill in this.Build.Skills.Select(s => new SkillViewModel(s, this.SettingsService.TimelineEnabled)))
@@ -446,6 +480,17 @@ namespace Lurker.UI.ViewModels
 
             this.HasNoBuild = false;
             return true;
+        }
+
+        /// <summary>
+        /// Opens the tree.
+        /// </summary>
+        public void OpenSelectedTree()
+        {
+            if (this.SelectedSkillTreeInformation != null && !string.IsNullOrEmpty(this.SelectedSkillTreeInformation.Url))
+            {
+                Process.Start(this.SelectedSkillTreeInformation.Url);
+            }
         }
 
         /// <summary>

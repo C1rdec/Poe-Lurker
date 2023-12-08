@@ -27,6 +27,7 @@ namespace Lurker.UI.ViewModels
         private Build _build;
         private SimpleBuild _buildConfiguration;
         private string _ascendency;
+        private bool _isSkillTreeOpen;
 
         #endregion
 
@@ -38,6 +39,7 @@ namespace Lurker.UI.ViewModels
         /// <param name="build">The build.</param>
         public BuildConfigurationViewModel(SimpleBuild build)
         {
+            this.SkillTreeInformation = new ObservableCollection<SkillTreeInformation>();
             this._buildConfiguration = build;
             this.Items = new ObservableCollection<UniqueItemViewModel>();
             if (PathOfBuildingService.IsInitialize)
@@ -59,6 +61,16 @@ namespace Lurker.UI.ViewModels
         #region Properties
 
         /// <summary>
+        /// Gets or sets skill trees.
+        /// </summary>
+        public ObservableCollection<SkillTreeInformation> SkillTreeInformation { get; set; }
+
+        /// <summary>
+        /// Gets or sets skill trees.
+        /// </summary>
+        public SkillTreeInformation SelectedSkillTreeInformation { get; set; }
+
+        /// <summary>
         /// Gets the simple build.
         /// </summary>
         public SimpleBuild SimpleBuild => this._buildConfiguration;
@@ -76,6 +88,23 @@ namespace Lurker.UI.ViewModels
             private set
             {
                 this._ascendency = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the popup is open.
+        /// </summary>
+        public bool IsSkillTreeOpen
+        {
+            get
+            {
+                return this._isSkillTreeOpen;
+            }
+
+            set
+            {
+                this._isSkillTreeOpen = value;
                 this.NotifyOfPropertyChange();
             }
         }
@@ -203,9 +232,17 @@ namespace Lurker.UI.ViewModels
         /// </summary>
         public void OpenTree()
         {
-            if (this._build != null && !string.IsNullOrEmpty(this._build.SkillTrees.FirstOrDefault().Url))
+            this.IsSkillTreeOpen = true;
+        }
+
+        /// <summary>
+        /// Opens the tree.
+        /// </summary>
+        public void OpenSelectedTree()
+        {
+            if (this.SelectedSkillTreeInformation != null && !string.IsNullOrEmpty(this.SelectedSkillTreeInformation.Url))
             {
-                Process.Start(this._build.SkillTrees.FirstOrDefault().Url);
+                Process.Start(this.SelectedSkillTreeInformation.Url);
             }
         }
 
@@ -262,6 +299,11 @@ namespace Lurker.UI.ViewModels
                 foreach (var item in this._build.Items.OrderBy(i => i.Level))
                 {
                     this.Items.Add(new UniqueItemViewModel(item, false));
+                }
+
+                foreach (var tree in this._build.SkillTrees.Reverse<SkillTreeInformation>())
+                {
+                    this.SkillTreeInformation.Add(tree);
                 }
             });
         }

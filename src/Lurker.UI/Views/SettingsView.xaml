@@ -50,7 +50,7 @@
                     </Grid.RowDefinitions>
                     
                     <StackPanel Margin="30,0,0,0" Grid.Row="2" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center">
-                        <Controls:ToggleSwitch Header="Build Helper"
+                        <Controls:ToggleSwitch Header="Build Overlay"
                                                Margin="20,0,0,0"
                                                IsOn="{Binding BuildHelper}"/>
                         <Grid Margin="10,0,0,0" Visibility="{Binding BuildHelper, Converter={StaticResource BooleanToVisibilityConverter}}">

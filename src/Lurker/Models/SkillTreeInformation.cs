@@ -23,5 +23,11 @@ namespace Lurker.Models
         /// Gets or Sets the title.
         /// </summary>
         public string Title { get; set; }
+
+        /// <summary>
+        /// Gets the display name.
+        /// </summary>
+        /// <returns>The display name.</returns>
+        public string DisplayName => string.IsNullOrEmpty(this.Title) ? this.Version : this.Title;
     }
 }

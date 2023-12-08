@@ -159,7 +159,7 @@
                         </Controls:DropDownButton.Content>
                     </Controls:DropDownButton>
                     <Button Width="30"
-                            x:Name="Tree"
+                            x:Name="OpenTree"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Bottom"
                             Cursor="Hand"
@@ -245,6 +245,28 @@
                     <Button Style="{DynamicResource Tag}" x:Name="NewBuild" Margin="0,10,0,10" Cursor="Hand" VerticalAlignment="Bottom">New Build</Button>
                 </Grid>
             </Controls:Flyout>
+            <Popup IsOpen="{Binding IsSkillTreeOpen}"
+                   Placement="Mouse"
+                   StaysOpen="False">
+                <Border>
+                    <ListView Cursor="Hand"
+                              ItemsSource="{Binding SkillTreeInformation}"
+                              cal:Message.Attach="[Event MouseUp] = [Action OpenSelectedTree()]"
+                              SelectedItem="{Binding SelectedSkillTreeInformation}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid x:Name="Main" Background="Transparent">
+                                    <TextBlock Margin="15,5,30,5"
+                                               VerticalAlignment="Center"
+                                               Background="Transparent"
+                                               FontSize="28"
+                                               Text="{Binding DisplayName}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Border>
+            </Popup>
         </Grid>
     </Controls:Flyout>
 </Window>

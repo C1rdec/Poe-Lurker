@@ -3,8 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-            xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d" 
+             xmlns:cal="http://www.caliburnproject.org"
              xmlns:local="clr-namespace:Lurker.UI"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid  Margin="10,0,10,0">
@@ -79,24 +80,50 @@
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
         </ScrollViewer>
-        <Button Width="50"
-                Grid.Row="2"
-                x:Name="OpenTree"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Cursor="Hand"
-                ToolTip="Passive Tree"
-                Height="50" Style="{DynamicResource MahApps.Styles.Button.Circle}">
-            <Button.Content>
-                <local:IconPack HorizontalAlignment="Right"
-                                            VerticalAlignment="Bottom"
-                                            Foreground="#af8404"
-                                            Grid.Row="2"
-                                            Height="20"
-                                            Width="20"
-                                            Data="{x:Static local:IconPackData.ThreeDot}"/>
-            </Button.Content>
-        </Button>
-        <ContentControl x:Name="GemViewModel" HorizontalAlignment="Right" Margin="0,-60,10,0" VerticalAlignment="Top"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,-60,10,0" VerticalAlignment="Top">
+            <ContentControl x:Name="GemViewModel" Margin="0,0,10,0"/>
+            <Button Width="50"
+                    Grid.Row="2"
+                    x:Name="OpenTree"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Cursor="Hand"
+                    ToolTip="Passive Tree"
+                    Height="50" Style="{DynamicResource MahApps.Styles.Button.Circle}"> 
+                <Button.Content>
+                    <local:IconPack HorizontalAlignment="Right"
+                                    VerticalAlignment="Bottom"
+                                    Foreground="#af8404"
+                                    Grid.Row="2"
+                                    Height="20"
+                                    Width="20"
+                                    Data="{x:Static local:IconPackData.ThreeDot}"/>
+                </Button.Content>
+            </Button>
+        </StackPanel>
+
+        <Popup IsOpen="{Binding IsSkillTreeOpen}"
+               Placement="Mouse"
+               StaysOpen="False">
+            <Border>
+                <ListView
+                    Cursor="Hand"
+                    ItemsSource="{Binding SkillTreeInformation}"
+                    cal:Message.Attach="[Event MouseUp] = [Action OpenSelectedTree()]"
+                    SelectedItem="{Binding SelectedSkillTreeInformation}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid x:Name="Main" Background="Transparent">
+                                <TextBlock Margin="15,5,30,5"
+                                       VerticalAlignment="Center"
+                                       Background="Transparent"
+                                       FontSize="28"
+                                       Text="{Binding DisplayName}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Border>
+        </Popup>
     </Grid>
 </UserControl>
