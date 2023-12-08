@@ -643,11 +643,6 @@ namespace Lurker.UI
             this._processLurker.ProcessClosed += this.PoeClosed;
             var windowHandle = await this._processLurker.WaitForProcess();
 
-            if (this._settingsService.SyncBuild)
-            {
-                this._buildService.Sync();
-            }
-
             this._currentLurker = new ClientLurker(windowHandle);
             this._currentLurker.AdminRequested += this.CurrentLurker_AdminRequested;
             this._currentLurker.LeagueChanged += this.CurrentLurker_LeagueChanged;

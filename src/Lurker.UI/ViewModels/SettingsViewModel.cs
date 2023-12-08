@@ -1472,7 +1472,7 @@ namespace Lurker.UI.ViewModels
             this.HasCustomItemSound = this._soundService.HasCustomItemAlert();
             this._activateTask = Task.Run(async () =>
             {
-                this.BuildManager.PopulateBuilds(this.SyncBuild);
+                this.BuildManager.PopulateBuilds();
 
                 using (var service = new PatreonService())
                 {
@@ -1715,13 +1715,6 @@ namespace Lurker.UI.ViewModels
 
                 this._currentTokenSource = new CancellationTokenSource();
                 this.PlaySoundTest(this._currentTokenSource.Token, () => this._soundService.PlayJoinHideout(this._settingService.JoinHideoutVolume));
-            }
-            else if (e.PropertyName == nameof(this.SyncBuild))
-            {
-                if (this.SyncBuild)
-                {
-                    this.BuildManager.PopulateBuilds(true);
-                }
             }
         }
 

@@ -161,15 +161,8 @@ namespace Lurker.UI.ViewModels
         /// <summary>
         /// Populates the builds.
         /// </summary>
-        /// <param name="sync">if set to <c>true</c> [synchronize].</param>
-        public void PopulateBuilds(bool sync)
+        public void PopulateBuilds()
         {
-            // Sync with Path of Building
-            if (sync)
-            {
-                this._buildService.Sync();
-            }
-
             Execute.OnUIThread(() => this._configurations.Clear());
             foreach (var build in this._buildService.Builds.OrderBy(b => b.Name))
             {
