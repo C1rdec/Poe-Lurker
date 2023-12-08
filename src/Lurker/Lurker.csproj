@@ -216,6 +216,7 @@
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Models\SimpleBuild.cs" />
     <Compile Include="Models\Skill.cs" />
+    <Compile Include="Models\SkillTreeInformation.cs" />
     <Compile Include="Models\StashTab.cs" />
     <Compile Include="Models\StashTabLocation.cs" />
     <Compile Include="Models\StashTabBank.cs" />

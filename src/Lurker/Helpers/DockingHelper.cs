@@ -277,9 +277,11 @@ namespace Lurker.Helpers
         private void InvokeWindowMove()
         {
             var information = this.GetWindowInformation();
-            if (information != null) { }
-            this.WindowInformation = this.GetWindowInformation();
-            this.OnWindowMove?.Invoke(this, this.WindowInformation);
+            if (information != null)
+            {
+                this.WindowInformation = information;
+                this.OnWindowMove?.Invoke(this, this.WindowInformation);
+            }
         }
 
         /// <summary>

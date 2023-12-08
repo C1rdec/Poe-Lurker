@@ -155,8 +155,18 @@ namespace Lurker.Services
             var treeElement = document.Root.Element("Tree");
             if (treeElement != null)
             {
-                var urlElement = treeElement.Descendants("URL").OrderByDescending(d => d.Value).FirstOrDefault();
-                build.SkillTreeUrl = urlElement.Value.Trim().Replace("passive-skill-tree", "fullscreen-passive-skill-tree");
+                foreach (var element in treeElement.Elements("Spec"))
+                {
+                    var urlElement = element.Element("URL");
+                    var information = new SkillTreeInformation
+                    {
+                        Url = urlElement?.Value.Trim().Replace("passive-skill-tree", "fullscreen-passive-skill-tree"),
+                        Version = element?.Attribute("treeVersion")?.Value.Replace('_', '.'),
+                        Title = element?.Attribute("title")?.Value,
+                    };
+
+                    build.SkillTrees.Add(information);
+                }
             }
 
             var itemsElement = document.Root.Element("Items");

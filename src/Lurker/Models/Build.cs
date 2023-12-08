@@ -25,6 +25,7 @@ namespace Lurker.Models
             this.Id = Guid.NewGuid();
             this.Skills = new List<Skill>();
             this.Items = new List<UniqueItem>();
+            this.SkillTrees = new List<SkillTreeInformation>();
         }
 
         #endregion
@@ -49,7 +50,7 @@ namespace Lurker.Models
         /// <summary>
         /// Gets or sets the tree URL.
         /// </summary>
-        public string SkillTreeUrl { get; set; }
+        public List<SkillTreeInformation> SkillTrees { get; set; }
 
         /// <summary>
         /// Gets or sets the value.

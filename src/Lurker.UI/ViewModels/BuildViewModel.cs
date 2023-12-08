@@ -368,7 +368,7 @@ namespace Lurker.UI.ViewModels
         {
             if (this.Build != null)
             {
-                Process.Start(this.Build.SkillTreeUrl);
+                Process.Start(this.Build.SkillTrees.FirstOrDefault().Url);
             }
         }
 
