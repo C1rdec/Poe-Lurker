@@ -110,11 +110,6 @@ namespace Lurker
         public event EventHandler<PlayerLeftEvent> PlayerLeft;
 
         /// <summary>
-        /// Occurs when [whispered].
-        /// </summary>
-        public event EventHandler<WhisperEvent> Whispered;
-
-        /// <summary>
         /// Creates new offer.
         /// </summary>
         public event EventHandler<TradeEvent> IncomingOffer;
