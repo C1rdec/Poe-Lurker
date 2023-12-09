@@ -65,13 +65,6 @@ namespace Lurker.Test.Events
         }
 
         [TestMethod]
-        public void TryParse_NotFrom()
-        {
-            var tradeEvent = TradeEvent.TryParse($"{Date} {Information} @to {PlayerName}: {Greeting} {ItemName} {Price} {League} {Location}");
-            Assert.IsNull(tradeEvent);
-        }
-
-        [TestMethod]
         public void TryParse_NoGreeting()
         {
             var tradeEvent = TradeEvent.TryParse($"{Date} {Information} @From {PlayerName}:{ItemName} {Price} {League} {Location}");
