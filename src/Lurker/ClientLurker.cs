@@ -110,9 +110,19 @@ namespace Lurker
         public event EventHandler<PlayerLeftEvent> PlayerLeft;
 
         /// <summary>
+        /// Occurs when [whispered].
+        /// </summary>
+        public event EventHandler<WhisperEvent> Whispered;
+
+        /// <summary>
         /// Creates new offer.
         /// </summary>
         public event EventHandler<TradeEvent> IncomingOffer;
+
+        /// <summary>
+        /// Occurs when [outgoing offer].
+        /// </summary>
+        public event EventHandler<OutgoingTradeEvent> OutgoingOffer;
 
         /// <summary>
         /// Occurs when [player level up].
@@ -334,6 +344,14 @@ namespace Lurker
                 {
                     this.HandleLeague(tradeEvent);
                     this.IncomingOffer?.Invoke(this, tradeEvent);
+                    return;
+                }
+
+                var outgoingTradeEvent = OutgoingTradeEvent.TryParse(newline);
+                if (outgoingTradeEvent != null)
+                {
+                    this.HandleLeague(outgoingTradeEvent);
+                    this.OutgoingOffer?.Invoke(this, outgoingTradeEvent);
                     return;
                 }
 

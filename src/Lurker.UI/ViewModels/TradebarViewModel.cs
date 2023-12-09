@@ -43,7 +43,6 @@ namespace Lurker.UI.ViewModels
         private PushBulletService _pushBulletService;
         private PushHoverService _pushHoverService;
         private StashTabService _stashTabService;
-        private PlayerService _playerService;
 
         #endregion
 
@@ -64,7 +63,6 @@ namespace Lurker.UI.ViewModels
         /// <param name="pushBulletService">The PushBullet service.</param>
         /// <param name="pushHoverService">The PushHover service.</param>
         /// <param name="stashTabService">The stash tab service.</param>
-        /// <param name="playerService">The player service.</param>
         public TradebarViewModel(
             IEventAggregator eventAggregator,
             ClientLurker clientLurker,
@@ -77,8 +75,7 @@ namespace Lurker.UI.ViewModels
             SoundService soundService,
             PushBulletService pushBulletService,
             PushHoverService pushHoverService,
-            StashTabService stashTabService,
-            PlayerService playerService)
+            StashTabService stashTabService)
             : base(windowManager, dockingHelper, processLurker, settingsService)
         {
             this._eventAggregator = eventAggregator;
@@ -88,7 +85,6 @@ namespace Lurker.UI.ViewModels
             this._pushBulletService = pushBulletService;
             this._pushHoverService = pushHoverService;
             this._stashTabService = stashTabService;
-            this._playerService = playerService;
 
             this._keyboardLurker = keyboardLurker;
             this.TradeOffers = new ObservableCollection<OfferViewModel>();
@@ -301,7 +297,7 @@ namespace Lurker.UI.ViewModels
         /// <param name="e">The trade event.</param>
         private async void Lurker_IncomingOffer(object sender, TradeEvent e)
         {
-            if (this.TradeOffers.Any(o => o.Event.Equals(e)) || this._playerService.Players.Any(p => p.Name == e.PlayerName))
+            if (this.TradeOffers.Any(o => o.Event.Equals(e)))
             {
                 return;
             }
