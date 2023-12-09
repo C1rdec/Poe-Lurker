@@ -347,25 +347,11 @@ namespace Lurker
                     return;
                 }
 
-                var outgoingTradeEvent = OutgoingTradeEvent.TryParse(newline);
-                if (outgoingTradeEvent != null)
-                {
-                    this.HandleLeague(outgoingTradeEvent);
-                    this.OutgoingOffer?.Invoke(this, outgoingTradeEvent);
-                    return;
-                }
 
                 var levelUpEvent = PlayerLevelUpEvent.TryParse(newline);
                 if (levelUpEvent != null)
                 {
                     this.PlayerLevelUp?.Invoke(this, levelUpEvent);
-                    return;
-                }
-
-                var whisperEvent = WhisperEvent.TryParse(newline);
-                if (whisperEvent != null)
-                {
-                    this.Whispered?.Invoke(this, whisperEvent);
                     return;
                 }
 
