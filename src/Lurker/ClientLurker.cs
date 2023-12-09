@@ -347,7 +347,6 @@ namespace Lurker
                     return;
                 }
 
-
                 var levelUpEvent = PlayerLevelUpEvent.TryParse(newline);
                 if (levelUpEvent != null)
                 {
