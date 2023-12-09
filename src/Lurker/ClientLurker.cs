@@ -115,11 +115,6 @@ namespace Lurker
         public event EventHandler<TradeEvent> IncomingOffer;
 
         /// <summary>
-        /// Occurs when [outgoing offer].
-        /// </summary>
-        public event EventHandler<OutgoingTradeEvent> OutgoingOffer;
-
-        /// <summary>
         /// Occurs when [player level up].
         /// </summary>
         public event EventHandler<PlayerLevelUpEvent> PlayerLevelUp;
