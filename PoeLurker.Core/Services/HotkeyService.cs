@@ -12,7 +12,7 @@ using Lurker.Core.Models;
 /// Represents Hotkey service.
 /// </summary>
 /// <seealso cref="Lurker.Core.Services.ServiceBase" />
-public class HotkeyService : ServiceBase
+public class HotkeyService
 {
     #region Fields
 
@@ -210,11 +210,6 @@ public class HotkeyService : ServiceBase
             _settings.StillInterested = value;
         }
     }
-
-    /// <summary>
-    /// Gets the name of the file.
-    /// </summary>
-    protected override string FileName => "HotKeys.json";
 
     #endregion
 

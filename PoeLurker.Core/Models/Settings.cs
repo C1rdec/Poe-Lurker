@@ -251,9 +251,9 @@ public sealed class Settings : AppDataFileBase<Settings>
     [DefaultValue(100)]
     public double OutgoingDelayToClose { get; set; }
 
-    protected override string FileName => throw new NotImplementedException();
+    protected override string FileName => "Settings.json";
 
-    protected override string FolderName => throw new NotImplementedException();
+    protected override string FolderName => "PoeLurker";
 
     #endregion
 }

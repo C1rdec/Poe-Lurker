@@ -69,6 +69,7 @@ public abstract class HttpServiceBase : IDisposable
     {
         var request = new HttpRequestMessage(HttpMethod.Get, url);
         var response = await Client.SendAsync(request);
+
         return await response.Content.ReadAsStringAsync();
     }
 
@@ -81,6 +82,7 @@ public abstract class HttpServiceBase : IDisposable
     {
         var request = new HttpRequestMessage(HttpMethod.Get, url);
         var response = await Client.SendAsync(request);
+
         return await response.Content.ReadAsByteArrayAsync();
     }
 

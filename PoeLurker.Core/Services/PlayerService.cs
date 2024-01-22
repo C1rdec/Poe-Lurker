@@ -15,7 +15,7 @@ using PoeLurker.Patreon.Events;
 /// <summary>
 /// Represent the player Service.
 /// </summary>
-public class PlayerService : ServiceBase, IDisposable
+public class PlayerService: IDisposable
 {
     #region Fields
 
@@ -65,11 +65,6 @@ public class PlayerService : ServiceBase, IDisposable
     /// Gets the players.
     /// </summary>
     public IEnumerable<Player> Players => _playerBank.Players;
-
-    /// <summary>
-    /// Gets the name of the file.
-    /// </summary>
-    protected override string FileName => "Players.json";
 
     #endregion
 
@@ -280,6 +275,7 @@ public class PlayerService : ServiceBase, IDisposable
         {
             _playerBank.Players.Remove(knownPlayer);
             _playerBank.Players.Insert(0, knownPlayer);
+
             return;
         }
     }

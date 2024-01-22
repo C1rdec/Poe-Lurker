@@ -12,7 +12,7 @@ using Lurker.AppData;
 /// <summary>
 /// Represents build helper settings.
 /// </summary>
-public sealed class BuildHelperSettings : AppDataFileBase<BuildHelperSettings>
+public sealed class BuildHelperSettings
 {
     #region Properties
 
@@ -30,10 +30,6 @@ public sealed class BuildHelperSettings : AppDataFileBase<BuildHelperSettings>
     /// Gets or sets the items selected.
     /// </summary>
     public List<int> ItemsSelected { get; set; }
-
-    protected override string FileName => throw new NotImplementedException();
-
-    protected override string FolderName => throw new NotImplementedException();
 
     #endregion
 }

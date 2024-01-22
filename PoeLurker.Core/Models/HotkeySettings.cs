@@ -72,9 +72,9 @@ public sealed class HotkeySettings : AppDataFileBase<HotkeySettings>
     /// </summary>
     public Hotkey RemainingMonster { get; set; }
 
-    protected override string FileName => throw new NotImplementedException();
+    protected override string FileName => "HotKeys.json";
 
-    protected override string FolderName => throw new NotImplementedException();
+    protected override string FolderName => "PoeLurker";
 
     #endregion
 }

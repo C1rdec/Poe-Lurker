@@ -1,6 +1,8 @@
-﻿// <copyright file="SkillTreeInformation.cs" company="Wohs Inc.">
-// Copyright © Wohs Inc.
+﻿//-----------------------------------------------------------------------
+// <copyright file="StashTab.cs" company="Wohs Inc.">
+//     Copyright © Wohs Inc.
 // </copyright>
+//-----------------------------------------------------------------------
 
 namespace Lurker.Core.Models;
 

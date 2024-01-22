@@ -27,9 +27,9 @@ public sealed class PlayerBank : AppDataFileBase<PlayerBank>
     /// </summary>
     public List<Player> ExternalPlayers { get; set; }
 
-    protected override string FileName => throw new NotImplementedException();
+    protected override string FileName => "Players.json";
 
-    protected override string FolderName => throw new NotImplementedException();
+    protected override string FolderName => "PoeLurker";
 
     #endregion
 

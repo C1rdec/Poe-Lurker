@@ -53,9 +53,7 @@ public class CollaborationService : HttpServiceBase
     /// </summary>
     /// <returns>The image content.</returns>
     public Task<byte[]> GetImageAsync()
-    {
-        return GetContent(ImageFileUrl);
-    }
+        => GetContent(ImageFileUrl);
 
     #endregion
 }

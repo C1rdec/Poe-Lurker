@@ -21,9 +21,9 @@ public sealed class BuildManager : AppDataFileBase<BuildManager>
     /// </summary>
     public List<SimpleBuild> Builds { get; set; }
 
-    protected override string FileName => throw new NotImplementedException();
+    protected override string FileName => "Builds.json";
 
-    protected override string FolderName => throw new NotImplementedException();
+    protected override string FolderName => "PoeLurker";
 
     #endregion
 }

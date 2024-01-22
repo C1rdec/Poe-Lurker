@@ -30,9 +30,9 @@ public sealed class StashTabBank : AppDataFileBase<StashTabBank>
     /// </summary>
     public List<StashTab> Tabs { get; set; }
 
-    protected override string FileName => throw new NotImplementedException();
+    protected override string FileName => "Tab.json";
 
-    protected override string FolderName => throw new NotImplementedException();
+    protected override string FolderName => "PoeLurker";
 
     #endregion
 

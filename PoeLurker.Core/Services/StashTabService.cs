@@ -13,7 +13,7 @@ using PoeLurker.Patreon.Models;
 /// <summary>
 /// Represents the stash tab service.
 /// </summary>
-public class StashTabService : ServiceBase
+public class StashTabService
 {
     #region Fields
 
@@ -35,11 +35,6 @@ public class StashTabService : ServiceBase
     #endregion
 
     #region Properties
-
-    /// <summary>
-    /// Gets the File name.
-    /// </summary>
-    protected override string FileName => "Tab.json";
 
     #endregion
 

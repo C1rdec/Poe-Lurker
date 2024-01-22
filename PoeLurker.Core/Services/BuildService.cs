@@ -17,7 +17,7 @@ using Lurker.Core.Models;
 /// Represents the build service.
 /// </summary>
 /// <seealso cref="Lurker.Core.Services.ServiceBase" />
-public class BuildService : ServiceBase
+public class BuildService
 {
     #region Fields
 
@@ -35,15 +35,6 @@ public class BuildService : ServiceBase
         _buildManager = new BuildManager();
         _buildManager.Initialize();
     }
-
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    /// Gets the name of the file.
-    /// </summary>
-    protected override string FileName => "Builds.json";
 
     #endregion
 
@@ -116,6 +107,7 @@ public class BuildService : ServiceBase
         };
 
         AddBuild(simpleBuild);
+
         return simpleBuild;
     }
 
