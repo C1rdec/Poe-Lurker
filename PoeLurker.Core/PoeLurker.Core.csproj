@@ -7,6 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\ItemAlert.mp3" />
+    <None Remove="Assets\JoinHideout.mp3" />
+    <None Remove="Assets\TradeAlert.mp3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\ItemAlert.mp3" />
+    <EmbeddedResource Include="Assets\JoinHideout.mp3" />
+    <EmbeddedResource Include="Assets\TradeAlert.mp3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Desktop.Robot" Version="1.5.0" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.57" />
     <PackageReference Include="NAudio" Version="2.2.1" />
