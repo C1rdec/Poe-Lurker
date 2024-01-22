@@ -7,7 +7,6 @@
 namespace PoeLurker.Core.Models;
 
 using System.Collections.Generic;
-using Lurker.AppData;
 
 /// <summary>
 /// Represents build helper settings.

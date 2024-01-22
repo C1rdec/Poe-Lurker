@@ -15,7 +15,7 @@ using PoeLurker.Patreon.Events;
 /// <summary>
 /// Represent the player Service.
 /// </summary>
-public class PlayerService: IDisposable
+public class PlayerService : IDisposable
 {
     #region Fields
 
