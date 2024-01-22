@@ -4,59 +4,58 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.Core.Services
+namespace Lurker.Core.Services;
+
+using System;
+using System.Text.Json;
+using System.Threading.Tasks;
+using Lurker.Core.Models;
+
+/// <summary>
+/// Represents the collaboation Service.
+/// </summary>
+/// <seealso cref="Lurker.Core.Services.HttpServiceBase" />
+public class CollaborationService : HttpServiceBase
 {
-    using System;
-    using System.Text.Json;
-    using System.Threading.Tasks;
-    using Lurker.Core.Models;
+    #region Fields
+
+    private static readonly string BaseGitUrl = "https://raw.githubusercontent.com/C1rdec/Poe-Lurker/master/assets/Collaboration/";
+    private static readonly string InformationFileUrl = $"{BaseGitUrl}Info";
+    private static readonly string ImageFileUrl = $"{BaseGitUrl}Image";
+
+    #endregion
+
+    #region Methods
 
     /// <summary>
-    /// Represents the collaboation Service.
+    /// Gets the collaboration asynchronous.
     /// </summary>
-    /// <seealso cref="Lurker.Core.Services.HttpServiceBase" />
-    public class CollaborationService : HttpServiceBase
+    /// <returns>The collaboration.</returns>
+    public async Task<Collaboration> GetCollaborationAsync()
     {
-        #region Fields
-
-        private static readonly string BaseGitUrl = "https://raw.githubusercontent.com/C1rdec/Poe-Lurker/master/assets/Collaboration/";
-        private static readonly string InformationFileUrl = $"{BaseGitUrl}Info";
-        private static readonly string ImageFileUrl = $"{BaseGitUrl}Image";
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Gets the collaboration asynchronous.
-        /// </summary>
-        /// <returns>The collaboration.</returns>
-        public async Task<Collaboration> GetCollaborationAsync()
+        try
         {
-            try
-            {
-                var fileContent = await this.GetText(InformationFileUrl);
+            var fileContent = await GetText(InformationFileUrl);
 
-                return JsonSerializer.Deserialize<Collaboration>(fileContent);
-            }
-            catch
-            {
-                return new Collaboration()
-                {
-                    ExpireDate = DateTime.Now.AddDays(-1),
-                };
-            }
+            return JsonSerializer.Deserialize<Collaboration>(fileContent);
         }
-
-        /// <summary>
-        /// Gets the image asynchronous.
-        /// </summary>
-        /// <returns>The image content.</returns>
-        public Task<byte[]> GetImageAsync()
+        catch
         {
-            return this.GetContent(ImageFileUrl);
+            return new Collaboration()
+            {
+                ExpireDate = DateTime.Now.AddDays(-1),
+            };
         }
-
-        #endregion
     }
+
+    /// <summary>
+    /// Gets the image asynchronous.
+    /// </summary>
+    /// <returns>The image content.</returns>
+    public Task<byte[]> GetImageAsync()
+    {
+        return GetContent(ImageFileUrl);
+    }
+
+    #endregion
 }

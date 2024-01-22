@@ -42,7 +42,7 @@ public sealed class PlayerBank : AppDataFileBase<PlayerBank>
     /// <returns>Known player or null.</returns>
     public Player GetKnownPlayer(string name)
     {
-        return this.Players.FirstOrDefault(p => p.Name == name);
+        return Players.FirstOrDefault(p => p.Name == name);
     }
 
     /// <summary>
@@ -52,7 +52,7 @@ public sealed class PlayerBank : AppDataFileBase<PlayerBank>
     /// <returns>Known player or null.</returns>
     public Player GetExternalPlayer(string name)
     {
-        return this.ExternalPlayers.FirstOrDefault(p => p.Name == name);
+        return ExternalPlayers.FirstOrDefault(p => p.Name == name);
     }
 
     #endregion

@@ -22,7 +22,7 @@ public class Skill
     /// </summary>
     public Skill()
     {
-        this.Gems = new List<Gem>();
+        Gems = new List<Gem>();
     }
 
     #endregion
@@ -89,7 +89,7 @@ public class Skill
     /// <param name="gem">The gem.</param>
     public void AddGem(Gem gem)
     {
-        this.Gems.Add(gem);
+        Gems.Add(gem);
     }
 
     /// <summary>
@@ -107,7 +107,7 @@ public class Skill
             return false;
         }
 
-        if (skill.Gems.Count() != this.Gems.Count())
+        if (skill.Gems.Count() != Gems.Count())
         {
             return false;
         }
@@ -115,7 +115,7 @@ public class Skill
         for (int i = 0; i < skill.Gems.Count(); i++)
         {
             var gem = skill.Gems.ElementAt(i);
-            var myGem = this.Gems.ElementAt(i);
+            var myGem = Gems.ElementAt(i);
 
             if (gem.Id != myGem.Id || gem.Name != myGem.Name)
             {

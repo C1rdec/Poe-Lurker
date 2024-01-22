@@ -18,7 +18,7 @@ public sealed class SimpleBuild
     /// </summary>
     public SimpleBuild()
     {
-        this.Id = System.Guid.NewGuid().ToString();
+        Id = System.Guid.NewGuid().ToString();
     }
 
     #endregion

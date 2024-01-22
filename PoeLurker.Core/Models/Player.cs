@@ -46,7 +46,7 @@ public sealed class Player
     /// <returns>The current known level.</returns>
     public int GetCurrentLevel()
     {
-        return this.Levels.FirstOrDefault();
+        return Levels.FirstOrDefault();
     }
 
     /// <summary>
@@ -55,7 +55,7 @@ public sealed class Player
     /// <param name="level">The level.</param>
     public void AddLevel(int level)
     {
-        this.Levels.Insert(0, level);
+        Levels.Insert(0, level);
     }
 
     /// <summary>
@@ -64,7 +64,7 @@ public sealed class Player
     /// <param name="id">The identifier.</param>
     public void SetBuild(string id)
     {
-        this.Build.BuildId = id;
+        Build.BuildId = id;
     }
 
     #endregion

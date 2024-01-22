@@ -4,292 +4,291 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.Core.Services
+namespace Lurker.Core.Services;
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+using Lurker.Core.Extensions;
+using Lurker.Core.Models;
+
+/// <summary>
+/// Represents the service for Path ofBuilding.
+/// </summary>
+public class PathOfBuildingService : HttpServiceBase
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.IO.Compression;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Xml.Linq;
-    using Lurker.Core.Models;
-    using Lurker.Core.Extensions;
+    #region Fields
+
+    private IEnumerable<Gem> _knownGems;
+    private IEnumerable<UniqueItem> _knownUniques;
+
+    #endregion
+
+    #region Methods
 
     /// <summary>
-    /// Represents the service for Path ofBuilding.
+    /// Validate the build.
     /// </summary>
-    public class PathOfBuildingService : HttpServiceBase
+    /// <param name="value">the value.</param>
+    /// <returns>If the build is valid.</returns>
+    public static bool IsValid(string value)
     {
-        #region Fields
-
-        private IEnumerable<Gem> _knownGems;
-        private IEnumerable<UniqueItem> _knownUniques;
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Validate the build.
-        /// </summary>
-        /// <param name="value">the value.</param>
-        /// <returns>If the build is valid.</returns>
-        public static bool IsValid(string value)
+        var xml = GetXml(value);
+        if (string.IsNullOrEmpty(xml))
         {
-            var xml = GetXml(value);
-            if (string.IsNullOrEmpty(xml))
-            {
-                return false;
-            }
-
-            var document = XDocument.Parse(xml);
-
-            var buildElement = document.Root.Element("Build");
-            if (buildElement == null)
-            {
-                return false;
-            }
-
-            return true;
+            return false;
         }
 
-        /// <summary>
-        /// Initializes the asynchronous.
-        /// </summary>
-        /// <param name="service">The service.</param>
-        /// <returns>
-        /// The task awaiter.
-        /// </returns>
-        public async Task InitializeAsync(GithubService service)
+        var document = XDocument.Parse(xml);
+
+        var buildElement = document.Root.Element("Build");
+        if (buildElement == null)
         {
-            this._knownGems = await service.Gems();
-            this._knownUniques = await service.Uniques();
-            this.IsInitialize = true;
+            return false;
         }
 
-        /// <summary>
-        /// Decodes the specified build.
-        /// </summary>
-        /// <param name="buildValue">The build value.</param>
-        /// <returns>
-        /// The xml structure.
-        /// </returns>
-        public Build Decode(string buildValue)
+        return true;
+    }
+
+    /// <summary>
+    /// Initializes the asynchronous.
+    /// </summary>
+    /// <param name="service">The service.</param>
+    /// <returns>
+    /// The task awaiter.
+    /// </returns>
+    public async Task InitializeAsync(GithubService service)
+    {
+        _knownGems = await service.Gems();
+        _knownUniques = await service.Uniques();
+        IsInitialize = true;
+    }
+
+    /// <summary>
+    /// Decodes the specified build.
+    /// </summary>
+    /// <param name="buildValue">The build value.</param>
+    /// <returns>
+    /// The xml structure.
+    /// </returns>
+    public Build Decode(string buildValue)
+    {
+        if (_knownGems == null)
         {
-            if (this._knownGems == null)
-            {
-                throw new InvalidOperationException("Must be initialized");
-            }
+            throw new InvalidOperationException("Must be initialized");
+        }
 
-            var build = new Build()
-            {
-                Value = buildValue,
-            };
+        var build = new Build()
+        {
+            Value = buildValue,
+        };
 
-            var xml = GetXml(buildValue);
-            if (string.IsNullOrEmpty(xml))
-            {
-                return build;
-            }
-
-            build.Xml = xml;
-            var document = XDocument.Parse(build.Xml);
-            var buildElement = document.Root.Element("Build");
-            if (buildElement != null)
-            {
-                double totalDps = 0;
-                double totalDotDps = 0;
-
-                var totalDpsElement = buildElement.Elements("PlayerStat").FirstOrDefault(e => e.Attribute("stat").Value == "TotalDPS");
-                if (totalDpsElement != null)
-                {
-                    totalDps = GetDoubleValue(totalDpsElement.Attribute("value"));
-                }
-
-                var totalDotDpsElement = buildElement.Elements("PlayerStat").FirstOrDefault(e => e.Attribute("stat").Value == "TotalDotDPS");
-                if (totalDotDpsElement != null)
-                {
-                    totalDotDps = GetDoubleValue(totalDotDpsElement.Attribute("value"));
-                }
-
-                build.Damage = new DamageValue()
-                {
-                    IsDot = totalDotDps > totalDps,
-                    Value = totalDotDps > totalDps ? totalDotDps : totalDps,
-                };
-
-                var classAttribute = buildElement.Attribute("className");
-                if (classAttribute != null)
-                {
-                    build.Class = classAttribute.Value;
-                }
-
-                var ascendancyAttribute = buildElement.Attribute("ascendClassName");
-                if (ascendancyAttribute != null)
-                {
-                    build.Ascendancy = ascendancyAttribute.Value;
-                }
-            }
-
-            var notesElement = document.Root.Element("Notes");
-            if (notesElement != null)
-            {
-                build.Notes = notesElement.Value.Trim();
-            }
-
-            var skillsElement = document.Root.Element("Skills");
-            if (skillsElement != null)
-            {
-                foreach (var element in skillsElement.Descendants("Skill"))
-                {
-                    var skill = Skill.FromXml(element, this._knownGems);
-                    if (skill.Gems.Any())
-                    {
-                        build.AddSkill(skill);
-                    }
-                }
-            }
-
-            var treeElement = document.Root.Element("Tree");
-            if (treeElement != null)
-            {
-                foreach (var element in treeElement.Elements("Spec"))
-                {
-                    var urlElement = element.Element("URL");
-                    var information = new SkillTreeInformation
-                    {
-                        Url = urlElement?.Value.Trim().Replace("passive-skill-tree", "fullscreen-passive-skill-tree"),
-                        Version = element?.Attribute("treeVersion")?.Value.Replace('_', '.'),
-                        Title = element?.Attribute("title")?.Value,
-                    };
-
-                    build.SkillTrees.Add(information);
-                }
-            }
-
-            var itemsElement = document.Root.Element("Items");
-            if (itemsElement != null)
-            {
-                foreach (var element in itemsElement.Elements())
-                {
-                    var value = element.Value.GetLineAfter("Rarity: ");
-                    if (value != null)
-                    {
-                        var lines = value.Split('\n');
-                        var rarity = lines.FirstOrDefault();
-                        if (rarity == "UNIQUE" && lines.Length > 2)
-                        {
-                            var name = lines[1];
-                            var uniqueItem = this._knownUniques.FirstOrDefault(u => u.Name == name);
-                            if (uniqueItem != null)
-                            {
-                                build.AddItem(uniqueItem);
-                            }
-                        }
-                    }
-                }
-            }
-
+        var xml = GetXml(buildValue);
+        if (string.IsNullOrEmpty(xml))
+        {
             return build;
         }
 
-        /// <summary>
-        /// Encodes the specified build.
-        /// </summary>
-        /// <param name="build">The build.</param>
-        /// <returns>The Path of Building code.</returns>
-        public string Encode(string build)
+        build.Xml = xml;
+        var document = XDocument.Parse(build.Xml);
+        var buildElement = document.Root.Element("Build");
+        if (buildElement != null)
         {
-            using (var output = new MemoryStream())
+            double totalDps = 0;
+            double totalDotDps = 0;
+
+            var totalDpsElement = buildElement.Elements("PlayerStat").FirstOrDefault(e => e.Attribute("stat").Value == "TotalDPS");
+            if (totalDpsElement != null)
             {
-                using (var input = new MemoryStream(Encoding.ASCII.GetBytes(build)))
+                totalDps = GetDoubleValue(totalDpsElement.Attribute("value"));
+            }
+
+            var totalDotDpsElement = buildElement.Elements("PlayerStat").FirstOrDefault(e => e.Attribute("stat").Value == "TotalDotDPS");
+            if (totalDotDpsElement != null)
+            {
+                totalDotDps = GetDoubleValue(totalDotDpsElement.Attribute("value"));
+            }
+
+            build.Damage = new DamageValue()
+            {
+                IsDot = totalDotDps > totalDps,
+                Value = totalDotDps > totalDps ? totalDotDps : totalDps,
+            };
+
+            var classAttribute = buildElement.Attribute("className");
+            if (classAttribute != null)
+            {
+                build.Class = classAttribute.Value;
+            }
+
+            var ascendancyAttribute = buildElement.Attribute("ascendClassName");
+            if (ascendancyAttribute != null)
+            {
+                build.Ascendancy = ascendancyAttribute.Value;
+            }
+        }
+
+        var notesElement = document.Root.Element("Notes");
+        if (notesElement != null)
+        {
+            build.Notes = notesElement.Value.Trim();
+        }
+
+        var skillsElement = document.Root.Element("Skills");
+        if (skillsElement != null)
+        {
+            foreach (var element in skillsElement.Descendants("Skill"))
+            {
+                var skill = Skill.FromXml(element, _knownGems);
+                if (skill.Gems.Any())
                 {
-                    using (var decompressor = new GZipStream(output, CompressionMode.Compress))
-                    {
-                        input.CopyTo(decompressor);
-                        return Convert.ToBase64String(output.ToArray());
-                    }
+                    build.AddSkill(skill);
                 }
             }
         }
 
-        private static double GetDoubleValue(XAttribute attribute)
+        var treeElement = document.Root.Element("Tree");
+        if (treeElement != null)
         {
-            if (attribute != null)
+            foreach (var element in treeElement.Elements("Spec"))
             {
-                var attributeValue = attribute.Value;
-                if (double.TryParse(attributeValue, out var result))
+                var urlElement = element.Element("URL");
+                var information = new SkillTreeInformation
                 {
-                    return result;
-                }
-            }
+                    Url = urlElement?.Value.Trim().Replace("passive-skill-tree", "fullscreen-passive-skill-tree"),
+                    Version = element?.Attribute("treeVersion")?.Value.Replace('_', '.'),
+                    Title = element?.Attribute("title")?.Value,
+                };
 
-            return 0;
+                build.SkillTrees.Add(information);
+            }
         }
 
-        /// <summary>
-        /// Gets the XML.
-        /// </summary>
-        /// <param name="build">The build.</param>
-        /// <returns>System.String.</returns>
-        private static string GetXml(string build)
+        var itemsElement = document.Root.Element("Items");
+        if (itemsElement != null)
         {
-            if (IsValidXml(build))
+            foreach (var element in itemsElement.Elements())
             {
-                return build;
-            }
-
-            try
-            {
-                using (var output = new MemoryStream())
+                var value = element.Value.GetLineAfter("Rarity: ");
+                if (value != null)
                 {
-                    using (var input = new MemoryStream(Convert.FromBase64String(build.Replace("_", "/").Replace("-", "+"))))
+                    var lines = value.Split('\n');
+                    var rarity = lines.FirstOrDefault();
+                    if (rarity == "UNIQUE" && lines.Length > 2)
                     {
-                        using (var decompressor = new GZipStream(input, CompressionMode.Decompress))
+                        var name = lines[1];
+                        var uniqueItem = _knownUniques.FirstOrDefault(u => u.Name == name);
+                        if (uniqueItem != null)
                         {
-                            decompressor.CopyTo(output);
-                            return Encoding.UTF8.GetString(output.ToArray());
+                            build.AddItem(uniqueItem);
                         }
                     }
                 }
             }
-            catch
-            {
-                return string.Empty;
-            }
         }
 
-        /// <summary>
-        /// Determines whether [is valid XML].
-        /// </summary>
-        /// <param name="xml">The XML.</param>
-        /// <returns>
-        ///   <c>true</c> if [is valid XML] [the specified XML]; otherwise, <c>false</c>.
-        /// </returns>
-        private static bool IsValidXml(string xml)
-        {
-            try
-            {
-                XDocument.Parse(xml);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets a value indicating whether this instance is initialize.
-        /// </summary>
-        public bool IsInitialize { get; private set; }
-
-        #endregion
+        return build;
     }
+
+    /// <summary>
+    /// Encodes the specified build.
+    /// </summary>
+    /// <param name="build">The build.</param>
+    /// <returns>The Path of Building code.</returns>
+    public string Encode(string build)
+    {
+        using (var output = new MemoryStream())
+        {
+            using (var input = new MemoryStream(Encoding.ASCII.GetBytes(build)))
+            {
+                using (var decompressor = new GZipStream(output, CompressionMode.Compress))
+                {
+                    input.CopyTo(decompressor);
+                    return Convert.ToBase64String(output.ToArray());
+                }
+            }
+        }
+    }
+
+    private static double GetDoubleValue(XAttribute attribute)
+    {
+        if (attribute != null)
+        {
+            var attributeValue = attribute.Value;
+            if (double.TryParse(attributeValue, out var result))
+            {
+                return result;
+            }
+        }
+
+        return 0;
+    }
+
+    /// <summary>
+    /// Gets the XML.
+    /// </summary>
+    /// <param name="build">The build.</param>
+    /// <returns>System.String.</returns>
+    private static string GetXml(string build)
+    {
+        if (IsValidXml(build))
+        {
+            return build;
+        }
+
+        try
+        {
+            using (var output = new MemoryStream())
+            {
+                using (var input = new MemoryStream(Convert.FromBase64String(build.Replace("_", "/").Replace("-", "+"))))
+                {
+                    using (var decompressor = new GZipStream(input, CompressionMode.Decompress))
+                    {
+                        decompressor.CopyTo(output);
+                        return Encoding.UTF8.GetString(output.ToArray());
+                    }
+                }
+            }
+        }
+        catch
+        {
+            return string.Empty;
+        }
+    }
+
+    /// <summary>
+    /// Determines whether [is valid XML].
+    /// </summary>
+    /// <param name="xml">The XML.</param>
+    /// <returns>
+    ///   <c>true</c> if [is valid XML] [the specified XML]; otherwise, <c>false</c>.
+    /// </returns>
+    private static bool IsValidXml(string xml)
+    {
+        try
+        {
+            XDocument.Parse(xml);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets a value indicating whether this instance is initialize.
+    /// </summary>
+    public bool IsInitialize { get; private set; }
+
+    #endregion
 }

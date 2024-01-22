@@ -48,7 +48,7 @@ public sealed class Hotkey
     /// </returns>
     public bool IsDefined()
     {
-        return this.KeyCode != KeyCode.None;
+        return KeyCode != KeyCode.None;
     }
 
     /// <summary>
@@ -59,7 +59,7 @@ public sealed class Hotkey
     /// </returns>
     public bool IsHooked()
     {
-        return this._registeredKeycode != KeyCode.None;
+        return _registeredKeycode != KeyCode.None;
     }
 
     /// <summary>
@@ -70,23 +70,23 @@ public sealed class Hotkey
     /// <param name="hold">if set to <c>true</c> [hold].</param>
     public void Install(KeyboardHook hook, Action<KeyboardMessageEventArgs> handler, bool hold = false)
     {
-        if (!this.IsDefined() || handler == null)
+        if (!IsDefined() || handler == null)
         {
             return;
         }
 
-        hook.AddHandler(this.KeyCode, this.Modifier, KeyDirection.Up, this.KeyboardHandler);
+        hook.AddHandler(KeyCode, Modifier, KeyDirection.Up, KeyboardHandler);
 
         if (hold)
         {
-            hook.AddHandler(this.KeyCode, this.Modifier, KeyDirection.Down, this.KeyboardHandler);
+            hook.AddHandler(KeyCode, Modifier, KeyDirection.Down, KeyboardHandler);
         }
 
-        this._hook = hook;
-        this._callback = handler;
-        this._registeredKeycode = this.KeyCode;
-        this._registeredModifier = this.Modifier;
-        this._isHoldHotkey = true;
+        _hook = hook;
+        _callback = handler;
+        _registeredKeycode = KeyCode;
+        _registeredModifier = Modifier;
+        _isHoldHotkey = true;
     }
 
     /// <summary>
@@ -94,28 +94,28 @@ public sealed class Hotkey
     /// </summary>
     public void Uninstall()
     {
-        if (!this.IsHooked() || this._callback == null || this._hook == null)
+        if (!IsHooked() || _callback == null || _hook == null)
         {
             return;
         }
 
-        this._hook.RemoveHandler(this._registeredKeycode, this._registeredModifier, KeyDirection.Up, this.KeyboardHandler);
+        _hook.RemoveHandler(_registeredKeycode, _registeredModifier, KeyDirection.Up, KeyboardHandler);
 
-        if (this._isHoldHotkey)
+        if (_isHoldHotkey)
         {
-            this._hook.RemoveHandler(this._registeredKeycode, this._registeredModifier, KeyDirection.Down, this.KeyboardHandler);
+            _hook.RemoveHandler(_registeredKeycode, _registeredModifier, KeyDirection.Down, KeyboardHandler);
         }
 
-        this._hook = null;
-        this._callback = null;
-        this._isHoldHotkey = false;
-        this._registeredKeycode = KeyCode.None;
-        this._registeredModifier = Modifiers.None;
+        _hook = null;
+        _callback = null;
+        _isHoldHotkey = false;
+        _registeredKeycode = KeyCode.None;
+        _registeredModifier = Modifiers.None;
     }
 
     private void KeyboardHandler(object sender, Winook.KeyboardMessageEventArgs e)
     {
-        this._callback?.Invoke(e);
+        _callback?.Invoke(e);
     }
 
     #endregion

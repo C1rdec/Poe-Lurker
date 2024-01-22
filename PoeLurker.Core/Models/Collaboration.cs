@@ -43,7 +43,7 @@ public class Collaboration
     /// </returns>
     public bool IsExpired()
     {
-        return DateTime.Compare(DateTime.Now, this.ExpireDate) >= 0 ? true : false;
+        return DateTime.Compare(DateTime.Now, ExpireDate) >= 0 ? true : false;
     }
 
     /// <summary>
@@ -51,7 +51,7 @@ public class Collaboration
     /// </summary>
     public void Open()
     {
-        Process.Start(this.Url.ToString());
+        Process.Start(Url.ToString());
     }
 
     #endregion

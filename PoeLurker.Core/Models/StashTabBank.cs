@@ -20,7 +20,7 @@ public sealed class StashTabBank : AppDataFileBase<StashTabBank>
     /// </summary>
     public StashTabBank()
     {
-        this.Tabs = [];
+        Tabs = [];
     }
 
     #region Properties
@@ -43,14 +43,14 @@ public sealed class StashTabBank : AppDataFileBase<StashTabBank>
     /// </summary>
     /// <param name="name">The anme of the tab.</param>
     /// <returns>The stash tab.</returns>
-    public StashTab Get(string name) => this.Tabs.FirstOrDefault(t => t.Name == name);
+    public StashTab Get(string name) => Tabs.FirstOrDefault(t => t.Name == name);
 
     /// <summary>
     /// Check if tab exist.
     /// </summary>
     /// <param name="name">The tab name.</param>
     /// <returns>If exist.</returns>
-    public bool Exist(string name) => this.Tabs.Any(t => t.Name == name);
+    public bool Exist(string name) => Tabs.Any(t => t.Name == name);
 
     /// <summary>
     /// Add to list.
@@ -58,7 +58,7 @@ public sealed class StashTabBank : AppDataFileBase<StashTabBank>
     /// <param name="tab">The tab.</param>
     public void AddOrUpdate(StashTab tab)
     {
-        var existingTab = this.Tabs.FirstOrDefault(t => t.Name == tab.Name);
+        var existingTab = Tabs.FirstOrDefault(t => t.Name == tab.Name);
         if (existingTab != null)
         {
             existingTab.TabType = tab.TabType;
@@ -66,7 +66,7 @@ public sealed class StashTabBank : AppDataFileBase<StashTabBank>
             return;
         }
 
-        this.Tabs.Add(tab);
+        Tabs.Add(tab);
     }
 
     /// <summary>
@@ -77,14 +77,14 @@ public sealed class StashTabBank : AppDataFileBase<StashTabBank>
     public bool Remove(string name)
     {
         var tabsToRemove = new List<StashTab>();
-        foreach (var tab in this.Tabs.Where(t => t.Name == name))
+        foreach (var tab in Tabs.Where(t => t.Name == name))
         {
             tabsToRemove.Add(tab);
         }
 
         foreach (var tab in tabsToRemove)
         {
-            this.Tabs.Remove(tab);
+            Tabs.Remove(tab);
         }
 
         return tabsToRemove.Any();

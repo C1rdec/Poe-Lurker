@@ -16,10 +16,10 @@ public class Build
     /// </summary>
     public Build()
     {
-        this.Id = Guid.NewGuid();
-        this.Skills = [];
-        this.Items = [];
-        this.SkillTrees = [];
+        Id = Guid.NewGuid();
+        Skills = [];
+        Items = [];
+        SkillTrees = [];
     }
 
     #endregion
@@ -88,7 +88,7 @@ public class Build
     /// <param name="skill">The skill.</param>
     public void AddSkill(Skill skill)
     {
-        this.Skills.Add(skill);
+        Skills.Add(skill);
     }
 
     /// <summary>
@@ -97,12 +97,12 @@ public class Build
     /// <param name="item">The item.</param>
     public void AddItem(UniqueItem item)
     {
-        if (this.Items.Any(i => i.Name == item.Name))
+        if (Items.Any(i => i.Name == item.Name))
         {
             return;
         }
 
-        this.Items.Add(item);
+        Items.Add(item);
     }
 
     #endregion

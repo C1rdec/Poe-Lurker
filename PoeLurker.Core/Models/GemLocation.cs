@@ -7,7 +7,6 @@
 namespace Lurker.Core.Models;
 
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 /// <summary>
 /// Represents where the player can buy the gem.

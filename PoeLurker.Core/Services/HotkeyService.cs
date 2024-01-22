@@ -4,232 +4,229 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.Core.Services
+namespace Lurker.Core.Services;
+
+using Lurker.Core.Models;
+
+/// <summary>
+/// Represents Hotkey service.
+/// </summary>
+/// <seealso cref="Lurker.Core.Services.ServiceBase" />
+public class HotkeyService : ServiceBase
 {
-    using System.IO;
-    using Lurker.Core.Models;
-    using Winook;
+    #region Fields
+
+    private readonly HotkeySettings _settings;
+
+    #endregion
+
+    #region Constructors
 
     /// <summary>
-    /// Represents Hotkey service.
+    /// Initializes a new instance of the <see cref="HotkeyService"/> class.
     /// </summary>
-    /// <seealso cref="Lurker.Core.Services.ServiceBase" />
-    public class HotkeyService : ServiceBase
+    public HotkeyService()
     {
-        #region Fields
-
-        private HotkeySettings _settings;
-
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HotkeyService"/> class.
-        /// </summary>
-        public HotkeyService()
-        {
-            this._settings = new HotkeySettings();
-            _settings.Initialize();
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the toggle build.
-        /// </summary>
-        public ushort ToggleBuild
-        {
-            get
-            {
-                return this._settings.ToggleBuild;
-            }
-
-            set
-            {
-                this._settings.ToggleBuild = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the main.
-        /// </summary>
-        public Hotkey Main
-        {
-            get
-            {
-                return this._settings.Main;
-            }
-
-            set
-            {
-                this._settings.Main = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the open wiki.
-        /// </summary>
-        public Hotkey OpenWiki
-        {
-            get
-            {
-                return this._settings.OpenWiki;
-            }
-
-            set
-            {
-                this._settings.OpenWiki = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the join guild hideout.
-        /// </summary>
-        public Hotkey JoinGuildHideout
-        {
-            get
-            {
-                return this._settings.JoinGuildHideout;
-            }
-
-            set
-            {
-                this._settings.JoinGuildHideout = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the join hideout.
-        /// </summary>
-        public Hotkey JoinHideout
-        {
-            get
-            {
-                return this._settings.JoinHideout;
-            }
-
-            set
-            {
-                this._settings.JoinHideout = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the search item.
-        /// </summary>
-        public Hotkey SearchItem
-        {
-            get
-            {
-                return this._settings.SearchItem;
-            }
-
-            set
-            {
-                this._settings.SearchItem = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the search item.
-        /// </summary>
-        public Hotkey RemainingMonster
-        {
-            get
-            {
-                return this._settings.RemainingMonster;
-            }
-
-            set
-            {
-                this._settings.RemainingMonster = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the busy.
-        /// </summary>
-        public Hotkey Busy
-        {
-            get
-            {
-                return this._settings.Busy;
-            }
-
-            set
-            {
-                this._settings.Busy = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the whisper.
-        /// </summary>
-        public Hotkey Whisper
-        {
-            get
-            {
-                return this._settings.Whisper;
-            }
-
-            set
-            {
-                this._settings.Whisper = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the dismiss.
-        /// </summary>
-        public Hotkey Dismiss
-        {
-            get
-            {
-                return this._settings.Dismiss;
-            }
-
-            set
-            {
-                this._settings.Dismiss = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the still interested.
-        /// </summary>
-        public Hotkey StillInterested
-        {
-            get
-            {
-                return this._settings.StillInterested;
-            }
-
-            set
-            {
-                this._settings.StillInterested = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets the name of the file.
-        /// </summary>
-        protected override string FileName => "HotKeys.json";
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Saves the specified raise event.
-        /// </summary>
-        public void Save()
-        {
-            this._settings.Save();
-        }
-
-        #endregion
+        _settings = new HotkeySettings();
+        _settings.Initialize();
     }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets the toggle build.
+    /// </summary>
+    public ushort ToggleBuild
+    {
+        get
+        {
+            return _settings.ToggleBuild;
+        }
+
+        set
+        {
+            _settings.ToggleBuild = value;
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the main.
+    /// </summary>
+    public Hotkey Main
+    {
+        get
+        {
+            return _settings.Main;
+        }
+
+        set
+        {
+            _settings.Main = value;
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the open wiki.
+    /// </summary>
+    public Hotkey OpenWiki
+    {
+        get
+        {
+            return _settings.OpenWiki;
+        }
+
+        set
+        {
+            _settings.OpenWiki = value;
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the join guild hideout.
+    /// </summary>
+    public Hotkey JoinGuildHideout
+    {
+        get
+        {
+            return _settings.JoinGuildHideout;
+        }
+
+        set
+        {
+            _settings.JoinGuildHideout = value;
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the join hideout.
+    /// </summary>
+    public Hotkey JoinHideout
+    {
+        get
+        {
+            return _settings.JoinHideout;
+        }
+
+        set
+        {
+            _settings.JoinHideout = value;
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the search item.
+    /// </summary>
+    public Hotkey SearchItem
+    {
+        get
+        {
+            return _settings.SearchItem;
+        }
+
+        set
+        {
+            _settings.SearchItem = value;
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the search item.
+    /// </summary>
+    public Hotkey RemainingMonster
+    {
+        get
+        {
+            return _settings.RemainingMonster;
+        }
+
+        set
+        {
+            _settings.RemainingMonster = value;
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the busy.
+    /// </summary>
+    public Hotkey Busy
+    {
+        get
+        {
+            return _settings.Busy;
+        }
+
+        set
+        {
+            _settings.Busy = value;
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the whisper.
+    /// </summary>
+    public Hotkey Whisper
+    {
+        get
+        {
+            return _settings.Whisper;
+        }
+
+        set
+        {
+            _settings.Whisper = value;
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the dismiss.
+    /// </summary>
+    public Hotkey Dismiss
+    {
+        get
+        {
+            return _settings.Dismiss;
+        }
+
+        set
+        {
+            _settings.Dismiss = value;
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the still interested.
+    /// </summary>
+    public Hotkey StillInterested
+    {
+        get
+        {
+            return _settings.StillInterested;
+        }
+
+        set
+        {
+            _settings.StillInterested = value;
+        }
+    }
+
+    /// <summary>
+    /// Gets the name of the file.
+    /// </summary>
+    protected override string FileName => "HotKeys.json";
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Saves the specified raise event.
+    /// </summary>
+    public void Save()
+    {
+        _settings.Save();
+    }
+
+    #endregion
 }

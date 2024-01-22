@@ -73,10 +73,10 @@ public class Gem : WikiItem
     /// </summary>
     public void ParseWiki()
     {
-        this.WikiUrl = PoeDBHelper.CreateItemUri(this.Name);
+        WikiUrl = PoeDBHelper.CreateItemUri(Name);
 
-        this.SetImageUrl();
-        this.SetLocation();
+        SetImageUrl();
+        SetLocation();
     }
 
     /// <summary>
@@ -86,10 +86,10 @@ public class Gem : WikiItem
     {
         try
         {
-            this.ImageUrl = WikiHelper.GetItemImageUrl(this.Name);
-            if (this.ImageUrl == null)
+            ImageUrl = WikiHelper.GetItemImageUrl(Name);
+            if (ImageUrl == null)
             {
-                this.ImageUrl = PoeDBHelper.GetItemImageUrl(this.Name);
+                ImageUrl = PoeDBHelper.GetItemImageUrl(Name);
             }
         }
         catch (InvalidOperationException)
@@ -106,14 +106,14 @@ public class Gem : WikiItem
         HtmlDocument document = default;
         try
         {
-            document = webPage.Load(WikiHelper.CreateItemUri(this.Name));
+            document = webPage.Load(WikiHelper.CreateItemUri(Name));
         }
         catch
         {
             return;
         }
 
-        this.SetWikiLocation(document);
+        SetWikiLocation(document);
     }
 
     private void SetWikiLocation(HtmlDocument document)
@@ -191,7 +191,7 @@ public class Gem : WikiItem
         }
 
         gemLocation.Classes = classes;
-        this.Location = gemLocation;
+        Location = gemLocation;
     }
 
     #endregion
