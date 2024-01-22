@@ -702,31 +702,6 @@ public class SettingsService
         }
     }
 
-    /// <summary>
-    /// Gets the name of the folder.
-    /// </summary>
-    private string FolderName => "PoeLurker";
-
-    /// <summary>
-    /// Gets the name of the file.
-    /// </summary>
-    private string FileName => "Settings.json";
-
-    /// <summary>
-    /// Gets the application data folder path.
-    /// </summary>
-    private string AppDataFolderPath => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-
-    /// <summary>
-    /// Gets the settings folder path.
-    /// </summary>
-    private string SettingsFolderPath => System.IO.Path.Combine(AppDataFolderPath, FolderName);
-
-    /// <summary>
-    /// Gets the settings file path.
-    /// </summary>
-    private string SettingsFilePath => System.IO.Path.Combine(SettingsFolderPath, FileName);
-
     #endregion
 
     #region Methods
@@ -742,23 +717,6 @@ public class SettingsService
         {
             OnSave?.Invoke(this, EventArgs.Empty);
         }
-    }
-
-    /// <summary>
-    /// Creates the default settings.
-    /// </summary>
-    private void CreateDefaultSettings()
-    {
-        using (var file = File.Create(SettingsFilePath))
-        {
-        }
-
-        // Set default values
-        BusyMessage = DefaultBusyMessage;
-        SoldMessage = DefaultSoldMessage;
-        StillInterestedMessage = DefaultStillInterestedMessage;
-        ThankYouMessage = DefaultThankYouMessage;
-        Save();
     }
 
     #endregion

@@ -202,17 +202,12 @@ public class PathOfBuildingService : HttpServiceBase
     /// <returns>The Path of Building code.</returns>
     public string Encode(string build)
     {
-        using (var output = new MemoryStream())
-        {
-            using (var input = new MemoryStream(Encoding.ASCII.GetBytes(build)))
-            {
-                using (var decompressor = new GZipStream(output, CompressionMode.Compress))
-                {
-                    input.CopyTo(decompressor);
-                    return Convert.ToBase64String(output.ToArray());
-                }
-            }
-        }
+        using var output = new MemoryStream();
+        using var input = new MemoryStream(Encoding.ASCII.GetBytes(build));
+        using var decompressor = new GZipStream(output, CompressionMode.Compress);
+        input.CopyTo(decompressor);
+
+        return Convert.ToBase64String(output.ToArray());
     }
 
     private static double GetDoubleValue(XAttribute attribute)
@@ -243,17 +238,12 @@ public class PathOfBuildingService : HttpServiceBase
 
         try
         {
-            using (var output = new MemoryStream())
-            {
-                using (var input = new MemoryStream(Convert.FromBase64String(build.Replace("_", "/").Replace("-", "+"))))
-                {
-                    using (var decompressor = new GZipStream(input, CompressionMode.Decompress))
-                    {
-                        decompressor.CopyTo(output);
-                        return Encoding.UTF8.GetString(output.ToArray());
-                    }
-                }
-            }
+            using var output = new MemoryStream();
+            using var input = new MemoryStream(Convert.FromBase64String(build.Replace("_", "/").Replace("-", "+")));
+            using var decompressor = new GZipStream(input, CompressionMode.Decompress);
+            decompressor.CopyTo(output);
+
+            return Encoding.UTF8.GetString(output.ToArray());
         }
         catch
         {

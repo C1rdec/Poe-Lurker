@@ -189,7 +189,7 @@ public class PlayerService : IDisposable
         var player = _playerBank.GetExternalPlayer(e.PlayerName);
         if (player == null)
         {
-            _playerBank.ExternalPlayers.Add(new Player() { Name = e.PlayerName, Levels = new List<int> { 0 } });
+            _playerBank.ExternalPlayers.Add(new Player() { Name = e.PlayerName, Levels = [0] });
             Save();
         }
 
@@ -238,7 +238,7 @@ public class PlayerService : IDisposable
             }
 
             // Wait for location changed event to confirm the new player
-            var newPlayer = new Player() { Name = e.PlayerName, Levels = new List<int>() { e.Level } };
+            var newPlayer = new Player() { Name = e.PlayerName, Levels = [e.Level] };
             InsertPlayer(newPlayer);
             PlayerChanged?.Invoke(this, newPlayer);
         }

@@ -23,7 +23,7 @@ public static class ClipboardHelper
     #region Fields
 
     private static readonly Robot Robot = new();
-    private static readonly ItemParser ItemParser = new ItemParser();
+    private static readonly ItemParser ItemParser = new();
 
     #endregion
 
@@ -83,7 +83,7 @@ public static class ClipboardHelper
     /// <param name="action">The action.</param>
     private static void RetryOnMainThread(Action action)
     {
-        Thread thread = new Thread(() =>
+        Thread thread = new(() =>
         {
             var retryCount = 3;
             while (retryCount != 0)

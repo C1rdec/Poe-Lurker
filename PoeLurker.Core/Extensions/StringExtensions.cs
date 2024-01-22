@@ -58,7 +58,7 @@ public static class StringExtensions
         }
 
         var textAfter = value.Substring(index + marker.Length);
-        return textAfter.Split(System.Environment.NewLine).First().Trim();
+        return textAfter.Split(Environment.NewLine).First().Trim();
     }
 
     /// <summary>

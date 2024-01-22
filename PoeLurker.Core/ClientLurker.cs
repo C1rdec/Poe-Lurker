@@ -204,44 +204,40 @@ public class ClientLurker : IDisposable
     /// <exception cref="System.IO.IOException">Error reading from file at " + path.</exception>
     private string GetLastLine()
     {
-        using (var stream = new FileStream(FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+        using var stream = new FileStream(FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+        if (stream.Length == 0)
         {
-            if (stream.Length == 0)
-            {
-                return null;
-            }
-
-            stream.Position = stream.Length - 1;
-
-            return GetLine(stream);
+            return null;
         }
+
+        stream.Position = stream.Length - 1;
+
+        return GetLine(stream);
     }
 
     /// <summary>
     /// Gets the new lines.
     /// </summary>
     /// <returns>The all the new lines.</returns>
-    private IEnumerable<string> GetNewLines()
+    private List<string> GetNewLines()
     {
-        using (var stream = new FileStream(FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+        using var stream = new FileStream(FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+        if (stream.Length == 0)
         {
-            if (stream.Length == 0)
-            {
-                return null;
-            }
-
-            stream.Position = stream.Length - 1;
-
-            var newLines = new List<string>();
-            var currentNewLine = GetLine(stream);
-            while (_lastLine != currentNewLine)
-            {
-                newLines.Add(currentNewLine);
-                currentNewLine = GetLine(stream);
-            }
-
-            return newLines;
+            return null;
         }
+
+        stream.Position = stream.Length - 1;
+
+        var newLines = new List<string>();
+        var currentNewLine = GetLine(stream);
+        while (_lastLine != currentNewLine)
+        {
+            newLines.Add(currentNewLine);
+            currentNewLine = GetLine(stream);
+        }
+
+        return newLines;
     }
 
     /// <summary>
@@ -314,7 +310,7 @@ public class ClientLurker : IDisposable
                     return;
                 }
             }
-            while (newLines.Count() == 0);
+            while (!newLines.Any());
 
             _lastLine = newLines.First();
             foreach (var line in newLines)
