@@ -4,16 +4,16 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.Core.Helpers;
+namespace PoeLurker.Core.Helpers;
 
 using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using Lurker.Core.Extensions;
-using Lurker.Core.Models;
-using Lurker.Core.Services;
-using static Lurker.Core.Native;
+using PoeLurker.Core.Extensions;
+using PoeLurker.Core.Models;
+using PoeLurker.Core.Services;
+using static PoeLurker.Core.Native;
 
 /// <summary>
 /// Represents DockingHelper.

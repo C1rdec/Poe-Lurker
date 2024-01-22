@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.Core.Services;
+namespace PoeLurker.Core.Services;
 
 using System;
 using System.Collections.Generic;
@@ -14,8 +14,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Lurker.Core.Extensions;
-using Lurker.Core.Models;
+using PoeLurker.Core.Extensions;
+using PoeLurker.Core.Models;
 
 /// <summary>
 /// Represents the service for Path ofBuilding.

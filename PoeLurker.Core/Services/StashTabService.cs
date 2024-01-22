@@ -4,10 +4,10 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.Core.Services;
+namespace PoeLurker.Core.Services;
 
 using System;
-using Lurker.Core.Models;
+using PoeLurker.Core.Models;
 using PoeLurker.Patreon.Models;
 
 /// <summary>

@@ -4,12 +4,12 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.Core.Services;
+namespace PoeLurker.Core.Services;
 
 using System;
 using System.IO;
-using Lurker.Core.Helpers;
-using Lurker.Core.Models;
+using PoeLurker.Core.Helpers;
+using PoeLurker.Core.Models;
 
 /// <summary>
 /// The settings service.

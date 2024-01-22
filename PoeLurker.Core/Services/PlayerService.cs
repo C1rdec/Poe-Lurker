@@ -4,12 +4,12 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.Core.Services;
+namespace PoeLurker.Core.Services;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Lurker.Core.Models;
+using PoeLurker.Core.Models;
 using PoeLurker.Patreon.Events;
 
 /// <summary>

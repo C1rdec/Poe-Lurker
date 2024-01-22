@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.Core.Services;
+namespace PoeLurker.Core.Services;
 
 using System;
 using System.IO;

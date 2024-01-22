@@ -1,4 +1,4 @@
-﻿namespace Lurker.Core.Models;
+﻿namespace PoeLurker.Core.Models;
 
 using System;
 using System.Collections.Generic;

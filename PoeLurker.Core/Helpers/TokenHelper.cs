@@ -4,10 +4,10 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.Core.Helpers;
+namespace PoeLurker.Core.Helpers;
 
 using System.Text.RegularExpressions;
-using Lurker.Core.Models;
+using PoeLurker.Core.Models;
 using PoeLurker.Patreon.Events;
 
 /// <summary>

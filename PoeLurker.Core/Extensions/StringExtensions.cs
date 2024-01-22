@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.Core.Extensions;
+namespace PoeLurker.Core.Extensions;
 
 using System.Linq;
 

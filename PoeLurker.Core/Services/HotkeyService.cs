@@ -4,14 +4,14 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.Core.Services;
+namespace PoeLurker.Core.Services;
 
-using Lurker.Core.Models;
+using PoeLurker.Core.Models;
 
 /// <summary>
 /// Represents Hotkey service.
 /// </summary>
-/// <seealso cref="Lurker.Core.Services.ServiceBase" />
+/// <seealso cref="PoeLurker.Core.Services.ServiceBase" />
 public class HotkeyService
 {
     #region Fields

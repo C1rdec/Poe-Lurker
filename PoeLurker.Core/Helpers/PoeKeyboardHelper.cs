@@ -4,14 +4,14 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.Core.Helpers;
+namespace PoeLurker.Core.Helpers;
 
 using System.Threading.Tasks;
 
 /// <summary>
 /// Represents the PoeKeyboardHelper.
 /// </summary>
-/// <seealso cref="Lurker.Core.Helpers.KeyboardHelper" />
+/// <seealso cref="PoeLurker.Core.Helpers.KeyboardHelper" />
 public class PoeKeyboardHelper : KeyboardHelper
 {
     #region Constructors

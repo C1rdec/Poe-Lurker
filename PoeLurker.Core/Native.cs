@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.Core;
+namespace PoeLurker.Core;
 
 using System;
 using System.Runtime.InteropServices;

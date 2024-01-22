@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.Core.Models;
+namespace PoeLurker.Core.Models;
 
 using System.Collections.Generic;
 using System.Linq;

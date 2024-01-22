@@ -6,12 +6,12 @@
 
 using PoeLurker.Patreon.Models;
 
-namespace Lurker.Core.Models;
+namespace PoeLurker.Core.Models;
 
 /// <summary>
 /// Represents a unique item.
 /// </summary>
-/// <seealso cref="Lurker.Core.Models.WikiItem" />
+/// <seealso cref="PoeLurker.Core.Models.WikiItem" />
 public class UniqueItem : WikiItem
 {
     #region Properties

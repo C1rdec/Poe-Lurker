@@ -4,19 +4,19 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.Core.Services;
+namespace PoeLurker.Core.Services;
 
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using Lurker.Core.Models;
+using PoeLurker.Core.Models;
 
 /// <summary>
 /// Represents the build service.
 /// </summary>
-/// <seealso cref="Lurker.Core.Services.ServiceBase" />
+/// <seealso cref="PoeLurker.Core.Services.ServiceBase" />
 public class BuildService
 {
     #region Fields

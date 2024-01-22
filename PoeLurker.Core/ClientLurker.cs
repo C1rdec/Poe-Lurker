@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.Core;
+namespace PoeLurker.Core;
 
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Lurker.Core.Extensions;
+using PoeLurker.Core.Extensions;
 using PoeLurker.Patreon.Events;
 
 /// <summary>

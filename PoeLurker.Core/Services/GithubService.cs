@@ -4,19 +4,19 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.Core.Services;
+namespace PoeLurker.Core.Services;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Lurker.Core.Models;
+using PoeLurker.Core.Models;
 
 /// <summary>
 /// Represents the Github Service.
 /// </summary>
-/// <seealso cref="Lurker.Core.Services.HttpServiceBase" />
+/// <seealso cref="PoeLurker.Core.Services.HttpServiceBase" />
 public class GithubService : HttpServiceBase
 {
     private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();

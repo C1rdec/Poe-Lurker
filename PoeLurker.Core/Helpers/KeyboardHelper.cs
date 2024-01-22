@@ -4,14 +4,14 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.Core.Helpers;
+namespace PoeLurker.Core.Helpers;
 
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Desktop.Robot;
 using Desktop.Robot.Extensions;
-using Lurker.Core.Extensions;
+using PoeLurker.Core.Extensions;
 
 /// <summary>
 /// Represents the keyboard helper.
