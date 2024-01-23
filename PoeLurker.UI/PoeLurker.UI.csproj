@@ -1,0 +1,224 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows7</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\Alchemy.png" />
+    <None Remove="Assets\Alteration.png" />
+    <None Remove="Assets\Ascendant_avatar.png" />
+    <None Remove="Assets\Assassin_avatar.png" />
+    <None Remove="Assets\AvoidAilments.png" />
+    <None Remove="Assets\Berserker_avatar.png" />
+    <None Remove="Assets\Champion_avatar.png" />
+    <None Remove="Assets\Chance.png" />
+    <None Remove="Assets\Chaos.png" />
+    <None Remove="Assets\Chieftain_avatar.png" />
+    <None Remove="Assets\Chisel.png" />
+    <None Remove="Assets\Chromatic.png" />
+    <None Remove="Assets\Deadeye_avatar.png" />
+    <None Remove="Assets\Divine.png" />
+    <None Remove="Assets\Duelist.png" />
+    <None Remove="Assets\Elementalist_avatar.png" />
+    <None Remove="Assets\Exalted.png" />
+    <None Remove="Assets\Fontin.ttf" />
+    <None Remove="Assets\Fusing.png" />
+    <None Remove="Assets\Gemcutter.png" />
+    <None Remove="Assets\Gladiator_avatar.png" />
+    <None Remove="Assets\Guardian_avatar.png" />
+    <None Remove="Assets\Hierophant_avatar.png" />
+    <None Remove="Assets\InInstance.png" />
+    <None Remove="Assets\Inquisitor_avatar.png" />
+    <None Remove="Assets\Jeweller.png" />
+    <None Remove="Assets\Juggernaut_avatar.png" />
+    <None Remove="Assets\LurckerIcon.json" />
+    <None Remove="Assets\LurckerIconSettings.json" />
+    <None Remove="Assets\LurkerIcon.png" />
+    <None Remove="Assets\Marauder.png" />
+    <None Remove="Assets\Mirror.png" />
+    <None Remove="Assets\Necromancer_avatar.png" />
+    <None Remove="Assets\NoLeech.png" />
+    <None Remove="Assets\NoRegeneration.png" />
+    <None Remove="Assets\Occultist_avatar.png" />
+    <None Remove="Assets\Pathfinder_avatar.png" />
+    <None Remove="Assets\Raider_avatar.png" />
+    <None Remove="Assets\Ranger.png" />
+    <None Remove="Assets\ReflectElemental.png" />
+    <None Remove="Assets\ReflectPhysical.png" />
+    <None Remove="Assets\Regal.png" />
+    <None Remove="Assets\Saboteur_avatar.png" />
+    <None Remove="Assets\Scion.png" />
+    <None Remove="Assets\Scouring.png" />
+    <None Remove="Assets\Sextant.png" />
+    <None Remove="Assets\Shadow.png" />
+    <None Remove="Assets\Slayer_avatar.png" />
+    <None Remove="Assets\Success.png" />
+    <None Remove="Assets\Templar.png" />
+    <None Remove="Assets\TemporalChain.png" />
+    <None Remove="Assets\TradeBarIcon.ico" />
+    <None Remove="Assets\TrayIcon.ico" />
+    <None Remove="Assets\TrayIconUpdate.ico" />
+    <None Remove="Assets\Trickster_avatar.png" />
+    <None Remove="Assets\Update.png" />
+    <None Remove="Assets\UpdateAnimation.json" />
+    <None Remove="Assets\UpdateSuccessAnimation.json" />
+    <None Remove="Assets\UpdateWorkingAnimation.json" />
+    <None Remove="Assets\Vaal.png" />
+    <None Remove="Assets\Witch.png" />
+    <None Remove="Assets\Working.png" />
+    <None Remove="Svg.tt" />
+    <None Remove="SVG\Android.svg" />
+    <None Remove="SVG\Apple.svg" />
+    <None Remove="SVG\Beer.svg" />
+    <None Remove="SVG\Cellphone.svg" />
+    <None Remove="SVG\Checkbox.svg" />
+    <None Remove="SVG\Cold.svg" />
+    <None Remove="SVG\Corner.svg" />
+    <None Remove="SVG\CustomSound.svg" />
+    <None Remove="SVG\Discord.svg" />
+    <None Remove="SVG\DotsMenu.svg" />
+    <None Remove="SVG\Fire.svg" />
+    <None Remove="SVG\Folder.svg" />
+    <None Remove="SVG\Group.svg" />
+    <None Remove="SVG\Help.svg" />
+    <None Remove="SVG\Hideout.svg" />
+    <None Remove="SVG\InInstance.svg" />
+    <None Remove="SVG\Lightning.svg" />
+    <None Remove="SVG\Open.svg" />
+    <None Remove="SVG\Patreon.svg" />
+    <None Remove="SVG\Pushbullet.svg" />
+    <None Remove="SVG\Quad.svg" />
+    <None Remove="SVG\Shield.svg" />
+    <None Remove="SVG\Sold.svg" />
+    <None Remove="SVG\ThreeDot.svg" />
+    <None Remove="TrayIcon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Svg.tt">
+      <LastGenOutput>Svg.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </Content>
+    <Content Include="SVG\Android.svg" />
+    <Content Include="SVG\Apple.svg" />
+    <Content Include="SVG\Beer.svg" />
+    <Content Include="SVG\Cellphone.svg" />
+    <Content Include="SVG\Checkbox.svg" />
+    <Content Include="SVG\Cold.svg" />
+    <Content Include="SVG\Corner.svg" />
+    <Content Include="SVG\CustomSound.svg" />
+    <Content Include="SVG\Discord.svg" />
+    <Content Include="SVG\DotsMenu.svg" />
+    <Content Include="SVG\Fire.svg" />
+    <Content Include="SVG\Folder.svg" />
+    <Content Include="SVG\Group.svg" />
+    <Content Include="SVG\Help.svg" />
+    <Content Include="SVG\Hideout.svg" />
+    <Content Include="SVG\InInstance.svg" />
+    <Content Include="SVG\Lightning.svg" />
+    <Content Include="SVG\Open.svg" />
+    <Content Include="SVG\Patreon.svg" />
+    <Content Include="SVG\Pushbullet.svg" />
+    <Content Include="SVG\Quad.svg" />
+    <Content Include="SVG\Shield.svg" />
+    <Content Include="SVG\Sold.svg" />
+    <Content Include="SVG\ThreeDot.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\LurckerIcon.json" />
+    <EmbeddedResource Include="Assets\LurckerIconSettings.json" />
+    <EmbeddedResource Include="Assets\UpdateAnimation.json" />
+    <EmbeddedResource Include="Assets\UpdateSuccessAnimation.json" />
+    <EmbeddedResource Include="Assets\UpdateWorkingAnimation.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Caliburn.Micro" Version="4.0.212" />
+    <PackageReference Include="LiveCharts.NetCore" Version="0.9.8" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PoeLurker.Core\PoeLurker.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Alchemy.png" />
+    <Resource Include="Assets\Alteration.png" />
+    <Resource Include="Assets\Ascendant_avatar.png" />
+    <Resource Include="Assets\Assassin_avatar.png" />
+    <Resource Include="Assets\AvoidAilments.png" />
+    <Resource Include="Assets\Berserker_avatar.png" />
+    <Resource Include="Assets\Champion_avatar.png" />
+    <Resource Include="Assets\Chance.png" />
+    <Resource Include="Assets\Chaos.png" />
+    <Resource Include="Assets\Chieftain_avatar.png" />
+    <Resource Include="Assets\Chisel.png" />
+    <Resource Include="Assets\Chromatic.png" />
+    <Resource Include="Assets\Deadeye_avatar.png" />
+    <Resource Include="Assets\Divine.png" />
+    <Resource Include="Assets\Duelist.png" />
+    <Resource Include="Assets\Elementalist_avatar.png" />
+    <Resource Include="Assets\Exalted.png" />
+    <Resource Include="Assets\Fontin.ttf" />
+    <Resource Include="Assets\Fusing.png" />
+    <Resource Include="Assets\Gemcutter.png" />
+    <Resource Include="Assets\Gladiator_avatar.png" />
+    <Resource Include="Assets\Guardian_avatar.png" />
+    <Resource Include="Assets\Hierophant_avatar.png" />
+    <Resource Include="Assets\InInstance.png" />
+    <Resource Include="Assets\Inquisitor_avatar.png" />
+    <Resource Include="Assets\Jeweller.png" />
+    <Resource Include="Assets\Juggernaut_avatar.png" />
+    <Resource Include="Assets\LurkerIcon.png" />
+    <Resource Include="Assets\Marauder.png" />
+    <Resource Include="Assets\Mirror.png" />
+    <Resource Include="Assets\Necromancer_avatar.png" />
+    <Resource Include="Assets\NoLeech.png" />
+    <Resource Include="Assets\NoRegeneration.png" />
+    <Resource Include="Assets\Occultist_avatar.png" />
+    <Resource Include="Assets\Pathfinder_avatar.png" />
+    <Resource Include="Assets\Raider_avatar.png" />
+    <Resource Include="Assets\Ranger.png" />
+    <Resource Include="Assets\ReflectElemental.png" />
+    <Resource Include="Assets\ReflectPhysical.png" />
+    <Resource Include="Assets\Regal.png" />
+    <Resource Include="Assets\Saboteur_avatar.png" />
+    <Resource Include="Assets\Scion.png" />
+    <Resource Include="Assets\Scouring.png" />
+    <Resource Include="Assets\Sextant.png" />
+    <Resource Include="Assets\Shadow.png" />
+    <Resource Include="Assets\Slayer_avatar.png" />
+    <Resource Include="Assets\Success.png" />
+    <Resource Include="Assets\Templar.png" />
+    <Resource Include="Assets\TemporalChain.png" />
+    <Resource Include="Assets\TradeBarIcon.ico" />
+    <Resource Include="Assets\TrayIcon.ico" />
+    <Resource Include="Assets\TrayIconUpdate.ico" />
+    <Resource Include="Assets\Trickster_avatar.png" />
+    <Resource Include="Assets\Update.png" />
+    <Resource Include="Assets\Vaal.png" />
+    <Resource Include="Assets\Witch.png" />
+    <Resource Include="Assets\Working.png" />
+    <Resource Include="TrayIcon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Svg.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Svg.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+</Project>

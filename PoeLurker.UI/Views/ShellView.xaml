@@ -1,0 +1,58 @@
+<Window x:Class="Lurker.UI.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        Height="1" Width="1"
+        Topmost="True"
+        WindowStyle="None"
+        Visibility="Hidden"
+        AllowsTransparency="True"
+        Background="Transparent"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        xmlns:cal="http://www.caliburnproject.org"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Background="Transparent">
+        <tb:TaskbarIcon x:Name="myNotifyIcon"
+                    Visibility="{Binding ShowInTaskBar, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    ToolTipText="Poe Lurker"
+                    DoubleClickCommand="{Binding ShowSettingsCommand}"
+                    MenuActivation="RightClick"
+                    cal:Message.Attach="[Event TrayContextMenuOpen] = [Action OnTrayOpen]"
+                    PopupActivation="DoubleClick">
+            <tb:TaskbarIcon.Style>
+                <Style TargetType="tb:TaskbarIcon">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding NeedUpdate}" Value="True">
+                            <Setter Property="IconSource" Value="/Assets/TrayIconUpdate.ico"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding NeedUpdate}" Value="False">
+                            <Setter Property="IconSource" Value="/Assets/TrayIcon.ico"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </tb:TaskbarIcon.Style>
+            <tb:TaskbarIcon.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Update" Visibility="{Binding NeedUpdate, Converter={StaticResource BooleanToVisibilityConverter}}" cal:Message.Attach="[Event Click] = [Action Update]"/>
+                    <MenuItem IsChecked="{Binding StartWithWindows}" Header="Start with Windows" cal:Message.Attach="[Event Click] = [Action CreateShortCut]"/>
+                    <MenuItem Header="Settings" cal:Message.Attach="[Event Click] = [Action ShowSettings]"/>
+                    <MenuItem StaysOpenOnClick="True" Visibility="{Binding ActivePlayerVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <MenuItem.Header>
+                            <ContentControl x:Name="ActivePlayer" cal:View.Model="{Binding ActivePlayer}"/>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem cal:Message.Attach="[Event Click] = [Action Close]">
+                        <MenuItem.Header>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock>Close</TextBlock>
+                                <TextBlock Foreground="DarkGray" Margin="15,0,0,0"  Text="{Binding Version}" Grid.Column="1"/>
+                            </Grid>
+                        </MenuItem.Header>
+                    </MenuItem>
+                </ContextMenu>
+            </tb:TaskbarIcon.ContextMenu>
+        </tb:TaskbarIcon>
+    </Grid>
+</Window>

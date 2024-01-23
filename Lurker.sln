@@ -36,7 +36,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{872F0448-2
 		assets\Data\UniqueInfo.json = assets\Data\UniqueInfo.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoeLurker.Core", "PoeLurker.Core\PoeLurker.Core.csproj", "{10C2B707-4415-4C03-AFB3-A6FDAC732B74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PoeLurker.Core", "PoeLurker.Core\PoeLurker.Core.csproj", "{10C2B707-4415-4C03-AFB3-A6FDAC732B74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoeLurker.UI", "PoeLurker.UI\PoeLurker.UI.csproj", "{50416B8D-130B-4F85-83F0-64B2A72706C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -132,6 +134,18 @@ Global
 		{10C2B707-4415-4C03-AFB3-A6FDAC732B74}.Release|x64.Build.0 = Release|Any CPU
 		{10C2B707-4415-4C03-AFB3-A6FDAC732B74}.Release|x86.ActiveCfg = Release|Any CPU
 		{10C2B707-4415-4C03-AFB3-A6FDAC732B74}.Release|x86.Build.0 = Release|Any CPU
+		{50416B8D-130B-4F85-83F0-64B2A72706C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50416B8D-130B-4F85-83F0-64B2A72706C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50416B8D-130B-4F85-83F0-64B2A72706C6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{50416B8D-130B-4F85-83F0-64B2A72706C6}.Debug|x64.Build.0 = Debug|Any CPU
+		{50416B8D-130B-4F85-83F0-64B2A72706C6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{50416B8D-130B-4F85-83F0-64B2A72706C6}.Debug|x86.Build.0 = Debug|Any CPU
+		{50416B8D-130B-4F85-83F0-64B2A72706C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50416B8D-130B-4F85-83F0-64B2A72706C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50416B8D-130B-4F85-83F0-64B2A72706C6}.Release|x64.ActiveCfg = Release|Any CPU
+		{50416B8D-130B-4F85-83F0-64B2A72706C6}.Release|x64.Build.0 = Release|Any CPU
+		{50416B8D-130B-4F85-83F0-64B2A72706C6}.Release|x86.ActiveCfg = Release|Any CPU
+		{50416B8D-130B-4F85-83F0-64B2A72706C6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

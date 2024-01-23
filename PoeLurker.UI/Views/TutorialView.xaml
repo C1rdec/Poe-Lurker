@@ -1,0 +1,71 @@
+﻿<Controls:MetroWindow x:Class="PoeLurker.UI.Views.TutorialView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:local="clr-namespace:PoeLurker.UI.Views"
+        mc:Ignorable="d"
+        Title="TutorialView" Height="450" Width="800">
+    <Grid>
+        <Grid.Resources>
+            <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
+        </Grid.Resources>
+        <Controls:MetroAnimatedTabControl Controls:TabControlHelper.Underlined="TabPanel" TabStripPlacement="Left">
+            <TabItem Header="Trade" Width="175">
+                <Controls:MetroAnimatedTabControl Margin="10,0,0,0" Controls:TabControlHelper.Underlined="SelectedTabItem" TabStripPlacement="Top">
+                    <TabItem Header="Incoming">
+                        <Image gif:AnimationBehavior.SourceUri="https://github.com/C1rdec/Poe-Lurker/blob/master/assets/Incoming.gif?raw=true" />
+                    </TabItem>
+                    <TabItem Header="Outgoing">
+                        <Image gif:AnimationBehavior.SourceUri="https://github.com/C1rdec/Poe-Lurker/blob/master/assets/Outgoing.gif?raw=true" />
+
+                    </TabItem>
+                </Controls:MetroAnimatedTabControl>
+            </TabItem>
+            <TabItem Header="Item Lurker">
+                <Controls:MetroAnimatedTabControl Margin="10,0,0,0" Controls:TabControlHelper.Underlined="SelectedTabItem" TabStripPlacement="Top">
+                    <TabItem Header="General">
+                        <TextBlock FontSize="80">General</TextBlock>
+                    </TabItem>
+                    <TabItem Header="Armor">
+                        <TextBlock FontSize="80">Armor</TextBlock>
+                    </TabItem>
+                    <TabItem Header="Weapon">
+                        <TextBlock FontSize="80">Weapon</TextBlock>
+                    </TabItem>
+                    <TabItem Header="Map">
+                        <TextBlock FontSize="80">Map</TextBlock>
+                    </TabItem>
+                </Controls:MetroAnimatedTabControl>
+                
+            </TabItem>
+            <TabItem Header="Dashboard">
+                <Controls:MetroAnimatedTabControl Margin="10,0,0,0" Controls:TabControlHelper.Underlined="SelectedTabItem" TabStripPlacement="Top">
+                    <TabItem Header="General">
+                        <TextBlock FontSize="80">General</TextBlock>
+                    </TabItem>
+                </Controls:MetroAnimatedTabControl>
+            </TabItem>
+            <TabItem Header="Build Helper">
+                <Controls:MetroAnimatedTabControl Margin="10,0,0,0" Controls:TabControlHelper.Underlined="SelectedTabItem" TabStripPlacement="Top">
+                    <TabItem Header="General">
+                        <TextBlock FontSize="80">General</TextBlock>
+                    </TabItem>
+                    <TabItem Header="Timeline">
+                        <TextBlock FontSize="80">Timeline</TextBlock>
+                    </TabItem>
+                </Controls:MetroAnimatedTabControl>
+
+            </TabItem>
+            <TabItem Header="Extra">
+                <Controls:MetroAnimatedTabControl Margin="10,0,0,0" Controls:TabControlHelper.Underlined="SelectedTabItem" TabStripPlacement="Top">
+                    <TabItem Header="General">
+                        <TextBlock FontSize="80">General</TextBlock>
+                    </TabItem>
+                </Controls:MetroAnimatedTabControl>
+            </TabItem>
+        </Controls:MetroAnimatedTabControl>
+    </Grid>
+</Controls:MetroWindow>
