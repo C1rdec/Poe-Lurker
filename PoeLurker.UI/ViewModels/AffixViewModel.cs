@@ -4,51 +4,50 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.ViewModels
+namespace PoeLurker.UI.ViewModels;
+
+using PoeLurker.Patreon.Models;
+
+/// <summary>
+/// Represents the AffixViewModel.
+/// </summary>
+public class AffixViewModel
 {
-    using PoeLurker.Patreon.Models;
+    #region Fields
+
+    private readonly Affix _affix;
+
+    #endregion
+
+    #region Constructors
 
     /// <summary>
-    /// Represents the AffixViewModel.
+    /// Initializes a new instance of the <see cref="AffixViewModel"/> class.
     /// </summary>
-    public class AffixViewModel
+    /// <param name="affix">The affix.</param>
+    public AffixViewModel(Affix affix)
     {
-        #region Fields
-
-        private Affix _affix;
-
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AffixViewModel"/> class.
-        /// </summary>
-        /// <param name="affix">The affix.</param>
-        public AffixViewModel(Affix affix)
-        {
-            this._affix = affix;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets the text.
-        /// </summary>
-        public string Text => this._affix.Text;
-
-        /// <summary>
-        /// Gets the value.
-        /// </summary>
-        public double Value => this._affix.Value;
-
-        /// <summary>
-        /// Gets the actual value.
-        /// </summary>
-        public string ActualValue => this._affix.ActualValue.Replace(" increased", string.Empty);
-
-        #endregion
+        _affix = affix;
     }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets the text.
+    /// </summary>
+    public string Text => _affix.Text;
+
+    /// <summary>
+    /// Gets the value.
+    /// </summary>
+    public double Value => _affix.Value;
+
+    /// <summary>
+    /// Gets the actual value.
+    /// </summary>
+    public string ActualValue => _affix.ActualValue.Replace(" increased", string.Empty);
+
+    #endregion
 }

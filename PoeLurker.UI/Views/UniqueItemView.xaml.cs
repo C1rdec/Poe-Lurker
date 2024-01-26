@@ -4,49 +4,48 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views
+namespace PoeLurker.UI.Views;
+
+using System.Windows.Controls;
+
+/// <summary>
+/// Interaction logic for UniqueItemView.xaml.
+/// </summary>
+public partial class UniqueItemView : UserControl
 {
-    using System.Windows.Controls;
+    #region Constructors
 
     /// <summary>
-    /// Interaction logic for UniqueItemView.xaml.
+    /// Initializes a new instance of the <see cref="UniqueItemView"/> class.
     /// </summary>
-    public partial class UniqueItemView : UserControl
+    public UniqueItemView()
     {
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UniqueItemView"/> class.
-        /// </summary>
-        public UniqueItemView()
-        {
-            this.InitializeComponent();
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Handles the MouseEnter event of the Grid control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Windows.Input.MouseEventArgs"/> instance containing the event data.</param>
-        private void Grid_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            this.Popup.IsOpen = true;
-        }
-
-        /// <summary>
-        /// Handles the MouseLeave event of the Grid control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Windows.Input.MouseEventArgs"/> instance containing the event data.</param>
-        private void Grid_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            this.Popup.IsOpen = false;
-        }
-
-        #endregion
+        InitializeComponent();
     }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Handles the MouseEnter event of the Grid control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.Windows.Input.MouseEventArgs"/> instance containing the event data.</param>
+    private void Grid_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+    {
+        Popup.IsOpen = true;
+    }
+
+    /// <summary>
+    /// Handles the MouseLeave event of the Grid control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.Windows.Input.MouseEventArgs"/> instance containing the event data.</param>
+    private void Grid_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+    {
+        Popup.IsOpen = false;
+    }
+
+    #endregion
 }

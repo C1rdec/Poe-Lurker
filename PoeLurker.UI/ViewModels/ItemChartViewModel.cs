@@ -4,85 +4,84 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.ViewModels
+namespace PoeLurker.UI.ViewModels;
+
+using System;
+using System.Linq;
+using Caliburn.Micro;
+using PoeLurker.Core.Models;
+using PoeLurker.Patreon.Models.Ninja;
+
+/// <summary>
+/// Represents ItemChartViewModel.
+/// </summary>
+public class ItemChartViewModel : PropertyChangedBase
 {
-    using System;
-    using System.Linq;
-    using Caliburn.Micro;
-    using PoeLurker.Core.Models;
-    using PoeLurker.Patreon.Models.Ninja;
+    #region Fields
+
+    private readonly ItemLine _line;
+    private readonly UniqueItem _item;
+
+    #endregion
+
+    #region Constructors
 
     /// <summary>
-    /// Represents ItemChartViewModel.
+    /// Initializes a new instance of the <see cref="ItemChartViewModel"/> class.
     /// </summary>
-    public class ItemChartViewModel : PropertyChangedBase
+    /// <param name="line">The line.</param>
+    /// <param name="item">The item.</param>
+    public ItemChartViewModel(ItemLine line, UniqueItem item)
     {
-        #region Fields
+        _line = line;
+        _item = item;
 
-        private ItemLine _line;
-        private UniqueItem _item;
+        Price = PriceInDivine ? line.DivineValue : line.ChaosValue;
+        //this.Chart = new LineChartViewModel(false, 0);
 
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ItemChartViewModel"/> class.
-        /// </summary>
-        /// <param name="line">The line.</param>
-        /// <param name="item">The item.</param>
-        public ItemChartViewModel(ItemLine line, UniqueItem item)
+        var buyPoints = _line.PriceLine.Data.Where(d => d.HasValue);
+        if (buyPoints.Any())
         {
-            this._line = line;
-            this._item = item;
-
-            this.Price = this.PriceInDivine ? line.DivineValue : line.ChaosValue;
-            //this.Chart = new LineChartViewModel(false, 0);
-
-            var buyPoints = this._line.PriceLine.Data.Where(d => d.HasValue);
-            if (buyPoints.Any())
-            {
-                var minimum = Math.Abs(buyPoints.Min().Value);
-                //this.Chart.Add("Buy", buyPoints.Select(p => Convert.ToDouble(p + minimum + 1)));
-            }
-
-            this.TotalChange = $"{this._line.PriceLine.TotalChange}%";
+            var minimum = Math.Abs(buyPoints.Min().Value);
+            //this.Chart.Add("Buy", buyPoints.Select(p => Convert.ToDouble(p + minimum + 1)));
         }
 
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets the price.
-        /// </summary>
-        public double Price { get; private set; }
-
-        /// <summary>
-        /// Gets the total change.
-        /// </summary>
-        public string TotalChange { get; private set; }
-
-        /// <summary>
-        /// Gets the image.
-        /// </summary>
-        public Uri ImageUrl => this._item.ImageUrl;
-
-        /// <summary>
-        /// Gets a value indicating whether the total change is negative.
-        /// </summary>
-        public bool Negative => this._line.PriceLine.TotalChange < 0;
-
-        /// <summary>
-        /// Gets a value indicating whether the total change is negative.
-        /// </summary>
-        public bool PriceInDivine => this._line.DivineValue >= 1;
-
-        /// <summary>
-        /// Gets a value indicating whether the total change is negative.
-        /// </summary>
-        public bool PriceInChaos => this._line.DivineValue < 1;
-
-        #endregion
+        TotalChange = $"{_line.PriceLine.TotalChange}%";
     }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets the price.
+    /// </summary>
+    public double Price { get; private set; }
+
+    /// <summary>
+    /// Gets the total change.
+    /// </summary>
+    public string TotalChange { get; private set; }
+
+    /// <summary>
+    /// Gets the image.
+    /// </summary>
+    public Uri ImageUrl => _item.ImageUrl;
+
+    /// <summary>
+    /// Gets a value indicating whether the total change is negative.
+    /// </summary>
+    public bool Negative => _line.PriceLine.TotalChange < 0;
+
+    /// <summary>
+    /// Gets a value indicating whether the total change is negative.
+    /// </summary>
+    public bool PriceInDivine => _line.DivineValue >= 1;
+
+    /// <summary>
+    /// Gets a value indicating whether the total change is negative.
+    /// </summary>
+    public bool PriceInChaos => _line.DivineValue < 1;
+
+    #endregion
 }

@@ -4,27 +4,26 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.ViewModels
+namespace PoeLurker.UI.ViewModels;
+
+using Caliburn.Micro;
+
+/// <summary>
+/// Represents the tutorial.
+/// </summary>
+/// <seealso cref="PoeLurker.UI.ViewModels.ScreenBase" />
+public class TutorialViewModel : ScreenBase
 {
-    using Caliburn.Micro;
+    #region Constructors
 
     /// <summary>
-    /// Represents the tutorial.
+    /// Initializes a new instance of the <see cref="TutorialViewModel"/> class.
     /// </summary>
-    /// <seealso cref="PoeLurker.UI.ViewModels.ScreenBase" />
-    public class TutorialViewModel : ScreenBase
+    /// <param name="windowManager">The window manager.</param>
+    public TutorialViewModel(IWindowManager windowManager)
+        : base(windowManager)
     {
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TutorialViewModel"/> class.
-        /// </summary>
-        /// <param name="windowManager">The window manager.</param>
-        public TutorialViewModel(IWindowManager windowManager)
-            : base(windowManager)
-        {
-        }
-
-        #endregion
     }
+
+    #endregion
 }

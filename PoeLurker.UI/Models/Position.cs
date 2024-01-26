@@ -1,18 +1,17 @@
-﻿namespace PoeLurker.UI.Models
+﻿namespace PoeLurker.UI.Models;
+
+/// <summary>
+/// Represents a positions.
+/// </summary>
+public class Position
 {
     /// <summary>
-    /// Represents a positions.
+    /// Gets or sets the x.
     /// </summary>
-    public class Position
-    {
-        /// <summary>
-        /// Gets or sets the x.
-        /// </summary>
-        public int X { get; set; }
+    public int X { get; set; }
 
-        /// <summary>
-        /// Gets or sets the y.
-        /// </summary>
-        public int Y { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets the y.
+    /// </summary>
+    public int Y { get; set; }
 }

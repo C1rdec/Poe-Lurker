@@ -4,29 +4,28 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views
+namespace PoeLurker.UI.Views;
+
+using System.Windows.Controls;
+using System.Windows.Input;
+
+/// <summary>
+/// Interaction logic for SkillView.xaml.
+/// </summary>
+public partial class SkillView : UserControl
 {
-    using System.Windows.Controls;
-    using System.Windows.Input;
-
     /// <summary>
-    /// Interaction logic for SkillView.xaml.
+    /// Initializes a new instance of the <see cref="SkillView"/> class.
     /// </summary>
-    public partial class SkillView : UserControl
+    public SkillView()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SkillView"/> class.
-        /// </summary>
-        public SkillView()
-        {
-            this.InitializeComponent();
-        }
+        InitializeComponent();
+    }
 
-        private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            var scrollViewer = (ScrollViewer)sender;
-            scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset - e.Delta);
-            e.Handled = true;
-        }
+    private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+    {
+        var scrollViewer = (ScrollViewer)sender;
+        scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset - e.Delta);
+        e.Handled = true;
     }
 }

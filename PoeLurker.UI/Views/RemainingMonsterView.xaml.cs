@@ -4,21 +4,20 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views
-{
-    using System.Windows.Controls;
+namespace PoeLurker.UI.Views;
 
+using System.Windows.Controls;
+
+/// <summary>
+/// Interaction logic for RemainingMonsterView.xaml.
+/// </summary>
+public partial class RemainingMonsterView : UserControl
+{
     /// <summary>
-    /// Interaction logic for RemainingMonsterView.xaml.
+    /// Initializes a new instance of the <see cref="RemainingMonsterView"/> class.
     /// </summary>
-    public partial class RemainingMonsterView : UserControl
+    public RemainingMonsterView()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RemainingMonsterView"/> class.
-        /// </summary>
-        public RemainingMonsterView()
-        {
-            this.InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

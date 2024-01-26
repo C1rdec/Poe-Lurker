@@ -4,21 +4,20 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views
-{
-    using System.Windows.Controls;
+namespace PoeLurker.UI.Views;
 
+using System.Windows.Controls;
+
+/// <summary>
+/// Interaction logic for ExaltedRatioView.xaml.
+/// </summary>
+public partial class DivineRatioView : UserControl
+{
     /// <summary>
-    /// Interaction logic for ExaltedRatioView.xaml.
+    /// Initializes a new instance of the <see cref="DivineRatioView"/> class.
     /// </summary>
-    public partial class DivineRatioView : UserControl
+    public DivineRatioView()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DivineRatioView"/> class.
-        /// </summary>
-        public DivineRatioView()
-        {
-            this.InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

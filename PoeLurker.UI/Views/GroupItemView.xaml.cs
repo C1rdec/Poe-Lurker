@@ -4,21 +4,20 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views
-{
-    using System.Windows.Controls;
+namespace PoeLurker.UI.Views;
 
+using System.Windows.Controls;
+
+/// <summary>
+/// Interaction logic for GroupItemView.xaml.
+/// </summary>
+public partial class GroupItemView : UserControl
+{
     /// <summary>
-    /// Interaction logic for GroupItemView.xaml.
+    /// Initializes a new instance of the <see cref="GroupItemView"/> class.
     /// </summary>
-    public partial class GroupItemView : UserControl
+    public GroupItemView()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GroupItemView"/> class.
-        /// </summary>
-        public GroupItemView()
-        {
-            this.InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

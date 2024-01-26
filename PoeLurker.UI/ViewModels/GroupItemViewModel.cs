@@ -4,37 +4,36 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.ViewModels
+namespace PoeLurker.UI.ViewModels;
+
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+
+/// <summary>
+/// Represent a group of items.
+/// </summary>
+/// <seealso cref="Caliburn.Micro.PropertyChangedBase" />
+public class GroupItemViewModel : Caliburn.Micro.PropertyChangedBase
 {
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
+    #region Properties
 
     /// <summary>
-    /// Represent a group of items.
+    /// Initializes a new instance of the <see cref="GroupItemViewModel"/> class.
     /// </summary>
-    /// <seealso cref="Caliburn.Micro.PropertyChangedBase" />
-    public class GroupItemViewModel : Caliburn.Micro.PropertyChangedBase
+    /// <param name="items">The items.</param>
+    public GroupItemViewModel(IEnumerable<WikiItemBaseViewModel> items)
     {
-        #region Properties
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GroupItemViewModel"/> class.
-        /// </summary>
-        /// <param name="items">The items.</param>
-        public GroupItemViewModel(IEnumerable<WikiItemBaseViewModel> items)
-        {
-            this.Items = new ObservableCollection<WikiItemBaseViewModel>(items);
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets the items.
-        /// </summary>
-        public ObservableCollection<WikiItemBaseViewModel> Items { get; private set; }
-
-        #endregion
+        Items = new ObservableCollection<WikiItemBaseViewModel>(items);
     }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets the items.
+    /// </summary>
+    public ObservableCollection<WikiItemBaseViewModel> Items { get; private set; }
+
+    #endregion
 }

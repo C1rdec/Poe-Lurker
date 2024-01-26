@@ -4,21 +4,20 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views
-{
-    using System.Windows.Controls;
+namespace PoeLurker.UI.Views;
 
+using System.Windows.Controls;
+
+/// <summary>
+/// Interaction logic for ItemOverlayView.xaml.
+/// </summary>
+public partial class ItemOverlayView : UserControl
+{
     /// <summary>
-    /// Interaction logic for ItemOverlayView.xaml.
+    /// Initializes a new instance of the <see cref="ItemOverlayView"/> class.
     /// </summary>
-    public partial class ItemOverlayView : UserControl
+    public ItemOverlayView()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ItemOverlayView"/> class.
-        /// </summary>
-        public ItemOverlayView()
-        {
-            this.InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

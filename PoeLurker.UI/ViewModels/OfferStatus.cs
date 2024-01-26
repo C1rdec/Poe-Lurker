@@ -4,26 +4,25 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.ViewModels
+namespace PoeLurker.UI.ViewModels;
+
+/// <summary>
+/// Represents the OfferStatus.
+/// </summary>
+public enum OfferStatus
 {
     /// <summary>
-    /// Represents the OfferStatus.
+    /// The pending
     /// </summary>
-    public enum OfferStatus
-    {
-        /// <summary>
-        /// The pending
-        /// </summary>
-        Pending,
+    Pending,
 
-        /// <summary>
-        /// The invite sended
-        /// </summary>
-        Invited,
+    /// <summary>
+    /// The invite sended
+    /// </summary>
+    Invited,
 
-        /// <summary>
-        /// The trade sended
-        /// </summary>
-        Traded,
-    }
+    /// <summary>
+    /// The trade sended
+    /// </summary>
+    Traded,
 }

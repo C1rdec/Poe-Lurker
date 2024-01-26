@@ -4,28 +4,27 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views
+namespace PoeLurker.UI.Views;
+
+using System.Windows.Controls;
+
+/// <summary>
+/// Interaction logic for BuildManagerView.xaml.
+/// </summary>
+public partial class BuildManagerView : UserControl
 {
-    using System.Windows.Controls;
-
     /// <summary>
-    /// Interaction logic for BuildManagerView.xaml.
+    /// Initializes a new instance of the <see cref="BuildManagerView"/> class.
     /// </summary>
-    public partial class BuildManagerView : UserControl
+    public BuildManagerView()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BuildManagerView"/> class.
-        /// </summary>
-        public BuildManagerView()
-        {
-            this.InitializeComponent();
-        }
+        InitializeComponent();
+    }
 
-        private void ScrollViewer_PreviewMouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
-        {
-            var scrollViewer = (ScrollViewer)sender;
-            scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset - e.Delta);
-            e.Handled = true;
-        }
+    private void ScrollViewer_PreviewMouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
+    {
+        var scrollViewer = (ScrollViewer)sender;
+        scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset - e.Delta);
+        e.Handled = true;
     }
 }

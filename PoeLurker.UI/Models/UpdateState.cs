@@ -1,23 +1,22 @@
-﻿namespace PoeLurker.UI.Models
+﻿namespace PoeLurker.UI.Models;
+
+/// <summary>
+/// The application update state.
+/// </summary>
+public enum UpdateState
 {
     /// <summary>
-    /// The application update state.
+    /// The need update
     /// </summary>
-    public enum UpdateState
-    {
-        /// <summary>
-        /// The need update
-        /// </summary>
-        NeedUpdate,
+    NeedUpdate,
 
-        /// <summary>
-        /// The success
-        /// </summary>
-        Success,
+    /// <summary>
+    /// The success
+    /// </summary>
+    Success,
 
-        /// <summary>
-        /// The working
-        /// </summary>
-        Working,
-    }
+    /// <summary>
+    /// The working
+    /// </summary>
+    Working,
 }

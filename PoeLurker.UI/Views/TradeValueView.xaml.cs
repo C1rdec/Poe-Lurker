@@ -4,21 +4,20 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views
-{
-    using System.Windows.Controls;
+namespace PoeLurker.UI.Views;
 
+using System.Windows.Controls;
+
+/// <summary>
+/// Interaction logic for TradeValueView.xaml.
+/// </summary>
+public partial class TradeValueView : UserControl
+{
     /// <summary>
-    /// Interaction logic for TradeValueView.xaml.
+    /// Initializes a new instance of the <see cref="TradeValueView"/> class.
     /// </summary>
-    public partial class TradeValueView : UserControl
+    public TradeValueView()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TradeValueView"/> class.
-        /// </summary>
-        public TradeValueView()
-        {
-            this.InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

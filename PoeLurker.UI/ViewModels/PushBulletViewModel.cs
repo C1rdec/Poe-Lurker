@@ -4,235 +4,234 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.ViewModels
+namespace PoeLurker.UI.ViewModels;
+
+using System.Collections.ObjectModel;
+using System.Linq;
+using PoeLurker.Patreon.Services;
+
+/// <summary>
+/// The push bullet view model.
+/// </summary>
+/// <seealso cref="Caliburn.Micro.PropertyChangedBase" />
+public class PushBulletViewModel : Caliburn.Micro.PropertyChangedBase
 {
-    using System.Collections.ObjectModel;
-    using System.Linq;
-    using PoeLurker.Patreon.Services;
+    #region Fields
+
+    private readonly PushBulletService _service;
+    private DeviceViewModel _selectedDevice;
+    private DeviceViewModel _popupSelectedDevice;
+    private bool _showDevices;
+
+    #endregion
+
+    #region Constructors
 
     /// <summary>
-    /// The push bullet view model.
+    /// Initializes a new instance of the <see cref="PushBulletViewModel" /> class.
     /// </summary>
-    /// <seealso cref="Caliburn.Micro.PropertyChangedBase" />
-    public class PushBulletViewModel : Caliburn.Micro.PropertyChangedBase
+    /// <param name="service">The service.</param>
+    public PushBulletViewModel(PushBulletService service)
     {
-        #region Fields
-
-        private PushBulletService _service;
-        private DeviceViewModel _selectedDevice;
-        private DeviceViewModel _popupSelectedDevice;
-        private bool _showDevices;
-
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PushBulletViewModel" /> class.
-        /// </summary>
-        /// <param name="service">The service.</param>
-        public PushBulletViewModel(PushBulletService service)
+        _service = service;
+        if (service.Device != null && service.Device.Id != null)
         {
-            this._service = service;
-            if (service.Device != null && service.Device.Id != null)
-            {
-                this.SelectedDevice = new DeviceViewModel(service.Device);
-            }
-
-            this.Devices = new ObservableCollection<DeviceViewModel>();
+            SelectedDevice = new DeviceViewModel(service.Device);
         }
 
-        #endregion
+        Devices = new ObservableCollection<DeviceViewModel>();
+    }
 
-        #region Properties
+    #endregion
 
-        /// <summary>
-        /// Gets a value indicating whether the service is connected.
-        /// </summary>
-        public bool Connected => this._service.Connected;
+    #region Properties
 
-        /// <summary>
-        /// Gets a value indicating whether the service is not connected.
-        /// </summary>
-        public bool NotConnected => !this._service.Connected;
+    /// <summary>
+    /// Gets a value indicating whether the service is connected.
+    /// </summary>
+    public bool Connected => _service.Connected;
 
-        /// <summary>
-        /// Gets or sets the popup selected device.
-        /// </summary>
-        public DeviceViewModel PopupSelectedDevice
+    /// <summary>
+    /// Gets a value indicating whether the service is not connected.
+    /// </summary>
+    public bool NotConnected => !_service.Connected;
+
+    /// <summary>
+    /// Gets or sets the popup selected device.
+    /// </summary>
+    public DeviceViewModel PopupSelectedDevice
+    {
+        get
         {
-            get
-            {
-                return this._popupSelectedDevice;
-            }
-
-            set
-            {
-                this._popupSelectedDevice = value;
-                this.ShowDevices = false;
-                if (value != null)
-                {
-                    this.SelectedDevice = value.Clone();
-                    this._service.SelectDevice(this.SelectedDevice.Device);
-                }
-
-                this.NotifyOfPropertyChange();
-            }
+            return _popupSelectedDevice;
         }
 
-        /// <summary>
-        /// Gets or sets the selected device.
-        /// </summary>
-        public DeviceViewModel SelectedDevice
+        set
         {
-            get
+            _popupSelectedDevice = value;
+            ShowDevices = false;
+            if (value != null)
             {
-                return this._selectedDevice;
+                SelectedDevice = value.Clone();
+                _service.SelectDevice(SelectedDevice.Device);
             }
 
-            set
-            {
-                this._selectedDevice = value;
-                this.NotifyOfPropertyChange();
-            }
+            NotifyOfPropertyChange();
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the selected device.
+    /// </summary>
+    public DeviceViewModel SelectedDevice
+    {
+        get
+        {
+            return _selectedDevice;
         }
 
-        /// <summary>
-        /// Gets or sets the device list.
-        /// </summary>
-        public ObservableCollection<DeviceViewModel> Devices { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [show devices].
-        /// </summary>
-        public bool ShowDevices
+        set
         {
-            get
-            {
-                return this._showDevices;
-            }
+            _selectedDevice = value;
+            NotifyOfPropertyChange();
+        }
+    }
 
-            set
-            {
-                this._showDevices = value;
-                this.NotifyOfPropertyChange();
-            }
+    /// <summary>
+    /// Gets or sets the device list.
+    /// </summary>
+    public ObservableCollection<DeviceViewModel> Devices { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether [show devices].
+    /// </summary>
+    public bool ShowDevices
+    {
+        get
+        {
+            return _showDevices;
         }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether [enable].
-        /// </summary>
-        public bool Enable
+        set
         {
-            get
-            {
-                return this._service.Enable;
-            }
+            _showDevices = value;
+            NotifyOfPropertyChange();
+        }
+    }
 
-            set
-            {
-                this._service.Enable = value;
-            }
+    /// <summary>
+    /// Gets or sets a value indicating whether [enable].
+    /// </summary>
+    public bool Enable
+    {
+        get
+        {
+            return _service.Enable;
         }
 
-        /// <summary>
-        /// Gets or sets a value indicating the thresold.
-        /// </summary>
-        public int Threshold
+        set
         {
-            get
-            {
-                return this._service.Threshold;
-            }
+            _service.Enable = value;
+        }
+    }
 
-            set
-            {
-                this._service.Threshold = value;
-                this.NotifyOfPropertyChange();
-            }
+    /// <summary>
+    /// Gets or sets a value indicating the thresold.
+    /// </summary>
+    public int Threshold
+    {
+        get
+        {
+            return _service.Threshold;
         }
 
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Login to Pushbullet.
-        /// </summary>
-        public async void Login()
+        set
         {
-            await this._service.CheckPledgeStatus();
-            if (this._service.Connected)
-            {
-                var devices = await this._service.GetDevices();
-                devices = devices.Where(d => d.Active);
-                if (devices.Any() && this._service.Device.Id == null)
-                {
-                    var firstDevice = devices.First();
-                    this._service.SelectDevice(firstDevice);
-                    this.SelectedDevice = new DeviceViewModel(firstDevice);
-                }
-
-                this.NotifyOfPropertyChange(() => this.Connected);
-                this.NotifyOfPropertyChange(() => this.NotConnected);
-            }
+            _service.Threshold = value;
+            NotifyOfPropertyChange();
         }
+    }
 
-        /// <summary>
-        /// Send a Test.
-        /// </summary>
-        public async void Test()
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Login to Pushbullet.
+    /// </summary>
+    public async void Login()
+    {
+        await _service.CheckPledgeStatus();
+        if (_service.Connected)
         {
-            await this._service.SendTestAsync();
-        }
-
-        /// <summary>
-        /// Logout from Pushbullet.
-        /// </summary>
-        public void Logout()
-        {
-            this._service.Logout();
-            this.Devices.Clear();
-            this.PopupSelectedDevice = null;
-            this.SelectedDevice = null;
-            this.NotifyOfPropertyChange(() => this.Connected);
-            this.NotifyOfPropertyChange(() => this.NotConnected);
-            this.NotifyOfPropertyChange(() => this.Threshold);
-            this.NotifyOfPropertyChange(() => this.Enable);
-        }
-
-        /// <summary>
-        /// Sets the available devices.
-        /// </summary>
-        public async void GetDevices()
-        {
-            this.Devices.Clear();
-            if (!this._service.Connected)
-            {
-                await this._service.CheckPledgeStatus();
-                if (!this._service.Connected)
-                {
-                    return;
-                }
-            }
-
-            var devices = await this._service.GetDevices();
+            var devices = await _service.GetDevices();
             devices = devices.Where(d => d.Active);
-
-            if (devices.Count() == 1)
+            if (devices.Any() && _service.Device.Id == null)
             {
-                this._service.SelectDevice(devices.First());
+                var firstDevice = devices.First();
+                _service.SelectDevice(firstDevice);
+                SelectedDevice = new DeviceViewModel(firstDevice);
+            }
+
+            NotifyOfPropertyChange(() => Connected);
+            NotifyOfPropertyChange(() => NotConnected);
+        }
+    }
+
+    /// <summary>
+    /// Send a Test.
+    /// </summary>
+    public async void Test()
+    {
+        await _service.SendTestAsync();
+    }
+
+    /// <summary>
+    /// Logout from Pushbullet.
+    /// </summary>
+    public void Logout()
+    {
+        _service.Logout();
+        Devices.Clear();
+        PopupSelectedDevice = null;
+        SelectedDevice = null;
+        NotifyOfPropertyChange(() => Connected);
+        NotifyOfPropertyChange(() => NotConnected);
+        NotifyOfPropertyChange(() => Threshold);
+        NotifyOfPropertyChange(() => Enable);
+    }
+
+    /// <summary>
+    /// Sets the available devices.
+    /// </summary>
+    public async void GetDevices()
+    {
+        Devices.Clear();
+        if (!_service.Connected)
+        {
+            await _service.CheckPledgeStatus();
+            if (!_service.Connected)
+            {
                 return;
             }
-
-            foreach (var device in devices.Where(d => d.Active))
-            {
-                this.Devices.Add(new DeviceViewModel(device));
-            }
-
-            this.ShowDevices = true;
         }
 
-        #endregion
+        var devices = await _service.GetDevices();
+        devices = devices.Where(d => d.Active);
+
+        if (devices.Count() == 1)
+        {
+            _service.SelectDevice(devices.First());
+            return;
+        }
+
+        foreach (var device in devices.Where(d => d.Active))
+        {
+            Devices.Add(new DeviceViewModel(device));
+        }
+
+        ShowDevices = true;
     }
+
+    #endregion
 }

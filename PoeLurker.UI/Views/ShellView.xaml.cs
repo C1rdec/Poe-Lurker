@@ -4,23 +4,22 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views
-{
-    using System.Windows;
+namespace PoeLurker.UI.Views;
 
+using System.Windows;
+
+/// <summary>
+/// Represents the shellview.
+/// </summary>
+/// <seealso cref="System.Windows.Window" />
+/// <seealso cref="System.Windows.Markup.IComponentConnector" />
+public partial class ShellView : Window
+{
     /// <summary>
-    /// Represents the shellview.
+    /// Initializes a new instance of the <see cref="ShellView"/> class.
     /// </summary>
-    /// <seealso cref="System.Windows.Window" />
-    /// <seealso cref="System.Windows.Markup.IComponentConnector" />
-    public partial class ShellView : Window
+    public ShellView()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ShellView"/> class.
-        /// </summary>
-        public ShellView()
-        {
-            this.InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

@@ -4,193 +4,192 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI
+namespace PoeLurker.UI;
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using Caliburn.Micro;
+using PoeLurker.Core.Extensions;
+using PoeLurker.Core.Helpers;
+using PoeLurker.Core.Services;
+using PoeLurker.Patreon.Services;
+using PoeLurker.UI.Helpers;
+using PoeLurker.UI.Services;
+using PoeLurker.UI.ViewModels;
+
+/// <summary>
+/// Represents AppBootstrapper.
+/// </summary>
+/// <seealso cref="BootstrapperBase" />
+public class AppBootstrapper : BootstrapperBase
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using Caliburn.Micro;
-    using PoeLurker.Core.Extensions;
-    using PoeLurker.Core.Helpers;
-    using PoeLurker.Core.Services;
-    using PoeLurker.UI.Helpers;
-    using PoeLurker.UI.Services;
-    using PoeLurker.UI.ViewModels;
-    using PoeLurker.Patreon.Services;
+    #region Fields
+
+    private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+    private static readonly string Dsn = "https://e92715c769194c3aa7a89d387f488136@sentry.io/2473965";
+    private SimpleContainer _container;
+
+    #endregion
+
+    #region Constructors
 
     /// <summary>
-    /// Represents AppBootstrapper.
+    /// Initializes a new instance of the <see cref="AppBootstrapper"/> class.
     /// </summary>
-    /// <seealso cref="BootstrapperBase" />
-    public class AppBootstrapper : BootstrapperBase
+    public AppBootstrapper()
     {
-        #region Fields
+        AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+        Initialize();
+    }
 
-        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
-        private static readonly string Dsn = "https://e92715c769194c3aa7a89d387f488136@sentry.io/2473965";
-        private SimpleContainer _container;
+    #endregion
 
-        #endregion
+    #region Methods
 
-        #region Constructors
+    /// <summary>
+    /// Override to configure the framework and setup your IoC container.
+    /// </summary>
+    protected override void Configure()
+    {
+        _container = new SimpleContainer();
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AppBootstrapper"/> class.
-        /// </summary>
-        public AppBootstrapper()
+        _container.Singleton<IWindowManager, WindowManager>();
+        _container.Singleton<IEventAggregator, EventAggregator>();
+        _container.Singleton<KeyboardHelper, KeyboardHelper>();
+        _container.Singleton<PoeNinjaService, PoeNinjaService>();
+        _container.Singleton<SettingsService, SettingsService>();
+        _container.Singleton<HotkeyService, HotkeyService>();
+        _container.Singleton<StashTabService, StashTabService>();
+        _container.Singleton<BuildService, BuildService>();
+        _container.Singleton<SoundService, SoundService>();
+        _container.Singleton<CollaborationService, CollaborationService>();
+        _container.PerRequest<PushBulletService, PushBulletService>();
+        _container.PerRequest<PushHoverService, PushHoverService>();
+        _container.Singleton<GithubService, GithubService>();
+
+        _container.Singleton<SettingsViewModel, SettingsViewModel>();
+        _container.Singleton<TutorialViewModel, TutorialViewModel>();
+        _container.Singleton<WelcomeViewModel, WelcomeViewModel>();
+        _container.PerRequest<AfkService, AfkService>();
+        _container.PerRequest<UpdateManager, UpdateManager>();
+        _container.PerRequest<ShellViewModel, ShellViewModel>();
+        _container.PerRequest<WikiViewModel, WikiViewModel>();
+        _container.PerRequest<StashTabGridViewModel, StashTabGridViewModel>();
+        _container.PerRequest<TradebarViewModel, TradebarViewModel>();
+        _container.PerRequest<PopupViewModel, PopupViewModel>();
+        _container.PerRequest<BuildTimelineViewModel, BuildTimelineViewModel>();
+        _container.PerRequest<BuildViewModel, BuildViewModel>();
+        _container.PerRequest<OutgoingbarViewModel, OutgoingbarViewModel>();
+        _container.PerRequest<LifeBulbViewModel, LifeBulbViewModel>();
+        _container.PerRequest<ManaBulbViewModel, ManaBulbViewModel>();
+        _container.PerRequest<HideoutViewModel, HideoutViewModel>();
+        _container.PerRequest<HelpViewModel, HelpViewModel>();
+
+        _container.RegisterInstance(typeof(SimpleContainer), null, _container);
+    }
+
+    /// <summary>
+    /// Override this to provide an IoC specific implementation.
+    /// </summary>
+    /// <param name="service">The service to locate.</param>
+    /// <param name="key">The key to locate.</param>
+    /// <returns>
+    /// The located service.
+    /// </returns>
+    protected override object GetInstance(Type service, string key)
+    {
+        return _container.GetInstance(service, key);
+    }
+
+    /// <summary>
+    /// Override this to provide an IoC specific implementation.
+    /// </summary>
+    /// <param name="service">The service to locate.</param>
+    /// <returns>
+    /// The located services.
+    /// </returns>
+    protected override IEnumerable<object> GetAllInstances(Type service)
+    {
+        return _container.GetAllInstances(service);
+    }
+
+    /// <summary>
+    /// Override this to provide an IoC specific implementation.
+    /// </summary>
+    /// <param name="instance">The instance to perform injection on.</param>
+    protected override void BuildUp(object instance)
+    {
+        _container.BuildUp(instance);
+    }
+
+    /// <summary>
+    /// Override this to add custom behavior to execute after the application starts.
+    /// </summary>
+    /// <param name="sender">The sender.</param>
+    /// <param name="e">The args.</param>
+    protected override void OnStartup(object sender, System.Windows.StartupEventArgs e)
+    {
+        var settings = _container.GetInstance<SettingsService>();
+        var windowManager = _container.GetInstance<IWindowManager>();
+        if (RunningInstance() != null)
         {
-            AppDomain.CurrentDomain.UnhandledException += this.CurrentDomain_UnhandledException;
-            this.Initialize();
+            System.Windows.MessageBox.Show("Another Instance Is Running");
+            System.Windows.Application.Current.Shutdown();
+            return;
         }
 
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Override to configure the framework and setup your IoC container.
-        /// </summary>
-        protected override void Configure()
+        if (settings.ShowWelcome)
         {
-            this._container = new SimpleContainer();
+            settings.ShowWelcome = false;
+            settings.Save();
 
-            this._container.Singleton<IWindowManager, WindowManager>();
-            this._container.Singleton<IEventAggregator, EventAggregator>();
-            this._container.Singleton<KeyboardHelper, KeyboardHelper>();
-            this._container.Singleton<PoeNinjaService, PoeNinjaService>();
-            this._container.Singleton<SettingsService, SettingsService>();
-            this._container.Singleton<HotkeyService, HotkeyService>();
-            this._container.Singleton<StashTabService, StashTabService>();
-            this._container.Singleton<BuildService, BuildService>();
-            this._container.Singleton<SoundService, SoundService>();
-            this._container.Singleton<CollaborationService, CollaborationService>();
-            this._container.PerRequest<PushBulletService, PushBulletService>();
-            this._container.PerRequest<PushHoverService, PushHoverService>();
-            this._container.Singleton<GithubService, GithubService>();
-
-            this._container.Singleton<SettingsViewModel, SettingsViewModel>();
-            this._container.Singleton<TutorialViewModel, TutorialViewModel>();
-            this._container.Singleton<WelcomeViewModel, WelcomeViewModel>();
-            this._container.PerRequest<AfkService, AfkService>();
-            this._container.PerRequest<UpdateManager, UpdateManager>();
-            this._container.PerRequest<ShellViewModel, ShellViewModel>();
-            this._container.PerRequest<WikiViewModel, WikiViewModel>();
-            this._container.PerRequest<StashTabGridViewModel, StashTabGridViewModel>();
-            this._container.PerRequest<TradebarViewModel, TradebarViewModel>();
-            this._container.PerRequest<PopupViewModel, PopupViewModel>();
-            this._container.PerRequest<BuildTimelineViewModel, BuildTimelineViewModel>();
-            this._container.PerRequest<BuildViewModel, BuildViewModel>();
-            this._container.PerRequest<OutgoingbarViewModel, OutgoingbarViewModel>();
-            this._container.PerRequest<LifeBulbViewModel, LifeBulbViewModel>();
-            this._container.PerRequest<ManaBulbViewModel, ManaBulbViewModel>();
-            this._container.PerRequest<HideoutViewModel, HideoutViewModel>();
-            this._container.PerRequest<HelpViewModel, HelpViewModel>();
-
-            this._container.RegisterInstance(typeof(SimpleContainer), null, this._container);
         }
 
-        /// <summary>
-        /// Override this to provide an IoC specific implementation.
-        /// </summary>
-        /// <param name="service">The service to locate.</param>
-        /// <param name="key">The key to locate.</param>
-        /// <returns>
-        /// The located service.
-        /// </returns>
-        protected override object GetInstance(Type service, string key)
-        {
-            return this._container.GetInstance(service, key);
-        }
+        DisplayRootViewForAsync<ShellViewModel>();
+    }
 
-        /// <summary>
-        /// Override this to provide an IoC specific implementation.
-        /// </summary>
-        /// <param name="service">The service to locate.</param>
-        /// <returns>
-        /// The located services.
-        /// </returns>
-        protected override IEnumerable<object> GetAllInstances(Type service)
-        {
-            return this._container.GetAllInstances(service);
-        }
+    /// <summary>
+    /// Runnings the instance.
+    /// </summary>
+    /// <returns>The other running instance.</returns>
+    public static Process RunningInstance()
+    {
+        var currentProcess = Process.GetCurrentProcess();
+        var processes = Process.GetProcessesByName(currentProcess.ProcessName);
 
-        /// <summary>
-        /// Override this to provide an IoC specific implementation.
-        /// </summary>
-        /// <param name="instance">The instance to perform injection on.</param>
-        protected override void BuildUp(object instance)
+        try
         {
-            this._container.BuildUp(instance);
-        }
-
-        /// <summary>
-        /// Override this to add custom behavior to execute after the application starts.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The args.</param>
-        protected override void OnStartup(object sender, System.Windows.StartupEventArgs e)
-        {
-            var settings = this._container.GetInstance<SettingsService>();
-            var windowManager = this._container.GetInstance<IWindowManager>();
-            if (RunningInstance() != null)
+            var currentFilePath = currentProcess.GetMainModuleFileName();
+            foreach (var process in processes)
             {
-                System.Windows.MessageBox.Show("Another Instance Is Running");
-                System.Windows.Application.Current.Shutdown();
-                return;
-            }
-
-            if (settings.ShowWelcome)
-            {
-                settings.ShowWelcome = false;
-                settings.Save();
-
-            }
-
-            this.DisplayRootViewForAsync<ShellViewModel>();
-        }
-
-        /// <summary>
-        /// Runnings the instance.
-        /// </summary>
-        /// <returns>The other running instance.</returns>
-        public static Process RunningInstance()
-        {
-            var currentProcess = Process.GetCurrentProcess();
-            var processes = Process.GetProcessesByName(currentProcess.ProcessName);
-
-            try
-            {
-                var currentFilePath = currentProcess.GetMainModuleFileName();
-                foreach (var process in processes)
+                if (process.Id != currentProcess.Id)
                 {
-                    if (process.Id != currentProcess.Id)
+                    if (process.GetMainModuleFileName() == currentFilePath)
                     {
-                        if (process.GetMainModuleFileName() == currentFilePath)
-                        {
-                            return process;
-                        }
+                        return process;
                     }
                 }
             }
-            catch (System.ComponentModel.Win32Exception)
-            {
-                AdminRequestHelper.RequestAdmin();
-            }
-
-            return null;
         }
-
-        /// <summary>
-        /// Handles the UnhandledException event of the CurrentDomain control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="UnhandledExceptionEventArgs"/> instance containing the event data.</param>
-        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        catch (System.ComponentModel.Win32Exception)
         {
-            var exception = e.ExceptionObject as Exception;
-            Logger.Error(exception, exception.Message);
+            AdminRequestHelper.RequestAdmin();
         }
 
-        #endregion
+        return null;
     }
+
+    /// <summary>
+    /// Handles the UnhandledException event of the CurrentDomain control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="UnhandledExceptionEventArgs"/> instance containing the event data.</param>
+    private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+    {
+        var exception = e.ExceptionObject as Exception;
+        Logger.Error(exception, exception.Message);
+    }
+
+    #endregion
 }

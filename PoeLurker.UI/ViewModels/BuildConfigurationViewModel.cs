@@ -4,310 +4,309 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.ViewModels
+namespace PoeLurker.UI.ViewModels;
+
+using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
+using Caliburn.Micro;
+using PoeLurker.Core.Models;
+using PoeLurker.Core.Services;
+
+/// <summary>
+/// Class BuildConfigurationViewModel.
+/// Implements the <see cref="Caliburn.Micro.PropertyChangedBase" />.
+/// </summary>
+/// <seealso cref="Caliburn.Micro.PropertyChangedBase" />
+public class BuildConfigurationViewModel : Caliburn.Micro.PropertyChangedBase
 {
-    using System;
-    using System.Collections.ObjectModel;
-    using System.Diagnostics;
-    using System.Linq;
-    using Caliburn.Micro;
-    using PoeLurker.Core.Models;
-    using PoeLurker.Core.Services;
+    #region Fields
+
+    private static readonly PathOfBuildingService PathOfBuildingService = new PathOfBuildingService();
+    private Build _build;
+    private readonly SimpleBuild _buildConfiguration;
+    private string _ascendency;
+    private bool _isSkillTreeOpen;
+
+    #endregion
+
+    #region Constructors
 
     /// <summary>
-    /// Class BuildConfigurationViewModel.
-    /// Implements the <see cref="Caliburn.Micro.PropertyChangedBase" />.
+    /// Initializes a new instance of the <see cref="BuildConfigurationViewModel" /> class.
     /// </summary>
-    /// <seealso cref="Caliburn.Micro.PropertyChangedBase" />
-    public class BuildConfigurationViewModel : Caliburn.Micro.PropertyChangedBase
+    /// <param name="build">The build.</param>
+    public BuildConfigurationViewModel(SimpleBuild build)
     {
-        #region Fields
-
-        private static readonly PathOfBuildingService PathOfBuildingService = new PathOfBuildingService();
-        private Build _build;
-        private SimpleBuild _buildConfiguration;
-        private string _ascendency;
-        private bool _isSkillTreeOpen;
-
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BuildConfigurationViewModel" /> class.
-        /// </summary>
-        /// <param name="build">The build.</param>
-        public BuildConfigurationViewModel(SimpleBuild build)
+        SkillTreeInformation = new ObservableCollection<SkillTreeInformation>();
+        _buildConfiguration = build;
+        Items = new ObservableCollection<UniqueItemViewModel>();
+        if (PathOfBuildingService.IsInitialize)
         {
-            this.SkillTreeInformation = new ObservableCollection<SkillTreeInformation>();
-            this._buildConfiguration = build;
-            this.Items = new ObservableCollection<UniqueItemViewModel>();
-            if (PathOfBuildingService.IsInitialize)
-            {
-                this.DecodeBuild(build);
-            }
-            else
-            {
-                var service = IoC.Get<GithubService>();
-                PathOfBuildingService.InitializeAsync(service).ContinueWith((t) =>
-                {
-                    this.DecodeBuild(build);
-                });
-            }
+            DecodeBuild(build);
         }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets skill trees.
-        /// </summary>
-        public ObservableCollection<SkillTreeInformation> SkillTreeInformation { get; set; }
-
-        /// <summary>
-        /// Gets or sets skill trees.
-        /// </summary>
-        public SkillTreeInformation SelectedSkillTreeInformation { get; set; }
-
-        /// <summary>
-        /// Gets the simple build.
-        /// </summary>
-        public SimpleBuild SimpleBuild => this._buildConfiguration;
-
-        /// <summary>
-        /// Gets the ascendancy.
-        /// </summary>
-        public string Ascendancy
+        else
         {
-            get
+            var service = IoC.Get<GithubService>();
+            PathOfBuildingService.InitializeAsync(service).ContinueWith((t) =>
             {
-                return this._ascendency;
-            }
-
-            private set
-            {
-                this._ascendency = value;
-                this.NotifyOfPropertyChange();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the popup is open.
-        /// </summary>
-        public bool IsSkillTreeOpen
-        {
-            get
-            {
-                return this._isSkillTreeOpen;
-            }
-
-            set
-            {
-                this._isSkillTreeOpen = value;
-                this.NotifyOfPropertyChange();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the gem view model.
-        /// </summary>
-        /// <value>The gem view model.</value>
-        public GemViewModel GemViewModel { get; set; }
-
-        /// <summary>
-        /// Gets the items.
-        /// </summary>
-        public ObservableCollection<UniqueItemViewModel> Items { get; private set; }
-
-        /// <summary>
-        /// Gets the name.
-        /// </summary>
-        /// <value>The name.</value>
-        public string DisplayName => this._build == null ? string.Empty : $"{this._build.Class} ({this._build.Ascendancy})";
-
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        public string BuildName
-        {
-            get
-            {
-                return this._buildConfiguration.Name;
-            }
-
-            set
-            {
-                this._buildConfiguration.Name = value;
-                this.NotifyOfPropertyChange();
-                this.NotifyOfPropertyChange("HasBuildName");
-                this.NotifyOfPropertyChange("HasNoBuildName");
-            }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether this instance has build name.
-        /// </summary>
-        public bool HasBuildName => !string.IsNullOrEmpty(this.BuildName);
-
-        /// <summary>
-        /// Gets a value indicating whether this instance has youtube.
-        /// </summary>
-        public bool HasYoutube => !string.IsNullOrEmpty(this.Youtube);
-
-        /// <summary>
-        /// Gets a value indicating whether this instance has forum.
-        /// </summary>
-        public bool HasForum => !string.IsNullOrEmpty(this.Forum);
-
-        /// <summary>
-        /// Gets a value indicating whether this instance has no build name.
-        /// </summary>
-        public bool HasNoBuildName => !this.HasBuildName;
-
-        /// <summary>
-        /// Gets or sets the youtube.
-        /// </summary>
-        public string Youtube
-        {
-            get
-            {
-                return this._buildConfiguration.YoutubeUrl;
-            }
-
-            set
-            {
-                this._buildConfiguration.YoutubeUrl = value;
-                this.NotifyOfPropertyChange();
-                this.NotifyOfPropertyChange("HasYoutube");
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the forum post.
-        /// </summary>
-        public string Forum
-        {
-            get
-            {
-                return this._buildConfiguration.ForumUrl;
-            }
-
-            set
-            {
-                this._buildConfiguration.ForumUrl = value;
-                this.NotifyOfPropertyChange();
-                this.NotifyOfPropertyChange("HasForum");
-            }
-        }
-
-        /// <summary>
-        /// Gets the identifier.
-        /// </summary>
-        public string Id => this._buildConfiguration.Id;
-
-        /// <summary>
-        /// Gets or sets the notes.
-        /// </summary>
-        public string Notes
-        {
-            get
-            {
-                return this._buildConfiguration.Notes;
-            }
-
-            set
-            {
-                this._buildConfiguration.Notes = value;
-                this.NotifyOfPropertyChange();
-            }
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Opens the tree.
-        /// </summary>
-        public void OpenTree()
-        {
-            this.IsSkillTreeOpen = true;
-        }
-
-        /// <summary>
-        /// Opens the tree.
-        /// </summary>
-        public void OpenSelectedTree()
-        {
-            if (this.SelectedSkillTreeInformation != null && !string.IsNullOrEmpty(this.SelectedSkillTreeInformation.Url))
-            {
-                Process.Start(this.SelectedSkillTreeInformation.Url);
-            }
-        }
-
-        /// <summary>
-        /// Opens the youtube.
-        /// </summary>
-        public void OpenYoutube()
-        {
-            OpenUrl(this.Youtube);
-        }
-
-        /// <summary>
-        /// Opens the forum.
-        /// </summary>
-        public void OpenForum()
-        {
-            OpenUrl(this.Forum);
-        }
-
-        /// <summary>
-        /// Opens the URL.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        private static void OpenUrl(string value)
-        {
-            if (Uri.TryCreate(value, UriKind.Absolute, out Uri _))
-            {
-                Process.Start(value);
-            }
-        }
-
-        /// <summary>
-        /// Decodes the build.
-        /// </summary>
-        /// <param name="simpleBuild">The simple build.</param>
-        private void DecodeBuild(SimpleBuild simpleBuild)
-        {
-            this._build = PathOfBuildingService.Decode(simpleBuild.PathOfBuildingCode);
-            this.Ascendancy = this._build.Ascendancy;
-            this.NotifyOfPropertyChange("DisplayName");
-            var mainSkill = this._build.Skills.OrderByDescending(s => s.Gems.Count(g => g.Support)).FirstOrDefault();
-            if (mainSkill != null)
-            {
-                var gem = mainSkill.Gems.FirstOrDefault(g => !g.Support);
-                if (gem != null)
-                {
-                    this.GemViewModel = new GemViewModel(gem, false);
-                    this.NotifyOfPropertyChange("GemViewModel");
-                }
-            }
-
-            Execute.OnUIThread(() =>
-            {
-                foreach (var item in this._build.Items.OrderBy(i => i.Level))
-                {
-                    this.Items.Add(new UniqueItemViewModel(item, false));
-                }
-
-                foreach (var tree in this._build.SkillTrees.Reverse<SkillTreeInformation>())
-                {
-                    this.SkillTreeInformation.Add(tree);
-                }
+                DecodeBuild(build);
             });
         }
-
-        #endregion
     }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets skill trees.
+    /// </summary>
+    public ObservableCollection<SkillTreeInformation> SkillTreeInformation { get; set; }
+
+    /// <summary>
+    /// Gets or sets skill trees.
+    /// </summary>
+    public SkillTreeInformation SelectedSkillTreeInformation { get; set; }
+
+    /// <summary>
+    /// Gets the simple build.
+    /// </summary>
+    public SimpleBuild SimpleBuild => _buildConfiguration;
+
+    /// <summary>
+    /// Gets the ascendancy.
+    /// </summary>
+    public string Ascendancy
+    {
+        get
+        {
+            return _ascendency;
+        }
+
+        private set
+        {
+            _ascendency = value;
+            NotifyOfPropertyChange();
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the popup is open.
+    /// </summary>
+    public bool IsSkillTreeOpen
+    {
+        get
+        {
+            return _isSkillTreeOpen;
+        }
+
+        set
+        {
+            _isSkillTreeOpen = value;
+            NotifyOfPropertyChange();
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the gem view model.
+    /// </summary>
+    /// <value>The gem view model.</value>
+    public GemViewModel GemViewModel { get; set; }
+
+    /// <summary>
+    /// Gets the items.
+    /// </summary>
+    public ObservableCollection<UniqueItemViewModel> Items { get; private set; }
+
+    /// <summary>
+    /// Gets the name.
+    /// </summary>
+    /// <value>The name.</value>
+    public string DisplayName => _build == null ? string.Empty : $"{_build.Class} ({_build.Ascendancy})";
+
+    /// <summary>
+    /// Gets or sets the name.
+    /// </summary>
+    public string BuildName
+    {
+        get
+        {
+            return _buildConfiguration.Name;
+        }
+
+        set
+        {
+            _buildConfiguration.Name = value;
+            NotifyOfPropertyChange();
+            NotifyOfPropertyChange("HasBuildName");
+            NotifyOfPropertyChange("HasNoBuildName");
+        }
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether this instance has build name.
+    /// </summary>
+    public bool HasBuildName => !string.IsNullOrEmpty(BuildName);
+
+    /// <summary>
+    /// Gets a value indicating whether this instance has youtube.
+    /// </summary>
+    public bool HasYoutube => !string.IsNullOrEmpty(Youtube);
+
+    /// <summary>
+    /// Gets a value indicating whether this instance has forum.
+    /// </summary>
+    public bool HasForum => !string.IsNullOrEmpty(Forum);
+
+    /// <summary>
+    /// Gets a value indicating whether this instance has no build name.
+    /// </summary>
+    public bool HasNoBuildName => !HasBuildName;
+
+    /// <summary>
+    /// Gets or sets the youtube.
+    /// </summary>
+    public string Youtube
+    {
+        get
+        {
+            return _buildConfiguration.YoutubeUrl;
+        }
+
+        set
+        {
+            _buildConfiguration.YoutubeUrl = value;
+            NotifyOfPropertyChange();
+            NotifyOfPropertyChange("HasYoutube");
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the forum post.
+    /// </summary>
+    public string Forum
+    {
+        get
+        {
+            return _buildConfiguration.ForumUrl;
+        }
+
+        set
+        {
+            _buildConfiguration.ForumUrl = value;
+            NotifyOfPropertyChange();
+            NotifyOfPropertyChange("HasForum");
+        }
+    }
+
+    /// <summary>
+    /// Gets the identifier.
+    /// </summary>
+    public string Id => _buildConfiguration.Id;
+
+    /// <summary>
+    /// Gets or sets the notes.
+    /// </summary>
+    public string Notes
+    {
+        get
+        {
+            return _buildConfiguration.Notes;
+        }
+
+        set
+        {
+            _buildConfiguration.Notes = value;
+            NotifyOfPropertyChange();
+        }
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Opens the tree.
+    /// </summary>
+    public void OpenTree()
+    {
+        IsSkillTreeOpen = true;
+    }
+
+    /// <summary>
+    /// Opens the tree.
+    /// </summary>
+    public void OpenSelectedTree()
+    {
+        if (SelectedSkillTreeInformation != null && !string.IsNullOrEmpty(SelectedSkillTreeInformation.Url))
+        {
+            Process.Start(SelectedSkillTreeInformation.Url);
+        }
+    }
+
+    /// <summary>
+    /// Opens the youtube.
+    /// </summary>
+    public void OpenYoutube()
+    {
+        OpenUrl(Youtube);
+    }
+
+    /// <summary>
+    /// Opens the forum.
+    /// </summary>
+    public void OpenForum()
+    {
+        OpenUrl(Forum);
+    }
+
+    /// <summary>
+    /// Opens the URL.
+    /// </summary>
+    /// <param name="value">The value.</param>
+    private static void OpenUrl(string value)
+    {
+        if (Uri.TryCreate(value, UriKind.Absolute, out Uri _))
+        {
+            Process.Start(value);
+        }
+    }
+
+    /// <summary>
+    /// Decodes the build.
+    /// </summary>
+    /// <param name="simpleBuild">The simple build.</param>
+    private void DecodeBuild(SimpleBuild simpleBuild)
+    {
+        _build = PathOfBuildingService.Decode(simpleBuild.PathOfBuildingCode);
+        Ascendancy = _build.Ascendancy;
+        NotifyOfPropertyChange("DisplayName");
+        var mainSkill = _build.Skills.OrderByDescending(s => s.Gems.Count(g => g.Support)).FirstOrDefault();
+        if (mainSkill != null)
+        {
+            var gem = mainSkill.Gems.FirstOrDefault(g => !g.Support);
+            if (gem != null)
+            {
+                GemViewModel = new GemViewModel(gem, false);
+                NotifyOfPropertyChange("GemViewModel");
+            }
+        }
+
+        Execute.OnUIThread(() =>
+        {
+            foreach (var item in _build.Items.OrderBy(i => i.Level))
+            {
+                Items.Add(new UniqueItemViewModel(item, false));
+            }
+
+            foreach (var tree in _build.SkillTrees.Reverse<SkillTreeInformation>())
+            {
+                SkillTreeInformation.Add(tree);
+            }
+        });
+    }
+
+    #endregion
 }

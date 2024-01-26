@@ -4,25 +4,24 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views
+namespace PoeLurker.UI.Views;
+
+using System.Windows.Controls;
+
+/// <summary>
+/// Interaction logic for GemLocationView.xaml.
+/// </summary>
+public partial class GemLocationView : UserControl
 {
-    using System.Windows.Controls;
+    #region Constructors
 
     /// <summary>
-    /// Interaction logic for GemLocationView.xaml.
+    /// Initializes a new instance of the <see cref="GemLocationView"/> class.
     /// </summary>
-    public partial class GemLocationView : UserControl
+    public GemLocationView()
     {
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GemLocationView"/> class.
-        /// </summary>
-        public GemLocationView()
-        {
-            this.InitializeComponent();
-        }
-
-        #endregion
+        InitializeComponent();
     }
+
+    #endregion
 }

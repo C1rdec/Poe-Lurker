@@ -4,21 +4,20 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views
-{
-    using System.Windows.Controls;
+namespace PoeLurker.UI.Views;
 
+using System.Windows.Controls;
+
+/// <summary>
+/// Interaction logic for MapView.xaml.
+/// </summary>
+public partial class MapView : UserControl
+{
     /// <summary>
-    /// Interaction logic for MapView.xaml.
+    /// Initializes a new instance of the <see cref="MapView"/> class.
     /// </summary>
-    public partial class MapView : UserControl
+    public MapView()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MapView"/> class.
-        /// </summary>
-        public MapView()
-        {
-            this.InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

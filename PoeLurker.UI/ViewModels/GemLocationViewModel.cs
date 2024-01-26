@@ -4,57 +4,56 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.ViewModels
+namespace PoeLurker.UI.ViewModels;
+
+using System.Collections.Generic;
+using PoeLurker.Core.Models;
+
+/// <summary>
+/// Represents a gem location.
+/// </summary>
+public class GemLocationViewModel
 {
-    using System.Collections.Generic;
-    using PoeLurker.Core.Models;
+    #region Fields
+
+    private readonly GemLocation _location;
+
+    #endregion
+
+    #region Constructors
 
     /// <summary>
-    /// Represents a gem location.
+    /// Initializes a new instance of the <see cref="GemLocationViewModel"/> class.
     /// </summary>
-    public class GemLocationViewModel
+    /// <param name="location">The location.</param>
+    public GemLocationViewModel(GemLocation location)
     {
-        #region Fields
-
-        private GemLocation _location;
-
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GemLocationViewModel"/> class.
-        /// </summary>
-        /// <param name="location">The location.</param>
-        public GemLocationViewModel(GemLocation location)
-        {
-            this._location = location;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets the act.
-        /// </summary>
-        public string Act => this._location.Act;
-
-        /// <summary>
-        /// Gets the NPC.
-        /// </summary>
-        public string Npc => $"({this._location.Npc})";
-
-        /// <summary>
-        /// Gets the quest.
-        /// </summary>
-        public string Quest => this._location.Quest;
-
-        /// <summary>
-        /// Gets the classes.
-        /// </summary>
-        public IEnumerable<Class> Classes => this._location.Classes;
-
-        #endregion
+        _location = location;
     }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets the act.
+    /// </summary>
+    public string Act => _location.Act;
+
+    /// <summary>
+    /// Gets the NPC.
+    /// </summary>
+    public string Npc => $"({_location.Npc})";
+
+    /// <summary>
+    /// Gets the quest.
+    /// </summary>
+    public string Quest => _location.Quest;
+
+    /// <summary>
+    /// Gets the classes.
+    /// </summary>
+    public IEnumerable<Class> Classes => _location.Classes;
+
+    #endregion
 }

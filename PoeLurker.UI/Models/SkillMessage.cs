@@ -1,22 +1,21 @@
-﻿namespace PoeLurker.UI.Models
+﻿namespace PoeLurker.UI.Models;
+
+using PoeLurker.Core.Models;
+
+/// <summary>
+/// Represents the skill message.
+/// </summary>
+public class SkillMessage : TimelineMessage
 {
-    using PoeLurker.Core.Models;
+    #region Properties
 
     /// <summary>
-    /// Represents the skill message.
+    /// Gets or sets the skill.
     /// </summary>
-    public class SkillMessage : TimelineMessage
-    {
-        #region Properties
+    /// <value>
+    /// The skill.
+    /// </value>
+    public Skill Skill { get; set; }
 
-        /// <summary>
-        /// Gets or sets the skill.
-        /// </summary>
-        /// <value>
-        /// The skill.
-        /// </value>
-        public Skill Skill { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

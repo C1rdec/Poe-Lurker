@@ -4,21 +4,20 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views
-{
-    using System.Windows.Controls;
+namespace PoeLurker.UI.Views;
 
+using System.Windows.Controls;
+
+/// <summary>
+/// Interaction logic for UpdateView.xaml.
+/// </summary>
+public partial class UpdateView : UserControl
+{
     /// <summary>
-    /// Interaction logic for UpdateView.xaml.
+    /// Initializes a new instance of the <see cref="UpdateView"/> class.
     /// </summary>
-    public partial class UpdateView : UserControl
+    public UpdateView()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UpdateView"/> class.
-        /// </summary>
-        public UpdateView()
-        {
-            this.InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

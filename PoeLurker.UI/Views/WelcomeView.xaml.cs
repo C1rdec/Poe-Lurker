@@ -4,28 +4,27 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views
+namespace PoeLurker.UI.Views;
+
+using System.Windows.Interop;
+using MahApps.Metro.Controls;
+using static PoeLurker.UI.Views.SettingsView;
+
+/// <summary>
+/// Interaction logic for WelcomeView.xaml.
+/// </summary>
+public partial class WelcomeView : MetroWindow
 {
-    using System.Windows.Interop;
-    using MahApps.Metro.Controls;
-    using static PoeLurker.UI.Views.SettingsView;
-
     /// <summary>
-    /// Interaction logic for WelcomeView.xaml.
+    /// Initializes a new instance of the <see cref="WelcomeView"/> class.
     /// </summary>
-    public partial class WelcomeView : MetroWindow
+    public WelcomeView()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="WelcomeView"/> class.
-        /// </summary>
-        public WelcomeView()
-        {
-            this.InitializeComponent();
+        InitializeComponent();
 
-            var hWnd = new WindowInteropHelper(GetWindow(this)).EnsureHandle();
-            var attribute = DWMWINDOWATTRIBUTE.DWMWA_WINDOW_CORNER_PREFERENCE;
-            var preference = DWM_WINDOW_CORNER_PREFERENCE.DWMWCP_ROUND;
-            DwmSetWindowAttribute(hWnd, attribute, ref preference, sizeof(uint));
-        }
+        var hWnd = new WindowInteropHelper(GetWindow(this)).EnsureHandle();
+        var attribute = DWMWINDOWATTRIBUTE.DWMWA_WINDOW_CORNER_PREFERENCE;
+        var preference = DWM_WINDOW_CORNER_PREFERENCE.DWMWCP_ROUND;
+        DwmSetWindowAttribute(hWnd, attribute, ref preference, sizeof(uint));
     }
 }

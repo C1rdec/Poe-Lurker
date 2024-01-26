@@ -4,21 +4,20 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views
-{
-    using System.Windows.Controls;
+namespace PoeLurker.UI.Views;
 
+using System.Windows.Controls;
+
+/// <summary>
+/// Interaction logic for LeagueView.xaml.
+/// </summary>
+public partial class LeagueView : UserControl
+{
     /// <summary>
-    /// Interaction logic for LeagueView.xaml.
+    /// Initializes a new instance of the <see cref="LeagueView"/> class.
     /// </summary>
-    public partial class LeagueView : UserControl
+    public LeagueView()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LeagueView"/> class.
-        /// </summary>
-        public LeagueView()
-        {
-            this.InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

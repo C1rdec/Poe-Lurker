@@ -4,21 +4,20 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views
-{
-    using System.Windows.Controls;
+namespace PoeLurker.UI.Views;
 
+using System.Windows.Controls;
+
+/// <summary>
+/// Interaction logic for PushBulletView.xaml.
+/// </summary>
+public partial class PushBulletView : UserControl
+{
     /// <summary>
-    /// Interaction logic for PushBulletView.xaml.
+    /// Initializes a new instance of the <see cref="PushBulletView"/> class.
     /// </summary>
-    public partial class PushBulletView : UserControl
+    public PushBulletView()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PushBulletView"/> class.
-        /// </summary>
-        public PushBulletView()
-        {
-            this.InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

@@ -4,33 +4,32 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views
+namespace PoeLurker.UI.Views;
+
+using System.Windows.Controls;
+
+/// <summary>
+/// Interaction logic for BuildConfigurationView.xaml.
+/// </summary>
+public partial class BuildConfigurationView : UserControl
 {
-    using System.Windows.Controls;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BuildConfigurationView"/> class.
+    /// </summary>
+    public BuildConfigurationView()
+    {
+        InitializeComponent();
+    }
 
     /// <summary>
-    /// Interaction logic for BuildConfigurationView.xaml.
+    /// Handles the PreviewMouseWheel event of the ScrollViewer control.
     /// </summary>
-    public partial class BuildConfigurationView : UserControl
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.Windows.Input.MouseWheelEventArgs"/> instance containing the event data.</param>
+    private void ScrollViewer_PreviewMouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BuildConfigurationView"/> class.
-        /// </summary>
-        public BuildConfigurationView()
-        {
-            this.InitializeComponent();
-        }
-
-        /// <summary>
-        /// Handles the PreviewMouseWheel event of the ScrollViewer control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Windows.Input.MouseWheelEventArgs"/> instance containing the event data.</param>
-        private void ScrollViewer_PreviewMouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
-        {
-            var scrollViewer = (ScrollViewer)sender;
-            scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset - e.Delta);
-            e.Handled = true;
-        }
+        var scrollViewer = (ScrollViewer)sender;
+        scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset - e.Delta);
+        e.Handled = true;
     }
 }

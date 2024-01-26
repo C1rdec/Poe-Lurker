@@ -4,21 +4,20 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views
-{
-    using System.Windows.Controls;
+namespace PoeLurker.UI.Views;
 
+using System.Windows.Controls;
+
+/// <summary>
+/// Interaction logic for PositionView.xaml.
+/// </summary>
+public partial class PositionView : UserControl
+{
     /// <summary>
-    /// Interaction logic for PositionView.xaml.
+    /// Initializes a new instance of the <see cref="PositionView"/> class.
     /// </summary>
-    public partial class PositionView : UserControl
+    public PositionView()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PositionView"/> class.
-        /// </summary>
-        public PositionView()
-        {
-            this.InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

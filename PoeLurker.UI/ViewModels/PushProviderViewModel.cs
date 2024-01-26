@@ -4,78 +4,77 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.ViewModels
+namespace PoeLurker.UI.ViewModels;
+
+using System;
+using Caliburn.Micro;
+using PoeLurker.Patreon.Services;
+
+/// <summary>
+/// Represents the provider.
+/// </summary>
+public class PushProviderViewModel : PropertyChangedBase
 {
-    using System;
-    using Caliburn.Micro;
-    using PoeLurker.Patreon.Services;
+    #region Fields
+
+    private readonly Func<PropertyChangedBase> _buildViewModel;
+
+    #endregion
+
+    #region Constructors
 
     /// <summary>
-    /// Represents the provider.
+    /// Initializes a new instance of the <see cref="PushProviderViewModel"/> class.
     /// </summary>
-    public class PushProviderViewModel : PropertyChangedBase
+    /// <param name="name">The name.</param>
+    /// <param name="service">The service.</param>
+    public PushProviderViewModel(string name, PushBulletService service)
+        : this(name)
     {
-        #region Fields
-
-        private Func<PropertyChangedBase> _buildViewModel;
-
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PushProviderViewModel"/> class.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <param name="service">The service.</param>
-        public PushProviderViewModel(string name, PushBulletService service)
-            : this(name)
-        {
-            this._buildViewModel = () => new PushBulletViewModel(service);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PushProviderViewModel"/> class.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <param name="service">The service.</param>
-        public PushProviderViewModel(string name, PushHoverService service)
-            : this(name)
-        {
-            this._buildViewModel = () => new PushoverViewModel(service);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PushProviderViewModel"/> class.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        public PushProviderViewModel(string name)
-        {
-            this.ProviderName = name;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the provider name.
-        /// </summary>
-        public string ProviderName { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Build the view model.
-        /// </summary>
-        /// <returns>View model.</returns>
-        public PropertyChangedBase GetViewModel()
-        {
-            return this._buildViewModel();
-        }
-
-        #endregion
+        _buildViewModel = () => new PushBulletViewModel(service);
     }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PushProviderViewModel"/> class.
+    /// </summary>
+    /// <param name="name">The name.</param>
+    /// <param name="service">The service.</param>
+    public PushProviderViewModel(string name, PushHoverService service)
+        : this(name)
+    {
+        _buildViewModel = () => new PushoverViewModel(service);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PushProviderViewModel"/> class.
+    /// </summary>
+    /// <param name="name">The name.</param>
+    public PushProviderViewModel(string name)
+    {
+        ProviderName = name;
+    }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets the provider name.
+    /// </summary>
+    public string ProviderName { get; set; }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Build the view model.
+    /// </summary>
+    /// <returns>View model.</returns>
+    public PropertyChangedBase GetViewModel()
+    {
+        return _buildViewModel();
+    }
+
+    #endregion
 }

@@ -4,29 +4,28 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views
+namespace PoeLurker.UI.Views;
+
+using System.Windows.Controls;
+using System.Windows.Input;
+
+/// <summary>
+/// Interaction logic for CharacterManagerView.xaml.
+/// </summary>
+public partial class CharacterManagerView : UserControl
 {
-    using System.Windows.Controls;
-    using System.Windows.Input;
-
     /// <summary>
-    /// Interaction logic for CharacterManagerView.xaml.
+    /// Initializes a new instance of the <see cref="CharacterManagerView"/> class.
     /// </summary>
-    public partial class CharacterManagerView : UserControl
+    public CharacterManagerView()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CharacterManagerView"/> class.
-        /// </summary>
-        public CharacterManagerView()
-        {
-            this.InitializeComponent();
-        }
+        InitializeComponent();
+    }
 
-        private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            var scrollViewer = (ScrollViewer)sender;
-            scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset - e.Delta);
-            e.Handled = true;
-        }
+    private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+    {
+        var scrollViewer = (ScrollViewer)sender;
+        scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset - e.Delta);
+        e.Handled = true;
     }
 }

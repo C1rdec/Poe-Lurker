@@ -4,21 +4,20 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views
-{
-    using System.Windows.Controls;
+namespace PoeLurker.UI.Views;
 
+using System.Windows.Controls;
+
+/// <summary>
+/// Interaction logic for DeviceView.xaml.
+/// </summary>
+public partial class DeviceView : UserControl
+{
     /// <summary>
-    /// Interaction logic for DeviceView.xaml.
+    /// Initializes a new instance of the <see cref="DeviceView"/> class.
     /// </summary>
-    public partial class DeviceView : UserControl
+    public DeviceView()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DeviceView"/> class.
-        /// </summary>
-        public DeviceView()
-        {
-            this.InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

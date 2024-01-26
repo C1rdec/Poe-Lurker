@@ -1,22 +1,21 @@
-﻿namespace PoeLurker.UI.Models
+﻿namespace PoeLurker.UI.Models;
+
+/// <summary>
+/// Represents a timeline message.
+/// </summary>
+public abstract class TimelineMessage
 {
+    #region Properties
+
     /// <summary>
-    /// Represents a timeline message.
+    /// Gets or sets a value indicating whether this <see cref="SkillMessage"/> is clear.
     /// </summary>
-    public abstract class TimelineMessage
-    {
-        #region Properties
+    public bool Clear { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="SkillMessage"/> is clear.
-        /// </summary>
-        public bool Clear { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether this <see cref="SkillMessage"/> is delete.
+    /// </summary>
+    public bool Delete { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="SkillMessage"/> is delete.
-        /// </summary>
-        public bool Delete { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

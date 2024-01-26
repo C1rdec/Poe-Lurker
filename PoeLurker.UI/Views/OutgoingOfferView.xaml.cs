@@ -4,22 +4,21 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views
-{
-    using System.Windows.Controls;
+namespace PoeLurker.UI.Views;
 
+using System.Windows.Controls;
+
+/// <summary>
+/// Interaction logic for OutgoingOfferView.xaml.
+/// </summary>
+public partial class OutgoingOfferView : UserControl
+{
     /// <summary>
-    /// Interaction logic for OutgoingOfferView.xaml.
+    /// Initializes a new instance of the <see cref="OutgoingOfferView"/> class.
     /// </summary>
-    public partial class OutgoingOfferView : UserControl
+    public OutgoingOfferView()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OutgoingOfferView"/> class.
-        /// </summary>
-        public OutgoingOfferView()
-        {
-            this.InitializeComponent();
-            this.MainAction.Height = this.MainAction.Width / 2;
-        }
+        InitializeComponent();
+        MainAction.Height = MainAction.Width / 2;
     }
 }

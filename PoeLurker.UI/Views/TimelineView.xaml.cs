@@ -4,25 +4,24 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views
+namespace PoeLurker.UI.Views;
+
+using System.Windows.Controls;
+
+/// <summary>
+/// Interaction logic for TimelineView.xaml.
+/// </summary>
+public partial class TimelineView : UserControl
 {
-    using System.Windows.Controls;
+    #region Constructors
 
     /// <summary>
-    /// Interaction logic for TimelineView.xaml.
+    /// Initializes a new instance of the <see cref="TimelineView"/> class.
     /// </summary>
-    public partial class TimelineView : UserControl
+    public TimelineView()
     {
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TimelineView"/> class.
-        /// </summary>
-        public TimelineView()
-        {
-            this.InitializeComponent();
-        }
-
-        #endregion
+        InitializeComponent();
     }
+
+    #endregion
 }

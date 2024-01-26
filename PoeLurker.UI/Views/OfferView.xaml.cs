@@ -4,21 +4,20 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views
-{
-    using System.Windows.Controls;
+namespace PoeLurker.UI.Views;
 
+using System.Windows.Controls;
+
+/// <summary>
+/// Interaction logic for TradeOfferView.xaml.
+/// </summary>
+public partial class OfferView : UserControl
+{
     /// <summary>
-    /// Interaction logic for TradeOfferView.xaml.
+    /// Initializes a new instance of the <see cref="OfferView"/> class.
     /// </summary>
-    public partial class OfferView : UserControl
+    public OfferView()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OfferView"/> class.
-        /// </summary>
-        public OfferView()
-        {
-            this.InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

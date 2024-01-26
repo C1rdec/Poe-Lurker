@@ -4,21 +4,20 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views
-{
-    using System.Windows.Controls;
+namespace PoeLurker.UI.Views;
 
+using System.Windows.Controls;
+
+/// <summary>
+/// Interaction logic for PushHoverView.xaml.
+/// </summary>
+public partial class PushoverView : UserControl
+{
     /// <summary>
-    /// Interaction logic for PushHoverView.xaml.
+    /// Initializes a new instance of the <see cref="PushoverView"/> class.
     /// </summary>
-    public partial class PushoverView : UserControl
+    public PushoverView()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PushoverView"/> class.
-        /// </summary>
-        public PushoverView()
-        {
-            this.InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

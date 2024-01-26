@@ -4,21 +4,20 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views
-{
-    using MahApps.Metro.Controls;
+namespace PoeLurker.UI.Views;
 
+using MahApps.Metro.Controls;
+
+/// <summary>
+/// Interaction logic for TutorialView.xaml.
+/// </summary>
+public partial class TutorialView : MetroWindow
+{
     /// <summary>
-    /// Interaction logic for TutorialView.xaml.
+    /// Initializes a new instance of the <see cref="TutorialView"/> class.
     /// </summary>
-    public partial class TutorialView : MetroWindow
+    public TutorialView()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TutorialView"/> class.
-        /// </summary>
-        public TutorialView()
-        {
-            this.InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

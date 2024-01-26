@@ -4,21 +4,20 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views
-{
-    using System.Windows.Controls;
+namespace PoeLurker.UI.Views;
 
+using System.Windows.Controls;
+
+/// <summary>
+/// Interaction logic for SplashscreenView.xaml.
+/// </summary>
+public partial class SplashscreenView : UserControl
+{
     /// <summary>
-    /// Interaction logic for SplashscreenView.xaml.
+    /// Initializes a new instance of the <see cref="SplashscreenView"/> class.
     /// </summary>
-    public partial class SplashscreenView : UserControl
+    public SplashscreenView()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SplashscreenView"/> class.
-        /// </summary>
-        public SplashscreenView()
-        {
-            this.InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

@@ -4,21 +4,20 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views
-{
-    using System.Windows.Controls;
+namespace PoeLurker.UI.Views;
 
+using System.Windows.Controls;
+
+/// <summary>
+/// Interaction logic for HotkeyView.xaml.
+/// </summary>
+public partial class HotkeyView : UserControl
+{
     /// <summary>
-    /// Interaction logic for HotkeyView.xaml.
+    /// Initializes a new instance of the <see cref="HotkeyView"/> class.
     /// </summary>
-    public partial class HotkeyView : UserControl
+    public HotkeyView()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HotkeyView"/> class.
-        /// </summary>
-        public HotkeyView()
-        {
-            this.InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

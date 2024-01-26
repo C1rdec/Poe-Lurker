@@ -4,99 +4,98 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.ViewModels
+namespace PoeLurker.UI.ViewModels;
+
+using System;
+using System.Linq;
+using Caliburn.Micro;
+using PoeLurker.Patreon.Models.Ninja;
+
+/// <summary>
+/// Represents the Divine Ratio.
+/// </summary>
+public class DivineRatioViewModel : PropertyChangedBase
 {
-    using System;
-    using System.Linq;
-    using Caliburn.Micro;
-    using PoeLurker.Patreon.Models.Ninja;
+    #region Fields
+
+    private readonly CurrencyLine _line;
+    private readonly double _ratio;
+
+    #endregion
+
+    #region Constructors
 
     /// <summary>
-    /// Represents the Divine Ratio.
+    /// Initializes a new instance of the <see cref="DivineRatioViewModel"/> class.
     /// </summary>
-    public class DivineRatioViewModel : PropertyChangedBase
+    /// <param name="line">The line.</param>
+    public DivineRatioViewModel(CurrencyLine line)
     {
-        #region Fields
+        _line = line;
+        _ratio = line.ChaosEquivalent;
+        //this.Chart = new LineChartViewModel(false, 0);
 
-        private CurrencyLine _line;
-        private double _ratio;
-
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DivineRatioViewModel"/> class.
-        /// </summary>
-        /// <param name="line">The line.</param>
-        public DivineRatioViewModel(CurrencyLine line)
+        var buyPoints = line.BuyLine.Data.Where(d => d.HasValue);
+        if (buyPoints.Any())
         {
-            this._line = line;
-            this._ratio = line.ChaosEquivalent;
-            //this.Chart = new LineChartViewModel(false, 0);
-
-            var buyPoints = line.BuyLine.Data.Where(d => d.HasValue);
-            if (buyPoints.Any())
-            {
-                var minimum = Math.Abs(buyPoints.Min().Value);
-                //this.Chart.Add("Buy", buyPoints.Select(p => Convert.ToDouble(p + minimum + 1)));
-            }
-
-            this.TotalChange = $"{line.BuyLine.TotalChange}%";
+            var minimum = Math.Abs(buyPoints.Min().Value);
+            //this.Chart.Add("Buy", buyPoints.Select(p => Convert.ToDouble(p + minimum + 1)));
         }
 
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets the ratio.
-        /// </summary>
-        public double Ratio
-            => this.Fraction != null ? Math.Round(this._ratio * this.Fraction.Value, 2) : this._ratio;
-
-        /// <summary>
-        /// Gets the fraction.
-        /// </summary>
-        public double? Fraction { get; private set; }
-
-        /// <summary>
-        /// Gets a value indicating whether the Fraction is visible.
-        /// </summary>
-        public bool HasFraction => this.Fraction != null;
-
-        /// <summary>
-        /// Gets the total change.
-        /// </summary>
-        public string TotalChange { get; private set; }
-
-        /// <summary>
-        /// Gets a value indicating whether the total change is negative.
-        /// </summary>
-        public bool Negative => this._line.BuyLine.TotalChange < 0;
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Set the fraction.
-        /// </summary>
-        /// <param name="fraction">The fraction.</param>
-        public void SetFraction(double? fraction)
-        {
-            if (fraction == 0)
-            {
-                fraction = null;
-            }
-
-            this.Fraction = fraction;
-
-            this.NotifyOfPropertyChange(() => this.Fraction);
-            this.NotifyOfPropertyChange(() => this.HasFraction);
-            this.NotifyOfPropertyChange(() => this.Ratio);
-        }
-
-        #endregion
+        TotalChange = $"{line.BuyLine.TotalChange}%";
     }
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets the ratio.
+    /// </summary>
+    public double Ratio
+        => Fraction != null ? Math.Round(_ratio * Fraction.Value, 2) : _ratio;
+
+    /// <summary>
+    /// Gets the fraction.
+    /// </summary>
+    public double? Fraction { get; private set; }
+
+    /// <summary>
+    /// Gets a value indicating whether the Fraction is visible.
+    /// </summary>
+    public bool HasFraction => Fraction != null;
+
+    /// <summary>
+    /// Gets the total change.
+    /// </summary>
+    public string TotalChange { get; private set; }
+
+    /// <summary>
+    /// Gets a value indicating whether the total change is negative.
+    /// </summary>
+    public bool Negative => _line.BuyLine.TotalChange < 0;
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Set the fraction.
+    /// </summary>
+    /// <param name="fraction">The fraction.</param>
+    public void SetFraction(double? fraction)
+    {
+        if (fraction == 0)
+        {
+            fraction = null;
+        }
+
+        Fraction = fraction;
+
+        NotifyOfPropertyChange(() => Fraction);
+        NotifyOfPropertyChange(() => HasFraction);
+        NotifyOfPropertyChange(() => Ratio);
+    }
+
+    #endregion
 }

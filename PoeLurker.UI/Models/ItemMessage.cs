@@ -4,23 +4,22 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Models
+namespace PoeLurker.UI.Models;
+
+using PoeLurker.Core.Models;
+
+/// <summary>
+/// Represents a Item message.
+/// </summary>
+/// <seealso cref="PoeLurker.UI.Models.TimelineMessage" />
+public class ItemMessage : TimelineMessage
 {
-    using PoeLurker.Core.Models;
+    #region Properties
 
     /// <summary>
-    /// Represents a Item message.
+    /// Gets or sets the item.
     /// </summary>
-    /// <seealso cref="PoeLurker.UI.Models.TimelineMessage" />
-    public class ItemMessage : TimelineMessage
-    {
-        #region Properties
+    public UniqueItem Item { get; set; }
 
-        /// <summary>
-        /// Gets or sets the item.
-        /// </summary>
-        public UniqueItem Item { get; set; }
-
-        #endregion
-    }
+    #endregion
 }

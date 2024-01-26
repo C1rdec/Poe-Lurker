@@ -4,21 +4,20 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views
-{
-    using System.Windows;
+namespace PoeLurker.UI.Views;
 
+using System.Windows;
+
+/// <summary>
+/// Interaction logic for DashboardView.xaml.
+/// </summary>
+public partial class DashboardView : Window
+{
     /// <summary>
-    /// Interaction logic for DashboardView.xaml.
+    /// Initializes a new instance of the <see cref="DashboardView"/> class.
     /// </summary>
-    public partial class DashboardView : Window
+    public DashboardView()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DashboardView"/> class.
-        /// </summary>
-        public DashboardView()
-        {
-            this.InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

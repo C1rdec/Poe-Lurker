@@ -4,57 +4,56 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views
+namespace PoeLurker.UI.Views;
+
+using System;
+using System.Windows;
+
+/// <summary>
+/// Interaction logic for HelpView.xaml.
+/// </summary>
+public partial class HelpView : Window
 {
-    using System;
-    using System.Windows;
+    private Window _parent;
 
     /// <summary>
-    /// Interaction logic for HelpView.xaml.
+    /// Initializes a new instance of the <see cref="HelpView" /> class.
     /// </summary>
-    public partial class HelpView : Window
+    public HelpView()
     {
-        private Window _parent;
+        InitializeComponent();
+        HideFromAltTab();
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HelpView" /> class.
-        /// </summary>
-        public HelpView()
+    /// <summary>
+    /// Raises the <see cref="E:System.Windows.Window.Closed" /> event.
+    /// </summary>
+    /// <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
+    protected override void OnClosed(EventArgs e)
+    {
+        _parent.Close();
+        base.OnClosed(e);
+    }
+
+    /// <summary>
+    /// Hides the window from alt tab.
+    /// </summary>
+    private void HideFromAltTab()
+    {
+        _parent = new Window
         {
-            this.InitializeComponent();
-            this.HideFromAltTab();
-        }
+            Top = -100,
+            Left = -100,
+            Width = 1,
+            Height = 1,
 
-        /// <summary>
-        /// Raises the <see cref="E:System.Windows.Window.Closed" /> event.
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs" /> that contains the event data.</param>
-        protected override void OnClosed(EventArgs e)
-        {
-            this._parent.Close();
-            base.OnClosed(e);
-        }
+            // Set window style as ToolWindow to avoid its icon in AltTab
+            WindowStyle = WindowStyle.ToolWindow,
+            ShowInTaskbar = false,
+        };
 
-        /// <summary>
-        /// Hides the window from alt tab.
-        /// </summary>
-        private void HideFromAltTab()
-        {
-            this._parent = new Window
-            {
-                Top = -100,
-                Left = -100,
-                Width = 1,
-                Height = 1,
-
-                // Set window style as ToolWindow to avoid its icon in AltTab
-                WindowStyle = WindowStyle.ToolWindow,
-                ShowInTaskbar = false,
-            };
-
-            this._parent.Show();
-            this.Owner = this._parent;
-            this._parent.Hide();
-        }
+        _parent.Show();
+        Owner = _parent;
+        _parent.Hide();
     }
 }
