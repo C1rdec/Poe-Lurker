@@ -19,7 +19,7 @@ using Winook;
 /// <summary>
 /// Represent the popup.
 /// </summary>
-/// <seealso cref="PoeLurker.UI.ViewModels.ScreenBase" />
+/// <seealso cref="PoeLurker.UI.ViewModels.Screen" />
 public class PopupViewModel : PoeOverlayBase
 {
     #region Fields

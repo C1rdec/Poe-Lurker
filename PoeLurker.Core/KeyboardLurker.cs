@@ -35,7 +35,7 @@ public class KeyboardLurker
     private readonly PoeKeyboardHelper _keyboardHelper;
     private Task _currentHoldTask;
     private bool _disposed;
-    private ushort _toggleBuildCode;
+    private KeyCode _toggleBuildCode;
     private readonly int _processId;
     private readonly bool _hooked;
     private bool _disabled;

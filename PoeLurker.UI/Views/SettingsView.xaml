@@ -17,10 +17,10 @@
         <Controls:WindowCommands>
             <Button cal:Message.Attach="[Event Click] = [Action OpenPatreon]" Cursor="Hand">
                 <StackPanel Orientation="Horizontal">
-                    <!--<local:IconPack Width="18"
+                    <local:IconPack Width="18"
                                     HorizontalAlignment="Center"
                                     Data="{x:Static local:IconPackData.Patreon}"
-                                    Foreground="White" />-->
+                                    Foreground="White" />
                     <TextBlock Margin="4"
                                VerticalAlignment="Center"
                                Text="Patreon" />
@@ -28,10 +28,10 @@
             </Button>
             <Button cal:Message.Attach="[Event Click] = [Action OpenDiscord]" Cursor="Hand">
                 <StackPanel Orientation="Horizontal">
-                    <!--<local:IconPack Width="25"
+                    <local:IconPack Width="25"
                                     HorizontalAlignment="Center"
                                     Data="{x:Static local:IconPackData.Discord}"
-                                    Foreground="White" />-->
+                                    Foreground="White" />
                     <TextBlock Margin="4"
                                VerticalAlignment="Center"
                                Text="Discord" />
@@ -98,11 +98,10 @@
                             Style="{DynamicResource MahApps.Styles.Button.Circle}"
                             ToolTip="Characters">
                         <Button.Content>
-                            i
-                            <!--<local:IconPack Width="25"
+                            <local:IconPack Width="25"
                                             HorizontalAlignment="Center"
                                             Data="{x:Static local:IconPackData.Group}"
-                                            Foreground="White" />-->
+                                            Foreground="White" />
                         </Button.Content>
                     </Button>
 
@@ -320,12 +319,12 @@
                                               IsChecked="{Binding HasCustomTradeSound}"
                                               Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                                               ToolTip="Custom Sound">
-                                    <!--<local:IconPack Width="20"
+                                    <local:IconPack Width="20"
                                                     Height="20"
                                                     Margin="1,1,0,0"
                                                     Data="{x:Static local:IconPackData.CustomSound}"
                                                     Foreground="White"
-                                                    Opacity="0.8" />-->
+                                                    Opacity="0.8" />
                                 </ToggleButton>
                             </StackPanel>
                             <Slider Grid.Column="1"
@@ -384,12 +383,12 @@
                                           IsChecked="{Binding HasCustomItemSound}"
                                           Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}"
                                           ToolTip="Custom Sound">
-                                <!--<local:IconPack Width="20"
+                                <local:IconPack Width="20"
                                                 Height="20"
                                                 Margin="1,1,0,0"
                                                 Data="{x:Static local:IconPackData.CustomSound}"
                                                 Foreground="White"
-                                                Opacity="0.8" />-->
+                                                Opacity="0.8" />
                             </ToggleButton>
                         </StackPanel>
                         <Slider Grid.Column="1"
@@ -461,9 +460,9 @@
                         <Button.Content>
                             <StackPanel>
                                 <TextBlock Margin="0,-5,0,5">Reset</TextBlock>
-                                <!--<local:IconPack Width="25"
+                                <local:IconPack Width="25"
                                                 HorizontalAlignment="Center"
-                                                Data="{x:Static local:IconPackData.Reset}" />-->
+                                                Data="{x:Static local:IconPackData.Reset}" />
                             </StackPanel>
                         </Button.Content>
                     </Button>
@@ -661,7 +660,7 @@
                         <TextBlock TextAlignment="Center" TextWrapping="Wrap">Being a Lurker Pro is a good way to show your appreciation for the work I've done, and help support the future development of the program. Furthermore you will unlock juicy features that is currently being developed.</TextBlock>
 
                         <Grid Margin="0,-10,0,0">
-                            <!--<local:IconPack Width="150"
+                            <local:IconPack Width="150"
                                             Margin="0,20,0,10"
                                             Data="{x:Static local:IconPackData.Beer}"
                                             Foreground="{DynamicResource MahApps.Brushes.Accent}"
@@ -675,7 +674,7 @@
                                             Margin="0,20,0,10"
                                             Data="{x:Static local:IconPackData.Beer}"
                                             Foreground="{DynamicResource MahApps.Brushes.Accent1}"
-                                            Visibility="{Binding NotPledging, Converter={StaticResource BooleanToVisibilityConverter}}" />-->
+                                            Visibility="{Binding NotPledging, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         </Grid>
                         <Button x:Name="GetPatreonId"
                                 Margin="0,0,0,10"
@@ -754,14 +753,13 @@
                                         ToolTip="Open"
                                         Visibility="{Binding HasYoutube, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <Button.Content>
-                                        i
-                                        <!--<local:IconPack Grid.Row="2"
+                                        <local:IconPack Grid.Row="2"
                                                         Width="15"
                                                         Height="15"
                                                         HorizontalAlignment="Right"
                                                         VerticalAlignment="Bottom"
                                                         Data="{x:Static local:IconPackData.Open}"
-                                                        Foreground="{DynamicResource MahApps.Brushes.Accent}" />-->
+                                                        Foreground="{DynamicResource MahApps.Brushes.Accent}" />
                                     </Button.Content>
                                 </Button>
                                 <Controls:ToggleSwitch Margin="0,0,0,0"
@@ -778,13 +776,13 @@
                                     Cursor="Hand">
                                 <Button.Content>
                                     <StackPanel Margin="8,4,8,4" Orientation="Horizontal">
-                                        <!--<local:IconPack Grid.Row="2"
+                                        <local:IconPack Grid.Row="2"
                                                         Width="25"
                                                         Height="30"
                                                         HorizontalAlignment="Right"
                                                         VerticalAlignment="Center"
                                                         Data="{x:Static local:IconPackData.Cellphone}"
-                                                        Foreground="White" />-->
+                                                        Foreground="White" />
                                         <TextBlock Margin="8,0,0,0"
                                                    VerticalAlignment="Center"
                                                    FontSize="18">
@@ -852,14 +850,13 @@
                 Style="{DynamicResource Tag}"
                 Visibility="{Binding Modified, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Button.Content>
-                i
-                <!--<local:IconPack Grid.Row="2"
+                <local:IconPack Grid.Row="2"
                                 Width="20"
                                 Height="20"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Bottom"
                                 Data="{x:Static local:IconPackData.Save}"
-                                Foreground="White" />-->
+                                Foreground="White" />
             </Button.Content>
         </Button>
     </Grid>

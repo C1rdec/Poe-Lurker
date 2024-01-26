@@ -11,8 +11,8 @@ using Caliburn.Micro;
 /// <summary>
 /// Represents the tutorial.
 /// </summary>
-/// <seealso cref="PoeLurker.UI.ViewModels.ScreenBase" />
-public class TutorialViewModel : ScreenBase
+/// <seealso cref="PoeLurker.UI.ViewModels.Screen" />
+public class TutorialViewModel : Screen
 {
     #region Constructors
 
@@ -21,8 +21,7 @@ public class TutorialViewModel : ScreenBase
     /// </summary>
     /// <param name="windowManager">The window manager.</param>
     public TutorialViewModel(IWindowManager windowManager)
-        : base(windowManager)
-    {
+    { 
     }
 
     #endregion

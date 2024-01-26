@@ -7,6 +7,7 @@
 namespace PoeLurker.Core.Services;
 
 using PoeLurker.Core.Models;
+using Winook;
 
 /// <summary>
 /// Represents Hotkey service.
@@ -38,7 +39,7 @@ public class HotkeyService
     /// <summary>
     /// Gets or sets the toggle build.
     /// </summary>
-    public ushort ToggleBuild
+    public KeyCode ToggleBuild
     {
         get
         {

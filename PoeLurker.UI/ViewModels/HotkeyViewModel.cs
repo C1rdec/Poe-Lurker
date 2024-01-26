@@ -21,7 +21,7 @@ public class HotkeyViewModel : Caliburn.Micro.PropertyChangedBase
 
     private readonly Hotkey _hotkey;
     private readonly string _name;
-    private readonly Func<string, Task<KeyboardMessageEventArgs>> _getKey;
+    private readonly Func<string, Task<(KeyCode Key, Modifiers Modifier)>> _getKey;
 
     #endregion
 
@@ -33,7 +33,7 @@ public class HotkeyViewModel : Caliburn.Micro.PropertyChangedBase
     /// <param name="name">The name.</param>
     /// <param name="hotkey">The hotkey.</param>
     /// <param name="getKey">The get key.</param>
-    public HotkeyViewModel(string name, Hotkey hotkey, Func<string, Task<KeyboardMessageEventArgs>> getKey)
+    public HotkeyViewModel(string name, Hotkey hotkey, Func<string, Task<(KeyCode Key, Modifiers Modifier)>> getKey)
     {
         _hotkey = hotkey;
         _name = name;
@@ -110,27 +110,15 @@ public class HotkeyViewModel : Caliburn.Micro.PropertyChangedBase
     /// </summary>
     public async void SetKeyCode()
     {
-        var key = await _getKey(NameValue);
-        var code = (KeyCode)key.KeyValue;
+        var value = await _getKey(NameValue);
+        var code = value.Key;
         if (code == KeyCode.Escape)
         {
             return;
         }
 
         KeyCode = code;
-
-        if (key.Control)
-        {
-            Modifier = Modifiers.Control;
-        }
-        else if (key.Alt)
-        {
-            Modifier = Modifiers.Alt;
-        }
-        else if (key.Shift)
-        {
-            Modifier = Modifiers.Shift;
-        }
+        Modifier = value.Modifier;
     }
 
     /// <summary>

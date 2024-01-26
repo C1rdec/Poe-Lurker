@@ -20,9 +20,9 @@ using ProcessLurker;
 /// <summary>
 /// Represents a Poe Overlay.
 /// </summary>
-/// <seealso cref="PoeLurker.UI.ViewModels.ScreenBase" />
+/// <seealso cref="PoeLurker.UI.ViewModels.Screen" />
 /// <seealso cref="Caliburn.Micro.IViewAware" />
-public abstract class PoeOverlayBase : ScreenBase, IViewAware
+public abstract class PoeOverlayBase : Screen, IViewAware
 {
     #region Fields
 
@@ -42,7 +42,6 @@ public abstract class PoeOverlayBase : ScreenBase, IViewAware
     /// <param name="processLurker">The process lurker.</param>
     /// <param name="settingsService">The settings service.</param>
     public PoeOverlayBase(IWindowManager windowManager, DockingHelper dockingHelper, ProcessService processLurker, SettingsService settingsService)
-        : base(windowManager)
     {
         DockingHelper = dockingHelper;
         ProcessLurker = processLurker;

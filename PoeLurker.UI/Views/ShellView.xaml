@@ -7,8 +7,8 @@
         Height="1"
         AllowsTransparency="True"
         Background="Transparent"
+        ShowInTaskbar="{Binding ShowInTaskBar}"
         Topmost="True"
-        Visibility="Hidden"
         WindowStyle="None">
     <Grid Background="Transparent">
         <tb:TaskbarIcon x:Name="myNotifyIcon"

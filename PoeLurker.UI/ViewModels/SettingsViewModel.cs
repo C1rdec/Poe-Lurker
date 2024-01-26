@@ -34,8 +34,8 @@ using Winook;
 /// <summary>
 /// Represents the settings view model.
 /// </summary>
-/// <seealso cref="PoeLurker.UI.ViewModels.ScreenBase" />
-public class SettingsViewModel : ScreenBase
+/// <seealso cref="PoeLurker.UI.ViewModels.Screen" />
+public class SettingsViewModel : Screen
 {
     #region Fields
 
@@ -68,6 +68,7 @@ public class SettingsViewModel : ScreenBase
     private bool _keyboardWaiting;
     private MetroWindow _view;
     private readonly IEnumerable<string> _excludePropertyNames;
+    private WinookService _winookService;
 
     #endregion
 
@@ -88,13 +89,14 @@ public class SettingsViewModel : ScreenBase
         IWindowManager windowManager,
         KeyboardHelper keyboardHelper,
         SettingsService settingsService,
-        HotkeyService hotkeyService,
         SoundService soundService,
+        HotkeyService hotkeyService,
         GithubService githubService,
         PushBulletService pushBulletService,
-        PushHoverService pushHoverService)
-        : base(windowManager)
+        PushHoverService pushHoverService,
+        WinookService winookService)
     {
+        _winookService = winookService;
         _keyboardHelper = keyboardHelper;
         _settingService = settingsService;
         _hotkeyService = hotkeyService;
@@ -1110,11 +1112,11 @@ public class SettingsViewModel : ScreenBase
         }
 
         _keyboardWaiting = true;
-        var task = _keyboardHelper.WaitForNextKeyAsync();
+        var task = _winookService.GetNextKeyAsync();
         await ShowProgress("Waiting input for...", "Toggle build helper", task);
 
-        var key = await task;
-        _hotkeyService.ToggleBuild = key.KeyValue;
+        var value = await task;
+        _hotkeyService.ToggleBuild = value.Key;
         NotifyOfPropertyChange(() => ToggleBuildKeyValue);
         _keyboardWaiting = false;
     }
@@ -1124,15 +1126,15 @@ public class SettingsViewModel : ScreenBase
     /// </summary>
     /// <param name="description">The description.</param>
     /// <returns>The key.</returns>
-    private async Task<KeyboardMessageEventArgs> GetNextKeyCode(string description)
+    private async Task<(KeyCode Key, Modifiers Modifier)> GetNextKeyCode(string description)
     {
         if (_keyboardWaiting)
         {
-            return null;
+            return default;
         }
 
         _keyboardWaiting = true;
-        var task = _keyboardHelper.WaitForNextKeyAsync();
+        var task = _winookService.GetNextKeyAsync();
         await ShowProgress("Waiting input for...", description, task);
 
         var key = await task;
@@ -1315,7 +1317,12 @@ public class SettingsViewModel : ScreenBase
     /// </summary>
     public void UserGuide()
     {
-        Process.Start(@"https://docs.google.com/presentation/d/1XhaSSNAFGxzouc5amzAW8c_6ifToNjnsQq5UmNgLXoo/present?slide=id.p");
+        var psi = new ProcessStartInfo
+        {
+            FileName = @"https://docs.google.com/presentation/d/1XhaSSNAFGxzouc5amzAW8c_6ifToNjnsQq5UmNgLXoo/present?slide=id.p",
+            UseShellExecute = true
+        };
+        Process.Start(psi);
     }
 
     /// <summary>
@@ -1323,7 +1330,12 @@ public class SettingsViewModel : ScreenBase
     /// </summary>
     public void CheatSheet()
     {
-        Process.Start(@"https://github.com/C1rdec/Poe-Lurker/blob/master/assets/CheatSheet.md");
+        var psi = new ProcessStartInfo
+        {
+            FileName = @"https://github.com/C1rdec/Poe-Lurker/blob/master/assets/CheatSheet.md",
+            UseShellExecute = true
+        };
+        Process.Start(psi);
     }
 
     /// <summary>
@@ -1468,35 +1480,35 @@ public class SettingsViewModel : ScreenBase
     {
         HasCustomTradeSound = _soundService.HasCustomTradeAlert();
         HasCustomItemSound = _soundService.HasCustomItemAlert();
-        _activateTask = Task.Run(async () =>
-        {
-            BuildManager.PopulateBuilds();
+        //_activateTask = Task.Run(async () =>
+        //{
+        //    BuildManager.PopulateBuilds();
 
-            //using (var service = new PatreonService())
-            //{
-            //    this.Pledging = await service.IsPledging();
+        //    //using (var service = new PatreonService())
+        //    //{
+        //    //    this.Pledging = await service.IsPledging();
 
-            //    if (!this.Pledging)
-            //    {
-            //        this.TrialAvailable = service.TrialAvailable;
-            //        this.SearchEnabled = false;
-            //        this.DashboardEnabled = false;
-            //        this.MapEnabled = false;
-            //    }
-            //    else
-            //    {
-            //        if (service.IsTrialValid())
-            //        {
-            //            var time = service.GetTrialRemainingTime();
-            //            this.BlessingText = GetBlessingText(time);
-            //        }
-            //        else
-            //        {
-            //            this.BlessingText = "A blessing I can’t deny";
-            //        }
-            //    }
-            //}
-        });
+        //    //    if (!this.Pledging)
+        //    //    {
+        //    //        this.TrialAvailable = service.TrialAvailable;
+        //    //        this.SearchEnabled = false;
+        //    //        this.DashboardEnabled = false;
+        //    //        this.MapEnabled = false;
+        //    //    }
+        //    //    else
+        //    //    {
+        //    //        if (service.IsTrialValid())
+        //    //        {
+        //    //            var time = service.GetTrialRemainingTime();
+        //    //            this.BlessingText = GetBlessingText(time);
+        //    //        }
+        //    //        else
+        //    //        {
+        //    //            this.BlessingText = "A blessing I can’t deny";
+        //    //        }
+        //    //    }
+        //    //}
+        //});
 
         AlertVolume = (int)(_settingService.AlertVolume * 100);
         ItemAlertVolume = (int)(_settingService.ItemAlertVolume * 100);
@@ -1553,9 +1565,9 @@ public class SettingsViewModel : ScreenBase
     /// </summary>
     /// <param name="keyCode">The key code.</param>
     /// <returns>The key value.</returns>
-    private static string ConvertKeyCode(uint keyCode)
+    private static string ConvertKeyCode(KeyCode keyCode)
     {
-        return ((KeyCode)keyCode).ToString();
+        return keyCode.ToString();
     }
 
     /// <summary>
@@ -1642,7 +1654,7 @@ public class SettingsViewModel : ScreenBase
     {
         if (!_excludePropertyNames.Contains(e.PropertyName))
         {
-            if (!_activated || !_activateTask.IsCompleted)
+            if (!_activated)
             {
                 return;
             }
@@ -1655,7 +1667,7 @@ public class SettingsViewModel : ScreenBase
         {
             _settingService.AlertVolume = (float)AlertVolume / 100;
 
-            if (!_activated || !_activateTask.IsCompleted)
+            if (!_activated)
             {
                 return;
             }
@@ -1677,7 +1689,7 @@ public class SettingsViewModel : ScreenBase
         {
             _settingService.ItemAlertVolume = (float)ItemAlertVolume / 100;
 
-            if (!_activated || !_activateTask.IsCompleted)
+            if (!_activated)
             {
                 return;
             }
@@ -1699,7 +1711,7 @@ public class SettingsViewModel : ScreenBase
         {
             _settingService.JoinHideoutVolume = (float)JoinHideoutVolume / 100;
 
-            if (!_activated || !_activateTask.IsCompleted)
+            if (!_activated)
             {
                 return;
             }

@@ -7,6 +7,7 @@
 namespace PoeLurker.Core.Models;
 
 using System.ComponentModel;
+using Winook;
 
 /// <summary>
 /// Represents the key settings.
@@ -18,8 +19,8 @@ public sealed class HotkeySettings
     /// <summary>
     /// Gets or sets the toggle build.
     /// </summary>
-    [DefaultValue(222)]
-    public ushort ToggleBuild { get; set; }
+    [DefaultValue(KeyCode.OemQuotes)]
+    public KeyCode ToggleBuild { get; set; }
 
     /// <summary>
     /// Gets or sets the main.

@@ -24,7 +24,7 @@ using ProcessLurker;
 /// <summary>
 /// Represents the outgoing bar view model.
 /// </summary>
-/// <seealso cref="PoeLurker.UI.ViewModels.ScreenBase" />
+/// <seealso cref="PoeLurker.UI.ViewModels.Screen" />
 /// <seealso cref="Caliburn.Micro.IViewAware" />
 public class OutgoingbarViewModel : PoeOverlayBase
 {

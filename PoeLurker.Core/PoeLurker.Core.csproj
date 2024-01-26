@@ -23,7 +23,7 @@
     <PackageReference Include="HtmlAgilityPack" Version="1.11.57" />
     <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="NLog" Version="5.2.8" />
-    <PackageReference Include="PoeLurker.Patreon" Version="8.0.0" />
+    <PackageReference Include="PoeLurker.Patreon" Version="8.0.3" />
     <PackageReference Include="ProcessLurker" Version="8.0.0" />
     <PackageReference Include="SharpClipboard" Version="3.5.2" />
     <PackageReference Include="Winook" Version="1.3.2" />

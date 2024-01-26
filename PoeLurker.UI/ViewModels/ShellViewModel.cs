@@ -14,6 +14,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Caliburn.Micro;
 using PoeLurker.Core;
 using PoeLurker.Core.Helpers;
@@ -25,6 +26,7 @@ using PoeLurker.Patreon.Services;
 using PoeLurker.UI.Helpers;
 using PoeLurker.UI.Models;
 using PoeLurker.UI.Services;
+using PoeLurker.UI.Views;
 using ProcessLurker;
 
 /// <summary>
@@ -34,6 +36,8 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
 {
     #region Fields
 
+    private Window _parent;
+    private readonly WinookService _winookService;
     private readonly SoundService _soundService;
     private PlayerViewModel _activePlayer;
     private readonly SimpleContainer _container;
@@ -67,6 +71,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     private bool _showUpdateSuccess;
     private bool _closing;
     private Task _openingTask;
+    private IWindowManager _windowManager;
 
     #endregion
 
@@ -82,41 +87,52 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     /// <param name="settingsViewModel">The settings view model.</param>
     /// <param name="soundService">The sound service.</param>
     /// <param name="eventAggregator">The event aggregator.</param>
-    public ShellViewModel()
+    public ShellViewModel(
+        SimpleContainer container, 
+        SettingsService settingsService, 
+        HotkeyService keyCodeService, 
+        BuildService buildService, 
+        SoundService soundService,
+        WinookService winookService,
+        SettingsViewModel settingsViewModel,
+        IEventAggregator eventAggregator,
+        IWindowManager windowManager)
     {
-        //this._soundService = soundService;
-        //this._eventAggregator = eventAggregator;
-        //this._settingsService = settingsService;
-        //this._keyCodeService = keyCodeService;
-        //this._buildService = buildService;
-        //this._container = container;
-        //this._settingsViewModel = settingsViewModel;
+        _windowManager = windowManager;
+        _winookService = winookService;
+        this._soundService = soundService;
+        this._eventAggregator = eventAggregator;
+        this._settingsService = settingsService;
+        this._keyCodeService = keyCodeService;
+        this._buildService = buildService;
+        this._container = container;
+        this._settingsViewModel = settingsViewModel;
 
-        //this._openingTask = this.WaitForPoe(false);
-        //this.StartWithWindows = File.Exists(this.ShortcutFilePath);
-        //this.ShowInTaskBar = true;
-        //this._settingsService.OnSave += this.SettingsService_OnSave;
-        //if (settingsService.FirstLaunch)
-        //{
-        //    if (this.StartWithWindows)
-        //    {
-        //        // RefreshShortcut
-        //        File.Delete(this.ShortcutFilePath);
-        //        this.CreateLink();
-        //    }
+        this._openingTask = this.WaitForPoe(false);
+        this.StartWithWindows = File.Exists(this.ShortcutFilePath);
+        this.ShowInTaskBar = true;
+        this._settingsService.OnSave += this.SettingsService_OnSave;
+        if (settingsService.FirstLaunch)
+        {
+            if (this.StartWithWindows)
+            {
+                // RefreshShortcut
+                File.Delete(this.ShortcutFilePath);
+                this.CreateLink();
+            }
 
-        //    settingsService.FirstLaunch = false;
-        //    this._showUpdateSuccess = true;
-        //    settingsService.Save(false);
+            settingsService.FirstLaunch = false;
+            this._showUpdateSuccess = true;
+            settingsService.Save(false);
 
-        //    if (settingsService.ShowReleaseNote)
-        //    {
-        //        Process.Start("https://github.com/C1rdec/Poe-Lurker/releases/latest");
-        //    }
-        //}
+            if (settingsService.ShowReleaseNote)
+            {
+                Process.Start("https://github.com/C1rdec/Poe-Lurker/releases/latest");
+            }
+        }
 
-        //// this.ActivateItem(IoC.Get<TutorialViewModel>());
-        //this._eventAggregator.SubscribeOnUIThread(this);
+        // this.ActivateItem(IoC.Get<TutorialViewModel>());
+        this._eventAggregator.SubscribeOnUIThread(this);
     }
 
     #endregion
@@ -234,6 +250,34 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
 
     #region Methods
 
+    protected override async void OnViewLoaded(object view)
+    {
+        await Task.Delay(200);
+        await _winookService.InstallAsync();
+
+        ShowInTaskBar = false;
+        HideFromAltTab(view as ShellView);
+    }
+
+    private void HideFromAltTab(Window view)
+    {
+        _parent = new Window
+        {
+            Top = -100,
+            Left = -100,
+            Width = 1,
+            Height = 1,
+
+            // Set window style as ToolWindow to avoid its icon in AltTab
+            WindowStyle = System.Windows.WindowStyle.ToolWindow,
+            ShowInTaskbar = false,
+        };
+
+        _parent.Show();
+        view.Owner = _parent;
+        _parent.Hide();
+    }
+
     /// <summary>
     /// Closes this instance.
     /// </summary>
@@ -309,7 +353,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     /// <summary>
     /// Shows the settings.
     /// </summary>
-    public void ShowSettings()
+    public async void ShowSettings()
     {
         if (_settingsViewModel.IsActive)
         {
@@ -317,7 +361,8 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
             return;
         }
 
-        ActivateItemAsync(_settingsViewModel);
+        //await ActivateItemAsync(_settingsViewModel);
+        await _windowManager.ShowDialogAsync(_settingsViewModel);
     }
 
     /// <summary>

@@ -1,6 +1,8 @@
 ﻿<Application x:Class="PoeLurker.UI.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Converters="clr-namespace:PoeLurker.UI.Converters"
+             xmlns:Models="clr-namespace:Lurker.Patreon.Models;assembly=Lurker.Patreon"
              xmlns:local="clr-namespace:PoeLurker.UI">
     <Application.Resources>
         <ResourceDictionary>
@@ -53,7 +55,7 @@
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
-            <!--<Style BasedOn="{StaticResource PackIconStyle}" TargetType="{x:Type local:IconPack}" />-->
+            <Style BasedOn="{StaticResource PackIconStyle}" TargetType="{x:Type local:IconPack}" />
             <Style x:Key="LabelHeaderStyle"
                    BasedOn="{StaticResource {x:Type Label}}"
                    TargetType="{x:Type Label}">
@@ -117,8 +119,8 @@
                 </Setter>
             </Style>
 
-            <Style x:Key="Currency" TargetType="{x:Type ContentControl}">
-                <!--<Setter Property="Content">
+            <!--<Style x:Key="Currency" TargetType="{x:Type ContentControl}">
+                <Setter Property="Content">
                     <Setter.Value>
                         <Grid>
                             <Image Source="/Assets/Chaos.png" Visibility="{Binding CurrencyType, Converter={Converters:CurrencyTypeConverter}, ConverterParameter={x:Static Models:CurrencyType.Chaos}}" />
@@ -126,9 +128,7 @@
                             <Image Source="/Assets/Mirror.png" Visibility="{Binding CurrencyType, Converter={Converters:CurrencyTypeConverter}, ConverterParameter={x:Static Models:CurrencyType.Mirror}}" />
                             <Image Source="/Assets/Fusing.png" Visibility="{Binding CurrencyType, Converter={Converters:CurrencyTypeConverter}, ConverterParameter={x:Static Models:CurrencyType.Fusing}}" />
                             <Image Source="/Assets/Chromatic.png" Visibility="{Binding CurrencyType, Converter={Converters:CurrencyTypeConverter}, ConverterParameter={x:Static Models:CurrencyType.Chromatic}}" />
-                            <Image Grid.RowSpan="3"
-                                   Source="/Assets/Vaal.png"
-                                   Visibility="{Binding CurrencyType, Converter={Converters:CurrencyTypeConverter}, ConverterParameter={x:Static Models:CurrencyType.Vaal}}" />
+                            <Image Source="/Assets/Vaal.png" Visibility="{Binding CurrencyType, Converter={Converters:CurrencyTypeConverter}, ConverterParameter={x:Static Models:CurrencyType.Vaal}}" />
                             <Image Source="/Assets/Alchemy.png" Visibility="{Binding CurrencyType, Converter={Converters:CurrencyTypeConverter}, ConverterParameter={x:Static Models:CurrencyType.Alchemy}}" />
                             <Image Source="/Assets/Regal.png" Visibility="{Binding CurrencyType, Converter={Converters:CurrencyTypeConverter}, ConverterParameter={x:Static Models:CurrencyType.Regal}}" />
                             <Image Source="/Assets/Divine.png" Visibility="{Binding CurrencyType, Converter={Converters:CurrencyTypeConverter}, ConverterParameter={x:Static Models:CurrencyType.Divine}}" />
@@ -136,8 +136,8 @@
                             <Image Source="/Assets/Jeweller.png" Visibility="{Binding CurrencyType, Converter={Converters:CurrencyTypeConverter}, ConverterParameter={x:Static Models:CurrencyType.Jeweller}}" />
                         </Grid>
                     </Setter.Value>
-                </Setter>-->
-            </Style>
+                </Setter>
+            </Style>-->
         </ResourceDictionary>
     </Application.Resources>
 </Application>
