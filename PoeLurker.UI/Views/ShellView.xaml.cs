@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace Lurker.UI
+namespace PoeLurker.UI.Views
 {
     using System.Windows;
 

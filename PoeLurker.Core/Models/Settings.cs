@@ -12,7 +12,7 @@ using Lurker.AppData;
 /// <summary>
 /// Represents the settings.
 /// </summary>
-public sealed class Settings : AppDataFileBase<Settings>
+public sealed class Settings
 {
     #region Properties
 
@@ -250,10 +250,6 @@ public sealed class Settings : AppDataFileBase<Settings>
     /// </summary>
     [DefaultValue(100)]
     public double OutgoingDelayToClose { get; set; }
-
-    protected override string FileName => "Settings.json";
-
-    protected override string FolderName => "PoeLurker";
 
     #endregion
 }

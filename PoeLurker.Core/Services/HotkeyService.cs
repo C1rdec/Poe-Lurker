@@ -16,7 +16,7 @@ public class HotkeyService
 {
     #region Fields
 
-    private readonly HotkeySettings _settings;
+    private readonly HotkeySettingsFile _settings;
 
     #endregion
 
@@ -27,7 +27,7 @@ public class HotkeyService
     /// </summary>
     public HotkeyService()
     {
-        _settings = new HotkeySettings();
+        _settings = new HotkeySettingsFile();
         _settings.Initialize();
     }
 
@@ -42,12 +42,12 @@ public class HotkeyService
     {
         get
         {
-            return _settings.ToggleBuild;
+            return _settings.Entity.ToggleBuild;
         }
 
         set
         {
-            _settings.ToggleBuild = value;
+            _settings.Entity.ToggleBuild = value;
         }
     }
 
@@ -58,12 +58,12 @@ public class HotkeyService
     {
         get
         {
-            return _settings.Main;
+            return _settings.Entity.Main;
         }
 
         set
         {
-            _settings.Main = value;
+            _settings.Entity.Main = value;
         }
     }
 
@@ -74,12 +74,12 @@ public class HotkeyService
     {
         get
         {
-            return _settings.OpenWiki;
+            return _settings.Entity.OpenWiki;
         }
 
         set
         {
-            _settings.OpenWiki = value;
+            _settings.Entity.OpenWiki = value;
         }
     }
 
@@ -90,12 +90,12 @@ public class HotkeyService
     {
         get
         {
-            return _settings.JoinGuildHideout;
+            return _settings.Entity.JoinGuildHideout;
         }
 
         set
         {
-            _settings.JoinGuildHideout = value;
+            _settings.Entity.JoinGuildHideout = value;
         }
     }
 
@@ -106,12 +106,12 @@ public class HotkeyService
     {
         get
         {
-            return _settings.JoinHideout;
+            return _settings.Entity.JoinHideout;
         }
 
         set
         {
-            _settings.JoinHideout = value;
+            _settings.Entity.JoinHideout = value;
         }
     }
 
@@ -122,12 +122,12 @@ public class HotkeyService
     {
         get
         {
-            return _settings.SearchItem;
+            return _settings.Entity.SearchItem;
         }
 
         set
         {
-            _settings.SearchItem = value;
+            _settings.Entity.SearchItem = value;
         }
     }
 
@@ -138,12 +138,12 @@ public class HotkeyService
     {
         get
         {
-            return _settings.RemainingMonster;
+            return _settings.Entity.RemainingMonster;
         }
 
         set
         {
-            _settings.RemainingMonster = value;
+            _settings.Entity.RemainingMonster = value;
         }
     }
 
@@ -154,12 +154,12 @@ public class HotkeyService
     {
         get
         {
-            return _settings.Busy;
+            return _settings.Entity.Busy;
         }
 
         set
         {
-            _settings.Busy = value;
+            _settings.Entity.Busy = value;
         }
     }
 
@@ -170,12 +170,12 @@ public class HotkeyService
     {
         get
         {
-            return _settings.Whisper;
+            return _settings.Entity.Whisper;
         }
 
         set
         {
-            _settings.Whisper = value;
+            _settings.Entity.Whisper = value;
         }
     }
 
@@ -186,12 +186,12 @@ public class HotkeyService
     {
         get
         {
-            return _settings.Dismiss;
+            return _settings.Entity.Dismiss;
         }
 
         set
         {
-            _settings.Dismiss = value;
+            _settings.Entity.Dismiss = value;
         }
     }
 
@@ -202,12 +202,12 @@ public class HotkeyService
     {
         get
         {
-            return _settings.StillInterested;
+            return _settings.Entity.StillInterested;
         }
 
         set
         {
-            _settings.StillInterested = value;
+            _settings.Entity.StillInterested = value;
         }
     }
 

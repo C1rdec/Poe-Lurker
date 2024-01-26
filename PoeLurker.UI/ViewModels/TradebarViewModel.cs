@@ -632,7 +632,7 @@ namespace PoeLurker.UI.ViewModels
         /// <summary>
         /// Called when activating.
         /// </summary>
-        protected async override void OnActivate()
+        protected async override Task OnActivateAsync(CancellationToken token)
         {
             await this._pushBulletService.CheckPledgeStatus();
             await this._pushHoverService.CheckPledgeStatus();
@@ -652,7 +652,7 @@ namespace PoeLurker.UI.ViewModels
             this._clientLurker.PlayerJoined += this.Lurker_PlayerJoined;
             this._clientLurker.PlayerLeft += this.Lurker_PlayerLeft;
 
-            base.OnActivate();
+            await base.OnActivateAsync(token);
         }
 
         /// <summary>

@@ -129,12 +129,12 @@ namespace PoeLurker.UI.ViewModels
         /// <summary>
         /// Called when activating.
         /// </summary>
-        protected override void OnActivate()
+        protected override Task OnActivateAsync(CancellationToken token)
         {
             this._clientLurker.OutgoingOffer += this.Lurker_OutgoingOffer;
             this._clientLurker.TradeAccepted += this.Lurker_TradeAccepted;
 
-            base.OnActivate();
+            return base.OnActivateAsync(token);
         }
 
         /// <summary>

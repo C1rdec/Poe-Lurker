@@ -161,7 +161,7 @@ namespace PoeLurker.UI.ViewModels
         /// </summary>
         public async void Login()
         {
-            await this._service.Login();
+            await this._service.CheckPledgeStatus();
             if (this._service.Connected)
             {
                 var devices = await this._service.GetDevices();
@@ -209,7 +209,7 @@ namespace PoeLurker.UI.ViewModels
             this.Devices.Clear();
             if (!this._service.Connected)
             {
-                await this._service.Login();
+                await this._service.CheckPledgeStatus();
                 if (!this._service.Connected)
                 {
                     return;

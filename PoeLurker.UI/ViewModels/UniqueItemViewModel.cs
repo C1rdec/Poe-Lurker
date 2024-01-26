@@ -126,14 +126,14 @@ namespace PoeLurker.UI.ViewModels
                 this._justChecked = false;
                 if (this.Selected)
                 {
-                    this._eventAggregator.PublishOnUIThread(new ItemMessage() { Item = this._item });
+                    this._eventAggregator.PublishOnUIThreadAsync(new ItemMessage() { Item = this._item });
                 }
 
                 return;
             }
 
             this.Selected = false;
-            this._eventAggregator.PublishOnUIThread(new ItemMessage() { Item = this._item, Delete = true });
+            this._eventAggregator.PublishOnUIThreadAsync(new ItemMessage() { Item = this._item, Delete = true });
         }
 
         /// <summary>

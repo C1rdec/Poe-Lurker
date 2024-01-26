@@ -71,7 +71,7 @@ namespace PoeLurker.UI.ViewModels
                     return null;
                 }
 
-                return () => this._eventAggregator.PublishOnUIThreadAsync(IoC.Get<DashboardViewModel>());
+                return () => { };
             }
         }
 

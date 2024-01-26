@@ -211,12 +211,13 @@ namespace PoeLurker.UI.ViewModels
         /// <summary>
         /// Closes this instance.
         /// </summary>
-        protected async override void OnActivate()
+        protected async override Task OnActivateAsync(CancellationToken token)
         {
             this._uniques = await this._githubService.Uniques();
-            base.OnActivate();
             this.SetInForeground();
             this._mouseLurker.MouseLeftButtonUp += this.MouseLurker_MouseLeftButtonUp;
+
+            await base.OnActivateAsync(token);
         }
 
         /// <summary>

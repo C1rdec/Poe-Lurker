@@ -33,13 +33,13 @@ namespace PoeLurker.UI.ViewModels
         {
             this._line = line;
             this._ratio = line.ChaosEquivalent;
-            this.Chart = new LineChartViewModel(false, 0);
+            //this.Chart = new LineChartViewModel(false, 0);
 
             var buyPoints = line.BuyLine.Data.Where(d => d.HasValue);
             if (buyPoints.Any())
             {
                 var minimum = Math.Abs(buyPoints.Min().Value);
-                this.Chart.Add("Buy", buyPoints.Select(p => Convert.ToDouble(p + minimum + 1)));
+                //this.Chart.Add("Buy", buyPoints.Select(p => Convert.ToDouble(p + minimum + 1)));
             }
 
             this.TotalChange = $"{line.BuyLine.TotalChange}%";
@@ -64,11 +64,6 @@ namespace PoeLurker.UI.ViewModels
         /// Gets a value indicating whether the Fraction is visible.
         /// </summary>
         public bool HasFraction => this.Fraction != null;
-
-        /// <summary>
-        /// Gets the chart.
-        /// </summary>
-        public LineChartViewModel Chart { get; private set; }
 
         /// <summary>
         /// Gets the total change.

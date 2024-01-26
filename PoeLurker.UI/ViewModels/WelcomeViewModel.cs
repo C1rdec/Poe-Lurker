@@ -53,7 +53,7 @@ namespace PoeLurker.UI.ViewModels
         /// </summary>
         public void CloseWindow()
         {
-            this.TryClose();
+            this.TryCloseAsync();
         }
 
         #endregion

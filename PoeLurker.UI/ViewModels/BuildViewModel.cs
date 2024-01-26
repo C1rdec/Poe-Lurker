@@ -525,7 +525,7 @@ namespace PoeLurker.UI.ViewModels
         /// <summary>
         /// Called when activating.
         /// </summary>
-        protected override void OnActivate()
+        protected override Task OnActivateAsync(CancellationToken token)
         {
             this._mouseLurker.MouseLeftButtonUp += this.MouseLurker_MouseLeftButtonUp;
             this.BuildSelector.BuildSelected += this.BuildSelector_BuildSelected;
@@ -567,7 +567,7 @@ namespace PoeLurker.UI.ViewModels
                 }
             });
 
-            base.OnActivate();
+            return base.OnActivateAsync(token);
         }
 
         /// <summary>

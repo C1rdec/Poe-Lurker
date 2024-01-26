@@ -21,7 +21,7 @@ public class BuildService
 {
     #region Fields
 
-    private readonly BuildManager _buildManager;
+    private readonly BuildManagerFile _buildManager;
 
     #endregion
 
@@ -32,7 +32,7 @@ public class BuildService
     /// </summary>
     public BuildService()
     {
-        _buildManager = new BuildManager();
+        _buildManager = new BuildManagerFile();
         _buildManager.Initialize();
     }
 
@@ -117,7 +117,7 @@ public class BuildService
     /// <param name="build">The build.</param>
     public void AddBuild(SimpleBuild build)
     {
-        _buildManager.Builds.Add(build);
+        _buildManager.Entity.Builds.Add(build);
     }
 
     /// <summary>
@@ -126,17 +126,17 @@ public class BuildService
     /// <param name="id">The identifier.</param>
     public void RemoveBuild(string id)
     {
-        var build = _buildManager.Builds.FirstOrDefault(b => b.Id == id);
+        var build = _buildManager.Entity.Builds.FirstOrDefault(b => b.Id == id);
         if (build != null)
         {
-            _buildManager.Builds.Remove(build);
+            _buildManager.Entity.Builds.Remove(build);
         }
     }
 
     /// <summary>
     /// Gets the builds.
     /// </summary>
-    public IEnumerable<SimpleBuild> Builds => _buildManager.Builds;
+    public IEnumerable<SimpleBuild> Builds => _buildManager.Entity.Builds;
 
     #endregion
 }

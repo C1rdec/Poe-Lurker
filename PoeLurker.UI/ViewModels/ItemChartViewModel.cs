@@ -37,13 +37,13 @@ namespace PoeLurker.UI.ViewModels
             this._item = item;
 
             this.Price = this.PriceInDivine ? line.DivineValue : line.ChaosValue;
-            this.Chart = new LineChartViewModel(false, 0);
+            //this.Chart = new LineChartViewModel(false, 0);
 
             var buyPoints = this._line.PriceLine.Data.Where(d => d.HasValue);
             if (buyPoints.Any())
             {
                 var minimum = Math.Abs(buyPoints.Min().Value);
-                this.Chart.Add("Buy", buyPoints.Select(p => Convert.ToDouble(p + minimum + 1)));
+                //this.Chart.Add("Buy", buyPoints.Select(p => Convert.ToDouble(p + minimum + 1)));
             }
 
             this.TotalChange = $"{this._line.PriceLine.TotalChange}%";
@@ -57,11 +57,6 @@ namespace PoeLurker.UI.ViewModels
         /// Gets the price.
         /// </summary>
         public double Price { get; private set; }
-
-        /// <summary>
-        /// Gets the chart.
-        /// </summary>
-        public LineChartViewModel Chart { get; private set; }
 
         /// <summary>
         /// Gets the total change.

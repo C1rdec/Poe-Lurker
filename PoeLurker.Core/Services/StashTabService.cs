@@ -17,7 +17,7 @@ public class StashTabService
 {
     #region Fields
 
-    private readonly StashTabBank _tabBank;
+    private readonly StashTabBankFile _tabBank;
 
     #endregion
 
@@ -28,13 +28,9 @@ public class StashTabService
     /// </summary>
     public StashTabService()
     {
-        _tabBank = new StashTabBank();
+        _tabBank = new StashTabBankFile();
         _tabBank.Initialize();
     }
-
-    #endregion
-
-    #region Properties
 
     #endregion
 

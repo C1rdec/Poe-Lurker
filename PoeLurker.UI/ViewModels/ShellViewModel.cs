@@ -82,48 +82,41 @@ namespace PoeLurker.UI.ViewModels
         /// <param name="settingsViewModel">The settings view model.</param>
         /// <param name="soundService">The sound service.</param>
         /// <param name="eventAggregator">The event aggregator.</param>
-        public ShellViewModel(
-            SimpleContainer container,
-            SettingsService settingsService,
-            HotkeyService keyCodeService,
-            BuildService buildService,
-            SettingsViewModel settingsViewModel,
-            SoundService soundService,
-            IEventAggregator eventAggregator)
+        public ShellViewModel()
         {
-            this._soundService = soundService;
-            this._eventAggregator = eventAggregator;
-            this._settingsService = settingsService;
-            this._keyCodeService = keyCodeService;
-            this._buildService = buildService;
-            this._container = container;
-            this._settingsViewModel = settingsViewModel;
+            //this._soundService = soundService;
+            //this._eventAggregator = eventAggregator;
+            //this._settingsService = settingsService;
+            //this._keyCodeService = keyCodeService;
+            //this._buildService = buildService;
+            //this._container = container;
+            //this._settingsViewModel = settingsViewModel;
 
-            this._openingTask = this.WaitForPoe(false);
-            this.StartWithWindows = File.Exists(this.ShortcutFilePath);
-            this.ShowInTaskBar = true;
-            this._settingsService.OnSave += this.SettingsService_OnSave;
-            if (settingsService.FirstLaunch)
-            {
-                if (this.StartWithWindows)
-                {
-                    // RefreshShortcut
-                    File.Delete(this.ShortcutFilePath);
-                    this.CreateLink();
-                }
+            //this._openingTask = this.WaitForPoe(false);
+            //this.StartWithWindows = File.Exists(this.ShortcutFilePath);
+            //this.ShowInTaskBar = true;
+            //this._settingsService.OnSave += this.SettingsService_OnSave;
+            //if (settingsService.FirstLaunch)
+            //{
+            //    if (this.StartWithWindows)
+            //    {
+            //        // RefreshShortcut
+            //        File.Delete(this.ShortcutFilePath);
+            //        this.CreateLink();
+            //    }
 
-                settingsService.FirstLaunch = false;
-                this._showUpdateSuccess = true;
-                settingsService.Save(false);
+            //    settingsService.FirstLaunch = false;
+            //    this._showUpdateSuccess = true;
+            //    settingsService.Save(false);
 
-                if (settingsService.ShowReleaseNote)
-                {
-                    Process.Start("https://github.com/C1rdec/Poe-Lurker/releases/latest");
-                }
-            }
+            //    if (settingsService.ShowReleaseNote)
+            //    {
+            //        Process.Start("https://github.com/C1rdec/Poe-Lurker/releases/latest");
+            //    }
+            //}
 
-            // this.ActivateItem(IoC.Get<TutorialViewModel>());
-            this._eventAggregator.Subscribe(this);
+            //// this.ActivateItem(IoC.Get<TutorialViewModel>());
+            //this._eventAggregator.SubscribeOnUIThread(this);
         }
 
         #endregion
@@ -724,7 +717,7 @@ namespace PoeLurker.UI.ViewModels
         private async Task CheckForUpdate()
         {
             var updateManager = IoC.Get<UpdateManager>();
-            this.NeedUpdate = await updateManager.CheckForUpdate();
+            //this.NeedUpdate = await updateManager.CheckForUpdate();
             if (this.NeedUpdate)
             {
                 var message = new ManaBulbMessage()
@@ -741,35 +734,35 @@ namespace PoeLurker.UI.ViewModels
             else if (this._showUpdateSuccess)
             {
                 this._showUpdateSuccess = false;
-                this._eventAggregator.PublishOnUIThreadAsync(new ManaBulbMessage() { IsUpdate = true, View = new UpdateViewModel(UpdateState.Success), DisplayTime = TimeSpan.FromSeconds(5) });
+                await this._eventAggregator.PublishOnUIThreadAsync(new ManaBulbMessage() { IsUpdate = true, View = new UpdateViewModel(UpdateState.Success), DisplayTime = TimeSpan.FromSeconds(5) });
             }
             else
             {
                 Collaboration validCollaboration = null;
-                using (var patreonService = new PatreonService())
-                {
-                    var isPledging = await patreonService.IsPledging();
-                    if (!isPledging)
-                    {
-                        using (var service = new CollaborationService())
-                        {
-                            var collaboration = await service.GetCollaborationAsync();
-                            if (!collaboration.IsExpired())
-                            {
-                                validCollaboration = collaboration;
-                            }
-                        }
-                    }
+                //using (var patreonService = new PatreonService())
+                //{
+                //    var isPledging = await patreonService.IsPledging();
+                //    if (!isPledging)
+                //    {
+                //        using (var service = new CollaborationService())
+                //        {
+                //            var collaboration = await service.GetCollaborationAsync();
+                //            if (!collaboration.IsExpired())
+                //            {
+                //                validCollaboration = collaboration;
+                //            }
+                //        }
+                //    }
 
-                    if (validCollaboration != null)
-                    {
-                        await this._eventAggregator.PublishOnUIThreadAsync(new ManaBulbMessage() { View = new CollaborationViewModel(validCollaboration), Action = validCollaboration.Open, DisplayTime = TimeSpan.FromSeconds(6) });
-                    }
-                    else if (this._settingsService.ShowStartupAnimation || !isPledging)
-                    {
-                        await this._eventAggregator.PublishOnUIThreadAsync(new ManaBulbMessage() { View = new SplashscreenViewModel(this._settingsViewModel, this._eventAggregator), DisplayTime = TimeSpan.FromSeconds(10) });
-                    }
-                }
+                //    if (validCollaboration != null)
+                //    {
+                //        await this._eventAggregator.PublishOnUIThreadAsync(new ManaBulbMessage() { View = new CollaborationViewModel(validCollaboration), Action = validCollaboration.Open, DisplayTime = TimeSpan.FromSeconds(6) });
+                //    }
+                //    else if (this._settingsService.ShowStartupAnimation || !isPledging)
+                //    {
+                //        await this._eventAggregator.PublishOnUIThreadAsync(new ManaBulbMessage() { View = new SplashscreenViewModel(this._settingsViewModel, this._eventAggregator), DisplayTime = TimeSpan.FromSeconds(10) });
+                //    }
+                //}
             }
         }
 

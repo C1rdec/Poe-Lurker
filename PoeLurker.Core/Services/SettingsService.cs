@@ -23,7 +23,7 @@ public class SettingsService
     private static readonly string DefaultBusyMessage = "I'm busy right now I'll send you a party invite.";
     private static readonly string DefaultThankYouMessage = string.Empty;
 
-    private readonly Settings _settings;
+    private readonly SettingsFile _settings;
 
     #endregion
 
@@ -34,12 +34,12 @@ public class SettingsService
     /// </summary>
     public SettingsService()
     {
-        _settings = new Settings();
+        _settings = new SettingsFile();
         _settings.Initialize();
 
-        if (string.IsNullOrEmpty(_settings.UserId))
+        if (string.IsNullOrEmpty(_settings.Entity.UserId))
         {
-            _settings.UserId = Guid.NewGuid().ToString();
+            _settings.Entity.UserId = Guid.NewGuid().ToString();
             Save();
         }
     }
@@ -60,7 +60,7 @@ public class SettingsService
     /// <summary>
     /// Gets the user identifier.
     /// </summary>
-    public string UserId => _settings.UserId;
+    public string UserId => _settings.Entity.UserId;
 
     /// <summary>
     /// Gets or sets the busy message.
@@ -69,12 +69,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.BusyMessage;
+            return _settings.Entity.BusyMessage;
         }
 
         set
         {
-            _settings.BusyMessage = value;
+            _settings.Entity.BusyMessage = value;
         }
     }
 
@@ -85,12 +85,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.SoldMessage;
+            return _settings.Entity.SoldMessage;
         }
 
         set
         {
-            _settings.SoldMessage = value;
+            _settings.Entity.SoldMessage = value;
         }
     }
 
@@ -101,12 +101,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.ThankYouMessage;
+            return _settings.Entity.ThankYouMessage;
         }
 
         set
         {
-            _settings.ThankYouMessage = value;
+            _settings.Entity.ThankYouMessage = value;
         }
     }
 
@@ -117,12 +117,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.FirstLaunch;
+            return _settings.Entity.FirstLaunch;
         }
 
         set
         {
-            _settings.FirstLaunch = value;
+            _settings.Entity.FirstLaunch = value;
         }
     }
 
@@ -133,12 +133,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.ShowWelcome;
+            return _settings.Entity.ShowWelcome;
         }
 
         set
         {
-            _settings.ShowWelcome = value;
+            _settings.Entity.ShowWelcome = value;
         }
     }
 
@@ -149,12 +149,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.StillInterestedMessage;
+            return _settings.Entity.StillInterestedMessage;
         }
 
         set
         {
-            _settings.StillInterestedMessage = value;
+            _settings.Entity.StillInterestedMessage = value;
         }
     }
 
@@ -165,12 +165,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.IncomingTradeEnabled;
+            return _settings.Entity.IncomingTradeEnabled;
         }
 
         set
         {
-            _settings.IncomingTradeEnabled = value;
+            _settings.Entity.IncomingTradeEnabled = value;
         }
     }
 
@@ -181,12 +181,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.OutgoingTradeEnabled;
+            return _settings.Entity.OutgoingTradeEnabled;
         }
 
         set
         {
-            _settings.OutgoingTradeEnabled = value;
+            _settings.Entity.OutgoingTradeEnabled = value;
         }
     }
 
@@ -197,12 +197,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.SearchEnabled;
+            return _settings.Entity.SearchEnabled;
         }
 
         set
         {
-            _settings.SearchEnabled = value;
+            _settings.Entity.SearchEnabled = value;
         }
     }
 
@@ -213,12 +213,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.MapEnabled;
+            return _settings.Entity.MapEnabled;
         }
 
         set
         {
-            _settings.MapEnabled = value;
+            _settings.Entity.MapEnabled = value;
         }
     }
 
@@ -229,12 +229,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.DebugEnabled;
+            return _settings.Entity.DebugEnabled;
         }
 
         set
         {
-            _settings.DebugEnabled = value;
+            _settings.Entity.DebugEnabled = value;
         }
     }
 
@@ -245,12 +245,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.AlertEnabled;
+            return _settings.Entity.AlertEnabled;
         }
 
         set
         {
-            _settings.AlertEnabled = value;
+            _settings.Entity.AlertEnabled = value;
         }
     }
 
@@ -261,12 +261,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.ItemAlertEnabled;
+            return _settings.Entity.ItemAlertEnabled;
         }
 
         set
         {
-            _settings.ItemAlertEnabled = value;
+            _settings.Entity.ItemAlertEnabled = value;
         }
     }
 
@@ -277,12 +277,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.JoinHideoutEnabled;
+            return _settings.Entity.JoinHideoutEnabled;
         }
 
         set
         {
-            _settings.JoinHideoutEnabled = value;
+            _settings.Entity.JoinHideoutEnabled = value;
         }
     }
 
@@ -293,12 +293,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.ToolTipEnabled;
+            return _settings.Entity.ToolTipEnabled;
         }
 
         set
         {
-            _settings.ToolTipEnabled = value;
+            _settings.Entity.ToolTipEnabled = value;
         }
     }
 
@@ -309,12 +309,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.ClipboardEnabled;
+            return _settings.Entity.ClipboardEnabled;
         }
 
         set
         {
-            _settings.ClipboardEnabled = value;
+            _settings.Entity.ClipboardEnabled = value;
         }
     }
 
@@ -325,12 +325,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.AutoKickEnabled;
+            return _settings.Entity.AutoKickEnabled;
         }
 
         set
         {
-            _settings.AutoKickEnabled = value;
+            _settings.Entity.AutoKickEnabled = value;
         }
     }
 
@@ -341,12 +341,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.DashboardEnabled;
+            return _settings.Entity.DashboardEnabled;
         }
 
         set
         {
-            _settings.DashboardEnabled = value;
+            _settings.Entity.DashboardEnabled = value;
         }
     }
 
@@ -357,12 +357,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.AlertVolume;
+            return _settings.Entity.AlertVolume;
         }
 
         set
         {
-            _settings.AlertVolume = value;
+            _settings.Entity.AlertVolume = value;
         }
     }
 
@@ -373,12 +373,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.ItemAlertVolume;
+            return _settings.Entity.ItemAlertVolume;
         }
 
         set
         {
-            _settings.ItemAlertVolume = value;
+            _settings.Entity.ItemAlertVolume = value;
         }
     }
 
@@ -389,12 +389,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.JoinHideoutVolume;
+            return _settings.Entity.JoinHideoutVolume;
         }
 
         set
         {
-            _settings.JoinHideoutVolume = value;
+            _settings.Entity.JoinHideoutVolume = value;
         }
     }
 
@@ -405,12 +405,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.ToolTipDelay;
+            return _settings.Entity.ToolTipDelay;
         }
 
         set
         {
-            _settings.ToolTipDelay = value;
+            _settings.Entity.ToolTipDelay = value;
         }
     }
 
@@ -421,12 +421,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.HideInBackground;
+            return _settings.Entity.HideInBackground;
         }
 
         set
         {
-            _settings.HideInBackground = value;
+            _settings.Entity.HideInBackground = value;
         }
     }
 
@@ -437,12 +437,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.DeleteItemEnabled;
+            return _settings.Entity.DeleteItemEnabled;
         }
 
         set
         {
-            _settings.DeleteItemEnabled = value;
+            _settings.Entity.DeleteItemEnabled = value;
         }
     }
 
@@ -453,12 +453,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.LifeForeground;
+            return _settings.Entity.LifeForeground;
         }
 
         set
         {
-            _settings.LifeForeground = value;
+            _settings.Entity.LifeForeground = value;
         }
     }
 
@@ -469,12 +469,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.TradebarScaling;
+            return _settings.Entity.TradebarScaling;
         }
 
         set
         {
-            _settings.TradebarScaling = value;
+            _settings.Entity.TradebarScaling = value;
         }
     }
 
@@ -485,12 +485,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.ShowStartupAnimation;
+            return _settings.Entity.ShowStartupAnimation;
         }
 
         set
         {
-            _settings.ShowStartupAnimation = value;
+            _settings.Entity.ShowStartupAnimation = value;
         }
     }
 
@@ -501,12 +501,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.VulkanRenderer;
+            return _settings.Entity.VulkanRenderer;
         }
 
         set
         {
-            _settings.VulkanRenderer = value;
+            _settings.Entity.VulkanRenderer = value;
         }
     }
 
@@ -517,12 +517,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.BuildHelper;
+            return _settings.Entity.BuildHelper;
         }
 
         set
         {
-            _settings.BuildHelper = value;
+            _settings.Entity.BuildHelper = value;
         }
     }
 
@@ -533,12 +533,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.SoldDetection;
+            return _settings.Entity.SoldDetection;
         }
 
         set
         {
-            _settings.SoldDetection = value;
+            _settings.Entity.SoldDetection = value;
         }
     }
 
@@ -549,12 +549,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.ShowReleaseNote;
+            return _settings.Entity.ShowReleaseNote;
         }
 
         set
         {
-            _settings.ShowReleaseNote = value;
+            _settings.Entity.ShowReleaseNote = value;
         }
     }
 
@@ -565,12 +565,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.TimelineEnabled;
+            return _settings.Entity.TimelineEnabled;
         }
 
         set
         {
-            _settings.TimelineEnabled = value;
+            _settings.Entity.TimelineEnabled = value;
         }
     }
 
@@ -581,12 +581,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.BuildAutoClose;
+            return _settings.Entity.BuildAutoClose;
         }
 
         set
         {
-            _settings.BuildAutoClose = value;
+            _settings.Entity.BuildAutoClose = value;
         }
     }
 
@@ -597,12 +597,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.GroupBySkill;
+            return _settings.Entity.GroupBySkill;
         }
 
         set
         {
-            _settings.GroupBySkill = value;
+            _settings.Entity.GroupBySkill = value;
         }
     }
 
@@ -613,12 +613,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.SyncBuild;
+            return _settings.Entity.SyncBuild;
         }
 
         set
         {
-            _settings.SyncBuild = value;
+            _settings.Entity.SyncBuild = value;
         }
     }
 
@@ -629,12 +629,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.HideoutEnabled;
+            return _settings.Entity.HideoutEnabled;
         }
 
         set
         {
-            _settings.HideoutEnabled = value;
+            _settings.Entity.HideoutEnabled = value;
         }
     }
 
@@ -645,12 +645,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.GuildHideoutEnabled;
+            return _settings.Entity.GuildHideoutEnabled;
         }
 
         set
         {
-            _settings.GuildHideoutEnabled = value;
+            _settings.Entity.GuildHideoutEnabled = value;
         }
     }
 
@@ -661,12 +661,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.RecentLeagueName;
+            return _settings.Entity.RecentLeagueName;
         }
 
         set
         {
-            _settings.RecentLeagueName = value;
+            _settings.Entity.RecentLeagueName = value;
         }
     }
 
@@ -677,12 +677,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.IgnoreAlreadySold;
+            return _settings.Entity.IgnoreAlreadySold;
         }
 
         set
         {
-            _settings.IgnoreAlreadySold = value;
+            _settings.Entity.IgnoreAlreadySold = value;
         }
     }
 
@@ -693,12 +693,12 @@ public class SettingsService
     {
         get
         {
-            return _settings.OutgoingDelayToClose;
+            return _settings.Entity.OutgoingDelayToClose;
         }
 
         set
         {
-            _settings.OutgoingDelayToClose = value;
+            _settings.Entity.OutgoingDelayToClose = value;
         }
     }
 

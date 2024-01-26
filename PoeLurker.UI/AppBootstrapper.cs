@@ -29,7 +29,6 @@ namespace PoeLurker.UI
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
         private static readonly string Dsn = "https://e92715c769194c3aa7a89d387f488136@sentry.io/2473965";
         private SimpleContainer _container;
-        private IDisposable _sentry;
 
         #endregion
 
@@ -70,7 +69,6 @@ namespace PoeLurker.UI
             this._container.Singleton<GithubService, GithubService>();
 
             this._container.Singleton<SettingsViewModel, SettingsViewModel>();
-            this._container.Singleton<DashboardViewModel, DashboardViewModel>();
             this._container.Singleton<TutorialViewModel, TutorialViewModel>();
             this._container.Singleton<WelcomeViewModel, WelcomeViewModel>();
             this._container.PerRequest<AfkService, AfkService>();
@@ -152,17 +150,6 @@ namespace PoeLurker.UI
         }
 
         /// <summary>
-        /// Override this to add custom behavior on exit.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The event args.</param>
-        protected override void OnExit(object sender, EventArgs e)
-        {
-            this._sentry.Dispose();
-            base.OnExit(sender, e);
-        }
-
-        /// <summary>
         /// Runnings the instance.
         /// </summary>
         /// <returns>The other running instance.</returns>
@@ -202,11 +189,6 @@ namespace PoeLurker.UI
         {
             var exception = e.ExceptionObject as Exception;
             Logger.Error(exception, exception.Message);
-
-            #if !DEBUG
-                SentrySdk.CaptureException(exception);
-            #endif
-            this._sentry.Dispose();
         }
 
         #endregion

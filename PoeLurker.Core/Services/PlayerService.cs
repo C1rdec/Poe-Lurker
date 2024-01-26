@@ -20,7 +20,7 @@ public class PlayerService : IDisposable
     #region Fields
 
     private readonly ClientLurker _clientLurker;
-    private readonly PlayerBank _playerBank;
+    private readonly PlayerBankFile _playerBank;
 
     #endregion
 
@@ -48,7 +48,7 @@ public class PlayerService : IDisposable
             _clientLurker.PlayerLeft += AddExternalPlayer;
         }
 
-        _playerBank = new PlayerBank();
+        _playerBank = new PlayerBankFile();
         _playerBank.Initialize();
     }
 
@@ -59,12 +59,12 @@ public class PlayerService : IDisposable
     /// <summary>
     /// Gets the first player.
     /// </summary>
-    public Player FirstPlayer => _playerBank.Players.FirstOrDefault();
+    public Player FirstPlayer => _playerBank.Entity.Players.FirstOrDefault();
 
     /// <summary>
     /// Gets the players.
     /// </summary>
-    public IEnumerable<Player> Players => _playerBank.Players;
+    public IEnumerable<Player> Players => _playerBank.Entity.Players;
 
     #endregion
 
@@ -105,8 +105,8 @@ public class PlayerService : IDisposable
         var knownPlayer = _playerBank.GetKnownPlayer(player.Name);
         if (knownPlayer != null)
         {
-            var index = _playerBank.Players.IndexOf(knownPlayer);
-            _playerBank.Players.Remove(knownPlayer);
+            var index = _playerBank.Entity.Players.IndexOf(knownPlayer);
+            _playerBank.Entity.Players.Remove(knownPlayer);
             Save();
 
             if (index == 0)
@@ -126,7 +126,7 @@ public class PlayerService : IDisposable
         var knownPlayer = _playerBank.GetKnownPlayer(player.Name);
         if (knownPlayer == null)
         {
-            _playerBank.Players.Add(player);
+            _playerBank.Entity.Players.Add(player);
             Save();
 
             return true;
@@ -170,10 +170,10 @@ public class PlayerService : IDisposable
     /// </summary>
     private void CleanExternalPlayers()
     {
-        var playersToRemove = _playerBank.ExternalPlayers.Where(p => p.Levels.FirstOrDefault() == 0).ToArray();
+        var playersToRemove = _playerBank.Entity.ExternalPlayers.Where(p => p.Levels.FirstOrDefault() == 0).ToArray();
         foreach (var player in playersToRemove)
         {
-            _playerBank.ExternalPlayers.Remove(player);
+            _playerBank.Entity.ExternalPlayers.Remove(player);
         }
 
         Save();
@@ -189,7 +189,7 @@ public class PlayerService : IDisposable
         var player = _playerBank.GetExternalPlayer(e.PlayerName);
         if (player == null)
         {
-            _playerBank.ExternalPlayers.Add(new Player() { Name = e.PlayerName, Levels = [0] });
+            _playerBank.Entity.ExternalPlayers.Add(new Player() { Name = e.PlayerName, Levels = [0] });
             Save();
         }
 
@@ -224,8 +224,8 @@ public class PlayerService : IDisposable
             if (knownPlayer != null)
             {
                 knownPlayer.AddLevel(e.Level);
-                _playerBank.Players.Remove(knownPlayer);
-                _playerBank.Players.Insert(0, knownPlayer);
+                _playerBank.Entity.Players.Remove(knownPlayer);
+                _playerBank.Entity.Players.Insert(0, knownPlayer);
                 PlayerChanged?.Invoke(this, knownPlayer);
                 return;
             }
@@ -254,8 +254,8 @@ public class PlayerService : IDisposable
     /// <param name="player">The player.</param>
     private void RemovePlayer(Player player)
     {
-        _playerBank.Players.Remove(player);
-        PlayerListChanged?.Invoke(this, _playerBank.Players);
+        _playerBank.Entity.Players.Remove(player);
+        PlayerListChanged?.Invoke(this, _playerBank.Entity.Players);
     }
 
     /// <summary>
@@ -264,8 +264,8 @@ public class PlayerService : IDisposable
     /// <param name="player">The player.</param>
     private void InsertPlayer(Player player)
     {
-        _playerBank.Players.Insert(0, player);
-        PlayerListChanged?.Invoke(this, _playerBank.Players);
+        _playerBank.Entity.Players.Insert(0, player);
+        PlayerListChanged?.Invoke(this, _playerBank.Entity.Players);
     }
 
     private void MoveFirst(Player player)
@@ -273,8 +273,8 @@ public class PlayerService : IDisposable
         var knownPlayer = _playerBank.GetKnownPlayer(player.Name);
         if (knownPlayer != null)
         {
-            _playerBank.Players.Remove(knownPlayer);
-            _playerBank.Players.Insert(0, knownPlayer);
+            _playerBank.Entity.Players.Remove(knownPlayer);
+            _playerBank.Entity.Players.Insert(0, knownPlayer);
 
             return;
         }

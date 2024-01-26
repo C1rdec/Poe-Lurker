@@ -44,21 +44,21 @@ namespace PoeLurker.UI.ViewModels
 
             Execute.OnUIThread(async () =>
             {
-                using (var service = new PatreonService())
-                {
-                    var result = await service.IsPledging();
-                    if (result)
-                    {
-                        return;
-                    }
+                //using (var service = new PatreonService())
+                //{
+                //    var result = await service.IsPledging();
+                //    if (result)
+                //    {
+                //        return;
+                //    }
 
-                    this.ShowPatreon = true;
-                    this.TrialAvailable = service.TrialAvailable;
-                    if (!this.TrialAvailable)
-                    {
-                        // this.ShowPatreon = true;
-                    }
-                }
+                //    this.ShowPatreon = true;
+                //    this.TrialAvailable = service.TrialAvailable;
+                //    if (!this.TrialAvailable)
+                //    {
+                //        // this.ShowPatreon = true;
+                //    }
+                //}
             });
         }
 

@@ -1251,9 +1251,9 @@ namespace PoeLurker.UI.ViewModels
         /// </summary>
         public void OpenDashboard()
         {
-            var dashBoard = IoC.Get<DashboardViewModel>();
-            var eventAggregator = IoC.Get<IEventAggregator>();
-            eventAggregator.PublishOnUIThreadAsync(dashBoard);
+            //var dashBoard = IoC.Get<DashboardViewModel>();
+            //var eventAggregator = IoC.Get<IEventAggregator>();
+            //eventAggregator.PublishOnUIThreadAsync(dashBoard);
         }
 
         /// <summary>
@@ -1333,33 +1333,33 @@ namespace PoeLurker.UI.ViewModels
         {
             if (this._currentPatreonService != null)
             {
-                this._currentPatreonService.Cancel();
+                //this._currentPatreonService.Cancel();
                 await Task.Delay(600);
             }
 
             try
             {
-                using (this._currentPatreonService = new PatreonService())
-                {
-                    if (!this._currentPatreonService.IsConnected)
-                    {
-                        await this._currentPatreonService.Login();
-                    }
+                //using (this._currentPatreonService = new PatreonService())
+                //{
+                //    if (!this._currentPatreonService.IsConnected)
+                //    {
+                //        await this._currentPatreonService.Login();
+                //    }
 
-                    this.Pledging = await this._currentPatreonService.IsPledging();
-                    if (this.Pledging)
-                    {
-                        this.TrialAvailable = false;
-                        var time = this._currentPatreonService.GetTrialRemainingTime();
-                        this.BlessingText = GetBlessingText(time);
+                //    this.Pledging = await this._currentPatreonService.IsPledging();
+                //    if (this.Pledging)
+                //    {
+                //        this.TrialAvailable = false;
+                //        var time = this._currentPatreonService.GetTrialRemainingTime();
+                //        this.BlessingText = GetBlessingText(time);
 
-                        this.SearchEnabled = true;
-                        this.MapEnabled = true;
-                        this.DashboardEnabled = true;
-                    }
+                //        this.SearchEnabled = true;
+                //        this.MapEnabled = true;
+                //        this.DashboardEnabled = true;
+                //    }
 
-                    this.NotifyOfPropertyChange("NotConnected");
-                }
+                //    this.NotifyOfPropertyChange("NotConnected");
+                //}
             }
             catch (AuthenticationException)
             {
@@ -1373,22 +1373,22 @@ namespace PoeLurker.UI.ViewModels
         {
             await this.ShowProgress("Hold on", "Preparing the trial...", async () =>
             {
-                using (var service = new PatreonService())
-                {
-                    service.StartTrial();
-                    var pledging = await service.IsPledging();
-                    if (pledging)
-                    {
-                        this.SearchEnabled = true;
-                        this.DashboardEnabled = true;
+                //using (var service = new PatreonService())
+                //{
+                //    service.StartTrial();
+                //    var pledging = await service.IsPledging();
+                //    if (pledging)
+                //    {
+                //        this.SearchEnabled = true;
+                //        this.DashboardEnabled = true;
 
-                        var time = service.GetTrialRemainingTime();
-                        this.BlessingText = GetBlessingText(time);
-                    }
+                //        var time = service.GetTrialRemainingTime();
+                //        this.BlessingText = GetBlessingText(time);
+                //    }
 
-                    this.TrialAvailable = false;
-                    this.Pledging = pledging;
-                }
+                //    this.TrialAvailable = false;
+                //    this.Pledging = pledging;
+                //}
             });
         }
 
@@ -1472,30 +1472,30 @@ namespace PoeLurker.UI.ViewModels
             {
                 this.BuildManager.PopulateBuilds();
 
-                using (var service = new PatreonService())
-                {
-                    this.Pledging = await service.IsPledging();
+                //using (var service = new PatreonService())
+                //{
+                //    this.Pledging = await service.IsPledging();
 
-                    if (!this.Pledging)
-                    {
-                        this.TrialAvailable = service.TrialAvailable;
-                        this.SearchEnabled = false;
-                        this.DashboardEnabled = false;
-                        this.MapEnabled = false;
-                    }
-                    else
-                    {
-                        if (service.IsTrialValid())
-                        {
-                            var time = service.GetTrialRemainingTime();
-                            this.BlessingText = GetBlessingText(time);
-                        }
-                        else
-                        {
-                            this.BlessingText = "A blessing I can’t deny";
-                        }
-                    }
-                }
+                //    if (!this.Pledging)
+                //    {
+                //        this.TrialAvailable = service.TrialAvailable;
+                //        this.SearchEnabled = false;
+                //        this.DashboardEnabled = false;
+                //        this.MapEnabled = false;
+                //    }
+                //    else
+                //    {
+                //        if (service.IsTrialValid())
+                //        {
+                //            var time = service.GetTrialRemainingTime();
+                //            this.BlessingText = GetBlessingText(time);
+                //        }
+                //        else
+                //        {
+                //            this.BlessingText = "A blessing I can’t deny";
+                //        }
+                //    }
+                //}
             });
 
             this.AlertVolume = (int)(this._settingService.AlertVolume * 100);

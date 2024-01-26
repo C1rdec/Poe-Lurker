@@ -9,6 +9,7 @@ namespace PoeLurker.UI.ViewModels
     using System.Linq;
     using PoeLurker.Patreon;
     using PoeLurker.Patreon.Models;
+    using PoeLurker.Patreon.Services;
 
     /// <summary>
     /// `Represents a dangerous map affix.

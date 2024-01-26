@@ -7,12 +7,11 @@
 namespace PoeLurker.Core.Models;
 
 using System.ComponentModel;
-using Lurker.AppData;
 
 /// <summary>
 /// Represents the key settings.
 /// </summary>
-public sealed class HotkeySettings : AppDataFileBase<HotkeySettings>
+public sealed class HotkeySettings
 {
     #region Properties
 
@@ -71,10 +70,6 @@ public sealed class HotkeySettings : AppDataFileBase<HotkeySettings>
     /// Gets or sets the open wiki.
     /// </summary>
     public Hotkey RemainingMonster { get; set; }
-
-    protected override string FileName => "HotKeys.json";
-
-    protected override string FolderName => "PoeLurker";
 
     #endregion
 }
