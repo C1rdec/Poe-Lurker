@@ -10,7 +10,9 @@ using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Policy;
 using Caliburn.Micro;
+using PoeLurker.Core.Extensions;
 using PoeLurker.Core.Models;
 using PoeLurker.Core.Services;
 
@@ -242,7 +244,7 @@ public class BuildConfigurationViewModel : Caliburn.Micro.PropertyChangedBase
     {
         if (SelectedSkillTreeInformation != null && !string.IsNullOrEmpty(SelectedSkillTreeInformation.Url))
         {
-            Process.Start(SelectedSkillTreeInformation.Url);
+            OpenUrl(SelectedSkillTreeInformation.Url);
         }
     }
 
@@ -250,17 +252,13 @@ public class BuildConfigurationViewModel : Caliburn.Micro.PropertyChangedBase
     /// Opens the youtube.
     /// </summary>
     public void OpenYoutube()
-    {
-        OpenUrl(Youtube);
-    }
+        => OpenUrl(Youtube);
 
     /// <summary>
     /// Opens the forum.
     /// </summary>
     public void OpenForum()
-    {
-        OpenUrl(Forum);
-    }
+        => OpenUrl(Forum);
 
     /// <summary>
     /// Opens the URL.
@@ -270,7 +268,7 @@ public class BuildConfigurationViewModel : Caliburn.Micro.PropertyChangedBase
     {
         if (Uri.TryCreate(value, UriKind.Absolute, out Uri _))
         {
-            Process.Start(value);
+            ProcessExtensions.OpenUrl(value);
         }
     }
 

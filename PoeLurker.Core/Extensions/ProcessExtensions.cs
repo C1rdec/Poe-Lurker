@@ -63,4 +63,14 @@ public static class ProcessExtensions
 
         return newProcess.MainWindowHandle;
     }
+
+    public static void OpenUrl(string url)
+    {
+        var psi = new ProcessStartInfo
+        {
+            FileName = url,
+            UseShellExecute = true
+        };
+        Process.Start(psi);
+    }
 }

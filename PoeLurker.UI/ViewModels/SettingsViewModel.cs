@@ -25,6 +25,7 @@ using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Win32;
 using NAudio.Wave;
+using PoeLurker.Core.Extensions;
 using PoeLurker.Core.Helpers;
 using PoeLurker.Core.Services;
 using PoeLurker.Patreon.Services;
@@ -1079,17 +1080,13 @@ public class SettingsViewModel : Screen
     /// Opens the discord.
     /// </summary>
     public void OpenDiscord()
-    {
-        Process.Start("https://discord.com/invite/hQERv7K");
-    }
+        => OpenUrl("https://discord.com/invite/hQERv7K");
 
     /// <summary>
     /// Opens the patreon.
     /// </summary>
     public void OpenPatreon()
-    {
-        Process.Start("https://www.patreon.com/poelurker");
-    }
+        => OpenUrl("https://www.patreon.com/poelurker");
 
     /// <summary>
     /// Activates the window.
@@ -1316,27 +1313,13 @@ public class SettingsViewModel : Screen
     /// Users the guide.
     /// </summary>
     public void UserGuide()
-    {
-        var psi = new ProcessStartInfo
-        {
-            FileName = @"https://docs.google.com/presentation/d/1XhaSSNAFGxzouc5amzAW8c_6ifToNjnsQq5UmNgLXoo/present?slide=id.p",
-            UseShellExecute = true
-        };
-        Process.Start(psi);
-    }
+        => OpenUrl(@"https://docs.google.com/presentation/d/1XhaSSNAFGxzouc5amzAW8c_6ifToNjnsQq5UmNgLXoo/present?slide=id.p");
 
     /// <summary>
     /// Cheats the sheet.
     /// </summary>
     public void CheatSheet()
-    {
-        var psi = new ProcessStartInfo
-        {
-            FileName = @"https://github.com/C1rdec/Poe-Lurker/blob/master/assets/CheatSheet.md",
-            UseShellExecute = true
-        };
-        Process.Start(psi);
-    }
+        => OpenUrl(@"https://github.com/C1rdec/Poe-Lurker/blob/master/assets/CheatSheet.md");
 
     /// <summary>
     /// Logins to patreon.
@@ -1428,7 +1411,7 @@ public class SettingsViewModel : Screen
             return;
         }
 
-        Process.Start("https://www.patreon.com/poelurker");
+        OpenUrl("https://www.patreon.com/poelurker");
     }
 
     /// <summary>
@@ -1800,6 +1783,9 @@ public class SettingsViewModel : Screen
             return coordinator.ShowMessageAsync(this, title, message);
         }
     }
+
+    private void OpenUrl(string url)
+        => ProcessExtensions.OpenUrl(url);
 
     #endregion
 }
