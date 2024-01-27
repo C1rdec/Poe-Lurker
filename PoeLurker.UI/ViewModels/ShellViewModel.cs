@@ -71,7 +71,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     private bool _showUpdateSuccess;
     private bool _closing;
     private Task _openingTask;
-    private IWindowManager _windowManager;
+    private readonly IWindowManager _windowManager;
 
     #endregion
 
@@ -88,10 +88,10 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     /// <param name="soundService">The sound service.</param>
     /// <param name="eventAggregator">The event aggregator.</param>
     public ShellViewModel(
-        SimpleContainer container, 
-        SettingsService settingsService, 
-        HotkeyService keyCodeService, 
-        BuildService buildService, 
+        SimpleContainer container,
+        SettingsService settingsService,
+        HotkeyService keyCodeService,
+        BuildService buildService,
         SoundService soundService,
         WinookService winookService,
         SettingsViewModel settingsViewModel,
@@ -100,29 +100,29 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     {
         _windowManager = windowManager;
         _winookService = winookService;
-        this._soundService = soundService;
-        this._eventAggregator = eventAggregator;
-        this._settingsService = settingsService;
-        this._keyCodeService = keyCodeService;
-        this._buildService = buildService;
-        this._container = container;
-        this._settingsViewModel = settingsViewModel;
+        _soundService = soundService;
+        _eventAggregator = eventAggregator;
+        _settingsService = settingsService;
+        _keyCodeService = keyCodeService;
+        _buildService = buildService;
+        _container = container;
+        _settingsViewModel = settingsViewModel;
 
-        this._openingTask = this.WaitForPoe(false);
-        this.StartWithWindows = File.Exists(this.ShortcutFilePath);
-        this.ShowInTaskBar = true;
-        this._settingsService.OnSave += this.SettingsService_OnSave;
+        _openingTask = WaitForPoe(false);
+        StartWithWindows = File.Exists(ShortcutFilePath);
+        ShowInTaskBar = true;
+        _settingsService.OnSave += SettingsService_OnSave;
         if (settingsService.FirstLaunch)
         {
-            if (this.StartWithWindows)
+            if (StartWithWindows)
             {
                 // RefreshShortcut
-                File.Delete(this.ShortcutFilePath);
-                this.CreateLink();
+                File.Delete(ShortcutFilePath);
+                CreateLink();
             }
 
             settingsService.FirstLaunch = false;
-            this._showUpdateSuccess = true;
+            _showUpdateSuccess = true;
             settingsService.Save(false);
 
             if (settingsService.ShowReleaseNote)
@@ -132,7 +132,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
         }
 
         // this.ActivateItem(IoC.Get<TutorialViewModel>());
-        this._eventAggregator.SubscribeOnUIThread(this);
+        _eventAggregator.SubscribeOnUIThread(this);
     }
 
     #endregion

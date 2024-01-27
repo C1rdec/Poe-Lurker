@@ -41,7 +41,7 @@ public class SettingsViewModel : Screen
 
     private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
     private static readonly string LottieFileName = "LurckerIconSettings.json";
-    private Task _activateTask;
+    private readonly Task _activateTask;
     private bool _trialAvailable;
     private readonly KeyboardHelper _keyboardHelper;
     private readonly SettingsService _settingService;
@@ -68,7 +68,7 @@ public class SettingsViewModel : Screen
     private bool _keyboardWaiting;
     private MetroWindow _view;
     private readonly IEnumerable<string> _excludePropertyNames;
-    private WinookService _winookService;
+    private readonly WinookService _winookService;
 
     #endregion
 

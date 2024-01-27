@@ -21,7 +21,7 @@ public class TutorialViewModel : Screen
     /// </summary>
     /// <param name="windowManager">The window manager.</param>
     public TutorialViewModel(IWindowManager windowManager)
-    { 
+    {
     }
 
     #endregion
