@@ -1,18 +1,34 @@
 ﻿<UserControl x:Class="PoeLurker.UI.Views.TimelineItemView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:PoeLurker.UI.Views"
-             mc:Ignorable="d" 
              xmlns:cal="http://www.caliburnproject.org"
-             d:DesignHeight="450" d:DesignWidth="800">
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:PoeLurker.UI.Views"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
     <Grid>
-        <Popup IsOpen="{Binding IsOpen}" Margin="-100,-10,0,0" x:Name="Popup" Focusable="False" Placement="MousePoint" AllowsTransparency="True">
-            <Border Background="Black" CornerRadius="5" BorderThickness="2" BorderBrush="#e7b577">
+        <Popup x:Name="Popup"
+               Margin="-100,-10,0,0"
+               AllowsTransparency="True"
+               Focusable="False"
+               IsOpen="{Binding IsOpen}"
+               Placement="MousePoint">
+            <Border Background="Black"
+                    BorderBrush="#e7b577"
+                    BorderThickness="2"
+                    CornerRadius="5">
                 <Grid>
-                    <ContentControl Grid.RowSpan="2" Grid.ColumnSpan="2" cal:View.Model="{Binding Path=DetailedView,Mode=OneWay}"/>
-                    <Button Height="20" Width="20" VerticalAlignment="Top" HorizontalAlignment="Right" Background="Red" cal:Message.Attach="[Event Click] = [Action Close]" >
+                    <ContentControl Grid.RowSpan="2"
+                                    Grid.ColumnSpan="2"
+                                    cal:View.Model="{Binding Path=DetailedView, Mode=OneWay}" />
+                    <Button Width="20"
+                            Height="20"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            cal:Message.Attach="[Event Click] = [Action Close]"
+                            Background="Red">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Template">
@@ -21,12 +37,12 @@
                                             <Border CornerRadius="0,0,0,20">
                                                 <Border.Style>
                                                     <Style TargetType="{x:Type Border}">
-                                                        <Setter Property="Background" Value="Gray"/>
-                                                        <Setter Property="Opacity" Value="0.25"/>
+                                                        <Setter Property="Background" Value="Gray" />
+                                                        <Setter Property="Opacity" Value="0.25" />
                                                         <Style.Triggers>
                                                             <Trigger Property="IsMouseOver" Value="True">
                                                                 <Setter Property="Background" Value="Red" />
-                                                                <Setter Property="Opacity" Value="0.75"/>
+                                                                <Setter Property="Opacity" Value="0.75" />
                                                             </Trigger>
                                                         </Style.Triggers>
                                                     </Style>
@@ -41,24 +57,24 @@
                 </Grid>
             </Border>
         </Popup>
-        <Ellipse cal:Message.Attach="[Event MouseDown] = [Action Toggle()]" 
-            Cursor="Hand"
-            HorizontalAlignment="Left"
-            Margin="{Binding Margin}"
-            Height="16"
-            Width="16"
-            StrokeThickness="2">
+        <Ellipse Width="16"
+                 Height="16"
+                 Margin="{Binding Margin}"
+                 HorizontalAlignment="Left"
+                 cal:Message.Attach="[Event MouseDown] = [Action Toggle()]"
+                 Cursor="Hand"
+                 StrokeThickness="2">
             <Ellipse.Style>
                 <Style TargetType="Ellipse">
-                    <Setter Property="Stroke" Value="#757574"/>
-                    <Setter Property="Fill" Value="#757574"/>
+                    <Setter Property="Stroke" Value="#757574" />
+                    <Setter Property="Fill" Value="#757574" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Visited}" Value="true">
-                            <Setter Property="Stroke" Value="Transparent"/>
-                            <Setter Property="Fill" Value="#e7b577"/>
+                            <Setter Property="Stroke" Value="Transparent" />
+                            <Setter Property="Fill" Value="#e7b577" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Reached}" Value="true">
-                            <Setter Property="Stroke" Value="#e7b577"/>
+                            <Setter Property="Stroke" Value="#e7b577" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>

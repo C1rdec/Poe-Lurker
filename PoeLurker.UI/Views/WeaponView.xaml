@@ -1,18 +1,23 @@
 ﻿<UserControl x:Class="PoeLurker.UI.Views.WeaponView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:PoeLurker.UI.Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Border CornerRadius="5" BorderThickness="2" BorderBrush="#e7b577" Height="70" Width="{Binding Width}">
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+    <Border Width="{Binding Width}"
+            Height="70"
+            BorderBrush="#e7b577"
+            BorderThickness="2"
+            CornerRadius="5">
         <Border.Style>
             <Style TargetType="Border">
-                <Setter Property="Background" Value="Black"/>
+                <Setter Property="Background" Value="Black" />
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding ModsSelectionVisible}" Value="True">
-                        <Setter Property="Background" Value="#242424"/>
+                        <Setter Property="Background" Value="#242424" />
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
@@ -20,48 +25,54 @@
         <Grid>
             <Grid x:Name="ElementalGrid" Visibility="{Binding HigherElementalDammage, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="2.5*"></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="2.5*" />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <Viewbox>
-                    <TextBlock Text="{Binding ElementalDps}"
-                               HorizontalAlignment="Center"
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Bottom"
+                               FontFamily="pack://application:,,,/Assets/#Fontin"
                                Foreground="#f63fe6"
-                               VerticalAlignment="Bottom" 
-                               FontFamily="pack://application:,,,/Assets/#Fontin" />
+                               Text="{Binding ElementalDps}" />
                 </Viewbox>
-                <TextBlock Text="{Binding PhysicalDps}"
-                           Grid.Row="1"
-                           HorizontalAlignment="Right" 
+                <TextBlock Grid.Row="1"
+                           Margin="0,-10,10,0"
+                           HorizontalAlignment="Right"
                            VerticalAlignment="Center"
+                           FontFamily="pack://application:,,,/Assets/#Fontin"
                            FontSize="25"
-                           Foreground="Red" 
+                           Foreground="Red"
                            Opacity="0.50"
-                           Margin="0,-10,10,0" 
-                           FontFamily="pack://application:,,,/Assets/#Fontin" />
+                           Text="{Binding PhysicalDps}" />
             </Grid>
             <Grid x:Name="PhysicalGrid" Visibility="{Binding HigherPhysicalDammage, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="2.5*"></RowDefinition>
-                    <RowDefinition ></RowDefinition>
+                    <RowDefinition Height="2.5*" />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <Viewbox>
-                    <TextBlock Text="{Binding PhysicalDps}"
-                               HorizontalAlignment="Center"
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Bottom"
+                               FontFamily="pack://application:,,,/Assets/#Fontin"
                                Foreground="Red"
-                               VerticalAlignment="Bottom" 
-                               FontFamily="pack://application:,,,/Assets/#Fontin" />
+                               Text="{Binding PhysicalDps}" />
                 </Viewbox>
-                <TextBlock Text="{Binding ElementalDps}"
-                           Grid.Row="1"
-                           HorizontalAlignment="Right" 
+                <TextBlock Grid.Row="1"
+                           Margin="0,-10,10,0"
+                           HorizontalAlignment="Right"
                            VerticalAlignment="Center"
+                           FontFamily="pack://application:,,,/Assets/#Fontin"
                            FontSize="25"
-                           Foreground="#f63fe6" 
+                           Foreground="#f63fe6"
                            Opacity="0.50"
-                           Margin="0,-10,10,0" 
-                           FontFamily="pack://application:,,,/Assets/#Fontin" />
-                <Line Grid.Row="1" VerticalAlignment="Bottom" Stroke="Red" StrokeThickness="3" X1="0" Y1="0" X2="{Binding Progress}"></Line>
+                           Text="{Binding ElementalDps}" />
+                <Line Grid.Row="1"
+                      VerticalAlignment="Bottom"
+                      Stroke="Red"
+                      StrokeThickness="3"
+                      X1="0"
+                      X2="{Binding Progress}"
+                      Y1="0" />
             </Grid>
         </Grid>
     </Border>

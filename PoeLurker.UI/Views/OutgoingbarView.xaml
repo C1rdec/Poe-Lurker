@@ -1,51 +1,58 @@
 ﻿<Window x:Class="PoeLurker.UI.Views.OutgoingbarView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:PoeLurker.UI.Views"
-        Topmost="True"
-        mc:Ignorable="d"
-        Background="Transparent"
-        WindowStyle="None"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Title="Lurker"
         AllowsTransparency="True"
+        Background="Transparent"
         ShowInTaskbar="False"
-        Title="Lurker">
+        Topmost="True"
+        WindowStyle="None"
+        mc:Ignorable="d">
     <Grid Visibility="{Binding AnyOffer, Converter={StaticResource BooleanToVisibilityConverter}}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="35"/>
-            <RowDefinition/>
+            <RowDefinition Height="35" />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition Width="0.68*"/>
+            <ColumnDefinition />
+            <ColumnDefinition Width="0.68*" />
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="SearchValue" Height="25" VerticalAlignment="Top" Grid.Column="1" Controls:TextBoxHelper.Watermark="Search" Margin="0,4,0,0" ></TextBox>
+        <TextBox x:Name="SearchValue"
+                 Grid.Column="1"
+                 Height="25"
+                 Margin="0,4,0,0"
+                 VerticalAlignment="Top"
+                 Controls:TextBoxHelper.Watermark="Search" />
         <Border Grid.Row="1" Grid.ColumnSpan="2">
             <Border.Style>
                 <Style TargetType="Border">
-                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Background" Value="Transparent" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding DebugEnabled}" Value="True">
-                            <Setter Property="Background" Value="Green"/>
+                            <Setter Property="Background" Value="Green" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding AnyOffer}" Value="True">
-                            <Setter Property="Background" Value="#212022"/>
+                            <Setter Property="Background" Value="#212022" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </Border.Style>
-            <ScrollViewer  HorizontalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Hidden">
+            <ScrollViewer HorizontalScrollBarVisibility="Hidden"
+                          PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"
+                          VerticalScrollBarVisibility="Hidden">
                 <ItemsControl x:Name="FilteredOffers">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <StackPanel Orientation="Vertical"/>
+                            <StackPanel Orientation="Vertical" />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
             </ScrollViewer>
         </Border>
-        
+
     </Grid>
 </Window>

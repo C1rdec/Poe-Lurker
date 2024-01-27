@@ -2,213 +2,189 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Converters="clr-namespace:PoeLurker.UI.Converters"
-             xmlns:Models="clr-namespace:PoeLurker.Patreon.Models;assembly=PoeLurker.Patreon"
              xmlns:Local="clr-namespace:PoeLurker.UI.ViewModels"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Models="clr-namespace:PoeLurker.Patreon.Models;assembly=PoeLurker.Patreon"
              xmlns:cal="http://www.caliburnproject.org"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:PoeLurker.UI"
-             mc:Ignorable="d" 
-             d:DesignHeight="65" d:DesignWidth="65">
-    <Border BorderThickness="2" CornerRadius="4" cal:Message.Attach="[Event PreviewMouseDownEvent] = [Action OnMouseDown]; [Event PreviewMouseUpEvent] = [Action OnMouseUp] ; [Event MouseLeave] = [Action OnMouseLeave]">
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="65"
+             d:DesignWidth="65"
+             mc:Ignorable="d">
+    <Border cal:Message.Attach="[Event PreviewMouseDownEvent] = [Action OnMouseDown]; [Event PreviewMouseUpEvent] = [Action OnMouseUp] ; [Event MouseLeave] = [Action OnMouseLeave]"
+            BorderThickness="2"
+            CornerRadius="4">
         <Border.Style>
             <Style TargetType="Border">
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding Active}" Value="True">
-                        <Setter Property="BorderBrush" Value="#e7b577"/>
-                        <Setter Property="Background" Value="#e7b577"/>
+                        <Setter Property="BorderBrush" Value="#e7b577" />
+                        <Setter Property="Background" Value="#e7b577" />
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
         </Border.Style>
-        <Button x:Name="MainAction" 
+        <Button x:Name="MainAction"
+                MinWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                MaxWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
                 Cursor="Hand"
-            ToolTipService.InitialShowDelay="{Binding ToolTipDelay}"
-            MinWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-            MaxWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
+                ToolTipService.InitialShowDelay="{Binding ToolTipDelay}">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border CornerRadius="4" cal:Message.Attach="[Event MouseRightButtonUpEvent] = [Action RightClick]">
+                    <Border cal:Message.Attach="[Event MouseRightButtonUpEvent] = [Action RightClick]" CornerRadius="4">
                         <Border.Style>
                             <Style TargetType="{x:Type Border}">
-                                <Setter Property="Background" Value="#BDC2BF"/>
+                                <Setter Property="Background" Value="#BDC2BF" />
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#E3E7D3"/>
+                                        <Setter Property="Background" Value="#E3E7D3" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
                         </Border.Style>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition MaxHeight="{Binding ButtonHeight}"></RowDefinition>
-                                <RowDefinition></RowDefinition>
+                                <RowDefinition MaxHeight="{Binding ButtonHeight}" />
+                                <RowDefinition />
                             </Grid.RowDefinitions>
-                            <Popup IsOpen="{Binding ShowDetail}"
-                                   Placement="Top" 
-                                   AllowsTransparency="True" 
+                            <Popup Width="{Binding ActualHeight, ElementName=MainAction}"
                                    Height="{Binding ActualHeight, ElementName=MainAction}"
-                                   Width="{Binding ActualHeight, ElementName=MainAction}"
+                                   AllowsTransparency="True"
+                                   IsOpen="{Binding ShowDetail}"
+                                   Placement="Top"
                                    PopupAnimation="Slide">
-                                <UserControl x:Name="Details" cal:View.Model="{Binding Path=Details,Mode=OneWay}"></UserControl>
+                                <UserControl x:Name="Details" cal:View.Model="{Binding Path=Details, Mode=OneWay}" />
                             </Popup>
-                            <Grid Visibility="{Binding NotSold, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.ColumnSpan="3" Grid.RowSpan="2">
+                            <Grid Grid.RowSpan="2"
+                                  Grid.ColumnSpan="3"
+                                  Visibility="{Binding NotSold, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="auto" />
                                 </Grid.RowDefinitions>
                                 <Border Grid.Row="2" CornerRadius="0,0,4,4">
                                     <Border.Style>
                                         <Style TargetType="{x:Type Border}">
-                                            <Setter Property="Background" Value="#747771"/>
+                                            <Setter Property="Background" Value="#747771" />
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Binding Status}" Value="{x:Static Local:OfferStatus.Invited}">
-                                                    <Setter Property="Background" Value="Blue"/>
+                                                    <Setter Property="Background" Value="Blue" />
                                                 </DataTrigger>
                                                 <DataTrigger Binding="{Binding Status}" Value="{x:Static Local:OfferStatus.Traded}">
-                                                    <Setter Property="Background" Value="Green"/>
+                                                    <Setter Property="Background" Value="Green" />
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
                                     </Border.Style>
                                 </Border>
                                 <Image Grid.RowSpan="3"
-                                            Source="/Assets/Chaos.png"
-                                            Height="{Binding ActualHeight, ElementName=MainAction}"
-                                            Width="{Binding ActualWidth, ElementName=MainAction}"
-                                            Visibility="{Binding CurrencyType,
-                                            Converter={Converters:CurrencyTypeConverter}, 
-                                            ConverterParameter={x:Static Models:CurrencyType.Chaos}}"/>
+                                       Width="{Binding ActualWidth, ElementName=MainAction}"
+                                       Height="{Binding ActualHeight, ElementName=MainAction}"
+                                       Source="/Assets/Chaos.png"
+                                       Visibility="{Binding CurrencyType, Converter={Converters:CurrencyTypeConverter}, ConverterParameter={x:Static Models:CurrencyType.Chaos}}" />
                                 <Image Grid.RowSpan="3"
-                                            Source="/Assets/Exalted.png"
-                                            Height="{Binding ActualHeight, ElementName=MainAction}"
-                                            Width="{Binding ActualWidth, ElementName=MainAction}"
-                                            Visibility="{Binding CurrencyType,
-                                            Converter={Converters:CurrencyTypeConverter}, 
-                                            ConverterParameter={x:Static Models:CurrencyType.Exalted}}"/>
+                                       Width="{Binding ActualWidth, ElementName=MainAction}"
+                                       Height="{Binding ActualHeight, ElementName=MainAction}"
+                                       Source="/Assets/Exalted.png"
+                                       Visibility="{Binding CurrencyType, Converter={Converters:CurrencyTypeConverter}, ConverterParameter={x:Static Models:CurrencyType.Exalted}}" />
                                 <Image Grid.RowSpan="3"
-                                            Source="/Assets/Mirror.png"
-                                            Height="{Binding ActualHeight, ElementName=MainAction}"
-                                            Width="{Binding ActualWidth, ElementName=MainAction}"
-                                            Visibility="{Binding CurrencyType,
-                                            Converter={Converters:CurrencyTypeConverter}, 
-                                            ConverterParameter={x:Static Models:CurrencyType.Mirror}}"/>
+                                       Width="{Binding ActualWidth, ElementName=MainAction}"
+                                       Height="{Binding ActualHeight, ElementName=MainAction}"
+                                       Source="/Assets/Mirror.png"
+                                       Visibility="{Binding CurrencyType, Converter={Converters:CurrencyTypeConverter}, ConverterParameter={x:Static Models:CurrencyType.Mirror}}" />
                                 <Image Grid.RowSpan="3"
-                                            Source="/Assets/Fusing.png"
-                                            Height="{Binding ActualHeight, ElementName=MainAction}"
-                                            Width="{Binding ActualWidth, ElementName=MainAction}"
-                                            Visibility="{Binding CurrencyType,
-                                            Converter={Converters:CurrencyTypeConverter}, 
-                                            ConverterParameter={x:Static Models:CurrencyType.Fusing}}"/>
+                                       Width="{Binding ActualWidth, ElementName=MainAction}"
+                                       Height="{Binding ActualHeight, ElementName=MainAction}"
+                                       Source="/Assets/Fusing.png"
+                                       Visibility="{Binding CurrencyType, Converter={Converters:CurrencyTypeConverter}, ConverterParameter={x:Static Models:CurrencyType.Fusing}}" />
                                 <Image Grid.RowSpan="3"
-                                            Source="/Assets/Chromatic.png"
-                                            Height="{Binding ActualHeight, ElementName=MainAction}"
-                                            Width="{Binding ActualWidth, ElementName=MainAction}"
-                                            Visibility="{Binding CurrencyType,
-                                            Converter={Converters:CurrencyTypeConverter}, 
-                                            ConverterParameter={x:Static Models:CurrencyType.Chromatic}}"/>
+                                       Width="{Binding ActualWidth, ElementName=MainAction}"
+                                       Height="{Binding ActualHeight, ElementName=MainAction}"
+                                       Source="/Assets/Chromatic.png"
+                                       Visibility="{Binding CurrencyType, Converter={Converters:CurrencyTypeConverter}, ConverterParameter={x:Static Models:CurrencyType.Chromatic}}" />
                                 <Image Grid.RowSpan="3"
-                                            Source="/Assets/Vaal.png"
-                                            Height="{Binding ActualHeight, ElementName=MainAction}"
-                                            Width="{Binding ActualWidth, ElementName=MainAction}"
-                                            Visibility="{Binding CurrencyType,
-                                            Converter={Converters:CurrencyTypeConverter}, 
-                                            ConverterParameter={x:Static Models:CurrencyType.Vaal}}"/>
+                                       Width="{Binding ActualWidth, ElementName=MainAction}"
+                                       Height="{Binding ActualHeight, ElementName=MainAction}"
+                                       Source="/Assets/Vaal.png"
+                                       Visibility="{Binding CurrencyType, Converter={Converters:CurrencyTypeConverter}, ConverterParameter={x:Static Models:CurrencyType.Vaal}}" />
                                 <Image Grid.RowSpan="3"
-                                            Source="/Assets/Alchemy.png"
-                                            Height="{Binding ActualHeight, ElementName=MainAction}"
-                                            Width="{Binding ActualWidth, ElementName=MainAction}"
-                                            Visibility="{Binding CurrencyType,
-                                            Converter={Converters:CurrencyTypeConverter}, 
-                                            ConverterParameter={x:Static Models:CurrencyType.Alchemy}}"/>
+                                       Width="{Binding ActualWidth, ElementName=MainAction}"
+                                       Height="{Binding ActualHeight, ElementName=MainAction}"
+                                       Source="/Assets/Alchemy.png"
+                                       Visibility="{Binding CurrencyType, Converter={Converters:CurrencyTypeConverter}, ConverterParameter={x:Static Models:CurrencyType.Alchemy}}" />
                                 <Image Grid.RowSpan="3"
-                                            Source="/Assets/Regal.png"
-                                            Height="{Binding ActualHeight, ElementName=MainAction}"
-                                            Width="{Binding ActualWidth, ElementName=MainAction}"
-                                            Visibility="{Binding CurrencyType,
-                                            Converter={Converters:CurrencyTypeConverter}, 
-                                            ConverterParameter={x:Static Models:CurrencyType.Regal}}"/>
+                                       Width="{Binding ActualWidth, ElementName=MainAction}"
+                                       Height="{Binding ActualHeight, ElementName=MainAction}"
+                                       Source="/Assets/Regal.png"
+                                       Visibility="{Binding CurrencyType, Converter={Converters:CurrencyTypeConverter}, ConverterParameter={x:Static Models:CurrencyType.Regal}}" />
                                 <Image Grid.RowSpan="3"
-                                            Source="/Assets/Divine.png"
-                                            Height="{Binding ActualHeight, ElementName=MainAction}"
-                                            Width="{Binding ActualWidth, ElementName=MainAction}"
-                                            Visibility="{Binding CurrencyType,
-                                            Converter={Converters:CurrencyTypeConverter}, 
-                                            ConverterParameter={x:Static Models:CurrencyType.Divine}}"/>
+                                       Width="{Binding ActualWidth, ElementName=MainAction}"
+                                       Height="{Binding ActualHeight, ElementName=MainAction}"
+                                       Source="/Assets/Divine.png"
+                                       Visibility="{Binding CurrencyType, Converter={Converters:CurrencyTypeConverter}, ConverterParameter={x:Static Models:CurrencyType.Divine}}" />
                                 <Image Grid.RowSpan="3"
-                                            Source="/Assets/Alteration.png"
-                                            Height="{Binding ActualHeight, ElementName=MainAction}"
-                                            Width="{Binding ActualWidth, ElementName=MainAction}"
-                                            Visibility="{Binding CurrencyType,
-                                            Converter={Converters:CurrencyTypeConverter}, 
-                                            ConverterParameter={x:Static Models:CurrencyType.Alteration}}"/>
+                                       Width="{Binding ActualWidth, ElementName=MainAction}"
+                                       Height="{Binding ActualHeight, ElementName=MainAction}"
+                                       Source="/Assets/Alteration.png"
+                                       Visibility="{Binding CurrencyType, Converter={Converters:CurrencyTypeConverter}, ConverterParameter={x:Static Models:CurrencyType.Alteration}}" />
                                 <Image Grid.RowSpan="3"
-                                            Source="/Assets/Jeweller.png"
-                                            Height="{Binding ActualHeight, ElementName=MainAction}"
-                                            Width="{Binding ActualWidth, ElementName=MainAction}"
-                                            Visibility="{Binding CurrencyType,
-                                            Converter={Converters:CurrencyTypeConverter}, 
-                                            ConverterParameter={x:Static Models:CurrencyType.Jeweller}}"/>
+                                       Width="{Binding ActualWidth, ElementName=MainAction}"
+                                       Height="{Binding ActualHeight, ElementName=MainAction}"
+                                       Source="/Assets/Jeweller.png"
+                                       Visibility="{Binding CurrencyType, Converter={Converters:CurrencyTypeConverter}, ConverterParameter={x:Static Models:CurrencyType.Jeweller}}" />
                                 <Image Grid.RowSpan="3"
-                                            Source="/Assets/Scouring.png"
-                                            Height="{Binding ActualHeight, ElementName=MainAction}"
-                                            Width="{Binding ActualWidth, ElementName=MainAction}"
-                                            Visibility="{Binding CurrencyType,
-                                            Converter={Converters:CurrencyTypeConverter}, 
-                                            ConverterParameter={x:Static Models:CurrencyType.Scouring}}"/>
+                                       Width="{Binding ActualWidth, ElementName=MainAction}"
+                                       Height="{Binding ActualHeight, ElementName=MainAction}"
+                                       Source="/Assets/Scouring.png"
+                                       Visibility="{Binding CurrencyType, Converter={Converters:CurrencyTypeConverter}, ConverterParameter={x:Static Models:CurrencyType.Scouring}}" />
                                 <Image Grid.RowSpan="3"
-                                            Source="/Assets/Chance.png"
-                                            Height="{Binding ActualHeight, ElementName=MainAction}"
-                                            Width="{Binding ActualWidth, ElementName=MainAction}"
-                                            Visibility="{Binding CurrencyType,
-                                            Converter={Converters:CurrencyTypeConverter}, 
-                                            ConverterParameter={x:Static Models:CurrencyType.Chance}}"/>
+                                       Width="{Binding ActualWidth, ElementName=MainAction}"
+                                       Height="{Binding ActualHeight, ElementName=MainAction}"
+                                       Source="/Assets/Chance.png"
+                                       Visibility="{Binding CurrencyType, Converter={Converters:CurrencyTypeConverter}, ConverterParameter={x:Static Models:CurrencyType.Chance}}" />
                                 <Image Grid.RowSpan="3"
-                                            Source="/Assets/Gemcutter.png"
-                                            Height="{Binding ActualHeight, ElementName=MainAction}"
-                                            Width="{Binding ActualWidth, ElementName=MainAction}"
-                                            Visibility="{Binding CurrencyType,
-                                            Converter={Converters:CurrencyTypeConverter}, 
-                                            ConverterParameter={x:Static Models:CurrencyType.Gemcutter}}"/>
+                                       Width="{Binding ActualWidth, ElementName=MainAction}"
+                                       Height="{Binding ActualHeight, ElementName=MainAction}"
+                                       Source="/Assets/Gemcutter.png"
+                                       Visibility="{Binding CurrencyType, Converter={Converters:CurrencyTypeConverter}, ConverterParameter={x:Static Models:CurrencyType.Gemcutter}}" />
                                 <Image Grid.RowSpan="3"
-                                            Source="/Assets/Chisel.png"
-                                            Height="{Binding ActualHeight, ElementName=MainAction}"
-                                            Width="{Binding ActualWidth, ElementName=MainAction}"
-                                            Visibility="{Binding CurrencyType,
-                                            Converter={Converters:CurrencyTypeConverter}, 
-                                            ConverterParameter={x:Static Models:CurrencyType.Chisel}}"/>
+                                       Width="{Binding ActualWidth, ElementName=MainAction}"
+                                       Height="{Binding ActualHeight, ElementName=MainAction}"
+                                       Source="/Assets/Chisel.png"
+                                       Visibility="{Binding CurrencyType, Converter={Converters:CurrencyTypeConverter}, ConverterParameter={x:Static Models:CurrencyType.Chisel}}" />
                                 <Image Grid.RowSpan="3"
-                                            Source="/Assets/Sextant.png"
-                                            Height="{Binding ActualHeight, ElementName=MainAction}"
-                                            Width="{Binding ActualWidth, ElementName=MainAction}"
-                                            Visibility="{Binding CurrencyType,
-                                            Converter={Converters:CurrencyTypeConverter}, 
-                                            ConverterParameter={x:Static Models:CurrencyType.Sextant}}"/>
-                                <local:IconPack HorizontalAlignment="Left"
-                                            VerticalAlignment="Center"
-                                            Foreground="White"
-                                            Grid.Row="2"
-                                            Visibility="{Binding BuyerInSameInstance, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                            Height="15"
-                                            Width="15"
-                                            Data="{x:Static local:IconPackData.InInstance}"/>
-                                <TextBlock TextTrimming="CharacterEllipsis"
-                               HorizontalAlignment="Right" 
-                               Foreground="White" 
-                               VerticalAlignment="Bottom"
-                               Margin="0,0,4,0" Grid.Row="2" FontSize="{Binding FontSize}" FontWeight="Bold">
+                                       Width="{Binding ActualWidth, ElementName=MainAction}"
+                                       Height="{Binding ActualHeight, ElementName=MainAction}"
+                                       Source="/Assets/Sextant.png"
+                                       Visibility="{Binding CurrencyType, Converter={Converters:CurrencyTypeConverter}, ConverterParameter={x:Static Models:CurrencyType.Sextant}}" />
+                                <local:IconPack Grid.Row="2"
+                                                Width="15"
+                                                Height="15"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Data="{x:Static local:IconPackData.InInstance}"
+                                                Foreground="White"
+                                                Visibility="{Binding BuyerInSameInstance, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                <TextBlock Grid.Row="2"
+                                           Margin="0,0,4,0"
+                                           HorizontalAlignment="Right"
+                                           VerticalAlignment="Bottom"
+                                           FontSize="{Binding FontSize}"
+                                           FontWeight="Bold"
+                                           Foreground="White"
+                                           TextTrimming="CharacterEllipsis">
                                     <TextBlock.Style>
                                         <Style TargetType="{x:Type TextBlock}">
-                                            <Setter Property="Text" Value="{Binding NumberOffCurrency}"/>
+                                            <Setter Property="Text" Value="{Binding NumberOffCurrency}" />
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Binding NumberOffCurrency}" Value="0">
-                                                    <Setter Property="Text" Value="{Binding ItemName}"/>
+                                                    <Setter Property="Text" Value="{Binding ItemName}" />
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
@@ -224,20 +200,20 @@
                                                     <Border CornerRadius="4,0,20,0">
                                                         <Border.Style>
                                                             <Style TargetType="{x:Type Border}">
-                                                                <Setter Property="Background" Value="Gray"/>
-                                                                <Setter Property="Opacity" Value="0.25"/>
+                                                                <Setter Property="Background" Value="Gray" />
+                                                                <Setter Property="Opacity" Value="0.25" />
                                                                 <Style.Triggers>
                                                                     <Trigger Property="IsMouseOver" Value="True">
                                                                         <Setter Property="Background" Value="Blue" />
-                                                                        <Setter Property="Opacity" Value="0.75"/>
+                                                                        <Setter Property="Opacity" Value="0.75" />
                                                                     </Trigger>
                                                                     <MultiDataTrigger>
                                                                         <MultiDataTrigger.Conditions>
-                                                                            <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="False"/>
-                                                                            <Condition Binding="{Binding Waiting}" Value="True"/>
+                                                                            <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="False" />
+                                                                            <Condition Binding="{Binding Waiting}" Value="True" />
                                                                         </MultiDataTrigger.Conditions>
                                                                         <Setter Property="Background" Value="Blue" />
-                                                                        <Setter Property="Opacity" Value="0.75"/>
+                                                                        <Setter Property="Opacity" Value="0.75" />
                                                                     </MultiDataTrigger>
                                                                 </Style.Triggers>
                                                             </Style>
@@ -248,20 +224,22 @@
                                         </Setter>
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="True">
-                                                <Setter Property="Visibility" Value="Visible"/>
+                                                <Setter Property="Visibility" Value="Visible" />
                                             </DataTrigger>
                                             <MultiDataTrigger>
                                                 <MultiDataTrigger.Conditions>
-                                                    <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="False"/>
-                                                    <Condition Binding="{Binding Waiting}" Value="False"/>
+                                                    <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="False" />
+                                                    <Condition Binding="{Binding Waiting}" Value="False" />
                                                 </MultiDataTrigger.Conditions>
-                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Setter Property="Visibility" Value="Collapsed" />
                                             </MultiDataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                 </Button.Style>
                             </Button>
-                            <Button Grid.Column="2" Background="Red" cal:Message.Attach="[Event Click] = [Action Remove]" >
+                            <Button Grid.Column="2"
+                                    cal:Message.Attach="[Event Click] = [Action Remove]"
+                                    Background="Red">
                                 <Button.Style>
                                     <Style TargetType="Button">
                                         <Setter Property="Template">
@@ -270,12 +248,12 @@
                                                     <Border CornerRadius="0,4,0,20">
                                                         <Border.Style>
                                                             <Style TargetType="{x:Type Border}">
-                                                                <Setter Property="Background" Value="Gray"/>
-                                                                <Setter Property="Opacity" Value="0.25"/>
+                                                                <Setter Property="Background" Value="Gray" />
+                                                                <Setter Property="Opacity" Value="0.25" />
                                                                 <Style.Triggers>
                                                                     <Trigger Property="IsMouseOver" Value="True">
                                                                         <Setter Property="Background" Value="Red" />
-                                                                        <Setter Property="Opacity" Value="0.75"/>
+                                                                        <Setter Property="Opacity" Value="0.75" />
                                                                     </Trigger>
                                                                 </Style.Triggers>
                                                             </Style>
@@ -286,17 +264,20 @@
                                         </Setter>
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="True">
-                                                <Setter Property="Visibility" Value="Visible"/>
+                                                <Setter Property="Visibility" Value="Visible" />
                                             </DataTrigger>
                                             <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="False">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Setter Property="Visibility" Value="Collapsed" />
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                 </Button.Style>
                             </Button>
 
-                            <Button Grid.Column="0" Visibility="{Binding AlreadySold, Converter={StaticResource BooleanToVisibilityConverter}}" Background="Blue" cal:Message.Attach="[Event Click] = [Action DismissCart]" >
+                            <Button Grid.Column="0"
+                                    cal:Message.Attach="[Event Click] = [Action DismissCart]"
+                                    Background="Blue"
+                                    Visibility="{Binding AlreadySold, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <Button.Style>
                                     <Style TargetType="Button">
                                         <Setter Property="Template">
@@ -305,12 +286,12 @@
                                                     <Border CornerRadius="4,0,20,0">
                                                         <Border.Style>
                                                             <Style TargetType="{x:Type Border}">
-                                                                <Setter Property="Background" Value="Gray"/>
-                                                                <Setter Property="Opacity" Value="0.25"/>
+                                                                <Setter Property="Background" Value="Gray" />
+                                                                <Setter Property="Opacity" Value="0.25" />
                                                                 <Style.Triggers>
                                                                     <Trigger Property="IsMouseOver" Value="True">
                                                                         <Setter Property="Background" Value="Blue" />
-                                                                        <Setter Property="Opacity" Value="0.75"/>
+                                                                        <Setter Property="Opacity" Value="0.75" />
                                                                     </Trigger>
                                                                 </Style.Triggers>
                                                             </Style>
@@ -321,23 +302,23 @@
                                         </Setter>
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="True">
-                                                <Setter Property="Visibility" Value="Visible"/>
+                                                <Setter Property="Visibility" Value="Visible" />
                                             </DataTrigger>
                                             <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="False">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Setter Property="Visibility" Value="Collapsed" />
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                 </Button.Style>
                             </Button>
-                            <local:IconPack Grid.ColumnSpan="3"
-                                            Grid.RowSpan="2"
-                                            Foreground="Red"
-                                            FontWeight="Bold"
-                                            Visibility="{Binding AlreadySold, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            <local:IconPack Grid.RowSpan="2"
+                                            Grid.ColumnSpan="3"
                                             Width="30"
                                             Height="30"
-                                            Data="{x:Static local:IconPackData.Sold}"/>
+                                            Data="{x:Static local:IconPackData.Sold}"
+                                            FontWeight="Bold"
+                                            Foreground="Red"
+                                            Visibility="{Binding AlreadySold, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         </Grid>
                     </Border>
                 </ControlTemplate>
@@ -351,13 +332,13 @@
                                     <ToolTip Placement="Top">
                                         <Grid>
                                             <Grid.RowDefinitions>
-                                                <RowDefinition></RowDefinition>
-                                                <RowDefinition></RowDefinition>
-                                                <RowDefinition></RowDefinition>
-                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
                                             </Grid.RowDefinitions>
-                                            <TextBlock Grid.Row="0" Text="{Binding PlayerName}"/>
-                                            <TextBlock Grid.Row="1" Text="{Binding ItemName}"/>
+                                            <TextBlock Grid.Row="0" Text="{Binding PlayerName}" />
+                                            <TextBlock Grid.Row="1" Text="{Binding ItemName}" />
                                             <TextBlock Grid.Row="2" Text="{Binding Location}">
                                                 <TextBlock.Style>
                                                     <Style TargetType="TextBlock">
@@ -369,7 +350,7 @@
                                                     </Style>
                                                 </TextBlock.Style>
                                             </TextBlock>
-                                            <TextBlock Grid.Row="3" Text="{Binding Date}"/>
+                                            <TextBlock Grid.Row="3" Text="{Binding Date}" />
                                         </Grid>
                                     </ToolTip>
                                 </Setter.Value>
