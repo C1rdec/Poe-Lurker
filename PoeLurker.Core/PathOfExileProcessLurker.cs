@@ -4,56 +4,55 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.Core
+namespace PoeLurker.Core;
+
+using System.Collections.Generic;
+using PoeLurker.Core.Models;
+using ProcessLurker;
+
+/// <summary>
+/// Represents the Path of Exile process lurker.
+/// </summary>
+/// <seealso cref="Lurker.ProcessLurker" />
+public class PathOfExileProcessLurker : ProcessService
 {
-    using System.Collections.Generic;
-    using PoeLurker.Core.Models;
-    using ProcessLurker;
+    #region Fields
+
+    private static readonly List<string> PossibleProcessNames =
+    [
+        "PathOfExile",
+        "PathOfExile_x64",
+        "PathOfExileSteam",
+        "PathOfExile_x64Steam",
+        "PathOfExile_x64_KG",
+        "PathOfExile_KG",
+        "PathOfExile_x64EGS",
+        "PathOfExileEGS",
+    ];
+
+    #endregion
+
+    #region Constructors
 
     /// <summary>
-    /// Represents the Path of Exile process lurker.
+    /// Initializes a new instance of the <see cref="PathOfExileProcessLurker"/> class.
     /// </summary>
-    /// <seealso cref="Lurker.ProcessLurker" />
-    public class PathOfExileProcessLurker : ProcessService
+    public PathOfExileProcessLurker()
+        : base(PossibleProcessNames)
     {
-        #region Fields
-
-        private static readonly List<string> PossibleProcessNames =
-        [
-            "PathOfExile",
-            "PathOfExile_x64",
-            "PathOfExileSteam",
-            "PathOfExile_x64Steam",
-            "PathOfExile_x64_KG",
-            "PathOfExile_KG",
-            "PathOfExile_x64EGS",
-            "PathOfExileEGS",
-        ];
-
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PathOfExileProcessLurker"/> class.
-        /// </summary>
-        public PathOfExileProcessLurker()
-            : base(PossibleProcessNames)
-        {
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Called when [exit].
-        /// </summary>
-        protected override void OnExit()
-        {
-            PoeApplicationContext.IsRunning = false;
-        }
-
-        #endregion
     }
+
+    #endregion
+
+    #region Methods
+
+    /// <summary>
+    /// Called when [exit].
+    /// </summary>
+    protected override void OnExit()
+    {
+        PoeApplicationContext.IsRunning = false;
+    }
+
+    #endregion
 }

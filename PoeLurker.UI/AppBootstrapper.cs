@@ -27,7 +27,6 @@ public class AppBootstrapper : BootstrapperBase
     #region Fields
 
     private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
-    private static readonly string Dsn = "https://e92715c769194c3aa7a89d387f488136@sentry.io/2473965";
     private SimpleContainer _container;
 
     #endregion

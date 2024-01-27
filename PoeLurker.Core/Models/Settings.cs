@@ -7,7 +7,6 @@
 namespace PoeLurker.Core.Models;
 
 using System.ComponentModel;
-using Lurker.AppData;
 
 /// <summary>
 /// Represents the settings.

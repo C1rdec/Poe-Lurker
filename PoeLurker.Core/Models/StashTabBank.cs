@@ -7,8 +7,6 @@
 namespace PoeLurker.Core.Models;
 
 using System.Collections.Generic;
-using System.Linq;
-using Lurker.AppData;
 
 /// <summary>
 /// Represetns the bank of tab.

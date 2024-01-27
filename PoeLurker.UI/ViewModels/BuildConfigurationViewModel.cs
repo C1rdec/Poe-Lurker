@@ -8,9 +8,7 @@ namespace PoeLurker.UI.ViewModels;
 
 using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Security.Policy;
 using Caliburn.Micro;
 using PoeLurker.Core.Extensions;
 using PoeLurker.Core.Models;

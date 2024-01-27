@@ -7,7 +7,6 @@
 namespace PoeLurker.Core.Models;
 
 using System.Collections.Generic;
-using System.Linq;
 
 /// <summary>
 /// The bank of players.

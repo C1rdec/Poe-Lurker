@@ -1,5 +1,4 @@
 ﻿using Lurker.AppData;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace PoeLurker.Core.Models;
 
