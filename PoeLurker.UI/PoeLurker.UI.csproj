@@ -6,6 +6,7 @@
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>TrayIcon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -128,6 +129,7 @@
     <Content Include="SVG\Shield.svg" />
     <Content Include="SVG\Sold.svg" />
     <Content Include="SVG\ThreeDot.svg" />
+    <Content Include="TrayIcon.ico" />
   </ItemGroup>
 
   <ItemGroup>

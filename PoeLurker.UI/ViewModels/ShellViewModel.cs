@@ -286,6 +286,8 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
         _eventAggregator.Unsubscribe(this);
         CleanUp();
         TryCloseAsync();
+
+        Application.Current.Shutdown();
     }
 
     /// <summary>
@@ -370,11 +372,11 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     /// </summary>
     /// <param name="item">The item.</param>
     /// <param name="close">if set to <c>true</c> [close].</param>
-    public override Task DeactivateItemAsync(Screen item, bool close, CancellationToken token)
+    public Task DeactivateItemAsync(Screen item)
     {
         if (item != null && item.IsActive)
         {
-            Execute.OnUIThread(() => { base.DeactivateItemAsync(item, close); });
+            return Execute.OnUIThreadAsync(() => item.TryCloseAsync());
         }
 
         return Task.CompletedTask;
@@ -407,12 +409,12 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
             {
                 _helpOverlay = _container.GetInstance<HelpViewModel>();
                 _helpOverlay.Initialize(ToggleBuildHelper);
-                await ActivateItemAsync(_helpOverlay);
-                await ActivateItemAsync(_buildViewModel);
+                await ShowViewModel(_helpOverlay);
+                await ShowViewModel(_buildViewModel);
 
                 if (_skillTimelineOverlay != null && _settingsService.TimelineEnabled)
                 {
-                    await ActivateItemAsync(_skillTimelineOverlay);
+                    await ShowViewModel(_skillTimelineOverlay);
                 }
             }
         }
@@ -420,24 +422,24 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
         {
             if (_helpOverlay != null)
             {
-                await DeactivateItemAsync(_helpOverlay, true, CancellationToken.None);
+                await DeactivateItemAsync(_helpOverlay);
                 _helpOverlay = null;
             }
 
             if (_buildViewModel != null)
             {
-                await DeactivateItemAsync(_buildViewModel, true, CancellationToken.None);
+                await DeactivateItemAsync(_buildViewModel);
             }
 
             if (_skillTimelineOverlay != null)
             {
-                await DeactivateItemAsync(_skillTimelineOverlay, true, CancellationToken.None);
+                await DeactivateItemAsync(_skillTimelineOverlay);
             }
         }
 
         if (_settingsService.IncomingTradeEnabled)
         {
-            await ActivateItemAsync(_incomingTradeBarOverlay);
+            await ShowViewModel(_incomingTradeBarOverlay);
         }
         else
         {
@@ -446,7 +448,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
 
         if (_settingsService.OutgoingTradeEnabled)
         {
-            await ActivateItemAsync(_outgoingTradeBarOverlay);
+            await ShowViewModel(_outgoingTradeBarOverlay);
         }
         else
         {
@@ -455,7 +457,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
 
         if (_settingsService.HideoutEnabled)
         {
-            await ActivateItemAsync(_hideoutOverlay);
+            await ShowViewModel(_hideoutOverlay);
         }
         else
         {
@@ -511,38 +513,38 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
 
             if (_settingsService.BuildHelper)
             {
-                ActivateItemAsync(_buildViewModel);
+                ShowViewModel(_buildViewModel);
             }
 
             if (_settingsService.BuildHelper)
             {
                 if (_settingsService.TimelineEnabled)
                 {
-                    ActivateItemAsync(_skillTimelineOverlay);
+                    ShowViewModel(_skillTimelineOverlay);
                 }
 
-                ActivateItemAsync(_helpOverlay);
+                ShowViewModel(_helpOverlay);
             }
 
             if (_settingsService.IncomingTradeEnabled)
             {
-                _windowManager.ShowWindowAsync(_incomingTradeBarOverlay);
+                ShowViewModel(_incomingTradeBarOverlay);
             }
 
             if (_settingsService.OutgoingTradeEnabled)
             {
-                ActivateItemAsync(_outgoingTradeBarOverlay);
+                ShowViewModel(_outgoingTradeBarOverlay);
             }
 
             if (_settingsService.HideoutEnabled)
             {
-                _windowManager.ShowWindowAsync(_hideoutOverlay);
+                ShowViewModel(_hideoutOverlay);
             }
 
-            ActivateItemAsync(_lifeBulbOverlay);
-            ActivateItemAsync(_manaBulbOverlay);
-            ActivateItemAsync(_stashTabGrid);
-            ActivateItemAsync(_wikiViewModel);
+            ShowViewModel(_lifeBulbOverlay);
+            ShowViewModel(_manaBulbOverlay);
+            ShowViewModel(_stashTabGrid);
+            ShowViewModel(_wikiViewModel);
         });
     }
 
@@ -906,6 +908,16 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     private async Task CheckPledgeStatus()
     {
         await ClipboardHelper.CheckPledgeStatusAsync();
+    }
+
+    private Task ShowViewModel(PoeOverlayBase overlay)
+    {
+        if (overlay.IsActive)
+        {
+            return Task.CompletedTask;
+        }
+
+        return Execute.OnUIThreadAsync(() => _windowManager.ShowWindowAsync(overlay));
     }
 
     #endregion
