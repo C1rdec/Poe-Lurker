@@ -912,7 +912,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
 
     private Task ShowViewModel(PoeOverlayBase overlay)
     {
-        if (overlay.IsActive)
+        if (overlay == null || overlay.IsActive)
         {
             return Task.CompletedTask;
         }
