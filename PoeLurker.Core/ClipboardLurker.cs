@@ -33,7 +33,6 @@ public class ClipboardLurker : IDisposable
     {
         ClipboardHelper.ClearClipboard();
         _clipboardMonitor = new SharpClipboard();
-
         _clipboardMonitor.ClipboardChanged += ClipboardMonitor_ClipboardChanged;
     }
 

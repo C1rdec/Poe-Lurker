@@ -61,7 +61,7 @@ public class SoundService
     /// <param name="volume">The volume.</param>
     public void PlayJoinHideout(float volume)
     {
-        var stream = GetStream("Lurker.Assets.JoinHideout.mp3");
+        var stream = GetStream("PoeLurker.Core.Assets.JoinHideout.mp3");
         Play(stream, volume);
     }
 
@@ -77,7 +77,7 @@ public class SoundService
             return Play(File.OpenRead(AssetService.GetFilePath(TradeAlertFileName)), volume);
         }
 
-        var stream = GetStream("Lurker.Assets.TradeAlert.mp3");
+        var stream = GetStream("PoeLurker.Core.Assets.TradeAlert.mp3");
         return Play(stream, volume);
     }
 
@@ -93,7 +93,7 @@ public class SoundService
             return Play(File.OpenRead(AssetService.GetFilePath(ItemAlertFileName)), volume);
         }
 
-        var stream = GetStream("Lurker.Assets.ItemAlert.mp3");
+        var stream = GetStream("PoeLurker.Core.Assets.ItemAlert.mp3");
         return Play(stream, volume);
     }
 

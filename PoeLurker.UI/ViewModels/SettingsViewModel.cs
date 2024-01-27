@@ -1274,33 +1274,33 @@ public class SettingsViewModel : Screen
     /// <summary>
     /// Inserts the buyer name token.
     /// </summary>
-    public void InsertBuyerNameToken()
+    public async void InsertBuyerNameToken()
     {
-        _keyboardHelper.Write(TokenHelper.BuyerName);
+        await _keyboardHelper.WriteAsync(TokenHelper.BuyerName);
     }
 
     /// <summary>
     /// Inserts the buyer name token.
     /// </summary>
-    public void InsertLocationToken()
+    public async void InsertLocationToken()
     {
-        _keyboardHelper.Write(TokenHelper.Location);
+        await _keyboardHelper.WriteAsync(TokenHelper.Location);
     }
 
     /// <summary>
     /// Inserts the price token.
     /// </summary>
-    public void InsertPriceToken()
+    public async void InsertPriceToken()
     {
-        _keyboardHelper.Write(TokenHelper.Price);
+        await _keyboardHelper.WriteAsync(TokenHelper.Price);
     }
 
     /// <summary>
     /// Inserts the item name token.
     /// </summary>
-    public void InsertItemNameToken()
+    public async void InsertItemNameToken()
     {
-        _keyboardHelper.Write(TokenHelper.ItemName);
+        await _keyboardHelper.WriteAsync(TokenHelper.ItemName);
     }
 
     /// <summary>

@@ -526,7 +526,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
 
             if (_settingsService.IncomingTradeEnabled)
             {
-                ActivateItemAsync(_incomingTradeBarOverlay);
+                _windowManager.ShowWindowAsync(_incomingTradeBarOverlay);
             }
 
             if (_settingsService.OutgoingTradeEnabled)
@@ -536,7 +536,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
 
             if (_settingsService.HideoutEnabled)
             {
-                ActivateItemAsync(_hideoutOverlay);
+                _windowManager.ShowWindowAsync(_hideoutOverlay);
             }
 
             ActivateItemAsync(_lifeBulbOverlay);

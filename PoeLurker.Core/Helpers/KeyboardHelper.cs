@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Desktop.Robot;
 using Desktop.Robot.Extensions;
 using PoeLurker.Core.Extensions;
+using TextCopy;
 
 /// <summary>
 /// Represents the keyboard helper.
@@ -82,14 +83,15 @@ public class KeyboardHelper
     /// </summary>
     /// <param name="text">The text.</param>
     /// <returns>The task awaiter.</returns>
-    public void Write(string text)
+    public async Task WriteAsync(string text)
     {
         if (string.IsNullOrEmpty(text))
         {
             return;
         }
 
-        _robot.Type(text, 10);
+        await ClipboardService.SetTextAsync(text);
+        _robot.CombineKeys(Key.Control, Key.V);
     }
 
     /// <summary>
@@ -104,7 +106,8 @@ public class KeyboardHelper
 
         _robot.CombineKeys(Key.Control, Key.F);
         await Task.Delay(10);
-        _robot.Type(searchTerm, 10);
+        await ClipboardService.SetTextAsync(searchTerm);
+        _robot.CombineKeys(Key.Control, Key.V);
         await Task.Delay(10);
         _robot.KeyPress(Key.Enter);
     }
@@ -131,7 +134,8 @@ public class KeyboardHelper
 
         _robot.KeyPress(Key.Enter);
         _robot.CombineKeys(Key.Control, Key.A);
-        _robot.Type(command, 10);
+        await ClipboardService.SetTextAsync(command);
+        _robot.CombineKeys(Key.Control, Key.V);
 
         if (!skipLastReturn)
         {
