@@ -176,6 +176,11 @@ public abstract class PoeOverlayBase : Screen, IViewAware
     /// </summary>
     protected void SetInForeground()
     {
+        if (View == null)
+        {
+            return;
+        }
+
         Execute.OnUIThread(() =>
         {
             var handle = new WindowInteropHelper(View).Handle;

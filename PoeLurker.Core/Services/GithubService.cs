@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using PoeLurker.Core.Models;
 
@@ -20,35 +21,37 @@ using PoeLurker.Core.Models;
 public class GithubService : HttpServiceBase
 {
     private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
-    private IEnumerable<Gem> _gems;
-    private IEnumerable<UniqueItem> _items;
+    private static readonly JsonSerializerOptions Options = new JsonSerializerOptions 
+    { 
+        PropertyNameCaseInsensitive = true, 
+        Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) } 
+    };
+    private Task<List<Gem>> _gemsTask;
+    private Task<List<UniqueItem>> _itemsTask;
 
     /// <summary>
     /// Gets all items.
     /// </summary>
-    public IEnumerable<WikiItem> AllItems => _gems.Concat<WikiItem>(_items);
+    public IEnumerable<WikiItem> AllItems => _gemsTask.Result.Concat<WikiItem>(_itemsTask.Result);
 
     /// <summary>
     /// Gemses this instance.
     /// </summary>
     /// <returns>List of Gems.</returns>
-    public async Task<IEnumerable<Gem>> Gems()
+    public Task<List<Gem>> Gems()
     {
-        try
+        if (_gemsTask != null)
         {
-            if (_gems == null)
-            {
-                var gemInformation = await GetText($"https://raw.githubusercontent.com/C1rdec/Poe-Lurker/master/assets/Data/GemInfo.json?{Guid.NewGuid()}");
-                _gems = JsonSerializer.Deserialize<IEnumerable<Gem>>(gemInformation);
-            }
-
-            return _gems;
+            return _gemsTask;
         }
-        catch (Exception exception)
+        else
         {
-            Logger.Error(exception, exception.Message);
+            _gemsTask = GetText($"https://raw.githubusercontent.com/C1rdec/Poe-Lurker/master/assets/Data/GemInfo.json?{Guid.NewGuid()}").ContinueWith(t =>
+            {
+                return JsonSerializer.Deserialize<List<Gem>>(t.Result, Options);
+            });
 
-            return Enumerable.Empty<Gem>();
+            return _gemsTask;
         }
     }
 
@@ -56,23 +59,20 @@ public class GithubService : HttpServiceBase
     /// Uniqueses this instance.
     /// </summary>
     /// <returns>List of uniques.</returns>
-    public async Task<IEnumerable<UniqueItem>> Uniques()
+    public Task<List<UniqueItem>> Uniques()
     {
-        try
+        if (_itemsTask != null)
         {
-            if (_items == null)
-            {
-                var uniqueInformation = await GetText($"https://raw.githubusercontent.com/C1rdec/Poe-Lurker/master/assets/Data/UniqueInfo.json?{Guid.NewGuid()}");
-                _items = JsonSerializer.Deserialize<List<UniqueItem>>(uniqueInformation);
-            }
-
-            return _items;
+            return _itemsTask;
         }
-        catch (Exception exception)
+        else
         {
-            Logger.Error(exception, exception.Message);
+            _itemsTask = GetText($"https://raw.githubusercontent.com/C1rdec/Poe-Lurker/master/assets/Data/UniqueInfo.json?{Guid.NewGuid()}").ContinueWith(t =>
+            {
+                return JsonSerializer.Deserialize<List<UniqueItem>>(t.Result, Options);
+            });
 
-            return Enumerable.Empty<UniqueItem>();
+            return _itemsTask;
         }
     }
 
@@ -83,7 +83,7 @@ public class GithubService : HttpServiceBase
     /// <returns>The list of items.</returns>
     public IEnumerable<WikiItem> Search(string value)
     {
-        if (string.IsNullOrEmpty(value) || _items == null || _gems == null)
+        if (string.IsNullOrEmpty(value) || _itemsTask == null || _gemsTask == null)
         {
             return Enumerable.Empty<WikiItem>();
         }

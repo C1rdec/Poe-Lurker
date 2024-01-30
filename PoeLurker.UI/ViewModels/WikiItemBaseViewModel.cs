@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Web;
 using System.Windows.Input;
 using Caliburn.Micro;
+using PoeLurker.Core.Extensions;
 using PoeLurker.Core.Models;
 using PoeLurker.Core.Services;
 
@@ -89,7 +90,7 @@ public abstract class WikiItemBaseViewModel : Caliburn.Micro.PropertyChangedBase
 
             var encoded = HttpUtility.UrlEncode(baseQuery);
             var search = $"https://www.pathofexile.com/trade/search/{league}?q={encoded}";
-            Process.Start(search);
+            ProcessExtensions.OpenUrl(search);
         }
     }
 
