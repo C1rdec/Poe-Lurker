@@ -81,7 +81,7 @@ public abstract class WikiItemBaseViewModel : Caliburn.Micro.PropertyChangedBase
             var league = IoC.Get<SettingsService>().RecentLeagueName;
             if (_item is Gem || string.IsNullOrEmpty(league))
             {
-                Process.Start(WikiUrl.ToString());
+                ProcessExtensions.OpenUrl(WikiUrl.ToString());
 
                 return;
             }
