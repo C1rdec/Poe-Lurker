@@ -707,29 +707,6 @@
                                 Visibility="{Binding ConnectedWithoutPledging, Converter={StaticResource BooleanToVisibilityConverter}}">
                             Become a patron
                         </Button>
-                        <Button x:Name="StartTrial"
-                                HorizontalAlignment="Center"
-                                FontSize="16"
-                                Style="{DynamicResource Tag}"
-                                Visibility="{Binding TrialAvailable, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <Button.Content>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="40" />
-                                        <ColumnDefinition />
-                                        <ColumnDefinition Width="40" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="1">Free Trial</TextBlock>
-                                    <TextBlock Grid.Column="2"
-                                               HorizontalAlignment="Center"
-                                               FontSize="10"
-                                               Foreground="Gray">
-                                        (7 days)
-                                    </TextBlock>
-                                </Grid>
-
-                            </Button.Content>
-                        </Button>
                     </StackPanel>
                     <Grid Grid.Row="2"
                           Height="70"

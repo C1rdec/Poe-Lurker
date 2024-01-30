@@ -108,11 +108,6 @@ public class SettingsViewModel : Screen
         _excludePropertyNames = GetExcludedPropertyNames();
         PropertyChanged += SettingsViewModel_PropertyChanged;
 
-        if (!AssetService.Exists(LottieFileName))
-        {
-            AssetService.Create(LottieFileName, GetResourceContent(LottieFileName));
-        }
-
         BuildManager = new BuildManagerViewModel(ShowMessage, githubService);
 
         PushProviders = new ObservableCollection<PushProviderViewModel>();
@@ -344,23 +339,6 @@ public class SettingsViewModel : Screen
         private set
         {
             _modified = value;
-            NotifyOfPropertyChange();
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether [trial available].
-    /// </summary>
-    public bool TrialAvailable
-    {
-        get
-        {
-            return _trialAvailable;
-        }
-
-        set
-        {
-            _trialAvailable = value;
             NotifyOfPropertyChange();
         }
     }
@@ -1095,6 +1073,11 @@ public class SettingsViewModel : Screen
     /// </summary>
     public void ActivateWindow()
     {
+        if (_view == null)
+        {
+            return;
+        }
+
         _view.WindowState = WindowState.Normal;
         _view.Activate();
     }
@@ -1273,34 +1256,26 @@ public class SettingsViewModel : Screen
     /// <summary>
     /// Inserts the buyer name token.
     /// </summary>
-    public async void InsertBuyerNameToken()
-    {
-        await _keyboardHelper.WriteAsync(TokenHelper.BuyerName);
-    }
+    public Task InsertBuyerNameToken()
+        => _keyboardHelper.WriteAsync(TokenHelper.BuyerName);
 
     /// <summary>
     /// Inserts the buyer name token.
     /// </summary>
-    public async void InsertLocationToken()
-    {
-        await _keyboardHelper.WriteAsync(TokenHelper.Location);
-    }
+    public Task InsertLocationToken()
+        => _keyboardHelper.WriteAsync(TokenHelper.Location);
 
     /// <summary>
     /// Inserts the price token.
     /// </summary>
-    public async void InsertPriceToken()
-    {
-        await _keyboardHelper.WriteAsync(TokenHelper.Price);
-    }
+    public Task InsertPriceToken()
+        => _keyboardHelper.WriteAsync(TokenHelper.Price);
 
     /// <summary>
     /// Inserts the item name token.
     /// </summary>
-    public async void InsertItemNameToken()
-    {
-        await _keyboardHelper.WriteAsync(TokenHelper.ItemName);
-    }
+    public Task InsertItemNameToken()
+        => _keyboardHelper.WriteAsync(TokenHelper.ItemName);
 
     /// <summary>
     /// Updates this instance.
@@ -1326,67 +1301,17 @@ public class SettingsViewModel : Screen
     /// <summary>
     /// Logins to patreon.
     /// </summary>
-    public async void LoginToPatreon()
+    public async Task LoginToPatreon()
     {
-        if (_currentPatreonService != null)
+        await _currentPatreonService.CheckPledgeStatus();
+        Pledging = _currentPatreonService.Pledging;
+        if (Pledging)
         {
-            //this._currentPatreonService.Cancel();
-            await Task.Delay(600);
+            BlessingText = "A blessing I can’t deny";
+            SearchEnabled = true;
+            MapEnabled = true;
+            DashboardEnabled = true;
         }
-
-        try
-        {
-            //using (this._currentPatreonService = new PatreonService())
-            //{
-            //    if (!this._currentPatreonService.IsConnected)
-            //    {
-            //        await this._currentPatreonService.Login();
-            //    }
-
-            //    this.Pledging = await this._currentPatreonService.IsPledging();
-            //    if (this.Pledging)
-            //    {
-            //        this.TrialAvailable = false;
-            //        var time = this._currentPatreonService.GetTrialRemainingTime();
-            //        this.BlessingText = GetBlessingText(time);
-
-            //        this.SearchEnabled = true;
-            //        this.MapEnabled = true;
-            //        this.DashboardEnabled = true;
-            //    }
-
-            //    this.NotifyOfPropertyChange("NotConnected");
-            //}
-        }
-        catch (AuthenticationException)
-        {
-        }
-    }
-
-    /// <summary>
-    /// Starts the trial.
-    /// </summary>
-    public async void StartTrial()
-    {
-        await ShowProgress("Hold on", "Preparing the trial...", async () =>
-        {
-            //using (var service = new PatreonService())
-            //{
-            //    service.StartTrial();
-            //    var pledging = await service.IsPledging();
-            //    if (pledging)
-            //    {
-            //        this.SearchEnabled = true;
-            //        this.DashboardEnabled = true;
-
-            //        var time = service.GetTrialRemainingTime();
-            //        this.BlessingText = GetBlessingText(time);
-            //    }
-
-            //    this.TrialAvailable = false;
-            //    this.Pledging = pledging;
-            //}
-        });
     }
 
     /// <summary>
@@ -1473,36 +1398,12 @@ public class SettingsViewModel : Screen
         {
             BlessingText = "A blessing I can’t deny";
         }
-
-        //_activateTask = Task.Run(async () =>
-        //{
-        //    BuildManager.PopulateBuilds();
-
-        //    //using (var service = new PatreonService())
-        //    //{
-        //    //    this.Pledging = await service.IsPledging();
-
-        //    //    if (!this.Pledging)
-        //    //    {
-        //    //        this.TrialAvailable = service.TrialAvailable;
-        //    //        this.SearchEnabled = false;
-        //    //        this.DashboardEnabled = false;
-        //    //        this.MapEnabled = false;
-        //    //    }
-        //    //    else
-        //    //    {
-        //    //        if (service.IsTrialValid())
-        //    //        {
-        //    //            var time = service.GetTrialRemainingTime();
-        //    //            this.BlessingText = GetBlessingText(time);
-        //    //        }
-        //    //        else
-        //    //        {
-        //    //            this.BlessingText = "A blessing I can’t deny";
-        //    //        }
-        //    //    }
-        //    //}
-        //});
+        else
+        {
+            SearchEnabled = false;
+            DashboardEnabled = false;
+            MapEnabled = false;
+        }
 
         AlertVolume = (int)(_settingService.AlertVolume * 100);
         ItemAlertVolume = (int)(_settingService.ItemAlertVolume * 100);
@@ -1511,47 +1412,6 @@ public class SettingsViewModel : Screen
         _activated = true;
 
         await base.OnActivateAsync(token);
-    }
-
-    /// <summary>
-    /// Gets the blessing text.
-    /// </summary>
-    /// <param name="time">The time.</param>
-    /// <returns>The blessing trial text.</returns>
-    private static string GetBlessingText(TimeSpan time)
-    {
-        if (time == TimeSpan.Zero)
-        {
-            return "A blessing I can’t deny";
-        }
-
-        if (time.Days > 0)
-        {
-            return $"{time.Days} days, {time.Hours} hours, {time.Minutes} minutes";
-        }
-
-        if (time.Hours > 0)
-        {
-            return $"{time.Hours} hours, {time.Minutes} minutes";
-        }
-
-        return $"{time.Minutes} minutes";
-    }
-
-    /// <summary>
-    /// Gets the content of the resource.
-    /// </summary>
-    /// <param name="fileName">Name of the file.</param>
-    /// <returns>The resource content.</returns>
-    private static string GetResourceContent(string fileName)
-    {
-        using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"Lurker.UI.Assets.{fileName}"))
-        {
-            using (var reader = new StreamReader(stream))
-            {
-                return reader.ReadToEnd();
-            }
-        }
     }
 
     /// <summary>
