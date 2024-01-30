@@ -20,7 +20,6 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using Caliburn.Micro;
-using Lurker.Patreon;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Win32;
@@ -30,6 +29,8 @@ using PoeLurker.Core.Helpers;
 using PoeLurker.Core.Services;
 using PoeLurker.Patreon.Services;
 using PoeLurker.UI.Helpers;
+using PoeLurker.UI.Services;
+using TextCopy;
 using Winook;
 
 /// <summary>
@@ -56,7 +57,7 @@ public class SettingsViewModel : Screen
     private int _alertVolume;
     private int _itemAlertVolume;
     private int _joinHideoutVolume;
-    private readonly PatreonService _currentPatreonService;
+    private readonly PoeLurkerPatreonService _currentPatreonService;
     private readonly SoundService _soundService;
     private CancellationTokenSource _currentTokenSource;
     private bool _hasCustomTradeSound;
@@ -87,7 +88,6 @@ public class SettingsViewModel : Screen
     /// <param name="pushBulletService">The PushBullet service.</param>
     /// <param name="pushHoverService">The pushHover service.</param>
     public SettingsViewModel(
-        IWindowManager windowManager,
         KeyboardHelper keyboardHelper,
         SettingsService settingsService,
         SoundService soundService,
@@ -95,8 +95,10 @@ public class SettingsViewModel : Screen
         GithubService githubService,
         PushBulletService pushBulletService,
         PushHoverService pushHoverService,
-        WinookService winookService)
+        WinookService winookService,
+        PoeLurkerPatreonService patreonService)
     {
+        _currentPatreonService = patreonService;
         _winookService = winookService;
         _keyboardHelper = keyboardHelper;
         _settingService = settingsService;
@@ -1258,14 +1260,14 @@ public class SettingsViewModel : Screen
     /// <summary>
     /// Gets the patreon identifier.
     /// </summary>
-    public void GetPatreonId()
+    public Task GetPatreonId()
     {
         if (string.IsNullOrEmpty(PatreonId))
         {
-            return;
+            return Task.CompletedTask;
         }
 
-        Clipboard.SetText(PatreonId);
+        return ClipboardService.SetTextAsync(PatreonId);
     }
 
     /// <summary>
@@ -1403,11 +1405,12 @@ public class SettingsViewModel : Screen
     /// <summary>
     /// Pledges this instance.
     /// </summary>
-    public void Pledge()
+    public async void Pledge()
     {
         if (Keyboard.IsKeyDown(Key.LeftCtrl))
         {
-            GetPatreonId();
+            await GetPatreonId();
+
             return;
         }
 
@@ -1459,10 +1462,18 @@ public class SettingsViewModel : Screen
     /// <summary>
     /// Called when activating.
     /// </summary>
-    protected override Task OnActivateAsync(CancellationToken token)
+    protected override async Task OnActivateAsync(CancellationToken token)
     {
         HasCustomTradeSound = _soundService.HasCustomTradeAlert();
         HasCustomItemSound = _soundService.HasCustomItemAlert();
+
+        await _currentPatreonService.CheckPledgeStatus();
+        Pledging = _currentPatreonService.Pledging;
+        if (Pledging)
+        {
+            BlessingText = "A blessing I can’t deny";
+        }
+
         //_activateTask = Task.Run(async () =>
         //{
         //    BuildManager.PopulateBuilds();
@@ -1499,7 +1510,7 @@ public class SettingsViewModel : Screen
         CheckForUpdate();
         _activated = true;
 
-        return base.OnActivateAsync(token);
+        await base.OnActivateAsync(token);
     }
 
     /// <summary>
