@@ -7,7 +7,6 @@
 namespace PoeLurker.UI.ViewModels;
 
 using System;
-using System.Diagnostics;
 using System.Web;
 using System.Windows.Input;
 using Caliburn.Micro;

@@ -21,10 +21,10 @@ using PoeLurker.Core.Models;
 public class GithubService : HttpServiceBase
 {
     private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
-    private static readonly JsonSerializerOptions Options = new JsonSerializerOptions 
-    { 
-        PropertyNameCaseInsensitive = true, 
-        Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) } 
+    private static readonly JsonSerializerOptions Options = new JsonSerializerOptions
+    {
+        PropertyNameCaseInsensitive = true,
+        Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) }
     };
     private Task<List<Gem>> _gemsTask;
     private Task<List<UniqueItem>> _itemsTask;

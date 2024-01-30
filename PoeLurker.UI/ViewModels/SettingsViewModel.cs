@@ -13,7 +13,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Security.Authentication;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -44,7 +43,7 @@ public class SettingsViewModel : Screen
     private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
     private static readonly string LottieFileName = "LurckerIconSettings.json";
     private readonly Task _activateTask;
-    private bool _trialAvailable;
+    private readonly bool _trialAvailable;
     private readonly KeyboardHelper _keyboardHelper;
     private readonly SettingsService _settingService;
     private readonly HotkeyService _hotkeyService;
