@@ -24,7 +24,7 @@ If you like and use Poe Lurker please consider signing up for a small monthly [P
 
 ![](assets/Incoming.gif)
 
-## Github Star History
+## Github Stars History
 
 <a href="https://star-history.com/#Poe-Lurker/Poe-Lurker&C1rdec/Poe-Lurker&Date">
   <picture>
