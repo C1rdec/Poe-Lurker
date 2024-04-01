@@ -23,3 +23,12 @@ If you like and use Poe Lurker please consider signing up for a small monthly [P
 # [Cheat Sheet](assets/CheatSheet.md) | [User Guide](https://docs.google.com/presentation/d/1XhaSSNAFGxzouc5amzAW8c_6ifToNjnsQq5UmNgLXoo/present)
 
 ![](assets/Incoming.gif)
+
+## Github Stars History
+
+<a href="https://star-history.com/#Poe-Lurker/Poe-Lurker&C1rdec/Poe-Lurker&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=C1rdec/Poe-Lurker&type=Date&theme=dark" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=C1rdec/Poe-Lurker&type=Date" />
+  </picture>
+</a>
