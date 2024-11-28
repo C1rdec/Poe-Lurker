@@ -146,6 +146,7 @@
     <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
     <PackageReference Include="LiveCharts.NetCore" Version="0.9.8" />
     <PackageReference Include="MahApps.Metro" Version="2.4.10" />
+    <PackageReference Include="PoeLurker.Patreon" Version="8.0.5" />
   </ItemGroup>
 
   <ItemGroup>

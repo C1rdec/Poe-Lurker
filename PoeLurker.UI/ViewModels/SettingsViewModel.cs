@@ -1391,24 +1391,27 @@ public class SettingsViewModel : Screen
         HasCustomTradeSound = _soundService.HasCustomTradeAlert();
         HasCustomItemSound = _soundService.HasCustomItemAlert();
 
-        await _currentPatreonService.CheckPledgeStatus();
-        Pledging = _currentPatreonService.Pledging;
-        if (Pledging)
+        _ = _currentPatreonService.CheckPledgeStatus().ContinueWith(t =>
         {
-            BlessingText = "A blessing I can’t deny";
-        }
-        else
-        {
-            SearchEnabled = false;
-            DashboardEnabled = false;
-            MapEnabled = false;
-        }
+            Pledging = _currentPatreonService.Pledging;
+            if (Pledging)
+            {
+                BlessingText = "A blessing I can’t deny";
+            }
+            else
+            {
+                SearchEnabled = false;
+                DashboardEnabled = false;
+                MapEnabled = false;
+            }
+
+            _activated = true;
+        });        
 
         AlertVolume = (int)(_settingService.AlertVolume * 100);
         ItemAlertVolume = (int)(_settingService.ItemAlertVolume * 100);
         JoinHideoutVolume = (int)(_settingService.JoinHideoutVolume * 100);
         CheckForUpdate();
-        _activated = true;
 
         await base.OnActivateAsync(token);
     }
