@@ -17,7 +17,7 @@ using PoeLurker.UI.Models;
 /// <summary>
 /// Represents a league.
 /// </summary>
-public class LeagueViewModel : Caliburn.Micro.PropertyChangedBase, IDisposable, IHandle<TradeCompletedEvent>
+public class LeagueViewModel : PropertyChangedBase, IDisposable, IHandle<TradeCompletedEvent>
 {
     #region Fields
 
@@ -36,7 +36,7 @@ public class LeagueViewModel : Caliburn.Micro.PropertyChangedBase, IDisposable, 
     public LeagueViewModel(IEventAggregator eventAggregator)
     {
         _eventAggregator = eventAggregator;
-        _eventAggregator.Subscribe(this);
+        _eventAggregator.SubscribeOnPublishedThread(this);
     }
 
     #endregion

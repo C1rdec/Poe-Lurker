@@ -10,12 +10,13 @@ using System.IO;
 using System.Reflection;
 using Caliburn.Micro;
 using PoeLurker.Core.Services;
+using PoeLurker.UI.Services;
 
 /// <summary>
 /// Represents a SplashScreen.
 /// </summary>
 /// <seealso cref="Caliburn.Micro.PropertyChangedBase" />
-public class SplashscreenViewModel : Caliburn.Micro.PropertyChangedBase
+public class SplashscreenViewModel : PropertyChangedBase
 {
     #region Fields
 
@@ -32,7 +33,7 @@ public class SplashscreenViewModel : Caliburn.Micro.PropertyChangedBase
     /// </summary>
     /// <param name="settings">The settings.</param>
     /// <param name="eventAggregator">The event aggregator.</param>
-    public SplashscreenViewModel(SettingsViewModel settings, IEventAggregator eventAggregator)
+    public SplashscreenViewModel(SettingsViewModel settings, IEventAggregator eventAggregator, PoeLurkerPatreonService patreonService)
     {
         _settings = settings;
         _eventAggrator = eventAggregator;
@@ -43,21 +44,13 @@ public class SplashscreenViewModel : Caliburn.Micro.PropertyChangedBase
 
         Execute.OnUIThread(async () =>
         {
-            //using (var service = new PatreonService())
-            //{
-            //    var result = await service.IsPledging();
-            //    if (result)
-            //    {
-            //        return;
-            //    }
+            await patreonService.CheckPledgeStatus();
+            if (patreonService.Pledging)
+            {
+                return;
+            }
 
-            //    this.ShowPatreon = true;
-            //    this.TrialAvailable = service.TrialAvailable;
-            //    if (!this.TrialAvailable)
-            //    {
-            //        // this.ShowPatreon = true;
-            //    }
-            //}
+            ShowPatreon = true;
         });
     }
 
