@@ -18,8 +18,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WoshVsPowerTools-Settings.json = WoshVsPowerTools-Settings.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lurker.Uninstall", "src\Lurker.Uninstall\Lurker.Uninstall.csproj", "{0BC827AB-E8E2-4D60-8394-5B07841285DA}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{872F0448-2198-4053-8455-394EA690471F}"
 	ProjectSection(SolutionItems) = preProject
 		assets\Data\GemInfo.json = assets\Data\GemInfo.json
@@ -40,18 +38,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0BC827AB-E8E2-4D60-8394-5B07841285DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0BC827AB-E8E2-4D60-8394-5B07841285DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0BC827AB-E8E2-4D60-8394-5B07841285DA}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{0BC827AB-E8E2-4D60-8394-5B07841285DA}.Debug|x64.Build.0 = Debug|Any CPU
-		{0BC827AB-E8E2-4D60-8394-5B07841285DA}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{0BC827AB-E8E2-4D60-8394-5B07841285DA}.Debug|x86.Build.0 = Debug|Any CPU
-		{0BC827AB-E8E2-4D60-8394-5B07841285DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0BC827AB-E8E2-4D60-8394-5B07841285DA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0BC827AB-E8E2-4D60-8394-5B07841285DA}.Release|x64.ActiveCfg = Release|Any CPU
-		{0BC827AB-E8E2-4D60-8394-5B07841285DA}.Release|x64.Build.0 = Release|Any CPU
-		{0BC827AB-E8E2-4D60-8394-5B07841285DA}.Release|x86.ActiveCfg = Release|Any CPU
-		{0BC827AB-E8E2-4D60-8394-5B07841285DA}.Release|x86.Build.0 = Release|Any CPU
 		{10C2B707-4415-4C03-AFB3-A6FDAC732B74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{10C2B707-4415-4C03-AFB3-A6FDAC732B74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10C2B707-4415-4C03-AFB3-A6FDAC732B74}.Debug|x64.ActiveCfg = Debug|Any CPU
