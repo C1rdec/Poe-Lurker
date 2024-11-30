@@ -7,12 +7,26 @@
 namespace PoeLurker.Core.Models;
 
 using System.ComponentModel;
+using PoeLurker.Core.Helpers;
 
 /// <summary>
 /// Represents the settings.
 /// </summary>
 public sealed class Settings
 {
+    private static readonly string DefaultStillInterestedMessage = $"Are you still interested in my {TokenHelper.ItemName} listed for {TokenHelper.Price}?";
+    private static readonly string DefaultSoldMessage = $"I'm sorry, my {TokenHelper.ItemName} has already been sold.";
+    private static readonly string DefaultBusyMessage = "I'm busy right now I'll send you a party invite.";
+    private static readonly string DefaultThankYouMessage = string.Empty;
+
+    public Settings()
+    {
+        StillInterestedMessage = DefaultStillInterestedMessage;
+        SoldMessage = DefaultSoldMessage;
+        BusyMessage = DefaultBusyMessage;
+        ThankYouMessage = DefaultThankYouMessage;
+    }
+
     #region Properties
 
     /// <summary>

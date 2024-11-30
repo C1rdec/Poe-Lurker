@@ -17,11 +17,6 @@ public class SettingsService
 {
     #region Fields
 
-    private static readonly string DefaultStillInterestedMessage = $"Are you still interested in my {TokenHelper.ItemName} listed for {TokenHelper.Price}?";
-    private static readonly string DefaultSoldMessage = $"I'm sorry, my {TokenHelper.ItemName} has already been sold.";
-    private static readonly string DefaultBusyMessage = "I'm busy right now I'll send you a party invite.";
-    private static readonly string DefaultThankYouMessage = string.Empty;
-
     private readonly SettingsFile _settings;
 
     #endregion
