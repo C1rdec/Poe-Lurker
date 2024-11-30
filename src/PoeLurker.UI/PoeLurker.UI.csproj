@@ -8,6 +8,7 @@
     <UseWPF>true</UseWPF>
     <ApplicationIcon>TrayIcon.ico</ApplicationIcon>
 	<Version>2.0.0</Version>
+	<AssemblyName>PoeLurker</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

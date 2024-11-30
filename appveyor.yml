@@ -6,16 +6,18 @@ build:
   verbosity: minimal
 before_package:
 - pwsh: >-
-    $version = (get-item ".\src\Lurker.UI\bin\Release\PoeLurker.exe").VersionInfo | % {("{0}.{1}.{2}" -f $_.ProductMajorPart,$_.ProductMinorPart,$_.ProductBuildPart)}
+    dotnet publish -c Release --self-contained -r win-x64 -o .\publish
 
 
-    .\packages\squirrel.windows.1.9.1\tools\Squirrel.exe --releasify .\src\Lurker.UI\bin\Release\PoeLurker.$($version).nupkg
-after_build:
-- pwsh: Rename-Item -Path ".\Releases\Setup.exe" -NewName "PoeLurker.exe"
+    dotnet tool update -g vpk
+
+
+    $version = (get-item ".\publish\PoeLurker.exe").VersionInfo | % {("{0}.{1}.{2}" -f $_.ProductMajorPart,$_.ProductMinorPart,$_.ProductBuildPart)}
+
+    
+    vpk pack -u PoeLurker -v $($version) -p .\publish --icon .\TrayIcon.ico -e PoeLurker.exe
 artifacts:
-- path: Releases\*.exe
-- path: Releases\*.nupkg
-- path: Releases\RELEASES
+- path: publish\*.exe
 deploy:
 - provider: Webhook
   url: https://app.signpath.io/API/v1/882745a6-3bda-47cc-b355-ee465c5c6d7f/Integrations/AppVeyor?ProjectKey=Poe-Lurker&SigningPolicyKey=release-signing
