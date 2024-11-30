@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using Velopack;
 
 namespace PoeLurker.UI;
 
@@ -10,8 +9,6 @@ public partial class App : Application
 {
     public App()
     {
-        VelopackApp.Build().Run();
-
         InitializeComponent();
     }
 }

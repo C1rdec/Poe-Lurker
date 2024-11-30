@@ -17,6 +17,7 @@ using PoeLurker.Patreon.Services;
 using PoeLurker.UI.Helpers;
 using PoeLurker.UI.Services;
 using PoeLurker.UI.ViewModels;
+using Velopack;
 
 /// <summary>
 /// Represents AppBootstrapper.
@@ -132,6 +133,8 @@ public class AppBootstrapper : BootstrapperBase
     /// <param name="e">The args.</param>
     protected override void OnStartup(object sender, System.Windows.StartupEventArgs e)
     {
+        VelopackApp.Build().Run();
+
         var instance = RunningInstance();
         if (RunningInstance() != null)
         {
