@@ -16,7 +16,7 @@ before_package:
     $version = (get-item ".\publish\PoeLurker.exe").VersionInfo | % {("{0}.{1}.{2}" -f $_.ProductMajorPart,$_.ProductMinorPart,$_.ProductBuildPart)}
 
     
-    vpk pack -u PoeLurker -v $($version) -p .\publish --icon .\TrayIcon.ico -e PoeLurker.exe
+    vpk pack -u PoeLurker -v $($version) -p .\publish --icon .\TrayIcon.ico -e PoeLurker.exe --packTitle "Poe Lurker"
 after_build:
 - pwsh: Rename-Item -Path ".\Releases\PoeLurker-win-Setup.exe" -NewName "PoeLurker.exe"
 artifacts:
