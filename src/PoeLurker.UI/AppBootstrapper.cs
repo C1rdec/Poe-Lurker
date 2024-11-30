@@ -144,7 +144,6 @@ public class AppBootstrapper : BootstrapperBase
         {
             settings.ShowWelcome = false;
             settings.Save();
-
         }
 
         DisplayRootViewForAsync<ShellViewModel>();
