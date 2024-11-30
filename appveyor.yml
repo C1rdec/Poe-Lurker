@@ -5,11 +5,11 @@ before_build:
 - ps: nuget restore
 build:
   verbosity: minimal
-
-after_build:
-  - cmd: dotnet publish -c Release --self-contained -r win-x64 -o .\publish
 before_package:
 - pwsh: >-
+    dotnet publish -c Release --self-contained -r win-x64 -o .\publish
+
+
     dotnet tool update -g vpk
 
 
