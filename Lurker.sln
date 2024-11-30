@@ -24,9 +24,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{872F0448-2
 		assets\Data\UniqueInfo.json = assets\Data\UniqueInfo.json
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PoeLurker.Core", "PoeLurker.Core\PoeLurker.Core.csproj", "{10C2B707-4415-4C03-AFB3-A6FDAC732B74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PoeLurker.Core", "src\PoeLurker.Core\PoeLurker.Core.csproj", "{10C2B707-4415-4C03-AFB3-A6FDAC732B74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoeLurker.UI", "PoeLurker.UI\PoeLurker.UI.csproj", "{50416B8D-130B-4F85-83F0-64B2A72706C6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoeLurker.UI", "src\PoeLurker.UI\PoeLurker.UI.csproj", "{50416B8D-130B-4F85-83F0-64B2A72706C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
