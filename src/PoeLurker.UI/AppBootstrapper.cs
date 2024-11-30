@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Caliburn.Micro;
+using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
 using PoeLurker.Core.Extensions;
 using PoeLurker.Core.Helpers;
 using PoeLurker.Core.Services;
@@ -27,6 +29,7 @@ public class AppBootstrapper : BootstrapperBase
 {
     #region Fields
 
+    private ILoggerFactory _loggerFactory;
     private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
     private SimpleContainer _container;
 
@@ -53,7 +56,6 @@ public class AppBootstrapper : BootstrapperBase
     protected override void Configure()
     {
         _container = new SimpleContainer();
-
         _container.Singleton<IWindowManager, WindowManager>();
         _container.Singleton<IEventAggregator, EventAggregator>();
         _container.Singleton<KeyboardHelper, KeyboardHelper>();
@@ -133,7 +135,16 @@ public class AppBootstrapper : BootstrapperBase
     /// <param name="e">The args.</param>
     protected override void OnStartup(object sender, System.Windows.StartupEventArgs e)
     {
-        VelopackApp.Build().Run();
+        _loggerFactory = LoggerFactory.Create(builder =>
+        {
+            builder.ClearProviders();
+            builder.SetMinimumLevel(LogLevel.Trace);
+            builder.AddNLog(); // Use NLog as the logging provider
+        });
+
+        // Get an ILogger instance
+        var logger = _loggerFactory.CreateLogger<App>();
+        VelopackApp.Build().Run(logger);
 
         var instance = RunningInstance();
         if (RunningInstance() != null)
