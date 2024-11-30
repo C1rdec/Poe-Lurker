@@ -132,15 +132,14 @@ public class AppBootstrapper : BootstrapperBase
     /// <param name="e">The args.</param>
     protected override void OnStartup(object sender, System.Windows.StartupEventArgs e)
     {
-        var settings = _container.GetInstance<SettingsService>();
-        var windowManager = _container.GetInstance<IWindowManager>();
+        var instance = RunningInstance();
         if (RunningInstance() != null)
         {
-            System.Windows.MessageBox.Show("Another Instance Is Running");
-            System.Windows.Application.Current.Shutdown();
-            return;
+            instance.Kill();
         }
 
+        var settings = _container.GetInstance<SettingsService>();
+        var windowManager = _container.GetInstance<IWindowManager>();
         if (settings.ShowWelcome)
         {
             settings.ShowWelcome = false;
