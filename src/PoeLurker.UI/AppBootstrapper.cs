@@ -74,8 +74,8 @@ public class AppBootstrapper : BootstrapperBase
         _container.Singleton<SettingsViewModel, SettingsViewModel>();
         _container.Singleton<TutorialViewModel, TutorialViewModel>();
         _container.Singleton<WelcomeViewModel, WelcomeViewModel>();
+        _container.Singleton<PoeLurkerUpdateManager, PoeLurkerUpdateManager>();
         _container.PerRequest<AfkService, AfkService>();
-        _container.PerRequest<PoeLurkerUpdateManager, PoeLurkerUpdateManager>();
         _container.PerRequest<ShellViewModel, ShellViewModel>();
         _container.PerRequest<WikiViewModel, WikiViewModel>();
         _container.PerRequest<StashTabGridViewModel, StashTabGridViewModel>();
