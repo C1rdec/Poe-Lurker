@@ -7,7 +7,6 @@
 namespace PoeLurker.Core.Services;
 
 using System;
-using PoeLurker.Core.Helpers;
 using PoeLurker.Core.Models;
 
 /// <summary>

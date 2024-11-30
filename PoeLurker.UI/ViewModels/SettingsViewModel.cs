@@ -1399,7 +1399,7 @@ public class SettingsViewModel : Screen
             }
 
             _activated = true;
-        });        
+        });
 
         AlertVolume = (int)(_settingService.AlertVolume * 100);
         ItemAlertVolume = (int)(_settingService.ItemAlertVolume * 100);
