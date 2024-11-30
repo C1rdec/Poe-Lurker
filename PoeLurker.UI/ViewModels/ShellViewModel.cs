@@ -348,7 +348,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
         CleanUp();
 
         ShowInTaskBar = false;
-        var updateManager = IoC.Get<UpdateManager>();
+        var updateManager = IoC.Get<PoeLurkerUpdateManager>();
         await updateManager.Update();
     }
 
@@ -763,8 +763,8 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     /// </summary>
     private async Task CheckForUpdate()
     {
-        var updateManager = IoC.Get<UpdateManager>();
-        //this.NeedUpdate = await updateManager.CheckForUpdate();
+        var updateManager = IoC.Get<PoeLurkerUpdateManager>();
+        NeedUpdate = await updateManager.CheckForUpdate();
         if (NeedUpdate)
         {
             var message = new ManaBulbMessage()

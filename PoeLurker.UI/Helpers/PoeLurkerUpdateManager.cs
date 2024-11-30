@@ -9,16 +9,21 @@ namespace PoeLurker.UI.Helpers;
 using System.Threading.Tasks;
 using PoeLurker.Core;
 using PoeLurker.Core.Services;
+using Velopack;
+using Velopack.Sources;
+
 //using Squirrel;
 
 /// <summary>
 /// Represents the update manager.
 /// </summary>
-public class UpdateManager
+public class PoeLurkerUpdateManager
 {
     #region Fields
 
     private static readonly string PoeLukerGithubUrl = "https://github.com/C1rdec/Poe-Lurker";
+
+    private readonly UpdateManager _updateManager = new(new GithubSource(PoeLukerGithubUrl, string.Empty, false));
     private readonly SettingsService _settingsService;
     private readonly ClipboardLurker _clipboardLurker;
     private readonly ClientLurker _clientLurker;
@@ -33,7 +38,7 @@ public class UpdateManager
     /// <param name="settingsService">The settings service.</param>
     /// <param name="clipboardLurker">The clipboard lurker.</param>
     /// <param name="clientLurker">The client lurker.</param>
-    public UpdateManager(SettingsService settingsService, ClipboardLurker clipboardLurker, ClientLurker clientLurker)
+    public PoeLurkerUpdateManager(SettingsService settingsService, ClipboardLurker clipboardLurker, ClientLurker clientLurker)
     {
         _clipboardLurker = clipboardLurker;
         _clientLurker = clientLurker;
@@ -63,38 +68,39 @@ public class UpdateManager
             _clientLurker.Dispose();
         }
 
-        //using (var updateManager = await Squirrel.UpdateManager.GitHubUpdateManager(PoeLukerGithubUrl))
-        //{
-        //    await updateManager.UpdateApp();
-        //    Squirrel.UpdateManager.RestartApp();
-        //}
+        var newVersion = await _updateManager.CheckForUpdatesAsync();
+        if (newVersion == null)
+        {
+            return;
+        }
+
+        await _updateManager.DownloadUpdatesAsync(newVersion);
+        _updateManager.ApplyUpdatesAndRestart(newVersion);
     }
 
     /// <summary>
     /// Updates this instance.
     /// </summary>
     /// <returns>True if needs update.</returns>
-    //        public async Task<bool> CheckForUpdate()
-    //        {
-    //#if DEBUG
-    //            return false;
-    //#endif
+    public async Task<bool> CheckForUpdate()
+    {
+#if DEBUG
+        return false;
+#endif
 
-    //#pragma warning disable CS0162
-    //            try
-    //            {
-    //                using (var updateManager = await Squirrel.UpdateManager.GitHubUpdateManager(PoeLukerGithubUrl))
-    //                {
-    //                    var information = await updateManager.CheckForUpdate();
-    //                    return information.ReleasesToApply.Any();
-    //                }
-    //            }
-    //            catch
-    //            {
-    //                return false;
-    //            }
-    //#pragma warning restore CS0162
-    //        }
+#pragma warning disable CS0162
+        try
+        {
+            var newVersion = await _updateManager.CheckForUpdatesAsync();
+
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+#pragma warning restore CS0162
+    }
 
     #endregion
 }

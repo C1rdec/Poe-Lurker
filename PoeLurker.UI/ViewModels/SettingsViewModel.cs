@@ -1279,7 +1279,7 @@ public class SettingsViewModel : Screen
     /// </summary>
     public async void Update()
     {
-        var updateManager = IoC.Get<UpdateManager>();
+        var updateManager = IoC.Get<PoeLurkerUpdateManager>();
         await updateManager.Update();
     }
 
@@ -1490,8 +1490,8 @@ public class SettingsViewModel : Screen
     /// </summary>
     private async void CheckForUpdate()
     {
-        var updateManager = IoC.Get<UpdateManager>();
-        //this.NeedsUpdate = await updateManager.CheckForUpdate();
+        var updateManager = IoC.Get<PoeLurkerUpdateManager>();
+        NeedsUpdate = await updateManager.CheckForUpdate();
     }
 
     /// <summary>
