@@ -93,7 +93,7 @@ public class PoeLurkerUpdateManager
         {
             var newVersion = await _updateManager.CheckForUpdatesAsync();
 
-            return true;
+            return newVersion != null;
         }
         catch
         {

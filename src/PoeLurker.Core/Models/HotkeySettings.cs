@@ -14,6 +14,20 @@ using Winook;
 /// </summary>
 public sealed class HotkeySettings
 {
+    public HotkeySettings()
+    {
+        Main = new();
+        Busy = new();
+        Whisper = new();
+        Dismiss = new();
+        StillInterested = new();
+        OpenWiki = new();
+        JoinGuildHideout = new();
+        JoinHideout = new();
+        SearchItem = new();
+        RemainingMonster = new();
+    }
+
     #region Properties
 
     /// <summary>
