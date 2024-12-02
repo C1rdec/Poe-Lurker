@@ -89,6 +89,11 @@ public class ClientLurker : IDisposable
     public event EventHandler<LocationChangedEvent> LocationChanged;
 
     /// <summary>
+    /// Occurs when the player generate a level.
+    /// </summary>
+    public event EventHandler<GeneratingLevelEvent> GeneratingLevel;
+
+    /// <summary>
     /// Occurs when a trade is accepted.
     /// </summary>
     public event EventHandler<TradeAcceptedEvent> TradeAccepted;
@@ -349,6 +354,13 @@ public class ClientLurker : IDisposable
             if (levelUpEvent != null)
             {
                 PlayerLevelUp?.Invoke(this, levelUpEvent);
+                return;
+            }
+
+            var generatingLevelEvent = GeneratingLevelEvent.TryParse(newline);
+            if (generatingLevelEvent != null)
+            {
+                GeneratingLevel?.Invoke(this, generatingLevelEvent);
                 return;
             }
 

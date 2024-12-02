@@ -696,13 +696,29 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
         else
         {
             EventHandler<LocationChangedEvent> handler = default;
+            EventHandler<GeneratingLevelEvent> poe2Handler = default;
             handler = (object s, LocationChangedEvent e) =>
             {
                 Start(windowHandle);
                 _currentLurker.LocationChanged -= handler;
+                if (poe2Handler != null)
+                {
+                    _currentLurker.GeneratingLevel -= poe2Handler;
+                }
             };
 
+            // Poe 2
+            poe2Handler = (object s, GeneratingLevelEvent e) =>
+            {
+                Start(windowHandle);
+                _currentLurker.GeneratingLevel -= poe2Handler;
+                if (handler != null)
+                {
+                    _currentLurker.LocationChanged -= handler;
+                }
+            };
             _currentLurker.LocationChanged += handler;
+            _currentLurker.GeneratingLevel += poe2Handler;
         }
     }
 
