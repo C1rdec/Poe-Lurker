@@ -360,7 +360,7 @@ public class ClientLurker : IDisposable
             var generatingLevelEvent = GeneratingLevelEvent.TryParse(newline);
             if (generatingLevelEvent != null)
             {
-                Models.PoeApplicationContext.IsPoe2 = true;
+                Models.PoeApplicationContext.Poe2 = true;
                 GeneratingLevel?.Invoke(this, generatingLevelEvent);
                 return;
             }
