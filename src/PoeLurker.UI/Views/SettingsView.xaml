@@ -586,8 +586,9 @@
                             <TextBlock VerticalAlignment="Center" FontSize="18">Life Foreground</TextBlock>
                             <colorpicker:PortableColorPicker SelectedColor="{Binding LifebarColor, Mode=TwoWay, Delay=10}" 
                                                              Padding="20,0,0,0"
+                                                             Cursor="Hand"
                                                              Style="{StaticResource DefaultColorPickerStyle}"
-                                                             Width="80" 
+                                                             Width="120" 
                                                              Height="30"
                                                              ShowAlpha="False"
                                                              ShowFractionalPart="False"
