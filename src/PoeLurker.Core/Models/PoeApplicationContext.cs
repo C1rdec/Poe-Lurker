@@ -14,6 +14,11 @@ public static class PoeApplicationContext
     #region Properties
 
     /// <summary>
+    /// Gets or sets a value indicating Poe 2 is running.
+    /// </summary>
+    public static bool IsPoe2 { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether this instance is running.
     /// </summary>
     public static bool IsRunning { get; set; }
