@@ -96,7 +96,7 @@ public class SplashscreenViewModel : PropertyChangedBase
     /// </returns>
     private static string GetResourceContent(string fileName)
     {
-        using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"Lurker.UI.Assets.{fileName}"))
+        using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"PoeLurker.UI.Assets.{fileName}"))
         {
             using (var reader = new StreamReader(stream))
             {
