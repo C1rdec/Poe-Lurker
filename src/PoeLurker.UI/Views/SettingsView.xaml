@@ -8,6 +8,7 @@
                       xmlns:local="clr-namespace:PoeLurker.UI"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       Width="800"
+                      xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
                       Height="450"
                       Dialog:DialogParticipation.Register="{Binding}"
                       ResizeMode="CanMinimize"
@@ -582,8 +583,16 @@
                                 <ColumnDefinition Width="auto" />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <TextBlock FontSize="18">Life Foreground</TextBlock>
-                            <!--<xctk:ColorPicker SelectedColor="{Binding LifebarColor}" Foreground="Black" HorizontalAlignment="Left" Grid.Column="1" Margin="10,0,0,0" Width="100" AvailableColorsSortingMode="HueSaturationBrightness" ></xctk:ColorPicker>-->
+                            <TextBlock VerticalAlignment="Center" FontSize="18">Life Foreground</TextBlock>
+                            <colorpicker:PortableColorPicker SelectedColor="{Binding LifebarColor, Mode=TwoWay, Delay=10}" 
+                                                             Padding="20,0,0,0"
+                                                             Style="{StaticResource DefaultColorPickerStyle}"
+                                                             Width="80" 
+                                                             Height="30"
+                                                             ShowAlpha="False"
+                                                             ShowFractionalPart="False"
+                                                             Grid.Column="1" 
+                                                             HorizontalAlignment="Left"/>
                             <TextBlock Grid.Row="1"
                                        Margin="0,30,0,0"
                                        FontSize="18">

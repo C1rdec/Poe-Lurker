@@ -11,6 +11,7 @@
                     <local:AppBootstrapper x:Key="bootstrapper" />
                     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
                 </ResourceDictionary>
+                <ResourceDictionary Source="pack://application:,,,/ColorPicker;component/Styles/DefaultColorPickerStyle.xaml" />
                 <ResourceDictionary>
                     <Style x:Key="PackIconStyle" TargetType="{x:Type local:IconPack}">
                         <Setter Property="Padding" Value="0" />
