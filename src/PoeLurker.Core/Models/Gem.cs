@@ -180,7 +180,7 @@ public class Gem : WikiItem
         }
         else
         {
-            for (int i = 0; i < availabilities.Count(); i++)
+            for (var i = 0; i < availabilities.Count(); i++)
             {
                 if (availabilities.ElementAt(i) == "✓")
                 {

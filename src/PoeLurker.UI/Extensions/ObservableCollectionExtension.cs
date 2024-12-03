@@ -28,7 +28,7 @@ public static class ObservableCollectionExtension
         var sortableList = new List<T>(collection);
         sortableList.Sort(comparison);
 
-        for (int i = 0; i < sortableList.Count; i++)
+        for (var i = 0; i < sortableList.Count; i++)
         {
             collection.Move(collection.IndexOf(sortableList[i]), i);
         }

@@ -124,7 +124,7 @@ public class BuildManagerViewModel : Caliburn.Micro.PropertyChangedBase
     public async void Add()
     {
         var text = ClipboardHelper.GetClipboardText();
-        if (Uri.TryCreate(text, UriKind.Absolute, out Uri url))
+        if (Uri.TryCreate(text, UriKind.Absolute, out var url))
         {
             var rawUri = new Uri($"https://pastebin.com/raw{url.AbsolutePath}");
             using (var client = new HttpClient())

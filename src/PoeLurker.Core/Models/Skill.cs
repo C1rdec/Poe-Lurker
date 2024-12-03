@@ -112,7 +112,7 @@ public class Skill
             return false;
         }
 
-        for (int i = 0; i < skill.Gems.Count(); i++)
+        for (var i = 0; i < skill.Gems.Count(); i++)
         {
             var gem = skill.Gems.ElementAt(i);
             var myGem = Gems.ElementAt(i);

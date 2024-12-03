@@ -245,7 +245,7 @@ public class ClientLurker : IDisposable
     /// </summary>
     private void Lurk(string clientFileName)
     {
-        string path = string.Empty;
+        var path = string.Empty;
         try
         {
             path = _pathOfExileProcess.GetMainModuleFileName();

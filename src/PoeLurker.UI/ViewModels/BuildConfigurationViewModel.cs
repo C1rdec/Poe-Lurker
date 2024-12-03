@@ -264,7 +264,7 @@ public class BuildConfigurationViewModel : Caliburn.Micro.PropertyChangedBase
     /// <param name="value">The value.</param>
     private static void OpenUrl(string value)
     {
-        if (Uri.TryCreate(value, UriKind.Absolute, out Uri _))
+        if (Uri.TryCreate(value, UriKind.Absolute, out var _))
         {
             ProcessExtensions.OpenUrl(value);
         }

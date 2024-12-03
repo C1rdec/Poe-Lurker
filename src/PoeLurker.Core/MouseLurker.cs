@@ -183,7 +183,7 @@ public class MouseLurker : IDisposable
     {
         PoeItem item = default;
         var retryCount = 2;
-        for (int i = 0; i < retryCount; i++)
+        for (var i = 0; i < retryCount; i++)
         {
             item = await ClipboardHelper.GetItemInClipboard();
             if (item == null)

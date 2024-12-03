@@ -40,13 +40,13 @@ public class ItemOverlayViewModel : Caliburn.Micro.PropertyChangedBase
         if (_item.Information != null)
         {
             var openPrefix = MaxAffixCount - _item.Information.PrefixCount;
-            for (int i = 0; i < openPrefix; i++)
+            for (var i = 0; i < openPrefix; i++)
             {
                 Prefixes.Add('.');
             }
 
             var openSuffix = MaxAffixCount - _item.Information.SuffixCount;
-            for (int i = 0; i < openSuffix; i++)
+            for (var i = 0; i < openSuffix; i++)
             {
                 Suffixes.Add('.');
             }

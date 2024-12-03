@@ -143,7 +143,7 @@ public class UpdateViewModel : Caliburn.Micro.PropertyChangedBase
     {
         using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"Lurker.UI.Assets.{fileName}"))
         {
-            using (StreamReader reader = new StreamReader(stream))
+            using (var reader = new StreamReader(stream))
             {
                 return reader.ReadToEnd();
             }
