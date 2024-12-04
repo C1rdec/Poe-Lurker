@@ -472,7 +472,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     {
         Execute.OnUIThread(() =>
         {
-            _currentDockingHelper = new DockingHelper(processId, _settingsService);
+            _currentDockingHelper = new DockingHelper(processId, _settingsService, _currentLurker);
 
             // Keyboard
             var keyboarHelper = new PoeKeyboardHelper(processId);

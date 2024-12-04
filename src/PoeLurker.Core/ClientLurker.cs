@@ -33,6 +33,7 @@ public class ClientLurker : IDisposable
     private readonly CancellationTokenSource _tokenSource;
     private readonly Process _pathOfExileProcess;
     private string _currentLeague;
+    private bool _poe2;
 
     #endregion
 
@@ -72,6 +73,11 @@ public class ClientLurker : IDisposable
     #endregion
 
     #region Events
+
+    /// <summary>
+    /// Occurs when the player changed the location.
+    /// </summary>
+    public event EventHandler<bool> Poe2;
 
     /// <summary>
     /// Occurs when [request admin].
@@ -143,6 +149,7 @@ public class ClientLurker : IDisposable
     public void Dispose()
     {
         Dispose(true);
+        GC.SuppressFinalize(this);
     }
 
     /// <summary>
@@ -360,7 +367,13 @@ public class ClientLurker : IDisposable
             var generatingLevelEvent = GeneratingLevelEvent.TryParse(newline);
             if (generatingLevelEvent != null)
             {
-                Models.PoeApplicationContext.Poe2 = true;
+                if (!_poe2)
+                {
+                    _poe2 = true;
+                    Models.PoeApplicationContext.Poe2 = true;
+                    Poe2?.Invoke(this, Models.PoeApplicationContext.Poe2);
+                }
+                
                 GeneratingLevel?.Invoke(this, generatingLevelEvent);
                 return;
             }
@@ -368,6 +381,13 @@ public class ClientLurker : IDisposable
             var locationEvent = LocationChangedEvent.TryParse(newline);
             if (locationEvent != null)
             {
+                if (_poe2)
+                {
+                    _poe2 = false;
+                    Models.PoeApplicationContext.Poe2 = false;
+                    Poe2?.Invoke(this, Models.PoeApplicationContext.Poe2);
+                }
+
                 Models.PoeApplicationContext.Location = locationEvent.Location;
                 LocationChanged?.Invoke(this, locationEvent);
                 return;

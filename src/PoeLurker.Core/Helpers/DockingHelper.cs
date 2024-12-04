@@ -45,6 +45,7 @@ public class DockingHelper : IDisposable
     private readonly IntPtr _windowHandle;
     private IntPtr _currentWindowStyle;
     private readonly Process _process;
+    private readonly ClientLurker _clientLurker;
 
     #endregion
 
@@ -55,11 +56,14 @@ public class DockingHelper : IDisposable
     /// </summary>
     /// <param name="processId">The process identifier.</param>
     /// <param name="settingsService">The settings service.</param>
-    public DockingHelper(int processId, SettingsService settingsService)
+    public DockingHelper(int processId, SettingsService settingsService, ClientLurker clientLurker)
     {
         _process = Process.GetProcessById(processId);
+        _clientLurker = clientLurker;
+
         if (_process != null)
         {
+            _clientLurker.Poe2 += ClientLurker_Poe2;
             _myProcess = Process.GetCurrentProcess();
             _tokenSource = new CancellationTokenSource();
             _settingsService = settingsService;
@@ -153,10 +157,16 @@ public class DockingHelper : IDisposable
     {
         if (disposing)
         {
+            _clientLurker.Poe2 -= ClientLurker_Poe2;
             _myProcess.Dispose();
             _tokenSource.Cancel();
             UnhookWinEvent(_hook);
         }
+    }
+
+    private void ClientLurker_Poe2(object sender, bool e)
+    {
+        InvokeWindowMove();
     }
 
     /// <summary>
