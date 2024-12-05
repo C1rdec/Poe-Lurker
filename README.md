@@ -16,7 +16,7 @@ If you like and use Poe Lurker please consider signing up for a small monthly [P
 | <a href="https://signpath.io?utm_source=foundation&utm_medium=github&utm_campaign=poe-lurker" target="_blank"><img src="./assets/signpath_logo.png"></a>  | <a href="https://github.com/macote/Winook" target="_blank"><img height="50" src="https://raw.githubusercontent.com/macote/Winook/master/doc/Winook.svg"></a> | <a href="https://github.com/MahApps/MahApps.Metro" target="_blank"><img height="45" src="./assets/MahAppsIcon.png"></a> |
 
 ## Usage
-- Install ≥ [.NET Framework 4.8](https://dotnet.microsoft.com/download/dotnet-framework)
+- Install ≥ [.NET8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
 - Install `Poe Lurker`  <!--<a href="https://cutt.ly/UT5eHx7" target="_blank"><img height="35" align="center" src="https://getbadgecdn.azureedge.net/images/English_L.png"></a> or --> download and run [`PoeLurkerSetup.exe`](https://github.com/C1rdec/Poe-Lurker/releases/latest/download/PoeLurkerSetup.exe)
 
 
