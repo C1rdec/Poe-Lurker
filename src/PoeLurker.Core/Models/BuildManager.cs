@@ -13,6 +13,11 @@ using System.Collections.Generic;
 /// </summary>
 public sealed class BuildManager
 {
+    public BuildManager()
+    {
+        Builds = [];
+    }
+
     #region Properties
 
     /// <summary>

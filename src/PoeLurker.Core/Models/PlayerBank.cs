@@ -13,6 +13,12 @@ using System.Collections.Generic;
 /// </summary>
 public sealed class PlayerBank
 {
+    public PlayerBank()
+    {
+        Players = [];
+        ExternalPlayers = [];
+    }
+
     #region Properties
 
     /// <summary>
