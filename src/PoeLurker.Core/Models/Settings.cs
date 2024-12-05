@@ -25,6 +25,26 @@ public sealed class Settings
         SoldMessage = DefaultSoldMessage;
         BusyMessage = DefaultBusyMessage;
         ThankYouMessage = DefaultThankYouMessage;
+
+        ShowWelcome = true;
+        IncomingTradeEnabled = true;
+        OutgoingTradeEnabled = true;
+        ToolTipEnabled = true;
+        ClipboardEnabled = true;
+        AutoKickEnabled = true;
+        HideInBackground = true;
+        HideoutEnabled = true;
+        BuildAutoClose = true;
+        ShowReleaseNote = true;
+        ShowStartupAnimation = true;
+        SoldDetection = true;
+        OutgoingDelayToClose = 100;
+        JoinHideoutVolume = 1;
+        AlertVolume = 1;
+        ItemAlertVolume = 0.5f;
+        TradebarScaling = 1;
+        LifeForeground = "#FFFFFFFF";
+        ToolTipDelay = 1000;
     }
 
     #region Properties
@@ -32,7 +52,6 @@ public sealed class Settings
     /// <summary>
     /// Gets or sets a value indicating whether the welcome screen should be shown.
     /// </summary>
-    [DefaultValue(true)]
     public bool ShowWelcome { get; set; }
 
     /// <summary>
@@ -68,13 +87,11 @@ public sealed class Settings
     /// <summary>
     /// Gets or sets a value indicating whether [incoming trade enabled].
     /// </summary>
-    [DefaultValue(true)]
     public bool IncomingTradeEnabled { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether [outgoing trade enabled].
     /// </summary>
-    [DefaultValue(true)]
     public bool OutgoingTradeEnabled { get; set; }
 
     /// <summary>
@@ -110,37 +127,31 @@ public sealed class Settings
     /// <summary>
     /// Gets or sets the alert volume.
     /// </summary>
-    [DefaultValue(1)]
     public float AlertVolume { get; set; }
 
     /// <summary>
     /// Gets or sets the alert volume.
     /// </summary>
-    [DefaultValue(0.5f)]
     public float ItemAlertVolume { get; set; }
 
     /// <summary>
     /// Gets or sets the join hideout volume.
     /// </summary>
-    [DefaultValue(1)]
     public float JoinHideoutVolume { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether [tool tip enabled].
     /// </summary>
-    [DefaultValue(true)]
     public bool ToolTipEnabled { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether [clipboard enabled].
     /// </summary>
-    [DefaultValue(true)]
     public bool ClipboardEnabled { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether [automatic kick].
     /// </summary>
-    [DefaultValue(true)]
     public bool AutoKickEnabled { get; set; }
 
     /// <summary>
@@ -161,13 +172,11 @@ public sealed class Settings
     /// <summary>
     /// Gets or sets the tooltip delay.
     /// </summary>
-    [DefaultValue(1000)]
     public int ToolTipDelay { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether [hide in background].
     /// </summary>
-    [DefaultValue(true)]
     public bool HideInBackground { get; set; }
 
     /// <summary>
@@ -178,19 +187,16 @@ public sealed class Settings
     /// <summary>
     /// Gets or sets the life foreground.
     /// </summary>
-    [DefaultValue("#FFFFFFFF")]
     public string LifeForeground { get; set; }
 
     /// <summary>
     /// Gets or sets the trade bar scaling.
     /// </summary>
-    [DefaultValue(1)]
     public double TradebarScaling { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether [show startup animation].
     /// </summary>
-    [DefaultValue(true)]
     public bool ShowStartupAnimation { get; set; }
 
     /// <summary>
@@ -206,13 +212,11 @@ public sealed class Settings
     /// <summary>
     /// Gets or sets a value indicating whether [sold detection].
     /// </summary>
-    [DefaultValue(true)]
     public bool SoldDetection { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether [show release note].
     /// </summary>
-    [DefaultValue(true)]
     public bool ShowReleaseNote { get; set; }
 
     /// <summary>
@@ -223,7 +227,6 @@ public sealed class Settings
     /// <summary>
     /// Gets or sets a value indicating whether [build automatic close].
     /// </summary>
-    [DefaultValue(true)]
     public bool BuildAutoClose { get; set; }
 
     /// <summary>
@@ -234,13 +237,11 @@ public sealed class Settings
     /// <summary>
     /// Gets or sets a value indicating whether [synchronize build].
     /// </summary>
-    [DefaultValue(true)]
     public bool SyncBuild { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether [hideout enabled].
     /// </summary>
-    [DefaultValue(true)]
     public bool HideoutEnabled { get; set; }
 
     /// <summary>
@@ -261,8 +262,12 @@ public sealed class Settings
     /// <summary>
     /// Gets or sets a value indicating the delay to close outgoing trades.
     /// </summary>
-    [DefaultValue(100)]
     public double OutgoingDelayToClose { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating if the user tried to connect with patreon.
+    /// </summary>
+    public bool ConnectedToPatreon { get; set; }
 
     #endregion
 }

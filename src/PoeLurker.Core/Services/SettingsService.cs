@@ -487,6 +487,19 @@ public class SettingsService
         }
     }
 
+    public bool ConnectedToPatreon
+    {
+        get
+        {
+            return _settings.Entity.ConnectedToPatreon;
+        }
+
+        set
+        {
+            _settings.Entity.ConnectedToPatreon = value;
+        }
+    }
+
     /// <summary>
     /// Gets or sets a value indicating whether [vulkan renderer].
     /// </summary>

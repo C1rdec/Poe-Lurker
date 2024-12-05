@@ -437,14 +437,14 @@ public class SettingsViewModel : Screen
     {
         get
         {
-            return !new TokenService().Connected;
+            return !_settingService.ConnectedToPatreon;
         }
     }
 
     /// <summary>
     /// Gets the patreon identifier.
     /// </summary>
-    public string PatreonId => new TokenService().PatreonId;
+    public string PatreonId => _currentPatreonService.PatreonId;
 
     /// <summary>
     /// Gets or sets a value indicating whether this <see cref="SettingsViewModel"/> is pledging.
@@ -1049,7 +1049,7 @@ public class SettingsViewModel : Screen
 
         if (Directory.Exists(folderName))
         {
-            Process.Start(folderName);
+            ProcessExtensions.OpenUrl(folderName);
         }
     }
 
@@ -1308,6 +1308,9 @@ public class SettingsViewModel : Screen
             SearchEnabled = true;
             MapEnabled = true;
             DashboardEnabled = true;
+            _settingService.ConnectedToPatreon = true;
+            SaveSettings();
+            NotifyOfPropertyChange(() => NotConnected);
         }
     }
 
@@ -1383,28 +1386,36 @@ public class SettingsViewModel : Screen
     {
         HasCustomTradeSound = _soundService.HasCustomTradeAlert();
         HasCustomItemSound = _soundService.HasCustomItemAlert();
-
-        _ = _currentPatreonService.CheckPledgeStatus().ContinueWith(t =>
-        {
-            Pledging = _currentPatreonService.Pledging;
-            if (Pledging)
-            {
-                BlessingText = "A blessing I can’t deny";
-            }
-            else
-            {
-                SearchEnabled = false;
-                DashboardEnabled = false;
-                MapEnabled = false;
-            }
-
-            _activated = true;
-        });
-
         AlertVolume = (int)(_settingService.AlertVolume * 100);
         ItemAlertVolume = (int)(_settingService.ItemAlertVolume * 100);
         JoinHideoutVolume = (int)(_settingService.JoinHideoutVolume * 100);
         CheckForUpdate();
+
+        if (_settingService.ConnectedToPatreon)
+        {
+            _ = _currentPatreonService.CheckPledgeStatus().ContinueWith(t =>
+            {
+                Pledging = _currentPatreonService.Pledging;
+                if (Pledging)
+                {
+                    BlessingText = "A blessing I can’t deny";
+                }
+                else
+                {
+                    SearchEnabled = false;
+                    DashboardEnabled = false;
+                    MapEnabled = false;
+                    _settingService.ConnectedToPatreon = false;
+                    _settingService.Save();
+                }
+
+                _activated = true;
+            });
+        }
+        else
+        {
+            _activated = true;
+        }
 
         await base.OnActivateAsync(token);
     }

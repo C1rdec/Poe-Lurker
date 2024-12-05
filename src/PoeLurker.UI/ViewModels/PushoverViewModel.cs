@@ -6,7 +6,7 @@
 
 namespace PoeLurker.UI.ViewModels;
 
-using System.Diagnostics;
+using PoeLurker.Core.Extensions;
 using PoeLurker.Patreon.Services;
 
 /// <summary>
@@ -121,7 +121,7 @@ public class PushoverViewModel : Caliburn.Micro.PropertyChangedBase
     /// </summary>
     public void NewAccount()
     {
-        Process.Start("https://pushover.net/signup");
+        ProcessExtensions.OpenUrl("https://pushover.net/signup");
     }
 
     /// <summary>
@@ -129,7 +129,7 @@ public class PushoverViewModel : Caliburn.Micro.PropertyChangedBase
     /// </summary>
     public void Info()
     {
-        Process.Start("https://github.com/C1rdec/Poe-Lurker/blob/main/assets/Pushover.md");
+        ProcessExtensions.OpenUrl("https://github.com/C1rdec/Poe-Lurker/blob/main/assets/Pushover.md");
     }
 
     #endregion

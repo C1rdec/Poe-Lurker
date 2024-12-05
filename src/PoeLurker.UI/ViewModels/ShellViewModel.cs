@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Caliburn.Micro;
 using PoeLurker.Core;
+using PoeLurker.Core.Extensions;
 using PoeLurker.Core.Helpers;
 using PoeLurker.Core.Models;
 using PoeLurker.Core.Services;
@@ -127,7 +128,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
 
             if (settingsService.ShowReleaseNote)
             {
-                Process.Start("https://github.com/C1rdec/Poe-Lurker/releases/latest");
+                ProcessExtensions.OpenUrl("https://github.com/C1rdec/Poe-Lurker/releases/latest");
             }
         }
 

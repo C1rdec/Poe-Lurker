@@ -7,7 +7,7 @@
 namespace PoeLurker.Core.Models;
 
 using System;
-using System.Diagnostics;
+using PoeLurker.Core.Extensions;
 
 /// <summary>
 /// Represents a collaboration.
@@ -51,7 +51,7 @@ public class Collaboration
     /// </summary>
     public void Open()
     {
-        Process.Start(Url.ToString());
+        ProcessExtensions.OpenUrl(Url.ToString());
     }
 
     #endregion

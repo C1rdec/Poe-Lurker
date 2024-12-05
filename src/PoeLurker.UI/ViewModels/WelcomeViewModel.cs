@@ -6,8 +6,8 @@
 
 namespace PoeLurker.UI.ViewModels;
 
-using System.Diagnostics;
 using Caliburn.Micro;
+using PoeLurker.Core.Extensions;
 
 /// <summary>
 /// Represents the welcome screen.
@@ -21,7 +21,7 @@ public class WelcomeViewModel : Screen
     /// </summary>
     public void OpenDiscord()
     {
-        Process.Start("https://discord.com/invite/hQERv7K");
+        ProcessExtensions.OpenUrl("https://discord.com/invite/hQERv7K");
     }
 
     /// <summary>
@@ -29,7 +29,7 @@ public class WelcomeViewModel : Screen
     /// </summary>
     public void OpenPatreon()
     {
-        Process.Start("https://www.patreon.com/poelurker");
+        ProcessExtensions.OpenUrl("https://www.patreon.com/poelurker");
     }
 
     /// <summary>
@@ -37,7 +37,7 @@ public class WelcomeViewModel : Screen
     /// </summary>
     public void OpenUserGuide()
     {
-        Process.Start(@"https://docs.google.com/presentation/d/1XhaSSNAFGxzouc5amzAW8c_6ifToNjnsQq5UmNgLXoo/present?slide=id.p");
+        ProcessExtensions.OpenUrl(@"https://docs.google.com/presentation/d/1XhaSSNAFGxzouc5amzAW8c_6ifToNjnsQq5UmNgLXoo/present?slide=id.p");
     }
 
     /// <summary>
@@ -45,7 +45,7 @@ public class WelcomeViewModel : Screen
     /// </summary>
     public void OpenCheatSheet()
     {
-        Process.Start(@"https://github.com/C1rdec/Poe-Lurker/blob/main/assets/CheatSheet.md");
+        ProcessExtensions.OpenUrl(@"https://github.com/C1rdec/Poe-Lurker/blob/main/assets/CheatSheet.md");
     }
 
     /// <summary>

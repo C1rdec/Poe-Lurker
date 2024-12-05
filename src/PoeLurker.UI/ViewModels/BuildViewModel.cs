@@ -8,12 +8,12 @@ namespace PoeLurker.UI.ViewModels;
 
 using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using PoeLurker.Core;
+using PoeLurker.Core.Extensions;
 using PoeLurker.Core.Helpers;
 using PoeLurker.Core.Models;
 using PoeLurker.Core.Services;
@@ -491,7 +491,7 @@ public class BuildViewModel : PoeOverlayBase
     {
         if (SelectedSkillTreeInformation != null && !string.IsNullOrEmpty(SelectedSkillTreeInformation.Url))
         {
-            Process.Start(SelectedSkillTreeInformation.Url);
+            ProcessExtensions.OpenUrl(SelectedSkillTreeInformation.Url);
         }
     }
 
