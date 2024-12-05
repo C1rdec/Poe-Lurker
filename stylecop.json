@@ -3,7 +3,7 @@
   "settings": {
     "documentationRules": {
       "companyName": "Wohs Inc.",
-      "copyrightText": "Copyright © {companyName}"
+      "copyrightText": "Copyright ï¿½ {companyName}"
     },
     "layoutRules": {
       "newlineAtEndOfFile": "omit"

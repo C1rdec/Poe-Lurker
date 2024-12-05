@@ -129,7 +129,7 @@ public class PushoverViewModel : Caliburn.Micro.PropertyChangedBase
     /// </summary>
     public void Info()
     {
-        Process.Start("https://github.com/C1rdec/Poe-Lurker/blob/master/assets/Pushover.md");
+        Process.Start("https://github.com/C1rdec/Poe-Lurker/blob/main/assets/Pushover.md");
     }
 
     #endregion

@@ -19,7 +19,7 @@ public class CollaborationService : HttpServiceBase
 {
     #region Fields
 
-    private static readonly string BaseGitUrl = "https://raw.githubusercontent.com/C1rdec/Poe-Lurker/master/assets/Collaboration/";
+    private static readonly string BaseGitUrl = "https://raw.githubusercontent.com/C1rdec/Poe-Lurker/main/assets/Collaboration/";
     private static readonly string InformationFileUrl = $"{BaseGitUrl}Info";
     private static readonly string ImageFileUrl = $"{BaseGitUrl}Image";
 

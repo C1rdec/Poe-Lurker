@@ -55,7 +55,7 @@
                     <TextBlock HorizontalAlignment="Center" FontFamily="pack://application:,,,/Assets/#Fontin">Poe Lurker is currently running in the system tray.</TextBlock>
                     <Image Height="140"
                            Margin="0,10,0,0"
-                           Source="https://raw.githubusercontent.com/C1rdec/Poe-Lurker/master/assets/SystemTray.png" />
+                           Source="https://raw.githubusercontent.com/C1rdec/Poe-Lurker/main/assets/SystemTray.png" />
                     <TextBlock Margin="0,30,0,0"
                                HorizontalAlignment="Center"
                                FontFamily="pack://application:,,,/Assets/#Fontin">

@@ -1293,7 +1293,7 @@ public class SettingsViewModel : Screen
     /// Cheats the sheet.
     /// </summary>
     public void CheatSheet()
-        => OpenUrl(@"https://github.com/C1rdec/Poe-Lurker/blob/master/assets/CheatSheet.md");
+        => OpenUrl(@"https://github.com/C1rdec/Poe-Lurker/blob/main/assets/CheatSheet.md");
 
     /// <summary>
     /// Logins to patreon.

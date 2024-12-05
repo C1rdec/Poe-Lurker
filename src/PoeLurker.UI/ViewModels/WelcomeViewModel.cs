@@ -45,7 +45,7 @@ public class WelcomeViewModel : Screen
     /// </summary>
     public void OpenCheatSheet()
     {
-        Process.Start(@"https://github.com/C1rdec/Poe-Lurker/blob/master/assets/CheatSheet.md");
+        Process.Start(@"https://github.com/C1rdec/Poe-Lurker/blob/main/assets/CheatSheet.md");
     }
 
     /// <summary>

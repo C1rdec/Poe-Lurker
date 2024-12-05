@@ -46,7 +46,7 @@ public class GithubService : HttpServiceBase
         }
         else
         {
-            _gemsTask = GetText($"https://raw.githubusercontent.com/C1rdec/Poe-Lurker/master/assets/Data/GemInfo.json?{Guid.NewGuid()}").ContinueWith(t =>
+            _gemsTask = GetText($"https://raw.githubusercontent.com/C1rdec/Poe-Lurker/main/assets/Data/GemInfo.json?{Guid.NewGuid()}").ContinueWith(t =>
             {
                 return JsonSerializer.Deserialize<List<Gem>>(t.Result, Options);
             });
@@ -67,7 +67,7 @@ public class GithubService : HttpServiceBase
         }
         else
         {
-            _itemsTask = GetText($"https://raw.githubusercontent.com/C1rdec/Poe-Lurker/master/assets/Data/UniqueInfo.json?{Guid.NewGuid()}").ContinueWith(t =>
+            _itemsTask = GetText($"https://raw.githubusercontent.com/C1rdec/Poe-Lurker/main/assets/Data/UniqueInfo.json?{Guid.NewGuid()}").ContinueWith(t =>
             {
                 return JsonSerializer.Deserialize<List<UniqueItem>>(t.Result, Options);
             });
