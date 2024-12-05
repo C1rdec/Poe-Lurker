@@ -924,7 +924,10 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     /// </summary>
     private async Task CheckPledgeStatus()
     {
-        await ClipboardHelper.CheckPledgeStatusAsync();
+        if (_settingsService.ConnectedToPatreon)
+        {
+            await ClipboardHelper.CheckPledgeStatusAsync();
+        }
     }
 
     private Task ShowViewModel(PoeOverlayBase overlay)

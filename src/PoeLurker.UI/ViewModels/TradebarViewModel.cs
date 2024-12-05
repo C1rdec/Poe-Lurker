@@ -634,8 +634,11 @@ public class TradebarViewModel : PoeOverlayBase, IDisposable
     /// </summary>
     protected async override Task OnActivateAsync(CancellationToken token)
     {
-        await _pushBulletService.CheckPledgeStatus();
-        await _pushHoverService.CheckPledgeStatus();
+        if (SettingsService.ConnectedToPatreon)
+        {
+            await _pushBulletService.CheckPledgeStatus();
+            await _pushHoverService.CheckPledgeStatus();
+        }
 
         SettingsService.OnSave += SettingsService_OnSave;
 

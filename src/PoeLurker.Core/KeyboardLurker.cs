@@ -60,7 +60,11 @@ public class KeyboardLurker
         _keyboardHelper = keyboardHelper;
 
         _itemParser = new ItemParser();
-        _itemParser.CheckPledgeStatus();
+        if (settingsService.ConnectedToPatreon)
+        {
+            _itemParser.CheckPledgeStatus();
+        }
+
         _settingsService.OnSave += SettingsService_OnSave;
         _keyboardHook = new KeyboardHook(_processId);
         _ = _keyboardHook.InstallAsync();

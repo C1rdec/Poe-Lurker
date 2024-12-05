@@ -44,10 +44,13 @@ public class SplashscreenViewModel : PropertyChangedBase
 
         Execute.OnUIThread(async () =>
         {
-            await patreonService.CheckPledgeStatus();
-            if (patreonService.Pledging)
+            if (!settings.NotConnected)
             {
-                return;
+                await patreonService.CheckPledgeStatus();
+                if (patreonService.Pledging)
+                {
+                    return;
+                }
             }
 
             ShowPatreon = true;
