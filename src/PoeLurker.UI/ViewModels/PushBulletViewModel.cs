@@ -161,7 +161,6 @@ public class PushBulletViewModel : Caliburn.Micro.PropertyChangedBase
     /// </summary>
     public async void Login()
     {
-        await _service.CheckPledgeStatus();
         await _service.Login();
         if (_service.Connected)
         {
