@@ -162,11 +162,12 @@ public class PushBulletViewModel : Caliburn.Micro.PropertyChangedBase
     public async void Login()
     {
         await _service.CheckPledgeStatus();
+        await _service.Login();
         if (_service.Connected)
         {
             var devices = await _service.GetDevices();
             devices = devices.Where(d => d.Active);
-            if (devices.Any() && _service.Device.Id == null)
+            if (devices.Any() && _service.Device?.Id == null)
             {
                 var firstDevice = devices.First();
                 _service.SelectDevice(firstDevice);
