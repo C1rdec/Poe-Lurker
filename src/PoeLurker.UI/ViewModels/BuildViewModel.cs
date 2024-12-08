@@ -78,7 +78,7 @@ public class BuildViewModel : PoeOverlayBase
 
         _mouseLurker = mouseLurker;
 
-        if (_activePlayer != null && !string.IsNullOrEmpty(_activePlayer.Build.BuildId))
+        if (_activePlayer != null && _activePlayer.Build != null && !string.IsNullOrEmpty(_activePlayer.Build.BuildId))
         {
             var build = buildService.Builds.FirstOrDefault(b => b.Id == _activePlayer.Build.BuildId);
             if (build == null)

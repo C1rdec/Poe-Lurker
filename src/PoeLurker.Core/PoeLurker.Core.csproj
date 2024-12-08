@@ -24,7 +24,7 @@
     <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="NLog" Version="5.3.4" />
     <PackageReference Include="PoeLurker.Patreon" Version="8.0.17" />
-    <PackageReference Include="ProcessLurker" Version="8.0.0" />
+    <PackageReference Include="ProcessLurker" Version="8.0.1" />
     <PackageReference Include="SharpClipboard" Version="3.5.2" />
     <PackageReference Include="TextCopy" Version="6.2.1" />
     <PackageReference Include="Winook" Version="1.3.2" />

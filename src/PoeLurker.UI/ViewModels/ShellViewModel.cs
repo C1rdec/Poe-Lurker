@@ -684,15 +684,15 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
         _processLurker = new PathOfExileProcessLurker();
         var existingProcess = _processLurker.GetProcess();
         _processLurker.ProcessClosed += PoeClosed;
-        var windowHandle = await _processLurker.WaitForProcess();
+        var processId = await _processLurker.WaitForProcess(waitForExit: true, waitForWindowHandle: true, timeout: 0);
 
-        _currentLurker = new ClientLurker(windowHandle);
+        _currentLurker = new ClientLurker(processId);
         _currentLurker.AdminRequested += CurrentLurker_AdminRequested;
         _currentLurker.LeagueChanged += CurrentLurker_LeagueChanged;
 
         if (existingProcess != null)
         {
-            Start(windowHandle);
+            Start(processId);
         }
         else
         {
@@ -700,7 +700,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
             EventHandler<GeneratingLevelEvent> poe2Handler = default;
             handler = (object s, LocationChangedEvent e) =>
             {
-                Start(windowHandle);
+                Start(processId);
                 _currentLurker.LocationChanged -= handler;
                 if (poe2Handler != null)
                 {
@@ -711,7 +711,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
             // Poe 2
             poe2Handler = (object s, GeneratingLevelEvent e) =>
             {
-                Start(windowHandle);
+                Start(processId);
                 _currentLurker.GeneratingLevel -= poe2Handler;
                 if (handler != null)
                 {
