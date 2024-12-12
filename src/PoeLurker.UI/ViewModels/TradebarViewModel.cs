@@ -45,6 +45,7 @@ public class TradebarViewModel : PoeOverlayBase, IDisposable
     private readonly PushBulletService _pushBulletService;
     private readonly PushHoverService _pushHoverService;
     private readonly StashTabService _stashTabService;
+    private readonly ClipboardLurker _clipboardLurker;
 
     #endregion
 
@@ -72,6 +73,7 @@ public class TradebarViewModel : PoeOverlayBase, IDisposable
         KeyboardLurker keyboardLurker,
         DockingHelper dockingHelper,
         PoeKeyboardHelper keyboardHelper,
+        ClipboardLurker clipboardLurker,
         SettingsService settingsService,
         IWindowManager windowManager,
         SoundService soundService,
@@ -87,6 +89,7 @@ public class TradebarViewModel : PoeOverlayBase, IDisposable
         _pushBulletService = pushBulletService;
         _pushHoverService = pushHoverService;
         _stashTabService = stashTabService;
+        _clipboardLurker = clipboardLurker;
 
         _keyboardLurker = keyboardLurker;
         TradeOffers = new ObservableCollection<OfferViewModel>();
@@ -299,6 +302,11 @@ public class TradebarViewModel : PoeOverlayBase, IDisposable
     /// <param name="e">The trade event.</param>
     private async void Lurker_IncomingOffer(object sender, TradeEvent e)
     {
+        if (!PoeApplicationContext.InForeground || _clipboardLurker.LastClipboardText.Contains(e.WhisperMessage))
+        {
+            return;
+        }
+
         if (TradeOffers.Any(o => o.Event.Equals(e)))
         {
             return;

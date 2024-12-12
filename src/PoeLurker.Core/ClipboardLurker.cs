@@ -38,6 +38,12 @@ public class ClipboardLurker : IDisposable
 
     #endregion
 
+    #region Properties
+
+    public string LastClipboardText => _lastClipboardText;
+
+    #endregion
+
     #region Events
 
     /// <summary>
