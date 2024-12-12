@@ -1302,16 +1302,29 @@ public class SettingsViewModel : Screen
     {
         await _currentPatreonService.CheckPledgeStatus();
         Pledging = _currentPatreonService.Pledging;
+
+        if (!Pledging)
+        {
+            await _currentPatreonService.LoginAsync();
+            await _currentPatreonService.CheckPledgeStatus();
+            Pledging = _currentPatreonService.Pledging;
+        }
+
         if (Pledging)
         {
-            BlessingText = "A blessing I can’t deny";
-            SearchEnabled = true;
-            MapEnabled = true;
-            DashboardEnabled = true;
-            _settingService.ConnectedToPatreon = true;
-            SaveSettings();
-            NotifyOfPropertyChange(() => NotConnected);
+            NotifyPledged();
         }
+    }
+
+    private void NotifyPledged()
+    {
+        BlessingText = "A blessing I can’t deny";
+        SearchEnabled = true;
+        MapEnabled = true;
+        DashboardEnabled = true;
+        _settingService.ConnectedToPatreon = true;
+        SaveSettings();
+        NotifyOfPropertyChange(() => NotConnected);
     }
 
     /// <summary>
