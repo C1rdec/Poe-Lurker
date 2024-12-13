@@ -284,16 +284,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     /// </summary>
     public void Close()
     {
-        try
-        {
-            _eventAggregator.Unsubscribe(this);
-            CleanUp();
-            TryCloseAsync();
-        }
-        finally
-        {
-            Application.Current.Shutdown();
-        }
+        Application.Current.Shutdown();
     }
 
     /// <summary>
