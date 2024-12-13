@@ -31,14 +31,12 @@ public class OutgoingbarViewModel : PoeOverlayBase
     #region Fields
 
     private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
-    private readonly ClipboardLurker _clipboardLurker;
     private readonly ClientLurker _clientLurker;
     private readonly PoeKeyboardHelper _keyboardHelper;
     private readonly Timer _timer;
     private readonly IEventAggregator _eventAggregator;
     private System.Action _removeActive;
     private OutgoingOfferViewModel _activeOffer;
-    private string _lastOutgoingOfferText;
     private string _searchValue;
 
     #endregion
@@ -58,7 +56,6 @@ public class OutgoingbarViewModel : PoeOverlayBase
     /// <param name="windowManager">The window manager.</param>
     public OutgoingbarViewModel(
         IEventAggregator eventAggregator,
-        ClipboardLurker clipboardLurker,
         ClientLurker clientLurker,
         ProcessService processLurker,
         DockingHelper dockingHelper,
@@ -72,12 +69,10 @@ public class OutgoingbarViewModel : PoeOverlayBase
         _timer = new Timer(50);
         _timer.Elapsed += Timer_Elapsed;
         _keyboardHelper = keyboardHelper;
-        _clipboardLurker = clipboardLurker;
         _eventAggregator = eventAggregator;
         _clientLurker = clientLurker;
 
         Offers.CollectionChanged += Offers_CollectionChanged;
-        _clipboardLurker.NewOffer += ClipboardLurker_NewOffer;
     }
 
     #endregion
@@ -176,22 +171,6 @@ public class OutgoingbarViewModel : PoeOverlayBase
                 FilteredOffers.Add(offer);
             }
         });
-    }
-
-    /// <summary>
-    /// Clipboards the lurker new offer.
-    /// </summary>
-    /// <param name="sender">The sender.</param>
-    /// <param name="newOfferText">The new offer text.</param>
-    private async void ClipboardLurker_NewOffer(object sender, string newOfferText)
-    {
-        if (!SettingsService.ClipboardEnabled || _lastOutgoingOfferText == newOfferText)
-        {
-            return;
-        }
-
-        _lastOutgoingOfferText = newOfferText;
-        await _keyboardHelper.SendMessage(newOfferText);
     }
 
     /// <summary>
