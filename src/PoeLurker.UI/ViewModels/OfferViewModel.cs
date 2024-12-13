@@ -118,6 +118,11 @@ public class OfferViewModel : Screen, IDisposable
     public CurrencyType CurrencyType => _tradeEvent.Price.CurrencyType;
 
     /// <summary>
+    /// Gets the currency view model.
+    /// </summary>
+    public CurrencyViewModel Currency => new (_tradeEvent.Price.CurrencyType);
+
+    /// <summary>
     /// Gets the price.
     /// </summary>
     public Price Price => _tradeEvent.Price;
