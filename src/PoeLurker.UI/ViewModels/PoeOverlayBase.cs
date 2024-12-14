@@ -233,14 +233,17 @@ public abstract class PoeOverlayBase : Screen, IViewAware
     /// <param name="e">if set to <c>true</c> [e].</param>
     private void DockingHelper_OnForegroundChange(object sender, bool inForegound)
     {
-        if (inForegound)
+        Execute.OnUIThread(() =>
         {
-            ShowView();
-        }
-        else
-        {
-            HideView();
-        }
+            if (inForegound)
+            {
+                ShowView();
+            }
+            else
+            {
+                HideView();
+            }
+        });
     }
 
     /// <summary>

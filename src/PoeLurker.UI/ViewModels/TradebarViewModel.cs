@@ -631,7 +631,7 @@ public class TradebarViewModel : PoeOverlayBase, IDisposable
             _clientLurker.TradeAccepted -= Lurker_TradeAccepted;
             _clientLurker.PlayerJoined -= Lurker_PlayerJoined;
             _clientLurker.PlayerLeft -= Lurker_PlayerLeft;
-            TradeOffers.Clear();
+            Execute.OnUIThread(() => TradeOffers.Clear());
         }
 
         return base.OnDeactivateAsync(close, token);

@@ -436,7 +436,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
         }
         else
         {
-            await DeactivateItemAsync(_incomingTradeBarOverlay, true, CancellationToken.None);
+            await Execute.OnUIThreadAsync(() => DeactivateItemAsync(_incomingTradeBarOverlay, true, CancellationToken.None));
         }
 
         if (_settingsService.OutgoingTradeEnabled)
@@ -818,7 +818,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     {
         if (!_popup.IsActive)
         {
-            ActivateItemAsync(_popup);
+            Execute.OnUIThreadAsync(() => ActivateItemAsync(_popup));
         }
 
         if (_settingsService.MapEnabled)
@@ -841,7 +841,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     {
         if (!_popup.IsActive)
         {
-            ActivateItemAsync(_popup);
+            Execute.OnUIThreadAsync(() => ActivateItemAsync(_popup));
         }
 
         if (item is Map || item.Rarity == Rarity.Currency || item.Rarity == Rarity.Unique)
@@ -869,7 +869,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
             return Task.CompletedTask;
         }
 
-        return ActivateItemAsync(screen);
+        return Execute.OnUIThreadAsync(() => ActivateItemAsync(screen));
     }
 
     /// <summary>
@@ -880,11 +880,11 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     {
         if (message.IsVisible)
         {
-            return ActivateItemAsync(_skillTimelineOverlay);
+            return Execute.OnUIThreadAsync(() => ActivateItemAsync(_skillTimelineOverlay));
         }
         else
         {
-            return DeactivateItemAsync(_skillTimelineOverlay, true, CancellationToken.None);
+            return Execute.OnUIThreadAsync(() => DeactivateItemAsync(_skillTimelineOverlay, true, CancellationToken.None));
         }
     }
 

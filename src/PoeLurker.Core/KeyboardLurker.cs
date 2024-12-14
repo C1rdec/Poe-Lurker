@@ -343,6 +343,10 @@ public class KeyboardLurker
     private async void OpenPoeTrade(KeyboardMessageEventArgs e)
     {
         var itemText = await GetClipboardTextAsync();
+        if (string.IsNullOrEmpty(itemText))
+        {
+            return;
+        }
 
         PoeTradeService.Open(itemText);
     }
