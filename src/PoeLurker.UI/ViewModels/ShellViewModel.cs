@@ -338,7 +338,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
         };
 
         await _eventAggregator.PublishOnUIThreadAsync(message);
-        CleanUp();
+        //CleanUp();
 
         ShowInTaskBar = false;
         var updateManager = IoC.Get<PoeLurkerUpdateManager>();

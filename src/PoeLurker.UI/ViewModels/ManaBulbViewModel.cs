@@ -83,19 +83,16 @@ public class ManaBulbViewModel : BulbViewModelBase, IHandle<ManaBulbMessage>
     /// Handles the message.
     /// </summary>
     /// <param name="message">The message.</param>
-    public Task HandleAsync(ManaBulbMessage message, CancellationToken token)
+    public async Task HandleAsync(ManaBulbMessage message, CancellationToken token)
     {
         if (message.NeedToHide)
         {
-            HideView(8000);
-
-            return Task.CompletedTask;
+            await HideView(8000);
         }
 
         if (_updateRequired && message.IsUpdate)
         {
             base.SetAction(message);
-            return Task.CompletedTask;
         }
 
         SetAction(message);
@@ -104,8 +101,6 @@ public class ManaBulbViewModel : BulbViewModelBase, IHandle<ManaBulbMessage>
         {
             _updateRequired = true;
         }
-
-        return Task.CompletedTask;
     }
 
     /// <summary>

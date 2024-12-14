@@ -192,7 +192,7 @@ public abstract class PoeOverlayBase : Screen, IViewAware
     /// Hides the view.
     /// </summary>
     /// <param name="time">The time.</param>
-    protected async void HideView(int time)
+    protected async Task HideView(int time)
     {
         HideView();
         _manualHide = true;
