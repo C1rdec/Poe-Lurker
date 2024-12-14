@@ -166,7 +166,7 @@ public class UniqueItemViewModel : WikiItemBaseViewModel
             case ItemClass.Belt:
             case ItemClass.Quiver:
                 return new Uri("https://static.wikia.nocookie.net/pathofexile_gamepedia/images/4/45/Accessory_item_icon.png/revision/latest/scale-to-width-down/80?cb=20141212074925");
-            case ItemClass.BodyArmour:
+            case ItemClass.Chest:
             case ItemClass.Boots:
             case ItemClass.Gloves:
             case ItemClass.Helmet:
@@ -175,7 +175,7 @@ public class UniqueItemViewModel : WikiItemBaseViewModel
             case ItemClass.Axe:
             case ItemClass.Bow:
             case ItemClass.Dagger:
-            case ItemClass.Mace:
+            case ItemClass.OneMace:
             case ItemClass.Sceptre:
             case ItemClass.Staff:
             case ItemClass.Sword:

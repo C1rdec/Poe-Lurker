@@ -559,6 +559,12 @@
                                             Grid.Column="2"
                                             Margin="2,2,0,0"
                                             Focusable="False" />
+
+                            <ContentControl x:Name="PoeTradeHotkey"
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Margin="2,2,0,0"
+                                            Focusable="False" />
                         </Grid>
                     </Grid>
                 </Grid>

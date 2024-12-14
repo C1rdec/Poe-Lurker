@@ -57,11 +57,9 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     private LifeBulbViewModel _lifeBulbOverlay;
     private ManaBulbViewModel _manaBulbOverlay;
     private HideoutViewModel _hideoutOverlay;
-    private WikiViewModel _wikiViewModel;
     private readonly SettingsService _settingsService;
     private readonly HotkeyService _keyCodeService;
     private AfkService _afkService;
-    private readonly BuildService _buildService;
     private readonly SettingsViewModel _settingsViewModel;
     private BuildViewModel _buildViewModel;
     private HelpViewModel _helpOverlay;
@@ -92,7 +90,6 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
         SimpleContainer container,
         SettingsService settingsService,
         HotkeyService keyCodeService,
-        BuildService buildService,
         SoundService soundService,
         WinookService winookService,
         SettingsViewModel settingsViewModel,
@@ -105,7 +102,6 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
         _eventAggregator = eventAggregator;
         _settingsService = settingsService;
         _keyCodeService = keyCodeService;
-        _buildService = buildService;
         _container = container;
         _settingsViewModel = settingsViewModel;
 
@@ -449,7 +445,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
         }
         else
         {
-            await DeactivateItemAsync(_outgoingTradeBarOverlay, true, CancellationToken.None);
+            await Execute.OnUIThreadAsync(() => DeactivateItemAsync(_outgoingTradeBarOverlay, true, CancellationToken.None));
         }
 
         if (_settingsService.HideoutEnabled)
@@ -458,7 +454,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
         }
         else
         {
-            await DeactivateItemAsync(_hideoutOverlay, true, CancellationToken.None);
+            await Execute.OnUIThreadAsync(() => DeactivateItemAsync(_hideoutOverlay, true, CancellationToken.None));
         }
     }
 
@@ -475,7 +471,6 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
             var keyboarHelper = new PoeKeyboardHelper(processId);
             _keyboardLurker = new KeyboardLurker(processId, _settingsService, _keyCodeService, keyboarHelper);
             _keyboardLurker.BuildToggled += KeyboardLurker_BuildToggled;
-            _keyboardLurker.OpenWikiPressed += KeyboardLurker_OpenWikiPressed;
 
             // Mouse
             _mouseLurker = new MouseLurker(processId, _settingsService);
@@ -494,7 +489,6 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
             _container.RegisterInstance(typeof(PoeKeyboardHelper), null, keyboarHelper);
             _container.RegisterInstance(typeof(KeyboardLurker), null, _keyboardLurker);
 
-            _stashTabGrid = _container.GetInstance<StashTabGridViewModel>();
             _skillTimelineOverlay = _container.GetInstance<BuildTimelineViewModel>();
             _incomingTradeBarOverlay = _container.GetInstance<TradebarViewModel>();
             _outgoingTradeBarOverlay = _container.GetInstance<OutgoingbarViewModel>();
@@ -506,7 +500,6 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
             _helpOverlay = _container.GetInstance<HelpViewModel>();
             _helpOverlay.Initialize(ToggleBuildHelper);
             _buildViewModel = _container.GetInstance<BuildViewModel>();
-            _wikiViewModel = _container.GetInstance<WikiViewModel>();
 
             if (_settingsService.BuildHelper)
             {
@@ -541,21 +534,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
             ShowViewModel(_lifeBulbOverlay);
             ShowViewModel(_manaBulbOverlay);
             ShowViewModel(_stashTabGrid);
-            ShowViewModel(_wikiViewModel);
         });
-    }
-
-    /// <summary>
-    /// Handles the BuildToggled event of the KeyboardLurker control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    private async void KeyboardLurker_OpenWikiPressed(object sender, Winook.KeyboardMessageEventArgs e)
-    {
-        if (_wikiViewModel != null)
-        {
-            await _wikiViewModel.Show();
-        }
     }
 
     /// <summary>
@@ -655,7 +634,6 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
 
         if (_keyboardLurker != null)
         {
-            _keyboardLurker.OpenWikiPressed -= KeyboardLurker_OpenWikiPressed;
             _keyboardLurker.BuildToggled -= KeyboardLurker_BuildToggled;
             _keyboardLurker.Dispose();
         }
@@ -732,11 +710,6 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
         }
 
         ShowOverlays(process);
-
-        // Initialize Github
-        var githubService = IoC.Get<GithubService>();
-        await githubService.Gems();
-        await githubService.Uniques();
 
         await CheckForUpdate();
         await CheckPledgeStatus();

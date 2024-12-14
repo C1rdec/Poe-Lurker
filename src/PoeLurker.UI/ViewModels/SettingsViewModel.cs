@@ -184,6 +184,8 @@ public class SettingsViewModel : Screen
     /// </summary>
     public HotkeyViewModel GuildHideoutHotkey { get; set; }
 
+    public HotkeyViewModel PoeTradeHotkey { get; set; }
+
     /// <summary>
     /// Gets or sets the main hot key.
     /// </summary>
@@ -1472,6 +1474,7 @@ public class SettingsViewModel : Screen
         OpenWikiHotkey = new HotkeyViewModel("Poe Ninja", _hotkeyService.OpenWiki, GetNextKeyCode);
 
         GuildHideoutHotkey = new HotkeyViewModel("Guild Hideout", _hotkeyService.JoinGuildHideout, GetNextKeyCode);
+        PoeTradeHotkey = new HotkeyViewModel("Poe Trade", _hotkeyService.PoeTrade, GetNextKeyCode);
         HideoutHotkey = new HotkeyViewModel("Hideout", _hotkeyService.JoinHideout, GetNextKeyCode);
 
         MonsterRemainingHotkey = new HotkeyViewModel("Remaining Monster", _hotkeyService.RemainingMonster, GetNextKeyCode);
@@ -1495,6 +1498,7 @@ public class SettingsViewModel : Screen
         SearchItemHotkey.PropertyChanged += Hotkey_PropertyChanged;
         GuildHideoutHotkey.PropertyChanged += Hotkey_PropertyChanged;
         HideoutHotkey.PropertyChanged += Hotkey_PropertyChanged;
+        PoeTradeHotkey.PropertyChanged += Hotkey_PropertyChanged;
     }
 
     /// <summary>

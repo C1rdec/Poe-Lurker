@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Caliburn.Micro;
 using PoeLurker.Core.Helpers;
+using PoeLurker.Core.Models;
 using PoeLurker.Core.Services;
 using PoeLurker.Patreon.Events;
 using PoeLurker.Patreon.Models;
@@ -292,7 +293,7 @@ public class OfferViewModel : Screen, IDisposable
             return;
         }
 
-        if (_tradeEvent.Price.CurrencyType == CurrencyType.Divine)
+        if (_tradeEvent.Price.CurrencyType == CurrencyType.Divine && !PoeApplicationContext.Poe2)
         {
             var detail = new OfferDetailsViewModel(_tradeEvent);
             await detail.Initialize();

@@ -231,9 +231,9 @@ public abstract class PoeOverlayBase : Screen, IViewAware
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">if set to <c>true</c> [e].</param>
-    private void DockingHelper_OnForegroundChange(object sender, bool e)
+    private void DockingHelper_OnForegroundChange(object sender, bool inForegound)
     {
-        if (e)
+        if (inForegound)
         {
             ShowView();
         }
@@ -329,6 +329,12 @@ public abstract class PoeOverlayBase : Screen, IViewAware
             ProcessLurker.ProcessClosed -= Lurker_PoeClosed;
             SettingsService.OnSave -= SettingsService_OnSave;
             DockingHelper.OnWindowMove -= DockingHelper_OnWindowMove;
+
+            if (DockingHelper != null)
+            {
+                DockingHelper.OnWindowMove -= DockingHelper_OnWindowMove;
+                DockingHelper.OnForegroundChange -= DockingHelper_OnForegroundChange;
+            }
         }
 
         return base.OnDeactivateAsync(close, cancellationToken);

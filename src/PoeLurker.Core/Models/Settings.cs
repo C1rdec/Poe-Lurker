@@ -6,7 +6,6 @@
 
 namespace PoeLurker.Core.Models;
 
-using System.ComponentModel;
 using PoeLurker.Core.Helpers;
 
 /// <summary>
@@ -48,6 +47,8 @@ public sealed class Settings
     }
 
     #region Properties
+
+    public bool PoeTrade { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the welcome screen should be shown.

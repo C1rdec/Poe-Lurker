@@ -132,6 +132,19 @@ public class HotkeyService
         }
     }
 
+    public Hotkey PoeTrade
+    {
+        get
+        {
+            return _settings.Entity.PoeTrade;
+        }
+
+        set
+        {
+            _settings.Entity.PoeTrade = value;
+        }
+    }
+
     /// <summary>
     /// Gets or sets the search item.
     /// </summary>

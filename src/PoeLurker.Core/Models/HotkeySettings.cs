@@ -26,6 +26,7 @@ public sealed class HotkeySettings
         JoinHideout = new();
         SearchItem = new();
         RemainingMonster = new();
+        PoeTrade = new();
     }
 
     #region Properties
@@ -80,6 +81,8 @@ public sealed class HotkeySettings
     /// Gets or sets the open wiki.
     /// </summary>
     public Hotkey SearchItem { get; set; }
+
+    public Hotkey PoeTrade { get; set; }
 
     /// <summary>
     /// Gets or sets the open wiki.

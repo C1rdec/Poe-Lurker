@@ -247,6 +247,19 @@ public class SettingsService
         }
     }
 
+    public bool PoeTrade
+    {
+        get
+        {
+            return _settings.Entity.PoeTrade;
+        }
+
+        set
+        {
+            _settings.Entity.PoeTrade = value;
+        }
+    }
+
     /// <summary>
     /// Gets or sets a value indicating whether [alert enabled].
     /// </summary>

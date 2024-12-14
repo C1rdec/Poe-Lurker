@@ -85,6 +85,11 @@ public class OfferDetailsViewModel : Caliburn.Micro.PropertyChangedBase
         using (var service = new PoeNinjaService())
         {
             var line = await service.GetDivineRationAsync(_event.LeagueName);
+            if (line == null)
+            {
+                return;
+            }
+
             DivineRatio = Math.Round(line.ChaosEquivalent);
         }
 

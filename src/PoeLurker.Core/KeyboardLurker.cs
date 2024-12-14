@@ -16,6 +16,7 @@ using PoeLurker.Core.Helpers;
 using PoeLurker.Core.Models;
 using PoeLurker.Core.Services;
 using PoeLurker.Patreon.Parsers;
+using PoeLurker.Patreon.Services;
 using Winook;
 using static Winook.KeyboardHook;
 
@@ -109,6 +110,11 @@ public class KeyboardLurker
     /// Occurs when [wiki action pressed].
     /// </summary>
     public event KeyboardEventHandler OpenWikiPressed;
+
+    /// <summary>
+    /// Occurs when [wiki action pressed].
+    /// </summary>
+    public event KeyboardEventHandler PoeTradePressed;
 
     #endregion
 
@@ -274,6 +280,7 @@ public class KeyboardLurker
         _hotkeyService.JoinHideout.Install(_keyboardHook, (e) => HandleKeyboardMessage(e, JoinHideout));
         _hotkeyService.RemainingMonster.Install(_keyboardHook, (e) => HandleKeyboardMessage(e, RemainingMonsters));
         _hotkeyService.SearchItem.Install(_keyboardHook, SearchItem);
+        _hotkeyService.PoeTrade.Install(_keyboardHook, OpenPoeTrade);
     }
 
     private void HandleKeyboardMessage(KeyboardMessageEventArgs message, KeyboardEventHandler handler)
@@ -333,6 +340,13 @@ public class KeyboardLurker
         await _keyboardHelper.Search(baseType);
     }
 
+    private async void OpenPoeTrade(KeyboardMessageEventArgs e)
+    {
+        var itemText = await GetClipboardTextAsync();
+
+        PoeTradeService.Open(itemText);
+    }
+
     /// <summary>
     /// Join the Guild Hideout.
     /// </summary>
@@ -386,9 +400,7 @@ public class KeyboardLurker
     {
         try
         {
-            _robot.CombineKeys(Key.Control, Key.C);
-            await Task.Delay(50);
-            var text = ClipboardHelper.GetClipboardText();
+            var text = await GetClipboardTextAsync();
             ClipboardHelper.ClearClipboard();
 
             return _itemParser.GetSearchValue(text);
@@ -397,6 +409,13 @@ public class KeyboardLurker
         {
             return null;
         }
+    }
+
+    private async Task<string> GetClipboardTextAsync()
+    {
+        _robot.CombineKeys(Key.Control, Key.C);
+        await Task.Delay(50);
+        return ClipboardHelper.GetClipboardText();
     }
 
     #endregion
