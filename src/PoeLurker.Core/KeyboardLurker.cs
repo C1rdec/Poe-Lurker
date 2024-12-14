@@ -27,6 +27,8 @@ public class KeyboardLurker
 {
     #region Fields
 
+    private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+
     private readonly Robot _robot;
     private CancellationTokenSource _tokenSource;
     private readonly KeyboardHook _keyboardHook;
@@ -347,8 +349,14 @@ public class KeyboardLurker
         {
             return;
         }
-
-        PoeTradeService.Open(itemText);
+        try
+        {
+            PoeTradeService.Open(itemText);
+        }
+        catch (Exception ex)
+        {
+            Logger.Error(ex, ex.Message);
+        }
     }
 
     /// <summary>
