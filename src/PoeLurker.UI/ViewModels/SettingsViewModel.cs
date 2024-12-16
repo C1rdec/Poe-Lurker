@@ -39,6 +39,7 @@ public class SettingsViewModel : Screen
 {
     #region Fields
 
+    private static readonly string PoweredThankYou = "Thanks (This trade was powered by Poe Lurker)";
     private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
     private static readonly string LottieFileName = "LurckerIconSettings.json";
     private readonly KeyboardHelper _keyboardHelper;
@@ -598,8 +599,11 @@ public class SettingsViewModel : Screen
         {
             _settingService.ThankYouMessage = value;
             NotifyOfPropertyChange();
+            NotifyOfPropertyChange(() => IsThankYouDifferent);
         }
     }
+
+    public bool IsThankYouDifferent => !ThankYouMessage.Equals(PoweredThankYou, StringComparison.InvariantCultureIgnoreCase);
 
     /// <summary>
     /// Gets or sets the still interested message.
@@ -1013,6 +1017,12 @@ public class SettingsViewModel : Screen
 
     #region Methods
 
+    public void SetPowered()
+    {
+        ThankYouMessage = PoweredThankYou;
+        SaveSettings();
+    }
+
     /// <summary>
     /// Reset all hotkeys.
     /// </summary>
@@ -1281,7 +1291,8 @@ public class SettingsViewModel : Screen
     public async void Update()
     {
         var updateManager = IoC.Get<PoeLurkerUpdateManager>();
-        await updateManager.Update();
+
+        await ShowProgress("Hold on", "Updating...", updateManager.Update());
     }
 
     /// <summary>

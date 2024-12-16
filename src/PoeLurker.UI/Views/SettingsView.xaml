@@ -4,11 +4,11 @@
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
                       xmlns:cal="http://www.caliburnproject.org"
+                      xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:local="clr-namespace:PoeLurker.UI"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       Width="800"
-                      xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
                       Height="450"
                       Dialog:DialogParticipation.Register="{Binding}"
                       ResizeMode="CanMinimize"
@@ -49,7 +49,7 @@
         <Controls:MetroAnimatedTabControl Controls:TabControlHelper.Underlined="TabPanel"
                                           SelectedIndex="{Binding SelectTabIndex}"
                                           TabStripPlacement="Left">
-            <TabItem Width="175" Header="Builds">
+            <!--<TabItem Width="175" Header="Builds">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto" />
@@ -118,7 +118,7 @@
                         <ContentControl x:Name="CharacterManager" />
                     </Controls:Flyout>
                 </Grid>
-            </TabItem>
+            </TabItem>-->
             <TabItem Width="175" Header="Message">
                 <StackPanel>
                     <Label Content="Message" Style="{DynamicResource LabelHeaderStyle}" />
@@ -486,10 +486,10 @@
                             <Controls:ToggleSwitch Margin="30,0,0,0"
                                                    Header="Incoming Trade"
                                                    IsOn="{Binding IncomingTradeEnabled}" />
-                            <Controls:ToggleSwitch Margin="-30,0,0,0"
+                            <!--<Controls:ToggleSwitch Margin="-30,0,0,0"
                                                    Header="Outgoing Trade"
-                                                   IsOn="{Binding OutgoingTradeEnabled}" />
-                            <Grid Visibility="{Binding OutgoingTradeEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                   IsOn="{Binding OutgoingTradeEnabled}" />-->
+                            <!--<Grid Visibility="{Binding OutgoingTradeEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <TextBlock Grid.Column="1"
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Top"
@@ -506,7 +506,7 @@
                                         Orientation="Horizontal"
                                         SmallChange="0.1"
                                         Value="{Binding DelayToClose}" />
-                            </Grid>
+                            </Grid>-->
                         </StackPanel>
                         <StackPanel Grid.Row="1"
                                     Margin="0,10,0,0"
@@ -590,16 +590,16 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <TextBlock VerticalAlignment="Center" FontSize="18">Life Foreground</TextBlock>
-                            <colorpicker:PortableColorPicker SelectedColor="{Binding LifebarColor, Mode=TwoWay, Delay=10}" 
-                                                             Padding="20,0,0,0"
-                                                             Cursor="Hand"
-                                                             Style="{StaticResource DefaultColorPickerStyle}"
-                                                             Width="120" 
+                            <colorpicker:PortableColorPicker Grid.Column="1"
+                                                             Width="120"
                                                              Height="30"
+                                                             Padding="20,0,0,0"
+                                                             HorizontalAlignment="Left"
+                                                             Cursor="Hand"
+                                                             SelectedColor="{Binding LifebarColor, Mode=TwoWay, Delay=10}"
                                                              ShowAlpha="False"
                                                              ShowFractionalPart="False"
-                                                             Grid.Column="1" 
-                                                             HorizontalAlignment="Left"/>
+                                                             Style="{StaticResource DefaultColorPickerStyle}" />
                             <TextBlock Grid.Row="1"
                                        Margin="0,30,0,0"
                                        FontSize="18">
@@ -668,29 +668,77 @@
                         <RowDefinition />
                         <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
-                    <Label Content="Lurker Pro" Style="{DynamicResource LabelHeaderStyle}" />
+                    <Label Grid.ColumnSpan="2"
+                           Content="Lurker Pro"
+                           Style="{DynamicResource LabelHeaderStyle}" />
                     <StackPanel Grid.Row="1"
                                 Margin="30,0,30,0"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center">
-                        <TextBlock TextAlignment="Center" TextWrapping="Wrap">Being a Lurker Pro is a good way to show your appreciation for the work I've done, and help support the future development of the program. Furthermore you will unlock juicy features that is currently being developed.</TextBlock>
-
+                        <TextBlock FontSize="16"
+                                   TextAlignment="Left"
+                                   TextWrapping="Wrap">
+                            Upgrade to Lurker Pro to enjoy exciting new features while supporting the program. You can also show your support by setting a simple 'Powered by' message after completing a trade below.
+                        </TextBlock>
+                        <TextBlock Margin="0,10,0,0"
+                                   FontSize="16"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap">
+                            <Bold>Every bit of help makes a difference!</Bold>
+                        </TextBlock>
                         <Grid Margin="0,-10,0,0">
-                            <local:IconPack Width="150"
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <local:IconPack Grid.ColumnSpan="2"
+                                            Width="150"
                                             Margin="0,20,0,10"
                                             Data="{x:Static local:IconPackData.Beer}"
                                             Foreground="{DynamicResource MahApps.Brushes.Accent}"
                                             Visibility="{Binding Pledging, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                            <local:IconPack Width="150"
+                            <local:IconPack Grid.ColumnSpan="2"
+                                            Width="150"
                                             Margin="0,20,0,10"
                                             Data="{x:Static local:IconPackData.Beer}"
                                             Foreground="{DynamicResource MahApps.Brushes.Accent1}"
                                             Visibility="{Binding NotConnected, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                            <local:IconPack Width="150"
+                            <local:IconPack Grid.ColumnSpan="2"
+                                            Width="150"
                                             Margin="0,20,0,10"
                                             Data="{x:Static local:IconPackData.Beer}"
                                             Foreground="{DynamicResource MahApps.Brushes.Accent1}"
                                             Visibility="{Binding NotPledging, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <Button x:Name="SetPowered"
+                                    Grid.Column="1"
+                                    Height="50"
+                                    Margin="4"
+                                    VerticalAlignment="Center"
+                                    Background="#571625"
+                                    BorderThickness="0"
+                                    Cursor="Hand"
+                                    FontFamily="pack://application:,,,/Assets/#Fontin"
+                                    Visibility="{Binding IsThankYouDifferent, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <Button.Content>
+                                    <Grid Width="105" Margin="8,4,8,4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock VerticalAlignment="Center" FontSize="13">
+                                            Set message
+                                        </TextBlock>
+                                        <local:IconPack Grid.Column="1"
+                                                        Width="20"
+                                                        Height="20"
+                                                        HorizontalAlignment="Right"
+                                                        VerticalAlignment="Center"
+                                                        Data="{x:Static local:IconPackData.Checkbox}"
+                                                        Foreground="White" />
+                                    </Grid>
+
+                                </Button.Content>
+                            </Button>
                         </Grid>
                         <Button x:Name="GetPatreonId"
                                 Margin="0,0,0,10"
@@ -762,7 +810,6 @@
 
 
                             <Button x:Name="OpenPushBullet"
-                                    Margin="0,0,0,0"
                                     VerticalAlignment="Center"
                                     Background="#42a66e"
                                     BorderThickness="0"
