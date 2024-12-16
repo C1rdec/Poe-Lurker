@@ -1047,7 +1047,7 @@ public class SettingsViewModel : Screen
     /// </summary>
     public void OpenLurkerPro()
     {
-        SelectTabIndex = 6;
+        SelectTabIndex = 5;
     }
 
     /// <summary>

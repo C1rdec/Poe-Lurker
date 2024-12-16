@@ -83,11 +83,11 @@ public class SplashscreenViewModel : PropertyChangedBase
     /// <summary>
     /// Opens the lurker pro.
     /// </summary>
-    public void OpenLurkerPro()
+    public async void OpenLurkerPro()
     {
         // Set to luker pro tab
         _settings.OpenLurkerPro();
-        _eventAggrator.PublishOnUIThreadAsync(_settings);
+        await IoC.Get<IWindowManager>().ShowDialogAsync(_settings);
     }
 
     /// <summary>

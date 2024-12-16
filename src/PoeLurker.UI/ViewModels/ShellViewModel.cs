@@ -37,6 +37,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
 {
     #region Fields
 
+    private readonly PoeLurkerPatreonService PatreonService = new();
     private Window _parent;
     private readonly WinookService _winookService;
     private readonly SoundService _soundService;
@@ -771,30 +772,8 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
         }
         else
         {
-            //using (var patreonService = new PatreonService())
-            //{
-            //    var isPledging = await patreonService.IsPledging();
-            //    if (!isPledging)
-            //    {
-            //        using (var service = new CollaborationService())
-            //        {
-            //            var collaboration = await service.GetCollaborationAsync();
-            //            if (!collaboration.IsExpired())
-            //            {
-            //                validCollaboration = collaboration;
-            //            }
-            //        }
-            //    }
 
-            //    if (validCollaboration != null)
-            //    {
-            //        await this._eventAggregator.PublishOnUIThreadAsync(new ManaBulbMessage() { View = new CollaborationViewModel(validCollaboration), Action = validCollaboration.Open, DisplayTime = TimeSpan.FromSeconds(6) });
-            //    }
-            //    else if (this._settingsService.ShowStartupAnimation || !isPledging)
-            //    {
-            //        await this._eventAggregator.PublishOnUIThreadAsync(new ManaBulbMessage() { View = new SplashscreenViewModel(this._settingsViewModel, this._eventAggregator), DisplayTime = TimeSpan.FromSeconds(10) });
-            //    }
-            //}
+            await _eventAggregator.PublishOnUIThreadAsync(new ManaBulbMessage() { View = new SplashscreenViewModel(this._settingsViewModel, this._eventAggregator, PatreonService), DisplayTime = TimeSpan.FromSeconds(10) });
         }
     }
 
