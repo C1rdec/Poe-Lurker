@@ -24,7 +24,7 @@ public class PopupViewModel : PoeOverlayBase
 {
     #region Fields
 
-    private const int MouseMargin = 160;
+    private const int MouseMargin = 50;
     private const int PopupMargin = 10;
     private readonly MouseLurker _mouseLurker;
     private PoeWindowInformation _windowInformation;
@@ -182,9 +182,9 @@ public class PopupViewModel : PoeOverlayBase
             Y = (int)(_y + (_height / 2)),
         };
 
-        var differenceX = System.Math.Abs(center.X - e.X);
-        var differenceY = System.Math.Abs(center.Y - e.Y);
-        var hypothenuse = System.Math.Sqrt(System.Math.Pow(differenceX, 2) + System.Math.Pow(differenceY, 2));
+        var differenceX = Math.Abs(center.X - e.X);
+        var differenceY = Math.Abs(center.Y - e.Y);
+        var hypothenuse = Math.Sqrt(Math.Pow(differenceX, 2) + Math.Pow(differenceY, 2));
 
         var difference = MouseMargin + rayon - hypothenuse + 30;
         if (difference <= 0)

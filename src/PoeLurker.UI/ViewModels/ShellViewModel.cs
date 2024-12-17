@@ -816,11 +816,12 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="item">The item.</param>
-    private void ShowItemDetails(object sender, PoeItem item)
+    private async void ShowItemDetails(object sender, PoeItem item)
     {
         if (!_popup.IsActive)
         {
-            Execute.OnUIThreadAsync(() => ActivateItemAsync(_popup));
+            await Execute.OnUIThreadAsync(() => _windowManager.ShowDialogAsync(_popup));
+            await Execute.OnUIThreadAsync(() => ActivateItemAsync(_popup));
         }
 
         if (item is Map || item.Rarity == Rarity.Currency || item.Rarity == Rarity.Unique)
