@@ -16,7 +16,7 @@ public class WeaponViewModel : Caliburn.Micro.PropertyChangedBase
 {
     #region Fields
 
-    private readonly Weapon _weapon;
+    private readonly WeaponBase _weapon;
 
     #endregion
 
@@ -26,7 +26,7 @@ public class WeaponViewModel : Caliburn.Micro.PropertyChangedBase
     /// Initializes a new instance of the <see cref="WeaponViewModel" /> class.
     /// </summary>
     /// <param name="weapon">The weapon.</param>
-    public WeaponViewModel(Weapon weapon)
+    public WeaponViewModel(WeaponBase weapon)
     {
         _weapon = weapon;
 

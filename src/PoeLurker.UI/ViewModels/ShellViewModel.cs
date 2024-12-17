@@ -827,7 +827,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
         {
             return;
         }
-        else if (item is Weapon weapon)
+        else if (item is WeaponBase weapon)
         {
             _popup.Open(new WeaponViewModel(weapon));
         }
