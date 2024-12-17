@@ -302,7 +302,7 @@ public class TradebarViewModel : PoeOverlayBase, IDisposable
     /// <param name="e">The trade event.</param>
     private async void Lurker_IncomingOffer(object sender, TradeEvent e)
     {
-        if (!PoeApplicationContext.InForeground || _clipboardLurker.LastClipboardText.Contains(e.WhisperMessage))
+        if (!PoeApplicationContext.IsAfk && (!PoeApplicationContext.InForeground || _clipboardLurker.LastClipboardText.Contains(e.WhisperMessage)))
         {
             return;
         }
