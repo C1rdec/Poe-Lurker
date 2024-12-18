@@ -486,10 +486,10 @@
                             <Controls:ToggleSwitch Margin="30,0,0,0"
                                                    Header="Incoming Trade"
                                                    IsOn="{Binding IncomingTradeEnabled}" />
-                            <!--<Controls:ToggleSwitch Margin="-30,0,0,0"
+                            <Controls:ToggleSwitch Margin="-30,0,0,0"
                                                    Header="Outgoing Trade"
-                                                   IsOn="{Binding OutgoingTradeEnabled}" />-->
-                            <!--<Grid Visibility="{Binding OutgoingTradeEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                   IsOn="{Binding OutgoingTradeEnabled}" />
+                            <Grid Visibility="{Binding OutgoingTradeEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <TextBlock Grid.Column="1"
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Top"
@@ -506,7 +506,7 @@
                                         Orientation="Horizontal"
                                         SmallChange="0.1"
                                         Value="{Binding DelayToClose}" />
-                            </Grid>-->
+                            </Grid>
                         </StackPanel>
                         <StackPanel Grid.Row="1"
                                     Margin="0,10,0,0"
