@@ -793,11 +793,12 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     /// Shows the map.
     /// </summary>
     /// <param name="item">The item.</param>
-    private void ShowMap(Map item)
+    private async void ShowMap(Map item)
     {
         if (!_popup.IsActive)
         {
-            Execute.OnUIThreadAsync(() => ActivateItemAsync(_popup));
+            await Execute.OnUIThreadAsync(() => _windowManager.ShowDialogAsync(_popup));
+            await Execute.OnUIThreadAsync(() => ActivateItemAsync(_popup));
         }
 
         if (_settingsService.MapEnabled)

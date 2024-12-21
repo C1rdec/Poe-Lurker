@@ -302,7 +302,7 @@ public class OfferViewModel : Screen, IDisposable
         }
         else
         {
-            await _keyboardHelper.WhoIs(PlayerName);
+            await _keyboardHelper.Whisper(PlayerName);
         }
     }
 

@@ -14,6 +14,12 @@ using System.Linq;
 /// </summary>
 public sealed class Player
 {
+    public Player()
+    {
+        IgnoredMapMods = [];
+        Levels = [];
+    }
+
     #region Properties
 
     /// <summary>

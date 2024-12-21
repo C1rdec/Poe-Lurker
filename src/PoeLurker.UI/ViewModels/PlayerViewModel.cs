@@ -36,12 +36,7 @@ public class PlayerViewModel : Caliburn.Micro.PropertyChangedBase
     {
         _service = service;
         _activePlayer = service.FirstPlayer;
-        Players = new ObservableCollection<Player>();
-
-        foreach (var player in service.Players)
-        {
-            Players.Add(player);
-        }
+        Players = [.. service.Players];
 
         _service.PlayerChanged += Service_PlayerChanged;
         _service.PlayerListChanged += Service_PlayerListChanged;
@@ -56,7 +51,7 @@ public class PlayerViewModel : Caliburn.Micro.PropertyChangedBase
     /// <summary>
     /// Gets the ignored mad mods.
     /// </summary>
-    public IEnumerable<string> IgnoredMadMods => _activePlayer == null ? Enumerable.Empty<string>() : _activePlayer.IgnoredMapMods;
+    public IEnumerable<string> IgnoredMadMods => _activePlayer == null ? Enumerable.Empty<string>() : _activePlayer.IgnoredMapMods ?? [];
 
     /// <summary>
     /// Gets the display name.
@@ -136,7 +131,7 @@ public class PlayerViewModel : Caliburn.Micro.PropertyChangedBase
     /// <param name="id">The identifier.</param>
     public void AddIgnoredMapMod(string id)
     {
-        if (_activePlayer != null && !_activePlayer.IgnoredMapMods.Contains(id))
+        if (_activePlayer != null && _activePlayer.IgnoredMapMods != null && !_activePlayer.IgnoredMapMods.Contains(id))
         {
             _activePlayer.IgnoredMapMods.Add(id);
             _service.Save();
@@ -154,7 +149,7 @@ public class PlayerViewModel : Caliburn.Micro.PropertyChangedBase
             return;
         }
 
-        _activePlayer.IgnoredMapMods.Remove(id);
+        _activePlayer.IgnoredMapMods?.Remove(id);
         _service.Save();
     }
 

@@ -184,21 +184,27 @@ public class MapViewModel : Caliburn.Micro.PropertyChangedBase, IDisposable
     /// </summary>
     private void ShowMapMods()
     {
-        IgnoredModCount = 0;
-        foreach (var affix in _map.DangerousAffixes.Where(d => d != null))
+        try
         {
-            if (CurrentPlayer.IgnoredMadMods.Contains(affix.Id))
+            IgnoredModCount = 0;
+            foreach (var affix in _map.DangerousAffixes.Where(d => d != null))
             {
-                IgnoredModCount++;
-                continue;
+                if (CurrentPlayer.IgnoredMadMods.Contains(affix.Id))
+                {
+                    IgnoredModCount++;
+                    continue;
+                }
+
+                Affixes.Add(new MapAffixViewModel(affix.Id, false, CurrentPlayer));
             }
 
-            Affixes.Add(new MapAffixViewModel(affix.Id, false, CurrentPlayer));
+            NotifyOfPropertyChange(() => Safe);
+            NotifyOfPropertyChange(() => NotSafe);
+            NotifyOfPropertyChange(() => AnyIgnoredMod);
         }
-
-        NotifyOfPropertyChange(() => Safe);
-        NotifyOfPropertyChange(() => NotSafe);
-        NotifyOfPropertyChange(() => AnyIgnoredMod);
+        catch
+        {
+        }
     }
 
     #endregion

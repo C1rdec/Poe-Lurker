@@ -20,32 +20,34 @@ public class MapAffixViewModel : Caliburn.Micro.PropertyChangedBase
     /// <summary>
     /// The reflect physical identifier.
     /// </summary>
-    public const string ReflectPhysicalId = "stat_3464419871";
+    public const string ReflectPhysicalId = "explicit.stat_3464419871";
 
     /// <summary>
     /// The reflect elemental identifier.
     /// </summary>
-    public const string ReflectElementalId = "stat_2764017512";
+    public const string ReflectElementalId = "explicit.stat_2764017512";
 
     /// <summary>
     /// The cannot regenerate identifier.
     /// </summary>
-    public const string CannotRegenerateId = "stat_1910157106";
+    public const string CannotRegenerateId = "explicit.stat_1910157106";
 
     /// <summary>
     /// The cannot leech identifier.
     /// </summary>
-    public const string CannotLeechId = "stat_1140978125";
+    public const string CannotLeechId = "explicit.stat_1140978125";
 
     /// <summary>
     /// The temporal chains identifier.
     /// </summary>
-    public const string TemporalChainsId = "stat_2326202293";
+    public const string TemporalChainsId = "explicit.stat_2326202293";
 
     /// <summary>
     /// The avoid ailments identifier.
     /// </summary>
-    public const string AvoidAilmentsId = "stat_322206271";
+    public const string AvoidAilmentsId = "explicit.stat_322206271";
+
+    public const string AvoidAilmentsId2 = "explicit.stat_1994551050";
 
     private readonly string _id;
     private readonly PlayerViewModel _playerViewModel;
@@ -92,6 +94,7 @@ public class MapAffixViewModel : Caliburn.Micro.PropertyChangedBase
                 _temporalChains = true;
                 break;
             case AvoidAilmentsId:
+            case AvoidAilmentsId2:
                 _avoidAilments = true;
                 break;
         }
