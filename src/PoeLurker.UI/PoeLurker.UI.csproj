@@ -7,7 +7,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>TrayIcon.ico</ApplicationIcon>
-	<Version>2.1.9</Version>
+	<Version>2.1.10</Version>
 	<AssemblyName>PoeLurker</AssemblyName>
   </PropertyGroup>
 
