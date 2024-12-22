@@ -664,8 +664,8 @@ public class TradebarViewModel : PoeOverlayBase, IDisposable
             return;
         }
 
-        var leftMultiplier =  SettingsService.CenteredUI && windowInformation.WideScreen ? 1.75 : 1;
-        var widthMultiplier = SettingsService.CenteredUI && windowInformation.WideScreen ? 3 : 2;
+        var leftMultiplier =  SettingsService.CentredUI && windowInformation.WideScreen ? 1.75 : 1;
+        var widthMultiplier = SettingsService.CentredUI && windowInformation.WideScreen ? 3 : 2;
 
         var overlayHeight = DefaultOverlayHeight * windowInformation.FlaskBarHeight / DefaultFlaskBarHeight * SettingsService.TradebarScaling;
         var overlayWidth = (windowInformation.Width - (windowInformation.FlaskBarWidth * widthMultiplier)) / 2;

@@ -655,7 +655,7 @@
                                                    Grid.Column="2"
                                                    Margin="-30,0,0,0"
                                                    HorizontalAlignment="Left"
-                                                   Header="Centered UI"
+                                                   Header="Centred UI"
                                                    IsOn="{Binding CenteredUI}" />
                         </StackPanel>
                     </StackPanel>

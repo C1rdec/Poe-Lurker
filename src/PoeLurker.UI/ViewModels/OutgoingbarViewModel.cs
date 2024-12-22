@@ -317,7 +317,7 @@ public class OutgoingbarViewModel : PoeOverlayBase
         var yPosition = windowInformation.FlaskBarWidth * (238 / (double)DefaultFlaskBarWidth);
         var width = windowInformation.Height * DefaultWidth / 1080;
         var height = windowInformation.FlaskBarHeight + 25;
-        var margin = SettingsService.CenteredUI && windowInformation.WideScreen ? windowInformation.FlaskBarWidth * 0.75 : 0;
+        var margin = SettingsService.CentredUI && windowInformation.WideScreen ? windowInformation.FlaskBarWidth * 0.75 : 0;
         
         Execute.OnUIThread(() =>
         {

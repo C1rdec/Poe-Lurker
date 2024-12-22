@@ -47,7 +47,7 @@ public sealed class Settings
 
     #region Properties
 
-    public bool CenteredUI { get; set; }
+    public bool CentredUI { get; set; }
 
     public bool PoeTrade { get; set; }
 

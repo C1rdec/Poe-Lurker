@@ -110,7 +110,7 @@ public class ManaBulbViewModel : BulbViewModelBase, IHandle<ManaBulbMessage>
     protected override void SetWindowPosition(PoeWindowInformation windowInformation)
     {
         var value = DefaultBulbHeight * windowInformation.Height / 1080;
-        var margin = SettingsService.CenteredUI && windowInformation.WideScreen ? windowInformation.FlaskBarWidth * 0.8 : 0;
+        var margin = SettingsService.CentredUI && windowInformation.WideScreen ? windowInformation.FlaskBarWidth * 0.8 : 0;
         Execute.OnUIThread(() =>
         {
             View.Height = ApplyAbsoluteScalingY(value);

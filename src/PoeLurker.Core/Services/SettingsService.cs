@@ -260,16 +260,16 @@ public class SettingsService
         }
     }
 
-    public bool CenteredUI
+    public bool CentredUI
     {
         get
         {
-            return _settings.Entity.CenteredUI;
+            return _settings.Entity.CentredUI;
         }
 
         set
         {
-            _settings.Entity.CenteredUI = value;
+            _settings.Entity.CentredUI = value;
         }
     }
 

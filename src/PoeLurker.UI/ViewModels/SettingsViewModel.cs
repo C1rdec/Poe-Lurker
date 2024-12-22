@@ -422,12 +422,12 @@ public class SettingsViewModel : Screen
     {
         get
         {
-            return _settingService.CenteredUI;
+            return _settingService.CentredUI;
         }
 
         set
         {
-            _settingService.CenteredUI = value;
+            _settingService.CentredUI = value;
             NotifyOfPropertyChange();
         }
     }
