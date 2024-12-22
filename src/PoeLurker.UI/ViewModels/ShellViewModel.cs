@@ -358,7 +358,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
         }
 
         //await ActivateItemAsync(_settingsViewModel);
-        await _windowManager.ShowDialogAsync(_settingsViewModel);
+        await _windowManager.ShowWindowAsync(_settingsViewModel);
     }
 
     /// <summary>
@@ -797,7 +797,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     {
         if (!_popup.IsActive)
         {
-            await Execute.OnUIThreadAsync(() => _windowManager.ShowDialogAsync(_popup));
+            await Execute.OnUIThreadAsync(() => _windowManager.ShowWindowAsync(_popup));
             await Execute.OnUIThreadAsync(() => ActivateItemAsync(_popup));
         }
 
@@ -821,7 +821,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     {
         if (!_popup.IsActive)
         {
-            await Execute.OnUIThreadAsync(() => _windowManager.ShowDialogAsync(_popup));
+            await Execute.OnUIThreadAsync(() => _windowManager.ShowWindowAsync(_popup));
             await Execute.OnUIThreadAsync(() => ActivateItemAsync(_popup));
         }
 

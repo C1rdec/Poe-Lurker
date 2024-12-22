@@ -260,6 +260,19 @@ public class SettingsService
         }
     }
 
+    public bool CenteredUI
+    {
+        get
+        {
+            return _settings.Entity.CenteredUI;
+        }
+
+        set
+        {
+            _settings.Entity.CenteredUI = value;
+        }
+    }
+
     /// <summary>
     /// Gets or sets a value indicating whether [alert enabled].
     /// </summary>
@@ -481,22 +494,6 @@ public class SettingsService
         set
         {
             _settings.Entity.TradebarScaling = value;
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether [show startup animation].
-    /// </summary>
-    public bool ShowStartupAnimation
-    {
-        get
-        {
-            return _settings.Entity.ShowStartupAnimation;
-        }
-
-        set
-        {
-            _settings.Entity.ShowStartupAnimation = value;
         }
     }
 

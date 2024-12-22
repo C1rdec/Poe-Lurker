@@ -35,7 +35,6 @@ public sealed class Settings
         HideoutEnabled = true;
         BuildAutoClose = true;
         ShowReleaseNote = true;
-        ShowStartupAnimation = true;
         SoldDetection = true;
         OutgoingDelayToClose = 100;
         JoinHideoutVolume = 1;
@@ -47,6 +46,8 @@ public sealed class Settings
     }
 
     #region Properties
+
+    public bool CenteredUI { get; set; }
 
     public bool PoeTrade { get; set; }
 
@@ -194,11 +195,6 @@ public sealed class Settings
     /// Gets or sets the trade bar scaling.
     /// </summary>
     public double TradebarScaling { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether [show startup animation].
-    /// </summary>
-    public bool ShowStartupAnimation { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether this <see cref="Settings"/> is vulkan.

@@ -254,6 +254,11 @@ public abstract class PoeOverlayBase : Screen, IViewAware
     private void SettingsService_OnSave(object sender, EventArgs e)
     {
         NotifyOfPropertyChange(nameof(DebugEnabled));
+
+        if (DockingHelper.WindowInformation != null)
+        {
+            SetWindowPosition(DockingHelper.WindowInformation);
+        }
     }
 
     /// <summary>

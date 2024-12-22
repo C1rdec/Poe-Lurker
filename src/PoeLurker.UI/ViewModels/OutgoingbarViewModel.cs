@@ -317,12 +317,13 @@ public class OutgoingbarViewModel : PoeOverlayBase
         var yPosition = windowInformation.FlaskBarWidth * (238 / (double)DefaultFlaskBarWidth);
         var width = windowInformation.Height * DefaultWidth / 1080;
         var height = windowInformation.FlaskBarHeight + 25;
-
+        var margin = SettingsService.CenteredUI && windowInformation.WideScreen ? windowInformation.FlaskBarWidth * 0.75 : 0;
+        
         Execute.OnUIThread(() =>
         {
             View.Height = ApplyAbsoluteScalingY(height < 0 ? 1 : height);
             View.Width = ApplyAbsoluteScalingX(width);
-            View.Left = ApplyScalingX(windowInformation.Position.Left + yPosition);
+            View.Left = ApplyScalingX(windowInformation.Position.Left + yPosition + margin);
             View.Top = ApplyScalingY(windowInformation.Position.Bottom - height - 12 + Margin);
         });
     }

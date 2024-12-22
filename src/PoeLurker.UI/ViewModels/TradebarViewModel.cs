@@ -18,7 +18,6 @@ using PoeLurker.Core.Models;
 using PoeLurker.Core.Services;
 using PoeLurker.Patreon.Events;
 using PoeLurker.Patreon.Models;
-using PoeLurker.Patreon.Parsers;
 using PoeLurker.Patreon.Services;
 using PoeLurker.UI.Models;
 using ProcessLurker;
@@ -31,7 +30,6 @@ public class TradebarViewModel : PoeOverlayBase, IDisposable
 {
     #region Fields
 
-    private static readonly ItemClassParser ItemClassParser = new ItemClassParser();
     private static readonly int DefaultOverlayHeight = 60;
     private readonly PoeKeyboardHelper _keyboardHelper;
     private readonly ClientLurker _clientLurker;
@@ -45,7 +43,6 @@ public class TradebarViewModel : PoeOverlayBase, IDisposable
     private readonly PushBulletService _pushBulletService;
     private readonly PushHoverService _pushHoverService;
     private readonly StashTabService _stashTabService;
-    private readonly ClipboardLurker _clipboardLurker;
 
     #endregion
 
@@ -73,7 +70,6 @@ public class TradebarViewModel : PoeOverlayBase, IDisposable
         KeyboardLurker keyboardLurker,
         DockingHelper dockingHelper,
         PoeKeyboardHelper keyboardHelper,
-        ClipboardLurker clipboardLurker,
         SettingsService settingsService,
         IWindowManager windowManager,
         SoundService soundService,
@@ -89,11 +85,10 @@ public class TradebarViewModel : PoeOverlayBase, IDisposable
         _pushBulletService = pushBulletService;
         _pushHoverService = pushHoverService;
         _stashTabService = stashTabService;
-        _clipboardLurker = clipboardLurker;
 
         _keyboardLurker = keyboardLurker;
-        TradeOffers = new ObservableCollection<OfferViewModel>();
-        _soldOffers = new List<TradeEvent>();
+        TradeOffers = [];
+        _soldOffers = [];
         _context = new TradebarContext(RemoveOffer, AddActiveOffer, AddToSoldOffer, SetActiveOffer, ClearAll);
         DisplayName = "Poe Lurker";
     }
@@ -615,8 +610,6 @@ public class TradebarViewModel : PoeOverlayBase, IDisposable
     {
         if (close)
         {
-            SettingsService.OnSave -= SettingsService_OnSave;
-
             _keyboardLurker.InvitePressed -= KeyboardLurker_InvitePressed;
             _keyboardLurker.WhisperPressed -= KeyboardLurker_WhisperPressed;
             _keyboardLurker.BusyPressed -= KeyboardLurker_BusyPressed;
@@ -642,8 +635,6 @@ public class TradebarViewModel : PoeOverlayBase, IDisposable
             await _pushBulletService.CheckPledgeStatus();
             await _pushHoverService.CheckPledgeStatus();
         }
-
-        SettingsService.OnSave += SettingsService_OnSave;
 
         _keyboardLurker.MainActionPressed += KeyboardLurker_MainActionPressed;
         _keyboardLurker.WhisperPressed += KeyboardLurker_WhisperPressed;
@@ -673,29 +664,20 @@ public class TradebarViewModel : PoeOverlayBase, IDisposable
             return;
         }
 
+        var leftMultiplier =  SettingsService.CenteredUI && windowInformation.WideScreen ? 1.75 : 1;
+        var widthMultiplier = SettingsService.CenteredUI && windowInformation.WideScreen ? 3 : 2;
+
         var overlayHeight = DefaultOverlayHeight * windowInformation.FlaskBarHeight / DefaultFlaskBarHeight * SettingsService.TradebarScaling;
-        var overlayWidth = (windowInformation.Width - (windowInformation.FlaskBarWidth * 2)) / 2;
+        var overlayWidth = (windowInformation.Width - (windowInformation.FlaskBarWidth * widthMultiplier)) / 2;
+
 
         Execute.OnUIThread(() =>
         {
             View.Height = ApplyAbsoluteScalingY(overlayHeight);
             View.Width = ApplyAbsoluteScalingX(overlayWidth);
-            View.Left = ApplyScalingX(windowInformation.Position.Left + windowInformation.FlaskBarWidth + Margin);
+            View.Left = ApplyScalingX(windowInformation.Position.Left + (windowInformation.FlaskBarWidth * leftMultiplier) + Margin);
             View.Top = ApplyScalingY(windowInformation.Position.Bottom - overlayHeight - windowInformation.ExpBarHeight - Margin);
         });
-    }
-
-    /// <summary>
-    /// Handles the OnSave event of the _settingsService control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void SettingsService_OnSave(object sender, System.EventArgs e)
-    {
-        if (DockingHelper.WindowInformation != null)
-        {
-            SetWindowPosition(DockingHelper.WindowInformation);
-        }
     }
 
     #endregion

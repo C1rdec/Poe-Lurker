@@ -46,5 +46,7 @@ public class PoeWindowInformation : EventArgs
     /// </summary>
     public Native.Rect Position { get; set; }
 
+    public bool WideScreen { get; set; }
+
     #endregion
 }

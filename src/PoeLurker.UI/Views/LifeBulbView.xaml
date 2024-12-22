@@ -51,18 +51,5 @@
                 </Style>
             </Ellipse.Style>
         </Ellipse>
-        <Border Width="40"
-                Height="40"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                cal:Message.Attach="[Event MouseDown] = [Action OnSubAction()]"
-                Background="#212022"
-                CornerRadius="8"
-                Cursor="Hand"
-                Visibility="{Binding HasAction, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <local:IconPack Margin="10"
-                            Data="{x:Static local:IconPackData.Target}"
-                            Foreground="Gray" />
-        </Border>
     </Grid>
 </Window>

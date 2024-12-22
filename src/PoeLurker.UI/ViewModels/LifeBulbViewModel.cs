@@ -84,11 +84,13 @@ public class LifeBulbViewModel : BulbViewModelBase, IHandle<LifeBulbMessage>
     protected override void SetWindowPosition(PoeWindowInformation windowInformation)
     {
         var value = DefaultBulbHeight * windowInformation.Height / 1080;
+        var margin = SettingsService.CenteredUI && windowInformation.WideScreen ? windowInformation.FlaskBarWidth * 0.8 : 0;
+
         Execute.OnUIThread(() =>
         {
             View.Height = ApplyAbsoluteScalingY(value);
             View.Width = ApplyAbsoluteScalingX(value);
-            View.Left = ApplyScalingX(windowInformation.Position.Left + 10);
+            View.Left = ApplyScalingX(windowInformation.Position.Left + 10 + margin);
             View.Top = ApplyScalingY(windowInformation.Position.Bottom - value - 10);
             var lifeView = View as LifeBulbView;
             lifeView.ResizeLifeBulb();

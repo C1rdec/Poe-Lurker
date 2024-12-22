@@ -418,16 +418,16 @@ public class SettingsViewModel : Screen
     /// <summary>
     /// Gets or sets a value indicating whether [show startup animation].
     /// </summary>
-    public bool ShowStartupAnimation
+    public bool CenteredUI
     {
         get
         {
-            return _settingService.ShowStartupAnimation;
+            return _settingService.CenteredUI;
         }
 
         set
         {
-            _settingService.ShowStartupAnimation = value;
+            _settingService.CenteredUI = value;
             NotifyOfPropertyChange();
         }
     }

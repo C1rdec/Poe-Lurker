@@ -87,7 +87,7 @@ public class SplashscreenViewModel : PropertyChangedBase
     {
         // Set to luker pro tab
         _settings.OpenLurkerPro();
-        await IoC.Get<IWindowManager>().ShowDialogAsync(_settings);
+        await IoC.Get<IWindowManager>().ShowWindowAsync(_settings);
     }
 
     /// <summary>

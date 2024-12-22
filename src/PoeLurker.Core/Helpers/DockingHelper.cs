@@ -300,7 +300,7 @@ public class DockingHelper : IDisposable
     /// <returns>The poe window information.</returns>
     private PoeWindowInformation GetWindowInformation()
     {
-        var poePosition = HandleWideScreen();
+        var poePosition = HandleWideScreen(out var wideScreen);
         double poeWidth = poePosition.Right - poePosition.Left;
         double poeHeight = poePosition.Bottom - poePosition.Top;
 
@@ -316,10 +316,11 @@ public class DockingHelper : IDisposable
             FlaskBarHeight = flaskBarHeight,
             FlaskBarWidth = flaskBarWidth,
             Position = poePosition,
+            WideScreen = wideScreen,
         };
     }
 
-    private Rect HandleWideScreen()
+    private Rect HandleWideScreen(out bool wideScreen)
     {
         Rect poePosition = default;
         Native.GetWindowRect(_windowHandle, ref poePosition);
@@ -342,6 +343,8 @@ public class DockingHelper : IDisposable
         if (totalBlackBars > 0)
         {
             var blackBarWidth = Convert.ToInt32(totalBlackBars / 2);
+            wideScreen = true;
+
             return new Rect
             {
                 Right = poePosition.Right - blackBarWidth,
@@ -350,6 +353,8 @@ public class DockingHelper : IDisposable
                 Top = poePosition.Top,
             };
         }
+
+        wideScreen = false;
 
         return poePosition;
     }
