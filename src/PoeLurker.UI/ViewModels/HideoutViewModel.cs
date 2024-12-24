@@ -112,7 +112,7 @@ public class HideoutViewModel : PoeOverlayBase
     protected override void SetWindowPosition(PoeWindowInformation windowInformation)
     {
         var value = DefaultSize * windowInformation.Height / 1080;
-        var margin = SettingsService.CentredUI && windowInformation.WideScreen ? windowInformation.FlaskBarWidth * 0.8 : 0;
+        var margin = SettingsService.CentredUI ? windowInformation.FlaskBarWidth * 0.8 : 0;
         Execute.OnUIThread(() =>
         {
             View.Height = ApplyAbsoluteScalingY(value);
