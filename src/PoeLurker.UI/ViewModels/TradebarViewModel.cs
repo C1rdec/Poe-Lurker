@@ -374,7 +374,7 @@ public class TradebarViewModel : PoeOverlayBase, IDisposable
         if (offer == null)
         {
             var activeOffer = ActiveOffer;
-            if (activeOffer != null && activeOffer.BuyerInSameInstance)
+            if (activeOffer != null)
             {
                 offer = activeOffer;
             }
