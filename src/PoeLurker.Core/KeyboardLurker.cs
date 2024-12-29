@@ -179,6 +179,8 @@ public class KeyboardLurker
         {
             if (disposing)
             {
+                _keyboardHook.RemoveAllHandlers();
+                _keyboardHook.Uninstall();
                 _keyboardHook.Dispose();
             }
 

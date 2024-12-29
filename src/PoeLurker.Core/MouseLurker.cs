@@ -107,6 +107,8 @@ public class MouseLurker : IDisposable
                 try
                 {
                     _mouseHook.LeftButtonUp -= MouseHook_LeftButtonUp;
+                    _mouseHook.RemoveAllHandlers();
+                    _mouseHook.Uninstall();
                     _mouseHook.Dispose();
                 }
                 catch

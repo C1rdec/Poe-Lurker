@@ -314,17 +314,21 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
 
         _eventAggregator.PublishOnUIThreadAsync(message);
     }
-
-    /// <summary>
-    /// Gets the assembly version.
-    /// </summary>
-    /// <returns>The assembly version.</returns>
-    private static string GetAssemblyVersion()
+    public void DisposeHooks()
     {
-        var assembly = Assembly.GetExecutingAssembly();
-        var information = FileVersionInfo.GetVersionInfo(assembly.Location);
-        var version = information.FileVersion.Remove(information.FileVersion.Length - 2);
-        return version;
+        if (_mouseLurker != null)
+        {
+            _mouseLurker.ItemDetails -= ShowItemDetails;
+            _mouseLurker.ItemIdentified -= ItemIdentified;
+            _mouseLurker.Dispose();
+            _mouseLurker = null;
+        }
+
+        if (_keyboardLurker != null)
+        {
+            _keyboardLurker.BuildToggled -= KeyboardLurker_BuildToggled;
+            _keyboardLurker.Dispose();
+        }
     }
 
     /// <summary>
@@ -339,7 +343,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
         };
 
         await _eventAggregator.PublishOnUIThreadAsync(message);
-        //CleanUp();
+        DisposeHooks();
 
         ShowInTaskBar = false;
         var updateManager = IoC.Get<PoeLurkerUpdateManager>();
@@ -383,9 +387,21 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     {
         var link = (IShellLink)new ShellLink();
         link.SetDescription("PoeLurker");
-        link.SetPath(System.Reflection.Assembly.GetExecutingAssembly().Location);
+        link.SetPath(Path.ChangeExtension(Assembly.GetExecutingAssembly().Location, ".exe"));
         var file = (IPersistFile)link;
         file.Save(ShortcutFilePath, false);
+    }
+
+    /// <summary>
+    /// Gets the assembly version.
+    /// </summary>
+    /// <returns>The assembly version.</returns>
+    private static string GetAssemblyVersion()
+    {
+        var assembly = Assembly.GetExecutingAssembly();
+        var information = FileVersionInfo.GetVersionInfo(assembly.Location);
+
+        return information.FileVersion.Remove(information.FileVersion.Length - 2); ;
     }
 
     /// <summary>
@@ -625,19 +641,8 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
             _afkService = null;
         }
 
-        if (_mouseLurker != null)
-        {
-            _mouseLurker.ItemDetails -= ShowItemDetails;
-            _mouseLurker.ItemIdentified -= ItemIdentified;
-            _mouseLurker.Dispose();
-            _mouseLurker = null;
-        }
 
-        if (_keyboardLurker != null)
-        {
-            _keyboardLurker.BuildToggled -= KeyboardLurker_BuildToggled;
-            _keyboardLurker.Dispose();
-        }
+        DisposeHooks();
 
         if (_stashTabGrid != null)
         {
@@ -648,7 +653,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
         {
             _incomingTradeBarOverlay.Dispose();
         }
-    }
+    }    
 
     /// <summary>
     /// Waits for poe.
