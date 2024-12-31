@@ -41,6 +41,8 @@ public class TradeValueViewModel : Caliburn.Micro.PropertyChangedBase
 
     #region Properties
 
+    public CurrencyViewModel Currency => new(CurrencyType);
+
     /// <summary>
     /// Gets the type of the currency.
     /// </summary>

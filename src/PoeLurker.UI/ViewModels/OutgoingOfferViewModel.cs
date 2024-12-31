@@ -134,7 +134,7 @@ public class OutgoingOfferViewModel : PropertyChangedBase
     /// <summary>
     /// Gets the trade value.
     /// </summary>
-    public TradeValueViewModel TradeValue => new TradeValueViewModel(_event, _settingsService);
+    public TradeValueViewModel TradeValue => new(_event, _settingsService);
 
     #endregion
 
