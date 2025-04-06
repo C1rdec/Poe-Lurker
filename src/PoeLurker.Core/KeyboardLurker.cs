@@ -350,10 +350,11 @@ public class KeyboardLurker
         if (string.IsNullOrEmpty(itemText))
         {
             return;
-        }
+        } 
+
         try
         {
-            PoeTradeService.Open(itemText);
+            PoeTradeService.Open(itemText, _settingsService.RecentLeagueName);
         }
         catch (Exception ex)
         {
