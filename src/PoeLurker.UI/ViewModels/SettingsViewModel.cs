@@ -22,6 +22,7 @@ using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Win32;
 using NAudio.Wave;
+using PoeLurker.Core;
 using PoeLurker.Core.Extensions;
 using PoeLurker.Core.Helpers;
 using PoeLurker.Core.Services;
@@ -1016,6 +1017,12 @@ public class SettingsViewModel : Screen
     #endregion
 
     #region Methods
+
+    public void OpenClientTxt()
+    {
+        var lurker = IoC.Get<ClientLurker>();
+        lurker?.OpenClientTxt();
+    }
 
     public void SetPowered()
     {

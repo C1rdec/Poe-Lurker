@@ -319,7 +319,7 @@ public abstract class PoeOverlayBase : Screen, IViewAware
 
         if (DockingHelper != null)
         {
-            DockingHelper.OnWindowMove += DockingHelper_OnWindowMove;
+            DockingHelper.OnChanged += DockingHelper_OnWindowMove;
             DockingHelper.OnForegroundChange += DockingHelper_OnForegroundChange;
         }
 
@@ -336,11 +336,11 @@ public abstract class PoeOverlayBase : Screen, IViewAware
         {
             ProcessLurker.ProcessClosed -= Lurker_PoeClosed;
             SettingsService.OnSave -= SettingsService_OnSave;
-            DockingHelper.OnWindowMove -= DockingHelper_OnWindowMove;
+            DockingHelper.OnChanged -= DockingHelper_OnWindowMove;
 
             if (DockingHelper != null)
             {
-                DockingHelper.OnWindowMove -= DockingHelper_OnWindowMove;
+                DockingHelper.OnChanged -= DockingHelper_OnWindowMove;
                 DockingHelper.OnForegroundChange -= DockingHelper_OnForegroundChange;
             }
         }

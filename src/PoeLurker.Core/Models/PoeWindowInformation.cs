@@ -48,5 +48,7 @@ public class PoeWindowInformation : EventArgs
 
     public bool WideScreen { get; set; }
 
+    public bool InventoryOpen { get; set; }
+
     #endregion
 }

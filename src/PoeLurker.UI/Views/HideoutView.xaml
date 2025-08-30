@@ -51,6 +51,10 @@
                             <Setter Property="Background" Value="Green" />
                             <Setter Property="Opacity" Value="1" />
                         </DataTrigger>
+                        <DataTrigger Binding="{Binding IsInventoryOpen}" Value="True">
+                            <Setter Property="Background" Value="Red" />
+                            <Setter Property="Opacity" Value="1" />
+                        </DataTrigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Opacity" Value="0.05" />
                         </Trigger>

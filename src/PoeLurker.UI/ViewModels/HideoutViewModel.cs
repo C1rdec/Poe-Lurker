@@ -23,6 +23,7 @@ public class HideoutViewModel : PoeOverlayBase
 
     private static readonly int DefaultSize = 60;
     private readonly PoeKeyboardHelper _keyboardHelper;
+    private bool _isInventoryOpen;
     private bool _isVisible;
     private bool _guildVisible;
 
@@ -50,6 +51,20 @@ public class HideoutViewModel : PoeOverlayBase
     #endregion
 
     #region Properties
+
+    public bool IsInventoryOpen
+    {
+        get
+        {
+            return _isInventoryOpen;
+        }
+
+        private set
+        {
+            _isInventoryOpen = value;
+            NotifyOfPropertyChange();
+        }
+    }
 
     /// <summary>
     /// Gets a value indicating whether this instance is visible.
@@ -113,6 +128,7 @@ public class HideoutViewModel : PoeOverlayBase
     {
         var value = DefaultSize * windowInformation.Height / 1080;
         var margin = SettingsService.CentredUI ? windowInformation.FlaskBarWidth * 0.8 : 0;
+        IsInventoryOpen = windowInformation.InventoryOpen;
         Execute.OnUIThread(() =>
         {
             View.Height = ApplyAbsoluteScalingY(value);

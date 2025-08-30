@@ -8,6 +8,8 @@ namespace PoeLurker.Core.Helpers;
 
 using System;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Threading;
 using System.Threading.Tasks;
 using PoeLurker.Core.Extensions;
@@ -23,6 +25,7 @@ public class DockingHelper : IDisposable
 {
     #region Fields
 
+    private Bitmap _referenceInventory;
     private const uint WideScreenHeightReference = 1440;
     private const uint WideScreenWidthReference = 3455;
     private const uint GainMouseCapture = 8;
@@ -47,6 +50,8 @@ public class DockingHelper : IDisposable
     private readonly Process _process;
     private readonly ClientLurker _clientLurker;
 
+    private PoeWindowInformation _latestWindowInformation;
+
     #endregion
 
     #region Constructors
@@ -58,6 +63,11 @@ public class DockingHelper : IDisposable
     /// <param name="settingsService">The settings service.</param>
     public DockingHelper(int processId, SettingsService settingsService, ClientLurker clientLurker)
     {
+        using (var stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("PoeLurker.Core.Assets.InventoryReference.png"))
+        {
+            _referenceInventory = new Bitmap(stream);
+        }
+
         _process = Process.GetProcessById(processId);
         _clientLurker = clientLurker;
 
@@ -73,7 +83,7 @@ public class DockingHelper : IDisposable
             _winEventDelegate = WhenWindowMoveStartsOrEnds;
             _hook = SetWinEventHook(0, MoveEnd, _windowHandle, _winEventDelegate, _windowProcessId, _windowOwnerId, 0);
             WindowInformation = GetWindowInformation();
-            WatchForegound();
+            Watch();
 
             /*if (settingsService.VulkanRenderer)
             {
@@ -87,9 +97,14 @@ public class DockingHelper : IDisposable
     #region Events
 
     /// <summary>
+    /// Occurs when [Inventory State Change].
+    /// </summary>
+    public event EventHandler<bool> InventoryOpenChange;
+
+    /// <summary>
     /// Occurs when [on window move].
     /// </summary>
-    public event EventHandler<PoeWindowInformation> OnWindowMove;
+    public event EventHandler<PoeWindowInformation> OnChanged;
 
     /// <summary>
     /// Occurs when [on lost mouse capture].
@@ -166,7 +181,7 @@ public class DockingHelper : IDisposable
 
     private void ClientLurker_Poe2(object sender, bool e)
     {
-        InvokeWindowMove();
+        Notify();
     }
 
     /// <summary>
@@ -198,7 +213,7 @@ public class DockingHelper : IDisposable
         switch (eventType)
         {
             case MoveEnd:
-                InvokeWindowMove();
+                Notify();
                 break;
             case GainMouseCapture:
                 Invoke(OnMouseCapture);
@@ -212,7 +227,7 @@ public class DockingHelper : IDisposable
     /// <summary>
     /// Watches the foregound.
     /// </summary>
-    private async void WatchForegound()
+    private async void Watch()
     {
         var token = _tokenSource.Token;
         while (true)
@@ -242,7 +257,7 @@ public class DockingHelper : IDisposable
                     }
 
                     _currentWindowStyle = style;
-                    InvokeWindowMove();
+                    Notify();
                 }
 
                 if (processId == _myProcess.Id || foregroundWindow == _windowHandle)
@@ -254,7 +269,7 @@ public class DockingHelper : IDisposable
                 {
                     if (inForeground)
                     {
-                        InvokeWindowMove();
+                        Notify();
                     }
 
                     PoeApplicationContext.InForeground = inForeground;
@@ -264,12 +279,63 @@ public class DockingHelper : IDisposable
                     }
                 }
 
-                await Task.Delay(500);
+                if (inForeground)
+                {
+                    Capture();
+                }
+
+                await Task.Delay(800);
             }
             catch
             {
             }
         }
+    }
+
+    private void Capture()
+    {
+        var captureRegion = new Rectangle(_latestWindowInformation.Position.Right - 2, _latestWindowInformation.Position.Top + 1, 2, 2);
+
+        var b = ScreenCapture.CaptureRegion(captureRegion);
+        b.Save("screen.png", ImageFormat.Png);
+        if (FuzzyMatch(b))
+        {
+            if (!_latestWindowInformation.InventoryOpen)
+            {
+                Notify(GetWindowInformation(true));
+            }
+        }
+        else if (_latestWindowInformation.InventoryOpen)
+        {
+            Notify();
+        }
+    }
+
+    private bool FuzzyMatch(Bitmap screen)
+    {
+        var tolerance = 80;
+        var width = _referenceInventory.Width;
+        var height = _referenceInventory.Height;
+
+        for (var y = 0; y < height; y++)
+        {
+            for (var x = 0; x < width; x++)
+            {
+                var screenPixel = screen.GetPixel(x, y);
+                var refPixel = _referenceInventory.GetPixel(x, y);
+
+                var diff = Math.Abs(screenPixel.R - refPixel.R)
+                         + Math.Abs(screenPixel.G - refPixel.G)
+                         + Math.Abs(screenPixel.B - refPixel.B);
+
+                if (diff > tolerance)
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     /// <summary>
@@ -284,13 +350,15 @@ public class DockingHelper : IDisposable
     /// <summary>
     /// Invokes the window move.
     /// </summary>
-    private void InvokeWindowMove()
+    private void Notify()
+        => Notify(GetWindowInformation());
+
+    private void Notify(PoeWindowInformation information)
     {
-        var information = GetWindowInformation();
         if (information != null)
         {
             WindowInformation = information;
-            OnWindowMove?.Invoke(this, WindowInformation);
+            OnChanged?.Invoke(this, WindowInformation);
         }
     }
 
@@ -298,7 +366,7 @@ public class DockingHelper : IDisposable
     /// Gets the window information.
     /// </summary>
     /// <returns>The poe window information.</returns>
-    private PoeWindowInformation GetWindowInformation()
+    private PoeWindowInformation GetWindowInformation(bool inventoryOpen = false)
     {
         var poePosition = HandleWideScreen(out var wideScreen);
         double poeWidth = poePosition.Right - poePosition.Left;
@@ -308,7 +376,7 @@ public class DockingHelper : IDisposable
         var flaskBarWidth = poeHeight * DefaultFlaskBarWidth / DefaultHeight;
         var flaskBarHeight = poeHeight * DefaultFlaskBarHeight / DefaultHeight;
 
-        return new PoeWindowInformation()
+        _latestWindowInformation = new PoeWindowInformation()
         {
             Height = poeHeight,
             Width = poeWidth,
@@ -317,7 +385,10 @@ public class DockingHelper : IDisposable
             FlaskBarWidth = flaskBarWidth,
             Position = poePosition,
             WideScreen = wideScreen,
+            InventoryOpen = inventoryOpen,
         };
+
+        return _latestWindowInformation;
     }
 
     private Rect HandleWideScreen(out bool wideScreen)

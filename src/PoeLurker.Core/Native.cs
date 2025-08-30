@@ -7,6 +7,8 @@
 namespace PoeLurker.Core;
 
 using System;
+using System.Drawing.Imaging;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -326,5 +328,40 @@ public static class Native
         VK_NONAME = 0xFC,
         VK_PA1 = 0xFD,
         VK_OEM_CLEAR = 0xFE
+    }
+}
+
+public class ScreenCapture
+{
+    [DllImport("user32.dll")]
+    private static extern IntPtr GetDesktopWindow();
+
+    [DllImport("user32.dll")]
+    private static extern IntPtr GetWindowDC(IntPtr hwnd);
+
+    [DllImport("gdi32.dll")]
+    private static extern bool BitBlt(
+        IntPtr hdcDest, int xDest, int yDest, int width, int height,
+        IntPtr hdcSrc, int xSrc, int ySrc, CopyPixelOperation rop);
+
+    [DllImport("user32.dll")]
+    private static extern int ReleaseDC(IntPtr hwnd, IntPtr hdc);
+
+    public static Bitmap CaptureRegion(Rectangle region)
+    {
+        IntPtr desktopWnd = GetDesktopWindow();
+        IntPtr desktopDC = GetWindowDC(desktopWnd);
+
+        Bitmap bmp = new Bitmap(region.Width, region.Height, PixelFormat.Format32bppArgb);
+        using (Graphics g = Graphics.FromImage(bmp))
+        {
+            IntPtr hdcDest = g.GetHdc();
+            BitBlt(hdcDest, 0, 0, region.Width, region.Height, desktopDC, region.X, region.Y, CopyPixelOperation.SourceCopy | CopyPixelOperation.CaptureBlt);
+            g.ReleaseHdc(hdcDest);
+        }
+
+        ReleaseDC(desktopWnd, desktopDC);
+
+        return bmp;
     }
 }

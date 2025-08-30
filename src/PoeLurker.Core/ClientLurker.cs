@@ -143,6 +143,16 @@ public class ClientLurker : IDisposable
 
     #region Methods
 
+    public void OpenClientTxt()
+    {
+        Process.Start("explorer.exe", Path.GetDirectoryName(FilePath));
+        //Process.Start(new ProcessStartInfo
+        //{
+        //    FileName = FilePath,
+        //    UseShellExecute = true
+        //});
+    }
+
     /// <summary>
     /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
     /// </summary>

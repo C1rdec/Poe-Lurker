@@ -38,7 +38,7 @@
                                Text="Discord" />
                 </StackPanel>
             </Button>
-            <Button cal:Message.Attach="[Event Click] = [Action OpenLogs]" Cursor="Hand">
+            <Button cal:Message.Attach="[Event Click] = [Action OpenClientTxt]" Cursor="Hand">
                 <Button.Content>
                     <TextBlock Text="{Binding Version}" />
                 </Button.Content>
