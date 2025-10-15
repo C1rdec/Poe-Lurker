@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="PoeLurker.UI.Views.WaystoneView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:PoeLurker.UI"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:po="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+             d:DesignHeight="80"
+             d:DesignWidth="80"
+             mc:Ignorable="d">
+    <Border Background="Black"
+            BorderThickness="1.5"
+            CornerRadius="5">
+        <Border.BorderBrush>
+            <SolidColorBrush Opacity="0.6" Color="#e7b577" />
+        </Border.BorderBrush>
+        <Grid MinWidth="45"
+              MinHeight="45"
+              Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid>
+                <local:IconPack x:Name="Help"
+                                Height="45"
+                                Data="{x:Static local:IconPackData.Checkbox}"
+                                Foreground="Green"
+                                Visibility="{Binding Safe, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <local:IconPack.Background>
+                        <SolidColorBrush Opacity="0.003" Color="White" />
+                    </local:IconPack.Background>
+                </local:IconPack>
+                <local:IconPack Height="45"
+                                Data="{x:Static local:IconPackData.Checkbox}"
+                                Foreground="Gray"
+                                Opacity="0.5"
+                                Visibility="{Binding NoElemental, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <local:IconPack.Background>
+                        <SolidColorBrush Opacity="0.003" Color="White" />
+                    </local:IconPack.Background>
+                </local:IconPack>
+                <StackPanel Height="45"
+                            HorizontalAlignment="Center"
+                            Orientation="Horizontal">
+                    <local:IconPack Width="45"
+                                    Data="{x:Static local:IconPackData.Fire}"
+                                    Foreground="#ff9994"
+                                    Visibility="{Binding FireDamage, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <local:IconPack Width="45"
+                                    Data="{x:Static local:IconPackData.Lightning}"
+                                    Foreground="#af8404"
+                                    Visibility="{Binding LightningDamage, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <local:IconPack Width="45"
+                                    Data="{x:Static local:IconPackData.Cold}"
+                                    Foreground="#a6b1e1"
+                                    Visibility="{Binding ColdDamage, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                </StackPanel>
+
+            </Grid>
+            <StackPanel Grid.Row="1"
+                        Margin="0,10,0,0"
+                        Visibility="{Binding CritOrDamage, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Border Grid.Row="1"
+                        BorderBrush="Purple"
+                        BorderThickness="1"
+                        Visibility="{Binding Critical, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <Border Grid.Row="1"
+                        Margin="0,2,0,0"
+                        BorderBrush="Red"
+                        BorderThickness="1.5"
+                        Visibility="{Binding Damage, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            </StackPanel>
+
+
+            <ItemsControl x:Name="Affixes">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Margin="10,10,10,0" Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </Grid>
+    </Border>
+</UserControl>

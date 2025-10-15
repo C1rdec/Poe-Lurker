@@ -12,7 +12,6 @@ using PoeLurker.Core;
 using PoeLurker.Core.Helpers;
 using PoeLurker.Core.Models;
 using PoeLurker.Core.Services;
-using PoeLurker.UI.Models;
 using ProcessLurker;
 using Winook;
 
@@ -24,15 +23,13 @@ public class PopupViewModel : PoeOverlayBase
 {
     #region Fields
 
-    private const int MouseMargin = 50;
+    private const int MouseMargin = 40;
     private const int PopupMargin = 10;
     private readonly MouseLurker _mouseLurker;
     private PoeWindowInformation _windowInformation;
     private int _x;
     private int _y;
     private double _opacity;
-    private double _width;
-    private double _height;
 
     #endregion
 
@@ -148,7 +145,7 @@ public class PopupViewModel : PoeOverlayBase
             View.SizeToContent = System.Windows.SizeToContent.Manual;
 
             // +10 is to make sure the mouse is not over the overlay
-            View.Top = ApplyScalingY(_mouseLurker.Y + 10);
+            View.Top = ApplyScalingY(_mouseLurker.Y - (View.Height / 2));
             View.SizeToContent = System.Windows.SizeToContent.WidthAndHeight;
         });
     }
@@ -175,18 +172,12 @@ public class PopupViewModel : PoeOverlayBase
     /// <param name="e">The <see cref="MouseMessageEventArgs"/> instance containing the event data.</param>
     private void MouseLurker_MouseMove(object sender, MouseMessageEventArgs e)
     {
-        var rayon = _width / 2;
-        var center = new Position()
-        {
-            X = (int)(_x + rayon),
-            Y = (int)(_y + (_height / 2)),
-        };
 
-        var differenceX = Math.Abs(center.X - e.X);
-        var differenceY = Math.Abs(center.Y - e.Y);
+        var differenceX = Math.Abs(_x - e.X);
+        var differenceY = Math.Abs(_y - e.Y);
         var hypothenuse = Math.Sqrt(Math.Pow(differenceX, 2) + Math.Pow(differenceY, 2));
 
-        var difference = MouseMargin + rayon - hypothenuse + 30;
+        var difference = MouseMargin - hypothenuse;
         if (difference <= 0)
         {
             ClearContent();
@@ -204,17 +195,14 @@ public class PopupViewModel : PoeOverlayBase
     /// <param name="e">The <see cref="System.Windows.SizeChangedEventArgs"/> instance containing the event data.</param>
     private void View_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
     {
-        _height = e.NewSize.Height;
-        _width = e.NewSize.Width;
-
-        var rightSide = e.NewSize.Width + _x + 15;
+        var rightSide = e.NewSize.Width + _x + 50;
         if (rightSide > _windowInformation.Position.Right)
         {
-            View.Left = ApplyScalingX(_x - (rightSide - _windowInformation.Position.Right) - PopupMargin);
+            View.Left = ApplyScalingX(_x - (rightSide - _windowInformation.Position.Right) - PopupMargin - 10);
         }
         else
         {
-            View.Left = ApplyScalingX(_x + 15);
+            View.Left = ApplyScalingX(_x + 60);
         }
     }
 

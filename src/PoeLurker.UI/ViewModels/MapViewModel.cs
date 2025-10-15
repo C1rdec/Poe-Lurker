@@ -18,7 +18,7 @@ using PoeLurker.Patreon.Models;
 /// Represents a map item.
 /// </summary>
 /// <seealso cref="Caliburn.Micro.PropertyChangedBase" />
-public class MapViewModel : Caliburn.Micro.PropertyChangedBase, IDisposable
+public class MapViewModel : PropertyChangedBase, IDisposable
 {
     #region Fields
 

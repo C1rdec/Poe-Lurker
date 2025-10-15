@@ -813,7 +813,14 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
                 return;
             }
 
-            _popup.Open(new MapViewModel(item, ActivePlayer, _currentCharacterService));
+            if (PoeApplicationContext.Poe2)
+            {
+                _popup.Open(new WaystoneViewModel(item));
+            }
+            else
+            {
+                _popup.Open(new MapViewModel(item, ActivePlayer, _currentCharacterService));
+            }
         }
     }
 
