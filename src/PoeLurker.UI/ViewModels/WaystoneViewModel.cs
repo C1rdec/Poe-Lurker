@@ -7,25 +7,33 @@ namespace PoeLurker.UI.ViewModels;
 public class WaystoneViewModel : PropertyChangedBase
 {
     private Map _map;
+    private List<Affix> _damageAffixes;
 
     public WaystoneViewModel(Map map)
     {
         _map = map;
+        _damageAffixes = map.DamageAffixes.ToList();
     }
 
-    public bool FireDamage => _map.DamageAffixes.Any(d => d.Text.Equals(AffixService.FireDamageText));
+    public bool FireDamage => _damageAffixes.Any(d => d.Text.Equals(AffixService.FireDamageText));
 
-    public bool ColdDamage => _map.DamageAffixes.Any(d => d.Text.Equals(AffixService.ColdDamageText));
+    public bool ColdDamage => _damageAffixes.Any(d => d.Text.Equals(AffixService.ColdDamageText));
 
-    public bool LightningDamage => _map.DamageAffixes.Any(d => d.Text.Equals(AffixService.LightningDamageText));
+    public bool LightningDamage => _damageAffixes.Any(d => d.Text.Equals(AffixService.LightningDamageText));
 
-    public bool Damage => _map.DamageAffixes.Any(d => d.Text.Equals(AffixService.DamageText));
+    public bool ChaosDamage => _damageAffixes.Any(d => d.Text.Equals(AffixService.ChaosDamageText));
 
-    public bool Critical => _map.DamageAffixes.Any(d => d.Text.Equals(AffixService.CriticalText));
+    public bool Damage => _damageAffixes.Any(d => d.Text.Equals(AffixService.DamageText));
 
-    public bool Safe => !_map.DamageAffixes.Any();
+    public bool Critical => _damageAffixes.Any(d => d.Text.Equals(AffixService.CriticalText));
+
+    public bool Safe => !_damageAffixes.Any();
 
     public bool CritOrDamage => Damage || Critical;
 
     public bool NoElemental => !(Safe || FireDamage || ColdDamage || LightningDamage);
+
+    public int PackSize => _map.PackSize;
+
+    public int ItemRarity => _map.ItemRarity;
 }

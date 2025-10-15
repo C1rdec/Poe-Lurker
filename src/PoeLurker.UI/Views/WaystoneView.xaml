@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:PoeLurker.UI"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:po="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
-             d:DesignHeight="80"
-             d:DesignWidth="80"
+             d:DesignHeight="90"
+             d:DesignWidth="200"
              mc:Ignorable="d">
     <Border Background="Black"
             BorderThickness="1.5"
@@ -18,60 +18,90 @@
         <Grid MinWidth="45"
               MinHeight="45"
               Margin="10">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition Height="auto" />
-            </Grid.RowDefinitions>
-            <Grid>
-                <local:IconPack x:Name="Help"
-                                Height="45"
-                                Data="{x:Static local:IconPackData.Checkbox}"
-                                Foreground="Green"
-                                Visibility="{Binding Safe, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <local:IconPack.Background>
-                        <SolidColorBrush Opacity="0.003" Color="White" />
-                    </local:IconPack.Background>
-                </local:IconPack>
-                <local:IconPack Height="45"
-                                Data="{x:Static local:IconPackData.Checkbox}"
-                                Foreground="Gray"
-                                Opacity="0.5"
-                                Visibility="{Binding NoElemental, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <local:IconPack.Background>
-                        <SolidColorBrush Opacity="0.003" Color="White" />
-                    </local:IconPack.Background>
-                </local:IconPack>
-                <StackPanel Height="45"
-                            HorizontalAlignment="Center"
-                            Orientation="Horizontal">
-                    <local:IconPack Width="45"
-                                    Data="{x:Static local:IconPackData.Fire}"
-                                    Foreground="#ff9994"
-                                    Visibility="{Binding FireDamage, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                    <local:IconPack Width="45"
-                                    Data="{x:Static local:IconPackData.Lightning}"
-                                    Foreground="#af8404"
-                                    Visibility="{Binding LightningDamage, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                    <local:IconPack Width="45"
-                                    Data="{x:Static local:IconPackData.Cold}"
-                                    Foreground="#a6b1e1"
-                                    Visibility="{Binding ColdDamage, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                </StackPanel>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid>
+                    <local:IconPack x:Name="Help"
+                                    Height="45"
+                                    Data="{x:Static local:IconPackData.Checkbox}"
+                                    Foreground="Green"
+                                    Visibility="{Binding Safe, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <local:IconPack.Background>
+                            <SolidColorBrush Opacity="0.003" Color="White" />
+                        </local:IconPack.Background>
+                    </local:IconPack>
+                    <local:IconPack Height="45"
+                                    Data="{x:Static local:IconPackData.Checkbox}"
+                                    Foreground="Gray"
+                                    Opacity="0.5"
+                                    Visibility="{Binding NoElemental, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <local:IconPack.Background>
+                            <SolidColorBrush Opacity="0.003" Color="White" />
+                        </local:IconPack.Background>
+                    </local:IconPack>
+                    <StackPanel Height="45"
+                                HorizontalAlignment="Center"
+                                Orientation="Horizontal">
+                        <local:IconPack Width="45"
+                                        Data="{x:Static local:IconPackData.Fire}"
+                                        Foreground="#ff9994"
+                                        Visibility="{Binding FireDamage, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <local:IconPack Width="45"
+                                        Data="{x:Static local:IconPackData.Lightning}"
+                                        Foreground="#af8404"
+                                        Visibility="{Binding LightningDamage, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <local:IconPack Width="45"
+                                        Data="{x:Static local:IconPackData.Cold}"
+                                        Foreground="#a6b1e1"
+                                        Visibility="{Binding ColdDamage, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <local:IconPack Width="45"
+                                        Data="{x:Static local:IconPackData.Chaos}"
+                                        Foreground="#CF9FFF"
+                                        Visibility="{Binding ChaosDamage, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    </StackPanel>
 
+                </Grid>
+                <StackPanel Grid.Row="1"
+                            Margin="0,10,0,0"
+                            Visibility="{Binding CritOrDamage, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Border Grid.Row="1"
+                            BorderBrush="Purple"
+                            BorderThickness="1"
+                            Visibility="{Binding Critical, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <Border Grid.Row="1"
+                            Margin="0,2,0,0"
+                            BorderBrush="Red"
+                            BorderThickness="1.5"
+                            Visibility="{Binding Damage, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                </StackPanel>
             </Grid>
-            <StackPanel Grid.Row="1"
-                        Margin="0,10,0,0"
-                        Visibility="{Binding CritOrDamage, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Border Grid.Row="1"
-                        BorderBrush="Purple"
-                        BorderThickness="1"
-                        Visibility="{Binding Critical, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                <Border Grid.Row="1"
-                        Margin="0,2,0,0"
-                        BorderBrush="Red"
-                        BorderThickness="1.5"
-                        Visibility="{Binding Damage, Converter={StaticResource BooleanToVisibilityConverter}}" />
-            </StackPanel>
+            <Grid Margin="0,0,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="ItemRarity"
+                           Grid.Row="0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontFamily="pack://application:,,,/Assets/#Fontin"
+                           FontSize="20"
+                           Foreground="#af8404" />
+                <TextBlock x:Name="PackSize"
+                           Grid.Row="1"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontFamily="pack://application:,,,/Assets/#Fontin"
+                           FontSize="20"
+                           Foreground="Gray" />
+            </Grid>
 
 
             <ItemsControl x:Name="Affixes">
