@@ -29,7 +29,7 @@
                         VerticalAlignment="Bottom"
                         Data="{x:Static local:IconPackData.Shield}"
                         Foreground="#c2d9ff"
-                        Visibility="{Binding GuildVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        Visibility="{Binding KingsmarchVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
         <local:IconPack Grid.Row="1"
                         Height="25"
                         Margin="4,0,0,4"
@@ -58,10 +58,10 @@
                 </Style>
             </Border.Style>
         </Border>
-        <Border cal:Message.Attach="[Event MouseDown] = [Action JoinGuildHideout()]"
+        <Border cal:Message.Attach="[Event MouseDown] = [Action JoinKingsmarch()]"
                 CornerRadius="0 30 0 0"
                 Cursor="Hand"
-                Visibility="{Binding GuildVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                Visibility="{Binding KingsmarchVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Border.Style>
                 <Style TargetType="Border">
                     <Setter Property="Opacity" Value="0.002" />

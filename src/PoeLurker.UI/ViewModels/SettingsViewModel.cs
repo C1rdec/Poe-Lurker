@@ -183,7 +183,7 @@ public class SettingsViewModel : Screen
     /// <summary>
     /// Gets or sets the main hot key.
     /// </summary>
-    public HotkeyViewModel GuildHideoutHotkey { get; set; }
+    public HotkeyViewModel KingsmarchHotkey { get; set; }
 
     public HotkeyViewModel PoeTradeHotkey { get; set; }
 
@@ -982,16 +982,16 @@ public class SettingsViewModel : Screen
     /// <summary>
     /// Gets or sets a value indicating whether [hideout enabled].
     /// </summary>
-    public bool GuildHideoutEnabled
+    public bool KingsmarchEnabled
     {
         get
         {
-            return _settingService.GuildHideoutEnabled;
+            return _settingService.KingsmarchEnabled;
         }
 
         set
         {
-            _settingService.GuildHideoutEnabled = value;
+            _settingService.KingsmarchEnabled = value;
             NotifyOfPropertyChange();
         }
     }
@@ -1484,7 +1484,7 @@ public class SettingsViewModel : Screen
         MainHotkey = new HotkeyViewModel("Invite & Trade", _hotkeyService.Main, GetNextKeyCode);
         OpenWikiHotkey = new HotkeyViewModel("Poe Ninja", _hotkeyService.OpenWiki, GetNextKeyCode);
 
-        GuildHideoutHotkey = new HotkeyViewModel("Guild Hideout", _hotkeyService.JoinGuildHideout, GetNextKeyCode);
+        KingsmarchHotkey = new HotkeyViewModel("Guild Hideout", _hotkeyService.JoinKingsmarch, GetNextKeyCode);
         PoeTradeHotkey = new HotkeyViewModel("Poe Trade", _hotkeyService.PoeTrade, GetNextKeyCode);
         HideoutHotkey = new HotkeyViewModel("Hideout", _hotkeyService.JoinHideout, GetNextKeyCode);
 
@@ -1507,7 +1507,7 @@ public class SettingsViewModel : Screen
         OpenWikiHotkey.PropertyChanged += Hotkey_PropertyChanged;
         MonsterRemainingHotkey.PropertyChanged += Hotkey_PropertyChanged;
         SearchItemHotkey.PropertyChanged += Hotkey_PropertyChanged;
-        GuildHideoutHotkey.PropertyChanged += Hotkey_PropertyChanged;
+        KingsmarchHotkey.PropertyChanged += Hotkey_PropertyChanged;
         HideoutHotkey.PropertyChanged += Hotkey_PropertyChanged;
         PoeTradeHotkey.PropertyChanged += Hotkey_PropertyChanged;
     }

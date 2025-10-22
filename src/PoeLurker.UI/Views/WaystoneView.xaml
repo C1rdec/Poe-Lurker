@@ -9,12 +9,35 @@
              d:DesignHeight="90"
              d:DesignWidth="200"
              mc:Ignorable="d">
-    <Border Background="Black"
-            BorderThickness="1.5"
-            CornerRadius="5">
-        <Border.BorderBrush>
-            <SolidColorBrush Opacity="0.6" Color="#e7b577" />
-        </Border.BorderBrush>
+    <Border Background="Black" CornerRadius="5">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Setter Property="BorderThickness" Value="1.5" />
+                <Setter Property="BorderBrush">
+                    <Setter.Value>
+                        <SolidColorBrush Opacity="0.4" Color="#e7b577" />
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ReflectElemental}" Value="True">
+                        <Setter Property="BorderThickness" Value="3" />
+                        <Setter Property="BorderBrush">
+                            <Setter.Value>
+                                <SolidColorBrush Opacity="1" Color="Purple" />
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ReflectPhysical}" Value="True">
+                        <Setter Property="BorderThickness" Value="3" />
+                        <Setter Property="BorderBrush">
+                            <Setter.Value>
+                                <SolidColorBrush Opacity="1" Color="#e7da77" />
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
         <Grid MinWidth="45"
               MinHeight="45"
               Margin="10">
@@ -84,18 +107,27 @@
             </Grid>
             <Grid Margin="0,0,10,0">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <TextBlock x:Name="ItemRarity"
+                <TextBlock x:Name="ItemQuantity"
                            Grid.Row="0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontFamily="pack://application:,,,/Assets/#Fontin"
+                           FontSize="20"
+                           Foreground="#f9bc06"
+                           Visibility="{Binding HasQuantity, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <TextBlock x:Name="ItemRarity"
+                           Grid.Row="1"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            FontFamily="pack://application:,,,/Assets/#Fontin"
                            FontSize="20"
                            Foreground="#af8404" />
                 <TextBlock x:Name="PackSize"
-                           Grid.Row="1"
+                           Grid.Row="2"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            FontFamily="pack://application:,,,/Assets/#Fontin"

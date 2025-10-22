@@ -87,16 +87,16 @@ public class HotkeyService
     /// <summary>
     /// Gets or sets the join guild hideout.
     /// </summary>
-    public Hotkey JoinGuildHideout
+    public Hotkey JoinKingsmarch
     {
         get
         {
-            return _settings.Entity.JoinGuildHideout;
+            return _settings.Entity.JoinKingsmarch;
         }
 
         set
         {
-            _settings.Entity.JoinGuildHideout = value;
+            _settings.Entity.JoinKingsmarch = value;
         }
     }
 

@@ -657,16 +657,16 @@ public class SettingsService
     /// <summary>
     /// Gets or sets a value indicating whether [hideout enabled].
     /// </summary>
-    public bool GuildHideoutEnabled
+    public bool KingsmarchEnabled
     {
         get
         {
-            return _settings.Entity.GuildHideoutEnabled;
+            return _settings.Entity.KingsmarchEnabled;
         }
 
         set
         {
-            _settings.Entity.GuildHideoutEnabled = value;
+            _settings.Entity.KingsmarchEnabled = value;
         }
     }
 

@@ -244,7 +244,7 @@ public sealed class Settings
     /// <summary>
     /// Gets or sets a value indicating whether [guild hideout enabled].
     /// </summary>
-    public bool GuildHideoutEnabled { get; set; }
+    public bool KingsmarchEnabled { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether [guild hideout enabled].

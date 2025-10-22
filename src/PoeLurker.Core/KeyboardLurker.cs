@@ -280,7 +280,7 @@ public class KeyboardLurker
         _hotkeyService.Busy.Install(_keyboardHook, (e) => HandleKeyboardMessage(e, BusyPressed));
         _hotkeyService.Dismiss.Install(_keyboardHook, (e) => HandleKeyboardMessage(e, DismissPressed));
         _hotkeyService.OpenWiki.Install(_keyboardHook, (e) => HandleKeyboardMessage(e, OpenWikiPressed));
-        _hotkeyService.JoinGuildHideout.Install(_keyboardHook, (e) => HandleKeyboardMessage(e, JoinGuildHideout));
+        _hotkeyService.JoinKingsmarch.Install(_keyboardHook, (e) => HandleKeyboardMessage(e, JoinKingsmarch));
         _hotkeyService.JoinHideout.Install(_keyboardHook, (e) => HandleKeyboardMessage(e, JoinHideout));
         _hotkeyService.RemainingMonster.Install(_keyboardHook, (e) => HandleKeyboardMessage(e, RemainingMonsters));
         _hotkeyService.SearchItem.Install(_keyboardHook, SearchItem);
@@ -325,7 +325,7 @@ public class KeyboardLurker
         _hotkeyService.Dismiss.Uninstall();
         _hotkeyService.OpenWiki.Uninstall();
         _hotkeyService.RemainingMonster.Uninstall();
-        _hotkeyService.JoinGuildHideout.Uninstall();
+        _hotkeyService.JoinKingsmarch.Uninstall();
         _hotkeyService.JoinHideout.Uninstall();
     }
 
@@ -367,9 +367,9 @@ public class KeyboardLurker
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The event.</param>
-    private async void JoinGuildHideout(object sender, KeyboardMessageEventArgs e)
+    private async void JoinKingsmarch(object sender, KeyboardMessageEventArgs e)
     {
-        await _keyboardHelper.JoinGuildHideout();
+        await _keyboardHelper.JoinKingsmarch();
     }
 
     /// <summary>

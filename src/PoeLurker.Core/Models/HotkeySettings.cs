@@ -22,7 +22,7 @@ public sealed class HotkeySettings
         Dismiss = new();
         StillInterested = new();
         OpenWiki = new();
-        JoinGuildHideout = new();
+        JoinKingsmarch = new();
         JoinHideout = new();
         SearchItem = new();
         RemainingMonster = new();
@@ -70,7 +70,7 @@ public sealed class HotkeySettings
     /// <summary>
     /// Gets or sets the join guild hideout.
     /// </summary>
-    public Hotkey JoinGuildHideout { get; set; }
+    public Hotkey JoinKingsmarch { get; set; }
 
     /// <summary>
     /// Gets or sets the join guild hideout.

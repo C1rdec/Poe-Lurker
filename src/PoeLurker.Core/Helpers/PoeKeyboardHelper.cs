@@ -111,8 +111,8 @@ public class PoeKeyboardHelper : KeyboardHelper
     /// Sends joni gild Hiedout.
     /// </summary>
     /// <returns>The task.</returns>
-    public Task JoinGuildHideout()
-        => SendCommand($@"/guild");
+    public Task JoinKingsmarch()
+        => SendCommand($@"/kingsmarch");
 
     /// <summary>
     /// Joins the hideout.

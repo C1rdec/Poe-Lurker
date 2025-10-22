@@ -24,7 +24,8 @@ public class HideoutViewModel : PoeOverlayBase
     private static readonly int DefaultSize = 60;
     private readonly PoeKeyboardHelper _keyboardHelper;
     private bool _isVisible;
-    private bool _guildVisible;
+    private bool _KingsmarchVisible;
+    private ClientLurker _clientLurker;
 
     #endregion
 
@@ -39,12 +40,20 @@ public class HideoutViewModel : PoeOverlayBase
     /// <param name="settingsService">The settings service.</param>
     /// <param name="keyboardHelper">The keyboard helper.</param>
     /// <param name="clientLurker">The client lurker.</param>
-    public HideoutViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessService processLurker, SettingsService settingsService, PoeKeyboardHelper keyboardHelper, ClientLurker clientLurker)
+    public HideoutViewModel(
+        IWindowManager windowManager, 
+        DockingHelper dockingHelper, 
+        ProcessService processLurker, 
+        SettingsService settingsService, 
+        PoeKeyboardHelper keyboardHelper, 
+        ClientLurker clientLurker)
         : base(windowManager, dockingHelper, processLurker, settingsService)
     {
         _keyboardHelper = keyboardHelper;
         IsVisible = true;
-        GuildVisible = SettingsService.GuildHideoutEnabled;
+        _clientLurker = clientLurker;
+        _clientLurker.Poe2 += ClientLurker_Poe2;
+        KingsmarchVisible = SettingsService.KingsmarchEnabled;
     }
 
     #endregion
@@ -71,16 +80,16 @@ public class HideoutViewModel : PoeOverlayBase
     /// <summary>
     /// Gets a value indicating whether this instance is visible.
     /// </summary>
-    public bool GuildVisible
+    public bool KingsmarchVisible
     {
         get
         {
-            return _guildVisible;
+            return _KingsmarchVisible && !PoeApplicationContext.Poe2;
         }
 
         private set
         {
-            _guildVisible = value;
+            _KingsmarchVisible = value;
             NotifyOfPropertyChange();
         }
     }
@@ -92,9 +101,9 @@ public class HideoutViewModel : PoeOverlayBase
     /// <summary>
     /// Joins the Guild hideout.
     /// </summary>
-    public async void JoinGuildHideout()
+    public async void JoinKingsmarch()
     {
-        await _keyboardHelper.JoinGuildHideout();
+        await _keyboardHelper.JoinKingsmarch();
     }
 
     /// <summary>
@@ -143,9 +152,14 @@ public class HideoutViewModel : PoeOverlayBase
         return base.OnDeactivateAsync(close, token);
     }
 
-    private void SettingsService_OnSave(object sender, System.EventArgs e)
+    private void SettingsService_OnSave(object sender, EventArgs e)
     {
-        GuildVisible = SettingsService.GuildHideoutEnabled;
+        KingsmarchVisible = SettingsService.KingsmarchEnabled;
+    }
+
+    private void ClientLurker_Poe2(object sender, bool e)
+    {
+        NotifyOfPropertyChange(() => KingsmarchVisible);
     }
 
     #endregion
