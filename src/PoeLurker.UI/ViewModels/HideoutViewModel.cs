@@ -156,10 +156,5 @@ public class HideoutViewModel : PoeOverlayBase
         KingsmarchVisible = SettingsService.KingsmarchEnabled;
     }
 
-    private void ClientLurker_Poe2(object sender, bool e)
-    {
-        NotifyOfPropertyChange(() => KingsmarchVisible);
-    }
-
     #endregion
 }
