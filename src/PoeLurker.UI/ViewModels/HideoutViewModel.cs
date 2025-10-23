@@ -52,7 +52,6 @@ public class HideoutViewModel : PoeOverlayBase
         _keyboardHelper = keyboardHelper;
         IsVisible = true;
         _clientLurker = clientLurker;
-        _clientLurker.Poe2 += ClientLurker_Poe2;
         KingsmarchVisible = SettingsService.KingsmarchEnabled;
     }
 

@@ -63,7 +63,6 @@ public class DockingHelper : IDisposable
 
         if (_process != null)
         {
-            _clientLurker.Poe2 += ClientLurker_Poe2;
             _myProcess = Process.GetCurrentProcess();
             _tokenSource = new CancellationTokenSource();
             _settingsService = settingsService;
@@ -157,7 +156,6 @@ public class DockingHelper : IDisposable
     {
         if (disposing)
         {
-            _clientLurker.Poe2 -= ClientLurker_Poe2;
             _myProcess.Dispose();
             _tokenSource.Cancel();
             UnhookWinEvent(_hook);
