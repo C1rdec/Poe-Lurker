@@ -1484,7 +1484,7 @@ public class SettingsViewModel : Screen
         MainHotkey = new HotkeyViewModel("Invite & Trade", _hotkeyService.Main, GetNextKeyCode);
         OpenWikiHotkey = new HotkeyViewModel("Poe Ninja", _hotkeyService.OpenWiki, GetNextKeyCode);
 
-        KingsmarchHotkey = new HotkeyViewModel("Guild Hideout", _hotkeyService.JoinKingsmarch, GetNextKeyCode);
+        KingsmarchHotkey = new HotkeyViewModel("Kingsmarch", _hotkeyService.JoinKingsmarch, GetNextKeyCode);
         PoeTradeHotkey = new HotkeyViewModel("Poe Trade", _hotkeyService.PoeTrade, GetNextKeyCode);
         HideoutHotkey = new HotkeyViewModel("Hideout", _hotkeyService.JoinHideout, GetNextKeyCode);
 

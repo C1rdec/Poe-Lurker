@@ -36,6 +36,7 @@ public sealed class Settings
         BuildAutoClose = true;
         ShowReleaseNote = true;
         SoldDetection = true;
+        MapEnabled = true;
         OutgoingDelayToClose = 100;
         JoinHideoutVolume = 1;
         AlertVolume = 1;
