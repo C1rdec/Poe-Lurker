@@ -28,6 +28,8 @@
     <None Remove="Assets\Divine.png" />
     <None Remove="Assets\Duelist.png" />
     <None Remove="Assets\Elementalist_avatar.png" />
+    <None Remove="Assets\Elemental_Weakness.png" />
+    <None Remove="Assets\Enfeeble.png" />
     <None Remove="Assets\Exalted.png" />
     <None Remove="Assets\Fontin.ttf" />
     <None Remove="Assets\Fusing.png" />
@@ -84,6 +86,7 @@
     <None Remove="Assets\UpdateSuccessAnimation.json" />
     <None Remove="Assets\UpdateWorkingAnimation.json" />
     <None Remove="Assets\Vaal.png" />
+    <None Remove="Assets\Vulnerability.png" />
     <None Remove="Assets\Witch.png" />
     <None Remove="Assets\Working.png" />
     <None Remove="Svg.tt" />
@@ -163,7 +166,7 @@
     <PackageReference Include="NLog" Version="5.3.4" />
     <PackageReference Include="NLog.Extensions.Logging" Version="5.3.15" />
     <PackageReference Include="PixiEditor.ColorPicker" Version="3.4.1" />
-    <PackageReference Include="PoeLurker.Patreon" Version="8.2.28" />
+    <PackageReference Include="PoeLurker.Patreon" Version="8.2.29" />
     <PackageReference Include="System.Private.Uri" Version="4.3.2" />
     <PackageReference Include="Velopack" Version="0.0.942" />
   </ItemGroup>
@@ -189,6 +192,8 @@
     <Resource Include="Assets\Divine.png" />
     <Resource Include="Assets\Duelist.png" />
     <Resource Include="Assets\Elementalist_avatar.png" />
+    <Resource Include="Assets\Elemental_Weakness.png" />
+    <Resource Include="Assets\Enfeeble.png" />
     <Resource Include="Assets\Exalted.png" />
     <Resource Include="Assets\Fontin.ttf" />
     <Resource Include="Assets\Fusing.png" />
@@ -240,6 +245,7 @@
     <Resource Include="Assets\Trickster_avatar.png" />
     <Resource Include="Assets\Update.png" />
     <Resource Include="Assets\Vaal.png" />
+    <Resource Include="Assets\Vulnerability.png" />
     <Resource Include="Assets\Witch.png" />
     <Resource Include="Assets\Working.png" />
     <Resource Include="TrayIcon.ico" />

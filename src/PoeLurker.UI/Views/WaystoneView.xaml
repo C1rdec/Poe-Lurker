@@ -7,7 +7,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:po="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
              d:DesignHeight="90"
-             d:DesignWidth="200"
+             d:DesignWidth="240"
              mc:Ignorable="d">
     <Border Background="Black" CornerRadius="5">
         <Border.Style>
@@ -43,9 +43,59 @@
               Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="1">
+            <Grid Margin="0,0,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="ItemQuantity"
+                           Grid.Row="0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontFamily="pack://application:,,,/Assets/#Fontin"
+                           FontSize="20"
+                           Foreground="#f9bc06"
+                           Visibility="{Binding HasQuantity, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <TextBlock x:Name="ItemRarity"
+                           Grid.Row="1"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontFamily="pack://application:,,,/Assets/#Fontin"
+                           FontSize="20"
+                           Foreground="#af8404" />
+                <TextBlock x:Name="PackSize"
+                           Grid.Row="2"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontFamily="pack://application:,,,/Assets/#Fontin"
+                           FontSize="20"
+                           Foreground="Gray" />
+            </Grid>
+            <Grid Grid.Column="1"
+                  Margin="0,0,10,0"
+                  Visibility="{Binding HasCurse, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Image Width="50"
+                       Height="50"
+                       Source="/Assets/TemporalChain.png"
+                       Visibility="{Binding TemporalChain, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <Image Width="50"
+                       Height="50"
+                       Source="/Assets/Elemental_Weakness.png"
+                       Visibility="{Binding ElementalWeakness, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <Image Width="50"
+                       Height="50"
+                       Source="/Assets/Vulnerability.png"
+                       Visibility="{Binding Vulnerability, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <Image Width="50"
+                       Height="50"
+                       Source="/Assets/Enfeeble.png"
+                       Visibility="{Binding Enfeeble, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            </Grid>
+            <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition Height="auto" />
@@ -92,7 +142,7 @@
 
                 </Grid>
                 <StackPanel Grid.Row="1"
-                            Margin="0,10,0,0"
+                            Margin="0,5,0,0"
                             Visibility="{Binding CritOrDamage, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Border Grid.Row="1"
                             BorderBrush="Purple"
@@ -105,44 +155,6 @@
                             Visibility="{Binding Damage, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 </StackPanel>
             </Grid>
-            <Grid Margin="0,0,10,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TextBlock x:Name="ItemQuantity"
-                           Grid.Row="0"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           FontFamily="pack://application:,,,/Assets/#Fontin"
-                           FontSize="20"
-                           Foreground="#f9bc06"
-                           Visibility="{Binding HasQuantity, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                <TextBlock x:Name="ItemRarity"
-                           Grid.Row="1"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           FontFamily="pack://application:,,,/Assets/#Fontin"
-                           FontSize="20"
-                           Foreground="#af8404" />
-                <TextBlock x:Name="PackSize"
-                           Grid.Row="2"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           FontFamily="pack://application:,,,/Assets/#Fontin"
-                           FontSize="20"
-                           Foreground="Gray" />
-            </Grid>
-
-
-            <ItemsControl x:Name="Affixes">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Margin="10,10,10,0" Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
         </Grid>
     </Border>
 </UserControl>
