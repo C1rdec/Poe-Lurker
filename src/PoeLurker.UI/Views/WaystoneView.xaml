@@ -91,21 +91,21 @@
             <Grid Grid.Column="1"
                   Margin="0,0,10,0"
                   Visibility="{Binding HasCurse, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <StackPanel Orientation="Horizontal">
-                    <Image Width="50"
-                           Height="50"
+                <StackPanel VerticalAlignment="Center">
+                    <Image Width="36"
+                           Height="36"
                            Source="/Assets/TemporalChain.png"
                            Visibility="{Binding TemporalChain, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                    <Image Width="50"
-                           Height="50"
+                    <Image Width="36"
+                           Height="36"
                            Source="/Assets/Elemental_Weakness.png"
                            Visibility="{Binding ElementalWeakness, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                    <Image Width="50"
-                           Height="50"
+                    <Image Width="36"
+                           Height="36"
                            Source="/Assets/Vulnerability.png"
                            Visibility="{Binding Vulnerability, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                    <Image Width="50"
-                           Height="50"
+                    <Image Width="36"
+                           Height="36"
                            Source="/Assets/Enfeeble.png"
                            Visibility="{Binding Enfeeble, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 </StackPanel>
