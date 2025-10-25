@@ -29,6 +29,10 @@ public class WaystoneViewModel : PropertyChangedBase
 
     public bool ReflectElemental => _dangerousAffixes.Any(d => d.Text.Contains("Elemental Damage"));
 
+    public bool ReflectPhysical => _dangerousAffixes.Any(d => d.Text.Contains("Physical Damage"));
+
+    public bool BothReflect => ReflectElemental && ReflectPhysical;
+
     public bool FireDamage => _damageAffixes.Any(d => d.Text.Contains("Fire"));
 
     public bool ColdDamage => _damageAffixes.Any(d => d.Text.Contains("Cold"));

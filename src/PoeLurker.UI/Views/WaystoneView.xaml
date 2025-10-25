@@ -35,6 +35,19 @@
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
+                    <DataTrigger Binding="{Binding BothReflect}" Value="True">
+                        <Setter Property="BorderThickness" Value="3" />
+                        <Setter Property="BorderBrush">
+                            <Setter.Value>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Offset="0" Color="Purple" />
+                                    <GradientStop Offset="0.5" Color="Purple" />
+                                    <GradientStop Offset="0.5" Color="#e7da77" />
+                                    <GradientStop Offset="1" Color="#e7da77" />
+                                </LinearGradientBrush>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
                 </Style.Triggers>
             </Style>
         </Border.Style>
