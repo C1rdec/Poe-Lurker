@@ -37,6 +37,7 @@ public sealed class Settings
         ShowReleaseNote = true;
         SoldDetection = true;
         MapEnabled = true;
+        ItemAlertEnabled = true;
         OutgoingDelayToClose = 100;
         JoinHideoutVolume = 1;
         AlertVolume = 1;
