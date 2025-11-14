@@ -31,6 +31,7 @@ public sealed class Settings
         ToolTipEnabled = true;
         ClipboardEnabled = true;
         AutoKickEnabled = true;
+        AutoWhisperEnabled = true;
         HideInBackground = true;
         HideoutEnabled = true;
         BuildAutoClose = true;
@@ -157,6 +158,8 @@ public sealed class Settings
     /// Gets or sets a value indicating whether [automatic kick].
     /// </summary>
     public bool AutoKickEnabled { get; set; }
+
+    public bool AutoWhisperEnabled { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether [item highlight enabled].

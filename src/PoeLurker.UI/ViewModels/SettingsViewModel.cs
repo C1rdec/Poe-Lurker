@@ -742,6 +742,23 @@ public class SettingsViewModel : Screen
     }
 
     /// <summary>
+    /// Gets or sets a value indicating whether [automatic whisper enabled].
+    /// </summary>
+    public bool AutoWhisperEnabled
+    {
+        get
+        {
+            return _settingService.AutoWhisperEnabled;
+        }
+
+        set
+        {
+            _settingService.AutoWhisperEnabled = value;
+            NotifyOfPropertyChange();
+        }
+    }
+
+    /// <summary>
     /// Gets or sets a value indicating whether [debug enabled].
     /// </summary>
     public bool DebugEnabled

@@ -495,7 +495,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
             _mouseLurker.ItemIdentified += ItemIdentified;
 
             // Clipboard
-            _clipboardLurker = new ClipboardLurker();
+            _clipboardLurker = new ClipboardLurker(keyboarHelper, _settingsService);
 
             _container.RegisterInstance(typeof(ProcessService), null, _processLurker);
             _container.RegisterInstance(typeof(MouseLurker), null, _mouseLurker);

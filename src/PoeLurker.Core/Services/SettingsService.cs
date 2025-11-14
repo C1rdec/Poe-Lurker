@@ -354,6 +354,22 @@ public class SettingsService
     }
 
     /// <summary>
+    /// Gets or sets a value indicating whether [automatic whisper enabled].
+    /// </summary>
+    public bool AutoWhisperEnabled
+    {
+        get
+        {
+            return _settings.Entity.AutoWhisperEnabled;
+        }
+
+        set
+        {
+            _settings.Entity.AutoWhisperEnabled = value;
+        }
+    }
+
+    /// <summary>
     /// Gets or sets a value indicating whether [dashboard enabled].
     /// </summary>
     public bool DashboardEnabled

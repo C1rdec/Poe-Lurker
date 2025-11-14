@@ -521,6 +521,9 @@
                             <Controls:ToggleSwitch Margin="-30,0,0,0"
                                                    Header="Map Lurker"
                                                    IsOn="{Binding MapEnabled}" />
+                            <Controls:ToggleSwitch Margin="-30,0,0,0"
+                                                   Header="Auto Whisper"
+                                                   IsOn="{Binding AutoWhisperEnabled}" />
                         </StackPanel>
                         <Grid Grid.Row="2"
                               Margin="0,10,0,0"

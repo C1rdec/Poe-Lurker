@@ -8,6 +8,7 @@ namespace PoeLurker.Core;
 
 using System;
 using PoeLurker.Core.Helpers;
+using PoeLurker.Core.Services;
 using PoeLurker.Patreon.Events;
 using WK.Libraries.SharpClipboardNS;
 
@@ -19,6 +20,8 @@ public class ClipboardLurker : IDisposable
 {
     #region Fields
 
+    private readonly PoeKeyboardHelper _keyboardHelper;
+    private readonly SettingsService _settingsService;
     private readonly SharpClipboard _clipboardMonitor;
     private string _lastClipboardText = string.Empty;
 
@@ -29,11 +32,13 @@ public class ClipboardLurker : IDisposable
     /// <summary>
     /// Initializes a new instance of the <see cref="ClipboardLurker" /> class.
     /// </summary>
-    public ClipboardLurker()
+    public ClipboardLurker(PoeKeyboardHelper keyboardHelper, SettingsService settingsService)
     {
         ClipboardHelper.ClearClipboard();
         _clipboardMonitor = new SharpClipboard();
         _clipboardMonitor.ClipboardChanged += ClipboardMonitor_ClipboardChanged;
+        _keyboardHelper = keyboardHelper;
+        _settingsService = settingsService;
     }
 
     #endregion
@@ -80,7 +85,7 @@ public class ClipboardLurker : IDisposable
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="SharpClipboard.ClipboardChangedEventArgs"/> instance containing the event data.</param>
-    private void ClipboardMonitor_ClipboardChanged(object sender, SharpClipboard.ClipboardChangedEventArgs e)
+    private async void ClipboardMonitor_ClipboardChanged(object sender, SharpClipboard.ClipboardChangedEventArgs e)
     {
         if (e.ContentType != SharpClipboard.ContentTypes.Text)
         {
@@ -109,6 +114,11 @@ public class ClipboardLurker : IDisposable
         {
             _lastClipboardText = currentText;
             NewOffer?.Invoke(this, currentText);
+
+            if (_settingsService.AutoWhisperEnabled)
+            {
+                await _keyboardHelper.SendMessage(currentText);
+            }
         }
     }
 
