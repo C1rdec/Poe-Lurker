@@ -43,8 +43,8 @@ public class BuildTimelineViewModel : PoeOverlayBase, IHandle<SkillMessage>, IHa
     /// <param name="processLurker">The process lurker.</param>
     /// <param name="settingsService">The settings service.</param>
     /// <param name="playerService">The character service.</param>
-    public BuildTimelineViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessService processLurker, SettingsService settingsService, PlayerService playerService)
-        : base(windowManager, dockingHelper, processLurker, settingsService)
+    public BuildTimelineViewModel(DockingHelper dockingHelper, ProcessService processLurker, SettingsService settingsService, PlayerService playerService)
+        : base(dockingHelper, processLurker, settingsService)
     {
         _playerService = playerService;
         var firstPlayer = _playerService.FirstPlayer;
@@ -72,8 +72,8 @@ public class BuildTimelineViewModel : PoeOverlayBase, IHandle<SkillMessage>, IHa
         _playerService.PlayerChanged += PlayerChanged;
 
         _eventAggregator = IoC.Get<IEventAggregator>();
-        _skills = new List<Skill>();
-        _items = new List<UniqueItem>();
+        _skills = [];
+        _items = [];
         ActivePlayer = new PlayerViewModel(playerService);
     }
 
@@ -213,7 +213,7 @@ public class BuildTimelineViewModel : PoeOverlayBase, IHandle<SkillMessage>, IHa
     /// <summary>
     /// Called when activating.
     /// </summary>
-    protected override Task OnActivateAsync(CancellationToken token)
+    protected override Task OnActivatedAsync(CancellationToken token)
     {
         _eventAggregator.SubscribeOnPublishedThread(this);
         if (View != null)
@@ -221,7 +221,7 @@ public class BuildTimelineViewModel : PoeOverlayBase, IHandle<SkillMessage>, IHa
             View.Deactivated += View_Deactivated;
         }
 
-        return base.OnActivateAsync(token);
+        return base.OnActivatedAsync(token);
     }
 
     /// <summary>
@@ -265,12 +265,9 @@ public class BuildTimelineViewModel : PoeOverlayBase, IHandle<SkillMessage>, IHa
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void View_Deactivated(object sender, System.EventArgs e)
+    private void View_Deactivated(object sender, EventArgs e)
     {
-        if (ActivePlayer != null)
-        {
-            ActivePlayer.SelectionVisible = false;
-        }
+        ActivePlayer?.SelectionVisible = false;
     }
 
     /// <summary>

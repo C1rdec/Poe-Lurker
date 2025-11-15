@@ -47,8 +47,8 @@ internal class StashTabGridViewModel : PoeOverlayBase, IDisposable
     /// <param name="dockingHelper">The docking helper.</param>
     /// <param name="processLurker">The process lurker.</param>
     /// <param name="settingsService">the settings service.</param>
-    public StashTabGridViewModel(StashTabService stashTabService, IWindowManager windowManager, DockingHelper dockingHelper, ProcessService processLurker, SettingsService settingsService)
-        : base(windowManager, dockingHelper, processLurker, settingsService)
+    public StashTabGridViewModel(StashTabService stashTabService, DockingHelper dockingHelper, ProcessService processLurker, SettingsService settingsService)
+        : base(dockingHelper, processLurker, settingsService)
     {
         _isRegularTab = true;
         _service = stashTabService;

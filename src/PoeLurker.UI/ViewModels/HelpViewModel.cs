@@ -21,7 +21,6 @@ public class HelpViewModel : PoeOverlayBase
     #region Fields
 
     private static readonly int DefaultSize = 60;
-    private readonly IWindowManager _windowManager;
     private System.Action _onClick;
 
     #endregion
@@ -35,10 +34,9 @@ public class HelpViewModel : PoeOverlayBase
     /// <param name="dockingHelper">The docking helper.</param>
     /// <param name="processLurker">The process lurker.</param>
     /// <param name="settingsService">The settings service.</param>
-    public HelpViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessService processLurker, SettingsService settingsService)
-        : base(windowManager, dockingHelper, processLurker, settingsService)
+    public HelpViewModel(DockingHelper dockingHelper, ProcessService processLurker, SettingsService settingsService)
+        : base(dockingHelper, processLurker, settingsService)
     {
-        _windowManager = windowManager;
     }
 
     #endregion

@@ -61,8 +61,8 @@ public class BuildViewModel : PoeOverlayBase
     /// <param name="settingsViewModel">The settings view model.</param>
     /// <param name="githubService">The github service.</param>
     /// <param name="mouseLurker">The mouse lurker.</param>
-    public BuildViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessService processLurker, SettingsService settingsService, BuildService buildService, PlayerService playerService, SettingsViewModel settingsViewModel, GithubService githubService, MouseLurker mouseLurker)
-        : base(windowManager, dockingHelper, processLurker, settingsService)
+    public BuildViewModel(DockingHelper dockingHelper, ProcessService processLurker, SettingsService settingsService, BuildService buildService, PlayerService playerService, SettingsViewModel settingsViewModel, GithubService githubService, MouseLurker mouseLurker)
+        : base(dockingHelper, processLurker, settingsService)
     {
         _settings = settingsViewModel;
         _playerService = playerService;
@@ -72,9 +72,9 @@ public class BuildViewModel : PoeOverlayBase
         _skillTimelineEnabled = SettingsService.TimelineEnabled;
         _eventAggregator = IoC.Get<IEventAggregator>();
 
-        Skills = new ObservableCollection<SkillViewModel>();
-        UniqueItems = new ObservableCollection<UniqueItemViewModel>();
-        SkillTreeInformation = new ObservableCollection<SkillTreeInformation>();
+        Skills = [];
+        UniqueItems = [];
+        SkillTreeInformation = [];
 
         _mouseLurker = mouseLurker;
 
@@ -99,7 +99,7 @@ public class BuildViewModel : PoeOverlayBase
         IsVisible = true;
 
         ActivePlayer = new PlayerViewModel(playerService);
-        Builds = new ObservableCollection<SimpleBuild>();
+        Builds = [];
 
         BuildSelector = new BuildSelectorViewModel(buildService);
     }
@@ -302,7 +302,7 @@ public class BuildViewModel : PoeOverlayBase
         {
             _hasNoBuild = value;
             NotifyOfPropertyChange();
-            NotifyOfPropertyChange("HasBuild");
+            NotifyOfPropertyChange(nameof(HasBuild));
         }
     }
 
@@ -319,7 +319,7 @@ public class BuildViewModel : PoeOverlayBase
     /// <summary>
     /// Gets the data click command.
     /// </summary>
-    public MyCommand<SimpleBuild> DataClickCommand => new MyCommand<SimpleBuild>()
+    public MyCommand<SimpleBuild> DataClickCommand => new()
     {
         ExecuteDelegate = p => SelectBuild(p),
     };
@@ -369,12 +369,10 @@ public class BuildViewModel : PoeOverlayBase
             if (Uri.TryCreate(text, UriKind.Absolute, out var url))
             {
                 var rawUri = new Uri($"https://pastebin.com/raw{url.AbsolutePath}");
-                using (var client = new HttpClient())
-                {
-                    var request = new HttpRequestMessage(HttpMethod.Get, rawUri);
-                    var response = await client.SendAsync(request);
-                    text = await response.Content.ReadAsStringAsync();
-                }
+                using var client = new HttpClient();
+                var request = new HttpRequestMessage(HttpMethod.Get, rawUri);
+                var response = await client.SendAsync(request);
+                text = await response.Content.ReadAsStringAsync();
             }
 
             if (await Initialize(text, true))
@@ -427,53 +425,51 @@ public class BuildViewModel : PoeOverlayBase
 
         try
         {
-            using (var service = new PathOfBuildingService())
+            using var service = new PathOfBuildingService();
+            await service.InitializeAsync(_githubService);
+            Build = service.Decode(buildValue);
+
+            SkillTreeInformation.Clear();
+
+            foreach (var tree in Build.SkillTrees.Reverse<SkillTreeInformation>())
             {
-                await service.InitializeAsync(_githubService);
-                Build = service.Decode(buildValue);
-
-                SkillTreeInformation.Clear();
-
-                foreach (var tree in Build.SkillTrees.Reverse<SkillTreeInformation>())
-                {
-                    SkillTreeInformation.Add(tree);
-                }
-
-                Ascendancy = Build.Ascendancy;
-                Skills.Clear();
-                foreach (var skill in Build.Skills.Select(s => new SkillViewModel(s, SettingsService.TimelineEnabled)))
-                {
-                    skill.PropertyChanged += Skill_PropertyChanged;
-                    Skills.Add(skill);
-                }
-
-                if (findMainSkill && _activePlayer != null)
-                {
-                    var settings = _activePlayer.Build;
-                    var mainSKill = Skills.OrderByDescending(s => s.Gems.Count(g => g.Support)).FirstOrDefault();
-                    if (mainSKill != null)
-                    {
-                        var index = Skills.IndexOf(mainSKill);
-                        settings.ItemsSelected.Clear();
-                        settings.SkillsSelected.Clear();
-                        settings.SkillsSelected.Add(index);
-                    }
-
-                    _playerService.Save();
-                }
-
-                UniqueItems.Clear();
-                foreach (var item in Build.Items.Select(s => new UniqueItemViewModel(s, SettingsService.TimelineEnabled)))
-                {
-                    item.PropertyChanged += Item_PropertyChanged;
-                    UniqueItems.Add(item);
-                }
-
-                SelectItems(true);
-
-                // To notify that we are initialize.
-                NotifyOfPropertyChange("Skills");
+                SkillTreeInformation.Add(tree);
             }
+
+            Ascendancy = Build.Ascendancy;
+            Skills.Clear();
+            foreach (var skill in Build.Skills.Select(s => new SkillViewModel(s, SettingsService.TimelineEnabled)))
+            {
+                skill.PropertyChanged += Skill_PropertyChanged;
+                Skills.Add(skill);
+            }
+
+            if (findMainSkill && _activePlayer != null)
+            {
+                var settings = _activePlayer.Build;
+                var mainSKill = Skills.OrderByDescending(s => s.Gems.Count(g => g.Support)).FirstOrDefault();
+                if (mainSKill != null)
+                {
+                    var index = Skills.IndexOf(mainSKill);
+                    settings.ItemsSelected.Clear();
+                    settings.SkillsSelected.Clear();
+                    settings.SkillsSelected.Add(index);
+                }
+
+                _playerService.Save();
+            }
+
+            UniqueItems.Clear();
+            foreach (var item in Build.Items.Select(s => new UniqueItemViewModel(s, SettingsService.TimelineEnabled)))
+            {
+                item.PropertyChanged += Item_PropertyChanged;
+                UniqueItems.Add(item);
+            }
+
+            SelectItems(true);
+
+            // To notify that we are initialize.
+            NotifyOfPropertyChange(nameof(Skills));
         }
         catch
         {
@@ -525,7 +521,7 @@ public class BuildViewModel : PoeOverlayBase
     /// <summary>
     /// Called when activating.
     /// </summary>
-    protected override Task OnActivateAsync(CancellationToken token)
+    protected override Task OnActivatedAsync(CancellationToken token)
     {
         _mouseLurker.MouseLeftButtonUp += MouseLurker_MouseLeftButtonUp;
         BuildSelector.BuildSelected += BuildSelector_BuildSelected;
@@ -567,7 +563,7 @@ public class BuildViewModel : PoeOverlayBase
             }
         });
 
-        return base.OnActivateAsync(token);
+        return base.OnActivatedAsync(token);
     }
 
     /// <summary>
@@ -642,10 +638,7 @@ public class BuildViewModel : PoeOverlayBase
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     private void View_Deactivated(object sender, System.EventArgs e)
     {
-        if (ActivePlayer != null)
-        {
-            ActivePlayer.SelectionVisible = false;
-        }
+        ActivePlayer?.SelectionVisible = false;
     }
 
     /// <summary>
@@ -712,8 +705,7 @@ public class BuildViewModel : PoeOverlayBase
     /// <param name="e">The <see cref="System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
     private void Item_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
-        var item = sender as UniqueItemViewModel;
-        if (item == null || e.PropertyName != "Selected")
+        if (sender is not UniqueItemViewModel item || e.PropertyName != "Selected")
         {
             return;
         }
@@ -804,8 +796,7 @@ public class BuildViewModel : PoeOverlayBase
     /// <param name="e">The <see cref="System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
     private void Skill_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
-        var skill = sender as SkillViewModel;
-        if (skill == null || e.PropertyName != "Selected")
+        if (sender is not SkillViewModel skill || e.PropertyName != "Selected")
         {
             return;
         }

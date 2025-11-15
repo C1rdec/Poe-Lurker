@@ -7,7 +7,6 @@
 namespace PoeLurker.UI.ViewModels;
 
 using Caliburn.Micro;
-using PoeLurker.Core;
 using PoeLurker.Core.Helpers;
 using PoeLurker.Core.Models;
 using PoeLurker.Core.Services;
@@ -25,7 +24,6 @@ public class HideoutViewModel : PoeOverlayBase
     private readonly PoeKeyboardHelper _keyboardHelper;
     private bool _isVisible;
     private bool _KingsmarchVisible;
-    private ClientLurker _clientLurker;
 
     #endregion
 
@@ -41,17 +39,14 @@ public class HideoutViewModel : PoeOverlayBase
     /// <param name="keyboardHelper">The keyboard helper.</param>
     /// <param name="clientLurker">The client lurker.</param>
     public HideoutViewModel(
-        IWindowManager windowManager, 
         DockingHelper dockingHelper, 
         ProcessService processLurker, 
         SettingsService settingsService, 
-        PoeKeyboardHelper keyboardHelper, 
-        ClientLurker clientLurker)
-        : base(windowManager, dockingHelper, processLurker, settingsService)
+        PoeKeyboardHelper keyboardHelper)
+        : base(dockingHelper, processLurker, settingsService)
     {
         _keyboardHelper = keyboardHelper;
         IsVisible = true;
-        _clientLurker = clientLurker;
         KingsmarchVisible = SettingsService.KingsmarchEnabled;
     }
 
@@ -133,11 +128,11 @@ public class HideoutViewModel : PoeOverlayBase
     /// <summary>
     /// On activate.
     /// </summary>
-    protected override Task OnActivateAsync(CancellationToken token)
+    protected override Task OnActivatedAsync(CancellationToken token)
     {
         SettingsService.OnSave += SettingsService_OnSave;
 
-        return base.OnActivateAsync(token);
+        return base.OnActivatedAsync(token);
     }
 
     /// <summary>

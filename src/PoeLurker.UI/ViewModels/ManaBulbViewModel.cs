@@ -41,12 +41,11 @@ public class ManaBulbViewModel : BulbViewModelBase, IHandle<ManaBulbMessage>
     /// H
     public ManaBulbViewModel(
         IEventAggregator eventAggregator,
-        IWindowManager windowManager,
         DockingHelper dockingHelper,
         ClientLurker clientLurker,
         ProcessService processLurker,
         SettingsService settingsService)
-        : base(windowManager, dockingHelper, processLurker, settingsService, clientLurker)
+        : base(dockingHelper, processLurker, settingsService, clientLurker)
     {
         _eventAggregator = eventAggregator;
         _eventAggregator.SubscribeOnPublishedThread(this);

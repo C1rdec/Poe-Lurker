@@ -35,7 +35,7 @@ public class TradebarViewModel : PoeOverlayBase, IDisposable
     private readonly ClientLurker _clientLurker;
     private readonly KeyboardLurker _keyboardLurker;
     private readonly TradebarContext _context;
-    private readonly List<OfferViewModel> _activeOffers = new List<OfferViewModel>();
+    private readonly List<OfferViewModel> _activeOffers = [];
     private readonly IEventAggregator _eventAggregator;
     private System.Action _removeActive;
     private readonly List<TradeEvent> _soldOffers;
@@ -71,12 +71,11 @@ public class TradebarViewModel : PoeOverlayBase, IDisposable
         DockingHelper dockingHelper,
         PoeKeyboardHelper keyboardHelper,
         SettingsService settingsService,
-        IWindowManager windowManager,
         SoundService soundService,
         PushBulletService pushBulletService,
         PushHoverService pushHoverService,
         StashTabService stashTabService)
-        : base(windowManager, dockingHelper, processLurker, settingsService)
+        : base(dockingHelper, processLurker, settingsService)
     {
         _eventAggregator = eventAggregator;
         _keyboardHelper = keyboardHelper;
@@ -253,10 +252,7 @@ public class TradebarViewModel : PoeOverlayBase, IDisposable
     private void ExecuteOnRecentOffer(Action<OfferViewModel> action, Func<OfferViewModel, bool> predicate = null)
     {
         var offer = ActiveOffer;
-        if (offer == null)
-        {
-            offer = TradeOffers.FirstOrDefault();
-        }
+        offer ??= TradeOffers.FirstOrDefault();
 
         if (offer == null)
         {
@@ -475,10 +471,8 @@ public class TradebarViewModel : PoeOverlayBase, IDisposable
         {
             try
             {
-                using (var service = new DatabaseService())
-                {
-                    await service.InsertAsync(tradeEvent);
-                }
+                using var service = new DatabaseService();
+                await service.InsertAsync(tradeEvent);
             }
             catch
             {
@@ -628,7 +622,7 @@ public class TradebarViewModel : PoeOverlayBase, IDisposable
     /// <summary>
     /// Called when activating.
     /// </summary>
-    protected async override Task OnActivateAsync(CancellationToken token)
+    protected async override Task OnActivatedAsync(CancellationToken token)
     {
         if (SettingsService.ConnectedToPatreon)
         {
@@ -649,7 +643,7 @@ public class TradebarViewModel : PoeOverlayBase, IDisposable
         _clientLurker.PlayerJoined += Lurker_PlayerJoined;
         _clientLurker.PlayerLeft += Lurker_PlayerLeft;
 
-        await base.OnActivateAsync(token);
+        await base.OnActivatedAsync(token);
     }
 
     /// <summary>

@@ -48,7 +48,6 @@ public class WikiViewModel : PoeOverlayBase
     /// <summary>
     /// Initializes a new instance of the <see cref="WikiViewModel" /> class.
     /// </summary>
-    /// <param name="windowManager">The window manager.</param>
     /// <param name="dockingHelper">The docking helper.</param>
     /// <param name="processLurker">The process lurker.</param>
     /// <param name="settingsService">The settings service.</param>
@@ -58,7 +57,6 @@ public class WikiViewModel : PoeOverlayBase
     /// <param name="ninjaService">The ninja service.</param>
     /// <param name="clientLurker">The client lurker.</param>
     public WikiViewModel(
-        IWindowManager windowManager,
         DockingHelper dockingHelper,
         ProcessService processLurker,
         SettingsService settingsService,
@@ -67,7 +65,7 @@ public class WikiViewModel : PoeOverlayBase
         KeyboardLurker keyboardLurker,
         PoeNinjaService ninjaService,
         ClientLurker clientLurker)
-        : base(windowManager, dockingHelper, processLurker, settingsService)
+        : base(dockingHelper, processLurker, settingsService)
     {
         _githubService = githubService;
         _mouseLurker = mouseLurker;
@@ -75,7 +73,7 @@ public class WikiViewModel : PoeOverlayBase
         _ninjaService = ninjaService;
         _clientLurker = clientLurker;
         _currentLeague = SettingsService.RecentLeagueName;
-        Items = new ObservableCollection<WikiItemBaseViewModel>();
+        Items = [];
 
         _clientLurker.LeagueChanged += ClientLurker_LeagueChanged;
     }
@@ -211,13 +209,13 @@ public class WikiViewModel : PoeOverlayBase
     /// <summary>
     /// Closes this instance.
     /// </summary>
-    protected async override Task OnActivateAsync(CancellationToken token)
+    protected async override Task OnActivatedAsync(CancellationToken token)
     {
         _uniques = await _githubService.Uniques();
         SetInForeground();
         _mouseLurker.MouseLeftButtonUp += MouseLurker_MouseLeftButtonUp;
 
-        await base.OnActivateAsync(token);
+        await base.OnActivatedAsync(token);
     }
 
     /// <summary>
@@ -309,8 +307,7 @@ public class WikiViewModel : PoeOverlayBase
         if (items.Count() == 1)
         {
             var firstItem = Items.FirstOrDefault();
-            var unique = firstItem as UniqueItemViewModel;
-            if (unique != null)
+            if (firstItem is UniqueItemViewModel unique)
             {
                 OnItemClick(unique.Item);
             }

@@ -48,8 +48,8 @@ public abstract class BulbViewModelBase : PoeOverlayBase
     /// <param name="processLurker">The Processs lurker.</param>
     /// <param name="settingsService">The settings serivce.</param>
     /// <param name="clientLurker">The client lurker.</param>
-    public BulbViewModelBase(IWindowManager windowManager, DockingHelper dockingHelper, ProcessService processLurker, SettingsService settingsService, ClientLurker clientLurker)
-        : base(windowManager, dockingHelper, processLurker, settingsService)
+    public BulbViewModelBase(DockingHelper dockingHelper, ProcessService processLurker, SettingsService settingsService, ClientLurker clientLurker)
+        : base(dockingHelper, processLurker, settingsService)
     {
         ClientLurker = clientLurker;
         SetDefaultAction();
@@ -151,12 +151,12 @@ public abstract class BulbViewModelBase : PoeOverlayBase
             return;
         }
 
-        EventHandler<LocationChangedEvent> firstLocationChanged = default;
-        firstLocationChanged = (s, a) =>
+        void firstLocationChanged(object s, LocationChangedEvent a)
         {
             ClientLurker.LocationChanged -= firstLocationChanged;
             SetAction(new BulbMessage() { Action = DefaultAction });
-        };
+        }
+
         ClientLurker.LocationChanged += firstLocationChanged;
     }
 
@@ -181,8 +181,7 @@ public abstract class BulbViewModelBase : PoeOverlayBase
             _stickyActionView = _actionView;
         }
 
-        var disposableView = ActionView as IDisposable;
-        if (disposableView != null)
+        if (ActionView is IDisposable disposableView)
         {
             disposableView.Dispose();
         }

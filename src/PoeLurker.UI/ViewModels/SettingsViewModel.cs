@@ -107,7 +107,7 @@ public class SettingsViewModel : Screen
 
         BuildManager = new BuildManagerViewModel(ShowMessage, githubService);
 
-        PushProviders = new ObservableCollection<PushProviderViewModel>();
+        PushProviders = [];
         var pushBulletViewModel = new PushProviderViewModel("Pushbullet", pushBulletService);
         var pushHoverViewModel = new PushProviderViewModel("Pushover", pushHoverService);
         PushProviders.Add(pushBulletViewModel);
@@ -462,8 +462,8 @@ public class SettingsViewModel : Screen
         {
             _pledging = value;
             NotifyOfPropertyChange();
-            NotifyOfPropertyChange("NotPledging");
-            NotifyOfPropertyChange("ConnectedWithoutPledging");
+            NotifyOfPropertyChange(nameof(NotPledging));
+            NotifyOfPropertyChange(nameof(ConnectedWithoutPledging));
         }
     }
 
@@ -491,7 +491,7 @@ public class SettingsViewModel : Screen
         {
             _needsUpdate = value;
             NotifyOfPropertyChange();
-            NotifyOfPropertyChange("UpToDate");
+            NotifyOfPropertyChange(nameof(UpToDate));
         }
     }
 
@@ -1168,11 +1168,8 @@ public class SettingsViewModel : Screen
         {
             try
             {
-                if (_currentSound != null)
-                {
-                    _currentSound.Stop();
-                    _currentSound = null;
-                }
+                _currentSound?.Stop();
+                _currentSound = null;
 
                 AssetService.Delete(SoundService.TradeAlertFileName);
             }
@@ -1216,11 +1213,8 @@ public class SettingsViewModel : Screen
         {
             try
             {
-                if (_currentSound != null)
-                {
-                    _currentSound.Stop();
-                    _currentSound = null;
-                }
+                _currentSound?.Stop();
+                _currentSound = null;
 
                 AssetService.Delete(SoundService.ItemAlertFileName);
             }
@@ -1253,16 +1247,6 @@ public class SettingsViewModel : Screen
         {
             HasCustomItemSound = false;
         }
-    }
-
-    /// <summary>
-    /// Opens the dashboard.
-    /// </summary>
-    public void OpenDashboard()
-    {
-        //var dashBoard = IoC.Get<DashboardViewModel>();
-        //var eventAggregator = IoC.Get<IEventAggregator>();
-        //eventAggregator.PublishOnUIThreadAsync(dashBoard);
     }
 
     /// <summary>
@@ -1424,7 +1408,7 @@ public class SettingsViewModel : Screen
     /// <summary>
     /// Called when activating.
     /// </summary>
-    protected override async Task OnActivateAsync(CancellationToken token)
+    protected override async Task OnActivatedAsync(CancellationToken token)
     {
         HasCustomTradeSound = _soundService.HasCustomTradeAlert();
         HasCustomItemSound = _soundService.HasCustomItemAlert();
@@ -1459,7 +1443,7 @@ public class SettingsViewModel : Screen
             _activated = true;
         }
 
-        await base.OnActivateAsync(token);
+        await base.OnActivatedAsync(token);
     }
 
     /// <summary>
@@ -1508,12 +1492,12 @@ public class SettingsViewModel : Screen
         MonsterRemainingHotkey = new HotkeyViewModel("Remaining Monster", _hotkeyService.RemainingMonster, GetNextKeyCode);
         SearchItemHotkey = new HotkeyViewModel("Item Highlight", _hotkeyService.SearchItem, GetNextKeyCode);
 
-        Hotkeys = new ObservableCollection<HotkeyViewModel>
-        {
+        Hotkeys =
+        [
             new HotkeyViewModel("Whisper", _hotkeyService.Whisper, GetNextKeyCode),
             new HotkeyViewModel("Busy", _hotkeyService.Busy, GetNextKeyCode),
             new HotkeyViewModel("Dismiss", _hotkeyService.Dismiss, GetNextKeyCode),
-        };
+        ];
 
         foreach (var hotkey in Hotkeys)
         {
@@ -1584,10 +1568,10 @@ public class SettingsViewModel : Screen
             }
 
             _currentTokenSource = new CancellationTokenSource();
-            PlaySoundTest(_currentTokenSource.Token, () =>
+            PlaySoundTest(() =>
             {
                 _currentSound = _soundService.PlayTradeAlert(_settingService.AlertVolume);
-            });
+            }, _currentTokenSource.Token);
         }
         else if (e.PropertyName == nameof(ItemAlertVolume))
         {
@@ -1606,10 +1590,10 @@ public class SettingsViewModel : Screen
             }
 
             _currentTokenSource = new CancellationTokenSource();
-            PlaySoundTest(_currentTokenSource.Token, () =>
+            PlaySoundTest(() =>
             {
                 _currentSound = _soundService.PlayItemAlert(_settingService.ItemAlertVolume);
-            });
+            }, _currentTokenSource.Token);
         }
         else if (e.PropertyName == nameof(JoinHideoutVolume))
         {
@@ -1628,7 +1612,7 @@ public class SettingsViewModel : Screen
             }
 
             _currentTokenSource = new CancellationTokenSource();
-            PlaySoundTest(_currentTokenSource.Token, () => _soundService.PlayJoinHideout(_settingService.JoinHideoutVolume));
+            PlaySoundTest(() => _soundService.PlayJoinHideout(_settingService.JoinHideoutVolume), _currentTokenSource.Token);
         }
     }
 
@@ -1637,7 +1621,7 @@ public class SettingsViewModel : Screen
     /// </summary>
     /// <param name="token">The token.</param>
     /// <param name="callback">The callback.</param>
-    private async void PlaySoundTest(CancellationToken token, System.Action callback)
+    private async void PlaySoundTest(System.Action callback, CancellationToken token)
     {
         await Task.Delay(300);
         if (token.IsCancellationRequested)

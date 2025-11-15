@@ -153,7 +153,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
             {
                 _activePlayer = value;
                 NotifyOfPropertyChange();
-                NotifyOfPropertyChange("ActivePlayerVisible");
+                NotifyOfPropertyChange(nameof(ActivePlayerVisible));
             }
         }
     }
@@ -166,7 +166,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     /// <summary>
     /// Gets the command.
     /// </summary>
-    public DoubleClickCommand ShowSettingsCommand => new DoubleClickCommand(ShowSettings);
+    public DoubleClickCommand ShowSettingsCommand => new(ShowSettings);
 
     /// <summary>
     /// Gets or sets a value indicating whether [show in task bar].
@@ -603,11 +603,8 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
         _container.UnregisterHandler<MouseLurker>();
         _container.UnregisterHandler<KeyboardLurker>();
 
-        if (_clipboardLurker != null)
-        {
-            _clipboardLurker.Dispose();
-            _clipboardLurker = null;
-        }
+        _clipboardLurker?.Dispose();
+        _clipboardLurker = null;
 
         if (_currentLurker != null)
         {
@@ -617,10 +614,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
             _currentLurker = null;
         }
 
-        if (_currentCharacterService != null)
-        {
-            _currentCharacterService.Dispose();
-        }
+        _currentCharacterService?.Dispose();
 
         if (_processLurker != null)
         {
@@ -629,30 +623,17 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
             _processLurker = null;
         }
 
-        if (_currentDockingHelper != null)
-        {
-            _currentDockingHelper.Dispose();
-            _currentDockingHelper = null;
-        }
+        _currentDockingHelper?.Dispose();
+        _currentDockingHelper = null;
 
-        if (_afkService != null)
-        {
-            _afkService.Dispose();
-            _afkService = null;
-        }
-
+        _afkService?.Dispose();
+        _afkService = null;
 
         DisposeHooks();
 
-        if (_stashTabGrid != null)
-        {
-            _stashTabGrid.Dispose();
-        }
+        _stashTabGrid?.Dispose();
 
-        if (_incomingTradeBarOverlay != null)
-        {
-            _incomingTradeBarOverlay.Dispose();
-        }
+        _incomingTradeBarOverlay?.Dispose();
     }    
 
     /// <summary>
@@ -708,7 +689,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
         var affixServiceTask = AffixService.InitializeAsync();
         _currentCharacterService = new PlayerService(_currentLurker);
         ActivePlayer = new PlayerViewModel(_currentCharacterService);
-        NotifyOfPropertyChange("ActivePlayer");
+        NotifyOfPropertyChange(nameof(ActivePlayer));
 
         if (_closing)
         {

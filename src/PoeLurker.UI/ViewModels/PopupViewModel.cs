@@ -43,8 +43,8 @@ public class PopupViewModel : PoeOverlayBase
     /// <param name="processLurker">The process lurker.</param>
     /// <param name="settingsService">The settings service.</param>
     /// <param name="mouseLurker">The mouse lurker.</param>
-    public PopupViewModel(IWindowManager windowManager, DockingHelper dockingHelper, ProcessService processLurker, SettingsService settingsService, MouseLurker mouseLurker)
-        : base(windowManager, dockingHelper, processLurker, settingsService)
+    public PopupViewModel(DockingHelper dockingHelper, ProcessService processLurker, SettingsService settingsService, MouseLurker mouseLurker)
+        : base(dockingHelper, processLurker, settingsService)
     {
         _mouseLurker = mouseLurker;
         _opacity = 1;

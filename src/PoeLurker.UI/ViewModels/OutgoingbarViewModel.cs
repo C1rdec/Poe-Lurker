@@ -47,25 +47,22 @@ public class OutgoingbarViewModel : PoeOverlayBase
     /// Initializes a new instance of the <see cref="OutgoingbarViewModel" /> class.
     /// </summary>
     /// <param name="eventAggregator">The event aggregator.</param>
-    /// <param name="clipboardLurker">The clipboard lurker.</param>
     /// <param name="clientLurker">The client lurker.</param>
     /// <param name="processLurker">The process lurker.</param>
     /// <param name="dockingHelper">The docking helper.</param>
     /// <param name="keyboardHelper">The keyboard helper.</param>
     /// <param name="settingsService">The settings service.</param>
-    /// <param name="windowManager">The window manager.</param>
     public OutgoingbarViewModel(
         IEventAggregator eventAggregator,
         ClientLurker clientLurker,
         ProcessService processLurker,
         DockingHelper dockingHelper,
         PoeKeyboardHelper keyboardHelper,
-        SettingsService settingsService,
-        IWindowManager windowManager)
-        : base(windowManager, dockingHelper, processLurker, settingsService)
+        SettingsService settingsService)
+        : base(dockingHelper, processLurker, settingsService)
     {
-        Offers = new ObservableCollection<OutgoingOfferViewModel>();
-        FilteredOffers = new ObservableCollection<OutgoingOfferViewModel>();
+        Offers = [];
+        FilteredOffers = [];
         _timer = new Timer(50);
         _timer.Elapsed += Timer_Elapsed;
         _keyboardHelper = keyboardHelper;
@@ -124,12 +121,12 @@ public class OutgoingbarViewModel : PoeOverlayBase
     /// <summary>
     /// Called when activating.
     /// </summary>
-    protected override Task OnActivateAsync(CancellationToken token)
+    protected override Task OnActivatedAsync(CancellationToken token)
     {
         _clientLurker.OutgoingOffer += Lurker_OutgoingOffer;
         _clientLurker.TradeAccepted += Lurker_TradeAccepted;
 
-        return base.OnActivateAsync(token);
+        return base.OnActivatedAsync(token);
     }
 
     /// <summary>
@@ -165,7 +162,7 @@ public class OutgoingbarViewModel : PoeOverlayBase
         Execute.OnUIThread(() =>
         {
             FilteredOffers.Clear();
-            var offers = string.IsNullOrEmpty(value) ? Offers.ToArray() : Offers.Where(o => o.PlayerName.ToLower().Contains(value.ToLower())).OrderBy(o => o.PlayerName).ToArray();
+            var offers = string.IsNullOrEmpty(value) ? [.. Offers] : Offers.Where(o => o.PlayerName.Contains(value, StringComparison.CurrentCultureIgnoreCase)).OrderBy(o => o.PlayerName).ToArray();
             foreach (var offer in offers)
             {
                 FilteredOffers.Add(offer);
@@ -272,10 +269,8 @@ public class OutgoingbarViewModel : PoeOverlayBase
 
         try
         {
-            using (var service = new DatabaseService())
-            {
-                await service.InsertAsync(tradeEvent);
-            }
+            using var service = new DatabaseService();
+            await service.InsertAsync(tradeEvent);
         }
         catch (Exception ex)
         {
@@ -353,7 +348,7 @@ public class OutgoingbarViewModel : PoeOverlayBase
                 {
                     FilteredOffers.Insert(Offers.IndexOf(outgoingOffer), outgoingOffer);
                 }
-                else if (outgoingOffer.PlayerName.ToLower().Contains(SearchValue.ToLower()))
+                else if (outgoingOffer.PlayerName.Contains(SearchValue, StringComparison.CurrentCultureIgnoreCase))
                 {
                     FilteredOffers.Insert(0, outgoingOffer);
                 }
@@ -373,7 +368,7 @@ public class OutgoingbarViewModel : PoeOverlayBase
             SearchValue = string.Empty;
         }
 
-        NotifyOfPropertyChange("AnyOffer");
+        NotifyOfPropertyChange(nameof(AnyOffer));
     }
 
     /// <summary>
@@ -389,10 +384,7 @@ public class OutgoingbarViewModel : PoeOverlayBase
             return;
         }
 
-        if (_activeOffer != null)
-        {
-            _activeOffer.Active = false;
-        }
+        _activeOffer?.Active = false;
 
         _activeOffer = offer;
         _activeOffer.SetActive();

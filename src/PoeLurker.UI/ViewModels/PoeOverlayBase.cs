@@ -37,11 +37,10 @@ public abstract class PoeOverlayBase : Screen, IViewAware
     /// <summary>
     /// Initializes a new instance of the <see cref="PoeOverlayBase" /> class.
     /// </summary>
-    /// <param name="windowManager">The window manager.</param>
     /// <param name="dockingHelper">The docking helper.</param>
     /// <param name="processLurker">The process lurker.</param>
     /// <param name="settingsService">The settings service.</param>
-    public PoeOverlayBase(IWindowManager windowManager, DockingHelper dockingHelper, ProcessService processLurker, SettingsService settingsService)
+    public PoeOverlayBase(DockingHelper dockingHelper, ProcessService processLurker, SettingsService settingsService)
     {
         DockingHelper = dockingHelper;
         ProcessLurker = processLurker;
@@ -312,7 +311,7 @@ public abstract class PoeOverlayBase : Screen, IViewAware
     /// <summary>
     /// Called when activating.
     /// </summary>
-    protected override Task OnActivateAsync(CancellationToken token)
+    protected override Task OnActivatedAsync(CancellationToken token)
     {
         ProcessLurker.ProcessClosed += Lurker_PoeClosed;
         SettingsService.OnSave += SettingsService_OnSave;
@@ -323,7 +322,7 @@ public abstract class PoeOverlayBase : Screen, IViewAware
             DockingHelper.OnForegroundChange += DockingHelper_OnForegroundChange;
         }
 
-        return base.OnActivateAsync(token);
+        return base.OnActivatedAsync(token);
     }
 
     /// <summary>

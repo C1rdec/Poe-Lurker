@@ -60,9 +60,8 @@ public class KeyboardHelper
     {
         var taskCompletionSource = new TaskCompletionSource<Winook.KeyboardMessageEventArgs>();
 
-        var hook = new Winook.KeyboardHook(Process.GetCurrentProcess().Id);
-        EventHandler<Winook.KeyboardMessageEventArgs> handler = default;
-        handler = (object s, Winook.KeyboardMessageEventArgs e) =>
+        var hook = new Winook.KeyboardHook(Environment.ProcessId);
+        void handler(object s, Winook.KeyboardMessageEventArgs e)
         {
             if (e.Direction == Winook.KeyDirection.Up)
             {
@@ -70,7 +69,7 @@ public class KeyboardHelper
                 hook.MessageReceived -= handler;
                 hook.Dispose();
             }
-        };
+        }
 
         hook.MessageReceived += handler;
         hook.InstallAsync().Wait();
@@ -102,7 +101,7 @@ public class KeyboardHelper
     public async Task Search(string searchTerm)
     {
         _robot.KeyPress(Key.Alt);
-        Native.SetForegroundWindow(_windowHandle);
+        _ = Native.SetForegroundWindow(_windowHandle);
 
         _robot.CombineKeys(Key.Control, Key.F);
         await Task.Delay(10);
@@ -124,7 +123,7 @@ public class KeyboardHelper
     {
         // This is to fix the first SetForegroundWindow
         _robot.KeyPress(Key.Alt);
-        Native.SetForegroundWindow(_windowHandle);
+        _ = Native.SetForegroundWindow(_windowHandle);
         await Task.Delay(10);
         var foregroundWindow = Native.GetForegroundWindow();
         if (_windowHandle != foregroundWindow)

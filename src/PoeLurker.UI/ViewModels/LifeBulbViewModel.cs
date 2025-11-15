@@ -33,13 +33,12 @@ public class LifeBulbViewModel : BulbViewModelBase, IHandle<LifeBulbMessage>
     /// Initializes a new instance of the <see cref="LifeBulbViewModel" /> class.
     /// </summary>
     /// <param name="eventAggregator">The event aggregator.</param>
-    /// <param name="windowManager">The window manager.</param>
     /// <param name="dockingHelper">The docking helper.</param>
     /// <param name="processLurker">The process lurker.</param>
     /// <param name="clientLurker">The client lurker.</param>
     /// <param name="settingsService">The settings service.</param>
-    public LifeBulbViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, DockingHelper dockingHelper, ProcessService processLurker, ClientLurker clientLurker, SettingsService settingsService)
-        : base(windowManager, dockingHelper, processLurker, settingsService, clientLurker)
+    public LifeBulbViewModel(IEventAggregator eventAggregator, DockingHelper dockingHelper, ProcessService processLurker, ClientLurker clientLurker, SettingsService settingsService)
+        : base(dockingHelper, processLurker, settingsService, clientLurker)
     {
         _eventAggregator = eventAggregator;
         _eventAggregator.SubscribeOnPublishedThread(this);

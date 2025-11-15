@@ -138,20 +138,18 @@ public class KeyboardLurker
     public Task<ushort> WaitForNextKeyAsync()
     {
         var taskCompletionSource = new TaskCompletionSource<ushort>();
-        using (var hook = new KeyboardHook(Process.GetCurrentProcess().Id))
+        using var hook = new KeyboardHook(Environment.ProcessId);
+
+        void handler(object s, KeyboardMessageEventArgs e)
         {
-            EventHandler<KeyboardMessageEventArgs> handler = default;
-            handler = (object s, KeyboardMessageEventArgs e) =>
-            {
-                taskCompletionSource.SetResult(e.KeyValue);
-                hook.MessageReceived -= handler;
-            };
-
-            hook.MessageReceived += handler;
-            _ = hook.InstallAsync();
-
-            return taskCompletionSource.Task;
+            taskCompletionSource.SetResult(e.KeyValue);
+            hook.MessageReceived -= handler;
         }
+
+        hook.MessageReceived += handler;
+        _ = hook.InstallAsync();
+
+        return taskCompletionSource.Task;
     }
 
     /// <summary>
