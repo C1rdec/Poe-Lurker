@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows7</TargetFramework>
+    <TargetFramework>net10.0-windows7.0</TargetFramework>
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
@@ -158,17 +158,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Caliburn.Micro" Version="4.0.212" />
+    <PackageReference Include="Caliburn.Micro" Version="5.0.258" />
     <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="2.0.1" />
     <PackageReference Include="LiveCharts.NetCore" Version="0.9.8" />
-    <PackageReference Include="MahApps.Metro" Version="2.4.10" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.0" />
-    <PackageReference Include="NLog" Version="5.3.4" />
-    <PackageReference Include="NLog.Extensions.Logging" Version="5.3.15" />
-    <PackageReference Include="PixiEditor.ColorPicker" Version="3.4.1" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.11" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.0" />
+    <PackageReference Include="NLog" Version="6.0.6" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="6.1.0" />
+    <PackageReference Include="PixiEditor.ColorPicker" Version="3.4.2" />
     <PackageReference Include="PoeLurker.Patreon" Version="8.2.30" />
     <PackageReference Include="System.Private.Uri" Version="4.3.2" />
-    <PackageReference Include="Velopack" Version="0.0.942" />
+    <PackageReference Include="Velopack" Version="0.0.1298" />
   </ItemGroup>
 
   <ItemGroup>

@@ -806,15 +806,12 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
             await Execute.OnUIThreadAsync(() => ActivateItemAsync(_popup));
         }
 
-        if (_settingsService.MapEnabled)
+        if (item.Rarity == Rarity.Normal)
         {
-            if (item.Rarity == Rarity.Normal)
-            {
-                return;
-            }
-
-            _popup.Open(new WaystoneViewModel(item));
+            return;
         }
+
+        _popup.Open(new WaystoneViewModel(item));
     }
 
     /// <summary>
