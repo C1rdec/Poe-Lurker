@@ -1,28 +1,39 @@
-image: Visual Studio 2026
+image: Visual Studio 2022
 version: 1.0.{build}
 configuration: Release
+
+install:
+  - ps: |
+      $ErrorActionPreference = "Stop"
+      Invoke-WebRequest "https://dot.net/v1/dotnet-install.ps1" -OutFile "dotnet-install.ps1"
+      ./dotnet-install.ps1 -Channel 10.0 -Quality preview -InstallDir "C:\Program Files\dotnet"
+      dotnet --info
+      dotnet --list-sdks
+
 before_build:
-- ps: nuget restore
-build:
-  verbosity: minimal
+  - ps: nuget restore
+
+build_script:
+  - ps: dotnet build -c Release
+
 before_package:
-- pwsh: >-
-    dotnet publish -c Release --self-contained -r win-x64 -o .\publish
+  - pwsh: >-
+      dotnet publish -c Release --self-contained -r win-x64 -o .\publish
 
+      dotnet tool update -g vpk
 
-    dotnet tool update -g vpk
+      $version = (get-item ".\publish\PoeLurker.exe").VersionInfo | % {("{0}.{1}.{2}" -f $_.ProductMajorPart,$_.ProductMinorPart,$_.ProductBuildPart)}
 
+      vpk pack -u PoeLurker -v $($version) -p .\publish --icon .\TrayIcon.ico -e PoeLurker.exe --packTitle "Poe Lurker"
 
-    $version = (get-item ".\publish\PoeLurker.exe").VersionInfo | % {("{0}.{1}.{2}" -f $_.ProductMajorPart,$_.ProductMinorPart,$_.ProductBuildPart)}
-
-    
-    vpk pack -u PoeLurker -v $($version) -p .\publish --icon .\TrayIcon.ico -e PoeLurker.exe --packTitle "Poe Lurker"
 after_build:
-- pwsh: Rename-Item -Path ".\Releases\PoeLurker-win-Setup.exe" -NewName "PoeLurkerSetup.exe"
+  - pwsh: Rename-Item -Path ".\Releases\PoeLurker-win-Setup.exe" -NewName "PoeLurkerSetup.exe"
+
 artifacts:
-- path: Releases\*.exe
+  - path: Releases\*.exe
+
 deploy:
-- provider: Webhook
-  url: https://app.signpath.io/API/v1/882745a6-3bda-47cc-b355-ee465c5c6d7f/Integrations/AppVeyor?ProjectKey=Poe-Lurker&SigningPolicyKey=release-signing
-  authorization:
-    secure: HGEe+PVCmgokYetsh17bCbn9fnVkTOimXQ9Q+5OUfaUqAxO7+lhMuhtoIiRWmFfKBP10YQZQk1Nk3FJn3csAJQ==
+  - provider: Webhook
+    url: https://app.signpath.io/API/v1/882745a6-3bda-47cc-b355-ee465c5c6d7f/Integrations/AppVeyor?ProjectKey=Poe-Lurker&SigningPolicyKey=release-signing
+    authorization:
+      secure: HGEe+PVCmgokYetsh17bCbn9fnVkTOimXQ9Q+5OUfaUqAxO7+lhMuhtoIiRWmFfKBP10YQZQk1Nk3FJn3csAJQ==
