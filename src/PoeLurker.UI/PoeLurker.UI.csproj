@@ -166,7 +166,7 @@
     <PackageReference Include="NLog" Version="6.0.6" />
     <PackageReference Include="NLog.Extensions.Logging" Version="6.1.0" />
     <PackageReference Include="PixiEditor.ColorPicker" Version="3.4.2" />
-    <PackageReference Include="PoeLurker.Patreon" Version="8.2.30" />
+    <PackageReference Include="PoeLurker.Patreon" Version="8.3.0" />
     <PackageReference Include="Velopack" Version="0.0.1298" />
   </ItemGroup>
 
