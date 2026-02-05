@@ -11,7 +11,7 @@ install:
       dotnet --list-sdks
 
 before_build:
-  - ps: nuget restore
+  - ps: dotnet nuget restore
 
 build_script:
   - ps: dotnet build -c Release
