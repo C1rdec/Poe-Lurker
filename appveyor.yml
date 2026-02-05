@@ -15,7 +15,7 @@ install:
 
     dotnet --info
 before_build:
-- ps: dotnet restore
+- ps: nuget restore
 build:
   verbosity: minimal
 before_package:
