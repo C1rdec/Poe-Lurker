@@ -30,9 +30,10 @@
                         Data="{x:Static local:IconPackData.Shield}"
                         Foreground="#c2d9ff"
                         Visibility="{Binding KingsmarchVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
-        <local:IconPack Grid.Row="1"
+        <local:IconPack Grid.Row="0"
                         Height="25"
                         Margin="4,0,0,4"
+                        Grid.RowSpan="2"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Bottom"
                         Data="{x:Static local:IconPackData.Hideout}"

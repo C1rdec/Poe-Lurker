@@ -32,14 +32,12 @@ public class BuildViewModel : PoeOverlayBase
     private bool _isOpen;
     private bool _isVisible;
     private string _ascendancy;
-    private bool _isOptionOpen;
-    private bool _hasNoBuild;
     private bool _skillTimelineEnabled;
     private readonly IEventAggregator _eventAggregator;
     private readonly PlayerService _playerService;
     private Player _activePlayer;
     private readonly BuildService _buildService;
-    private SimpleBuild _currentBuild;
+    private Build _currentBuild;
     private readonly SettingsViewModel _settings;
     private readonly GithubService _githubService;
     private readonly MouseLurker _mouseLurker;
@@ -80,20 +78,16 @@ public class BuildViewModel : PoeOverlayBase
 
         if (_activePlayer != null && _activePlayer.Build != null && !string.IsNullOrEmpty(_activePlayer.Build.BuildId))
         {
-            var build = buildService.Builds.FirstOrDefault(b => b.Id == _activePlayer.Build.BuildId);
-            if (build == null)
-            {
-                _hasNoBuild = true;
-            }
-            else
-            {
-                _currentBuild = build;
-                _currentTask = Initialize(build.PathOfBuildingCode, false);
-            }
-        }
-        else
-        {
-            _hasNoBuild = true;
+            //var build = buildService.Builds.FirstOrDefault(b => b.Id == _activePlayer.Build.BuildId);
+            //if (build == null)
+            //{
+            //    _hasNoBuild = true;
+            //}
+            //else
+            //{
+            //    _currentBuild = build;
+            //    _currentTask = Initialize(build.PathOfBuildingCode, false);
+            //}
         }
 
         IsVisible = true;
@@ -157,23 +151,6 @@ public class BuildViewModel : PoeOverlayBase
                 _isOpen = value;
                 NotifyOfPropertyChange();
             }
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether this instance is option open.
-    /// </summary>
-    public bool IsOptionOpen
-    {
-        get
-        {
-            return _isOptionOpen;
-        }
-
-        set
-        {
-            _isOptionOpen = value;
-            NotifyOfPropertyChange();
         }
     }
 
@@ -289,29 +266,6 @@ public class BuildViewModel : PoeOverlayBase
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether this instance has build.
-    /// </summary>
-    public bool HasNoBuild
-    {
-        get
-        {
-            return _hasNoBuild;
-        }
-
-        set
-        {
-            _hasNoBuild = value;
-            NotifyOfPropertyChange();
-            NotifyOfPropertyChange(nameof(HasBuild));
-        }
-    }
-
-    /// <summary>
-    /// Gets a value indicating whether this instance has build.
-    /// </summary>
-    public bool HasBuild => !HasNoBuild;
-
-    /// <summary>
     /// Gets or sets the build.
     /// </summary>
     public Build Build { get; set; }
@@ -319,7 +273,7 @@ public class BuildViewModel : PoeOverlayBase
     /// <summary>
     /// Gets the data click command.
     /// </summary>
-    public MyCommand<SimpleBuild> DataClickCommand => new()
+    public MyCommand<Build> DataClickCommand => new()
     {
         ExecuteDelegate = p => SelectBuild(p),
     };
@@ -332,25 +286,16 @@ public class BuildViewModel : PoeOverlayBase
     /// Selects the build.
     /// </summary>
     /// <param name="build">The build.</param>
-    public async void SelectBuild(SimpleBuild build)
+    public async void SelectBuild(Build build)
     {
         _currentBuild = build;
         if (_activePlayer != null)
         {
-            _activePlayer.SetBuild(build.Id);
-            _playerService.Save();
+            //_activePlayer.SetBuild(build.Id);
+            //_playerService.Save();
         }
 
-        ClearBuild();
-        await Initialize(build.PathOfBuildingCode, true);
-    }
-
-    /// <summary>
-    /// Opens the option.
-    /// </summary>
-    public void ShowOption()
-    {
-        IsOptionOpen = true;
+        IsOpen = false;
     }
 
     /// <summary>
@@ -476,7 +421,6 @@ public class BuildViewModel : PoeOverlayBase
             return false;
         }
 
-        HasNoBuild = false;
         return true;
     }
 
@@ -573,6 +517,7 @@ public class BuildViewModel : PoeOverlayBase
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     private void MouseLurker_MouseLeftButtonUp(object sender, EventArgs e)
     {
+        IsOpen = false;
         if (SettingsService.BuildAutoClose)
         {
             IsOpen = false;
@@ -626,7 +571,7 @@ public class BuildViewModel : PoeOverlayBase
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The e.</param>
-    private void BuildSelector_BuildSelected(object sender, SimpleBuild e)
+    private void BuildSelector_BuildSelected(object sender, Build e)
     {
         SelectBuild(e);
     }
@@ -653,7 +598,7 @@ public class BuildViewModel : PoeOverlayBase
         {
             if (_currentBuild != null)
             {
-                e.Build.BuildId = _currentBuild.Id;
+                //e.Build.BuildId = _currentBuild.Id;
             }
 
             return;
@@ -675,10 +620,6 @@ public class BuildViewModel : PoeOverlayBase
         if (build != null)
         {
             await Initialize(build.PathOfBuildingCode, false);
-        }
-        else
-        {
-            HasNoBuild = true;
         }
     }
 

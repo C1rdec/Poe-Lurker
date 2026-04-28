@@ -34,7 +34,7 @@ public class BuildSelectorViewModel : Caliburn.Micro.ActivationProcessedEventArg
         _buildService = buildService;
         Builds = new ObservableCollection<BuildConfigurationViewModel>();
 
-        foreach (var build in _buildService.Builds)
+        foreach (var build in BuildService.Get(PoeApplicationContext.Poe2))
         {
             Builds.Add(new BuildConfigurationViewModel(build));
         }
@@ -47,7 +47,7 @@ public class BuildSelectorViewModel : Caliburn.Micro.ActivationProcessedEventArg
     /// <summary>
     /// Occurs when [build selected].
     /// </summary>
-    public event EventHandler<SimpleBuild> BuildSelected;
+    public event EventHandler<Build> BuildSelected;
 
     #endregion
 
@@ -66,9 +66,15 @@ public class BuildSelectorViewModel : Caliburn.Micro.ActivationProcessedEventArg
     /// Selects the specified build.
     /// </summary>
     /// <param name="build">The build.</param>
-    public void Select(BuildConfigurationViewModel build)
+    public void Select(BuildConfigurationViewModel viewModel)
     {
-        BuildSelected?.Invoke(this, build.SimpleBuild);
+        foreach (var build in Builds)
+        {
+            build.Selected = false;
+        }
+
+        viewModel.Selected = true;
+        BuildSelected?.Invoke(this, viewModel.Build);
     }
 
     #endregion

@@ -40,12 +40,41 @@ public class BuildService
 
     #region Methods
 
+    public static List<Build> Get(bool poe2 = false)
+    {
+        var builds = new List<Build>();
+        using var service = new PathOfBuildingService();
+        var folderName = "Path of Building";
+
+        if (poe2)
+        {
+            folderName += " (PoE2)";
+        }
+
+        var pathOfBuildingFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), folderName, "Builds");
+        foreach (var file in Directory.GetFiles(pathOfBuildingFolder, "*.xml", SearchOption.AllDirectories))
+        {
+            var fileName = Path.GetFileName(file);
+            if (fileName.StartsWith("."))
+            {
+                continue;
+            }
+
+            var build = service.Decode(File.ReadAllText(file));
+            build.Name = fileName.Replace(".xml", string.Empty);
+
+            builds.Add(build);
+        }
+
+        return builds;
+    }
+
     /// <summary>
     /// Synchronizes this instance.
     /// </summary>
     public void Sync()
     {
-        var pathOfBuildingFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Path of Building", "Builds");
+        var pathOfBuildingFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Path of Building", "Builds");
         if (Directory.Exists(pathOfBuildingFolder))
         {
             foreach (var file in Directory.GetFiles(pathOfBuildingFolder))

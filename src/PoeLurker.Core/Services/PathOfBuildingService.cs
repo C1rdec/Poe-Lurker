@@ -24,8 +24,8 @@ public class PathOfBuildingService : HttpServiceBase
 {
     #region Fields
 
-    private IEnumerable<Gem> _knownGems;
-    private IEnumerable<UniqueItem> _knownUniques;
+    private List<Gem> _knownGems = [];
+    private List<UniqueItem> _knownUniques = [];
 
     #endregion
 
@@ -78,10 +78,10 @@ public class PathOfBuildingService : HttpServiceBase
     /// </returns>
     public Build Decode(string buildValue)
     {
-        if (_knownGems == null)
-        {
-            throw new InvalidOperationException("Must be initialized");
-        }
+        //if (_knownGems == null)
+        //{
+        //    throw new InvalidOperationException("Must be initialized");
+        //}
 
         var build = new Build()
         {
@@ -144,7 +144,7 @@ public class PathOfBuildingService : HttpServiceBase
         {
             foreach (var element in skillsElement.Descendants("Skill"))
             {
-                var skill = Skill.FromXml(element, _knownGems);
+                var skill = Skill.FromXml(element, _knownGems ?? []);
                 if (skill.Gems.Any())
                 {
                     build.AddSkill(skill);
@@ -238,10 +238,12 @@ public class PathOfBuildingService : HttpServiceBase
 
         try
         {
+            var compressed = Base64UrlDecode(build);
+
+            using var input = new MemoryStream(compressed);
+            using var zlib = new ZLibStream(input, CompressionMode.Decompress);
             using var output = new MemoryStream();
-            using var input = new MemoryStream(Convert.FromBase64String(build.Replace("_", "/").Replace("-", "+")));
-            using var decompressor = new GZipStream(input, CompressionMode.Decompress);
-            decompressor.CopyTo(output);
+            zlib.CopyTo(output);
 
             return Encoding.UTF8.GetString(output.ToArray());
         }
@@ -249,6 +251,23 @@ public class PathOfBuildingService : HttpServiceBase
         {
             return string.Empty;
         }
+    }
+
+    private static byte[] Base64UrlDecode(string s)
+    {
+        s = s.Trim();
+
+        // handle URL-safe base64 (sometimes present)
+        s = s.Replace('-', '+').Replace('_', '/');
+
+        // padding
+        switch (s.Length % 4)
+        {
+            case 2: s += "=="; break;
+            case 3: s += "="; break;
+        }
+
+        return Convert.FromBase64String(s);
     }
 
     /// <summary>
