@@ -22,24 +22,29 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
+
+        <!--Hidden for now-->
         <local:IconPack Grid.Row="0"
-                Width="12"
-                Margin="4,0,0,4"
+                        Width="12"
+                        Margin="4,0,0,4"
                         Grid.Column="1"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Data="{x:Static local:IconPackData.DotsMenu}"
-                Foreground="#c2d9ff"
-                Visibility="{Binding KingsmarchVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
-        <local:IconPack Height="25"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Data="{x:Static local:IconPackData.DotsMenu}"
+                        Visibility="Collapsed"
+                        Foreground="#c2d9ff"/>
+        
+        
+        <local:IconPack Height="20"
                         Grid.Column="1"
                         Grid.RowSpan="2"
-                        Margin="4,0,0,4"
+                        Margin="0,0,4,4"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Bottom"
+                        Opacity="0.8"
                         Data="{x:Static local:IconPackData.Open}"
                         Foreground="#c2d9ff" />
-        <Border cal:Message.Attach="[Event MouseDown] = [Action Help()]"
+        <Border cal:Message.Attach="[Event MouseDown] = [Action Open()]"
                 Grid.RowSpan="2"
                 Grid.ColumnSpan="2"
                 CornerRadius="100 0 0 0"
@@ -61,9 +66,11 @@
             </Border.Style>
         </Border>
 
+        <!--Hidden for now-->
         <Border cal:Message.Attach="[Event MouseDown] = [Action Open()]"
                 CornerRadius="30 0 0 30"
                 Grid.Column="1"
+                Visibility="Collapsed"
                 Cursor="Hand">
             <Border.Style>
                 <Style TargetType="Border">
