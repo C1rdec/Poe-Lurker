@@ -9,9 +9,6 @@ namespace PoeLurker.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Windows.Forms;
-using System.Xml.Linq;
 using PoeLurker.Core.Models;
 
 /// <summary>
@@ -44,6 +41,7 @@ public class BuildService
 
             var build = service.Decode(File.ReadAllText(file));
             build.Name = fileName.Replace(".xml", string.Empty);
+            build.FilePath = file;
 
             builds.Add(build);
         }
