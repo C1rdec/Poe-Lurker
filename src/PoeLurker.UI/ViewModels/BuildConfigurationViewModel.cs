@@ -19,13 +19,13 @@ using PoeLurker.Core.Services;
 /// Implements the <see cref="Caliburn.Micro.PropertyChangedBase" />.
 /// </summary>
 /// <seealso cref="Caliburn.Micro.PropertyChangedBase" />
-public class BuildConfigurationViewModel : Caliburn.Micro.PropertyChangedBase
+public class BuildConfigurationViewModel : PropertyChangedBase
 {
     #region Fields
 
-    private static readonly PathOfBuildingService PathOfBuildingService = new PathOfBuildingService();
+    private static readonly PathOfBuildingService PathOfBuildingService = new ();
     private Build _build;
-    private readonly SimpleBuild _buildConfiguration;
+    private readonly BuildSettings _settings;
     private string _ascendency;
     private bool _isSkillTreeOpen;
 
@@ -33,32 +33,17 @@ public class BuildConfigurationViewModel : Caliburn.Micro.PropertyChangedBase
 
     #region Constructors
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="BuildConfigurationViewModel" /> class.
-    /// </summary>
-    /// <param name="build">The build.</param>
-    public BuildConfigurationViewModel(SimpleBuild build)
+    public BuildConfigurationViewModel(Build build)
     {
-        SkillTreeInformation = new ObservableCollection<SkillTreeInformation>();
-        _buildConfiguration = build;
-        Items = new ObservableCollection<UniqueItemViewModel>();
-        if (PathOfBuildingService.IsInitialize)
-        {
-            DecodeBuild(build);
-        }
-        else
-        {
-            var service = IoC.Get<GithubService>();
-            PathOfBuildingService.InitializeAsync(service).ContinueWith((t) =>
-            {
-                DecodeBuild(build);
-            });
-        }
+        Ascendancy = build.Ascendancy;
+        _build = build;
     }
 
     #endregion
 
     #region Properties
+
+    public Build Build => _build;
 
     /// <summary>
     /// Gets or sets skill trees.
@@ -69,11 +54,6 @@ public class BuildConfigurationViewModel : Caliburn.Micro.PropertyChangedBase
     /// Gets or sets skill trees.
     /// </summary>
     public SkillTreeInformation SelectedSkillTreeInformation { get; set; }
-
-    /// <summary>
-    /// Gets the simple build.
-    /// </summary>
-    public SimpleBuild SimpleBuild => _buildConfiguration;
 
     /// <summary>
     /// Gets the ascendancy.
@@ -88,6 +68,17 @@ public class BuildConfigurationViewModel : Caliburn.Micro.PropertyChangedBase
         private set
         {
             _ascendency = value;
+            NotifyOfPropertyChange();
+        }
+    }
+
+    public bool Selected
+    {
+        get => field;
+
+        set
+        {
+            field = value;
             NotifyOfPropertyChange();
         }
     }
@@ -133,12 +124,12 @@ public class BuildConfigurationViewModel : Caliburn.Micro.PropertyChangedBase
     {
         get
         {
-            return _buildConfiguration.Name;
+            return _build.Name;
         }
 
         set
         {
-            _buildConfiguration.Name = value;
+            _build.Name = value;
             NotifyOfPropertyChange();
             NotifyOfPropertyChange("HasBuildName");
             NotifyOfPropertyChange("HasNoBuildName");
@@ -172,12 +163,12 @@ public class BuildConfigurationViewModel : Caliburn.Micro.PropertyChangedBase
     {
         get
         {
-            return _buildConfiguration.YoutubeUrl;
+            return _settings.YoutubeUrl;
         }
 
         set
         {
-            _buildConfiguration.YoutubeUrl = value;
+            _settings.YoutubeUrl = value;
             NotifyOfPropertyChange();
             NotifyOfPropertyChange("HasYoutube");
         }
@@ -190,42 +181,25 @@ public class BuildConfigurationViewModel : Caliburn.Micro.PropertyChangedBase
     {
         get
         {
-            return _buildConfiguration.ForumUrl;
+            return _settings.ForumUrl;
         }
 
         set
         {
-            _buildConfiguration.ForumUrl = value;
+            _settings.ForumUrl = value;
             NotifyOfPropertyChange();
             NotifyOfPropertyChange("HasForum");
-        }
-    }
-
-    /// <summary>
-    /// Gets the identifier.
-    /// </summary>
-    public string Id => _buildConfiguration.Id;
-
-    /// <summary>
-    /// Gets or sets the notes.
-    /// </summary>
-    public string Notes
-    {
-        get
-        {
-            return _buildConfiguration.Notes;
-        }
-
-        set
-        {
-            _buildConfiguration.Notes = value;
-            NotifyOfPropertyChange();
         }
     }
 
     #endregion
 
     #region Methods
+
+    public void Select()
+    {
+        Selected = true;
+    }
 
     /// <summary>
     /// Opens the tree.
@@ -268,40 +242,6 @@ public class BuildConfigurationViewModel : Caliburn.Micro.PropertyChangedBase
         {
             ProcessExtensions.OpenUrl(value);
         }
-    }
-
-    /// <summary>
-    /// Decodes the build.
-    /// </summary>
-    /// <param name="simpleBuild">The simple build.</param>
-    private void DecodeBuild(SimpleBuild simpleBuild)
-    {
-        _build = PathOfBuildingService.Decode(simpleBuild.PathOfBuildingCode);
-        Ascendancy = _build.Ascendancy;
-        NotifyOfPropertyChange("DisplayName");
-        var mainSkill = _build.Skills.OrderByDescending(s => s.Gems.Count(g => g.Support)).FirstOrDefault();
-        if (mainSkill != null)
-        {
-            var gem = mainSkill.Gems.FirstOrDefault(g => !g.Support);
-            if (gem != null)
-            {
-                GemViewModel = new GemViewModel(gem, false);
-                NotifyOfPropertyChange("GemViewModel");
-            }
-        }
-
-        Execute.OnUIThread(() =>
-        {
-            foreach (var item in _build.Items.OrderBy(i => i.Level))
-            {
-                Items.Add(new UniqueItemViewModel(item, false));
-            }
-
-            foreach (var tree in _build.SkillTrees.Reverse<SkillTreeInformation>())
-            {
-                SkillTreeInformation.Add(tree);
-            }
-        });
     }
 
     #endregion

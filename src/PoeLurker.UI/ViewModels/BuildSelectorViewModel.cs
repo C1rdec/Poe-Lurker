@@ -29,14 +29,21 @@ public class BuildSelectorViewModel : Caliburn.Micro.ActivationProcessedEventArg
     /// Initializes a new instance of the <see cref="BuildSelectorViewModel"/> class.
     /// </summary>
     /// <param name="buildService">The build service.</param>
-    public BuildSelectorViewModel(BuildService buildService)
+    public BuildSelectorViewModel(BuildService buildService, string activeBuildPath)
     {
         _buildService = buildService;
         Builds = new ObservableCollection<BuildConfigurationViewModel>();
 
-        foreach (var build in _buildService.Builds)
+        foreach (var build in BuildService.Get())
         {
-            Builds.Add(new BuildConfigurationViewModel(build));
+            var viewModel = new BuildConfigurationViewModel(build);
+
+            if (!string.IsNullOrEmpty(activeBuildPath))
+            {
+                viewModel.Selected = build.FilePath == activeBuildPath;
+            }
+
+            Builds.Add(viewModel);
         }
     }
 
@@ -47,7 +54,7 @@ public class BuildSelectorViewModel : Caliburn.Micro.ActivationProcessedEventArg
     /// <summary>
     /// Occurs when [build selected].
     /// </summary>
-    public event EventHandler<SimpleBuild> BuildSelected;
+    public event EventHandler<Build> BuildSelected;
 
     #endregion
 
@@ -66,9 +73,15 @@ public class BuildSelectorViewModel : Caliburn.Micro.ActivationProcessedEventArg
     /// Selects the specified build.
     /// </summary>
     /// <param name="build">The build.</param>
-    public void Select(BuildConfigurationViewModel build)
+    public void Select(BuildConfigurationViewModel viewModel)
     {
-        BuildSelected?.Invoke(this, build.SimpleBuild);
+        foreach (var build in Builds)
+        {
+            build.Selected = false;
+        }
+
+        viewModel.Selected = true;
+        BuildSelected?.Invoke(this, viewModel.Build);
     }
 
     #endregion

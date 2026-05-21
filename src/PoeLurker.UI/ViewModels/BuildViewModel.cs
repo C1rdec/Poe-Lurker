@@ -32,14 +32,12 @@ public class BuildViewModel : PoeOverlayBase
     private bool _isOpen;
     private bool _isVisible;
     private string _ascendancy;
-    private bool _isOptionOpen;
-    private bool _hasNoBuild;
     private bool _skillTimelineEnabled;
     private readonly IEventAggregator _eventAggregator;
     private readonly PlayerService _playerService;
     private Player _activePlayer;
     private readonly BuildService _buildService;
-    private SimpleBuild _currentBuild;
+    private Build _currentBuild;
     private readonly SettingsViewModel _settings;
     private readonly GithubService _githubService;
     private readonly MouseLurker _mouseLurker;
@@ -78,30 +76,13 @@ public class BuildViewModel : PoeOverlayBase
 
         _mouseLurker = mouseLurker;
 
-        if (_activePlayer != null && _activePlayer.Build != null && !string.IsNullOrEmpty(_activePlayer.Build.BuildId))
-        {
-            var build = buildService.Builds.FirstOrDefault(b => b.Id == _activePlayer.Build.BuildId);
-            if (build == null)
-            {
-                _hasNoBuild = true;
-            }
-            else
-            {
-                _currentBuild = build;
-                _currentTask = Initialize(build.PathOfBuildingCode, false);
-            }
-        }
-        else
-        {
-            _hasNoBuild = true;
-        }
+        // TODO : Set current build from player  
 
         IsVisible = true;
 
         ActivePlayer = new PlayerViewModel(playerService);
-        Builds = [];
 
-        BuildSelector = new BuildSelectorViewModel(buildService);
+        BuildSelector = new BuildSelectorViewModel(buildService, _activePlayer?.BuildPath);
     }
 
     #endregion
@@ -161,23 +142,6 @@ public class BuildViewModel : PoeOverlayBase
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether this instance is option open.
-    /// </summary>
-    public bool IsOptionOpen
-    {
-        get
-        {
-            return _isOptionOpen;
-        }
-
-        set
-        {
-            _isOptionOpen = value;
-            NotifyOfPropertyChange();
-        }
-    }
-
-    /// <summary>
     /// Gets the ascendancy.
     /// </summary>
     public string Ascendancy
@@ -193,11 +157,6 @@ public class BuildViewModel : PoeOverlayBase
             NotifyOfPropertyChange();
         }
     }
-
-    /// <summary>
-    /// Gets the builds.
-    /// </summary>
-    public ObservableCollection<SimpleBuild> Builds { get; private set; }
 
     /// <summary>
     /// Gets the active player.
@@ -289,29 +248,6 @@ public class BuildViewModel : PoeOverlayBase
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether this instance has build.
-    /// </summary>
-    public bool HasNoBuild
-    {
-        get
-        {
-            return _hasNoBuild;
-        }
-
-        set
-        {
-            _hasNoBuild = value;
-            NotifyOfPropertyChange();
-            NotifyOfPropertyChange(nameof(HasBuild));
-        }
-    }
-
-    /// <summary>
-    /// Gets a value indicating whether this instance has build.
-    /// </summary>
-    public bool HasBuild => !HasNoBuild;
-
-    /// <summary>
     /// Gets or sets the build.
     /// </summary>
     public Build Build { get; set; }
@@ -319,7 +255,7 @@ public class BuildViewModel : PoeOverlayBase
     /// <summary>
     /// Gets the data click command.
     /// </summary>
-    public MyCommand<SimpleBuild> DataClickCommand => new()
+    public MyCommand<Build> DataClickCommand => new()
     {
         ExecuteDelegate = p => SelectBuild(p),
     };
@@ -332,25 +268,16 @@ public class BuildViewModel : PoeOverlayBase
     /// Selects the build.
     /// </summary>
     /// <param name="build">The build.</param>
-    public async void SelectBuild(SimpleBuild build)
+    public async void SelectBuild(Build build)
     {
         _currentBuild = build;
         if (_activePlayer != null)
         {
-            _activePlayer.SetBuild(build.Id);
+            _activePlayer.BuildPath = build.FilePath;
             _playerService.Save();
         }
 
-        ClearBuild();
-        await Initialize(build.PathOfBuildingCode, true);
-    }
-
-    /// <summary>
-    /// Opens the option.
-    /// </summary>
-    public void ShowOption()
-    {
-        IsOptionOpen = true;
+        IsOpen = false;
     }
 
     /// <summary>
@@ -437,36 +364,6 @@ public class BuildViewModel : PoeOverlayBase
             }
 
             Ascendancy = Build.Ascendancy;
-            Skills.Clear();
-            foreach (var skill in Build.Skills.Select(s => new SkillViewModel(s, SettingsService.TimelineEnabled)))
-            {
-                skill.PropertyChanged += Skill_PropertyChanged;
-                Skills.Add(skill);
-            }
-
-            if (findMainSkill && _activePlayer != null)
-            {
-                var settings = _activePlayer.Build;
-                var mainSKill = Skills.OrderByDescending(s => s.Gems.Count(g => g.Support)).FirstOrDefault();
-                if (mainSKill != null)
-                {
-                    var index = Skills.IndexOf(mainSKill);
-                    settings.ItemsSelected.Clear();
-                    settings.SkillsSelected.Clear();
-                    settings.SkillsSelected.Add(index);
-                }
-
-                _playerService.Save();
-            }
-
-            UniqueItems.Clear();
-            foreach (var item in Build.Items.Select(s => new UniqueItemViewModel(s, SettingsService.TimelineEnabled)))
-            {
-                item.PropertyChanged += Item_PropertyChanged;
-                UniqueItems.Add(item);
-            }
-
-            SelectItems(true);
 
             // To notify that we are initialize.
             NotifyOfPropertyChange(nameof(Skills));
@@ -476,7 +373,6 @@ public class BuildViewModel : PoeOverlayBase
             return false;
         }
 
-        HasNoBuild = false;
         return true;
     }
 
@@ -489,23 +385,6 @@ public class BuildViewModel : PoeOverlayBase
         {
             ProcessExtensions.OpenUrl(SelectedSkillTreeInformation.Url);
         }
-    }
-
-    /// <summary>
-    /// Clears the build.
-    /// </summary>
-    public void ClearBuild()
-    {
-        Build = null;
-        Execute.OnUIThread(() =>
-        {
-            ClearEventHandlers();
-            Skills.Clear();
-            UniqueItems.Clear();
-        });
-
-        // Handled in the Timeline
-        _eventAggregator.PublishOnUIThreadAsync(new SkillMessage() { Clear = true });
     }
 
     /// <summary>
@@ -531,38 +410,6 @@ public class BuildViewModel : PoeOverlayBase
             View.Deactivated += View_Deactivated;
         }
 
-        Execute.OnUIThread(() =>
-        {
-            if (Build != null)
-            {
-                ClearEventHandlers();
-
-                // Gems
-                Skills.Clear();
-                foreach (var skill in Build.Skills.Select(s => new SkillViewModel(s, SettingsService.TimelineEnabled)))
-                {
-                    skill.PropertyChanged += Skill_PropertyChanged;
-                    Skills.Add(skill);
-                }
-
-                // Unique items
-                UniqueItems.Clear();
-                foreach (var item in Build.Items.Select(s => new UniqueItemViewModel(s, SettingsService.TimelineEnabled)))
-                {
-                    item.PropertyChanged += Item_PropertyChanged;
-                    UniqueItems.Add(item);
-                }
-
-                SelectItems();
-            }
-
-            Builds.Clear();
-            foreach (var build in _buildService.Builds)
-            {
-                Builds.Add(build);
-            }
-        });
-
         return base.OnActivatedAsync(token);
     }
 
@@ -573,6 +420,7 @@ public class BuildViewModel : PoeOverlayBase
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     private void MouseLurker_MouseLeftButtonUp(object sender, EventArgs e)
     {
+        IsOpen = false;
         if (SettingsService.BuildAutoClose)
         {
             IsOpen = false;
@@ -589,7 +437,6 @@ public class BuildViewModel : PoeOverlayBase
         _playerService.PlayerChanged -= PlayerService_PlayerChanged;
         BuildSelector.BuildSelected -= BuildSelector_BuildSelected;
 
-        ClearEventHandlers();
         View.Deactivated -= View_Deactivated;
 
         return base.OnDeactivateAsync(close, token);
@@ -626,7 +473,7 @@ public class BuildViewModel : PoeOverlayBase
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The e.</param>
-    private void BuildSelector_BuildSelected(object sender, SimpleBuild e)
+    private void BuildSelector_BuildSelected(object sender, Build e)
     {
         SelectBuild(e);
     }
@@ -653,7 +500,7 @@ public class BuildViewModel : PoeOverlayBase
         {
             if (_currentBuild != null)
             {
-                e.Build.BuildId = _currentBuild.Id;
+                //e.Build.BuildId = _currentBuild.Id;
             }
 
             return;
@@ -664,170 +511,13 @@ public class BuildViewModel : PoeOverlayBase
             return;
         }
 
-        ClearBuild();
-        if (string.IsNullOrEmpty(e.Build.BuildId))
-        {
-            return;
-        }
-
         _activePlayer = e;
-        var build = _buildService.Builds.FirstOrDefault(b => b.Id == e.Build.BuildId);
+
+        var build = BuildService.Get(e.BuildPath);
         if (build != null)
         {
-            await Initialize(build.PathOfBuildingCode, false);
+            //await Initialize(build.PathOfBuildingCode, false);
         }
-        else
-        {
-            HasNoBuild = true;
-        }
-    }
-
-    /// <summary>
-    /// Clears the event handlers.
-    /// </summary>
-    private void ClearEventHandlers()
-    {
-        foreach (var skill in Skills)
-        {
-            skill.PropertyChanged -= Skill_PropertyChanged;
-        }
-
-        foreach (var item in UniqueItems)
-        {
-            item.PropertyChanged -= Item_PropertyChanged;
-        }
-    }
-
-    /// <summary>
-    /// Handles the PropertyChanged event of the Item control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
-    private void Item_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-    {
-        if (sender is not UniqueItemViewModel item || e.PropertyName != "Selected")
-        {
-            return;
-        }
-
-        if (_activePlayer == null)
-        {
-            return;
-        }
-
-        var index = UniqueItems.IndexOf(item);
-        var settings = _activePlayer.Build;
-        if (item.Selected)
-        {
-            var itemIndex = settings.ItemsSelected.IndexOf(index);
-            if (itemIndex == -1)
-            {
-                settings.ItemsSelected.Add(index);
-            }
-        }
-        else
-        {
-            bool removed;
-            do
-            {
-                removed = settings.ItemsSelected.Remove(index);
-            }
-            while (removed);
-        }
-
-        _playerService.Save();
-    }
-
-    /// <summary>
-    /// Selects the skills.
-    /// </summary>
-    /// <param name="raiseEvent">if set to <c>true</c> [raise event].</param>
-    private void SelectItems(bool raiseEvent = false)
-    {
-        if (_activePlayer == null)
-        {
-            return;
-        }
-
-        var settings = _activePlayer.Build;
-        foreach (var index in settings.SkillsSelected.ToArray())
-        {
-            if (index >= Skills.Count)
-            {
-                continue;
-            }
-
-            var selectedSKill = Skills.ElementAt(index);
-            if (selectedSKill != null)
-            {
-                selectedSKill.Selected = true;
-
-                if (raiseEvent)
-                {
-                    _eventAggregator.PublishOnUIThreadAsync(new SkillMessage() { Skill = selectedSKill.Skill });
-                }
-            }
-        }
-
-        foreach (var index in settings.ItemsSelected.ToArray())
-        {
-            if (index >= UniqueItems.Count)
-            {
-                continue;
-            }
-
-            var selectedItem = UniqueItems.ElementAt(index);
-            if (selectedItem != null)
-            {
-                selectedItem.Selected = true;
-
-                if (raiseEvent)
-                {
-                    _eventAggregator.PublishOnUIThreadAsync(new ItemMessage() { Item = selectedItem.Item });
-                }
-            }
-        }
-    }
-
-    /// <summary>
-    /// Handles the PropertyChanged event of the Skill control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
-    private void Skill_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-    {
-        if (sender is not SkillViewModel skill || e.PropertyName != "Selected")
-        {
-            return;
-        }
-
-        if (_activePlayer == null)
-        {
-            return;
-        }
-
-        var index = Skills.IndexOf(skill);
-        var settings = _activePlayer.Build;
-
-        if (skill.Selected)
-        {
-            var skillIndex = settings.SkillsSelected.IndexOf(index);
-            if (skillIndex == -1)
-            {
-                settings.SkillsSelected.Add(index);
-            }
-        }
-        else
-        {
-            bool removed;
-            do
-            {
-                removed = settings.SkillsSelected.Remove(index);
-            }
-            while (removed);
-        }
-
-        _playerService.Save();
     }
 
     /// <summary>

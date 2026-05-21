@@ -9,8 +9,6 @@ namespace PoeLurker.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Xml.Linq;
 using PoeLurker.Core.Models;
 
 /// <summary>
@@ -19,124 +17,52 @@ using PoeLurker.Core.Models;
 /// <seealso cref="PoeLurker.Core.Services.ServiceBase" />
 public class BuildService
 {
-    #region Fields
-
-    private readonly BuildManagerFile _buildManager;
-
-    #endregion
-
-    #region Constructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="BuildService"/> class.
-    /// </summary>
-    public BuildService()
-    {
-        _buildManager = new BuildManagerFile();
-        _buildManager.Initialize();
-    }
-
-    #endregion
-
     #region Methods
 
-    /// <summary>
-    /// Synchronizes this instance.
-    /// </summary>
-    public void Sync()
+    public static List<Build> Get()
     {
-        var pathOfBuildingFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Path of Building", "Builds");
-        if (Directory.Exists(pathOfBuildingFolder))
+        var builds = new List<Build>();
+        using var service = new PathOfBuildingService();
+        var folderName = "Path of Building";
+
+        if (PoeApplicationContext.Poe2)
         {
-            foreach (var file in Directory.GetFiles(pathOfBuildingFolder))
+            folderName += " (PoE2)";
+        }
+
+        var pathOfBuildingFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), folderName, "Builds");
+        foreach (var file in Directory.GetFiles(pathOfBuildingFolder, "*.xml", SearchOption.AllDirectories))
+        {
+            var fileName = Path.GetFileName(file);
+            if (fileName.StartsWith("."))
             {
-                try
-                {
-                    var fileName = Path.GetFileName(file);
-                    if (fileName.StartsWith("."))
-                    {
-                        continue;
-                    }
-
-                    var buildName = fileName.Replace(".xml", string.Empty);
-                    var existingBuild = Builds.FirstOrDefault(b => b.Name == buildName);
-                    if (existingBuild == null)
-                    {
-                        var xml = File.ReadAllText(file);
-                        var notesElement = XDocument.Parse(xml).Root.Element("Notes");
-                        var notes = string.Empty;
-                        if (notesElement != null)
-                        {
-                            notes = notesElement.Value.Trim();
-                        }
-
-                        AddBuild(new SimpleBuild() { PathOfBuildingCode = xml, Name = buildName, Notes = notes });
-                    }
-                    else
-                    {
-                        existingBuild.PathOfBuildingCode = File.ReadAllText(file);
-                    }
-                }
-                catch
-                {
-                }
+                continue;
             }
 
-            Save();
+            var build = service.Decode(File.ReadAllText(file));
+            build.Name = fileName.Replace(".xml", string.Empty);
+            build.FilePath = file;
+
+            builds.Add(build);
         }
+
+        return builds;
     }
 
-    /// <summary>
-    /// Saves the specified raise event.
-    /// </summary>
-    public void Save()
+    public static Build Get(string buildPath)
     {
-        _buildManager.Save();
-    }
+        using var service = new PathOfBuildingService();
 
-    /// <summary>
-    /// Adds the build.
-    /// </summary>
-    /// <param name="build">The build.</param>
-    /// <returns>Simple Build.</returns>
-    public SimpleBuild AddBuild(Build build)
-    {
-        var simpleBuild = new SimpleBuild()
+        if (!File.Exists(buildPath))
         {
-            PathOfBuildingCode = build.Xml,
-        };
-
-        AddBuild(simpleBuild);
-
-        return simpleBuild;
-    }
-
-    /// <summary>
-    /// Adds the build.
-    /// </summary>
-    /// <param name="build">The build.</param>
-    public void AddBuild(SimpleBuild build)
-    {
-        _buildManager.Entity.Builds.Add(build);
-    }
-
-    /// <summary>
-    /// Removes the build.
-    /// </summary>
-    /// <param name="id">The identifier.</param>
-    public void RemoveBuild(string id)
-    {
-        var build = _buildManager.Entity.Builds.FirstOrDefault(b => b.Id == id);
-        if (build != null)
-        {
-            _buildManager.Entity.Builds.Remove(build);
+            return null;
         }
-    }
 
-    /// <summary>
-    /// Gets the builds.
-    /// </summary>
-    public IEnumerable<SimpleBuild> Builds => _buildManager.Entity.Builds;
+        var build = service.Decode(File.ReadAllText(buildPath));
+        build.Name = Path.GetFileNameWithoutExtension(buildPath);
+
+        return build;
+    }
 
     #endregion
 }
