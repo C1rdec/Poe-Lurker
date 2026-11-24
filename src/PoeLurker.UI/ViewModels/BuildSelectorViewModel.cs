@@ -34,18 +34,7 @@ public class BuildSelectorViewModel : Caliburn.Micro.ActivationProcessedEventArg
     {
         _buildService = buildService;
         Builds = new ObservableCollection<BuildConfigurationViewModel>();
-
-        foreach (var build in _buildService.Get().OrderBy(b => string.IsNullOrEmpty(b.Name) ? $"{b.Class} ({b.Ascendancy})" : b.Name, StringComparer.CurrentCultureIgnoreCase))
-        {
-            var viewModel = new BuildConfigurationViewModel(build);
-
-            if (!string.IsNullOrEmpty(activeBuildPath))
-            {
-                viewModel.Selected = build.FilePath == activeBuildPath;
-            }
-
-            Builds.Add(viewModel);
-        }
+        Load(activeBuildPath);
     }
 
     #endregion
@@ -69,6 +58,31 @@ public class BuildSelectorViewModel : Caliburn.Micro.ActivationProcessedEventArg
     #endregion
 
     #region Methods
+
+    /// <summary>
+    /// Reloads the builds, keeping the current selection.
+    /// </summary>
+    public void Refresh()
+    {
+        var selectedPath = Builds.FirstOrDefault(b => b.Selected)?.Build.FilePath;
+        Builds.Clear();
+        Load(selectedPath);
+    }
+
+    private void Load(string activeBuildPath)
+    {
+        foreach (var build in _buildService.Get().OrderBy(b => string.IsNullOrEmpty(b.Name) ? $"{b.Class} ({b.Ascendancy})" : b.Name, StringComparer.CurrentCultureIgnoreCase))
+        {
+            var viewModel = new BuildConfigurationViewModel(build);
+
+            if (!string.IsNullOrEmpty(activeBuildPath))
+            {
+                viewModel.Selected = build.FilePath == activeBuildPath;
+            }
+
+            Builds.Add(viewModel);
+        }
+    }
 
     /// <summary>
     /// Updates the selected build without raising the selection event.

@@ -30,6 +30,7 @@ public class BuildViewModel : PoeOverlayBase
 
     private readonly Task _currentTask;
     private bool _isOpen;
+    private DateTime _lastBuildRefresh = DateTime.UtcNow;
     private bool _isVisible;
     private string _ascendancy;
     private bool _skillTimelineEnabled;
@@ -149,6 +150,14 @@ public class BuildViewModel : PoeOverlayBase
             {
                 _isOpen = value;
                 NotifyOfPropertyChange();
+
+                if (_isOpen && DateTime.UtcNow - _lastBuildRefresh >= TimeSpan.FromSeconds(20))
+                {
+                    _lastBuildRefresh = DateTime.UtcNow;
+                    BuildSelector?.Refresh();
+                    NotifyOfPropertyChange(nameof(HasNoBuilds));
+                    NotifyOfPropertyChange(nameof(HasNoBuildSelected));
+                }
             }
         }
     }
