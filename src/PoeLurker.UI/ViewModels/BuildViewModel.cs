@@ -178,7 +178,12 @@ public class BuildViewModel : PoeOverlayBase
     /// <summary>
     /// Gets a value indicating whether no build is selected.
     /// </summary>
-    public bool HasNoBuildSelected => BuildSelector?.Builds.Any(b => b.Selected) != true;
+    public bool HasNoBuildSelected => BuildSelector?.Builds.Count > 0 && !BuildSelector.Builds.Any(b => b.Selected);
+
+    /// <summary>
+    /// Gets a value indicating whether no build was detected.
+    /// </summary>
+    public bool HasNoBuilds => BuildSelector == null || BuildSelector.Builds.Count == 0;
 
     /// <summary>
     /// Gets or sets the skills.

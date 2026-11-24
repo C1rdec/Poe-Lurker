@@ -67,6 +67,28 @@
                             Margin="0,10,0,0"
                             Grid.Row="1" />
             <TextBlock Grid.Row="1"
+                       Margin="30,0"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontFamily="pack://application:,,,/Assets/#Fontin"
+                       FontSize="16"
+                       Foreground="#f0d0a8"
+                       Opacity="0.8"
+                       Text="No build detected. Create or import a build in Path of Building and it will show up here."
+                       TextAlignment="Center"
+                       TextWrapping="Wrap">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding HasNoBuilds}" Value="True">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+            <TextBlock Grid.Row="1"
                        Margin="20,0,20,20"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Bottom"

@@ -122,6 +122,8 @@
       <LastGenOutput>Svg.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
     </Content>
+    <Content Include="SVG\SkillGem.svg" />
+    <Content Include="SVG\PassiveSkillTree.svg" />
     <Content Include="SVG\Android.svg" />
     <Content Include="SVG\Apple.svg" />
     <Content Include="SVG\Beer.svg" />

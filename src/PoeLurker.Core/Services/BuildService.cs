@@ -43,9 +43,13 @@ public class BuildService
         var builds = new List<Build>();
         var service = _pathOfBuildingService;
         var folderName = "Path of Building (PoE2)";
-
-
         var pathOfBuildingFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), folderName, "Builds");
+
+        if (!Directory.Exists(pathOfBuildingFolder))
+        {
+            return builds;
+        }
+
         foreach (var file in Directory.GetFiles(pathOfBuildingFolder, "*.xml", SearchOption.AllDirectories))
         {
             var fileName = Path.GetFileName(file);
