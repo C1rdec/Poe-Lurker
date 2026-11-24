@@ -413,47 +413,13 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     {
         await CheckPledgeStatus();
 
-        if (_settingsService.BuildHelper)
-        {
-            if (_helpOverlay == null && PoeApplicationContext.IsRunning)
-            {
-                _helpOverlay = _container.GetInstance<HelpViewModel>();
-                _helpOverlay.Initialize(ToggleBuildHelper);
-                await ShowViewModel(_helpOverlay);
-                await ShowViewModel(_buildViewModel);
-
-                if (_skillTimelineOverlay != null && _settingsService.TimelineEnabled)
-                {
-                    await ShowViewModel(_skillTimelineOverlay);
-                }
-            }
-        }
-        else
-        {
-            if (_helpOverlay != null)
-            {
-                await DeactivateItemAsync(_helpOverlay);
-                _helpOverlay = null;
-            }
-
-            if (_buildViewModel != null)
-            {
-                await DeactivateItemAsync(_buildViewModel);
-            }
-
-            if (_skillTimelineOverlay != null)
-            {
-                await DeactivateItemAsync(_skillTimelineOverlay);
-            }
-        }
-
         if (_settingsService.IncomingTradeEnabled)
         {
             await ShowViewModel(_incomingTradeBarOverlay);
         }
         else
         {
-            await Execute.OnUIThreadAsync(() => DeactivateItemAsync(_incomingTradeBarOverlay, true, CancellationToken.None));
+            await HideViewModel(_incomingTradeBarOverlay);
         }
 
         if (_settingsService.OutgoingTradeEnabled)
@@ -462,7 +428,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
         }
         else
         {
-            await Execute.OnUIThreadAsync(() => DeactivateItemAsync(_outgoingTradeBarOverlay, true, CancellationToken.None));
+            await HideViewModel(_outgoingTradeBarOverlay);
         }
 
         if (_settingsService.HideoutEnabled)
@@ -471,8 +437,18 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
         }
         else
         {
-            await Execute.OnUIThreadAsync(() => DeactivateItemAsync(_hideoutOverlay, true, CancellationToken.None));
+            await HideViewModel(_hideoutOverlay);
         }
+    }
+
+    public Task HideViewModel(Screen item)
+    {
+        if (item != null)
+        {
+            return Execute.OnUIThreadAsync(() => DeactivateItemAsync(item, true, CancellationToken.None));
+        }
+
+        return Task.CompletedTask;
     }
 
     /// <summary>
@@ -518,20 +494,8 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
             _helpOverlay.Initialize(ToggleBuildHelper);
             _buildViewModel = _container.GetInstance<BuildViewModel>();
 
-            if (_settingsService.BuildHelper)
-            {
-                ShowViewModel(_buildViewModel);
-            }
-
-            if (_settingsService.BuildHelper)
-            {
-                if (_settingsService.TimelineEnabled)
-                {
-                    ShowViewModel(_skillTimelineOverlay);
-                }
-
-                ShowViewModel(_helpOverlay);
-            }
+            ShowViewModel(_buildViewModel);
+            ShowViewModel(_helpOverlay);
 
             if (_settingsService.IncomingTradeEnabled)
             {

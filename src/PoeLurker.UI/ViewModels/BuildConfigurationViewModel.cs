@@ -39,9 +39,10 @@ public class BuildConfigurationViewModel : Caliburn.Micro.PropertyChangedBase
     /// <param name="build">The build.</param>
     public BuildConfigurationViewModel(SimpleBuild build)
     {
+        Selected = true;
         SkillTreeInformation = new ObservableCollection<SkillTreeInformation>();
         _buildConfiguration = build;
-        Items = new ObservableCollection<UniqueItemViewModel>();
+        Items = [];
         if (PathOfBuildingService.IsInitialize)
         {
             DecodeBuild(build);
@@ -56,9 +57,17 @@ public class BuildConfigurationViewModel : Caliburn.Micro.PropertyChangedBase
         }
     }
 
+    public BuildConfigurationViewModel(Build build)
+    {
+        Ascendancy = build.Ascendancy;
+        _build = build;
+    }
+
     #endregion
 
     #region Properties
+
+    public Build Build => _build;
 
     /// <summary>
     /// Gets or sets skill trees.
@@ -88,6 +97,17 @@ public class BuildConfigurationViewModel : Caliburn.Micro.PropertyChangedBase
         private set
         {
             _ascendency = value;
+            NotifyOfPropertyChange();
+        }
+    }
+
+    public bool Selected
+    {
+        get => field;
+
+        set
+        {
+            field = value;
             NotifyOfPropertyChange();
         }
     }
@@ -133,12 +153,12 @@ public class BuildConfigurationViewModel : Caliburn.Micro.PropertyChangedBase
     {
         get
         {
-            return _buildConfiguration.Name;
+            return _build.Name;
         }
 
         set
         {
-            _buildConfiguration.Name = value;
+            _build.Name = value;
             NotifyOfPropertyChange();
             NotifyOfPropertyChange("HasBuildName");
             NotifyOfPropertyChange("HasNoBuildName");
@@ -226,6 +246,11 @@ public class BuildConfigurationViewModel : Caliburn.Micro.PropertyChangedBase
     #endregion
 
     #region Methods
+
+    public void Select()
+    {
+        Selected = true;
+    }
 
     /// <summary>
     /// Opens the tree.

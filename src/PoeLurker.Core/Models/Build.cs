@@ -27,7 +27,12 @@ public class Build
     #region Properties
 
     /// <summary>
-    /// Gets or sets the id.
+    /// Gets or sets the name associated with the current instance.
+    /// </summary>
+    public string Name { get; set; }
+
+    /// <summary>
+    /// List
     /// </summary>
     public Guid Id { get; set; }
 

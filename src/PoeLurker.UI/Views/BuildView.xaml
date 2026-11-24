@@ -20,6 +20,7 @@
     <Controls:Flyout FlowDirection="LeftToRight"
                      IsOpen="{Binding IsOpen}"
                      Position="Right"
+                     Background="Transparent"
                      TitleVisibility="Collapsed">
         <Controls:Flyout.HeaderTemplate>
             <DataTemplate />
@@ -28,254 +29,47 @@
               Height="500"
               Margin="0,-34,0,0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="30" />
+                <RowDefinition Height="auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Border Grid.RowSpan="2"
-                    Background="#252525"
-                    CornerRadius="4" />
-            <Grid>
+            <Border Grid.RowSpan="2" CornerRadius="10 0 0 10" Background="#2B2B2B"></Border>
+            <Grid Margin="0,8,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
+                <ContentControl x:Name="ActivePlayer"
+                                Margin="10,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="18" />
                 <StackPanel Grid.Column="1"
                             HorizontalAlignment="Right"
                             Orientation="Horizontal">
-                    <Controls:DropDownButton Width="100"
-                                             BorderThickness="0"
-                                             DisplayMemberPath="Name"
-                                             ItemsSource="{Binding Builds}">
-                        <Controls:DropDownButton.ItemContainerStyle>
-                            <Style BasedOn="{StaticResource {x:Type MenuItem}}" TargetType="{x:Type MenuItem}">
-                                <Setter Property="Command" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:DropDownButton}}, Path=DataContext.DataClickCommand}" />
-                                <Setter Property="CommandParameter" Value="{Binding}" />
-                            </Style>
-                        </Controls:DropDownButton.ItemContainerStyle>
-                        <Controls:DropDownButton.Content>
-                            <Grid Visibility="{Binding HasBuild, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <Image Height="50"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Source="/Assets/Assassin_avatar.png"
-                                       Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Assassin'}" />
-                                <Image Height="50"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Source="/Assets/Ascendant_avatar.png"
-                                       Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Ascendant'}" />
-                                <Image Height="50"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Source="/Assets/Berserker_avatar.png"
-                                       Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Berserker'}" />
-                                <Image Height="50"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Source="/Assets/Champion_avatar.png"
-                                       Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Champion'}" />
-                                <Image Height="50"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Source="/Assets/Chieftain_avatar.png"
-                                       Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Chieftain'}" />
-                                <Image Height="50"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Source="/Assets/Deadeye_avatar.png"
-                                       Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Deadeye'}" />
-                                <Image Height="50"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Source="/Assets/Elementalist_avatar.png"
-                                       Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Elementalist'}" />
-                                <Image Height="50"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Source="/Assets/Gladiator_avatar.png"
-                                       Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Gladiator'}" />
-                                <Image Height="50"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Source="/Assets/Guardian_avatar.png"
-                                       Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Guardian'}" />
-                                <Image Height="50"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Source="/Assets/Hierophant_avatar.png"
-                                       Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Hierophant'}" />
-                                <Image Height="50"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Source="/Assets/Inquisitor_avatar.png"
-                                       Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Inquisitor'}" />
-                                <Image Height="50"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Source="/Assets/Juggernaut_avatar.png"
-                                       Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Juggernaut'}" />
-                                <Image Height="50"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Source="/Assets/Necromancer_avatar.png"
-                                       Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Necromancer'}" />
-                                <Image Height="50"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Source="/Assets/Occultist_avatar.png"
-                                       Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Occultist'}" />
-                                <Image Height="50"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Source="/Assets/Pathfinder_avatar.png"
-                                       Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Pathfinder'}" />
-                                <Image Height="50"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Source="/Assets/Raider_avatar.png"
-                                       Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Raider'}" />
-                                <Image Height="50"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Source="/Assets/Saboteur_avatar.png"
-                                       Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Saboteur'}" />
-                                <Image Height="50"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Source="/Assets/Slayer_avatar.png"
-                                       Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Slayer'}" />
-                                <Image Height="50"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Source="/Assets/Trickster_avatar.png"
-                                       Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Trickster'}" />
-                            </Grid>
-                        </Controls:DropDownButton.Content>
-                    </Controls:DropDownButton>
                     <Button x:Name="OpenTree"
                             Width="30"
                             Height="30"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Bottom"
                             Cursor="Hand"
+                            BorderThickness="1"
                             Style="{DynamicResource MahApps.Styles.Button.Circle}"
-                            ToolTip="Passive Tree">
+                            ToolTip="Open in POB">
                         <Button.Content>
                             <local:IconPack Grid.Row="2"
                                             Width="12"
                                             Height="12"
                                             HorizontalAlignment="Right"
                                             VerticalAlignment="Bottom"
-                                            Data="{x:Static local:IconPackData.ThreeDot}"
+                                            Data="{x:Static local:IconPackData.Open}"
                                             Foreground="#af8404" />
                         </Button.Content>
                     </Button>
-                    <Button x:Name="ShowOption"
-                            Width="32"
-                            Height="32"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"
-                            BorderThickness="0"
-                            Cursor="Hand"
-                            Style="{DynamicResource MahApps.Styles.Button.Circle}"
-                            ToolTip="Option">
-                        <Button.Content>
-                            <local:IconPack Grid.Row="2"
-                                            Width="18"
-                                            Height="18"
-                                            HorizontalAlignment="Right"
-                                            VerticalAlignment="Bottom"
-                                            Data="{x:Static local:IconPackData.DotsMenu}"
-                                            Foreground="White" />
-                        </Button.Content>
-                    </Button>
                 </StackPanel>
-                <ContentControl x:Name="ActivePlayer"
-                                Margin="10,0,0,0"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                FontSize="18" />
             </Grid>
-            <Controls:MetroAnimatedTabControl Grid.Row="1"
-                                              Controls:TabControlHelper.Underlined="TabPanel"
-                                              TabStripPlacement="Top"
-                                              Visibility="{Binding HasBuild, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <TabItem Width="175" Header="Gems">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30" />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <Grid Grid.Row="1" Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" VerticalScrollBarVisibility="Hidden">
-                                <Viewbox HorizontalAlignment="Left"
-                                         Stretch="UniformToFill"
-                                         StretchDirection="DownOnly">
-                                    <ItemsControl x:Name="Skills">
-                                        <ItemsControl.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <StackPanel />
-                                            </ItemsPanelTemplate>
-                                        </ItemsControl.ItemsPanel>
-                                    </ItemsControl>
-                                </Viewbox>
-                            </ScrollViewer>
-                        </Grid>
-                    </Grid>
-                </TabItem>
-                <TabItem Width="175" Header="Items">
-                    <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                                  PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"
-                                  VerticalScrollBarVisibility="Hidden">
-                        <Viewbox HorizontalAlignment="Left"
-                                 Stretch="UniformToFill"
-                                 StretchDirection="DownOnly">
-                            <ItemsControl x:Name="UniqueItems">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel Width="340" />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                            </ItemsControl>
-                        </Viewbox>
-                    </ScrollViewer>
-                </TabItem>
-            </Controls:MetroAnimatedTabControl>
             <ContentControl x:Name="BuildSelector"
-                            Grid.Row="1"
-                            Background="Red"
-                            Visibility="{Binding HasNoBuild, Converter={StaticResource BooleanToVisibilityConverter}}" />
-            <Controls:Flyout Grid.RowSpan="2"
-                             Width="200"
-                             FlowDirection="LeftToRight"
-                             Header="Options"
-                             IsOpen="{Binding IsOptionOpen}"
-                             Position="Right">
-                <Grid Margin="10">
-                    <StackPanel>
-                        <Controls:ToggleSwitch HorizontalAlignment="Right"
-                                               IsOn="{Binding AutoCloseEnabled}"
-                                               OffContent="Auto Close"
-                                               OnContent="Auto Close" />
-                        <Controls:ToggleSwitch HorizontalAlignment="Right"
-                                               IsOn="{Binding SkillTimelineEnabled}"
-                                               OffContent="Timeline"
-                                               OnContent="Timeline" />
-                        <Controls:ToggleSwitch HorizontalAlignment="Right"
-                                               IsOn="{Binding GroupBySkill}"
-                                               OffContent="Group by skill"
-                                               OnContent="Group by skill"
-                                               Visibility="{Binding SkillTimelineEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                    </StackPanel>
-                    <Button x:Name="NewBuild"
-                            Margin="0,10,0,10"
-                            VerticalAlignment="Bottom"
-                            Cursor="Hand"
-                            Style="{DynamicResource Tag}">
-                        New Build
-                    </Button>
-                </Grid>
-            </Controls:Flyout>
+                            Margin="10,10,10,0"
+                            Grid.Row="1" />
             <Popup IsOpen="{Binding IsSkillTreeOpen}"
                    Placement="Mouse"
                    StaysOpen="False">

@@ -60,7 +60,17 @@
                                                        VerticalAlignment="Center"
                                                        FontSize="24"
                                                        Text="{Binding BuildName}"
-                                                       TextTrimming="WordEllipsis" />
+                                                       TextTrimming="WordEllipsis">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Selected}" Value="True">
+                                                                <Setter Property="Foreground" Value="red" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
                                         </Grid>
                                         <StackPanel Grid.RowSpan="2"
                                                     Grid.Column="0"
@@ -166,46 +176,6 @@
                                                             VerticalAlignment="Bottom"
                                                             cal:View.Model="{Binding Path=GemViewModel, Mode=OneWay}" />
                                         </StackPanel>
-
-
-                                        <Button Grid.Column="2"
-                                                Width="25"
-                                                HorizontalAlignment="Right"
-                                                cal:Message.Attach="[Event Click] = [Action Remove($dataContext)]"
-                                                Background="Red">
-                                            <Button.Style>
-                                                <Style TargetType="Button">
-                                                    <Setter Property="Template">
-                                                        <Setter.Value>
-                                                            <ControlTemplate TargetType="Button">
-                                                                <Border CornerRadius="0,4,0,20">
-                                                                    <Border.Style>
-                                                                        <Style TargetType="{x:Type Border}">
-                                                                            <Setter Property="Background" Value="LightGray" />
-                                                                            <Setter Property="Opacity" Value="0.25" />
-                                                                            <Style.Triggers>
-                                                                                <Trigger Property="IsMouseOver" Value="True">
-                                                                                    <Setter Property="Background" Value="Red" />
-                                                                                    <Setter Property="Opacity" Value="0.75" />
-                                                                                </Trigger>
-                                                                            </Style.Triggers>
-                                                                        </Style>
-                                                                    </Border.Style>
-                                                                </Border>
-                                                            </ControlTemplate>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="True">
-                                                            <Setter Property="Visibility" Value="Visible" />
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="False">
-                                                            <Setter Property="Visibility" Value="Collapsed" />
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Button.Style>
-                                        </Button>
                                     </Grid>
                                 </Border>
                             </ControlTemplate>
