@@ -94,6 +94,8 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
         SoundService soundService,
         WinookService winookService,
         SettingsViewModel settingsViewModel,
+        GithubService githubService,
+        PathOfBuildingService pathOfBuildingService,
         IEventAggregator eventAggregator,
         IWindowManager windowManager)
     {
@@ -107,6 +109,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
         _settingsViewModel = settingsViewModel;
 
         _openingTask = WaitForPoe(false);
+        _ = pathOfBuildingService.InitializeAsync();
         StartWithWindows = File.Exists(ShortcutFilePath);
         ShowInTaskBar = true;
         _settingsService.OnSave += SettingsService_OnSave;
@@ -355,6 +358,8 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     /// </summary>
     public async void ShowSettings()
     {
+        _container.GetInstance<BuildService>().Get();
+
         if (_settingsViewModel.IsActive)
         {
             _settingsViewModel.ActivateWindow();

@@ -6,6 +6,8 @@
 
 namespace PoeLurker.Core.Services;
 
+using PoeLurker.Core.Extensions;
+using PoeLurker.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,8 +17,6 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using PoeLurker.Core.Extensions;
-using PoeLurker.Core.Models;
 
 /// <summary>
 /// Represents the service for Path ofBuilding.
@@ -25,8 +25,33 @@ public class PathOfBuildingService : HttpServiceBase
 {
     #region Fields
 
+    private const string SkillTreeDataUrl = "https://raw.githubusercontent.com/grindinggear/poe2-skilltree-export/main/data.json";
+
+    private readonly object _initializeLock = new();
+    private readonly GithubService _githubService;
+    private Task _initializeTask;
     private List<Gem> _knownGems = [];
     private List<UniqueItem> _knownUniques = [];
+    private Dictionary<string, string> _nodeIdMap = [];
+
+    #endregion
+
+    #region Constructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PathOfBuildingService"/> class.
+    /// </summary>
+    /// <param name="githubService">The github service.</param>
+    public PathOfBuildingService(GithubService githubService)
+    {
+        _githubService = githubService;
+    }
+
+    #endregion
+
+    #region Properties
+
+    public string BuildPlannerFolder =>Path.Combine( Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "My Games", "Path of Exile 2");
 
     #endregion
 
@@ -59,14 +84,22 @@ public class PathOfBuildingService : HttpServiceBase
     /// <summary>
     /// Initializes the asynchronous.
     /// </summary>
-    /// <param name="service">The service.</param>
     /// <returns>
     /// The task awaiter.
     /// </returns>
-    public async Task InitializeAsync(GithubService service)
+    public Task InitializeAsync()
     {
-        _knownGems = await service.Gems();
-        _knownUniques = await service.Uniques();
+        lock (_initializeLock)
+        {
+            return _initializeTask ??= LoadAsync();
+        }
+    }
+
+    private async Task LoadAsync()
+    {
+        //_knownGems = await _githubService.Gems();
+        //_knownUniques = await _githubService.Uniques();
+        _nodeIdMap = await LoadNodeIdMapAsync();
         IsInitialize = true;
     }
 
@@ -89,7 +122,6 @@ public class PathOfBuildingService : HttpServiceBase
             Value = buildValue,
         };
 
-        var t = ConvertToOfficialBuild(buildValue);
         var xml = GetXml(buildValue);
         if (string.IsNullOrEmpty(xml))
         {
@@ -203,7 +235,7 @@ public class PathOfBuildingService : HttpServiceBase
     /// <param name="pobXmlOrCode">The PoB XML content or encoded build code.</param>
     /// <param name="buildName">The name for the build.</param>
     /// <returns>The path to the saved .build file, or null if conversion failed.</returns>
-    public static void SaveAsOfficialBuild(Build build)
+    public void AddToPlanner(Build build)
     {
         if (!PoeApplicationContext.Poe2)
         {
@@ -216,17 +248,23 @@ public class PathOfBuildingService : HttpServiceBase
             return;
         }
 
-        var buildPlannerFolder = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-            "My Games",
-            "Path of Exile 2",
-            "BuildPlanner");
+        if (!Directory.Exists(BuildPlannerFolder))
+        {
+            return;
+        }
 
-        Directory.CreateDirectory(buildPlannerFolder);
+        try
+        {
+            var buildPlannerFolder = Path.Combine(BuildPlannerFolder, "BuildPlanner");
+            Directory.CreateDirectory(buildPlannerFolder);
 
-        var sanitizedName = string.Join("_", build.Name.Split(Path.GetInvalidFileNameChars()));
-        var filePath = Path.Combine(buildPlannerFolder, $"{sanitizedName}.build");
-        File.WriteAllText(filePath, json);
+            var sanitizedName = string.Join("_", build.Name.Split(Path.GetInvalidFileNameChars()));
+            var filePath = Path.Combine(buildPlannerFolder, $"{sanitizedName}.build");
+            File.WriteAllText(filePath, json);
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+        }
     }
 
     /// <summary>
@@ -330,7 +368,7 @@ public class PathOfBuildingService : HttpServiceBase
     /// <param name="pobXmlOrCode">The PoB XML content or encoded build code.</param>
     /// <param name="buildName">The name for the build.</param>
     /// <returns>The JSON string in the official .build format.</returns>
-    private static string ConvertToOfficialBuild(string pobXmlOrCode, string buildName = "Imported Build")
+    private string ConvertToOfficialBuild(string pobXmlOrCode, string buildName = "Imported Build")
     {
         var xml = GetXml(pobXmlOrCode);
         if (string.IsNullOrEmpty(xml))
@@ -405,7 +443,54 @@ public class PathOfBuildingService : HttpServiceBase
         return JsonSerializer.Serialize(officialBuild, options);
     }
 
-    private static List<OfficialBuildPassive> ConvertPassives(XElement spec)
+    private async Task<Dictionary<string, string>> LoadNodeIdMapAsync()
+    {
+        var map = new Dictionary<string, string>();
+        string json;
+        try
+        {
+            json = await Client.GetStringAsync(SkillTreeDataUrl);
+        }
+        catch
+        {
+            return map;
+        }
+
+        if (string.IsNullOrEmpty(json))
+        {
+            return map;
+        }
+
+        JsonDocument document;
+        try
+        {
+            document = JsonDocument.Parse(json);
+        }
+        catch (JsonException)
+        {
+            return map;
+        }
+
+        using var _ = document;
+        if (!document.RootElement.TryGetProperty("nodes", out var nodes))
+        {
+            return map;
+        }
+
+        foreach (var node in nodes.EnumerateObject())
+        {
+            if (node.Value.ValueKind == JsonValueKind.Object
+                && node.Value.TryGetProperty("id", out var id)
+                && id.ValueKind == JsonValueKind.String)
+            {
+                map[node.Name] = id.GetString();
+            }
+        }
+
+        return map;
+    }
+
+    private List<OfficialBuildPassive> ConvertPassives(XElement spec)
     {
         var passives = new List<OfficialBuildPassive>();
         var nodesAttr = spec.Attribute("nodes");
@@ -430,7 +515,10 @@ public class PathOfBuildingService : HttpServiceBase
                 continue;
             }
 
-            var passive = new OfficialBuildPassive { Id = trimmed };
+            var passive = new OfficialBuildPassive
+            {
+                Id = _nodeIdMap.TryGetValue(trimmed, out var mappedId) ? mappedId : trimmed,
+            };
 
             if (weaponSet1Nodes.Contains(trimmed))
             {

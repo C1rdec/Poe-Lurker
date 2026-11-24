@@ -17,18 +17,33 @@ using PoeLurker.Core.Models;
 /// <seealso cref="PoeLurker.Core.Services.ServiceBase" />
 public class BuildService
 {
+    #region Fields
+
+    private readonly PathOfBuildingService _pathOfBuildingService;
+
+    #endregion
+
+    #region Constructors
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BuildService"/> class.
+    /// </summary>
+    /// <param name="pathOfBuildingService">The path of building service.</param>
+    public BuildService(PathOfBuildingService pathOfBuildingService)
+    {
+        _pathOfBuildingService = pathOfBuildingService;
+    }
+
+    #endregion
+
     #region Methods
 
-    public static List<Build> Get()
+    public List<Build> Get()
     {
         var builds = new List<Build>();
-        using var service = new PathOfBuildingService();
-        var folderName = "Path of Building";
+        var service = _pathOfBuildingService;
+        var folderName = "Path of Building (PoE2)";
 
-        if (PoeApplicationContext.Poe2)
-        {
-            folderName += " (PoE2)";
-        }
 
         var pathOfBuildingFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), folderName, "Builds");
         foreach (var file in Directory.GetFiles(pathOfBuildingFolder, "*.xml", SearchOption.AllDirectories))
@@ -49,9 +64,9 @@ public class BuildService
         return builds;
     }
 
-    public static Build Get(string buildPath)
+    public Build Get(string buildPath)
     {
-        using var service = new PathOfBuildingService();
+        var service = _pathOfBuildingService;
 
         if (!File.Exists(buildPath))
         {
@@ -62,6 +77,17 @@ public class BuildService
         build.Name = Path.GetFileNameWithoutExtension(buildPath);
 
         return build;
+    }
+
+    public void AddToPlanner(Build build)
+    {
+        var service = _pathOfBuildingService;
+        if (!File.Exists(build.FilePath))
+        {
+            return;
+        }
+
+        service.AddToPlanner(build);
     }
 
     #endregion

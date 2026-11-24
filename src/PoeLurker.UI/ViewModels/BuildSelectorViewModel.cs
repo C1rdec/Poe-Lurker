@@ -34,7 +34,7 @@ public class BuildSelectorViewModel : Caliburn.Micro.ActivationProcessedEventArg
         _buildService = buildService;
         Builds = new ObservableCollection<BuildConfigurationViewModel>();
 
-        foreach (var build in BuildService.Get())
+        foreach (var build in _buildService.Get())
         {
             var viewModel = new BuildConfigurationViewModel(build);
 

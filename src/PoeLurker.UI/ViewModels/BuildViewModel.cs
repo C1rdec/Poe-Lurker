@@ -40,6 +40,7 @@ public class BuildViewModel : PoeOverlayBase
     private Build _currentBuild;
     private readonly SettingsViewModel _settings;
     private readonly GithubService _githubService;
+    private readonly PathOfBuildingService _pathOfBuildingService;
     private readonly MouseLurker _mouseLurker;
     private bool _isSkillTreeOpen;
 
@@ -59,9 +60,20 @@ public class BuildViewModel : PoeOverlayBase
     /// <param name="settingsViewModel">The settings view model.</param>
     /// <param name="githubService">The github service.</param>
     /// <param name="mouseLurker">The mouse lurker.</param>
-    public BuildViewModel(DockingHelper dockingHelper, ProcessService processLurker, SettingsService settingsService, BuildService buildService, PlayerService playerService, SettingsViewModel settingsViewModel, GithubService githubService, MouseLurker mouseLurker)
+    /// <param name="pathOfBuildingService">The path of building service.</param>
+    public BuildViewModel(
+        DockingHelper dockingHelper, 
+        ProcessService processLurker, 
+        SettingsService settingsService, 
+        BuildService buildService, 
+        PlayerService playerService, 
+        SettingsViewModel settingsViewModel, 
+        GithubService githubService, 
+        MouseLurker mouseLurker, 
+        PathOfBuildingService pathOfBuildingService)
         : base(dockingHelper, processLurker, settingsService)
     {
+        _pathOfBuildingService = pathOfBuildingService;
         _settings = settingsViewModel;
         _playerService = playerService;
         _buildService = buildService;
@@ -275,6 +287,9 @@ public class BuildViewModel : PoeOverlayBase
         {
             _activePlayer.BuildPath = build.FilePath;
             _playerService.Save();
+
+            // Add the build to POE 2 Build Planner
+            _pathOfBuildingService.AddToPlanner(build);
         }
 
         IsOpen = false;
@@ -352,9 +367,8 @@ public class BuildViewModel : PoeOverlayBase
 
         try
         {
-            using var service = new PathOfBuildingService();
-            await service.InitializeAsync(_githubService);
-            Build = service.Decode(buildValue);
+            await _pathOfBuildingService.InitializeAsync();
+            Build = _pathOfBuildingService.Decode(buildValue);
 
             SkillTreeInformation.Clear();
 
@@ -453,7 +467,7 @@ public class BuildViewModel : PoeOverlayBase
         {
             View.Height = ApplyAbsoluteScalingY(500);
             View.Width = ApplyAbsoluteScalingX(350);
-            View.Left = ApplyScalingX(windowInformation.Position.Right - 350);
+            View.Left = ApplyScalingX(windowInformation.Position.Right - 383);
             View.Top = ApplyScalingY(windowInformation.Position.Bottom - value - 500);
         });
     }
@@ -513,7 +527,7 @@ public class BuildViewModel : PoeOverlayBase
 
         _activePlayer = e;
 
-        var build = BuildService.Get(e.BuildPath);
+        var build = _buildService.Get(e.BuildPath);
         if (build != null)
         {
             //await Initialize(build.PathOfBuildingCode, false);
