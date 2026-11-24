@@ -51,14 +51,6 @@ public class HelpViewModel : PoeOverlayBase
     /// <summary>
     /// Helps this instance.
     /// </summary>
-    public void Help()
-    {
-        //_onClick?.Invoke();
-    }
-
-    /// <summary>
-    /// Helps this instance.
-    /// </summary>
     /// <param name="onClick">The on click.</param>
     public void Initialize(System.Action onClick)
     {
