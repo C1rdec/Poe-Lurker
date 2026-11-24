@@ -667,7 +667,6 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto" />
                         <RowDefinition />
-                        <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
                     <Label Grid.ColumnSpan="2"
                            Content="Lurker Pro"
@@ -679,7 +678,7 @@
                         <TextBlock FontSize="16"
                                    TextAlignment="Left"
                                    TextWrapping="Wrap">
-                            Upgrade to Lurker Pro to enjoy exciting new features while supporting the program. You can also show your support by setting a simple 'Powered by' message after completing a trade below.
+                            Lurker Pro is a way to support Poe Lurker and help keep the project growing. Your pledge helps cover ongoing development, maintenance, and updates for everyone.
                         </TextBlock>
                         <TextBlock Margin="0,10,0,0"
                                    FontSize="16"
@@ -773,84 +772,6 @@
                             Become a patron
                         </Button>
                     </StackPanel>
-                    <Grid Grid.Row="2"
-                          Height="70"
-                          IsEnabled="{Binding Pledging}">
-                        <StackPanel Margin="30,0,0,0" Orientation="Horizontal">
-                            <Controls:ToggleSwitch Margin="0,0,-25,0"
-                                                   Header="Item Lurker"
-                                                   IsOn="{Binding SearchEnabled}" />
-                            <Controls:ToggleSwitch Margin="0,0,-25,0"
-                                                   Header="Map Lurker"
-                                                   IsOn="{Binding MapEnabled}" />
-                            <Grid Margin="0,0,-25,0">
-                                <Button x:Name="OpenDashboard"
-                                        Grid.Column="1"
-                                        Width="30"
-                                        Height="30"
-                                        Margin="25,-46,0,0"
-                                        BorderThickness="0"
-                                        Cursor="Hand"
-                                        Style="{DynamicResource MahApps.Styles.Button.Circle}"
-                                        ToolTip="Open"
-                                        Visibility="{Binding HasYoutube, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                    <Button.Content>
-                                        <local:IconPack Grid.Row="2"
-                                                        Width="15"
-                                                        Height="15"
-                                                        HorizontalAlignment="Right"
-                                                        VerticalAlignment="Bottom"
-                                                        Data="{x:Static local:IconPackData.Open}"
-                                                        Foreground="{DynamicResource MahApps.Brushes.Accent}" />
-                                    </Button.Content>
-                                </Button>
-                                <Controls:ToggleSwitch Margin="0,0,0,0"
-                                                       Header="Dashboard"
-                                                       IsOn="{Binding DashboardEnabled}" />
-                            </Grid>
-
-
-                            <Button x:Name="OpenPushBullet"
-                                    VerticalAlignment="Center"
-                                    Background="#42a66e"
-                                    BorderThickness="0"
-                                    Cursor="Hand">
-                                <Button.Content>
-                                    <StackPanel Margin="8,4,8,4" Orientation="Horizontal">
-                                        <local:IconPack Grid.Row="2"
-                                                        Width="25"
-                                                        Height="30"
-                                                        HorizontalAlignment="Right"
-                                                        VerticalAlignment="Center"
-                                                        Data="{x:Static local:IconPackData.Cellphone}"
-                                                        Foreground="White" />
-                                        <TextBlock Margin="8,0,0,0"
-                                                   VerticalAlignment="Center"
-                                                   FontSize="18">
-                                            Notifications
-                                        </TextBlock>
-                                    </StackPanel>
-
-                                </Button.Content>
-                            </Button>
-                        </StackPanel>
-                    </Grid>
-                    <Controls:Flyout Grid.RowSpan="3"
-                                     Width="225"
-                                     BorderBrush="Gray"
-                                     BorderThickness="1,0,0,0"
-                                     FlowDirection="LeftToRight"
-                                     IsOpen="{Binding IsPushBulletOpen}"
-                                     Position="Right">
-                        <Controls:Flyout.Header>
-                            <ComboBox x:Name="PushProviders"
-                                      HorizontalAlignment="Left"
-                                      BorderThickness="0"
-                                      DisplayMemberPath="ProviderName"
-                                      FontSize="20" />
-                        </Controls:Flyout.Header>
-                        <ContentControl x:Name="PushProviderViewModel" />
-                    </Controls:Flyout>
                 </Grid>
             </TabItem>
         </Controls:MetroAnimatedTabControl>

@@ -1,6 +1,6 @@
 ---
 name: caliburn-micro-wpf
-description: Use when creating or modifying WPF Views, ViewModels, bindings, actions, or bootstrapper code with Caliburn.Micro. Applies Caliburn.Micro naming and binding conventions instead of manual bindings or code-behind.
+description: Use when creating, modifying, or cleaning up WPF Views and related ViewModels, bindings, actions, or bootstrapper code with Caliburn.Micro. Applies Caliburn.Micro naming and binding conventions (including view-driven ViewModel cleanup) instead of manual bindings or code-behind.
 ---
 
 # Caliburn.Micro WPF Conventions
