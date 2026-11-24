@@ -7,11 +7,12 @@
 namespace PoeLurker.Core.Models;
 
 using System.Collections.Generic;
+using Lurker.AppData;
 
 /// <summary>
 /// Represents the build manager.
 /// </summary>
-public sealed class BuildManager
+public class BuildManager : AppDataFileBase<BuildManager>
 {
     public BuildManager()
     {
@@ -23,7 +24,11 @@ public sealed class BuildManager
     /// <summary>
     /// Gets or sets the build.
     /// </summary>
-    public List<SimpleBuild> Builds { get; set; }
+    public List<BuildSettings> Builds { get; set; }
+
+    protected override string FileName => "BuildSettings.json";
+
+    protected override string FolderName => "PoeLurker";
 
     #endregion
 }

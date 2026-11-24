@@ -30,7 +30,7 @@ public sealed class Player
     /// <summary>
     /// Gets or sets the build.
     /// </summary>
-    public BuildHelperSettings Build { get; set; }
+    public string BuildPath { get; set; }
 
     /// <summary>
     /// Gets or sets the ignored map mods.
@@ -68,9 +68,9 @@ public sealed class Player
     /// Sets the build.
     /// </summary>
     /// <param name="id">The identifier.</param>
-    public void SetBuild(string id)
+    public void SetBuild(string buildPath)
     {
-        Build.BuildId = id;
+        BuildPath = buildPath;
     }
 
     #endregion

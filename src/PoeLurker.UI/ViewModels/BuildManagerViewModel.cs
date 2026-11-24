@@ -49,7 +49,6 @@ public class BuildManagerViewModel : Caliburn.Micro.PropertyChangedBase
         _buildService = IoC.Get<BuildService>();
         _showMessage = showMessage;
         _configurations = new ObservableCollection<BuildConfigurationViewModel>();
-        _context = new BuildManagerContext(Remove, Open);
         _githubService = service;
     }
 
@@ -119,68 +118,6 @@ public class BuildManagerViewModel : Caliburn.Micro.PropertyChangedBase
     #region Methods
 
     /// <summary>
-    /// Adds this instance.
-    /// </summary>
-    public async void Add()
-    {
-        var text = ClipboardHelper.GetClipboardText();
-        if (Uri.TryCreate(text, UriKind.Absolute, out var url))
-        {
-            var rawUri = new Uri($"https://pastebin.com/raw{url.AbsolutePath}");
-            using (var client = new HttpClient())
-            {
-                var request = new HttpRequestMessage(HttpMethod.Get, rawUri);
-                var response = await client.SendAsync(request);
-                text = await response.Content.ReadAsStringAsync();
-            }
-        }
-
-        if (string.IsNullOrEmpty(text) || !PathOfBuildingService.IsValid(text))
-        {
-            await ShowError();
-            return;
-        }
-
-        using (var service = new PathOfBuildingService())
-        {
-            await service.InitializeAsync(_githubService);
-            try
-            {
-                var build = service.Decode(text);
-                var simpleBuild = _buildService.AddBuild(build);
-                _buildService.Save();
-                Configurations.Insert(0, new BuildConfigurationViewModel(simpleBuild));
-            }
-            catch
-            {
-                await ShowError();
-            }
-        }
-    }
-
-    /// <summary>
-    /// Populates the builds.
-    /// </summary>
-    public void PopulateBuilds()
-    {
-        Execute.OnUIThread(() => _configurations.Clear());
-        foreach (var build in _buildService.Builds.OrderBy(b => b.Name))
-        {
-            var viewModel = new BuildConfigurationViewModel(build);
-            Execute.OnUIThread(() => _configurations.Add(viewModel));
-        }
-    }
-
-    /// <summary>
-    /// Shows the error.
-    /// </summary>
-    /// <returns>Task.</returns>
-    private Task ShowError()
-    {
-        return _showMessage("Oops!", "You need to have a POB code in the clipboard.", MessageDialogStyle.Affirmative);
-    }
-
-    /// <summary>
     /// Opens the specified configuration.
     /// </summary>
     /// <param name="configuration">The configuration.</param>
@@ -194,31 +131,6 @@ public class BuildManagerViewModel : Caliburn.Micro.PropertyChangedBase
 
         IsFlyoutOpen = true;
         SelectedConfiguration = configuration;
-    }
-
-    /// <summary>
-    /// Raises the Close event.
-    /// </summary>
-    public void OnClose()
-    {
-        _buildService.Save();
-    }
-
-    /// <summary>
-    /// Removes the specified configuration.
-    /// </summary>
-    /// <param name="configuration">The configuration.</param>
-    public async void Remove(BuildConfigurationViewModel configuration)
-    {
-        _skipOpen = true;
-        var result = await _showMessage("Are you sure?", $"You are about to delete {configuration.BuildName}", MessageDialogStyle.AffirmativeAndNegative);
-
-        if (result == MessageDialogResult.Affirmative)
-        {
-            Configurations.Remove(configuration);
-            _buildService.RemoveBuild(configuration.Id);
-            _buildService.Save();
-        }
     }
 
     #endregion

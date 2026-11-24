@@ -34,7 +34,7 @@ public class BuildSelectorViewModel : Caliburn.Micro.ActivationProcessedEventArg
         _buildService = buildService;
         Builds = new ObservableCollection<BuildConfigurationViewModel>();
 
-        foreach (var build in BuildService.Get(PoeApplicationContext.Poe2))
+        foreach (var build in BuildService.Get())
         {
             Builds.Add(new BuildConfigurationViewModel(build));
         }
