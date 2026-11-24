@@ -330,8 +330,7 @@ public class BuildViewModel : PoeOverlayBase
 
     private void WatchBuild(string buildPath)
     {
-        _buildWatcher?.Dispose();
-        _buildWatcher = null;
+        StopWatchingBuild();
 
         if (string.IsNullOrEmpty(buildPath) || !System.IO.File.Exists(buildPath))
         {
@@ -356,6 +355,21 @@ public class BuildViewModel : PoeOverlayBase
         }
     }
 
+    private void StopWatchingBuild()
+    {
+        if (_buildWatcher != null)
+        {
+            _buildWatcher.Changed -= BuildWatcher_Changed;
+            _buildWatcher.Created -= BuildWatcher_Changed;
+            _buildWatcher.Renamed -= BuildWatcher_Changed;
+            _buildWatcher.Dispose();
+            _buildWatcher = null;
+        }
+
+        _buildWatcherTimer?.Dispose();
+        _buildWatcherTimer = null;
+    }
+
     private void BuildWatcher_Changed(object sender, System.IO.FileSystemEventArgs e)
     {
         // Debounce: Path of Building can raise several events per save.
@@ -367,7 +381,7 @@ public class BuildViewModel : PoeOverlayBase
     {
         try
         {
-            if (_activePlayer?.BuildPath != path && _currentBuild?.FilePath != path)
+            if (!IsSamePath(_activePlayer?.BuildPath, path) && !IsSamePath(_currentBuild?.FilePath, path))
             {
                 return;
             }
@@ -503,6 +517,25 @@ public class BuildViewModel : PoeOverlayBase
         _eventAggregator.PublishOnUIThreadAsync(_settings);
     }
 
+    private static bool IsSamePath(string leftPath, string rightPath)
+    {
+        if (string.IsNullOrWhiteSpace(leftPath) || string.IsNullOrWhiteSpace(rightPath))
+        {
+            return false;
+        }
+
+        try
+        {
+            leftPath = System.IO.Path.GetFullPath(leftPath);
+            rightPath = System.IO.Path.GetFullPath(rightPath);
+        }
+        catch (Exception ex) when (ex is ArgumentException or System.IO.IOException)
+        {
+        }
+
+        return string.Equals(leftPath, rightPath, StringComparison.OrdinalIgnoreCase);
+    }
+
     /// <summary>
     /// Called when activating.
     /// </summary>
@@ -511,6 +544,7 @@ public class BuildViewModel : PoeOverlayBase
         _mouseLurker.MouseLeftButtonUp += MouseLurker_MouseLeftButtonUp;
         BuildSelector.BuildSelected += BuildSelector_BuildSelected;
         _playerService.PlayerChanged += PlayerService_PlayerChanged;
+        WatchBuild(_activePlayer?.BuildPath);
         if (View != null)
         {
             View.Deactivated += View_Deactivated;
@@ -542,6 +576,7 @@ public class BuildViewModel : PoeOverlayBase
         _mouseLurker.MouseLeftButtonUp -= MouseLurker_MouseLeftButtonUp;
         _playerService.PlayerChanged -= PlayerService_PlayerChanged;
         BuildSelector.BuildSelected -= BuildSelector_BuildSelected;
+        StopWatchingBuild();
 
         View.Deactivated -= View_Deactivated;
 
