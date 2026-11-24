@@ -44,6 +44,8 @@ public class BuildViewModel : PoeOverlayBase
     private readonly PathOfBuildingService _pathOfBuildingService;
     private readonly MouseLurker _mouseLurker;
     private bool _isSkillTreeOpen;
+    private System.IO.FileSystemWatcher _buildWatcher;
+    private System.Threading.Timer _buildWatcherTimer;
 
     #endregion
 
@@ -96,6 +98,17 @@ public class BuildViewModel : PoeOverlayBase
         ActivePlayer = new PlayerViewModel(playerService);
 
         BuildSelector = new BuildSelectorViewModel(buildService, _activePlayer?.BuildPath);
+        WatchBuild(_activePlayer?.BuildPath);
+
+        var launchPath = _activePlayer?.BuildPath;
+        if (!string.IsNullOrEmpty(launchPath) && System.IO.File.Exists(launchPath))
+        {
+            var plannerFile = _pathOfBuildingService.GetPlannerFilePath(System.IO.Path.GetFileNameWithoutExtension(launchPath));
+            if (!System.IO.File.Exists(plannerFile) || System.IO.File.GetLastWriteTimeUtc(plannerFile) < System.IO.File.GetLastWriteTimeUtc(launchPath))
+            {
+                Task.Run(() => RefreshWatchedBuild(launchPath));
+            }
+        }
     }
 
     #endregion
@@ -311,7 +324,67 @@ public class BuildViewModel : PoeOverlayBase
             _pathOfBuildingService.AddToPlanner(build);
         }
 
+        WatchBuild(build?.FilePath);
         IsOpen = false;
+    }
+
+    private void WatchBuild(string buildPath)
+    {
+        _buildWatcher?.Dispose();
+        _buildWatcher = null;
+
+        if (string.IsNullOrEmpty(buildPath) || !System.IO.File.Exists(buildPath))
+        {
+            return;
+        }
+
+        try
+        {
+            var watcher = new System.IO.FileSystemWatcher(System.IO.Path.GetDirectoryName(buildPath), System.IO.Path.GetFileName(buildPath))
+            {
+                NotifyFilter = System.IO.NotifyFilters.LastWrite | System.IO.NotifyFilters.Size | System.IO.NotifyFilters.FileName,
+            };
+
+            watcher.Changed += BuildWatcher_Changed;
+            watcher.Created += BuildWatcher_Changed;
+            watcher.Renamed += BuildWatcher_Changed;
+            watcher.EnableRaisingEvents = true;
+            _buildWatcher = watcher;
+        }
+        catch (Exception ex) when (ex is ArgumentException or System.IO.IOException)
+        {
+        }
+    }
+
+    private void BuildWatcher_Changed(object sender, System.IO.FileSystemEventArgs e)
+    {
+        // Debounce: Path of Building can raise several events per save.
+        _buildWatcherTimer?.Dispose();
+        _buildWatcherTimer = new System.Threading.Timer(_ => RefreshWatchedBuild(e.FullPath), null, 500, System.Threading.Timeout.Infinite);
+    }
+
+    private void RefreshWatchedBuild(string path)
+    {
+        try
+        {
+            if (_activePlayer?.BuildPath != path && _currentBuild?.FilePath != path)
+            {
+                return;
+            }
+
+            var build = _buildService.Get(path);
+            if (build == null)
+            {
+                return;
+            }
+
+            build.FilePath = path;
+            _currentBuild = build;
+            _pathOfBuildingService.AddToPlanner(build);
+        }
+        catch (Exception ex) when (ex is System.IO.IOException or System.Xml.XmlException)
+        {
+        }
     }
 
     /// <summary>
@@ -536,6 +609,12 @@ public class BuildViewModel : PoeOverlayBase
         {
             BuildSelector.SetSelected(e?.BuildPath);
             _currentBuild = _buildService.Get(e?.BuildPath);
+            if (_currentBuild != null)
+            {
+                _currentBuild.FilePath = e.BuildPath;
+            }
+
+            WatchBuild(e?.BuildPath);
             NotifyOfPropertyChange(() => HasNoBuildSelected);
             DockingHelper.SetForeground();
         });

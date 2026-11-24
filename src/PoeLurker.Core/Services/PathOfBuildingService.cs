@@ -58,6 +58,17 @@ public class PathOfBuildingService : HttpServiceBase
     #region Methods
 
     /// <summary>
+    /// Gets the Build Planner .build file path for a build name.
+    /// </summary>
+    /// <param name="buildName">The build name.</param>
+    /// <returns>The .build file path.</returns>
+    public string GetPlannerFilePath(string buildName)
+    {
+        var sanitizedName = string.Join("_", buildName.Split(Path.GetInvalidFileNameChars()));
+        return Path.Combine(BuildPlannerFolder, "BuildPlanner", $"{sanitizedName}.build");
+    }
+
+    /// <summary>
     /// Validate the build.
     /// </summary>
     /// <param name="value">the value.</param>
@@ -258,9 +269,7 @@ public class PathOfBuildingService : HttpServiceBase
             var buildPlannerFolder = Path.Combine(BuildPlannerFolder, "BuildPlanner");
             Directory.CreateDirectory(buildPlannerFolder);
 
-            var sanitizedName = string.Join("_", build.Name.Split(Path.GetInvalidFileNameChars()));
-            var filePath = Path.Combine(buildPlannerFolder, $"{sanitizedName}.build");
-            File.WriteAllText(filePath, json);
+            File.WriteAllText(GetPlannerFilePath(build.Name), json);
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
