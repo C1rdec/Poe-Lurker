@@ -9,6 +9,8 @@ namespace PoeLurker.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using PoeLurker.Core.Models;
 
 /// <summary>
@@ -38,7 +40,14 @@ public class BuildService
 
     #region Methods
 
-    public List<Build> Get()
+    public const int DefaultRecentCount = 100;
+
+    public Task<List<Build>> GetAsync(int skip = 0, int count = DefaultRecentCount)
+    {
+        return Task.Run(() => Get(skip, count));
+    }
+
+    public List<Build> Get(int skip = 0, int count = DefaultRecentCount)
     {
         var builds = new List<Build>();
         var service = _pathOfBuildingService;
@@ -50,20 +59,25 @@ public class BuildService
             return builds;
         }
 
-        foreach (var file in Directory.GetFiles(pathOfBuildingFolder, "*.xml", SearchOption.AllDirectories))
+        var files = new DirectoryInfo(pathOfBuildingFolder)
+            .EnumerateFiles("*.xml", SearchOption.AllDirectories)
+            .Where(f => !f.Name.StartsWith("."))
+            .OrderByDescending(f => f.LastWriteTimeUtc)
+            .Skip(skip)
+            .Take(count)
+            .ToList();
+
+        var results = new Build[files.Count];
+        Parallel.For(0, files.Count, i =>
         {
-            var fileName = Path.GetFileName(file);
-            if (fileName.StartsWith("."))
-            {
-                continue;
-            }
+            var file = files[i];
+            var build = service.Decode(File.ReadAllText(file.FullName));
+            build.Name = file.Name.Replace(".xml", string.Empty);
+            build.FilePath = file.FullName;
+            results[i] = build;
+        });
 
-            var build = service.Decode(File.ReadAllText(file));
-            build.Name = fileName.Replace(".xml", string.Empty);
-            build.FilePath = file;
-
-            builds.Add(build);
-        }
+        builds.AddRange(results);
 
         return builds;
     }

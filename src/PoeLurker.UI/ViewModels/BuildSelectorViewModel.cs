@@ -21,6 +21,7 @@ public class BuildSelectorViewModel : Caliburn.Micro.ActivationProcessedEventArg
     #region Fields
 
     private readonly BuildService _buildService;
+    private bool _hasMore = true;
 
     #endregion
 
@@ -66,12 +67,29 @@ public class BuildSelectorViewModel : Caliburn.Micro.ActivationProcessedEventArg
     {
         var selectedPath = Builds.FirstOrDefault(b => b.Selected)?.Build.FilePath;
         Builds.Clear();
+        _hasMore = true;
         Load(selectedPath);
+    }
+
+    /// <summary>
+    /// Loads the next builds and appends them to the list.
+    /// </summary>
+    public void LoadMore()
+    {
+        if (!_hasMore)
+        {
+            return;
+        }
+
+        Load(Builds.FirstOrDefault(b => b.Selected)?.Build.FilePath);
     }
 
     private void Load(string activeBuildPath)
     {
-        foreach (var build in _buildService.Get().OrderBy(b => string.IsNullOrEmpty(b.Name) ? $"{b.Class} ({b.Ascendancy})" : b.Name, StringComparer.CurrentCultureIgnoreCase))
+        var builds = _buildService.Get(Builds.Count, BuildService.DefaultRecentCount);
+        _hasMore = builds.Count == BuildService.DefaultRecentCount;
+
+        foreach (var build in builds)
         {
             var viewModel = new BuildConfigurationViewModel(build);
 
