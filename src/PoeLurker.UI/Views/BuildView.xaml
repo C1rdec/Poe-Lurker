@@ -43,10 +43,51 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="18" />
+                <TextBlock Grid.ColumnSpan="2"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontFamily="pack://application:,,,/Assets/#Fontin"
+                           FontSize="16"
+                           Foreground="#f0d0a8"
+                           Opacity="0.8"
+                           Text="Detecting players when leveling...">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ActivePlayer.HasNoPlayer}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
             </Grid>
             <ContentControl x:Name="BuildSelector"
                             Margin="0,10,0,0"
                             Grid.Row="1" />
+            <TextBlock Grid.Row="1"
+                       Margin="20,0,20,20"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Bottom"
+                       FontFamily="pack://application:,,,/Assets/#Fontin"
+                       FontSize="16"
+                       Foreground="#f0d0a8"
+                       Opacity="0.8"
+                       Text="Select a build to get started"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding HasNoBuildSelected}" Value="True">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
             <Popup IsOpen="{Binding IsSkillTreeOpen}"
                    Placement="Mouse"
                    StaysOpen="False">

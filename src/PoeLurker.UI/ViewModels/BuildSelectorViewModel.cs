@@ -8,6 +8,7 @@ namespace PoeLurker.UI.ViewModels;
 
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using PoeLurker.Core.Models;
 using PoeLurker.Core.Services;
 
@@ -34,7 +35,7 @@ public class BuildSelectorViewModel : Caliburn.Micro.ActivationProcessedEventArg
         _buildService = buildService;
         Builds = new ObservableCollection<BuildConfigurationViewModel>();
 
-        foreach (var build in _buildService.Get())
+        foreach (var build in _buildService.Get().OrderBy(b => string.IsNullOrEmpty(b.Name) ? $"{b.Class} ({b.Ascendancy})" : b.Name, StringComparer.CurrentCultureIgnoreCase))
         {
             var viewModel = new BuildConfigurationViewModel(build);
 
@@ -68,6 +69,18 @@ public class BuildSelectorViewModel : Caliburn.Micro.ActivationProcessedEventArg
     #endregion
 
     #region Methods
+
+    /// <summary>
+    /// Updates the selected build without raising the selection event.
+    /// </summary>
+    /// <param name="buildPath">The build path.</param>
+    public void SetSelected(string buildPath)
+    {
+        foreach (var build in Builds)
+        {
+            build.Selected = !string.IsNullOrEmpty(buildPath) && build.Build.FilePath == buildPath;
+        }
+    }
 
     /// <summary>
     /// Selects the specified build.

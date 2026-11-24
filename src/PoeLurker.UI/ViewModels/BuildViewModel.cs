@@ -176,6 +176,11 @@ public class BuildViewModel : PoeOverlayBase
     public PlayerViewModel ActivePlayer { get; private set; }
 
     /// <summary>
+    /// Gets a value indicating whether no build is selected.
+    /// </summary>
+    public bool HasNoBuildSelected => BuildSelector?.Builds.Any(b => b.Selected) != true;
+
+    /// <summary>
     /// Gets or sets the skills.
     /// </summary>
     public ObservableCollection<SkillViewModel> Skills { get; set; }
@@ -490,6 +495,7 @@ public class BuildViewModel : PoeOverlayBase
     private void BuildSelector_BuildSelected(object sender, Build e)
     {
         SelectBuild(e);
+        NotifyOfPropertyChange(() => HasNoBuildSelected);
     }
 
     /// <summary>
@@ -507,31 +513,16 @@ public class BuildViewModel : PoeOverlayBase
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The e.</param>
-    private async void PlayerService_PlayerChanged(object sender, Player e)
+    private void PlayerService_PlayerChanged(object sender, Player e)
     {
-        // First Character
-        if (_activePlayer == null)
-        {
-            if (_currentBuild != null)
-            {
-                //e.Build.BuildId = _currentBuild.Id;
-            }
-
-            return;
-        }
-
-        if (_activePlayer.Name == e.Name)
-        {
-            return;
-        }
-
         _activePlayer = e;
 
-        var build = _buildService.Get(e.BuildPath);
-        if (build != null)
+        Execute.OnUIThread(() =>
         {
-            //await Initialize(build.PathOfBuildingCode, false);
-        }
+            BuildSelector.SetSelected(e?.BuildPath);
+            _currentBuild = _buildService.Get(e?.BuildPath);
+            NotifyOfPropertyChange(() => HasNoBuildSelected);
+        });
     }
 
     /// <summary>
