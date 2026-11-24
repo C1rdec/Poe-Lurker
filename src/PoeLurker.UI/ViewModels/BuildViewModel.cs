@@ -501,6 +501,7 @@ public class BuildViewModel : PoeOverlayBase
     {
         SelectBuild(e);
         NotifyOfPropertyChange(() => HasNoBuildSelected);
+        DockingHelper.SetForeground();
     }
 
     /// <summary>
@@ -527,6 +528,7 @@ public class BuildViewModel : PoeOverlayBase
             BuildSelector.SetSelected(e?.BuildPath);
             _currentBuild = _buildService.Get(e?.BuildPath);
             NotifyOfPropertyChange(() => HasNoBuildSelected);
+            DockingHelper.SetForeground();
         });
     }
 
