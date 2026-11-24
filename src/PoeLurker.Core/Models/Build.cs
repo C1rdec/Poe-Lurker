@@ -31,6 +31,8 @@ public class Build
     /// </summary>
     public string Name { get; set; }
 
+    public string FilePath { get; set; }
+
     /// <summary>
     /// List
     /// </summary>

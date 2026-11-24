@@ -29,14 +29,21 @@ public class BuildSelectorViewModel : Caliburn.Micro.ActivationProcessedEventArg
     /// Initializes a new instance of the <see cref="BuildSelectorViewModel"/> class.
     /// </summary>
     /// <param name="buildService">The build service.</param>
-    public BuildSelectorViewModel(BuildService buildService)
+    public BuildSelectorViewModel(BuildService buildService, string activeBuildPath)
     {
         _buildService = buildService;
         Builds = new ObservableCollection<BuildConfigurationViewModel>();
 
         foreach (var build in BuildService.Get())
         {
-            Builds.Add(new BuildConfigurationViewModel(build));
+            var viewModel = new BuildConfigurationViewModel(build);
+
+            if (!string.IsNullOrEmpty(activeBuildPath))
+            {
+                viewModel.Selected = build.FilePath == activeBuildPath;
+            }
+
+            Builds.Add(viewModel);
         }
     }
 

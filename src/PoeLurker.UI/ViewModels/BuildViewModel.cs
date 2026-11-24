@@ -76,13 +76,13 @@ public class BuildViewModel : PoeOverlayBase
 
         _mouseLurker = mouseLurker;
 
-        // TODO : Set current build fromm player  
+        // TODO : Set current build from player  
 
         IsVisible = true;
 
         ActivePlayer = new PlayerViewModel(playerService);
 
-        BuildSelector = new BuildSelectorViewModel(buildService);
+        BuildSelector = new BuildSelectorViewModel(buildService, _activePlayer?.BuildPath);
     }
 
     #endregion
@@ -273,8 +273,8 @@ public class BuildViewModel : PoeOverlayBase
         _currentBuild = build;
         if (_activePlayer != null)
         {
-            //_activePlayer.SetBuild(build.Id);
-            //_playerService.Save();
+            _activePlayer.BuildPath = build.FilePath;
+            _playerService.Save();
         }
 
         IsOpen = false;
