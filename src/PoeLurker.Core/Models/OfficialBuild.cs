@@ -33,9 +33,9 @@ public class OfficialBuild
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public List<OfficialBuildSkill> Skills { get; set; }
 
-    [JsonPropertyName("items")]
+    [JsonPropertyName("inventory_slots")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<OfficialBuildItem> Items { get; set; }
+    public List<OfficialBuildItem> InventorySlots { get; set; }
 }
 
 /// <summary>

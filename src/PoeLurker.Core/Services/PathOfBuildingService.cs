@@ -436,11 +436,11 @@ public class PathOfBuildingService : HttpServiceBase
             officialBuild.Skills = ConvertSkills(skillsElement);
         }
 
-        // Items
+        // Inventory slots
         var itemsElement = document.Root.Element("Items");
         if (itemsElement != null)
         {
-            officialBuild.Items = ConvertItems(itemsElement);
+            officialBuild.InventorySlots = ConvertItems(itemsElement);
         }
 
         var options = new JsonSerializerOptions
@@ -632,19 +632,15 @@ public class PathOfBuildingService : HttpServiceBase
         var slotMapping = new Dictionary<string, string>
         {
             ["Weapon 1"] = "Weapon1",
-            ["Weapon 2"] = "Weapon2",
-            ["Weapon 1 Swap"] = "Weapon1Swap",
-            ["Weapon 2 Swap"] = "Weapon2Swap",
-            ["Helmet"] = "Helm",
-            ["Body Armour"] = "BodyArmour",
-            ["Gloves"] = "Gloves",
-            ["Boots"] = "Boots",
-            ["Amulet"] = "Amulet",
-            ["Ring 1"] = "Ring",
+            ["Weapon 2"] = "Shield1",
+            ["Body Armour"] = "BodyArmour1",
+            ["Boots"] = "Boots1",
+            ["Helmet"] = "Helm1",
+            ["Gloves"] = "Gloves1",
+            ["Belt"] = "Belt1",
+            ["Ring 1"] = "Ring1",
             ["Ring 2"] = "Ring2",
-            ["Belt"] = "Belt",
-            ["Flask 1"] = "Flask",
-            ["Flask 2"] = "Flask2",
+            ["Amulet"] = "Amulet1",
         };
 
         // Build item lookup by id
