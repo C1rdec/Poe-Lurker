@@ -9,16 +9,15 @@ namespace PoeLurker.Core.Models;
 /// <summary>
 /// Represents a serializable build.
 /// </summary>
-public sealed class SimpleBuild
+public sealed class BuildSettings
 {
     #region Constructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SimpleBuild"/> class.
     /// </summary>
-    public SimpleBuild()
+    public BuildSettings()
     {
-        Id = System.Guid.NewGuid().ToString();
     }
 
     #endregion
@@ -28,17 +27,7 @@ public sealed class SimpleBuild
     /// <summary>
     /// Gets or sets the identifier.
     /// </summary>
-    public string Id { get; set; }
-
-    /// <summary>
-    /// Gets or sets the name.
-    /// </summary>
-    public string Name { get; set; }
-
-    /// <summary>
-    /// Gets or sets the path of building code.
-    /// </summary>
-    public string PathOfBuildingCode { get; set; }
+    public string FilePath { get; set; }
 
     /// <summary>
     /// Gets or sets the youtube URL.
@@ -50,10 +39,7 @@ public sealed class SimpleBuild
     /// </summary>
     public string ForumUrl { get; set; }
 
-    /// <summary>
-    /// Gets or sets the notes.
-    /// </summary>
-    public string Notes { get; set; }
+    public List<string> ItemBases { get; set; }
 
     #endregion
 }

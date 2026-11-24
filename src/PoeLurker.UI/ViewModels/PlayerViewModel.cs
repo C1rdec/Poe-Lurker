@@ -59,6 +59,11 @@ public class PlayerViewModel : Caliburn.Micro.PropertyChangedBase
     public string DisplayName => _activePlayer == null ? string.Empty : $"{Name} ({Level})";
 
     /// <summary>
+    /// Gets a value indicating whether there is no active player.
+    /// </summary>
+    public bool HasNoPlayer => _activePlayer == null;
+
+    /// <summary>
     /// Gets or sets the players.
     /// </summary>
     public ObservableCollection<Player> Players { get; set; }
@@ -176,6 +181,7 @@ public class PlayerViewModel : Caliburn.Micro.PropertyChangedBase
     {
         _activePlayer = e;
         NotifyOfPropertyChange(() => DisplayName);
+        NotifyOfPropertyChange(() => HasNoPlayer);
     }
 
     /// <summary>

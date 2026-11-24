@@ -43,10 +43,7 @@ public class HelpViewModel : PoeOverlayBase
 
     #region Methods
 
-    /// <summary>
-    /// Helps this instance.
-    /// </summary>
-    public void Help()
+    public void Open()
     {
         _onClick?.Invoke();
     }
