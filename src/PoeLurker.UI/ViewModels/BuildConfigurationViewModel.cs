@@ -23,7 +23,13 @@ public class BuildConfigurationViewModel : PropertyChangedBase
 {
     #region Fields
 
-    private static readonly PathOfBuildingService PathOfBuildingService = new ();
+    private static readonly string[] KnownAscendancies =
+    [
+        "Assassin", "Ascendant", "Berserker", "Champion", "Chieftain", "Deadeye", "Elementalist",
+        "Gladiator", "Guardian", "Hierophant", "Inquisitor", "Juggernaut", "Necromancer", "Occultist",
+        "Pathfinder", "Raider", "Saboteur", "Slayer", "Trickster",
+    ];
+
     private Build _build;
     private readonly BuildSettings _settings;
     private string _ascendency;
@@ -71,6 +77,8 @@ public class BuildConfigurationViewModel : PropertyChangedBase
             NotifyOfPropertyChange();
         }
     }
+
+    public bool HasUnknownAscendancy => !KnownAscendancies.Contains(Ascendancy ?? string.Empty);
 
     public bool Selected
     {

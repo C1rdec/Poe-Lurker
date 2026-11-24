@@ -75,7 +75,24 @@
                                         <StackPanel Grid.RowSpan="2"
                                                     Grid.Column="0"
                                                     Margin="20,0,0,0"
+                                                    MinWidth="50"
                                                     Orientation="Horizontal">
+                                            <Image Height="50"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Opacity="0.6"
+                                                   Source="/Assets/LurkerIcon.png">
+                                                <Image.Style>
+                                                    <Style TargetType="Image">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding HasUnknownAscendancy}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Image.Style>
+                                            </Image>
                                             <Image Height="50"
                                                    HorizontalAlignment="Center"
                                                    VerticalAlignment="Center"

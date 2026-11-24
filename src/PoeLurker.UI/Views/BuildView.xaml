@@ -32,43 +32,20 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Border Grid.RowSpan="2" CornerRadius="10 0 0 10" Background="#2B2B2B"></Border>
+            <Border Grid.RowSpan="2" CornerRadius="10" Background="#2B2B2B"></Border>
             <Grid Margin="0,8,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <ContentControl x:Name="ActivePlayer"
-                                Margin="10,0,0,0"
-                                HorizontalAlignment="Left"
+                                Grid.ColumnSpan="2"
+                                HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="18" />
-                <StackPanel Grid.Column="1"
-                            HorizontalAlignment="Right"
-                            Orientation="Horizontal">
-                    <Button x:Name="OpenTree"
-                            Width="30"
-                            Height="30"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"
-                            Cursor="Hand"
-                            BorderThickness="1"
-                            Style="{DynamicResource MahApps.Styles.Button.Circle}"
-                            ToolTip="Open in POB">
-                        <Button.Content>
-                            <local:IconPack Grid.Row="2"
-                                            Width="12"
-                                            Height="12"
-                                            HorizontalAlignment="Right"
-                                            VerticalAlignment="Bottom"
-                                            Data="{x:Static local:IconPackData.Open}"
-                                            Foreground="#af8404" />
-                        </Button.Content>
-                    </Button>
-                </StackPanel>
             </Grid>
             <ContentControl x:Name="BuildSelector"
-                            Margin="10,10,10,0"
+                            Margin="0,10,0,0"
                             Grid.Row="1" />
             <Popup IsOpen="{Binding IsSkillTreeOpen}"
                    Placement="Mouse"
