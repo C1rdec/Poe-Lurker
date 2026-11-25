@@ -32,7 +32,7 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Border Grid.RowSpan="2" CornerRadius="10" Background="#2B2B2B"></Border>
+            <Border Grid.RowSpan="2" CornerRadius="25" Background="#2B2B2B"></Border>
             <Grid Margin="0,8,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />

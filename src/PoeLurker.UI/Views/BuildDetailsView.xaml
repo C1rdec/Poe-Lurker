@@ -98,8 +98,18 @@
             </Grid>
         </Border>
 
+        <TextBlock Grid.Row="2"
+                   Margin="0,10,0,0"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   FontFamily="pack://application:,,,/Assets/#Fontin"
+                   FontSize="16"
+                   Foreground="#f0d0a8"
+                   Opacity="0.8"
+                   Text="Added to Path of Exile Build Planner!"/>
 
-        <Grid Grid.Row="3" Margin="10,0,0,0">
+
+        <Grid Grid.Row="3" Margin="20,0,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
