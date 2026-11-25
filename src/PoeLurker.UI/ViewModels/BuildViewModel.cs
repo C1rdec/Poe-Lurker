@@ -39,6 +39,10 @@ public class BuildViewModel : PoeOverlayBase
     private Player _activePlayer;
     private readonly BuildService _buildService;
     private Build _currentBuild;
+    private BuildDetailsViewModel _buildDetails;
+    private bool _includeInventorySlots = true;
+    private bool _includePassives = true;
+    private bool _includeSkills = true;
     private readonly SettingsViewModel _settings;
     private readonly GithubService _githubService;
     private readonly PathOfBuildingService _pathOfBuildingService;
@@ -101,6 +105,16 @@ public class BuildViewModel : PoeOverlayBase
         WatchBuild(_activePlayer?.BuildPath);
 
         var launchPath = _activePlayer?.BuildPath;
+        if (!string.IsNullOrEmpty(launchPath))
+        {
+            var launchBuild = _buildService.Get(launchPath);
+            if (launchBuild != null)
+            {
+                launchBuild.FilePath = launchPath;
+                _currentBuild = launchBuild;
+                BuildDetails = CreateBuildDetails(launchBuild);
+            }
+        }
         if (!string.IsNullOrEmpty(launchPath) && System.IO.File.Exists(launchPath))
         {
             var plannerFile = _pathOfBuildingService.GetPlannerFilePath(System.IO.Path.GetFileNameWithoutExtension(launchPath));
@@ -129,6 +143,35 @@ public class BuildViewModel : PoeOverlayBase
     /// Gets or sets the build selector.
     /// </summary>
     public BuildSelectorViewModel BuildSelector { get; set; }
+
+    /// <summary>
+    /// Gets or sets the selected build details view model.
+    /// </summary>
+    public BuildDetailsViewModel BuildDetails
+    {
+        get
+        {
+            return _buildDetails;
+        }
+
+        private set
+        {
+            _buildDetails = value;
+            NotifyOfPropertyChange();
+            NotifyOfPropertyChange(() => ActiveBuildContent);
+            NotifyOfPropertyChange(() => IsBuildSelectorVisible);
+        }
+    }
+
+    /// <summary>
+    /// Gets the active build content.
+    /// </summary>
+    public object ActiveBuildContent => (object)BuildDetails ?? BuildSelector;
+
+    /// <summary>
+    /// Gets a value indicating whether the build selector is visible.
+    /// </summary>
+    public bool IsBuildSelectorVisible => BuildDetails == null;
 
     /// <summary>
     /// Gets or sets a value indicating whether the popup is open.
@@ -312,20 +355,27 @@ public class BuildViewModel : PoeOverlayBase
     /// Selects the build.
     /// </summary>
     /// <param name="build">The build.</param>
-    public async void SelectBuild(Build build)
+    public void SelectBuild(Build build)
     {
         _currentBuild = build;
+        if (build == null)
+        {
+            ShowBuildSelector();
+            WatchBuild(null);
+            return;
+        }
+
         if (_activePlayer != null)
         {
             _activePlayer.BuildPath = build.FilePath;
             _playerService.Save();
 
             // Add the build to POE 2 Build Planner
-            _pathOfBuildingService.AddToPlanner(build);
+            _pathOfBuildingService.AddToPlanner(build, _includeInventorySlots, _includePassives, _includeSkills);
         }
 
-        WatchBuild(build?.FilePath);
-        IsOpen = false;
+        WatchBuild(build.FilePath);
+        BuildDetails = CreateBuildDetails(build);
     }
 
     private void WatchBuild(string buildPath)
@@ -394,7 +444,13 @@ public class BuildViewModel : PoeOverlayBase
 
             build.FilePath = path;
             _currentBuild = build;
-            _pathOfBuildingService.AddToPlanner(build);
+
+            if (BuildDetails != null && IsSamePath(BuildDetails.Build?.FilePath, build.FilePath))
+            {
+                Execute.OnUIThread(() => BuildDetails = CreateBuildDetails(build));
+            }
+
+            _pathOfBuildingService.AddToPlanner(build, _includeInventorySlots, _includePassives, _includeSkills);
         }
         catch (Exception ex) when (ex is System.IO.IOException or System.Xml.XmlException)
         {
@@ -515,6 +571,36 @@ public class BuildViewModel : PoeOverlayBase
         // Set to build tab
         _settings.SelectTabIndex = 0;
         _eventAggregator.PublishOnUIThreadAsync(_settings);
+    }
+
+    public void ShowBuildSelector()
+    {
+        BuildDetails = null;
+    }
+
+    private BuildDetailsViewModel CreateBuildDetails(Build build)
+    {
+        return new BuildDetailsViewModel(
+            build,
+            ShowBuildSelector,
+            UpdatePlannerBuild,
+            _includeInventorySlots,
+            _includePassives,
+            _includeSkills);
+    }
+
+    private void UpdatePlannerBuild(bool includeInventorySlots, bool includePassives, bool includeSkills)
+    {
+        _includeInventorySlots = includeInventorySlots;
+        _includePassives = includePassives;
+        _includeSkills = includeSkills;
+
+        if (_currentBuild == null)
+        {
+            return;
+        }
+
+        _pathOfBuildingService.AddToPlanner(_currentBuild, _includeInventorySlots, _includePassives, _includeSkills);
     }
 
     private static bool IsSamePath(string leftPath, string rightPath)
@@ -649,6 +735,7 @@ public class BuildViewModel : PoeOverlayBase
                 _currentBuild.FilePath = e.BuildPath;
             }
 
+            ShowBuildSelector();
             WatchBuild(e?.BuildPath);
             NotifyOfPropertyChange(() => HasNoBuildSelected);
             DockingHelper.SetForeground();

@@ -63,9 +63,9 @@
                     </TextBlock.Style>
                 </TextBlock>
             </Grid>
-            <ContentControl x:Name="BuildSelector"
+            <ContentControl Grid.Row="1"
                             Margin="0,10,0,0"
-                            Grid.Row="1" />
+                            cal:View.Model="{Binding ActiveBuildContent}" />
             <TextBlock Grid.Row="1"
                        Margin="30,0"
                        HorizontalAlignment="Center"
@@ -81,9 +81,13 @@
                     <Style TargetType="TextBlock">
                         <Setter Property="Visibility" Value="Collapsed" />
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding HasNoBuilds}" Value="True">
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsBuildSelectorVisible}" Value="True" />
+                                    <Condition Binding="{Binding HasNoBuilds}" Value="True" />
+                                </MultiDataTrigger.Conditions>
                                 <Setter Property="Visibility" Value="Visible" />
-                            </DataTrigger>
+                            </MultiDataTrigger>
                         </Style.Triggers>
                     </Style>
                 </TextBlock.Style>
@@ -103,9 +107,13 @@
                     <Style TargetType="TextBlock">
                         <Setter Property="Visibility" Value="Collapsed" />
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding HasNoBuildSelected}" Value="True">
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsBuildSelectorVisible}" Value="True" />
+                                    <Condition Binding="{Binding HasNoBuildSelected}" Value="True" />
+                                </MultiDataTrigger.Conditions>
                                 <Setter Property="Visibility" Value="Visible" />
-                            </DataTrigger>
+                            </MultiDataTrigger>
                         </Style.Triggers>
                     </Style>
                 </TextBlock.Style>

@@ -246,14 +246,14 @@ public class PathOfBuildingService : HttpServiceBase
     /// <param name="pobXmlOrCode">The PoB XML content or encoded build code.</param>
     /// <param name="buildName">The name for the build.</param>
     /// <returns>The path to the saved .build file, or null if conversion failed.</returns>
-    public void AddToPlanner(Build build)
+    public void AddToPlanner(Build build, bool includeInventorySlots = true, bool includePassives = true, bool includeSkills = true)
     {
         if (!PoeApplicationContext.Poe2)
         {
             return;
         }
 
-        var json = ConvertToOfficialBuild(build.Value, build.Name);
+        var json = ConvertToOfficialBuild(build.Value, build.Name, includeInventorySlots, includePassives, includeSkills);
         if (json == null)
         {
             return;
@@ -377,7 +377,12 @@ public class PathOfBuildingService : HttpServiceBase
     /// <param name="pobXmlOrCode">The PoB XML content or encoded build code.</param>
     /// <param name="buildName">The name for the build.</param>
     /// <returns>The JSON string in the official .build format.</returns>
-    private string ConvertToOfficialBuild(string pobXmlOrCode, string buildName = "Imported Build")
+    private string ConvertToOfficialBuild(
+        string pobXmlOrCode,
+        string buildName = "Imported Build",
+        bool includeInventorySlots = true,
+        bool includePassives = true,
+        bool includeSkills = true)
     {
         var xml = GetXml(pobXmlOrCode);
         if (string.IsNullOrEmpty(xml))
@@ -414,33 +419,42 @@ public class PathOfBuildingService : HttpServiceBase
         }
 
         // Passives
-        var treeElement = document.Root.Element("Tree");
-        if (treeElement != null)
+        if (includePassives)
         {
-            var activeSpec = treeElement.Attribute("activeSpec")?.Value;
-            var specs = treeElement.Elements("Spec").ToList();
-            var spec = activeSpec != null && int.TryParse(activeSpec, out var specIndex) && specIndex > 0 && specIndex <= specs.Count
-                ? specs[specIndex - 1]
-                : specs.FirstOrDefault();
-
-            if (spec != null)
+            var treeElement = document.Root.Element("Tree");
+            if (treeElement != null)
             {
-                officialBuild.Passives = ConvertPassives(spec);
+                var activeSpec = treeElement.Attribute("activeSpec")?.Value;
+                var specs = treeElement.Elements("Spec").ToList();
+                var spec = activeSpec != null && int.TryParse(activeSpec, out var specIndex) && specIndex > 0 && specIndex <= specs.Count
+                    ? specs[specIndex - 1]
+                    : specs.FirstOrDefault();
+
+                if (spec != null)
+                {
+                    officialBuild.Passives = ConvertPassives(spec);
+                }
             }
         }
 
         // Skills
-        var skillsElement = document.Root.Element("Skills");
-        if (skillsElement != null)
+        if (includeSkills)
         {
-            officialBuild.Skills = ConvertSkills(skillsElement);
+            var skillsElement = document.Root.Element("Skills");
+            if (skillsElement != null)
+            {
+                officialBuild.Skills = ConvertSkills(skillsElement);
+            }
         }
 
         // Inventory slots
-        var itemsElement = document.Root.Element("Items");
-        if (itemsElement != null)
+        if (includeInventorySlots)
         {
-            officialBuild.InventorySlots = ConvertItems(itemsElement);
+            var itemsElement = document.Root.Element("Items");
+            if (itemsElement != null)
+            {
+                officialBuild.InventorySlots = ConvertItems(itemsElement);
+            }
         }
 
         var options = new JsonSerializerOptions
