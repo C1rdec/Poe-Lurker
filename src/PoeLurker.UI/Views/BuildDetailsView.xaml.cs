@@ -4,20 +4,22 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace PoeLurker.UI.Views;
-
-using System.Windows.Controls;
-
-/// <summary>
-/// Interaction logic for BuildDetailsView.xaml.
-/// </summary>
-public partial class BuildDetailsView : UserControl
+namespace PoeLurker.UI.Views
 {
+    using System.Windows.Controls;
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="BuildDetailsView"/> class.
+    /// Interaction logic for BuildDetailsView.xaml.
     /// </summary>
-    public BuildDetailsView()
+    public partial class BuildDetailsView : UserControl
     {
-        InitializeComponent();
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BuildDetailsView"/> class.
+        /// </summary>
+        public BuildDetailsView()
+        {
+            InitializeComponent();
+        }
+
     }
 }

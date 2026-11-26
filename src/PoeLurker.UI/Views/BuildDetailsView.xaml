@@ -98,16 +98,136 @@
             </Grid>
         </Border>
 
-        <TextBlock Grid.Row="2"
-                   Margin="0,10,0,0"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Top"
-                   FontFamily="pack://application:,,,/Assets/#Fontin"
-                   FontSize="16"
-                   Foreground="#f0d0a8"
-                   Opacity="0.8"
-                   Text="Added to Path of Exile Build Planner!"/>
+        <Border Grid.Row="2"
+                Margin="0,10,0,10"
+                CornerRadius="4"
+                BorderThickness="1">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="BorderBrush" Value="#af8404" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ItemFilterEnabled}" Value="False">
+                            <Setter Property="BorderBrush" Value="#5a5a5a" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <Grid Margin="12,0,12,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
 
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock VerticalAlignment="Center"
+                               FontSize="26"
+                               Text="Item Filter" />
+                    <Controls:ToggleSwitch Grid.Column="1"
+                                           Header=""
+                                           Margin="0,-15,0,0"
+                                           VerticalAlignment="Top"
+                                           HorizontalAlignment="Right"
+                                           IsOn="{Binding ItemFilterEnabled, Mode=TwoWay}" />
+                </Grid>
+
+                <Grid Grid.Row="1"
+                      Visibility="{Binding ItemFilterEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Grid Visibility="{Binding MainFilterViewVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0"
+                                   Margin="0,8,0,4"
+                                   FontSize="20"
+                                   Text="NerverSink Base Filter" />
+
+                        <ComboBox Grid.Row="1"
+                                  FontSize="18"
+                                  Cursor="Hand"
+                                  ItemsSource="{Binding BaseFilters}"
+                                  SelectedItem="{Binding SelectedBaseFilter, Mode=TwoWay}" />
+
+                        <Button x:Name="OpenAdditionalFilterEditor"
+                                Grid.Row="2"
+                                Margin="0,12,0,0"
+                                HorizontalContentAlignment="Stretch">
+                            <Grid>
+                                <TextBlock HorizontalAlignment="Center"
+                                           FontSize="18"
+                                           FontWeight="SemiBold"
+                                           Text="Additional Condition" />
+                                <TextBlock Margin="0,-4,8,0"
+                                           HorizontalAlignment="Right"
+                                           VerticalAlignment="Center"
+                                           FontSize="20"
+                                           FontWeight="Bold"
+                                           Foreground="#7ecb7e"
+                                           Text="●"
+                                           Visibility="{Binding HasAdditionalFilter, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            </Grid>
+                        </Button>
+
+                        <Button x:Name="SaveFilter"
+                                Grid.Row="4"
+                                Margin="0,12,0,0"
+                                VerticalAlignment="Bottom"
+                                Content="Apply">
+                            <Button.Style>
+                                <Style TargetType="Button"
+                                       BasedOn="{StaticResource {x:Type Button}}">
+                                    <Setter Property="Cursor" Value="Arrow" />
+                                    <Setter Property="Opacity" Value="0.55" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsEnabled" Value="True">
+                                            <Setter Property="Cursor" Value="Hand" />
+                                            <Setter Property="Opacity" Value="1" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </Grid>
+
+                    <Grid Visibility="{Binding AdditionalFilterEditorOpen, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0"
+                                   Margin="0,8,0,4"
+                                   FontSize="20"
+                                   Text="Additional Condition" />
+
+                        <TextBox Grid.Row="1"
+                                 MinHeight="120"
+                                 Padding="10"
+                                 FontFamily="Consolas"
+                                 Text="{Binding AdditionalFilterDraft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 VerticalScrollBarVisibility="Auto"
+                                 AcceptsReturn="True"
+                                 AcceptsTab="True"
+                                 TextWrapping="NoWrap" />
+
+                        <Button x:Name="AddAdditionalFilter"
+                                Grid.Row="2"
+                                Margin="0,12,0,0"
+                                Content="Save" />
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Border>
 
         <Grid Grid.Row="3" Margin="20,0,0,0">
             <Grid.ColumnDefinitions>

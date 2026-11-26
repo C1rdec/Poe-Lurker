@@ -33,6 +33,16 @@ public sealed class Player
     public string BuildPath { get; set; }
 
     /// <summary>
+    /// Gets or sets the selected base filter strictness.
+    /// </summary>
+    public string SelectedBaseFilter { get; set; }
+
+    /// <summary>
+    /// Gets or sets the additional filter.
+    /// </summary>
+    public string AdditionalFilter { get; set; }
+
+    /// <summary>
     /// Gets or sets the ignored map mods.
     /// </summary>
     public List<string> IgnoredMapMods { get; set; }

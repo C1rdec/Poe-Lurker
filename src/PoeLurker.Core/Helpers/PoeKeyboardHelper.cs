@@ -136,5 +136,13 @@ public class PoeKeyboardHelper : KeyboardHelper
         return SendCommand($@"/hideout {playerName}");
     }
 
+    /// <summary>
+    /// Applies the specified item filter.
+    /// </summary>
+    /// <param name="filterName">Name of the filter.</param>
+    /// <returns>The task.</returns>
+    public Task ItemFilter(string filterName)
+        => SendCommand($@"/itemfilter {filterName}");
+
     #endregion
 }

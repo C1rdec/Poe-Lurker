@@ -70,6 +70,7 @@ public class AppBootstrapper : BootstrapperBase
         _container.PerRequest<PushHoverService, PushHoverService>();
         _container.Singleton<GithubService, GithubService>();
         _container.Singleton<PathOfBuildingService, PathOfBuildingService>();
+        _container.Singleton<ItemFilterService, ItemFilterService>();
 
         _container.Singleton<SettingsViewModel, SettingsViewModel>();
         _container.Singleton<TutorialViewModel, TutorialViewModel>();

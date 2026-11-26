@@ -18,6 +18,7 @@ using PoeLurker.Core.Helpers;
 using PoeLurker.Core.Models;
 using PoeLurker.Core.Services;
 using PoeLurker.UI.Models;
+using PoeLurker.UI.Services;
 using ProcessLurker;
 
 /// <summary>
@@ -46,6 +47,7 @@ public class BuildViewModel : PoeOverlayBase
     private readonly SettingsViewModel _settings;
     private readonly GithubService _githubService;
     private readonly PathOfBuildingService _pathOfBuildingService;
+    private readonly ItemFilterService _itemFilterService;
     private readonly MouseLurker _mouseLurker;
     private bool _isSkillTreeOpen;
     private System.IO.FileSystemWatcher _buildWatcher;
@@ -77,10 +79,12 @@ public class BuildViewModel : PoeOverlayBase
         SettingsViewModel settingsViewModel, 
         GithubService githubService, 
         MouseLurker mouseLurker, 
-        PathOfBuildingService pathOfBuildingService)
+        PathOfBuildingService pathOfBuildingService,
+        ItemFilterService itemFilterService)
         : base(dockingHelper, processLurker, settingsService)
     {
         _pathOfBuildingService = pathOfBuildingService;
+        _itemFilterService = itemFilterService;
         _settings = settingsViewModel;
         _playerService = playerService;
         _buildService = buildService;
@@ -122,6 +126,11 @@ public class BuildViewModel : PoeOverlayBase
             {
                 Task.Run(() => RefreshWatchedBuild(launchPath));
             }
+        }
+
+        if (_itemFilterService.ItemFilterEnabled)
+        {
+            _ = EnsureSelectedFilterUpToDate();
         }
     }
 
@@ -578,12 +587,24 @@ public class BuildViewModel : PoeOverlayBase
         BuildDetails = null;
     }
 
+    private async Task EnsureSelectedFilterUpToDate()
+    {
+        try
+        {
+            await _itemFilterService.SaveFilter(_itemFilterService.SelectedBaseFilter, _itemFilterService.AdditionalFilter, applyInGame: false);
+        }
+        catch (Exception ex) when (ex is HttpRequestException or System.IO.IOException)
+        {
+        }
+    }
+
     private BuildDetailsViewModel CreateBuildDetails(Build build)
     {
         return new BuildDetailsViewModel(
             build,
             ShowBuildSelector,
             UpdatePlannerBuild,
+            _itemFilterService,
             _includeInventorySlots,
             _includePassives,
             _includeSkills);
