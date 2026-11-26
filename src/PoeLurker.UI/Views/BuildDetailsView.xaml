@@ -195,6 +195,9 @@
                                        BasedOn="{StaticResource {x:Type Button}}">
                                     <Setter Property="Cursor" Value="Arrow" />
                                     <Setter Property="Opacity" Value="0.55" />
+                                    <Setter Property="Background" Value="#af8404" />
+                                    <Setter Property="BorderBrush" Value="#af8404" />
+                                    <Setter Property="Foreground" Value="White" />
                                     <Style.Triggers>
                                         <Trigger Property="IsEnabled" Value="True">
                                             <Setter Property="Cursor" Value="Hand" />
