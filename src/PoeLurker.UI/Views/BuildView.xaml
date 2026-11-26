@@ -43,6 +43,31 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="18" />
+                <Button Grid.ColumnSpan="2"
+                        Margin="0,0,8,0"
+                        Padding="4,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        cal:Message.Attach="[Event Click] = [Action ShowPlayerSelection]"
+                        Background="Transparent"
+                        BorderBrush="#af8404"
+                        BorderThickness="1"
+                        Content="▼"
+                        Cursor="Hand"
+                        FontSize="10"
+                        Foreground="#f0d0a8"
+                        ToolTip="Select player">
+                    <Button.Style>
+                        <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ActivePlayer.CanSelectPlayer}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
                 <TextBlock Grid.ColumnSpan="2"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
@@ -50,7 +75,7 @@
                            FontSize="16"
                            Foreground="#f0d0a8"
                            Opacity="0.8"
-                           Text="Detecting players when leveling...">
+                           Text="Detecting characters when leveling...">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
                             <Setter Property="Visibility" Value="Collapsed" />

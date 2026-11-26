@@ -40,6 +40,8 @@ public class BuildViewModel : PoeOverlayBase
     private Player _activePlayer;
     private readonly BuildService _buildService;
     private Build _currentBuild;
+    private string _appliedBaseFilter;
+    private string _appliedAdditionalFilter;
     private BuildDetailsViewModel _buildDetails;
     private bool _includeInventorySlots = true;
     private bool _includePassives = true;
@@ -127,6 +129,9 @@ public class BuildViewModel : PoeOverlayBase
                 Task.Run(() => RefreshWatchedBuild(launchPath));
             }
         }
+
+        _appliedBaseFilter = _itemFilterService.SelectedBaseFilter;
+        _appliedAdditionalFilter = _itemFilterService.AdditionalFilter;
 
         if (_itemFilterService.ItemFilterEnabled)
         {
@@ -582,9 +587,38 @@ public class BuildViewModel : PoeOverlayBase
         _eventAggregator.PublishOnUIThreadAsync(_settings);
     }
 
+    public void ShowPlayerSelection()
+    {
+        ActivePlayer?.ShowSelection();
+    }
+
     public void ShowBuildSelector()
     {
         BuildDetails = null;
+    }
+
+    private async Task ApplyFilterIfChanged()
+    {
+        var baseFilter = _itemFilterService.SelectedBaseFilter;
+        var additionalFilter = _itemFilterService.AdditionalFilter;
+        var changed = !string.Equals(baseFilter, _appliedBaseFilter, StringComparison.Ordinal)
+            || !string.Equals(additionalFilter ?? string.Empty, _appliedAdditionalFilter ?? string.Empty, StringComparison.Ordinal);
+
+        _appliedBaseFilter = baseFilter;
+        _appliedAdditionalFilter = additionalFilter;
+
+        if (!changed || !_itemFilterService.ItemFilterEnabled)
+        {
+            return;
+        }
+
+        try
+        {
+            await _itemFilterService.SaveFilter(baseFilter, additionalFilter);
+        }
+        catch (Exception ex) when (ex is HttpRequestException or System.IO.IOException)
+        {
+        }
     }
 
     private async Task EnsureSelectedFilterUpToDate()
@@ -756,9 +790,19 @@ public class BuildViewModel : PoeOverlayBase
                 _currentBuild.FilePath = e.BuildPath;
             }
 
-            ShowBuildSelector();
+            var wasShowingDetails = BuildDetails != null;
+            if (wasShowingDetails && _currentBuild != null)
+            {
+                BuildDetails = CreateBuildDetails(_currentBuild);
+            }
+            else
+            {
+                ShowBuildSelector();
+            }
+
             WatchBuild(e?.BuildPath);
             NotifyOfPropertyChange(() => HasNoBuildSelected);
+            _ = ApplyFilterIfChanged();
             DockingHelper.SetForeground();
         });
     }

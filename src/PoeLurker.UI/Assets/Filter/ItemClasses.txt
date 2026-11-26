@@ -1,0 +1,90 @@
+Abyss Jewels
+Amulets
+Archnemesis Mods
+Atlas Upgrade Items
+Augment
+Belts
+Blueprints
+Body Armours
+Boots
+Bows
+Breachstones
+Bucklers
+Charms
+Claws
+Contracts
+Crossbows
+Currency
+Daggers
+Delve Socketable Currency
+Delve Stackable Socketable Currency
+Divination Cards
+Expedition Logbook
+Expedition Logbooks
+Fishing Rods
+Flails
+Foci
+Gloves
+Heist Brooches
+Heist Cloaks
+Heist Gear
+Heist Targets
+Heist Tools
+Helmets
+Hidden Items
+Hideout Doodads
+Incubators
+Incursion Items
+Inscribed Ultimatum
+Instance Local Items
+Jewels
+Large Relics
+Leaguestones
+Life Flasks
+Mana Flasks
+Map Fragments
+Medium Relics
+Memories
+Microtransactions
+Misc Map Items
+Omen
+One Hand Axes
+One Hand Maces
+One Hand Swords
+Pantheon Souls
+Pieces
+Pinnacle Keys
+Quarterstaves
+Quest Items
+Quivers
+Relics
+Rings
+Sanctified Relics
+Sceptres
+Sentinels
+Shard Hearts
+Shards
+Shields
+Skill Gems
+Small Relics
+Spears
+Stackable Currency
+Staves
+Support Gems
+Tablet
+Talismans
+Transcendent Arm
+Transcendent Leg
+Traps
+Trial Coins
+Trinkets
+Two Hand Axes
+Two Hand Maces
+Two Hand Swords
+Uncut Skill Gems
+Uncut Spirit Gems
+Uncut Support Gems
+Vault Keys
+Wands
+Waystones
+Wombgifts

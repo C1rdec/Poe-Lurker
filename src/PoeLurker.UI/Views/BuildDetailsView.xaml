@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:Converters="clr-namespace:PoeLurker.UI.Converters"
+             xmlns:local="clr-namespace:PoeLurker.UI.Controls"
+             xmlns:cal="http://www.caliburnproject.org"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="450"
@@ -16,15 +18,11 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-
-        <Button x:Name="BackToBuildSelector"
-                Padding="12,4"
-                HorizontalAlignment="Left"
-                Cursor="Hand"
-                Content="Back to builds" />
-
         <Border Grid.Row="1"
-                Margin="0,12,0,0"
+                Margin="0,4,0,0"
+                cal:Message.Attach="[Event MouseLeftButtonUp] = [Action BackToBuildSelector]"
+                Cursor="Hand"
+                ToolTip="Back to builds"
                 CornerRadius="4"
                 Background="#2e2614"
                 BorderBrush="#af8404"
@@ -220,15 +218,20 @@
                                    FontSize="20"
                                    Text="Additional Condition" />
 
-                        <TextBox Grid.Row="1"
-                                 MinHeight="120"
-                                 Padding="10"
-                                 FontFamily="Consolas"
-                                 Text="{Binding AdditionalFilterDraft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                 VerticalScrollBarVisibility="Auto"
-                                 AcceptsReturn="True"
-                                 AcceptsTab="True"
-                                 TextWrapping="NoWrap" />
+                        <local:BindableTextEditor Grid.Row="1"
+                                                  MinHeight="120"
+                                                  Padding="10"
+                                                  FontFamily="Consolas"
+                                                  FontSize="14"
+                                                  Background="Transparent"
+                                                  Foreground="White"
+                                                  CompletionProvider="{Binding CompletionProvider}"
+                                                  ShowLineNumbers="True"
+                                                  LineNumbersForeground="#808080"
+                                                  BoundText="{Binding AdditionalFilterDraft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                  VerticalScrollBarVisibility="Auto"
+                                                  HorizontalScrollBarVisibility="Auto"
+                                                  WordWrap="False" />
 
                         <Button x:Name="AddAdditionalFilter"
                                 Grid.Row="2"

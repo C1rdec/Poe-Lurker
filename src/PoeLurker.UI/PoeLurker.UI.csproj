@@ -152,6 +152,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Assets\Filter\BaseTypes.txt" />
+    <EmbeddedResource Include="Assets\Filter\ItemClasses.txt" />
     <EmbeddedResource Include="Assets\LurckerIcon.json" />
     <EmbeddedResource Include="Assets\LurckerIconSettings.json" />
     <EmbeddedResource Include="Assets\UpdateAnimation.json" />
@@ -160,6 +162,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AvalonEdit" Version="6.3.1.120" />
     <PackageReference Include="Caliburn.Micro" Version="5.0.258" />
     <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="2.0.1" />
     <PackageReference Include="LiveCharts.NetCore" Version="0.9.8" />

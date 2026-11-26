@@ -97,6 +97,14 @@ public class PlayerService : IDisposable
     }
 
     /// <summary>
+    /// Clears the active player until a new character is detected.
+    /// </summary>
+    public void ClearPlayer()
+    {
+        PlayerChanged?.Invoke(this, null);
+    }
+
+    /// <summary>
     /// Removes the specified player.
     /// </summary>
     /// <param name="player">The player.</param>

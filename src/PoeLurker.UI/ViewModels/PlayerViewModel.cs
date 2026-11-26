@@ -64,6 +64,11 @@ public class PlayerViewModel : Caliburn.Micro.PropertyChangedBase
     public bool HasNoPlayer => _activePlayer == null;
 
     /// <summary>
+    /// Gets a value indicating whether there is no active player while players are available to select.
+    /// </summary>
+    public bool CanSelectPlayer => _activePlayer == null && Players.Count > 0;
+
+    /// <summary>
     /// Gets or sets the players.
     /// </summary>
     public ObservableCollection<Player> Players { get; set; }
@@ -123,11 +128,21 @@ public class PlayerViewModel : Caliburn.Micro.PropertyChangedBase
     #region Methods
 
     /// <summary>
-    /// Toggles the selection.
+    /// Opens the player selection.
     /// </summary>
-    public void ToggleSelection()
+    public void ShowSelection()
     {
-        SelectionVisible = !SelectionVisible;
+        SelectionVisible = true;
+    }
+
+    /// <summary>
+    /// Clears the selected player to wait for a new character.
+    /// </summary>
+    public void NewCharacter()
+    {
+        SelectionVisible = false;
+        SelectedPlayer = null;
+        _service.ClearPlayer();
     }
 
     /// <summary>
@@ -167,7 +182,6 @@ public class PlayerViewModel : Caliburn.Micro.PropertyChangedBase
     {
         if (e.PropertyName == nameof(SelectedPlayer) && SelectedPlayer != null)
         {
-            ToggleSelection();
             _service.ChangePlayer(SelectedPlayer);
         }
     }
@@ -182,6 +196,7 @@ public class PlayerViewModel : Caliburn.Micro.PropertyChangedBase
         _activePlayer = e;
         NotifyOfPropertyChange(() => DisplayName);
         NotifyOfPropertyChange(() => HasNoPlayer);
+        NotifyOfPropertyChange(() => CanSelectPlayer);
     }
 
     /// <summary>
@@ -199,6 +214,8 @@ public class PlayerViewModel : Caliburn.Micro.PropertyChangedBase
             {
                 Players.Add(player);
             }
+
+            NotifyOfPropertyChange(() => CanSelectPlayer);
         });
     }
 

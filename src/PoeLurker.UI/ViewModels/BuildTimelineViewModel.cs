@@ -277,6 +277,14 @@ public class BuildTimelineViewModel : PoeOverlayBase, IHandle<SkillMessage>, IHa
     /// <param name="e">The e.</param>
     private void PlayerChanged(object sender, Player e)
     {
+        if (e == null)
+        {
+            PlayerName = string.Empty;
+            PlayerLevel = string.Empty;
+            Timeline.SetProgess(0);
+            return;
+        }
+
         PlayerName = e.Name;
         var level = e.GetCurrentLevel();
         PlayerLevel = level.ToString();

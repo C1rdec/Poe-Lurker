@@ -10,6 +10,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using PoeLurker.Core.Models;
+using PoeLurker.UI.Controls;
 using PoeLurker.UI.Services;
 
 /// <summary>
@@ -214,6 +215,8 @@ public class BuildDetailsViewModel : Caliburn.Micro.PropertyChangedBase
             NotifyOfPropertyChange(nameof(MainFilterViewVisible));
         }
     }
+
+    public ICompletionProvider CompletionProvider { get; } = new ItemFilterCompletionProvider();
 
     public bool MainFilterViewVisible => !AdditionalFilterEditorOpen;
 

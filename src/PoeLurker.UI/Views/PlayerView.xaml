@@ -9,29 +9,70 @@
              d:DesignWidth="800"
              mc:Ignorable="d">
     <Grid>
-        <Popup AllowsTransparency="True"
-               IsOpen="{Binding SelectionVisible}"
-               Placement="Top">
-            <Border>
-                <ListBox Margin="4"
-                         DisplayMemberPath="Name"
-                         ItemsSource="{Binding Players}"
-                         SelectedItem="{Binding SelectedPlayer}" />
-            </Border>
-        </Popup>
-        <Border HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
-                cal:Message.Attach="[Event MouseDown] = [Action ToggleSelection]"
-                Cursor="Hand">
-            <Border.Background>
-                <SolidColorBrush Opacity="0.003" Color="White" />
-            </Border.Background>
-
-            <StackPanel Opacity="0.8" Orientation="Horizontal">
-                <TextBlock x:Name="DisplayName"
-                           FontFamily="pack://application:,,,/Assets/#Fontin"
-                           Foreground="#f0d0a8" />
-            </StackPanel>
-        </Border>
+        <ComboBox HorizontalAlignment="Left"
+                  VerticalAlignment="Bottom"
+                  Cursor="Hand"
+                  DisplayMemberPath="Name"
+                  FontSize="18"
+                  IsDropDownOpen="{Binding SelectionVisible, Mode=TwoWay}"
+                  ItemsSource="{Binding Players}"
+                  SelectedItem="{Binding SelectedPlayer}">
+            <ComboBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ComboBoxItem}">
+                    <Setter Property="MinHeight" Value="36" />
+                    <Setter Property="Padding" Value="10,6" />
+                </Style>
+            </ComboBox.ItemContainerStyle>
+            <ComboBox.Template>
+                <ControlTemplate TargetType="{x:Type ComboBox}">
+                    <Grid>
+                        <ToggleButton Background="Transparent"
+                                      BorderThickness="0"
+                                      Cursor="Hand"
+                                      Focusable="False"
+                                      IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+                            <ToggleButton.Template>
+                                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                    <Border Background="Transparent">
+                                        <TextBlock FontFamily="pack://application:,,,/Assets/#Fontin"
+                                                   FontSize="22"
+                                                   Foreground="#f0d0a8"
+                                                                                                      Opacity="0.8"
+                                                   Text="{Binding DisplayName}" />
+                                    </Border>
+                                </ControlTemplate>
+                            </ToggleButton.Template>
+                        </ToggleButton>
+                        <Popup AllowsTransparency="True"
+                               IsOpen="{TemplateBinding IsDropDownOpen}"
+                               Placement="Top"
+                               StaysOpen="False">
+                            <Border MinWidth="280"
+                                    Background="#1a1a1a"
+                                    BorderBrush="#af8404"
+                                    BorderThickness="2"
+                                    CornerRadius="4">
+                                <StackPanel Margin="6">
+                                    <ScrollViewer>
+                                        <ItemsPresenter />
+                                    </ScrollViewer>
+                                    <Separator Margin="0,6" Background="#af8404" />
+                                    <Button Margin="4,0"
+                                            Padding="10,6"
+                                            HorizontalContentAlignment="Left"
+                                            cal:Message.Attach="[Event Click] = [Action NewCharacter]"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Content="New character"
+                                            Cursor="Hand"
+                                            FontSize="18"
+                                            Foreground="#f0d0a8" />
+                                </StackPanel>
+                            </Border>
+                        </Popup>
+                    </Grid>
+                </ControlTemplate>
+            </ComboBox.Template>
+        </ComboBox>
     </Grid>
 </UserControl>
