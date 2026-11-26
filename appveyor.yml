@@ -1,19 +1,6 @@
 image: Visual Studio 2026
-version: 1.0.{build}
+version: 1.1.{build}
 configuration: Release
-install:
-- ps: >-
-    dotnet --info
-
-    $installDir = "$env:USERPROFILE\.dotnet"
-
-    iwr https://dot.net/v1/dotnet-install.ps1 -UseBasicParsing -OutFile dotnet-install.ps1
-
-    .\dotnet-install.ps1 -Channel 10.0 -InstallDir $installDir
-
-    $env:PATH = "$installDir;$installDir\tools;$env:PATH"
-
-    dotnet --info
 before_build:
 - ps: nuget restore
 build:
