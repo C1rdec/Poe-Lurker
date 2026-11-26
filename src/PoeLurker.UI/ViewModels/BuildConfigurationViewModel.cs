@@ -28,6 +28,9 @@ public class BuildConfigurationViewModel : PropertyChangedBase
         "Assassin", "Ascendant", "Berserker", "Champion", "Chieftain", "Deadeye", "Elementalist",
         "Gladiator", "Guardian", "Hierophant", "Inquisitor", "Juggernaut", "Necromancer", "Occultist",
         "Pathfinder", "Raider", "Saboteur", "Slayer", "Trickster",
+                "Titan", "Warbringer", "Smith of Kitava", "Warden", "Amazon", "Ritualist", "Stormweaver", "Chronomancer",
+                "Disciple of Varashta", "Infernalist", "Blood Mage", "Lich", "Abyssal Lich", "Invoker", "Acolyte of Chayula",
+                "Witchhunter", "Gemling Legionnaire", "Tactician", "Oracle", "Shaman",
     ];
 
     private Build _build;

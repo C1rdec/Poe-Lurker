@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -247,6 +247,26 @@
     <Resource Include="Assets\TrayIcon.ico" />
     <Resource Include="Assets\TrayIconUpdate.ico" />
     <Resource Include="Assets\Trickster_avatar.png" />
+    <Resource Include="Assets\Titan_avatar.png" />
+    <Resource Include="Assets\Warbringer_avatar.png" />
+    <Resource Include="Assets\Stormweaver_avatar.png" />
+    <Resource Include="Assets\Chronomancer_avatar.png" />
+    <Resource Include="Assets\Infernalist_avatar.png" />
+    <Resource Include="Assets\BloodMage_avatar.png" />
+    <Resource Include="Assets\Witchhunter_avatar.png" />
+    <Resource Include="Assets\GemlingLegionnaire_avatar.png" />
+    <Resource Include="Assets\Invoker_avatar.png" />
+    <Resource Include="Assets\AcolyteOfChayula_avatar.png" />
+    <Resource Include="Assets\DiscipleOfVarashta_avatar.png" />
+    <Resource Include="Assets\Ritualist_avatar.png" />
+    <Resource Include="Assets\Amazon_avatar.png" />
+    <Resource Include="Assets\Lich_avatar.png" />
+    <Resource Include="Assets\Shaman_avatar.png" />
+    <Resource Include="Assets\SmithOfKitava_avatar.png" />
+    <Resource Include="Assets\AbyssalLich_avatar.png" />
+    <Resource Include="Assets\Tactician_avatar.png" />
+    <Resource Include="Assets\Oracle_avatar.png" />
+    <Resource Include="Assets\Warden_avatar.png" />
     <Resource Include="Assets\Update.png" />
     <Resource Include="Assets\Vaal.png" />
     <Resource Include="Assets\Vulnerability.png" />

@@ -92,6 +92,26 @@
                     <Image Height="50" Source="/Assets/Saboteur_avatar.png" Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Saboteur'}" />
                     <Image Height="50" Source="/Assets/Slayer_avatar.png" Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Slayer'}" />
                     <Image Height="50" Source="/Assets/Trickster_avatar.png" Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Trickster'}" />
+                    <Image Height="50" Source="/Assets/Titan_avatar.png" Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Titan'}" />
+                    <Image Height="50" Source="/Assets/Warbringer_avatar.png" Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Warbringer'}" />
+                    <Image Height="50" Source="/Assets/Stormweaver_avatar.png" Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Stormweaver'}" />
+                    <Image Height="50" Source="/Assets/Chronomancer_avatar.png" Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Chronomancer'}" />
+                    <Image Height="50" Source="/Assets/Infernalist_avatar.png" Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Infernalist'}" />
+                    <Image Height="50" Source="/Assets/BloodMage_avatar.png" Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Blood Mage'}" />
+                    <Image Height="50" Source="/Assets/Witchhunter_avatar.png" Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Witchhunter'}" />
+                    <Image Height="50" Source="/Assets/GemlingLegionnaire_avatar.png" Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Gemling Legionnaire'}" />
+                    <Image Height="50" Source="/Assets/Invoker_avatar.png" Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Invoker'}" />
+                    <Image Height="50" Source="/Assets/AcolyteOfChayula_avatar.png" Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Acolyte of Chayula'}" />
+                    <Image Height="50" Source="/Assets/DiscipleOfVarashta_avatar.png" Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Disciple of Varashta'}" />
+                    <Image Height="50" Source="/Assets/Ritualist_avatar.png" Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Ritualist'}" />
+                    <Image Height="50" Source="/Assets/Amazon_avatar.png" Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Amazon'}" />
+                    <Image Height="50" Source="/Assets/Lich_avatar.png" Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Lich'}" />
+                    <Image Height="50" Source="/Assets/Shaman_avatar.png" Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Shaman'}" />
+                    <Image Height="50" Source="/Assets/SmithOfKitava_avatar.png" Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Smith of Kitava'}" />
+                    <Image Height="50" Source="/Assets/AbyssalLich_avatar.png" Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Abyssal Lich'}" />
+                    <Image Height="50" Source="/Assets/Tactician_avatar.png" Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Tactician'}" />
+                    <Image Height="50" Source="/Assets/Oracle_avatar.png" Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Oracle'}" />
+                    <Image Height="50" Source="/Assets/Warden_avatar.png" Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Warden'}" />
                 </StackPanel>
             </Grid>
         </Border>

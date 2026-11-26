@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="PoeLurker.UI.Views.BuildSelectorView"
+<UserControl x:Class="PoeLurker.UI.Views.BuildSelectorView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Converters="clr-namespace:PoeLurker.UI.Converters"
@@ -186,6 +186,106 @@
                                                    VerticalAlignment="Center"
                                                    Source="/Assets/Trickster_avatar.png"
                                                    Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Trickster'}" />
+                                            <Image Height="50"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Source="/Assets/Titan_avatar.png"
+                                                   Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Titan'}" />
+                                            <Image Height="50"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Source="/Assets/Warbringer_avatar.png"
+                                                   Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Warbringer'}" />
+                                            <Image Height="50"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Source="/Assets/Stormweaver_avatar.png"
+                                                   Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Stormweaver'}" />
+                                            <Image Height="50"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Source="/Assets/Chronomancer_avatar.png"
+                                                   Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Chronomancer'}" />
+                                            <Image Height="50"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Source="/Assets/Infernalist_avatar.png"
+                                                   Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Infernalist'}" />
+                                            <Image Height="50"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Source="/Assets/BloodMage_avatar.png"
+                                                   Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Blood Mage'}" />
+                                            <Image Height="50"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Source="/Assets/Witchhunter_avatar.png"
+                                                   Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Witchhunter'}" />
+                                            <Image Height="50"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Source="/Assets/GemlingLegionnaire_avatar.png"
+                                                   Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Gemling Legionnaire'}" />
+                                            <Image Height="50"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Source="/Assets/Invoker_avatar.png"
+                                                   Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Invoker'}" />
+                                            <Image Height="50"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Source="/Assets/AcolyteOfChayula_avatar.png"
+                                                   Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Acolyte of Chayula'}" />
+                                            <Image Height="50"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Source="/Assets/DiscipleOfVarashta_avatar.png"
+                                                   Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Disciple of Varashta'}" />
+                                            <Image Height="50"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Source="/Assets/Ritualist_avatar.png"
+                                                   Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Ritualist'}" />
+                                            <Image Height="50"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Source="/Assets/Amazon_avatar.png"
+                                                   Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Amazon'}" />
+                                            <Image Height="50"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Source="/Assets/Lich_avatar.png"
+                                                   Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Lich'}" />
+                                            <Image Height="50"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Source="/Assets/Shaman_avatar.png"
+                                                   Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Shaman'}" />
+                                            <Image Height="50"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Source="/Assets/SmithOfKitava_avatar.png"
+                                                   Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Smith of Kitava'}" />
+                                            <Image Height="50"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Source="/Assets/AbyssalLich_avatar.png"
+                                                   Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Abyssal Lich'}" />
+                                            <Image Height="50"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Source="/Assets/Tactician_avatar.png"
+                                                   Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Tactician'}" />
+                                            <Image Height="50"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Source="/Assets/Oracle_avatar.png"
+                                                   Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Oracle'}" />
+                                            <Image Height="50"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Source="/Assets/Warden_avatar.png"
+                                                   Visibility="{Binding Ascendancy, Converter={Converters:StringConverter}, ConverterParameter='Warden'}" />
                                             <ContentControl Height="40"
                                                             HorizontalAlignment="Center"
                                                             VerticalAlignment="Bottom"
