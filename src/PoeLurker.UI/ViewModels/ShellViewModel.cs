@@ -356,7 +356,9 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
             };
 
             await _eventAggregator.PublishOnUIThreadAsync(message);
-            DisposeHooks();
+
+            _closing = true;
+            CleanUp();
 
             ShowInTaskBar = false;
             var updateManager = IoC.Get<PoeLurkerUpdateManager>();
@@ -563,6 +565,11 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     private async void PoeClosed(object sender, EventArgs e)
     {
+        if (_closing)
+        {
+            return;
+        }
+
         if (_openingTask != null)
         {
             await _openingTask;
@@ -724,15 +731,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
         NeedUpdate = await updateManager.CheckForUpdate();
         if (NeedUpdate)
         {
-            var message = new ManaBulbMessage()
-            {
-                IsUpdate = true,
-                View = new UpdateViewModel(UpdateState.NeedUpdate),
-                Action = () => Update(),
-            };
-
-            await _eventAggregator.PublishOnUIThreadAsync(message);
-
+            Update();
             return;
         }
         else if (_showUpdateSuccess)
