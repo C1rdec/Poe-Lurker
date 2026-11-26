@@ -21,6 +21,7 @@ public class PlayerService : IDisposable
 
     private readonly ClientLurker _clientLurker;
     private readonly PlayerBankFile _playerBank;
+    private bool _isCleared;
 
     #endregion
 
@@ -62,6 +63,11 @@ public class PlayerService : IDisposable
     public Player FirstPlayer => _playerBank.Entity.Players.FirstOrDefault();
 
     /// <summary>
+    /// Gets the active player, or null when cleared until a new character is detected.
+    /// </summary>
+    public Player ActivePlayer => _isCleared ? null : FirstPlayer;
+
+    /// <summary>
     /// Gets the players.
     /// </summary>
     public IEnumerable<Player> Players => _playerBank.Entity.Players;
@@ -93,6 +99,7 @@ public class PlayerService : IDisposable
         MoveFirst(player);
         Save();
 
+        _isCleared = false;
         PlayerChanged?.Invoke(this, player);
     }
 
@@ -101,6 +108,7 @@ public class PlayerService : IDisposable
     /// </summary>
     public void ClearPlayer()
     {
+        _isCleared = true;
         PlayerChanged?.Invoke(this, null);
     }
 
@@ -207,6 +215,7 @@ public class PlayerService : IDisposable
             RemovePlayer(knownPlayer);
             if (FirstPlayer != null)
             {
+                _isCleared = false;
                 PlayerChanged?.Invoke(this, FirstPlayer);
             }
 
@@ -234,6 +243,7 @@ public class PlayerService : IDisposable
                 knownPlayer.AddLevel(e.Level);
                 _playerBank.Entity.Players.Remove(knownPlayer);
                 _playerBank.Entity.Players.Insert(0, knownPlayer);
+                _isCleared = false;
                 PlayerChanged?.Invoke(this, knownPlayer);
                 return;
             }
@@ -248,6 +258,7 @@ public class PlayerService : IDisposable
             // Wait for location changed event to confirm the new player
             var newPlayer = new Player() { Name = e.PlayerName, Levels = [e.Level] };
             InsertPlayer(newPlayer);
+            _isCleared = false;
             PlayerChanged?.Invoke(this, newPlayer);
         }
         finally

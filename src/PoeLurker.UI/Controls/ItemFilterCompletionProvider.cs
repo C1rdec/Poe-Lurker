@@ -70,7 +70,7 @@ public class ItemFilterCompletionProvider : ICompletionProvider
 
         prefixLength = word.Groups["word"].Length;
         return Conditions.Select(k => (ICompletionData)new FilterCompletionData(k, k + " ", null, 1, "Condition"))
-            .Concat(Actions.Select(k => (ICompletionData)new FilterCompletionData(k, ColorActions.Contains(k) ? k + " 255 0 0" : k + " ", null, 0, "Action")))
+            .Concat(Actions.Select(k => (ICompletionData)new FilterCompletionData(k, ColorActions.Contains(k) ? k + " 255 105 180" : k + " ", null, 0, "Action")))
             .ToList();
     }
 

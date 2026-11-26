@@ -61,10 +61,10 @@ public class ItemFilterService
     {
         get
         {
-            var player = _playerService.FirstPlayer;
+            var player = _playerService.ActivePlayer;
             if (player == null || string.IsNullOrWhiteSpace(player.SelectedBaseFilter))
             {
-                return BaseFilters[0];
+                return BaseFilters[1];
             }
 
             return player.SelectedBaseFilter;
@@ -72,7 +72,7 @@ public class ItemFilterService
 
         set
         {
-            var player = _playerService.FirstPlayer;
+            var player = _playerService.ActivePlayer;
             if (player == null)
             {
                 return;
@@ -87,13 +87,13 @@ public class ItemFilterService
     {
         get
         {
-            var player = _playerService.FirstPlayer;
+            var player = _playerService.ActivePlayer;
             return player?.AdditionalFilter;
         }
 
         set
         {
-            var player = _playerService.FirstPlayer;
+            var player = _playerService.ActivePlayer;
             if (player == null)
             {
                 return;
@@ -113,7 +113,7 @@ public class ItemFilterService
 
     public async Task SaveFilter(string baseFilter, string additionalFilter, bool applyInGame = true)
     {
-        var player = _playerService.FirstPlayer;
+        var player = _playerService.ActivePlayer;
         if (player == null)
         {
             return;
