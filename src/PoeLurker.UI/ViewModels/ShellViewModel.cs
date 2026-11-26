@@ -70,6 +70,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     private bool _showInTaskBar;
     private bool _showUpdateSuccess;
     private bool _closing;
+    private bool _isUpdating;
     private Task _openingTask;
     private readonly IWindowManager _windowManager;
 
@@ -339,18 +340,32 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     /// </summary>
     public async void Update()
     {
-        var message = new ManaBulbMessage()
+        if (_isUpdating)
         {
-            IsUpdate = true,
-            View = new UpdateViewModel(UpdateState.Working),
-        };
+            return;
+        }
 
-        await _eventAggregator.PublishOnUIThreadAsync(message);
-        DisposeHooks();
+        _isUpdating = true;
 
-        ShowInTaskBar = false;
-        var updateManager = IoC.Get<PoeLurkerUpdateManager>();
-        await updateManager.Update();
+        try
+        {
+            var message = new ManaBulbMessage()
+            {
+                IsUpdate = true,
+                View = new UpdateViewModel(UpdateState.Working),
+            };
+
+            await _eventAggregator.PublishOnUIThreadAsync(message);
+            DisposeHooks();
+
+            ShowInTaskBar = false;
+            var updateManager = IoC.Get<PoeLurkerUpdateManager>();
+            await Task.Run(async () => await updateManager.Update());
+        }
+        finally
+        {
+            _isUpdating = false;
+        }
     }
 
     /// <summary>
