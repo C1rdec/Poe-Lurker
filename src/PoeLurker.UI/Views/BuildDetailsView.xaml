@@ -171,9 +171,19 @@
                                            VerticalAlignment="Center"
                                            FontSize="20"
                                            FontWeight="Bold"
-                                           Foreground="#7ecb7e"
                                            Text="●"
-                                           Visibility="{Binding HasAdditionalFilter, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                           Visibility="{Binding HasAdditionalFilter, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Foreground" Value="#808080" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding CanSaveFilter}" Value="True">
+                                                    <Setter Property="Foreground" Value="#7ecb7e" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
                             </Grid>
                         </Button>
 
