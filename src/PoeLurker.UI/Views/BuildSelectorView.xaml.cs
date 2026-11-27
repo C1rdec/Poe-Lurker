@@ -45,7 +45,21 @@ public partial class BuildSelectorView : UserControl
                     return;
                 }
 
-                (Builds.ItemContainerGenerator.ContainerFromItem(selected) as FrameworkElement)?.BringIntoView();
+                if (Builds.ItemContainerGenerator.ContainerFromItem(selected) is not FrameworkElement container)
+                {
+                    return;
+                }
+
+                var scrollViewer = Builds.Parent as ScrollViewer;
+                if (scrollViewer == null)
+                {
+                    container.BringIntoView();
+                    return;
+                }
+
+                var top = container.TransformToAncestor(Builds).Transform(new Point(0, 0)).Y;
+                var offset = top - ((scrollViewer.ViewportHeight - container.ActualHeight) / 2);
+                scrollViewer.ScrollToVerticalOffset(Math.Max(0, offset));
             }));
     }
 
