@@ -26,6 +26,8 @@ public class ItemFilterService
     private static readonly HttpClient HttpClient = new();
 
     private readonly PlayerService _playerService;
+    private string _pendingBaseFilter;
+    private string _pendingAdditionalFilter;
     private readonly object _cacheLock = new();
     private readonly Dictionary<string, (DateTimeOffset Timestamp, string Content)> _downloadedFilterCache = new();
     private readonly Dictionary<string, string> _baseFilterUrls = new()
@@ -64,6 +66,11 @@ public class ItemFilterService
             var player = _playerService.ActivePlayer;
             if (player == null || string.IsNullOrWhiteSpace(player.SelectedBaseFilter))
             {
+                if (player == null && !string.IsNullOrWhiteSpace(_pendingBaseFilter))
+                {
+                    return _pendingBaseFilter;
+                }
+
                 return BaseFilters[1];
             }
 
@@ -75,6 +82,7 @@ public class ItemFilterService
             var player = _playerService.ActivePlayer;
             if (player == null)
             {
+                _pendingBaseFilter = value;
                 return;
             }
 
@@ -88,7 +96,7 @@ public class ItemFilterService
         get
         {
             var player = _playerService.ActivePlayer;
-            return player?.AdditionalFilter;
+            return player == null ? _pendingAdditionalFilter : player.AdditionalFilter;
         }
 
         set
@@ -96,6 +104,7 @@ public class ItemFilterService
             var player = _playerService.ActivePlayer;
             if (player == null)
             {
+                _pendingAdditionalFilter = value;
                 return;
             }
 
@@ -111,17 +120,49 @@ public class ItemFilterService
         ItemFilterEnabled = isEnabled;
     }
 
-    public async Task SaveFilter(string baseFilter, string additionalFilter, bool applyInGame = true)
+    public void ApplyPendingTo(Core.Models.Player player)
     {
-        var player = _playerService.ActivePlayer;
         if (player == null)
         {
             return;
         }
 
-        player.SelectedBaseFilter = baseFilter;
-        player.AdditionalFilter = additionalFilter;
-        _playerService.Save();
+        var changed = false;
+        if (!string.IsNullOrWhiteSpace(_pendingBaseFilter) && string.IsNullOrWhiteSpace(player.SelectedBaseFilter))
+        {
+            player.SelectedBaseFilter = _pendingBaseFilter;
+            changed = true;
+        }
+
+        if (!string.IsNullOrWhiteSpace(_pendingAdditionalFilter) && string.IsNullOrWhiteSpace(player.AdditionalFilter))
+        {
+            player.AdditionalFilter = _pendingAdditionalFilter;
+            changed = true;
+        }
+
+        _pendingBaseFilter = null;
+        _pendingAdditionalFilter = null;
+
+        if (changed)
+        {
+            _playerService.Save();
+        }
+    }
+
+    public async Task SaveFilter(string baseFilter, string additionalFilter, bool applyInGame = true)
+    {
+        var player = _playerService.ActivePlayer;
+        if (player == null)
+        {
+            _pendingBaseFilter = baseFilter;
+            _pendingAdditionalFilter = additionalFilter;
+        }
+        else
+        {
+            player.SelectedBaseFilter = baseFilter;
+            player.AdditionalFilter = additionalFilter;
+            _playerService.Save();
+        }
 
         var baseFilterUrl = GetBaseFilterUrl(baseFilter);
         if (string.IsNullOrWhiteSpace(baseFilterUrl))

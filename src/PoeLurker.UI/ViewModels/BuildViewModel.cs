@@ -53,6 +53,7 @@ public class BuildViewModel : PoeOverlayBase
     private readonly MouseLurker _mouseLurker;
     private bool _isSkillTreeOpen;
     private bool _isSelectorOpen;
+    private string _pendingBuildPath;
     private System.IO.FileSystemWatcher _buildWatcher;
     private System.Threading.Timer _buildWatcherTimer;
 
@@ -390,6 +391,10 @@ public class BuildViewModel : PoeOverlayBase
 
             // Add the build to POE 2 Build Planner
             _pathOfBuildingService.AddToPlanner(build, _includeInventorySlots, _includePassives, _includeSkills);
+        }
+        else
+        {
+            _pendingBuildPath = build.FilePath;
         }
 
         WatchBuild(build.FilePath);
@@ -787,6 +792,18 @@ public class BuildViewModel : PoeOverlayBase
     {
         _activePlayer = e;
 
+        if (e != null)
+        {
+            if (string.IsNullOrEmpty(e.BuildPath) && !string.IsNullOrEmpty(_pendingBuildPath))
+            {
+                e.BuildPath = _pendingBuildPath;
+                _playerService.Save();
+            }
+
+            _pendingBuildPath = null;
+            _itemFilterService.ApplyPendingTo(e);
+        }
+
         Execute.OnUIThread(() =>
         {
             BuildSelector.SetSelected(e?.BuildPath);
@@ -797,7 +814,11 @@ public class BuildViewModel : PoeOverlayBase
             }
 
             var wasShowingDetails = !IsBuildSelectorVisible;
-            if (wasShowingDetails && _currentBuild != null)
+            if (_currentBuild == null)
+            {
+                BuildDetails = CreateBuildDetails(null);
+            }
+            else if (wasShowingDetails)
             {
                 BuildDetails = CreateBuildDetails(_currentBuild);
             }

@@ -173,6 +173,7 @@ public class BuildDetailsViewModel : Caliburn.Micro.PropertyChangedBase
             _itemFilterService.SelectedBaseFilter = value;
             NotifyOfPropertyChange();
             NotifyOfPropertyChange(nameof(CanSaveFilter));
+            _ = ApplyFilter();
         }
     }
 
@@ -251,6 +252,17 @@ public class BuildDetailsViewModel : Caliburn.Micro.PropertyChangedBase
         _lastAppliedBaseFilter = SelectedBaseFilter;
         _lastAppliedAdditionalFilter = AdditionalFilter;
         NotifyOfPropertyChange(nameof(CanSaveFilter));
+    }
+
+    private async Task ApplyFilter()
+    {
+        try
+        {
+            await SaveFilter();
+        }
+        catch (Exception ex) when (ex is System.Net.Http.HttpRequestException or System.IO.IOException)
+        {
+        }
     }
 
     public void OpenAdditionalFilterEditor()
