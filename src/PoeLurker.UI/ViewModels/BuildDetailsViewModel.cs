@@ -67,7 +67,7 @@ public class BuildDetailsViewModel : Caliburn.Micro.PropertyChangedBase
 
     public bool HasNoBuildName => !HasBuildName;
 
-    public string DisplayName => $"{ClassName} ({Ascendancy})";
+    public string DisplayName => Build == null ? "Select a build" : $"{ClassName} ({Ascendancy})";
 
     public string ClassName => Build?.Class ?? "Unknown";
 

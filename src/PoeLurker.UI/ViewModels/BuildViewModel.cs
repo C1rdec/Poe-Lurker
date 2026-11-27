@@ -52,6 +52,7 @@ public class BuildViewModel : PoeOverlayBase
     private readonly ItemFilterService _itemFilterService;
     private readonly MouseLurker _mouseLurker;
     private bool _isSkillTreeOpen;
+    private bool _isSelectorOpen;
     private System.IO.FileSystemWatcher _buildWatcher;
     private System.Threading.Timer _buildWatcherTimer;
 
@@ -130,6 +131,8 @@ public class BuildViewModel : PoeOverlayBase
             }
         }
 
+        BuildDetails ??= CreateBuildDetails(null);
+
         _appliedBaseFilter = _itemFilterService.SelectedBaseFilter;
         _appliedAdditionalFilter = _itemFilterService.AdditionalFilter;
 
@@ -171,6 +174,7 @@ public class BuildViewModel : PoeOverlayBase
         private set
         {
             _buildDetails = value;
+            _isSelectorOpen = false;
             NotifyOfPropertyChange();
             NotifyOfPropertyChange(() => ActiveBuildContent);
             NotifyOfPropertyChange(() => IsBuildSelectorVisible);
@@ -180,12 +184,12 @@ public class BuildViewModel : PoeOverlayBase
     /// <summary>
     /// Gets the active build content.
     /// </summary>
-    public object ActiveBuildContent => (object)BuildDetails ?? BuildSelector;
+    public object ActiveBuildContent => _isSelectorOpen || BuildDetails == null ? BuildSelector : BuildDetails;
 
     /// <summary>
     /// Gets a value indicating whether the build selector is visible.
     /// </summary>
-    public bool IsBuildSelectorVisible => BuildDetails == null;
+    public bool IsBuildSelectorVisible => _isSelectorOpen || BuildDetails == null;
 
     /// <summary>
     /// Gets or sets a value indicating whether the popup is open.
@@ -594,7 +598,9 @@ public class BuildViewModel : PoeOverlayBase
 
     public void ShowBuildSelector()
     {
-        BuildDetails = null;
+        _isSelectorOpen = true;
+        NotifyOfPropertyChange(() => ActiveBuildContent);
+        NotifyOfPropertyChange(() => IsBuildSelectorVisible);
     }
 
     private async Task ApplyFilterIfChanged()
@@ -790,7 +796,7 @@ public class BuildViewModel : PoeOverlayBase
                 _currentBuild.FilePath = e.BuildPath;
             }
 
-            var wasShowingDetails = BuildDetails != null;
+            var wasShowingDetails = !IsBuildSelectorVisible;
             if (wasShowingDetails && _currentBuild != null)
             {
                 BuildDetails = CreateBuildDetails(_currentBuild);
