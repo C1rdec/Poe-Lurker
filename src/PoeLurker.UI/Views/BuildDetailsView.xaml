@@ -249,6 +249,7 @@
                                                   Background="Transparent"
                                                   Foreground="White"
                                                   CompletionProvider="{Binding CompletionProvider}"
+                                                  cal:Message.Attach="[Event PreviewKeyDown] = [Action SaveAdditionalFilterOnShortcut($eventArgs)]"
                                                   ShowLineNumbers="True"
                                                   LineNumbersForeground="#808080"
                                                   BoundText="{Binding AdditionalFilterDraft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

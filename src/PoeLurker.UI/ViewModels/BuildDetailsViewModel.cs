@@ -265,6 +265,15 @@ public class BuildDetailsViewModel : Caliburn.Micro.PropertyChangedBase
         AdditionalFilterEditorOpen = false;
     }
 
+    public void SaveAdditionalFilterOnShortcut(System.Windows.Input.KeyEventArgs e)
+    {
+        if (e.Key == System.Windows.Input.Key.S && System.Windows.Input.Keyboard.Modifiers == System.Windows.Input.ModifierKeys.Control)
+        {
+            e.Handled = true;
+            AddAdditionalFilter();
+        }
+    }
+
     public void BackToBuildSelector()
     {
         _showBuildSelector?.Invoke();

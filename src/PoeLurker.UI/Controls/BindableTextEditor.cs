@@ -63,8 +63,33 @@ public class BindableTextEditor : TextEditor
         }
     }
 
+    private static bool IsBlockRoot(string text)
+    {
+        var trimmed = text.Trim();
+        var end = trimmed.IndexOf('#');
+        if (end >= 0)
+        {
+            trimmed = trimmed.Substring(0, end).Trim();
+        }
+
+        return trimmed is "Show" or "Hide" or "Minimal";
+    }
+
     private void OnTextEntered(object sender, TextCompositionEventArgs e)
     {
+        if (e.Text == "\n" || e.Text == "\r\n" || e.Text == "\r")
+        {
+            var current = Document.GetLineByOffset(CaretOffset);
+            var previous = current.PreviousLine;
+            if (previous != null && IsBlockRoot(Document.GetText(previous.Offset, previous.Length)))
+            {
+                var indent = new string(' ', Options.IndentationSize);
+                Document.Insert(CaretOffset, indent);
+            }
+
+            return;
+        }
+
         if (e.Text.Length == 0 || !(char.IsLetterOrDigit(e.Text[0]) || e.Text[0] == '"' || e.Text[0] == ' '))
         {
             return;
