@@ -627,6 +627,8 @@ public class PathOfBuildingService : HttpServiceBase
                 });
             }
 
+            AddEarlierSupportTiers(supports);
+
             if (supports.Count > 0)
             {
                 officialSkill.SupportSkills = supports;
@@ -638,15 +640,60 @@ public class PathOfBuildingService : HttpServiceBase
         return skills;
     }
 
+    private static readonly (string Suffix, int Tier)[] TierSuffixes =
+    {
+        ("Three", 3),
+        ("III", 3),
+        ("Two", 2),
+        ("II", 2),
+    };
+
+    private static void AddEarlierSupportTiers(List<OfficialBuildSupport> supports)
+    {
+        var existing = new HashSet<string>(supports.Select(s => s.Id));
+        var toAdd = new List<OfficialBuildSupport>();
+
+        foreach (var support in supports)
+        {
+            foreach (var (suffix, tier) in TierSuffixes)
+            {
+                if (!support.Id.EndsWith(suffix, StringComparison.Ordinal))
+                {
+                    continue;
+                }
+
+                var baseId = support.Id.Substring(0, support.Id.Length - suffix.Length);
+                var roman = suffix.Contains('I');
+                var earlier = new List<string> { baseId };
+                if (tier == 3)
+                {
+                    earlier.Add(baseId + (roman ? "II" : "Two"));
+                }
+
+                foreach (var id in earlier)
+                {
+                    if (existing.Add(id))
+                    {
+                        toAdd.Add(new OfficialBuildSupport { Id = id });
+                    }
+                }
+
+                break;
+            }
+        }
+
+        supports.AddRange(toAdd);
+    }
+
     private static List<OfficialBuildItem> ConvertItems(XElement itemsElement)
     {
         var items = new List<OfficialBuildItem>();
 
-        // Map PoB slot names to official inventory IDs
+        // Map PoB
         var slotMapping = new Dictionary<string, string>
         {
             ["Weapon 1"] = "Weapon1",
-            ["Weapon 2"] = "Shield1",
+            ["Weapon 2"] = "Weapon2",
             ["Body Armour"] = "BodyArmour1",
             ["Boots"] = "Boots1",
             ["Helmet"] = "Helm1",
@@ -748,6 +795,16 @@ public class PathOfBuildingService : HttpServiceBase
             ["Acolyte of Chayula"] = "Monk2",
             ["Witchhunter"] = "Mercenary1",
             ["Gemling Legionnaire"] = "Mercenary2",
+            ["Tactician"] = "Mercenary3",
+            ["Oracle"] = "Druid1",
+            ["Shaman"] = "Druid2",
+            ["Amazon"] = "Huntress1",
+            ["Ritualist"] = "Huntress2",
+            ["Spirit Walker"] = "Huntress3",
+            ["Smith of Kitava"] = "Warrior4",
+            ["Lich"] = "Witch3",
+            ["Abyssal Lich"] = "Witch3b",
+            ["Disciple of Varashta"] = "Sorceress3",
         };
 
         if (mapping.TryGetValue(ascendancy, out var mapped))

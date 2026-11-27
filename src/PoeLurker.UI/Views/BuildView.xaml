@@ -31,8 +31,9 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
-            <Border Grid.RowSpan="2" CornerRadius="25" Background="#2B2B2B"></Border>
+            <Border Grid.RowSpan="3" CornerRadius="25" Background="#2B2B2B"></Border>
             <Grid Margin="0,8,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -117,8 +118,8 @@
                     </Style>
                 </TextBlock.Style>
             </TextBlock>
-            <TextBlock Grid.Row="1"
-                       Margin="20,0,20,20"
+            <TextBlock Grid.Row="2"
+                       Margin="20,8,20,16"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Bottom"
                        FontFamily="pack://application:,,,/Assets/#Fontin"

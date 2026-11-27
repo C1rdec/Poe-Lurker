@@ -6,8 +6,12 @@
 
 namespace PoeLurker.UI.Views;
 
+using System;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 using PoeLurker.UI.ViewModels;
 
 /// <summary>
@@ -21,6 +25,28 @@ public partial class BuildSelectorView : UserControl
     public BuildSelectorView()
     {
         InitializeComponent();
+        Loaded += OnLoaded;
+    }
+
+    private void OnLoaded(object sender, RoutedEventArgs e)
+    {
+        Dispatcher.BeginInvoke(
+            DispatcherPriority.ContextIdle,
+            new Action(() =>
+            {
+                if (DataContext is not BuildSelectorViewModel viewModel)
+                {
+                    return;
+                }
+
+                var selected = viewModel.Builds.FirstOrDefault(b => b.Selected);
+                if (selected == null)
+                {
+                    return;
+                }
+
+                (Builds.ItemContainerGenerator.ContainerFromItem(selected) as FrameworkElement)?.BringIntoView();
+            }));
     }
 
     private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
