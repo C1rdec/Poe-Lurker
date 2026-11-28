@@ -30,6 +30,20 @@ public class BindableTextEditor : TextEditor
         TextArea.TextView.ElementGenerators.Add(new ColorSwatchGenerator());
         TextArea.TextEntered += OnTextEntered;
         TextArea.PreviewKeyDown += OnPreviewKeyDown;
+        IsVisibleChanged += OnIsVisibleChanged;
+    }
+
+    private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+        if (e.NewValue is true)
+        {
+            Dispatcher.BeginInvoke(() =>
+            {
+                TextArea.Focus();
+                Keyboard.Focus(TextArea);
+                CaretOffset = Document.TextLength;
+            }, System.Windows.Threading.DispatcherPriority.Input);
+        }
     }
 
     public string BoundText
