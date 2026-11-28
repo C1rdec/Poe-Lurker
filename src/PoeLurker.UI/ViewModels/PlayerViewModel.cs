@@ -56,17 +56,12 @@ public class PlayerViewModel : Caliburn.Micro.PropertyChangedBase
     /// <summary>
     /// Gets the display name.
     /// </summary>
-    public string DisplayName => _activePlayer == null ? string.Empty : $"{Name} ({Level})";
+    public string DisplayName => _activePlayer == null ? "Detecting characters when leveling..." : $"{Name} ({Level})";
 
     /// <summary>
     /// Gets a value indicating whether there is no active player.
     /// </summary>
     public bool HasNoPlayer => _activePlayer == null;
-
-    /// <summary>
-    /// Gets a value indicating whether there is no active player while players are available to select.
-    /// </summary>
-    public bool CanSelectPlayer => _activePlayer == null && Players.Count > 0;
 
     /// <summary>
     /// Gets or sets the players.
@@ -196,7 +191,6 @@ public class PlayerViewModel : Caliburn.Micro.PropertyChangedBase
         _activePlayer = e;
         NotifyOfPropertyChange(() => DisplayName);
         NotifyOfPropertyChange(() => HasNoPlayer);
-        NotifyOfPropertyChange(() => CanSelectPlayer);
     }
 
     /// <summary>
@@ -214,8 +208,6 @@ public class PlayerViewModel : Caliburn.Micro.PropertyChangedBase
             {
                 Players.Add(player);
             }
-
-            NotifyOfPropertyChange(() => CanSelectPlayer);
         });
     }
 

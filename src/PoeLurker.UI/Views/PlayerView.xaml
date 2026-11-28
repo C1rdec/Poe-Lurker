@@ -35,10 +35,20 @@
                                 <ControlTemplate TargetType="{x:Type ToggleButton}">
                                     <Border Background="Transparent">
                                         <TextBlock FontFamily="pack://application:,,,/Assets/#Fontin"
-                                                   FontSize="22"
                                                    Foreground="#f0d0a8"
-                                                                                                      Opacity="0.8"
-                                                   Text="{Binding DisplayName}" />
+                                                   Opacity="0.8"
+                                                   Text="{Binding DisplayName}">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="FontSize" Value="22" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding HasNoPlayer}" Value="True">
+                                                            <Setter Property="FontSize" Value="16" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
                                     </Border>
                                 </ControlTemplate>
                             </ToggleButton.Template>

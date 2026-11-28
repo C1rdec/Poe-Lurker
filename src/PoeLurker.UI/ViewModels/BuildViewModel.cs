@@ -617,11 +617,6 @@ public class BuildViewModel : PoeOverlayBase
         _eventAggregator.PublishOnUIThreadAsync(_settings);
     }
 
-    public void ShowPlayerSelection()
-    {
-        ActivePlayer?.ShowSelection();
-    }
-
     public void ShowBuildSelector()
     {
         _isSelectorOpen = true;

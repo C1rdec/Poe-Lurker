@@ -41,7 +41,6 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     private Window _parent;
     private readonly WinookService _winookService;
     private readonly SoundService _soundService;
-    private PlayerViewModel _activePlayer;
     private readonly SimpleContainer _container;
     private ProcessService _processLurker;
     private ClientLurker _currentLurker;
@@ -140,32 +139,6 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     #endregion
 
     #region Properties
-
-    /// <summary>
-    /// Gets the active player.
-    /// </summary>
-    public PlayerViewModel ActivePlayer
-    {
-        get
-        {
-            return _activePlayer;
-        }
-
-        private set
-        {
-            if (_activePlayer != value)
-            {
-                _activePlayer = value;
-                NotifyOfPropertyChange();
-                NotifyOfPropertyChange(nameof(ActivePlayerVisible));
-            }
-        }
-    }
-
-    /// <summary>
-    /// Gets a value indicating whether [active player visible].
-    /// </summary>
-    public bool ActivePlayerVisible => ActivePlayer != null;
 
     /// <summary>
     /// Gets the command.
@@ -585,7 +558,6 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     /// </summary>
     private void CleanUp()
     {
-        ActivePlayer = null;
         _container.UnregisterHandler<ClientLurker>();
         _container.UnregisterHandler<PlayerService>();
         _container.UnregisterHandler<ProcessService>();
@@ -680,8 +652,6 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     {
         var affixServiceTask = AffixService.InitializeAsync();
         _currentCharacterService = new PlayerService(_currentLurker);
-        ActivePlayer = new PlayerViewModel(_currentCharacterService);
-        NotifyOfPropertyChange(nameof(ActivePlayer));
 
         if (_closing)
         {

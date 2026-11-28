@@ -38,11 +38,6 @@
                               Header="Start with Windows"
                               IsChecked="{Binding StartWithWindows}" />
                     <MenuItem cal:Message.Attach="[Event Click] = [Action ShowSettings]" Header="Settings" />
-                    <MenuItem StaysOpenOnClick="True" Visibility="{Binding ActivePlayerVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <MenuItem.Header>
-                            <ContentControl x:Name="ActivePlayer" cal:View.Model="{Binding ActivePlayer}" />
-                        </MenuItem.Header>
-                    </MenuItem>
                     <MenuItem cal:Message.Attach="[Event Click] = [Action Close]">
                         <MenuItem.Header>
                             <Grid>

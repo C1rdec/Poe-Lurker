@@ -1,4 +1,4 @@
-<Window x:Class="PoeLurker.UI.Views.BuildView"
+﻿<Window x:Class="PoeLurker.UI.Views.BuildView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
@@ -49,28 +49,6 @@
                             HorizontalAlignment="Right"
                             VerticalAlignment="Top"
                             Orientation="Horizontal">
-                <Button Padding="4,0"
-                        VerticalAlignment="Top"
-                        cal:Message.Attach="[Event Click] = [Action ShowPlayerSelection]"
-                        Background="Transparent"
-                        BorderBrush="#af8404"
-                        BorderThickness="1"
-                        Content="▼"
-                        Cursor="Hand"
-                        FontSize="10"
-                        Foreground="#f0d0a8"
-                        ToolTip="Select player">
-                    <Button.Style>
-                        <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
-                            <Setter Property="Visibility" Value="Collapsed" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ActivePlayer.CanSelectPlayer}" Value="True">
-                                    <Setter Property="Visibility" Value="Visible" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
                 <Button x:Name="TogglePin"
                         Margin="4,0,0,0"
                         Padding="4,0"
@@ -96,25 +74,6 @@
                     </Button.Style>
                 </Button>
                 </StackPanel>
-                <TextBlock Grid.ColumnSpan="2"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           FontFamily="pack://application:,,,/Assets/#Fontin"
-                           FontSize="16"
-                           Foreground="#f0d0a8"
-                           Opacity="0.8"
-                           Text="Detecting characters when leveling...">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Visibility" Value="Collapsed" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ActivePlayer.HasNoPlayer}" Value="True">
-                                    <Setter Property="Visibility" Value="Visible" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
             </Grid>
             <ContentControl Grid.Row="1"
                             Margin="0,10,0,0"
