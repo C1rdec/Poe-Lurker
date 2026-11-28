@@ -44,10 +44,12 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="18" />
-                <Button Grid.ColumnSpan="2"
-                        Margin="0,0,8,0"
-                        Padding="4,0"
-                        HorizontalAlignment="Right"
+                <StackPanel Grid.ColumnSpan="2"
+                            Margin="0,0,16,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Orientation="Horizontal">
+                <Button Padding="4,0"
                         VerticalAlignment="Top"
                         cal:Message.Attach="[Event Click] = [Action ShowPlayerSelection]"
                         Background="Transparent"
@@ -69,6 +71,31 @@
                         </Style>
                     </Button.Style>
                 </Button>
+                <Button x:Name="TogglePin"
+                        Margin="4,0,0,0"
+                        Padding="4,0"
+                        Focusable="False"
+                        FocusVisualStyle="{x:Null}"
+                        VerticalAlignment="Top"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Content="&#x1F4CC;"
+                        Cursor="Hand"
+                        FontSize="12">
+                    <Button.Style>
+                        <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
+                            <Setter Property="Opacity" Value="0.35" />
+                            <Setter Property="ToolTip" Value="Pin overlay" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsPinned}" Value="True">
+                                    <Setter Property="Opacity" Value="1" />
+                                    <Setter Property="ToolTip" Value="Unpin overlay" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                </StackPanel>
                 <TextBlock Grid.ColumnSpan="2"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"

@@ -31,6 +31,7 @@ public class BuildViewModel : PoeOverlayBase
 
     private readonly Task _currentTask;
     private bool _isOpen;
+    private bool _isPinned;
     private DateTime _lastBuildRefresh = DateTime.UtcNow;
     private bool _isVisible;
     private string _ascendancy;
@@ -231,6 +232,30 @@ public class BuildViewModel : PoeOverlayBase
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the overlay stays visible when it loses focus.
+    /// </summary>
+    public bool IsPinned
+    {
+        get => _isPinned;
+        set
+        {
+            if (_isPinned != value)
+            {
+                _isPinned = value;
+                NotifyOfPropertyChange();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Toggles the pinned state.
+    /// </summary>
+    public void TogglePin()
+    {
+        IsPinned = !IsPinned;
     }
 
     /// <summary>
@@ -721,11 +746,12 @@ public class BuildViewModel : PoeOverlayBase
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     private void MouseLurker_MouseLeftButtonUp(object sender, EventArgs e)
     {
-        IsOpen = false;
-        if (SettingsService.BuildAutoClose)
+        if (IsPinned)
         {
-            IsOpen = false;
+            return;
         }
+
+        IsOpen = false;
     }
 
     /// <summary>
