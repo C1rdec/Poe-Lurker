@@ -10,6 +10,8 @@
                       BorderThickness="0"
                       ShowTitleBar="False"
                       WindowStyle="None"
+                      AllowsTransparency="True"
+                      Background="Transparent"
                       ShowCloseButton="False"
                       ShowMaxRestoreButton="False"
                       ShowMinButton="False"
@@ -30,5 +32,9 @@
                          Minimum="0"
                          Value="{Binding Progress, Mode=OneWay}" />
         </StackPanel>
+        <Border Margin="-24"
+                Panel.ZIndex="-1"
+                Background="{DynamicResource MahApps.Brushes.ThemeBackground}"
+                CornerRadius="12" />
     </Grid>
 </Controls:MetroWindow>
