@@ -52,8 +52,9 @@ public class PoeLurkerUpdateManager
     /// <summary>
     /// Updates this instance.
     /// </summary>
+    /// <param name="progress">Optional download progress callback (0-100).</param>
     /// <returns>The task awaiter.</returns>
-    public async Task Update()
+    public async Task Update(System.Action<int> progress = null)
     {
         _settingsService.FirstLaunch = true;
         _settingsService.Save();
@@ -74,7 +75,7 @@ public class PoeLurkerUpdateManager
             return;
         }
 
-        await _updateManager.DownloadUpdatesAsync(newVersion);
+        await _updateManager.DownloadUpdatesAsync(newVersion, progress);
         _updateManager.ApplyUpdatesAndRestart(newVersion);
     }
 

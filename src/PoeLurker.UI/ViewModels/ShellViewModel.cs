@@ -340,8 +340,16 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     /// </summary>
     public async void Update()
     {
+        var updateWindow = new UpdateWindowViewModel();
+        await _windowManager.ShowWindowAsync(updateWindow);
+        await UpdateAsync(updateWindow);
+    }
+
+    private async Task UpdateAsync(UpdateWindowViewModel updateWindow)
+    {
         if (_isUpdating)
         {
+            await updateWindow.TryCloseAsync();
             return;
         }
 
@@ -349,23 +357,16 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
 
         try
         {
-            var message = new ManaBulbMessage()
-            {
-                IsUpdate = true,
-                View = new UpdateViewModel(UpdateState.Working),
-            };
-
-            await _eventAggregator.PublishOnUIThreadAsync(message);
-
             _closing = true;
             CleanUp();
 
             ShowInTaskBar = false;
             var updateManager = IoC.Get<PoeLurkerUpdateManager>();
-            await Task.Run(async () => await updateManager.Update());
+            await Task.Run(async () => await updateManager.Update(updateWindow.ReportProgress));
         }
         finally
         {
+            await updateWindow.TryCloseAsync();
             _isUpdating = false;
         }
     }
@@ -727,14 +728,20 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     /// </summary>
     private async Task CheckForUpdate()
     {
+        var updateWindow = new UpdateWindowViewModel();
+        await _windowManager.ShowWindowAsync(updateWindow);
+
         var updateManager = IoC.Get<PoeLurkerUpdateManager>();
         NeedUpdate = await updateManager.CheckForUpdate();
         if (NeedUpdate)
         {
-            Update();
+            await UpdateAsync(updateWindow);
             return;
         }
-        else if (_showUpdateSuccess)
+
+        await updateWindow.TryCloseAsync();
+
+        if (_showUpdateSuccess)
         {
             _showUpdateSuccess = false;
             await _eventAggregator.PublishOnUIThreadAsync(new ManaBulbMessage() { IsUpdate = true, View = new UpdateViewModel(UpdateState.Success), DisplayTime = TimeSpan.FromSeconds(5) });
