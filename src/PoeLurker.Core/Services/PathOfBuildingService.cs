@@ -58,14 +58,17 @@ public class PathOfBuildingService : HttpServiceBase
     #region Methods
 
     /// <summary>
-    /// Gets the Build Planner .build file path for a build name.
+    /// The name of the single Build Planner entry managed by Poe Lurker.
     /// </summary>
-    /// <param name="buildName">The build name.</param>
+    public const string PlannerBuildName = "Poe Lurker";
+
+    /// <summary>
+    /// Gets the Build Planner .build file path managed by Poe Lurker.
+    /// </summary>
     /// <returns>The .build file path.</returns>
-    public string GetPlannerFilePath(string buildName)
+    public string GetPlannerFilePath()
     {
-        var sanitizedName = string.Join("_", buildName.Split(Path.GetInvalidFileNameChars()));
-        return Path.Combine(BuildPlannerFolder, "BuildPlanner", $"{sanitizedName}.build");
+        return Path.Combine(BuildPlannerFolder, "BuildPlanner", $"{PlannerBuildName}.build");
     }
 
     /// <summary>
@@ -253,7 +256,7 @@ public class PathOfBuildingService : HttpServiceBase
             return;
         }
 
-        var json = ConvertToOfficialBuild(build.Value, build.Name, includeInventorySlots, includePassives, includeSkills);
+        var json = ConvertToOfficialBuild(build.Value, PlannerBuildName, includeInventorySlots, includePassives, includeSkills);
         if (json == null)
         {
             return;
@@ -269,7 +272,7 @@ public class PathOfBuildingService : HttpServiceBase
             var buildPlannerFolder = Path.Combine(BuildPlannerFolder, "BuildPlanner");
             Directory.CreateDirectory(buildPlannerFolder);
 
-            File.WriteAllText(GetPlannerFilePath(build.Name), json);
+            File.WriteAllText(GetPlannerFilePath(), json);
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {

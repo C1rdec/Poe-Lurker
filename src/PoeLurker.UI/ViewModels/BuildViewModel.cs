@@ -125,11 +125,7 @@ public class BuildViewModel : PoeOverlayBase
         }
         if (!string.IsNullOrEmpty(launchPath) && System.IO.File.Exists(launchPath))
         {
-            var plannerFile = _pathOfBuildingService.GetPlannerFilePath(System.IO.Path.GetFileNameWithoutExtension(launchPath));
-            if (!System.IO.File.Exists(plannerFile) || System.IO.File.GetLastWriteTimeUtc(plannerFile) < System.IO.File.GetLastWriteTimeUtc(launchPath))
-            {
-                Task.Run(() => RefreshWatchedBuild(launchPath));
-            }
+            Task.Run(() => RefreshWatchedBuild(launchPath));
         }
 
         BuildDetails ??= CreateBuildDetails(null);
