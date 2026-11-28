@@ -608,6 +608,19 @@ public class BuildViewModel : PoeOverlayBase
         NotifyOfPropertyChange(() => IsBuildSelectorVisible);
     }
 
+    public void ShowBuildDetails()
+    {
+        if (BuildDetails == null)
+        {
+            BuildDetails = CreateBuildDetails(_currentBuild);
+            return;
+        }
+
+        _isSelectorOpen = false;
+        NotifyOfPropertyChange(() => ActiveBuildContent);
+        NotifyOfPropertyChange(() => IsBuildSelectorVisible);
+    }
+
     private async Task ApplyFilterIfChanged()
     {
         var baseFilter = _itemFilterService.SelectedBaseFilter;
