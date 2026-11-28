@@ -820,6 +820,8 @@ public class BuildViewModel : PoeOverlayBase
             if (_currentBuild != null)
             {
                 _currentBuild.FilePath = e.BuildPath;
+                var build = _currentBuild;
+                Task.Run(() => _pathOfBuildingService.AddToPlanner(build, _includeInventorySlots, _includePassives, _includeSkills));
             }
 
             var wasShowingDetails = !IsBuildSelectorVisible;
