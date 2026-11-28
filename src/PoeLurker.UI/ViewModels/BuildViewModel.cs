@@ -388,14 +388,14 @@ public class BuildViewModel : PoeOverlayBase
         {
             _activePlayer.BuildPath = build.FilePath;
             _playerService.Save();
-
-            // Add the build to POE 2 Build Planner
-            _pathOfBuildingService.AddToPlanner(build, _includeInventorySlots, _includePassives, _includeSkills);
         }
         else
         {
             _pendingBuildPath = build.FilePath;
         }
+
+        // Add the build to POE 2 Build Planner
+        _pathOfBuildingService.AddToPlanner(build, _includeInventorySlots, _includePassives, _includeSkills);
 
         WatchBuild(build.FilePath);
         BuildDetails = CreateBuildDetails(build);
