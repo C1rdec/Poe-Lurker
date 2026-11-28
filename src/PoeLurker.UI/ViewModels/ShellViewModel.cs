@@ -645,7 +645,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
 
         if (existingProcess != null)
         {
-            Start(processId);
+            Execute.OnUIThread(() => Start(processId));
         }
         else
         {
@@ -653,7 +653,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
             EventHandler<GeneratingLevelEvent> poe2Handler = default;
             handler = (object s, LocationChangedEvent e) =>
             {
-                Start(processId);
+                Execute.OnUIThread(() => Start(processId));
                 _currentLurker.LocationChanged -= handler;
                 if (poe2Handler != null)
                 {
@@ -664,7 +664,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
             // Poe 2
             poe2Handler = (object s, GeneratingLevelEvent e) =>
             {
-                Start(processId);
+                Execute.OnUIThread(() => Start(processId));
                 _currentLurker.GeneratingLevel -= poe2Handler;
                 if (handler != null)
                 {
@@ -690,7 +690,7 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
 
         ShowOverlays(process);
 
-        await CheckForUpdate();
+        await ShowStartupMessage();
         await CheckPledgeStatus();
 
         await affixServiceTask;
@@ -726,21 +726,31 @@ public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IViewAware
     /// <summary>
     /// Updates this instance.
     /// </summary>
-    private async Task CheckForUpdate()
+    public async Task CheckForUpdate()
     {
         var updateWindow = new UpdateWindowViewModel();
         await _windowManager.ShowWindowAsync(updateWindow);
 
         var updateManager = IoC.Get<PoeLurkerUpdateManager>();
+        var minimumDisplay = Task.Delay(TimeSpan.FromSeconds(2));
         NeedUpdate = await updateManager.CheckForUpdate();
+        await minimumDisplay;
         if (NeedUpdate)
         {
             await UpdateAsync(updateWindow);
             return;
         }
 
+        updateWindow.ReportUpToDate();
+        await Task.Delay(TimeSpan.FromSeconds(3));
         await updateWindow.TryCloseAsync();
+    }
 
+    /// <summary>
+    /// Shows the startup message in the mana bulb.
+    /// </summary>
+    private async Task ShowStartupMessage()
+    {
         if (_showUpdateSuccess)
         {
             _showUpdateSuccess = false;

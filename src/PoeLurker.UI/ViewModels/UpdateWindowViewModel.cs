@@ -17,6 +17,8 @@ public class UpdateWindowViewModel : Screen
 
     private int _progress;
     private bool _isIndeterminate = true;
+    private string _title = "Hold on";
+    private bool _isUpToDate;
     private string _status = "Checking for updates...";
 
     #endregion
@@ -101,6 +103,52 @@ public class UpdateWindowViewModel : Screen
         Status = percent >= 100
             ? "Installing update, Poe Lurker will restart..."
             : $"Downloading update... {percent}%";
+    }
+
+    /// <summary>
+    /// Shows that the application is up to date and runs in the background.
+    /// </summary>
+    public void ReportUpToDate()
+    {
+        IsIndeterminate = false;
+        Progress = 100;
+        Title = "You're up to date!";
+        Status = "Poe Lurker is up to date and running in the background.";
+        IsUpToDate = true;
+    }
+
+    /// <summary>
+    /// Gets the title text.
+    /// </summary>
+    public string Title
+    {
+        get
+        {
+            return _title;
+        }
+
+        private set
+        {
+            _title = value;
+            NotifyOfPropertyChange();
+        }
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether the application is up to date.
+    /// </summary>
+    public bool IsUpToDate
+    {
+        get
+        {
+            return _isUpToDate;
+        }
+
+        private set
+        {
+            _isUpToDate = value;
+            NotifyOfPropertyChange();
+        }
     }
 
     #endregion

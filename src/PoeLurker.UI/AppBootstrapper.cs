@@ -132,7 +132,7 @@ public class AppBootstrapper : BootstrapperBase
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The args.</param>
-    protected override void OnStartup(object sender, System.Windows.StartupEventArgs e)
+    protected override async void OnStartup(object sender, System.Windows.StartupEventArgs e)
     {
         VelopackApp.Build().Run();
 
@@ -150,7 +150,19 @@ public class AppBootstrapper : BootstrapperBase
             settings.Save();
         }
 
-        DisplayRootViewForAsync<ShellViewModel>();
+        await DisplayRootViewForAsync<ShellViewModel>();
+
+        if (System.Windows.Application.Current?.MainWindow?.DataContext is ShellViewModel shell)
+        {
+            try
+            {
+                await shell.CheckForUpdate();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+            }
+        }
     }
 
     /// <summary>
